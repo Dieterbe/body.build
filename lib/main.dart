@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/joint_articulations.dart';
+import 'package:ptc/articulations.dart';
 
 void main() {
   runApp(const MyApp());

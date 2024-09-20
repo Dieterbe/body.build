@@ -25,18 +25,21 @@ enum Muscle {
     nick: ['tris'],
     insertion: Bone.ulna,
     heads: {
+      // inside of arm
       'long': Head(
         name: 'long',
         nick: [],
         origin: Bone.scapula,
         articular: 2,
       ),
+      // outside of arm
       'lateral': Head(
         name: 'lateral',
         nick: [],
         origin: Bone.humerus, // top of
         articular: 1,
       ),
+      // covered
       'medial': Head(
           name: 'medial',
           nick: [],
@@ -91,5 +94,4 @@ class Insufficiency {
 
   final Articulation articulation;
   final int degrees;
-  // max stretch the tricep at shoulder during shoulder flexion and elbow flexion - arm bent overhead -> passive insufficiency
 }
