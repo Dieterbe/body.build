@@ -174,4 +174,61 @@ final movements = [
   // technically lats also assist with spinal extension, rotation and lateral flex
   // but trivial compared to spinal erectors
   // https://www.ncbi.nlm.nih.gov/pubmed/11415812
+  // none of the elbow flexorrs are really affected by shoulder position
+  // see https://www.ncbi.nlm.nih.gov/pubmed/8429057
+  const Movement(
+    articulation: Articulation.elbowFlexion,
+    muscle: Muscle.bicepsBrachii,
+    rangeBegin: 0,
+    rangeEnd: 150,
+    momentMax:
+        90, // and when supinated https://www.ncbi.nlm.nih.gov/pubmed/7775488
+    // most tension in anatomic position (max length). short head loses 80% when shortening. long head barely active when fully shortened
+  ),
+  const Movement(
+    articulation: Articulation.elbowFlexion,
+    muscle: Muscle.brachialis,
+    rangeBegin: 0,
+    rangeEnd: 150,
+    momentMax: 90,
+    // most tension in anatomic position (max length). looses half strength when shorten
+  ),
+  const Movement(
+    articulation: Articulation.elbowFlexion,
+    muscle: Muscle.brachioradialis,
+    rangeBegin: 0,
+    rangeEnd: 150,
+    momentMax: 90, // and in neutral
+    // most tension in anatomic position (max length). barely active when fully shortened
+  ),
+  const Movement(
+    articulation: Articulation.forearmSupination,
+    muscle: Muscle.bicepsBrachii,
+// best moment arm when pronated. less leverage with more supination
+  ),
+  const Movement(
+    articulation: Articulation.forearmSupination,
+    muscle: Muscle.brachioradialis,
+    // best moment arm when pronated. no leverage past neutral
+  ),
+  const Movement(
+    articulation: Articulation.forearmPronation,
+    muscle: Muscle.brachioradialis,
+    // best moment arm when supinated. no leverage past neutral
+  ),
+  const Movement(
+    // very weak. partly indirect and passive by the tendon of the long head.
+    // first 30-60 deg only.
+    // https://doi.org/10.1016/j.jelekin.2006.09.012
+    articulation: Articulation.shoulderFlexion,
+    muscle: Muscle.bicepsBrachii,
+    rangeBegin: 0,
+    rangeEnd: 60,
+  ),
+  const Movement(
+    // very weak, and only when forearm supinated
+    // https://journals.lww.com/jbjsjournal/pages/articleviewer.aspx?year=1957&issue=39050&article=00011&type=Abstract
+    articulation: Articulation.shoulderAbduction,
+    muscle: Muscle.bicepsBrachii,
+  ),
 ];

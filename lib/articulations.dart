@@ -1,26 +1,5 @@
 /*
 - summary
-	- Latissimus dorsi (‘lats’)
-		- spine & sacrum
-		- pelvis, illiac part
-		- lower 3/4 ribs (costal)
-		- scapula (very weak)
-		- insertion point: front of humerus
-		- helper for shoulder extension, adduction and internal rotation: teres major
-	- Biceps brachii / elbow flexors
-		- 3 elbow flexors:
-			- *biceps brachii: short and long head, both from scapula*
-			- brachialis (small, invisible under biceps) (humerus)
-			- *brachioradialis: also pronator/supinator to neutral (humerus to radioulnar)*
-			- most flexion leverage at 90degrees
-			- brachioradialis greater moment arm in neutral (hammer grip)
-			- biceps greater moment arm in supinated grip
-				- TODO does the moment arm say anything about hypertrophy? greater moment arm means less force needed for same torque, so less growth?
-			- forearm supination
-				- both biceps and brachioradialis
-				- more pronation is more moment arm
-			- shoulder flexion, abduction (biceps, very weak)
-				- shortening muscle can read to insufficiency
 	- Trapezius (‘traps’)
 		- stabilizers during many movements
 		- *upper (to clavicle)*
@@ -95,7 +74,9 @@ enum Articulation {
   spinalRotation(nick: [], constraint: null),
   spinalLateralFlexion(nick: [], constraint: null),
   elbowExtension(nick: [], constraint: null),
-  elbowFlexion(nick: [], constraint: null);
+  elbowFlexion(nick: [], constraint: null),
+  forearmSupination(nick: [], constraint: null),
+  forearmPronation(nick: [], constraint: null);
 
   const Articulation({
     required this.nick,

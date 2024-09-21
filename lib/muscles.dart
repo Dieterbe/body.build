@@ -74,7 +74,60 @@ enum Muscle {
             Bone.scapula
           ])
     },
-  );
+  ),
+  bicepsBrachii(
+      nick: ['biceps'],
+      pseudo: false,
+      insertion: Bone.radius,
+      heads: {
+        'long': Head(
+          name: 'long',
+          nick: ['outer'],
+          origin: [Bone.scapula],
+          articular: 3,
+        ),
+        'short': Head(
+            name: 'short',
+            nick: ['inner'],
+            origin: [Bone.scapula],
+            articular: 3,
+            passiveInsufficiency: [
+              Insufficiency(Articulation.elbowExtension, 0),
+              Insufficiency(Articulation.shoulderExtension, 0)
+            ],
+            activeInsuffiency: [
+              Insufficiency(Articulation.elbowFlexion, 180),
+              Insufficiency(Articulation.shoulderExtension, 180)
+            ]),
+      }),
+
+  brachialis(
+      // small and simple. covered by biceps
+      nick: [],
+      pseudo: false,
+      insertion: Bone.ulna,
+      heads: {
+        'whole': Head(
+          name: 'whole',
+          nick: [],
+          origin: [Bone.humerus],
+          articular: 1,
+        )
+      }),
+  brachioradialis(
+      nick: [],
+      pseudo: false,
+      insertion: Bone.radioUlnarJoint,
+      heads: {
+        'whole': Head(
+          name: 'whole',
+          nick: [],
+          origin: [
+            Bone.humerus,
+          ],
+          articular: 1, // note: kindof by convention. could be sort of 1.5
+        )
+      });
 
 // teres major is ignored. train lats well = train teres major well
 // teres major: shoulder extension, adduction, internal rotation
