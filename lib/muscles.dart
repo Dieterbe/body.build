@@ -10,13 +10,13 @@ enum Muscle {
         'clavicular': Head(
           name: 'clavicular',
           nick: ['upper'],
-          origin: Bone.clavicle,
+          origin: [Bone.clavicle],
           articular: 1,
         ),
         'sternal': Head(
           name: 'sternal',
           nick: ['lower'],
-          origin: Bone.sternum,
+          origin: [Bone.sternum],
           articular: 1,
         )
       }),
@@ -29,21 +29,21 @@ enum Muscle {
       'long': Head(
         name: 'long',
         nick: [],
-        origin: Bone.scapula,
+        origin: [Bone.scapula],
         articular: 2,
       ),
       // outside of arm
       'lateral': Head(
         name: 'lateral',
         nick: [],
-        origin: Bone.humerus, // top of
+        origin: [Bone.humerus], // top of
         articular: 1,
       ),
       // covered
       'medial': Head(
           name: 'medial',
           nick: [],
-          origin: Bone.humerus, // middle of
+          origin: [Bone.humerus], // middle of
           articular: 1,
           activeInsuffiency: [
             // arm extended behind body
@@ -56,8 +56,28 @@ enum Muscle {
             Insufficiency(Articulation.elbowFlexion, 150)
           ]),
     },
+  ),
+  latissimusdorsi(
+    pseudo: false,
+    nick: ['lats'],
+    insertion: Bone.humerus,
+    heads: {
+      'whole': Head(
+          name: 'whole',
+          nick: [],
+          articular: 1,
+          origin: [
+            Bone.lowerSpine,
+            Bone.sacrum,
+            Bone.iliacCrest,
+            Bone.lowerRibs,
+            Bone.scapula
+          ])
+    },
   );
 
+// teres major is ignored. train lats well = train teres major well
+// teres major: shoulder extension, adduction, internal rotation
   const Muscle({
     required this.nick,
     required this.pseudo,
@@ -83,7 +103,7 @@ class Head {
 
   final String name;
   final List<String> nick;
-  final Bone origin;
+  final List<Bone> origin;
   final int articular;
   final List<Insufficiency>? activeInsuffiency;
   final List<Insufficiency>? passiveInsufficiency;

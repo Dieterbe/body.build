@@ -110,4 +110,68 @@ final movements = [
     head: Muscle.tricepsBrachii.heads['long'],
     // mainly when shoulder is externally rotated. weak
   ),
+  // main function of lats
+  // https://www.ncbi.nlm.nih.gov/pubmed/24462394
+  const Movement(
+    // lengthening -> little reduction of force production. so effective over ROM
+    articulation: Articulation.shoulderExtension,
+    muscle: Muscle
+        .latissimusdorsi, // full muscle, but a bit more emphasis on upper, thoraccic fibers when submax contracting
+    rangeBegin: 0,
+    rangeEnd: 170,
+    momentMax:
+        45, // beyond 120 or beyond 0 it's zero. at that point it's teres minor, teres major and rear delts
+  ),
+  // second most important function
+  // especially when shoulder is somewhat externally rotated,
+  // e.g. during wide grip pull ups
+  const Movement(
+    articulation: Articulation.shoulderAdduction,
+    muscle: Muscle.latissimusdorsi, // mainly lower, lumbopelvic fibers
+    // see https://www.ncbi.nlm.nih.gov/pubmed/7498076
+    rangeBegin: 0,
+    rangeEnd: 170,
+    momentMax:
+        75, // elbows just below shoulders. but considerably positive over entire ROM
+  ),
+  const Movement(
+    articulation: Articulation.shoulderInternalRotation,
+    muscle: Muscle.latissimusdorsi,
+    rangeBegin: 0,
+    rangeEnd: 70,
+  ),
+  // weak
+  const Movement(
+    articulation: Articulation.shoulderFlexion,
+    muscle: Muscle.latissimusdorsi,
+    rangeBegin: 0,
+    rangeEnd: -60,
+  ),
+  const Movement(
+    // very weak due to low internal moment arm
+    // https://www.ncbi.nlm.nih.gov/pubmed/9356931
+    articulation: Articulation.shoulderTransverseExtension,
+    muscle: Muscle.latissimusdorsi,
+  ),
+  const Movement(
+    // very weak. mainly horizontal fibers attached to scapula
+    articulation: Articulation.scapularRetraction,
+    muscle: Muscle.latissimusdorsi,
+    rangeBegin: 0,
+    rangeEnd: 25,
+  ),
+  const Movement(
+      // very weak
+      articulation: Articulation.scapularDepression,
+      muscle: Muscle.latissimusdorsi, // probably mainly from the illiac crest
+      rangeBegin: 0,
+      rangeEnd: 10),
+  const Movement(
+    // very weak
+    articulation: Articulation.scapularDownardRotation,
+    muscle: Muscle.latissimusdorsi,
+  ),
+  // technically lats also assist with spinal extension, rotation and lateral flex
+  // but trivial compared to spinal erectors
+  // https://www.ncbi.nlm.nih.gov/pubmed/11415812
 ];

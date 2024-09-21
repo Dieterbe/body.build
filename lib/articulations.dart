@@ -2,22 +2,11 @@
 - summary
 	- Latissimus dorsi (‘lats’)
 		- spine & sacrum
-		- pelvis
-		- lower 3/4 ribs
+		- pelvis, illiac part
+		- lower 3/4 ribs (costal)
 		- scapula (very weak)
 		- insertion point: front of humerus
 		- helper for shoulder extension, adduction and internal rotation: teres major
-		- bio
-			- shoulder extension (peak at 45 degrees, zero at 120 and more)
-				- ( (slight emphasis on upper lats) )
-			- shoulder adduction (especially with external rotation, e.g. wide grip pull up) (peak at 75 degrees)
-				- (emphasis on lower lats)
-			- internal arm rotation
-			- horizontal shoulder extension (very weak)
-			- scapular retraction (auddiction) (very weak)
-			- scapular depression (very weak)
-			- scapular downward rotation (very weak)
-			- spinal extension, rotation, lateral flexion (very weak)
 	- Biceps brachii / elbow flexors
 		- 3 elbow flexors:
 			- *biceps brachii: short and long head, both from scapula*
@@ -83,6 +72,9 @@
   */
 
 enum Articulation {
+  scapularRetraction(nick: ['scapular adduction'], constraint: null),
+  scapularDepression(nick: [], constraint: null),
+  scapularDownardRotation(nick: [], constraint: null),
   shoulderTransverseAdduction(
       nick: ['shoulder horizontal adduction'],
       constraint: "shoulder externally rotated (thumbs up)"),
@@ -90,12 +82,18 @@ enum Articulation {
       nick: ['shoulder horizontal flexion'],
       constraint:
           "shoulder internally rotated (thumbs pointing towards each other or down)"),
+  shoulderTransverseExtension(
+      nick: ['shoulder horizontal extension'],
+      constraint: "shoulder internally rotated"),
   shoulderInternalRotation(nick: ['arm internal rotation'], constraint: null),
   shoulderFlexion(nick: [], constraint: null),
   shoulderExtension(nick: [], constraint: null),
   shoulderHyperExtension(nick: [], constraint: null),
   shoulderAdduction(nick: [], constraint: null),
   shoulderAbduction(nick: [], constraint: null),
+  spinalExtension(nick: [], constraint: null),
+  spinalRotation(nick: [], constraint: null),
+  spinalLateralFlexion(nick: [], constraint: null),
   elbowExtension(nick: [], constraint: null),
   elbowFlexion(nick: [], constraint: null);
 
