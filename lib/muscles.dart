@@ -57,7 +57,7 @@ enum Muscle {
           ]),
     },
   ),
-  latissimusdorsi(
+  latissimusDorsi(
     pseudo: false,
     nick: ['lats'],
     insertion: Bone.humerus,

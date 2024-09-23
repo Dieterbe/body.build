@@ -3,17 +3,15 @@ import 'package:ptc/muscles.dart';
 
 class Movement {
   Movement({
-    this.muscle,
+    required this.muscle,
     this.head,
     required this.articulation,
     this.rangeBegin,
     this.rangeEnd,
     this.momentMax,
-  }) {
-    assert((muscle == null) != (head == null));
-  }
-  final Muscle? muscle;
-  final Head? head; // if null, means all heads
+  });
+  final Muscle muscle;
+  final String? head; // if null, means all heads
   final Articulation articulation;
   final int? rangeBegin;
   final int? rangeEnd;
@@ -50,13 +48,15 @@ final movements = [
   ),
   Movement(
     articulation: Articulation.shoulderFlexion,
-    head: Muscle.pectoralisMajor.heads['clavicular'],
+    muscle: Muscle.pectoralisMajor,
+    head: 'clavicular',
     rangeBegin: 0,
     rangeEnd: 160,
   ),
   Movement(
     articulation: Articulation.shoulderAbduction,
-    head: Muscle.pectoralisMajor.heads['clavicular'],
+    muscle: Muscle.pectoralisMajor,
+    head: 'clavicular',
     rangeBegin: 0,
     rangeEnd: 180,
     momentMax: 0,
@@ -65,7 +65,8 @@ final movements = [
 // see https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2022.825880/full
   ),
   Movement(
-    head: Muscle.pectoralisMajor.heads['sternal'],
+    muscle: Muscle.pectoralisMajor,
+    head: 'sternal',
     articulation: Articulation.shoulderExtension,
     rangeBegin: 0,
     rangeEnd: 170,
@@ -74,7 +75,8 @@ final movements = [
     // only the lowest pec fibers are very active at higher angles of shoulder abduction
     // see https://www.sciencedirect.com/science/article/abs/pii/1050641194900175?via%3Dihub
     articulation: Articulation.shoulderAdduction,
-    head: Muscle.pectoralisMajor.heads['sternal'],
+    muscle: Muscle.pectoralisMajor,
+    head: 'sternal',
     rangeBegin: 0,
     rangeEnd: 170,
   ),
@@ -93,7 +95,8 @@ final movements = [
   // very weak compared to others such as lats
   Movement(
     articulation: Articulation.shoulderExtension,
-    head: Muscle.tricepsBrachii.heads['long'],
+    muscle: Muscle.tricepsBrachii,
+    head: 'long',
     rangeBegin: 0,
     rangeEnd: 170,
     // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5827912/
@@ -102,14 +105,16 @@ final movements = [
   ),
   Movement(
     articulation: Articulation.shoulderHyperExtension,
-    head: Muscle.tricepsBrachii.heads['long'],
+    muscle: Muscle.tricepsBrachii,
+    head: 'long',
     rangeBegin: 0,
     rangeEnd: 40,
     // not really impacted by elbow flexion
   ),
   Movement(
     articulation: Articulation.shoulderAdduction,
-    head: Muscle.tricepsBrachii.heads['long'],
+    muscle: Muscle.tricepsBrachii,
+    head: 'long',
     // mainly when shoulder is externally rotated. weak
   ),
   // main function of lats
@@ -118,7 +123,7 @@ final movements = [
     // lengthening -> little reduction of force production. so effective over ROM
     articulation: Articulation.shoulderExtension,
     muscle: Muscle
-        .latissimusdorsi, // full muscle, but a bit more emphasis on upper, thoraccic fibers when submax contracting
+        .latissimusDorsi, // full muscle, but a bit more emphasis on upper, thoraccic fibers when submax contracting
     rangeBegin: 0,
     rangeEnd: 170,
     momentMax:
@@ -129,7 +134,7 @@ final movements = [
   // e.g. during wide grip pull ups
   Movement(
     articulation: Articulation.shoulderAdduction,
-    muscle: Muscle.latissimusdorsi, // mainly lower, lumbopelvic fibers
+    muscle: Muscle.latissimusDorsi, // mainly lower, lumbopelvic fibers
     // see https://www.ncbi.nlm.nih.gov/pubmed/7498076
     rangeBegin: 0,
     rangeEnd: 170,
@@ -138,14 +143,14 @@ final movements = [
   ),
   Movement(
     articulation: Articulation.shoulderInternalRotation,
-    muscle: Muscle.latissimusdorsi,
+    muscle: Muscle.latissimusDorsi,
     rangeBegin: 0,
     rangeEnd: 70,
   ),
   // weak
   Movement(
     articulation: Articulation.shoulderFlexion,
-    muscle: Muscle.latissimusdorsi,
+    muscle: Muscle.latissimusDorsi,
     rangeBegin: 0,
     rangeEnd: -60,
   ),
@@ -153,25 +158,25 @@ final movements = [
     // very weak due to low internal moment arm
     // https://www.ncbi.nlm.nih.gov/pubmed/9356931
     articulation: Articulation.shoulderTransverseExtension,
-    muscle: Muscle.latissimusdorsi,
+    muscle: Muscle.latissimusDorsi,
   ),
   Movement(
     // very weak. mainly horizontal fibers attached to scapula
     articulation: Articulation.scapularRetraction,
-    muscle: Muscle.latissimusdorsi,
+    muscle: Muscle.latissimusDorsi,
     rangeBegin: 0,
     rangeEnd: 25,
   ),
   Movement(
       // very weak
       articulation: Articulation.scapularDepression,
-      muscle: Muscle.latissimusdorsi, // probably mainly from the illiac crest
+      muscle: Muscle.latissimusDorsi, // probably mainly from the illiac crest
       rangeBegin: 0,
       rangeEnd: 10),
   Movement(
     // very weak
     articulation: Articulation.scapularDownardRotation,
-    muscle: Muscle.latissimusdorsi,
+    muscle: Muscle.latissimusDorsi,
   ),
   // technically lats also assist with spinal extension, rotation and lateral flex
   // but trivial compared to spinal erectors

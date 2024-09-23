@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ptc/articulations.dart';
 import 'package:ptc/movements.dart';
+import 'package:ptc/util.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,7 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: (context, index) {
                 final articulation = Articulation.values[index];
                 return ListTile(
-                  title: Text(articulation.name),
+                  title: Text(articulation.name.camelToTitle()),
+                  subtitle: Text(
+                      '${movements.where((m) => m.articulation == articulation).length} known muscle/head movements'),
                   onTap: () {
                     setState(() {
                       this.articulation = articulation;
@@ -78,11 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     .where((m) => m.articulation == articulation)
                     .toList()[index];
                 return ListTile(
-                  title: movement.muscle != null
-                      ? Text(movement.muscle!.toString())
-                      : Text(movement.head!.toString()),
+                  title: Text(movement.muscle.name.camelToTitle() +
+                      (movement.head != null
+                          ? ' (${movement.head!} head)'
+                          : '')),
                   subtitle: Text(
-                      '${movement.muscle} ${movement.head != null ? movement.head!.toString() : ''}'),
+                    '${movement.rangeBegin} - ${movement.rangeEnd}${movement.momentMax != null ? ' (max moment @ ${movement.momentMax})' : ''}',
+                  ),
                 );
               }),
     );
