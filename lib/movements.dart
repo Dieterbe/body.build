@@ -2,14 +2,16 @@ import 'package:ptc/articulations.dart';
 import 'package:ptc/muscles.dart';
 
 class Movement {
-  const Movement({
+  Movement({
     this.muscle,
     this.head,
     required this.articulation,
     this.rangeBegin,
     this.rangeEnd,
     this.momentMax,
-  });
+  }) {
+    assert((muscle == null) != (head == null));
+  }
   final Muscle? muscle;
   final Head? head; // if null, means all heads
   final Articulation articulation;
@@ -20,7 +22,7 @@ class Movement {
 
 final movements = [
   // most primary pec function.
-  const Movement(
+  Movement(
     muscle: Muscle.pectoralisMajor,
     head: null,
     articulation: Articulation.shoulderTransverseFlexion,
@@ -31,7 +33,7 @@ final movements = [
         45, // https://www.jshoulderelbow.org/article/S1058-2746(97)70049-1/abstract
   ),
   // secondary primary pec function
-  const Movement(
+  Movement(
     muscle: Muscle.pectoralisMajor,
     head: null,
     articulation: Articulation.shoulderTransverseAdduction,
@@ -40,7 +42,7 @@ final movements = [
     momentMax:
         null, // not quite sure. probably similar, but less than transverseFlexion
   ),
-  const Movement(
+  Movement(
     muscle: Muscle.pectoralisMajor,
     articulation: Articulation.shoulderInternalRotation,
     rangeBegin: 0,
@@ -76,7 +78,7 @@ final movements = [
     rangeBegin: 0,
     rangeEnd: 170,
   ),
-  const Movement(
+  Movement(
       // no other muscle does elbow extension, and its the main function
       // of the triceps
       articulation: Articulation.elbowExtension,
@@ -112,7 +114,7 @@ final movements = [
   ),
   // main function of lats
   // https://www.ncbi.nlm.nih.gov/pubmed/24462394
-  const Movement(
+  Movement(
     // lengthening -> little reduction of force production. so effective over ROM
     articulation: Articulation.shoulderExtension,
     muscle: Muscle
@@ -125,7 +127,7 @@ final movements = [
   // second most important function
   // especially when shoulder is somewhat externally rotated,
   // e.g. during wide grip pull ups
-  const Movement(
+  Movement(
     articulation: Articulation.shoulderAdduction,
     muscle: Muscle.latissimusdorsi, // mainly lower, lumbopelvic fibers
     // see https://www.ncbi.nlm.nih.gov/pubmed/7498076
@@ -134,39 +136,39 @@ final movements = [
     momentMax:
         75, // elbows just below shoulders. but considerably positive over entire ROM
   ),
-  const Movement(
+  Movement(
     articulation: Articulation.shoulderInternalRotation,
     muscle: Muscle.latissimusdorsi,
     rangeBegin: 0,
     rangeEnd: 70,
   ),
   // weak
-  const Movement(
+  Movement(
     articulation: Articulation.shoulderFlexion,
     muscle: Muscle.latissimusdorsi,
     rangeBegin: 0,
     rangeEnd: -60,
   ),
-  const Movement(
+  Movement(
     // very weak due to low internal moment arm
     // https://www.ncbi.nlm.nih.gov/pubmed/9356931
     articulation: Articulation.shoulderTransverseExtension,
     muscle: Muscle.latissimusdorsi,
   ),
-  const Movement(
+  Movement(
     // very weak. mainly horizontal fibers attached to scapula
     articulation: Articulation.scapularRetraction,
     muscle: Muscle.latissimusdorsi,
     rangeBegin: 0,
     rangeEnd: 25,
   ),
-  const Movement(
+  Movement(
       // very weak
       articulation: Articulation.scapularDepression,
       muscle: Muscle.latissimusdorsi, // probably mainly from the illiac crest
       rangeBegin: 0,
       rangeEnd: 10),
-  const Movement(
+  Movement(
     // very weak
     articulation: Articulation.scapularDownardRotation,
     muscle: Muscle.latissimusdorsi,
@@ -176,7 +178,7 @@ final movements = [
   // https://www.ncbi.nlm.nih.gov/pubmed/11415812
   // none of the elbow flexorrs are really affected by shoulder position
   // see https://www.ncbi.nlm.nih.gov/pubmed/8429057
-  const Movement(
+  Movement(
     articulation: Articulation.elbowFlexion,
     muscle: Muscle.bicepsBrachii,
     rangeBegin: 0,
@@ -185,7 +187,7 @@ final movements = [
         90, // and when supinated https://www.ncbi.nlm.nih.gov/pubmed/7775488
     // most tension in anatomic position (max length). short head loses 80% when shortening. long head barely active when fully shortened
   ),
-  const Movement(
+  Movement(
     articulation: Articulation.elbowFlexion,
     muscle: Muscle.brachialis,
     rangeBegin: 0,
@@ -193,7 +195,7 @@ final movements = [
     momentMax: 90,
     // most tension in anatomic position (max length). looses half strength when shorten
   ),
-  const Movement(
+  Movement(
     articulation: Articulation.elbowFlexion,
     muscle: Muscle.brachioradialis,
     rangeBegin: 0,
@@ -201,22 +203,22 @@ final movements = [
     momentMax: 90, // and in neutral
     // most tension in anatomic position (max length). barely active when fully shortened
   ),
-  const Movement(
+  Movement(
     articulation: Articulation.forearmSupination,
     muscle: Muscle.bicepsBrachii,
 // best moment arm when pronated. less leverage with more supination
   ),
-  const Movement(
+  Movement(
     articulation: Articulation.forearmSupination,
     muscle: Muscle.brachioradialis,
     // best moment arm when pronated. no leverage past neutral
   ),
-  const Movement(
+  Movement(
     articulation: Articulation.forearmPronation,
     muscle: Muscle.brachioradialis,
     // best moment arm when supinated. no leverage past neutral
   ),
-  const Movement(
+  Movement(
     // very weak. partly indirect and passive by the tendon of the long head.
     // first 30-60 deg only.
     // https://doi.org/10.1016/j.jelekin.2006.09.012
@@ -225,7 +227,7 @@ final movements = [
     rangeBegin: 0,
     rangeEnd: 60,
   ),
-  const Movement(
+  Movement(
     // very weak, and only when forearm supinated
     // https://journals.lww.com/jbjsjournal/pages/articleviewer.aspx?year=1957&issue=39050&article=00011&type=Abstract
     articulation: Articulation.shoulderAbduction,
