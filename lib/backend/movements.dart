@@ -1,5 +1,5 @@
-import 'package:ptc/articulations.dart';
-import 'package:ptc/muscles.dart';
+import 'package:ptc/backend/articulations.dart';
+import 'package:ptc/backend/muscles.dart';
 
 class Movement {
   Movement({
@@ -151,8 +151,8 @@ final movements = [
   Movement(
     articulation: Articulation.shoulderFlexion,
     muscle: Muscle.latissimusDorsi,
-    rangeBegin: 0,
-    rangeEnd: -60,
+    rangeBegin: -60,
+    rangeEnd: 0,
   ),
   Movement(
     // very weak due to low internal moment arm

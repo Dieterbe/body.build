@@ -12,3 +12,11 @@ extension StringExtension on String {
     return camelToSpace().capitalize();
   }
 }
+
+extension IterableExtension<T> on Iterable<T> {
+  /// Insert any item<T> inBetween the list items
+  Iterable<T> insertBetween(T item) => expand((e) sync* {
+        yield item;
+        yield e;
+      }).skip(1);
+}

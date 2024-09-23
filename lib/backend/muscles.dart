@@ -1,5 +1,6 @@
-import 'package:ptc/articulations.dart';
-import 'package:ptc/bones.dart';
+import 'package:ptc/backend/articulations.dart';
+import 'package:ptc/backend/bones.dart';
+import 'package:ptc/util.dart';
 
 enum Muscle {
   pectoralisMajor(
@@ -142,6 +143,9 @@ enum Muscle {
   final bool pseudo;
   final Bone insertion;
   final Map<String, Head> heads;
+
+  String nameWithHead(String? head) =>
+      name.camelToTitle() + (head != null ? ' ($head head)' : '');
 }
 
 class Head {
