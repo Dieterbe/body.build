@@ -35,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Articulation? articulation;
+  String _filter = '';
   @override
   Widget build(BuildContext context) {
     String varTitle = 'select an articulation';
@@ -55,41 +56,73 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         title: Text('${widget.title} - $varTitle'),
       ),
-      body: articulation == null
-          ? ListView.builder(
-              itemCount: Articulation.values.length,
-              itemBuilder: (context, index) {
-                final articulation = Articulation.values[index];
-                return ListTile(
-                  title: Text(articulation.name.camelToTitle()),
-                  subtitle: Text(
-                      '${movements.where((m) => m.articulation == articulation).length} known muscle/head movements'),
-                  onTap: () {
-                    setState(() {
-                      this.articulation = articulation;
-                    });
-                  },
-                );
-              })
-          : ListView.builder(
-              itemCount: movements
-                  .where((m) => m.articulation == articulation)
-                  .toList()
-                  .length,
-              itemBuilder: (context, index) {
-                final movement = movements
-                    .where((m) => m.articulation == articulation)
-                    .toList()[index];
-                return ListTile(
-                  title: Text(movement.muscle.name.camelToTitle() +
-                      (movement.head != null
-                          ? ' (${movement.head!} head)'
-                          : '')),
-                  subtitle: Text(
-                    '${movement.rangeBegin} - ${movement.rangeEnd}${movement.momentMax != null ? ' (max moment @ ${movement.momentMax})' : ''}',
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'filter',
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _filter = value;
+                });
+              },
+            ),
+          ),
+          articulation == null
+              ? Expanded(
+                  child: ListView.builder(
+                    itemCount: Articulation.values
+                        .where((a) => a.name
+                            .toLowerCase()
+                            .contains(_filter.toLowerCase()))
+                        .length,
+                    itemBuilder: (context, index) {
+                      final articulation = Articulation.values
+                          .where((a) => a.name
+                              .toLowerCase()
+                              .contains(_filter.toLowerCase()))
+                          .toList()[index];
+                      return ListTile(
+                        title: Text(articulation.name.camelToTitle()),
+                        subtitle: Text(
+                            '${movements.where((m) => m.articulation == articulation).length} known muscle/head movements'),
+                        onTap: () {
+                          setState(() {
+                            this.articulation = articulation;
+                          });
+                        },
+                      );
+                    },
                   ),
-                );
-              }),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: movements
+                        .where((m) => m.articulation == articulation)
+                        .toList()
+                        .length,
+                    itemBuilder: (context, index) {
+                      final movement = movements
+                          .where((m) => m.articulation == articulation)
+                          .toList()[index];
+                      return ListTile(
+                        title: Text(movement.muscle.name.camelToTitle() +
+                            (movement.head != null
+                                ? ' (${movement.head!} head)'
+                                : '')),
+                        subtitle: Text(
+                          '${movement.rangeBegin} - ${movement.rangeEnd}${movement.momentMax != null ? ' (max moment @ ${movement.momentMax})' : ''}',
+                        ),
+                      );
+                    },
+                  ),
+                ),
+        ],
+      ),
     );
   }
 }
