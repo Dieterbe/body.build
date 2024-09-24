@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/util.dart';
 
 class MusclesScreen extends StatefulWidget {
-  static const routeName = '/muscles';
+  static const routeName = 'muscles';
 
   const MusclesScreen({super.key});
 
@@ -55,16 +56,14 @@ class _MusclesScreenState extends State<MusclesScreen> {
                   title: Text(muscle.name.camelToTitle()),
                   subtitle: Text(
                       '${movements.where((m) => m.muscle == muscle).length} known movements'),
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      MuscleScreen.routeName,
-                      arguments: muscle,
-                    );
-                  },
+                  onTap: () => context.pushNamed(
+                    MuscleScreen.routeName,
+                    pathParameters: {"id": muscle.name},
+                  ),
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

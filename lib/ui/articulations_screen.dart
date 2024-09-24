@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ptc/backend/articulations.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/util.dart';
 
 class ArticulationsScreen extends StatefulWidget {
-  static const routeName = '/articulations';
+  static const routeName = 'articulations';
 
   const ArticulationsScreen({super.key});
 
@@ -55,12 +56,10 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
                   title: Text(articulation.name.camelToTitle()),
                   subtitle: Text(
                       '${movements.where((m) => m.articulation == articulation).length} known muscle/head movements'),
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      ArticulationScreen.routeName,
-                      arguments: articulation,
-                    );
-                  },
+                  onTap: () => context.pushNamed(
+                    ArticulationScreen.routeName,
+                    pathParameters: {"id": articulation.name},
+                  ),
                 );
               },
             ),

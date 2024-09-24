@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ptc/ui/articulations_screen.dart';
 import 'package:ptc/ui/muscles_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String routeName = 'home';
   const HomeScreen({super.key});
 
   static const String markdownSource = '''
@@ -36,7 +38,7 @@ DISCLAIMER:
           const SizedBox(height: 16),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, ArticulationsScreen.routeName);
+              context.goNamed(ArticulationsScreen.routeName);
             },
             child: Text('articulations',
                 style: Theme.of(context).textTheme.titleLarge),
@@ -44,7 +46,7 @@ DISCLAIMER:
           const SizedBox(height: 16),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, MusclesScreen.routeName);
+              context.goNamed(MusclesScreen.routeName);
             },
             child:
                 Text('muscles', style: Theme.of(context).textTheme.titleLarge),

@@ -4,8 +4,15 @@ import 'package:ptc/ui/articulations_screen.dart';
 import 'package:ptc/ui/home_screen.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/ui/muscles_screen.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
+  // *without* this flag, behavior is like so:
+  // go -> uses proper URL, but overrides 'back' stack, goes straight back to home
+  // push -> uses stack, keeps back working, but not proper URL
+  // with this flag, we get proper URL's and proper stack
+  // this was noticebale e.g. on /muscles when trying to navigate to /muscles/biceps
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(const MyApp());
 }
 
@@ -15,20 +22,49 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'PTC Pro',
-        darkTheme: ThemeData.dark(),
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Color.fromARGB(255, 15, 209, 157)),
-          useMaterial3: true,
-        ),
-        home: const HomeScreen(),
-        routes: {
-          ArticulationsScreen.routeName: (ctx) => const ArticulationsScreen(),
-          ArticulationScreen.routeName: (ctx) => const ArticulationScreen(),
-          MusclesScreen.routeName: (ctx) => const MusclesScreen(),
-          MuscleScreen.routeName: (ctx) => const MuscleScreen()
-        });
+    return MaterialApp.router(
+      title: 'PTC Pro',
+      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 15, 209, 157)),
+        useMaterial3: true,
+      ),
+      routerConfig: GoRouter(
+        initialLocation: '/',
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => const HomeScreen(),
+            routes: [
+              GoRoute(
+                name: ArticulationsScreen.routeName,
+                path: ArticulationsScreen.routeName,
+                builder: (context, state) => const ArticulationsScreen(),
+              ),
+              GoRoute(
+                name: ArticulationScreen.routeName,
+                path: '${ArticulationScreen.routeName}/:id',
+                builder: (context, state) => ArticulationScreen(
+                  id: state.pathParameters['id']!,
+                ),
+              ),
+              GoRoute(
+                name: MusclesScreen.routeName,
+                path: MusclesScreen.routeName,
+                builder: (context, state) => const MusclesScreen(),
+              ),
+              GoRoute(
+                name: MuscleScreen.routeName,
+                path: '${MuscleScreen.routeName}/:id',
+                builder: (context, state) => MuscleScreen(
+                  id: state.pathParameters['id']!,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

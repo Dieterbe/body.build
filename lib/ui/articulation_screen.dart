@@ -7,13 +7,14 @@ import 'package:ptc/util.dart';
 const double chartHeight = 100;
 
 class ArticulationScreen extends StatelessWidget {
-  static const routeName = '/articulation';
-  const ArticulationScreen({super.key});
+  static const routeName = 'articulation';
+  final String id;
+  const ArticulationScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    final articulation =
-        ModalRoute.of(context)!.settings.arguments as Articulation;
+    final articulation = Articulation.values.firstWhere((a) => a.name == id);
+
     final moves =
         movements.where((m) => m.articulation == articulation).toList();
 

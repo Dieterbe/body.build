@@ -6,12 +6,14 @@ import 'package:ptc/util.dart';
 const double chartHeight = 100;
 
 class MuscleScreen extends StatelessWidget {
-  static const routeName = '/muscle';
-  const MuscleScreen({super.key});
+  static const routeName = 'muscle';
+  final String id;
+
+  const MuscleScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    final muscle = ModalRoute.of(context)!.settings.arguments as Muscle;
+    final muscle = Muscle.values.firstWhere((m) => m.name == id);
     final moves = movements.where((m) => m.muscle == muscle).toList();
 
     return Scaffold(
