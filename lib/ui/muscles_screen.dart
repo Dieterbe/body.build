@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/backend/articulations.dart';
 import 'package:ptc/backend/movements.dart';
-import 'package:ptc/ui/articulation_screen.dart';
+import 'package:ptc/backend/muscles.dart';
+import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/util.dart';
 
-class ArticulationsScreen extends StatefulWidget {
-  static const routeName = '/articulations';
+class MusclesScreen extends StatefulWidget {
+  static const routeName = '/muscles';
 
-  const ArticulationsScreen({super.key});
+  const MusclesScreen({super.key});
 
   @override
-  _ArticulationsScreenState createState() => _ArticulationsScreenState();
+  _MusclesScreenState createState() => _MusclesScreenState();
 }
 
-class _ArticulationsScreenState extends State<ArticulationsScreen> {
+class _MusclesScreenState extends State<MusclesScreen> {
   String _filter = '';
   @override
   Widget build(BuildContext context) {
-    String varTitle = 'select an articulation';
+    String varTitle = 'select a muscle';
 
     return Scaffold(
       appBar: AppBar(
@@ -42,23 +42,23 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: Articulation.values
+              itemCount: Muscle.values
                   .where((a) =>
                       a.name.toLowerCase().contains(_filter.toLowerCase()))
                   .length,
               itemBuilder: (context, index) {
-                final articulation = Articulation.values
+                final muscle = Muscle.values
                     .where((a) =>
                         a.name.toLowerCase().contains(_filter.toLowerCase()))
                     .toList()[index];
                 return ListTile(
-                  title: Text(articulation.name.camelToTitle()),
+                  title: Text(muscle.name.camelToTitle()),
                   subtitle: Text(
-                      '${movements.where((m) => m.articulation == articulation).length} known muscle/head movements'),
+                      '${movements.where((m) => m.muscle == muscle).length} known movements'),
                   onTap: () {
                     Navigator.of(context).pushNamed(
-                      ArticulationScreen.routeName,
-                      arguments: articulation,
+                      MuscleScreen.routeName,
+                      arguments: muscle,
                     );
                   },
                 );

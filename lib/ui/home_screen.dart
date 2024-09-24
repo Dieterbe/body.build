@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:ptc/ui/articulations_screen.dart';
+import 'package:ptc/ui/muscles_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -34,10 +36,18 @@ DISCLAIMER:
           const SizedBox(height: 16),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/articulations');
+              Navigator.pushNamed(context, ArticulationsScreen.routeName);
             },
             child: Text('articulations',
                 style: Theme.of(context).textTheme.titleLarge),
+          ),
+          const SizedBox(height: 16),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, MusclesScreen.routeName);
+            },
+            child:
+                Text('muscles', style: Theme.of(context).textTheme.titleLarge),
           )
         ],
       )),

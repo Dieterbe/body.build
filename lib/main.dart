@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/ui/articulations_screen.dart';
 import 'package:ptc/ui/home_screen.dart';
+import 'package:ptc/ui/muscle_screen.dart';
+import 'package:ptc/ui/muscles_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
         routes: {
           ArticulationsScreen.routeName: (ctx) => const ArticulationsScreen(),
           ArticulationScreen.routeName: (ctx) => const ArticulationScreen(),
+          MusclesScreen.routeName: (ctx) => const MusclesScreen(),
+          MuscleScreen.routeName: (ctx) => const MuscleScreen()
         });
   }
 }

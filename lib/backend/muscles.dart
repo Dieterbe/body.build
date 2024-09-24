@@ -171,4 +171,8 @@ class Insufficiency {
 
   final Articulation articulation;
   final int degrees;
+
+  String toString() {
+    return '${articulation.name.camelToTitle()} @ $degrees';
+  }
 }
