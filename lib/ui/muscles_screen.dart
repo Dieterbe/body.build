@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/util.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/icon_park_outline.dart';
 
 class MusclesScreen extends StatefulWidget {
   static const routeName = 'muscles';

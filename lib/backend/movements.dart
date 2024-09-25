@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ptc/backend/articulations.dart';
 import 'package:ptc/backend/muscles.dart';
 
@@ -6,14 +8,14 @@ class Movement {
     required this.muscle,
     this.head,
     required this.articulation,
-    this.rangeBegin,
+    this.rangeStart,
     this.rangeEnd,
     this.momentMax,
   });
   final Muscle muscle;
   final String? head; // if null, means all heads
   final Articulation articulation;
-  final int? rangeBegin;
+  final int? rangeStart;
   final int? rangeEnd;
   final int? momentMax; // degrees of the movement for max moment
 }
@@ -24,7 +26,7 @@ final movements = [
     muscle: Muscle.pectoralisMajor,
     head: null,
     articulation: Articulation.shoulderTransverseFlexion,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 90,
     momentMax:
         // In full extension, when your elbows are behind your body, the anterior deltoids have better leverage than the pecs
@@ -35,7 +37,7 @@ final movements = [
     muscle: Muscle.pectoralisMajor,
     head: null,
     articulation: Articulation.shoulderTransverseAdduction,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 90,
     momentMax:
         null, // not quite sure. probably similar, but less than transverseFlexion
@@ -43,21 +45,21 @@ final movements = [
   Movement(
     muscle: Muscle.pectoralisMajor,
     articulation: Articulation.shoulderInternalRotation,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 70,
   ),
   Movement(
     articulation: Articulation.shoulderFlexion,
     muscle: Muscle.pectoralisMajor,
     head: 'clavicular',
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 160,
   ),
   Movement(
     articulation: Articulation.shoulderAbduction,
     muscle: Muscle.pectoralisMajor,
     head: 'clavicular',
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 180,
     momentMax: 0,
 // note: pec activity is reduced if there is no shoulder flexion.
@@ -68,7 +70,7 @@ final movements = [
     muscle: Muscle.pectoralisMajor,
     head: 'sternal',
     articulation: Articulation.shoulderExtension,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 170,
   ),
   Movement(
@@ -77,7 +79,7 @@ final movements = [
     articulation: Articulation.shoulderAdduction,
     muscle: Muscle.pectoralisMajor,
     head: 'sternal',
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 170,
   ),
   Movement(
@@ -85,7 +87,7 @@ final movements = [
       // of the triceps
       articulation: Articulation.elbowExtension,
       muscle: Muscle.tricepsBrachii,
-      rangeBegin: 0,
+      rangeStart: 0,
       rangeEnd: 145,
       momentMax:
           10 // "nearly straight", see https://www.ncbi.nlm.nih.gov/pubmed/20655050
@@ -97,7 +99,7 @@ final movements = [
     articulation: Articulation.shoulderExtension,
     muscle: Muscle.tricepsBrachii,
     head: 'long',
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 170,
     // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5827912/
     momentMax: 90, // arms are straight forward
@@ -107,7 +109,7 @@ final movements = [
     articulation: Articulation.shoulderHyperExtension,
     muscle: Muscle.tricepsBrachii,
     head: 'long',
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 40,
     // not really impacted by elbow flexion
   ),
@@ -124,7 +126,7 @@ final movements = [
     articulation: Articulation.shoulderExtension,
     muscle: Muscle
         .latissimusDorsi, // full muscle, but a bit more emphasis on upper, thoraccic fibers when submax contracting
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 170,
     momentMax:
         45, // beyond 120 or beyond 0 it's zero. at that point it's teres minor, teres major and rear delts
@@ -136,7 +138,7 @@ final movements = [
     articulation: Articulation.shoulderAdduction,
     muscle: Muscle.latissimusDorsi, // mainly lower, lumbopelvic fibers
     // see https://www.ncbi.nlm.nih.gov/pubmed/7498076
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 170,
     momentMax:
         75, // elbows just below shoulders. but considerably positive over entire ROM
@@ -144,14 +146,14 @@ final movements = [
   Movement(
     articulation: Articulation.shoulderInternalRotation,
     muscle: Muscle.latissimusDorsi,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 70,
   ),
   // weak
   Movement(
     articulation: Articulation.shoulderFlexion,
     muscle: Muscle.latissimusDorsi,
-    rangeBegin: -60,
+    rangeStart: -60,
     rangeEnd: 0,
   ),
   Movement(
@@ -164,14 +166,14 @@ final movements = [
     // very weak. mainly horizontal fibers attached to scapula
     articulation: Articulation.scapularRetraction,
     muscle: Muscle.latissimusDorsi,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 25,
   ),
   Movement(
       // very weak
       articulation: Articulation.scapularDepression,
       muscle: Muscle.latissimusDorsi, // probably mainly from the illiac crest
-      rangeBegin: 0,
+      rangeStart: 0,
       rangeEnd: 10),
   Movement(
     // very weak
@@ -186,7 +188,7 @@ final movements = [
   Movement(
     articulation: Articulation.elbowFlexion,
     muscle: Muscle.bicepsBrachii,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 150,
     momentMax:
         90, // and when supinated https://www.ncbi.nlm.nih.gov/pubmed/7775488
@@ -195,7 +197,7 @@ final movements = [
   Movement(
     articulation: Articulation.elbowFlexion,
     muscle: Muscle.brachialis,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 150,
     momentMax: 90,
     // most tension in anatomic position (max length). looses half strength when shorten
@@ -203,7 +205,7 @@ final movements = [
   Movement(
     articulation: Articulation.elbowFlexion,
     muscle: Muscle.brachioradialis,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 150,
     momentMax: 90, // and in neutral
     // most tension in anatomic position (max length). barely active when fully shortened
@@ -229,7 +231,7 @@ final movements = [
     // https://doi.org/10.1016/j.jelekin.2006.09.012
     articulation: Articulation.shoulderFlexion,
     muscle: Muscle.bicepsBrachii,
-    rangeBegin: 0,
+    rangeStart: 0,
     rangeEnd: 60,
   ),
   Movement(
@@ -239,3 +241,28 @@ final movements = [
     muscle: Muscle.bicepsBrachii,
   ),
 ];
+
+// the result of compiling all movement information for any given articulation
+class ArticulationMovements {
+  final Articulation articulation;
+  late List<Movement> moves;
+
+  late int rangeStart;
+  late int rangeEnd;
+
+  ArticulationMovements(this.articulation) {
+    moves = movements.where((m) => m.articulation == articulation).toList();
+    assert(moves.isNotEmpty);
+    final rangeStarts =
+        moves.map((m) => m.rangeStart).whereType<int>().toList();
+    final rangeEnds = moves.map((m) => m.rangeEnd).whereType<int>().toList();
+    assert(rangeStarts.isNotEmpty);
+    assert(rangeEnds.isNotEmpty);
+
+    rangeStart = rangeStarts.fold(1000, min);
+    rangeEnd = rangeEnds.fold(-1000, max);
+    assert(rangeEnd > rangeStart);
+  }
+
+  int get range => rangeEnd - rangeStart;
+}

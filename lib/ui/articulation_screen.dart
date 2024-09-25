@@ -14,26 +14,12 @@ class ArticulationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final articulation = Articulation.values.firstWhere((a) => a.name == id);
-
-    final moves =
-        movements.where((m) => m.articulation == articulation).toList();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Articulation: ${articulation.name.camelToTitle()}'),
       ),
       body: Column(
-        children: [
-          /*
-          ...moves.map((m) => ListTile(
-                title: Text(m.muscle.nameWithHead(m.head)),
-                subtitle: Text(
-                  '${m.rangeBegin} - ${m.rangeEnd}${m.momentMax != null ? ' (max moment @ ${m.momentMax})' : ''}',
-                ),
-              )),
-              */
-          RangeWidget(movements: moves)
-        ],
+        children: [RangeWidget(ArticulationMovements(articulation))],
       ),
     );
   }

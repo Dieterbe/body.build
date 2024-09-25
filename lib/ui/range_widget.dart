@@ -1,43 +1,27 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/ui/chart_widget.dart';
-import 'package:ptc/util.dart';
 
 class RangeWidget extends StatelessWidget {
-  final List<Movement> movements;
+  final ArticulationMovements am;
 
-  const RangeWidget({
+  const RangeWidget(
+    this.am, {
     super.key,
-    required this.movements,
   });
 
   @override
   Widget build(BuildContext context) {
-    final rangeStarts =
-        movements.map((m) => m.rangeBegin).whereType<int>().toList();
-    final rangeEnds =
-        movements.map((m) => m.rangeEnd).whereType<int>().toList();
-    if (rangeStarts.length == 0 && rangeEnds.length == 0) {
-      return Text('could not determine range (need 1 start and 1 end)');
-    }
-    final rangeStart = rangeStarts.fold(1000, min);
-    final rangeEnd = rangeEnds.fold(-1000, max);
-    assert(rangeEnd > rangeStart);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: LayoutBuilder(builder: (context, constraints) {
         // for display purposes, we adjust the start and end such that we start at 0
-        // this makes the following math more easy
-        int offset = -rangeStart;
+        // this makes the following math more easy..probably
+        int offset = -am.rangeStart;
+        final rangeEnd = am.rangeEnd + offset;
 
-        final rangeStart2 = rangeStart + offset;
-        final rangeEnd2 = rangeEnd + offset;
-        final normWidth = constraints
-            .maxWidth; // the width for the full range (e.g. rangeEnd2)
-        print('normWidth $normWidth');
-        print(' $rangeStart2 - $rangeEnd2');
+        final normWidth = constraints.maxWidth; // width for the full range
+        print('range ${am.range} -> width $normWidth (normWidth)');
 
         return Container(
           color: Theme.of(context).colorScheme.secondaryContainer,
@@ -46,8 +30,8 @@ class RangeWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ...movements.map((m) {
-                  if (m.rangeBegin == null || m.rangeEnd == null) {
+                ...am.moves.map((m) {
+                  if (m.rangeStart == null || m.rangeEnd == null) {
                     return Column(
                       children: [
                         Text(m.muscle.nameWithHead(m.head)),
@@ -55,12 +39,12 @@ class RangeWidget extends StatelessWidget {
                       ],
                     );
                   }
-                  final muscleRangeEnd2 = m.rangeEnd! + offset;
-                  final muscleRangeStart2 = m.rangeBegin! + offset;
+                  final muscleRangeEnd = m.rangeEnd! + offset;
+                  final muscleRangeStart = m.rangeStart! + offset;
                   final normMuscleRangeEnd =
-                      normWidth * (muscleRangeEnd2 / rangeEnd2);
+                      normWidth * (muscleRangeEnd / rangeEnd);
                   final normMuscleRangeStart =
-                      normWidth * (muscleRangeStart2 / rangeEnd2);
+                      normWidth * (muscleRangeStart / rangeEnd);
                   print(
                       '> $normMuscleRangeStart - $normMuscleRangeEnd - $normWidth');
                   return Column(
@@ -83,7 +67,7 @@ class RangeWidget extends StatelessWidget {
                               2, // estimate!
                           p3: normMuscleRangeEnd,
                         ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
 
                       Stack(children: [
                         // onSecondaryFixedVariant is also nice, lighter
@@ -100,21 +84,21 @@ class RangeWidget extends StatelessWidget {
                                 .colorScheme
                                 .onSecondaryFixedVariant),
                       ]),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                     ],
                   );
                 }),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(rangeStart.toString()),
-                    Text('overall range'),
-                    Text(rangeEnd.toString()),
+                    Text(am.rangeStart.toString()),
+                    const Text('overall range'),
+                    Text(am.rangeEnd.toString()),
                   ],
                 ),
-                SizedBox(height: 16),
-                Text('Legend'),
+                const SizedBox(height: 16),
+                const Text('Legend'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -124,10 +108,10 @@ class RangeWidget extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .onSecondaryFixedVariant),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
-                    Text('muscle inactive'),
+                    const Text('muscle inactive'),
                   ],
                 ),
                 Row(
@@ -138,7 +122,7 @@ class RangeWidget extends StatelessWidget {
                         height: 16,
                         color:
                             Theme.of(context).colorScheme.onSecondaryContainer),
-                    SizedBox(
+                    const SizedBox(
                       width: 16,
                     ),
                     Text('muscle active'),
