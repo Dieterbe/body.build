@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/ui/articulations_screen.dart';
+import 'package:ptc/ui/colors.dart';
 import 'package:ptc/ui/home_screen.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/ui/muscles_screen.dart';
@@ -26,8 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'PTC Pro',
       darkTheme: ThemeData.dark(),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 15, 209, 157)),
+        colorScheme: ColorScheme.fromSeed(seedColor: colorSeed),
         useMaterial3: true,
       ),
       routerConfig: GoRouter(

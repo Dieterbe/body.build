@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ptc/ui/colors.dart';
 
 class ChartWidget extends StatefulWidget {
   const ChartWidget({
@@ -35,7 +36,7 @@ class _ChartWidgetState extends State<ChartWidget> {
       //size: Size(MediaQuery.of(context).size.width, widget.height),
       size: Size(widget.width, widget.height),
       painter: PathPainter(
-        color: Theme.of(context).colorScheme.onSecondaryContainer,
+        color: colorActive,
         path: drawPath(),
       ),
     );

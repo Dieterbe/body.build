@@ -5,6 +5,7 @@ import 'package:iconify_flutter/icons/icon_park_outline.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/chart_widget.dart';
+import 'package:ptc/ui/colors.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 
 class RangeWidget extends StatelessWidget {
@@ -89,7 +90,7 @@ class RangeWidget extends StatelessWidget {
                           p2: normMuscleMomentMax!,
                           p3: normMuscleRangeEnd,
                         ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 4),
 
                       Stack(children: [
                         // onSecondaryFixedVariant is also nice, lighter
@@ -98,8 +99,11 @@ class RangeWidget extends StatelessWidget {
                             Theme.of(context)
                                 .colorScheme
                                 .onSecondaryFixedVariant),
-                        segment(normMuscleRangeEnd,
-                            Theme.of(context).colorScheme.onSecondaryContainer),
+                        segment(
+                          normMuscleRangeEnd,
+                          //  Theme.of(context).colorScheme.onSecondaryContainer
+                          colorActive,
+                        ),
                         segment(
                             normMuscleRangeStart,
                             Theme.of(context)
@@ -114,9 +118,9 @@ class RangeWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(am.rangeStart.toString()),
+                    Text('${am.rangeStart} °'),
                     const Text('overall range'),
-                    Text(am.rangeEnd.toString()),
+                    Text('${am.rangeEnd} °'),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -140,12 +144,7 @@ class RangeWidget extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                            width: 16,
-                            height: 16,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer),
+                        Container(width: 16, height: 16, color: colorActive),
                         const SizedBox(width: 8),
                         const Text('muscle active'),
                       ],
