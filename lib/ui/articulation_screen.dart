@@ -18,12 +18,14 @@ class ArticulationScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Articulation: ${articulation.name.camelToTitle()}'),
       ),
-      body: Column(
-        children: [
-          ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: RangeWidget(ArticulationMovements(articulation)))
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: RangeWidget(ArticulationMovements(articulation)))
+          ],
+        ),
       ),
     );
   }

@@ -35,29 +35,31 @@ Have a look at the **shoulder flexion** articulation to get a preview
       appBar: AppBar(
         title: const Text('PTC Pro: Home'),
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const MarkdownBody(data: markdownSource),
-          const SizedBox(height: 32),
-          TextButton(
-            onPressed: () {
-              context.goNamed(ArticulationsScreen.routeName);
-            },
-            child: Text('articulations',
-                style: Theme.of(context).textTheme.titleLarge),
-          ),
-          const SizedBox(height: 16),
-          TextButton(
-            onPressed: () {
-              context.goNamed(MusclesScreen.routeName);
-            },
-            child:
-                Text('muscles', style: Theme.of(context).textTheme.titleLarge),
-          )
-        ],
-      )),
+      body: SingleChildScrollView(
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const MarkdownBody(data: markdownSource),
+            const SizedBox(height: 32),
+            TextButton(
+              onPressed: () {
+                context.goNamed(ArticulationsScreen.routeName);
+              },
+              child: Text('articulations',
+                  style: Theme.of(context).textTheme.titleLarge),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                context.goNamed(MusclesScreen.routeName);
+              },
+              child: Text('muscles',
+                  style: Theme.of(context).textTheme.titleLarge),
+            )
+          ],
+        )),
+      ),
     );
   }
 }

@@ -22,69 +22,76 @@ class MuscleScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Muscle: ${muscle.name.camelToTitle()}'),
       ),
-      body: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(muscle.name.camelToTitle(),
-                  style: Theme.of(context).textTheme.titleLarge),
-              Divider(),
-              //SizedBox(height: 8),
-              DataTable(
-                headingRowHeight: 0,
-                dividerThickness: double.minPositive,
-                columns: const [
-                  DataColumn(label: Text('')),
-                  DataColumn(label: Text('')),
-                ],
-                rows: [
-                  if (muscle.nick.isNotEmpty)
+      body: SingleChildScrollView(
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(muscle.name.camelToTitle(),
+                    style: Theme.of(context).textTheme.titleLarge),
+                Divider(),
+                //SizedBox(height: 8),
+                DataTable(
+                  headingRowHeight: 0,
+                  dividerThickness: double.minPositive,
+                  columns: const [
+                    DataColumn(label: Text('')),
+                    DataColumn(label: Text('')),
+                  ],
+                  rows: [
+                    if (muscle.nick.isNotEmpty)
+                      DataRow(cells: [
+                        const DataCell(Text('nicknames')),
+                        DataCell(Text(muscle.nick.join(', '))),
+                      ]),
                     DataRow(cells: [
-                      const DataCell(Text('nicknames')),
-                      DataCell(Text(muscle.nick.join(', '))),
+                      const DataCell(Text('insertion')),
+                      DataCell(Text(muscle.insertion.name.camelToTitle())),
                     ]),
-                  DataRow(cells: [
-                    const DataCell(Text('insertion')),
-                    DataCell(Text(muscle.insertion.name.camelToTitle())),
-                  ]),
-                ],
-              ),
-              if (muscle.pseudo) const Text('note: this is a "pseudo" muscle'),
-              SizedBox(height: 16),
-              Text('Heads', style: Theme.of(context).textTheme.titleLarge),
-              Divider(),
-              SizedBox(height: 8),
-              ...muscle.heads.values
-                  .map<Widget>((h) => MuscleHeadWidget(muscle: muscle, head: h))
-                  .insertBetween(
-                    const SizedBox(height: 4),
-                  ),
-              const SizedBox(height: 16),
-              Text('Movements', style: Theme.of(context).textTheme.titleLarge),
-              Divider(),
-              SizedBox(height: 8),
-              ...moves.map((m) => Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => context.pushNamed(
-                          ArticulationScreen.routeName,
-                          pathParameters: {"id": m.articulation.name},
+                  ],
+                ),
+                if (muscle.pseudo)
+                  const Text('note: this is a "pseudo" muscle'),
+                SizedBox(height: 16),
+                Text('Heads', style: Theme.of(context).textTheme.titleLarge),
+                Divider(),
+                SizedBox(height: 8),
+                ...muscle.heads.values
+                    .map<Widget>(
+                        (h) => MuscleHeadWidget(muscle: muscle, head: h))
+                    .insertBetween(
+                      const SizedBox(height: 4),
+                    ),
+                const SizedBox(height: 16),
+                Text('Movements',
+                    style: Theme.of(context).textTheme.titleLarge),
+                Divider(),
+                SizedBox(height: 8),
+                ...moves.map((m) => Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: ElevatedButton(
+                            onPressed: () => context.pushNamed(
+                              ArticulationScreen.routeName,
+                              pathParameters: {"id": m.articulation.name},
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // const Iconify(IconParkOutline.muscle, size: 20),
+                                Text(m.articulation.name.camelToTitle()),
+                              ],
+                            ),
+                          ),
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // const Iconify(IconParkOutline.muscle, size: 20),
-                            Text(m.articulation.name.camelToTitle()),
-                          ],
-                        ),
-                      ),
-                      if (m.head != null) Text('${m.head!} head only'),
-                      Text(m.articulation.name.camelToTitle()),
-                    ],
-                  )),
-            ],
+                        if (m.head != null) Text('${m.head!} head only'),
+                      ],
+                    )),
+              ],
+            ),
           ),
         ),
       ),
