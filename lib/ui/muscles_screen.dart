@@ -55,7 +55,12 @@ class _MusclesScreenState extends State<MusclesScreen> {
                         a.name.toLowerCase().contains(_filter.toLowerCase()))
                     .toList()[index];
                 return ListTile(
-                  title: Text(muscle.name.camelToTitle()),
+                  title: Row(
+                    children: [
+                      const Iconify(IconParkOutline.muscle, size: 20),
+                      Text(muscle.name.camelToTitle()),
+                    ],
+                  ),
                   subtitle: Text(
                       '${movements.where((m) => m.muscle == muscle).length} known movements'),
                   onTap: () => context.pushNamed(
