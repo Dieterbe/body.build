@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_outline.dart';
 import 'package:ptc/backend/movements.dart';
+import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/chart_widget.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 
@@ -25,6 +26,7 @@ class RangeWidget extends StatelessWidget {
         final rangeEnd = am.rangeEnd + offset;
 
         final normWidth = constraints.maxWidth; // width for the full range
+
         print('range ${am.range} -> width $normWidth (normWidth)');
 
         return Container(
@@ -38,10 +40,17 @@ class RangeWidget extends StatelessWidget {
                   if (m.rangeStart == null || m.rangeEnd == null) {
                     return Column(
                       children: [
-                        Text(m.muscle.nameWithHead(m.head)),
+                        MuscleButton(muscle: m.muscle, head: m.head),
+                        const SizedBox(height: 8),
                         const Text('not enough range information known'),
                       ],
                     );
+                  }
+                  double? normMuscleMomentMax;
+                  if (m.momentMax != null) {
+                    final muscleMomentMax = m.momentMax! + offset;
+                    normMuscleMomentMax =
+                        normWidth * (muscleMomentMax / rangeEnd);
                   }
                   final muscleRangeEnd = m.rangeEnd! + offset;
                   final muscleRangeStart = m.rangeStart! + offset;
@@ -61,28 +70,23 @@ class RangeWidget extends StatelessWidget {
                       //         |           normMuscleRangeEnd
                       //         normMuscleRangeStart
                       // if we know the max moment, then draw a triangle pointing it out
-                      ElevatedButton(
-                        onPressed: () => context.pushNamed(
-                          MuscleScreen.routeName,
-                          pathParameters: {"id": m.muscle.name},
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Iconify(IconParkOutline.muscle, size: 20),
-                            Text(m.muscle.nameWithHead(m.head)),
-                          ],
-                        ),
-                      ),
-
+                      MuscleButton(muscle: m.muscle, head: m.head),
                       const SizedBox(height: 8),
                       if (m.momentMax == null)
                         ChartWidget(
-                          height: 32,
+                          height: m.strength * 6,
                           width: normWidth,
                           p1: normMuscleRangeStart,
                           p2: (normMuscleRangeStart + normMuscleRangeEnd) /
                               2, // estimate!
+                          p3: normMuscleRangeEnd,
+                        ),
+                      if (m.momentMax != null)
+                        ChartWidget(
+                          height: m.strength * 6,
+                          width: normWidth,
+                          p1: normMuscleRangeStart,
+                          p2: normMuscleMomentMax!,
                           p3: normMuscleRangeEnd,
                         ),
                       const SizedBox(height: 16),
@@ -146,15 +150,23 @@ class RangeWidget extends StatelessWidget {
                         const Text('muscle active'),
                       ],
                     ),
-                    Row(
+                    const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ChartWidget(
                             height: 16, width: 16, p1: 0, p2: 8, p3: 16),
-                        const SizedBox(width: 8),
-                        const Text('muscle moment arm curve'),
+                        SizedBox(width: 8),
+                        Text('muscle moment arm curve'),
                       ],
-                    )
+                    ),
+                    const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(width: 24),
+                        Text(
+                            '(height corresponds to muscle strength for this movement)'),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -162,6 +174,33 @@ class RangeWidget extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+}
+
+class MuscleButton extends StatelessWidget {
+  final Muscle muscle;
+  final String? head;
+  const MuscleButton({
+    super.key,
+    required this.muscle,
+    this.head,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => context.pushNamed(
+        MuscleScreen.routeName,
+        pathParameters: {"id": muscle.name},
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Iconify(IconParkOutline.muscle, size: 20),
+          Text(muscle.nameWithHead(head)),
+        ],
+      ),
     );
   }
 }

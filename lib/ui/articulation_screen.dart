@@ -19,7 +19,11 @@ class ArticulationScreen extends StatelessWidget {
         title: Text('Articulation: ${articulation.name.camelToTitle()}'),
       ),
       body: Column(
-        children: [RangeWidget(ArticulationMovements(articulation))],
+        children: [
+          ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 500),
+              child: RangeWidget(ArticulationMovements(articulation)))
+        ],
       ),
     );
   }

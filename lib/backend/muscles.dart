@@ -116,19 +116,37 @@ enum Muscle {
         )
       }),
   brachioradialis(
-      nick: [],
-      pseudo: false,
-      insertion: Bone.radioUlnarJoint,
-      heads: {
-        'whole': Head(
-          name: 'whole',
-          nick: [],
-          origin: [
-            Bone.humerus,
-          ],
-          articular: 1, // note: kindof by convention. could be sort of 1.5
-        )
-      });
+    nick: [],
+    pseudo: false,
+    insertion: Bone.radioUlnarJoint,
+    heads: {
+      'whole': Head(
+        name: 'whole',
+        nick: [],
+        origin: [
+          Bone.humerus,
+        ],
+        articular: 1, // note: kindof by convention. could be sort of 1.5
+      )
+    },
+  ),
+  // extracurricular https://www.sciencedirect.com/topics/engineering/brachioradialis
+  // some of the details might be incorrect
+  forearmPronators(
+    pseudo: true,
+    nick: [],
+    insertion: Bone.radioUlnarJoint,
+    heads: {
+      'whole': Head(
+        name: 'whole',
+        nick: [],
+        origin: [
+          Bone.humerus,
+        ],
+        articular: 1,
+      )
+    },
+  );
 
 // teres major is ignored. train lats well = train teres major well
 // teres major: shoulder extension, adduction, internal rotation

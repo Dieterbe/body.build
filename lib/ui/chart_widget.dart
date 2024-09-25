@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ChartWidget extends StatefulWidget {
-  ChartWidget(
-      {super.key,
-      required this.height,
-      required this.width,
-      required this.p1,
-      required this.p2,
-      required this.p3});
+  const ChartWidget({
+    super.key,
+    required this.height,
+    required this.width,
+    required this.p1,
+    required this.p2,
+    required this.p3,
+  });
 
   final double height;
   final double width;
@@ -21,8 +22,6 @@ class ChartWidget extends StatefulWidget {
 
 class _ChartWidgetState extends State<ChartWidget> {
   Path drawPath() {
-    // final width = MediaQuery.of(context).size.width;
-    final width = widget.width;
     final path = Path();
     path.moveTo(widget.p1, widget.height);
     path.lineTo(widget.p2, 0);

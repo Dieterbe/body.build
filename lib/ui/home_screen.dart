@@ -26,6 +26,7 @@ Have a look at the **shoulder flexion** articulation to get a preview
 * use any information here at your own risk
 * the **information is incomplete**, i need to add more data.
 * the app is a work in progress and might crash or not work at all
+* some of the information included is based on interpretations, or from other sources beyond just the PTC module
 ''';
 
   @override
