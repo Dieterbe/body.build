@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/icon_park_outline.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/ui/chart_widget.dart';
+import 'package:ptc/ui/muscle_screen.dart';
 
 class RangeWidget extends StatelessWidget {
   final ArticulationMovements am;
@@ -57,7 +61,21 @@ class RangeWidget extends StatelessWidget {
                       //         |           normMuscleRangeEnd
                       //         normMuscleRangeStart
                       // if we know the max moment, then draw a triangle pointing it out
-                      Text(m.muscle.nameWithHead(m.head)),
+                      ElevatedButton(
+                        onPressed: () => context.pushNamed(
+                          MuscleScreen.routeName,
+                          pathParameters: {"id": m.muscle.name},
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Iconify(IconParkOutline.muscle, size: 20),
+                            Text(m.muscle.nameWithHead(m.head)),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
                       if (m.momentMax == null)
                         ChartWidget(
                           height: 32,
@@ -99,43 +117,46 @@ class RangeWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const Text('Legend'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        width: 16,
-                        height: 16,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondaryFixedVariant),
-                    const SizedBox(
-                      width: 16,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                            width: 16,
+                            height: 16,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryFixedVariant),
+                        const SizedBox(width: 8),
+                        const Text('muscle inactive'),
+                      ],
                     ),
-                    const Text('muscle inactive'),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                            width: 16,
+                            height: 16,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer),
+                        const SizedBox(width: 8),
+                        const Text('muscle active'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ChartWidget(
+                            height: 16, width: 16, p1: 0, p2: 8, p3: 16),
+                        const SizedBox(width: 8),
+                        const Text('muscle moment arm curve'),
+                      ],
+                    )
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        width: 16,
-                        height: 16,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Text('muscle active'),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ChartWidget(height: 16, width: 16, p1: 0, p2: 8, p3: 16),
-                    SizedBox(width: 16),
-                    Text('muscle moment arm curve'),
-                  ],
-                )
               ],
             ),
           ),

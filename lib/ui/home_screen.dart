@@ -11,17 +11,21 @@ class HomeScreen extends StatelessWidget {
   static const String markdownSource = '''
 # PTC Pro
 
-Dieter wrote this app to conveniently look up:
-* articulations, which muscles they involve, and to which extent
-* common functions of muscles and other details (e.g. insufficiency)
+Dieter wrote this app to summarize the information from the PTC anatomy module and make it more practical.
+You can look up:
+* muscle's common functions and other details (e.g. insufficiency)
+* joint articulations & involved muscles.
 
-essentially, it aims to be a practical summary of the respective course module,
+What I would really like to do is make this more visual.  
+Such that you can see the entire ROM (range of motion) of a movement and see how different muscles activate,  
+become stronger at specific points (or have a better moment arm), when they are fully stretched, and deactivate
 
+Have a look at the **shoulder flexion** articulation to get a preview
 
-DISCLAIMER:
+### DISCLAIMER:
 * use any information here at your own risk
-* the information here, and its representation, is a work in progress
-* the app is in beta and might crash or not work at all
+* the **information is incomplete**, i need to add more data.
+* the app is a work in progress and might crash or not work at all
 ''';
 
   @override
@@ -35,7 +39,7 @@ DISCLAIMER:
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const MarkdownBody(data: markdownSource),
-          const SizedBox(height: 16),
+          const SizedBox(height: 32),
           TextButton(
             onPressed: () {
               context.goNamed(ArticulationsScreen.routeName);
