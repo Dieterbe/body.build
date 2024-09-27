@@ -27,3 +27,4 @@ List<Exercise> exercises = [
     ],
   ),
 */
+// random note: bulgarians hit the adductors more than other exercises typically do

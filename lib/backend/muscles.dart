@@ -42,20 +42,26 @@ enum Muscle {
       ),
       // covered
       'medial': Head(
-          name: 'medial',
-          nick: [],
-          origin: [Bone.humerus], // middle of
-          articular: 1,
-          activeInsuffiency: [
-            // arm extended behind body
-            Insufficiency(Articulation.elbowExtension, 0),
-            Insufficiency(Articulation.shoulderFlexion, 20)
+        name: 'medial',
+        nick: [],
+        origin: [Bone.humerus], // middle of
+        articular: 1,
+        activeInsuffiency: Insufficiency(
+          comment: "arm extended behind body",
+          factors: [
+            InsufficiencyFactor(Articulation.elbowExtension, 0),
+            InsufficiencyFactor(Articulation.shoulderFlexion, 20)
           ],
-          passiveInsufficiency: [
-            // arm bent overhead
-            Insufficiency(Articulation.shoulderFlexion, 160),
-            Insufficiency(Articulation.elbowFlexion, 150)
-          ]),
+        ),
+        passiveInsufficiency: Insufficiency(
+          comment:
+              "arm bent overhead, but even during overhead extension you don't reach this",
+          factors: [
+            InsufficiencyFactor(Articulation.shoulderFlexion, 160),
+            InsufficiencyFactor(Articulation.elbowFlexion, 150)
+          ],
+        ),
+      ),
     },
   ),
   latissimusDorsi(
@@ -88,18 +94,23 @@ enum Muscle {
           articular: 3,
         ),
         'short': Head(
-            name: 'short',
-            nick: ['inner'],
-            origin: [Bone.scapula],
-            articular: 3,
-            passiveInsufficiency: [
-              Insufficiency(Articulation.elbowExtension, 0),
-              Insufficiency(Articulation.shoulderExtension, 0)
+          name: 'short',
+          nick: ['inner'],
+          origin: [Bone.scapula],
+          articular: 3,
+          passiveInsufficiency: Insufficiency(
+            factors: [
+              InsufficiencyFactor(Articulation.elbowExtension, 0),
+              InsufficiencyFactor(Articulation.shoulderExtension, 0)
             ],
-            activeInsuffiency: [
-              Insufficiency(Articulation.elbowFlexion, 180),
-              Insufficiency(Articulation.shoulderExtension, 180)
-            ]),
+          ),
+          activeInsuffiency: Insufficiency(
+            factors: [
+              InsufficiencyFactor(Articulation.elbowFlexion, 180),
+              InsufficiencyFactor(Articulation.shoulderExtension, 180)
+            ],
+          ),
+        ),
       }),
 
   brachialis(
@@ -180,16 +191,24 @@ class Head {
   final List<String> nick;
   final List<Bone> origin;
   final int articular;
-  final List<Insufficiency>? activeInsuffiency;
-  final List<Insufficiency>? passiveInsufficiency;
+  final Insufficiency? activeInsuffiency;
+  final Insufficiency? passiveInsufficiency;
 }
 
 class Insufficiency {
-  const Insufficiency(this.articulation, this.degrees);
+  final List<InsufficiencyFactor> factors;
+  final String? comment;
+
+  const Insufficiency({this.comment, required this.factors});
+}
+
+class InsufficiencyFactor {
+  const InsufficiencyFactor(this.articulation, this.degrees);
 
   final Articulation articulation;
   final int degrees;
 
+  @override
   String toString() {
     return '${articulation.name.camelToTitle()} @ $degrees';
   }

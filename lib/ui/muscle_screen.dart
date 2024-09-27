@@ -31,7 +31,7 @@ class MuscleScreen extends StatelessWidget {
               children: [
                 Text(muscle.name.camelToTitle(),
                     style: Theme.of(context).textTheme.titleLarge),
-                Divider(),
+                const Divider(),
                 //SizedBox(height: 8),
                 DataTable(
                   headingRowHeight: 0,
@@ -54,21 +54,21 @@ class MuscleScreen extends StatelessWidget {
                 ),
                 if (muscle.pseudo)
                   const Text('note: this is a "pseudo" muscle'),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text('Heads', style: Theme.of(context).textTheme.titleLarge),
-                Divider(),
-                SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(height: 8),
                 ...muscle.heads.values
                     .map<Widget>(
                         (h) => MuscleHeadWidget(muscle: muscle, head: h))
                     .insertBetween(
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 8),
                     ),
                 const SizedBox(height: 16),
                 Text('Movements',
                     style: Theme.of(context).textTheme.titleLarge),
-                Divider(),
-                SizedBox(height: 8),
+                const Divider(),
+                const SizedBox(height: 8),
                 ...moves.map((m) => Column(
                       children: [
                         Padding(
@@ -108,29 +108,65 @@ class MuscleHeadWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = (head.name == 'whole' ? 'whole muscle' : '${head.name} head')
         .capitalize();
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleMedium),
+            if (head.nick.isNotEmpty)
+              Text(
+                  'nicknames: ${(head.nick.map((n) => '$n head')).join(', ')}'),
+            Text(
+                'origins: ${head.origin.map((o) => o.name.camelToTitle()).join(', ')}'),
+            switch (head.articular) {
+              1 => const Text('mono-articulate'),
+              2 => const Text('bi-articulate'),
+              3 => const Text('tri-articulate'),
+              int() => Text(
+                  'muscle $muscle has articulate ${head.articular} which is not supported'),
+            },
+            if (head.passiveInsufficiency != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: InsufficiencyWidget(
+                  type: "active",
+                  insufficiency: head.passiveInsufficiency!,
+                ),
+              ),
+            if (head.activeInsuffiency != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: InsufficiencyWidget(
+                  type: "passive",
+                  insufficiency: head.activeInsuffiency!,
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class InsufficiencyWidget extends StatelessWidget {
+  const InsufficiencyWidget(
+      {super.key, required this.type, required this.insufficiency});
+  final String type;
+  final Insufficiency insufficiency;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleMedium),
-        if (head.nick.isNotEmpty)
-          Text('nicknames: ${(head.nick.map((n) => '$n head')).join(', ')}'),
-        Text(
-            'origins: ${head.origin.map((o) => o.name.camelToTitle()).join(', ')}'),
-        switch (head.articular) {
-          1 => const Text('mono-articulate'),
-          2 => const Text('bi-articulate'),
-          3 => const Text('tri-articulate'),
-          int() => Text(
-              'muscle $muscle has articulate ${head.articular} which is not supported'),
-        },
-        if (head.passiveInsufficiency != null &&
-            head.passiveInsufficiency!.isNotEmpty)
-          Text(
-              'passive insufficiency: ${head.passiveInsufficiency!.map((i) => i.toString()).join(' + ')}'),
-        if (head.activeInsuffiency != null &&
-            head.activeInsuffiency!.isNotEmpty)
-          Text(
-              'active insufficiency: ${head.activeInsuffiency!.map((i) => i.toString()).join(' + ')}'),
+        Text('$type insufficiency:',
+            style: Theme.of(context).textTheme.titleSmall),
+        if (insufficiency.comment != null) Text('(${insufficiency.comment!})'),
+        const Text('Conditions:'),
+        ...insufficiency.factors.map((i) => Text(i.toString())),
       ],
     );
   }
