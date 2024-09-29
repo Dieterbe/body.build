@@ -1,26 +1,8 @@
 /*
+
+
+
 - summary
-	- Trapezius (‘traps’)
-		- stabilizers during many movements
-		- *upper (to clavicle)*
-			- verticalish from skull
-			- from cervical spine (neck)
-			- bio
-				- scapular elevation
-					- need some level of abduction. e.g. wide grip shrugs
-					- keep head forward, otherwise active insufficiency
-				- neck lateral flexion (upper)
-				- neck/cervical spine extension & hyperextension (upper)
-				- neck rotation (upper)
-				- scapular retraction (weak)
-		- middle: horizontal to scapula
-			- scapular retraction/adduction
-			- scapular elevation (very weak, low engagement)
-			- scapular upward rotation
-		- lower: spine to scapula
-			- scapular depression
-			- scapular retration/adduction
-			- scapular upward rotation
 	- Deltoids (shoulders/‘delts’)
 		- front: clavicle to humerus
 			- transverse adduction (externally rotated) (very weak)
@@ -51,9 +33,13 @@
   */
 
 enum Articulation {
-  scapularRetraction(nick: ['scapular adduction'], constraint: null),
+  scapularRetraction(
+      nick: ['scapular adduction', 'scapular external rotation'],
+      constraint: null),
   scapularDepression(nick: [], constraint: null),
   scapularDownardRotation(nick: [], constraint: null),
+  scapularElevation(nick: [], constraint: null),
+  scapularUpwardRotation(nick: [], constraint: null),
   shoulderTransverseAdduction(
       nick: ['shoulder horizontal adduction'],
       constraint: "shoulder externally rotated (thumbs up)"),
@@ -75,6 +61,11 @@ enum Articulation {
   spinalLateralFlexion(nick: [], constraint: null),
   elbowExtension(nick: [], constraint: null),
   elbowFlexion(nick: [], constraint: null),
+  cervicalSpineFlexion(nick: ['neck flexion'], constraint: null),
+  cervicalSpineLateralFlexion(nick: ['neck lateral flexion'], constraint: null),
+  cervicalSpineExtension(nick: ['neck extension'], constraint: null),
+  cervicalSpineHyperExtension(nick: ['neck hyperextension'], constraint: null),
+  cervicalRotation(nick: ['neck rotation'], constraint: null),
   forearmSupination(nick: [], constraint: null),
   forearmPronation(nick: [], constraint: null);
 

@@ -46,7 +46,7 @@ enum Muscle {
         nick: [],
         origin: [Bone.humerus], // middle of
         articular: 1,
-        activeInsuffiency: Insufficiency(
+        activeInsufficiency: Insufficiency(
           comment: "arm extended behind body",
           factors: [
             InsufficiencyFactor(Articulation.elbowExtension, 0),
@@ -82,6 +82,8 @@ enum Muscle {
           ])
     },
   ),
+  // teres major is ignored. train lats well = train teres major well
+// teres major: shoulder extension, adduction, internal rotation
   bicepsBrachii(
       nick: ['biceps'],
       pseudo: false,
@@ -104,7 +106,7 @@ enum Muscle {
               InsufficiencyFactor(Articulation.shoulderExtension, 0)
             ],
           ),
-          activeInsuffiency: Insufficiency(
+          activeInsufficiency: Insufficiency(
             factors: [
               InsufficiencyFactor(Articulation.elbowFlexion, 180),
               InsufficiencyFactor(Articulation.shoulderExtension, 180)
@@ -157,10 +159,65 @@ enum Muscle {
         articular: 1,
       )
     },
-  );
+  ),
+  trapeziusUpper(
+      nick: ['upper traps'],
+      pseudo: true,
+      insertion: Bone.clavicle,
+      heads: {
+        'upper fibers': Head(
+          name: 'upper fibers',
+          nick: [],
+          origin: [
+            Bone.skull,
+          ],
+          articular: 2,
+          activeInsufficiency: Insufficiency(
+            comment:
+                "contracted at both neck and shoulder (technically, also a bit lower fibers). keep head forward during shrugs",
+            factors: [
+              InsufficiencyFactor(Articulation.cervicalSpineExtension, 361),
+              InsufficiencyFactor(Articulation.scapularElevation, 361),
+            ],
+          ),
+          passiveInsufficiency: Insufficiency(
+            comment:
+                "stretched at both neck and shoulder (technically, also a bit lower fibers)",
+            factors: [
+              InsufficiencyFactor(Articulation.cervicalSpineFlexion, 361),
+              InsufficiencyFactor(Articulation.scapularDepression, 361)
+            ],
+          ),
+        ),
+        'lower fibers': Head(
+          name: 'lower fibers',
+          nick: [],
+          origin: [Bone.spineCervical],
+          articular: 2,
+        ),
+      }),
+  trapeziusMiddle(
+      nick: ['middle traps'],
+      pseudo: true,
+      insertion: Bone.scapula,
+      heads: {
+        'whole': Head(
+          name: 'whole',
+          nick: [],
+          origin: [Bone.spineC7T1],
+          articular: 1,
+        ),
+      }),
+  trapeziusLower(
+      nick: ['lower traps'],
+      pseudo: true,
+      insertion: Bone.scapula,
+      heads: {
+        'whole': Head(
+            name: 'whole', nick: [], origin: [Bone.spineThoracic], articular: 1)
+      }),
+  ;
 
-// teres major is ignored. train lats well = train teres major well
-// teres major: shoulder extension, adduction, internal rotation
   const Muscle({
     required this.nick,
     required this.pseudo,
@@ -183,7 +240,7 @@ class Head {
     required this.nick,
     required this.origin,
     required this.articular,
-    this.activeInsuffiency,
+    this.activeInsufficiency,
     this.passiveInsufficiency,
   });
 
@@ -191,7 +248,7 @@ class Head {
   final List<String> nick;
   final List<Bone> origin;
   final int articular;
-  final Insufficiency? activeInsuffiency;
+  final Insufficiency? activeInsufficiency;
   final Insufficiency? passiveInsufficiency;
 }
 

@@ -3,6 +3,11 @@ import 'dart:math';
 import 'package:ptc/backend/articulations.dart';
 import 'package:ptc/backend/muscles.dart';
 
+// types of strength:
+// "absolute" due to muscle length
+// relative due to moment arm
+// comparison to other muscles for a movement (so you know which muscles get trained)
+// comparison to other movements for the same muscle (so you know how to train a muscle)
 class Movement {
   Movement({
     required this.muscle,
@@ -305,6 +310,92 @@ final movements = [
     // this is what Dieter figures based on the biceps insertion
     rangeStart: 0,
     rangeEnd: 180,
+  ),
+  // TRAPS
+  //	- traps are also stabilizers during many movements
+  // most strong near full length. least force when fully contracted
+// main function, shoulder needs to be somewhat abducted. e.g. wide grip shrugs
+  Movement(
+    articulation: Articulation.scapularElevation,
+    muscle: Muscle.trapeziusUpper,
+    strength: 6,
+    rangeStart: 0,
+    rangeEnd: 40,
+  ),
+  Movement(
+    articulation: Articulation.scapularRetraction,
+    muscle: Muscle.trapeziusUpper,
+    head: "lower fibers",
+    strength: 3,
+    rangeStart: 0,
+    rangeEnd: 25,
+  ),
+  Movement(
+      articulation: Articulation.cervicalSpineLateralFlexion,
+      muscle: Muscle.trapeziusUpper,
+      head: "upper fibers",
+      strength: 1, // weak for growth
+      rangeStart: 0,
+      rangeEnd: 35),
+  Movement(
+      articulation: Articulation.cervicalSpineExtension,
+      muscle: Muscle.trapeziusUpper,
+      head: "upper fibers",
+      strength: 1, // weak for growth
+      rangeStart: 0,
+      rangeEnd: 65),
+  Movement(
+      articulation: Articulation.cervicalSpineHyperExtension,
+      muscle: Muscle.trapeziusUpper,
+      head: "upper fibers",
+      strength: 1, // weak for growth
+      rangeStart: 0,
+      rangeEnd: 40),
+  Movement(
+      articulation: Articulation.cervicalRotation,
+      muscle: Muscle.trapeziusUpper,
+      head: "upper fibers",
+      strength: 2, // weak
+      rangeStart: 0,
+      rangeEnd: 30),
+  Movement(
+      articulation: Articulation.scapularRetraction, // main function
+      muscle: Muscle.trapeziusMiddle,
+      strength: 4,
+      rangeStart: 0,
+      rangeEnd: 25),
+  Movement(
+    articulation: Articulation.scapularElevation,
+    muscle: Muscle.trapeziusMiddle,
+    strength: 2, // very weak. don't count it
+    rangeStart: 0,
+    rangeEnd: 60,
+  ),
+  Movement(
+    // don't typically target this with training. occurs during overhead pressing
+    articulation: Articulation.scapularUpwardRotation,
+    muscle: Muscle.trapeziusMiddle,
+    strength: 4,
+    rangeStart: 0, rangeEnd: 60,
+  ),
+  Movement(
+      articulation: Articulation.scapularDepression,
+      muscle: Muscle.trapeziusLower,
+      strength: 4,
+      rangeStart: 0,
+      rangeEnd: 10),
+  Movement(
+      articulation: Articulation.scapularRetraction,
+      muscle: Muscle.trapeziusLower,
+      strength: 4,
+      rangeStart: 0,
+      rangeEnd: 25),
+  Movement(
+    articulation: Articulation.scapularUpwardRotation,
+    muscle: Muscle.trapeziusLower,
+    strength: 4,
+    rangeStart: 0,
+    rangeEnd: 60,
   ),
 ];
 

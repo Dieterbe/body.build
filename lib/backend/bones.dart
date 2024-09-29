@@ -3,10 +3,16 @@
 enum Bone {
   humerus, // upper arm
   sternum, // center chest
-  clavicle,
+  clavicle, // collarbone
   ulna, // lower forearm bone
   scapula, // shoulder blade
   lowerSpine,
+  spineSacrum, // butt
+  spineLumbar, // lower back
+  spineThoracic, // upper back
+  spineCervical, // neck
+  spineC7T1,
+  skull,
   sacrum,
   iliacCrest,
   lowerRibs,

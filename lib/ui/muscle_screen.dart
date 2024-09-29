@@ -136,12 +136,12 @@ class MuscleHeadWidget extends StatelessWidget {
                   insufficiency: head.passiveInsufficiency!,
                 ),
               ),
-            if (head.activeInsuffiency != null)
+            if (head.activeInsufficiency != null)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: InsufficiencyWidget(
                   type: "passive",
-                  insufficiency: head.activeInsuffiency!,
+                  insufficiency: head.activeInsufficiency!,
                 ),
               ),
           ],
