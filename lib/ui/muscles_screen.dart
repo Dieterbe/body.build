@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/util.dart';
@@ -62,7 +61,10 @@ class _MusclesScreenState extends State<MusclesScreen> {
                     ],
                   ),
                   subtitle: Text(
-                      '${movements.where((m) => m.muscle == muscle).length} known movements'),
+                      '${muscle.movements.length + muscle.heads.values.fold<int>(
+                            0,
+                            (prev, h) => prev + h.movements.length,
+                          )} known movements.'),
                   onTap: () => context.pushNamed(
                     MuscleScreen.routeName,
                     pathParameters: {"id": muscle.name},

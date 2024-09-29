@@ -38,7 +38,7 @@ class RangeWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ...am.moves.map((m) {
-                  if (m.rangeStart == null || m.rangeEnd == null) {
+                  if (m.mo.rangeStart == null || m.mo.rangeEnd == null) {
                     return Column(
                       children: [
                         MuscleButton(muscle: m.muscle, head: m.head),
@@ -48,13 +48,13 @@ class RangeWidget extends StatelessWidget {
                     );
                   }
                   double? normMuscleMomentMax;
-                  if (m.momentMax != null) {
-                    final muscleMomentMax = m.momentMax! + offset;
+                  if (m.mo.momentMax != null) {
+                    final muscleMomentMax = m.mo.momentMax! + offset;
                     normMuscleMomentMax =
                         normWidth * (muscleMomentMax / rangeEnd);
                   }
-                  final muscleRangeEnd = m.rangeEnd! + offset;
-                  final muscleRangeStart = m.rangeStart! + offset;
+                  final muscleRangeEnd = m.mo.rangeEnd! + offset;
+                  final muscleRangeStart = m.mo.rangeStart! + offset;
                   final normMuscleRangeEnd =
                       normWidth * (muscleRangeEnd / rangeEnd);
                   final normMuscleRangeStart =
@@ -73,18 +73,18 @@ class RangeWidget extends StatelessWidget {
                       // if we know the max moment, then draw a triangle pointing it out
                       MuscleButton(muscle: m.muscle, head: m.head),
                       const SizedBox(height: 8),
-                      if (m.momentMax == null)
+                      if (m.mo.momentMax == null)
                         ChartWidget(
-                          height: m.strength * 6,
+                          height: m.mo.strength * 6,
                           width: normWidth,
                           p1: normMuscleRangeStart,
                           p2: (normMuscleRangeStart + normMuscleRangeEnd) /
                               2, // estimate!
                           p3: normMuscleRangeEnd,
                         ),
-                      if (m.momentMax != null)
+                      if (m.mo.momentMax != null)
                         ChartWidget(
-                          height: m.strength * 6,
+                          height: m.mo.strength * 6,
                           width: normWidth,
                           p1: normMuscleRangeStart,
                           p2: normMuscleMomentMax!,

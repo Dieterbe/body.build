@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/util.dart';
@@ -16,7 +15,6 @@ class MuscleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final muscle = Muscle.values.firstWhere((m) => m.name == id);
-    final moves = movements.where((m) => m.muscle == muscle).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +67,8 @@ class MuscleScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge),
                 const Divider(),
                 const SizedBox(height: 8),
-                ...moves.map((m) => Column(
+                // TODO: per head movements!
+                ...muscle.movements.map((m) => Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2),
@@ -87,7 +86,6 @@ class MuscleScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (m.head != null) Text('${m.head!} head only'),
                       ],
                     )),
               ],

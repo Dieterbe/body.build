@@ -55,7 +55,7 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
                 return ListTile(
                   title: Text(articulation.name.camelToTitle()),
                   subtitle: Text(
-                      '${movements.where((m) => m.articulation == articulation).length} known muscle/head movements'),
+                      '${ArticulationMovements(articulation).moves.length} known muscle/head movements'),
                   onTap: () => context.pushNamed(
                     ArticulationScreen.routeName,
                     pathParameters: {"id": articulation.name},
