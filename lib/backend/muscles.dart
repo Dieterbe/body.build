@@ -665,6 +665,11 @@ enum Muscle {
     ..addAll(heads.values.expand((head) => head.movements
         .where((mo) => mo.articulation == a)
         .map((mo) => MovementStruct(this, head.name, mo))));
+
+  List<Articulation> getArticulations() => <Articulation>{
+        ...movements.map((m) => m.articulation),
+        ...heads.values.expand((h) => h.movements.map((m) => m.articulation))
+      }.toList();
 }
 
 class Head {

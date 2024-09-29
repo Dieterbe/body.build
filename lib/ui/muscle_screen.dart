@@ -67,27 +67,43 @@ class MuscleScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge),
                 const Divider(),
                 const SizedBox(height: 8),
-                // TODO: per head movements!
-                ...muscle.movements.map((m) => Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2),
-                          child: ElevatedButton(
-                            onPressed: () => context.pushNamed(
-                              ArticulationScreen.routeName,
-                              pathParameters: {"id": m.articulation.name},
+                DataTable(
+                  columns: [
+                    const DataColumn(label: Text('Articulation')),
+                    const DataColumn(label: Text('Whole muscle')),
+                    ...muscle.heads.values.map(
+                        (h) => DataColumn(label: Text(h.name.camelToTitle()))),
+                  ],
+                  rows: muscle
+                      .getArticulations()
+                      .map<DataRow>((a) => DataRow(cells: [
+                            DataCell(
+                              ElevatedButton(
+                                onPressed: () => context.pushNamed(
+                                  ArticulationScreen.routeName,
+                                  pathParameters: {"id": a.name},
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    // const Iconify(IconParkOutline.muscle, size: 20),
+                                    Text(a.name.camelToTitle()),
+                                  ],
+                                ),
+                              ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                // const Iconify(IconParkOutline.muscle, size: 20),
-                                Text(m.articulation.name.camelToTitle()),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                            DataCell(
+                                muscle.movements.any((m) => m.articulation == a)
+                                    ? const Icon(Icons.check)
+                                    : const Offstage()),
+                            ...muscle.heads.values.map((h) => DataCell(muscle
+                                    .heads[h.name]!.movements
+                                    .any((hm) => hm.articulation == a)
+                                ? const Icon(Icons.check)
+                                : const Offstage())),
+                          ]))
+                      .toList(),
+                ),
               ],
             ),
           ),
