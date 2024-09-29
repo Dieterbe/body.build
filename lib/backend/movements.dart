@@ -397,6 +397,57 @@ final movements = [
     rangeStart: 0,
     rangeEnd: 60,
   ),
+  /*
+	- Deltoids TODO
+		- lateral delt:
+			- shoulder abduction
+			- shoulder flexion (esp when shoulder internally rotated)
+			- horizontal abduction (when shoulder externally rotated)
+		- rear delt:
+			- transverse abduction and extension
+				- (internal rotation, ie extension, gives better leverage)
+			- shoulder extension and hyperextension
+				- best leverage at the side or behind back
+			- external rotation
+	- Gluteals (‘glutes’/butt)
+		- maximus
+		- medius
+		- minimus (invisible)
+			- hip abduction
+			- internal hip rotation during abduction
+		-
+	-
+  */
+  Movement(
+    articulation: Articulation.shoulderTransverseAdduction,
+    muscle: Muscle.deltoidAnterior,
+    strength: 2, // very weak
+  ),
+  Movement(
+    articulation: Articulation.shoulderTransverseFlexion,
+    muscle: Muscle.deltoidAnterior,
+    strength: 4,
+//    				- best leverage horizontal 0 -45degrees, then its pecs
+  ),
+  Movement(
+    // 				- better leverage than pecs, especially with higher arms
+
+    articulation: Articulation.shoulderFlexion,
+    muscle: Muscle.deltoidAnterior,
+    strength: 4,
+  ),
+  Movement(
+    articulation: Articulation.shoulderInternalRotation,
+    muscle: Muscle.deltoidAnterior,
+    strength: 4,
+  ),
+  Movement(
+    // 			- shoulder abduction (when shoulder is externally rotated)
+
+    articulation: Articulation.shoulderAbduction,
+    muscle: Muscle.deltoidAnterior,
+    strength: 4,
+  )
 ];
 
 // the result of compiling all movement information for any given articulation

@@ -216,7 +216,51 @@ enum Muscle {
         'whole': Head(
             name: 'whole', nick: [], origin: [Bone.spineThoracic], articular: 1)
       }),
-  ;
+  deltoidAnterior(
+    nick: ['front delts'],
+    pseudo: false,
+    insertion: Bone.humerus,
+    heads: {
+      'whole': Head(
+        name: 'whole',
+        nick: [],
+        origin: [Bone.clavicle],
+        articular: 1,
+      ),
+    },
+  ),
+  deltoidLateral(
+      nick: ['side delts'],
+      pseudo: false,
+      insertion: Bone.humerus,
+      heads: {
+        'whole': Head(
+          name: 'whole',
+          articular: 1,
+          nick: [],
+          origin: [Bone.scapula],
+        )
+      }),
+  deltoidPosterior(
+      nick: ['rear delts'],
+      pseudo: false,
+      insertion: Bone.humerus,
+      heads: {
+        'whole': Head(
+          name: 'whole',
+          articular: 1,
+          nick: [],
+          origin: [Bone.scapula],
+        )
+      });
+  /*
+
+	- Gluteals (‘glutes’/butt)
+		- maximus
+		- medius
+		- minimus (invisible)
+
+      */
 
   const Muscle({
     required this.nick,
