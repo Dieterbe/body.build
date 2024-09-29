@@ -15,6 +15,14 @@ class MuscleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final muscle = Muscle.values.firstWhere((m) => m.name == id);
+    const strengthColors = [
+      Color.fromARGB(255 ~/ 6, 0, 0, 0),
+      Color.fromARGB(255 * 2 ~/ 6, 0, 0, 0),
+      Color.fromARGB(255 * 3 ~/ 6, 0, 0, 0),
+      Color.fromARGB(255 * 4 ~/ 6, 253, 173, 0),
+      Color.fromARGB(255 * 5 ~/ 6, 255, 102, 0),
+      Color.fromARGB(255, 255, 0, 0),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -94,14 +102,55 @@ class MuscleScreen extends StatelessWidget {
                             ),
                             DataCell(
                                 muscle.movements.any((m) => m.articulation == a)
-                                    ? const Icon(Icons.check)
+                                    ? Icon(
+                                        Icons.check,
+                                        color: strengthColors[muscle.movements
+                                                .firstWhere(
+                                                    (m) => m.articulation == a)
+                                                .strength -
+                                            1],
+                                      )
                                     : const Offstage()),
                             ...muscle.heads.values.map((h) => DataCell(muscle
                                     .heads[h.name]!.movements
                                     .any((hm) => hm.articulation == a)
-                                ? const Icon(Icons.check)
+                                ? Icon(
+                                    Icons.check,
+                                    color: strengthColors[muscle
+                                            .heads[h.name]!.movements
+                                            .firstWhere(
+                                                (m) => m.articulation == a)
+                                            .strength -
+                                        1],
+                                  )
                                 : const Offstage())),
                           ]))
+                      .toList(),
+                ),
+                SizedBox(height: 8),
+
+                Row(
+                  children: [
+                    'trivial',
+                    'very weak',
+                    'weak',
+                    'moderate/unknown',
+                    'strong',
+                    'strongest'
+                  ]
+                      .indexed
+                      .map((e) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                    height: 10,
+                                    width: 10,
+                                    color: strengthColors[e.$1]),
+                                Text(e.$2),
+                              ],
+                            ),
+                          ))
                       .toList(),
                 ),
               ],
