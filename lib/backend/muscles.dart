@@ -3,6 +3,10 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/util.dart';
 
+// TODO: unify extesnion and hyperextension? hyperextension would be >0
+// TODO fix range notations: extension range opposite of flexion range,
+//      such that it's always a positive range movement, possibly starting at <0
+// TODO so range is always wrt to described movement
 enum Muscle {
   pectoralisMajor(
       pseudo: false,
@@ -563,6 +567,7 @@ enum Muscle {
           movements: [],
         )
       }),
+  // standard U length-tension relation. optimum at middle
   deltoidAnterior(
     nick: ['front delts'],
     pseudo: false,
@@ -571,25 +576,31 @@ enum Muscle {
       Movement(
         articulation: Articulation.shoulderTransverseAdduction,
         strength: 2, // very weak
+        rangeStart: 0,
+        rangeEnd: 90,
       ),
       Movement(
         articulation: Articulation.shoulderTransverseFlexion,
-        strength: 4,
-//    				- best leverage horizontal 0 -45degrees, then its pecs
+        strength: 5,
+// best leverage horizontal 0 -45degrees, then its pecs
+        rangeStart: 0,
+        rangeEnd: 90,
       ),
       Movement(
-        // 				- better leverage than pecs, especially with higher arms
-
+        // better leverage than pecs, especially with higher arms
         articulation: Articulation.shoulderFlexion,
-        strength: 4,
+        strength: 6,
+        rangeStart: 0,
+        rangeEnd: 160,
       ),
       Movement(
         articulation: Articulation.shoulderInternalRotation,
         strength: 4,
+        rangeStart: 0,
+        rangeEnd: 70,
       ),
       Movement(
-        // 			- shoulder abduction (when shoulder is externally rotated)
-
+        // (when shoulder is externally rotated)
         articulation: Articulation.shoulderAbduction,
         strength: 4,
       )
@@ -604,11 +615,35 @@ enum Muscle {
       ),
     },
   ),
+  // standard U length-tension relation. optimum at middle
+// weakest at full contraction
   deltoidLateral(
       nick: ['side delts'],
       pseudo: false,
       insertion: Bone.humerus,
-      movements: [],
+      movements: [
+        Movement(
+          // higher up is more leverage, upto at least 12 degrees of flexion
+          articulation: Articulation.shoulderAbduction,
+          strength: 6,
+          rangeStart: 0,
+          rangeEnd: 170,
+        ),
+        Movement(
+          // less than front delts
+          // mainly when shoulder is internally rotated
+          articulation: Articulation.shoulderFlexion,
+          strength: 3,
+          rangeStart: 0,
+          rangeEnd: 160,
+        ),
+        Movement(
+          articulation: Articulation.shoulderTransverseAbduction,
+          strength: 4, // less than rear delts
+          rangeStart: -145,
+          rangeEnd: 45,
+        ),
+      ],
       heads: {
         'whole': Head(
           name: 'whole',
@@ -618,11 +653,58 @@ enum Muscle {
           origin: [Bone.scapula],
         )
       }),
+  // max length is most strong
+  // weak when shortened
   deltoidPosterior(
       nick: ['rear delts'],
       pseudo: false,
       insertion: Bone.humerus,
-      movements: [],
+      movements: [
+        Movement(
+          articulation: Articulation.shoulderTransverseAbduction,
+          rangeStart: -145,
+          rangeEnd: 45,
+          strength: 5, // less leverage than trans. extension
+        ),
+        Movement(
+          articulation: Articulation.shoulderTransverseExtension,
+          strength: 6,
+          rangeStart: -145,
+          rangeEnd: 45,
+        ),
+        Movement(
+            // best leverage at side or behind back
+            // http://doi.org/10.1111/joa.12903
+            // more flexion is less moment arm
+            articulation: Articulation.shoulderExtension,
+            strength: 4,
+            rangeStart: -170,
+            rangeEnd: 0),
+        Movement(
+          // best leverage at side or behind back
+// http://doi.org/10.1111/joa.12903
+          // more flexion is less moment arm
+
+          articulation: Articulation.shoulderHyperExtension,
+          strength:
+              6, // primary mover. pecs/lats can't extend beyond anatomical
+          rangeStart: 0,
+          rangeEnd: 40,
+        ),
+        Movement(
+          articulation: Articulation.shoulderExternalRotation,
+          strength: 4,
+          rangeStart: 0,
+          rangeEnd: 90,
+        ),
+        Movement(
+          // higher up is more leverage, upto at least 12 degrees of flexion
+          articulation: Articulation.shoulderAbduction,
+          strength: 2,
+          rangeStart: 0,
+          rangeEnd: 170,
+        ),
+      ],
       heads: {
         'whole': Head(
           name: 'whole',
