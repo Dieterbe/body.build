@@ -13,9 +13,12 @@ enum Bone {
   spineCervical, // neck
   spineC7T1,
   skull,
-  sacrum,
+  sacrum, // big bone at bottom of spine
   iliacCrest,
   lowerRibs,
   radius,
   radioUlnarJoint,
+  femur, // thigh bone
+  tibia, // lower leg, thick front
+  fibula, // lower leg, thin side bone
 }

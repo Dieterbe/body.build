@@ -7,6 +7,7 @@ import 'package:ptc/util.dart';
 // TODO fix range notations: extension range opposite of flexion range,
 //      such that it's always a positive range movement, possibly starting at <0
 // TODO so range is always wrt to described movement
+// actually no, in the doc it's the other way
 enum Muscle {
   pectoralisMajor(
       pseudo: false,
@@ -713,15 +714,103 @@ enum Muscle {
           nick: [],
           origin: [Bone.scapula],
         )
-      });
-  /*
-
-	- Gluteals (‘glutes’/butt)
-		- maximus
-		- medius
-		- minimus (invisible)
-
-      */
+      }),
+  gluteMaximus(
+    nick: [],
+    pseudo: false,
+    insertion: Bone.femur,
+    movements: [
+      // bend knee -> shorter hammies -> weaker hammies -> glute max primary
+      // straight knee : both hammie and glute max
+      Movement(
+        articulation: Articulation.hipExtension,
+        strength: 6,
+        rangeStart: -120,
+        rangeEnd: 30,
+        momentMax: 0,
+        // https://pubmed.ncbi.nlm.nih.gov/3988782/
+        // leverage best near full extension (anatomical)
+        // most force in anatomic position, decreases with flex
+      ),
+      Movement(
+          // likely mainly upper fibers
+          articulation: Articulation.hipExternalRotation,
+          strength: 4,
+          rangeStart: 0,
+          rangeEnd: 45),
+      Movement(
+          articulation: Articulation.hipTransverseAbduction,
+          strength: 6, // primary when hip is flexed
+          rangeStart: 0,
+          rangeEnd: 50),
+      Movement(
+        articulation: Articulation.hipAbduction,
+        strength:
+            4, // in this case - not bent at the hip - medius and minimus are primary
+        rangeStart: 0,
+        rangeEnd: 50,
+      ),
+      Movement(
+          articulation: Articulation.hipAdduction,
+          strength: 4), // speculatively, lower fibers only
+    ],
+    heads: {
+      'whole': Head(
+        name: 'whole',
+        articular: 1,
+        movements: [],
+        nick: [],
+        origin: [Bone.iliacCrest, Bone.sacrum],
+      ),
+    },
+  ),
+  gluteMedius(
+// wide hips
+    nick: [],
+    pseudo: false,
+    insertion: Bone.femur,
+    // note: rotations are impractical to train, so just focus on hip abduction in extension position
+    movements: [
+      // only up to 90 degrees of hip flexion.
+      // strongest when hip extended, strength weakens as you flex the hip
+      // https://pubmed.ncbi.nlm.nih.gov/3952148/
+      Movement(articulation: Articulation.hipAbduction, strength: 6),
+// during parts of hip abduction
+      Movement(articulation: Articulation.hipExternalRotation, strength: 4),
+// most anterior fibers only. so hopefully something else does this stronger
+      Movement(articulation: Articulation.hipInternalRotation, strength: 4),
+    ],
+    heads: {
+      'whole': Head(
+        name: 'whole',
+        articular: 1,
+        movements: [],
+        nick: [],
+        origin: [Bone.iliacCrest],
+      )
+    },
+  ),
+  gluteMinimus(
+    // invisible muscle
+    nick: [],
+    pseudo: false,
+    insertion: Bone.femur,
+    movements: [
+      Movement(articulation: Articulation.hipAbduction, strength: 6),
+      Movement(
+          articulation: Articulation.hipInternalRotation,
+          strength: 4), // during abduction only. strange movement pattern
+    ],
+    heads: {
+      'whole': Head(
+        name: 'whole',
+        articular: 1,
+        movements: [],
+        nick: [],
+        origin: [Bone.iliacCrest],
+      )
+    },
+  );
 
   const Muscle({
     required this.nick,

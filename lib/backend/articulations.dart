@@ -1,4 +1,9 @@
 enum Articulation {
+  cervicalSpineFlexion(nick: ['neck flexion'], constraint: null),
+  cervicalSpineLateralFlexion(nick: ['neck lateral flexion'], constraint: null),
+  cervicalSpineExtension(nick: ['neck extension'], constraint: null),
+  cervicalSpineHyperExtension(nick: ['neck hyperextension'], constraint: null),
+  cervicalRotation(nick: ['neck rotation'], constraint: null),
   scapularRetraction(
       nick: ['scapular adduction', 'scapular external rotation'],
       constraint: null),
@@ -30,13 +35,15 @@ enum Articulation {
   spinalLateralFlexion(nick: [], constraint: null),
   elbowExtension(nick: [], constraint: null),
   elbowFlexion(nick: [], constraint: null),
-  cervicalSpineFlexion(nick: ['neck flexion'], constraint: null),
-  cervicalSpineLateralFlexion(nick: ['neck lateral flexion'], constraint: null),
-  cervicalSpineExtension(nick: ['neck extension'], constraint: null),
-  cervicalSpineHyperExtension(nick: ['neck hyperextension'], constraint: null),
-  cervicalRotation(nick: ['neck rotation'], constraint: null),
   forearmSupination(nick: [], constraint: null),
-  forearmPronation(nick: [], constraint: null);
+  forearmPronation(nick: [], constraint: null),
+  hipAbduction(nick: [], constraint: null),
+  hipAdduction(nick: [], constraint: null),
+  hipFlexion(nick: [], constraint: null),
+  hipExtension(nick: [], constraint: null),
+  hipInternalRotation(nick: [], constraint: null),
+  hipExternalRotation(nick: [], constraint: null),
+  hipTransverseAbduction(nick: [], constraint: "hip flexed");
 
   const Articulation({
     required this.nick,
