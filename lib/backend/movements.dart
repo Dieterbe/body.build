@@ -31,28 +31,6 @@ class Movement {
 // NOTE: degrees of supination and pronation come from:
 // https://musculoskeletalkey.com/structure-and-function-of-the-elbow-and-forearm-complex/
 
-/*
-	- Deltoids TODO
-		- lateral delt:
-			- shoulder abduction
-			- shoulder flexion (esp when shoulder internally rotated)
-			- horizontal abduction (when shoulder externally rotated)
-		- rear delt:
-			- transverse abduction and extension
-				- (internal rotation, ie extension, gives better leverage)
-			- shoulder extension and hyperextension
-				- best leverage at the side or behind back
-			- external rotation
-	- Gluteals (‘glutes’/butt)
-		- maximus
-		- medius
-		- minimus (invisible)
-			- hip abduction
-			- internal hip rotation during abduction
-		-
-	-
-  */
-
 // the result of compiling all movement information for any given articulation
 class ArticulationMovements {
   final Articulation articulation;

@@ -23,4 +23,5 @@ enum Bone {
   patella, // kneecap
   tibia, // lower leg, thick front
   fibula, // lower leg, thin side bone
+  tibiaFibula // the two lower leg bones
 }

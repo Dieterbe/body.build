@@ -39,6 +39,8 @@ enum Articulation {
   forearmPronation(nick: [], constraint: null),
   kneeFlexion(nick: [], constraint: null),
   kneeExtension(nick: [], constraint: null),
+  kneeInternalRotation(nick: [], constraint: null),
+  kneeExternalRotation(nick: [], constraint: null),
   hipAbduction(nick: [], constraint: null),
   hipAdduction(nick: [], constraint: null),
   hipFlexion(nick: [], constraint: null),
