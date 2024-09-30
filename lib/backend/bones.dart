@@ -15,10 +15,12 @@ enum Bone {
   skull,
   sacrum, // big bone at bottom of spine
   iliacCrest,
+  hip,
   lowerRibs,
   radius,
   radioUlnarJoint,
   femur, // thigh bone
+  patella, // kneecap
   tibia, // lower leg, thick front
   fibula, // lower leg, thin side bone
 }
