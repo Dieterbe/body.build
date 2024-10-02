@@ -14,6 +14,7 @@ class ArticulationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final articulation = Articulation.values.firstWhere((a) => a.name == id);
+    final am = ArticulationMovements(articulation);
     return Scaffold(
       appBar: AppBar(
         title: Text('Articulation: ${articulation.name.camelToTitle()}'),
@@ -23,7 +24,10 @@ class ArticulationScreen extends StatelessWidget {
           children: [
             ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 500),
-                child: RangeWidget(ArticulationMovements(articulation)))
+                child: am.moves.isNotEmpty
+                    ? RangeWidget(am)
+                    : const Text(
+                        'no moves for this articulation. // TODO: display insufficiencies'))
           ],
         ),
       ),

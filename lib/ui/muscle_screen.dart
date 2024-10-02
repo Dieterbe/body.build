@@ -76,6 +76,7 @@ class MuscleScreen extends StatelessWidget {
                 const Divider(),
                 const SizedBox(height: 8),
                 DataTable(
+                  columnSpacing: 24,
                   columns: [
                     const DataColumn(label: Text('Articulation')),
                     const DataColumn(label: Text('Whole muscle')),
@@ -127,7 +128,7 @@ class MuscleScreen extends StatelessWidget {
                           ]))
                       .toList(),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
 
                 Row(
                   children: [

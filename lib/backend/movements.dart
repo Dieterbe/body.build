@@ -41,12 +41,14 @@ class ArticulationMovements {
 
   ArticulationMovements(this.articulation) {
     moves = _getMovements(articulation).toList();
-    assert(moves.isNotEmpty);
+    if (moves.isEmpty) {
+      print('no moves found for $articulation - not doing further processing');
+    }
     final rangeStarts =
         moves.map((m) => m.mo.rangeStart).whereType<int>().toList();
     final rangeEnds = moves.map((m) => m.mo.rangeEnd).whereType<int>().toList();
-    assert(rangeStarts.isNotEmpty);
-    assert(rangeEnds.isNotEmpty);
+    assert(rangeStarts.isNotEmpty, 'no rangeStarts found for $articulation');
+    assert(rangeEnds.isNotEmpty, 'no rangeEnds found for $articulation');
 
     rangeStart = rangeStarts.fold(1000, min);
     rangeEnd = rangeEnds.fold(-1000, max);

@@ -12,7 +12,7 @@ class MusclesScreen extends StatefulWidget {
   const MusclesScreen({super.key});
 
   @override
-  _MusclesScreenState createState() => _MusclesScreenState();
+  State<MusclesScreen> createState() => _MusclesScreenState();
 }
 
 class _MusclesScreenState extends State<MusclesScreen> {

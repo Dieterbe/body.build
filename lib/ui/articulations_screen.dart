@@ -11,7 +11,7 @@ class ArticulationsScreen extends StatefulWidget {
   const ArticulationsScreen({super.key});
 
   @override
-  _ArticulationsScreenState createState() => _ArticulationsScreenState();
+  State<ArticulationsScreen> createState() => _ArticulationsScreenState();
 }
 
 class _ArticulationsScreenState extends State<ArticulationsScreen> {
