@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ptc/backend/articulations.dart';
+import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/util.dart';
+import 'package:collection/collection.dart';
 
 const double chartHeight = 100;
 
@@ -12,17 +15,26 @@ class MuscleScreen extends StatelessWidget {
 
   const MuscleScreen({super.key, required this.id});
 
+  static const strengthStrings = [
+    'trivial',
+    'very weak',
+    'weak',
+    'moderate/unknown',
+    'strong',
+    'strongest'
+  ];
+
+  static const strengthColors = [
+    Color.fromARGB(255 ~/ 6, 0, 0, 0),
+    Color.fromARGB(255 * 2 ~/ 6, 0, 0, 0),
+    Color.fromARGB(255 * 3 ~/ 6, 0, 0, 0),
+    Color.fromARGB(255 * 4 ~/ 6, 253, 173, 0),
+    Color.fromARGB(255 * 5 ~/ 6, 255, 102, 0),
+    Color.fromARGB(255, 255, 0, 0),
+  ];
   @override
   Widget build(BuildContext context) {
     final muscle = Muscle.values.firstWhere((m) => m.name == id);
-    const strengthColors = [
-      Color.fromARGB(255 ~/ 6, 0, 0, 0),
-      Color.fromARGB(255 * 2 ~/ 6, 0, 0, 0),
-      Color.fromARGB(255 * 3 ~/ 6, 0, 0, 0),
-      Color.fromARGB(255 * 4 ~/ 6, 253, 173, 0),
-      Color.fromARGB(255 * 5 ~/ 6, 255, 102, 0),
-      Color.fromARGB(255, 255, 0, 0),
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -79,7 +91,6 @@ class MuscleScreen extends StatelessWidget {
                   columnSpacing: 24,
                   columns: [
                     const DataColumn(label: Text('Articulation')),
-                    const DataColumn(label: Text('Whole muscle')),
                     ...muscle.heads.values.map(
                         (h) => DataColumn(label: Text(h.name.camelToTitle()))),
                   ],
@@ -101,45 +112,17 @@ class MuscleScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            DataCell(
-                                muscle.movements.any((m) => m.articulation == a)
-                                    ? Icon(
-                                        Icons.check,
-                                        color: strengthColors[muscle.movements
-                                                .firstWhere(
-                                                    (m) => m.articulation == a)
-                                                .strength -
-                                            1],
-                                      )
-                                    : const Offstage()),
-                            ...muscle.heads.values.map((h) => DataCell(muscle
-                                    .heads[h.name]!.movements
-                                    .any((hm) => hm.articulation == a)
-                                ? Icon(
-                                    Icons.check,
-                                    color: strengthColors[muscle
-                                            .heads[h.name]!.movements
-                                            .firstWhere(
-                                                (m) => m.articulation == a)
-                                            .strength -
-                                        1],
-                                  )
-                                : const Offstage())),
+                            ...muscle.heads.values.map(
+                              (h) => DataCell(Center(
+                                  child: _checkmarkForHead(muscle, h, a))),
+                            )
                           ]))
                       .toList(),
                 ),
                 const SizedBox(height: 8),
 
                 Row(
-                  children: [
-                    'trivial',
-                    'very weak',
-                    'weak',
-                    'moderate/unknown',
-                    'strong',
-                    'strongest'
-                  ]
-                      .indexed
+                  children: strengthStrings.indexed
                       .map((e) => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -160,6 +143,22 @@ class MuscleScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+// return the movement for the muscle head, if any is found
+// we first look at the head's own movements, and fallback to the
+// ones for the whole muscle
+  Movement? _movementForHead(Muscle muscle, Head head, Articulation a) {
+    return muscle.heads[head.name]!.movements
+            .firstWhereOrNull((m) => m.articulation == a) ??
+        muscle.movements.firstWhereOrNull((m) => m.articulation == a);
+  }
+
+  Widget _checkmarkForHead(Muscle muscle, Head head, Articulation a) {
+    final m = _movementForHead(muscle, head, a);
+    return m != null
+        ? Icon(Icons.check, color: strengthColors[m.strength - 1])
+        : const Offstage();
   }
 }
 
