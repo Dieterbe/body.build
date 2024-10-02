@@ -21,8 +21,16 @@ class RangeWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: LayoutBuilder(builder: (context, constraints) {
+        print('rangeStart ${am.rangeStart}, rangeEnd ${am.rangeEnd}');
         // for display purposes, we adjust the start and end such that we start at 0
         // this makes the following math more easy..probably
+        // this should work for positive ranges, e.g. 45 to 90, -20 to 30
+        // as well as negative ranges, e.g. 90 to 45 or 30 to -20
+        // the new rangeStart is 0 and rangeEnd is either a positive or negative number
+        // the muscles rangeStart, rangeEnd and momentMax will be adjusted with the same offset
+        // since rangeStart is the most "far" value, all other values will either be only positive or only negative
+        // note that all values used for plotting are divided by rangeEnd to "normalize" them, which means
+        // negative numbers will divide by negative and become positive, so we can use them as width integers
         int offset = -am.rangeStart;
         final rangeEnd = am.rangeEnd + offset;
 

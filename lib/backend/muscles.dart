@@ -4,10 +4,7 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/util.dart';
 
 // TODO: unify extesnion and hyperextension? hyperextension would be >0
-// TODO fix range notations: extension range opposite of flexion range,
-//      such that it's always a positive range movement, possibly starting at <0
-// TODO so range is always wrt to described movement
-// actually no, in the doc it's the other way
+// not true, e.g. glute max extension goes below 0
 enum Muscle {
   pectoralisMajor(
       pseudo: false,
@@ -74,16 +71,16 @@ enum Muscle {
           movements: [
             Movement(
               articulation: Articulation.shoulderExtension,
-              rangeStart: 0,
-              rangeEnd: 170,
+              rangeStart: 170,
+              rangeEnd: 0,
               strength: 4,
             ),
             Movement(
               // only the lowest pec fibers are very active at higher angles of shoulder abduction
               // see https://www.sciencedirect.com/science/article/abs/pii/1050641194900175?via%3Dihub
               articulation: Articulation.shoulderAdduction,
-              rangeStart: 0,
-              rangeEnd: 170,
+              rangeStart: 170,
+              rangeEnd: 0,
               strength: 4,
             ),
           ],
@@ -96,12 +93,13 @@ enum Muscle {
     movements: [
       Movement(
         articulation: Articulation.elbowExtension,
-        rangeStart: 0,
-        rangeEnd: 145,
+        rangeStart: 145,
+        rangeEnd: 0,
         momentMax:
             10, // "nearly straight", see https://www.ncbi.nlm.nih.gov/pubmed/20655050
         // Leverage deteriorates with increasing elbow flexion up to around a 20% loss when the arms are fully bent.
-        // The triceps can operate effectively over the full range of elbow extension with relatively little loss of force production capacity when stretched, as it doesn’t change length much, at least when your arms are at your side in the case of the long head
+        // The triceps can operate effectively over the full range of elbow extension with relatively little loss of force production capacity when stretched,
+        // as it doesn’t change length much, at least when your arms are at your side in the case of the long head
         // no other muscle does elbow extension, and its the main function of the triceps
         strength: 6,
       ),
@@ -116,8 +114,8 @@ enum Muscle {
         movements: [
           Movement(
             articulation: Articulation.shoulderExtension,
-            rangeStart: 0,
-            rangeEnd: 170,
+            rangeStart: 170,
+            rangeEnd: 0,
             // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5827912/
             // not really impacted by elbow flexion
             momentMax: 90, // arms are straight forward
@@ -127,7 +125,7 @@ enum Muscle {
           Movement(
             articulation: Articulation.shoulderHyperExtension,
             rangeStart: 0,
-            rangeEnd: 40,
+            rangeEnd: -40,
             // not really impacted by elbow flexion
             strength: 4,
           ),
@@ -178,8 +176,8 @@ enum Muscle {
         // lengthening -> little reduction of force production. so effective over ROM
         articulation: Articulation.shoulderExtension,
         // full muscle, but a bit more emphasis on upper, thoraccic fibers when submax contracting
-        rangeStart: 0,
-        rangeEnd: 170,
+        rangeStart: 170,
+        rangeEnd: 0,
         momentMax:
             45, // beyond 120 or beyond 0 it's zero. at that point it's teres minor, teres major and rear delts
         // main function of lats
@@ -190,8 +188,8 @@ enum Muscle {
         articulation: Articulation.shoulderAdduction,
         // mainly lower, lumbopelvic fibers
         // see https://www.ncbi.nlm.nih.gov/pubmed/7498076
-        rangeStart: 0,
-        rangeEnd: 170,
+        rangeStart: 170,
+        rangeEnd: 0,
         momentMax:
             75, // elbows just below shoulders. but considerably positive over entire ROM
         // second most important function
@@ -460,13 +458,13 @@ enum Muscle {
             Movement(
                 articulation: Articulation.cervicalSpineExtension,
                 strength: 1, // weak for growth
-                rangeStart: 0,
-                rangeEnd: 65),
+                rangeStart: 65,
+                rangeEnd: 0),
             Movement(
                 articulation: Articulation.cervicalSpineHyperExtension,
                 strength: 1, // weak for growth
                 rangeStart: 0,
-                rangeEnd: 40),
+                rangeEnd: -40),
             Movement(
                 articulation: Articulation.cervicalRotation,
                 strength: 2, // weak
@@ -679,7 +677,7 @@ enum Muscle {
             // more flexion is less moment arm
             articulation: Articulation.shoulderExtension,
             strength: 4,
-            rangeStart: -170,
+            rangeStart: 170,
             rangeEnd: 0),
         Movement(
           // best leverage at side or behind back
@@ -690,7 +688,7 @@ enum Muscle {
           strength:
               6, // primary mover. pecs/lats can't extend beyond anatomical
           rangeStart: 0,
-          rangeEnd: 40,
+          rangeEnd: -40,
         ),
         Movement(
           articulation: Articulation.shoulderExternalRotation,
@@ -725,8 +723,8 @@ enum Muscle {
       Movement(
         articulation: Articulation.hipExtension,
         strength: 6,
-        rangeStart: -120,
-        rangeEnd: 30,
+        rangeStart: 120,
+        rangeEnd: -30,
         momentMax: 0,
         // https://pubmed.ncbi.nlm.nih.gov/3988782/
         // leverage best near full extension (anatomical)
@@ -752,7 +750,9 @@ enum Muscle {
       ),
       Movement(
           articulation: Articulation.hipAdduction,
-          strength: 4), // speculatively, lower fibers only
+          strength: 4,
+          rangeStart: 30,
+          rangeEnd: 0), // speculatively, lower fibers only
     ],
     heads: {
       'whole': Head(
@@ -774,7 +774,12 @@ enum Muscle {
       // only up to 90 degrees of hip flexion.
       // strongest when hip extended, strength weakens as you flex the hip
       // https://pubmed.ncbi.nlm.nih.gov/3952148/
-      Movement(articulation: Articulation.hipAbduction, strength: 6),
+      Movement(
+        articulation: Articulation.hipAbduction,
+        strength: 6,
+        rangeStart: 0,
+        rangeEnd: 90,
+      ),
 // during parts of hip abduction
       Movement(articulation: Articulation.hipExternalRotation, strength: 4),
 // most anterior fibers only. so hopefully something else does this stronger
