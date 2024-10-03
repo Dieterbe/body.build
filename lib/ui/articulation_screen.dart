@@ -32,7 +32,9 @@ class ArticulationScreen extends StatelessWidget {
               children: direct.map((a) => ArticulationButton(a)).toList(),
             ),
             const SizedBox(height: 8),
-            Row(
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children:
                   indirect.map((a) => ArticulationButton(a, size: 10)).toList(),
             ),
