@@ -30,3 +30,20 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+refactor stuff:
+* sometimes it's not clear what is a muscle vs what is a head. e.g. quadriceps,
+* deltoids seperate muscles or heads?
+* calves 2 muscles, one of which has 2 heads
+* spinal erectors.
+
+why does it matter?
+- bundle them in UI on muscles overview
+- when looking at functions, i want to see gastroc and soleus together. the 3 delts together, etc
+
+solutions?
+* a 3 tier structure?
+* do we need more flexibility, e.g. arbitrary "collections" of muscles? or "tags" ?
+
+- why do we need this 'whole' head stuff again? for props when a muscle has only 1 head? is there a cleaner way?
