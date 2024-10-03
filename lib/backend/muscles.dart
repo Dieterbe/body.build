@@ -121,7 +121,7 @@ enum Muscle {
             strength: 2,
           ),
           Movement(
-            articulation: Articulation.shoulderHyperExtension,
+            articulation: Articulation.shoulderHyperextension,
             rangeStart: 0,
             rangeEnd: -40,
             // not really impacted by elbow flexion
@@ -459,12 +459,12 @@ enum Muscle {
                 rangeStart: 65,
                 rangeEnd: 0),
             Movement(
-                articulation: Articulation.cervicalSpineHyperExtension,
+                articulation: Articulation.cervicalSpineHyperextension,
                 strength: 1, // weak for growth
                 rangeStart: 0,
                 rangeEnd: -40),
             Movement(
-                articulation: Articulation.cervicalRotation,
+                articulation: Articulation.cervicalSpineRotation,
                 strength: 2, // weak
                 rangeStart: 0,
                 rangeEnd: 30),
@@ -682,7 +682,7 @@ enum Muscle {
 // http://doi.org/10.1111/joa.12903
           // more flexion is less moment arm
 
-          articulation: Articulation.shoulderHyperExtension,
+          articulation: Articulation.shoulderHyperextension,
           strength:
               6, // primary mover. pecs/lats can't extend beyond anatomical
           rangeStart: 0,
@@ -1048,6 +1048,94 @@ enum Muscle {
         name: 'whole',
         articular: 1,
         origin: [Bone.tibiaFibula],
+      )
+    },
+  ),
+  // spinal erectors aka erector spinae
+  // group of muscles that stabilize the vertebral column
+  erectorSpinae(
+    nick: [],
+    pseudo: false,
+    insertion: Bone.spine,
+    movements: [
+      Movement(
+        articulation: Articulation.spinalExtension,
+        rangeStart: 85,
+        rangeEnd: 0,
+        strength: 6,
+      ),
+      Movement(
+        articulation: Articulation.spinalHyperextension,
+        rangeStart: 0,
+        rangeEnd: -25,
+        strength: 6,
+      ),
+    ],
+    heads: {
+      // the biggest one
+      'longissimus': Head(
+        nick: [],
+        movements: [
+          Movement(
+            articulation: Articulation.cervicalSpineLateralFlexion,
+            strength: 4,
+            rangeStart: 0,
+            rangeEnd: 45,
+          ),
+          Movement(
+            articulation: Articulation.cervicalSpineRotation,
+            strength: 2,
+            rangeStart: 0,
+            rangeEnd: 80,
+          )
+        ],
+        name: 'longissimus',
+        articular: 1,
+        origin: [Bone.spine],
+      ),
+      // most lateral (outside)
+
+      'iliocostalis': Head(
+        nick: [],
+        movements: [
+          Movement(
+            articulation: Articulation.spinalLateralFlexion,
+            strength: 4,
+            rangeStart: 0,
+            rangeEnd: 45,
+          ),
+          Movement(
+            articulation: Articulation.spinalRotationLumbarThoracic,
+            strength: 2,
+            rangeStart: 0,
+            rangeEnd: 80,
+          )
+        ],
+        name: 'iliocostalis',
+        articular: 1,
+        origin: [Bone.iliacCrest],
+      ),
+      // closest to spine (medial)
+
+      'spinalis': Head(
+        nick: [],
+        movements: [
+          Movement(
+            articulation: Articulation.cervicalSpineLateralFlexion,
+            strength: 4,
+            rangeStart: 0,
+            rangeEnd: 45,
+          ),
+          Movement(
+            articulation: Articulation.cervicalSpineRotation,
+            strength: 2,
+            rangeStart: 0,
+            rangeEnd: 80,
+          )
+        ],
+        name: 'spinalis',
+        articular: 1,
+        origin: [Bone.spine],
       )
     },
   );

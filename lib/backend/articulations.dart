@@ -2,8 +2,8 @@ enum Articulation {
   cervicalSpineFlexion(nick: ['neck flexion'], constraint: null),
   cervicalSpineLateralFlexion(nick: ['neck lateral flexion'], constraint: null),
   cervicalSpineExtension(nick: ['neck extension'], constraint: null),
-  cervicalSpineHyperExtension(nick: ['neck hyperextension'], constraint: null),
-  cervicalRotation(nick: ['neck rotation'], constraint: null),
+  cervicalSpineHyperextension(nick: ['neck hyperextension'], constraint: null),
+  cervicalSpineRotation(nick: ['neck rotation'], constraint: null),
   scapularRetraction(
       nick: ['scapular adduction', 'scapular external rotation'],
       constraint: null),
@@ -28,12 +28,14 @@ enum Articulation {
   shoulderExternalRotation(nick: ['arm external rotation'], constraint: null),
   shoulderFlexion(nick: [], constraint: null),
   shoulderExtension(nick: [], constraint: null),
-  shoulderHyperExtension(nick: [], constraint: null),
+  shoulderHyperextension(nick: [], constraint: null),
   shoulderAdduction(nick: [], constraint: null),
   shoulderAbduction(nick: [], constraint: null),
   spinalExtension(nick: [], constraint: null),
+  spinalHyperextension(nick: [], constraint: null),
   spinalFlexion(nick: [], constraint: null),
   spinalRotation(nick: [], constraint: null),
+  spinalRotationLumbarThoracic(nick: [], constraint: null),
   spinalLateralFlexion(nick: [], constraint: null),
   elbowExtension(nick: [], constraint: null),
   elbowFlexion(nick: [], constraint: null),
@@ -74,7 +76,7 @@ final _articulationRelated = [
     [
       Articulation.cervicalSpineFlexion,
       Articulation.cervicalSpineExtension,
-      Articulation.cervicalSpineHyperExtension,
+      Articulation.cervicalSpineHyperextension,
     ],
     [
       Articulation.spinalFlexion,
@@ -111,7 +113,7 @@ final _articulationRelated = [
     [
       Articulation.shoulderFlexion,
       Articulation.shoulderExtension,
-      Articulation.shoulderHyperExtension,
+      Articulation.shoulderHyperextension,
     ],
     [
       Articulation.shoulderAdduction,

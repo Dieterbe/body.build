@@ -24,5 +24,6 @@ enum Bone {
   tibia, // lower leg, thick front
   fibula, // lower leg, thin side bone
   tibiaFibula, // the two lower leg bones
-  heel
+  heel,
+  spine
 }
