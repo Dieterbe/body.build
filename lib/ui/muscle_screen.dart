@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:ptc/backend/articulations.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
-import 'package:ptc/ui/articulation_screen.dart';
+import 'package:ptc/ui/articulation_button.dart';
 import 'package:ptc/util.dart';
 import 'package:collection/collection.dart';
 
@@ -98,19 +97,7 @@ class MuscleScreen extends StatelessWidget {
                       .getArticulations()
                       .map<DataRow>((a) => DataRow(cells: [
                             DataCell(
-                              ElevatedButton(
-                                onPressed: () => context.pushNamed(
-                                  ArticulationScreen.routeName,
-                                  pathParameters: {"id": a.name},
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    // const Iconify(IconParkOutline.muscle, size: 20),
-                                    Text(a.name.camelToTitle()),
-                                  ],
-                                ),
-                              ),
+                              ArticulationButton(a),
                             ),
                             ...muscle.heads.values.map(
                               (h) => DataCell(Center(

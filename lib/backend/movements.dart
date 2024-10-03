@@ -39,6 +39,7 @@ class ArticulationMovements {
   final Articulation articulation;
   late List<MovementStruct> moves;
 
+  late bool hasRange;
   late int rangeStart;
   late int rangeEnd;
 
@@ -46,6 +47,7 @@ class ArticulationMovements {
     moves = _getMovements(articulation).toList();
     if (moves.isEmpty) {
       print('no moves found for $articulation - not doing further processing');
+      hasRange = false;
       return;
     }
     for (var m in moves) {
@@ -55,9 +57,17 @@ class ArticulationMovements {
     final rangeStarts =
         moves.map((m) => m.mo.rangeStart).whereType<int>().toList();
     final rangeEnds = moves.map((m) => m.mo.rangeEnd).whereType<int>().toList();
-    assert(rangeStarts.isNotEmpty, 'no rangeStarts found for $articulation');
-    assert(rangeEnds.isNotEmpty, 'no rangeEnds found for $articulation');
-
+    if (rangeStarts.isEmpty) {
+      print('no rangeStarts found for $articulation');
+      hasRange = false;
+      return;
+    }
+    if (rangeEnds.isEmpty) {
+      print('no rangeEnds found for $articulation');
+      hasRange = false;
+      return;
+    }
+    hasRange = true;
     // the movement could happen from a low value to a high, or vice versa
     // therefore, to figure out the full range, we must account for this
 

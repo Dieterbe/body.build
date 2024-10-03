@@ -18,6 +18,30 @@ class RangeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!am.hasRange) {
+      return Container(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ...am.moves.map((m) {
+                return Column(
+                  children: [
+                    MuscleButton(muscle: m.muscle, head: m.head),
+                    const SizedBox(height: 8),
+                    const Text('not enough range information known'),
+                    // we might know the strength / momentMax. so maybe we can plot something...
+                  ],
+                );
+              }),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: LayoutBuilder(builder: (context, constraints) {

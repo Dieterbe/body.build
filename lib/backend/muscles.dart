@@ -3,8 +3,6 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/util.dart';
 
-// TODO: unify extesnion and hyperextension? hyperextension would be >0
-// not true, e.g. glute max extension goes below 0
 enum Muscle {
   pectoralisMajor(
       pseudo: false,
