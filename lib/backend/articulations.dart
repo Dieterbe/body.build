@@ -47,6 +47,8 @@ enum Articulation {
   kneeExternalRotation(nick: [], constraint: null),
   anklePlantarFlexion(nick: [], constraint: null),
   ankleDorsiFlexion(nick: [], constraint: null),
+  intraAbdominalPressure(
+      nick: ["IAP"], constraint: "not an actual articulation"),
   hipAbduction(nick: [], constraint: null),
   hipAdduction(nick: [], constraint: null),
   hipFlexion(nick: [], constraint: null),
