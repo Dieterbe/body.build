@@ -194,8 +194,12 @@ class RangeWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(width: 24),
-                        Text(
-                            '(height corresponds to muscle strength for this movement)'),
+                        Flexible(
+                          child: Text(
+                            '(height corresponds to muscle strength for this movement)',
+                            softWrap: true,
+                          ),
+                        ),
                       ],
                     ),
                   ],

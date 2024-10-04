@@ -108,19 +108,17 @@ class MuscleScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
 
-                Row(
+                Wrap(
+                  spacing: 4,
                   children: strengthStrings.indexed
-                      .map((e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: 10,
-                                    width: 10,
-                                    color: strengthColors[e.$1]),
-                                Text(e.$2),
-                              ],
-                            ),
+                      .map((e) => Column(
+                            children: [
+                              Container(
+                                  height: 10,
+                                  width: 10,
+                                  color: strengthColors[e.$1]),
+                              Text(e.$2),
+                            ],
                           ))
                       .toList(),
                 ),
