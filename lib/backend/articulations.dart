@@ -53,6 +53,8 @@ enum Articulation {
   hipAdduction(nick: [], constraint: null),
   hipFlexion(nick: [], constraint: null),
   hipExtension(nick: [], constraint: null),
+  wristExtension(nick: [], constraint: null),
+  wristFlexion(nick: [], constraint: null),
   hipInternalRotation(nick: [], constraint: null),
   hipExternalRotation(nick: [], constraint: null),
   hipTransverseAbduction(nick: [], constraint: "hip flexed"),

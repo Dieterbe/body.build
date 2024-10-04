@@ -27,5 +27,6 @@ enum Bone {
   heel,
   spine,
   pelvis,
-  pubicCrest
+  pubicCrest,
+  hand
 }

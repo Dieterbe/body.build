@@ -837,7 +837,7 @@ enum Muscle {
           nick: [],
           activeInsufficiency: Insufficiency(
             comment:
-                'fully contracted at knee and hip (lean back during knee extensions to simulate rectus femoris)',
+                'fully contracted at knee and hip (lean back during knee extensions to stimulate rectus femoris)',
             factors: [
               InsufficiencyFactor(Articulation.kneeFlexion, 0),
               InsufficiencyFactor(Articulation.hipFlexion, 140)
@@ -1212,7 +1212,62 @@ enum Muscle {
           articular: 1,
           origin: [Bone.spine],
         )
-      });
+      }),
+  wristExtensors(
+    nick: [],
+    pseudo: true,
+    insertion: Bone.hand,
+    heads: {},
+    movements: [
+      Movement(
+        articulation: Articulation.wristExtension,
+        strength: 6,
+        rangeStart: 0,
+        rangeEnd: 80,
+      ),
+    ],
+  ),
+  wristFlexors(
+    nick: [],
+    pseudo: true,
+    insertion: Bone.hand,
+    heads: {},
+    movements: [
+      Movement(
+        articulation: Articulation.wristFlexion,
+        strength: 6,
+        rangeStart: 0,
+        rangeEnd: 90,
+      ),
+    ],
+  ),
+  neckFlexors(
+      nick: [],
+      pseudo: true,
+      insertion: Bone.spineCervical,
+      heads: {},
+      movements: [
+        Movement(
+          articulation: Articulation.cervicalSpineFlexion,
+          strength: 6,
+          rangeStart: 0,
+          rangeEnd: 40,
+        ),
+      ]),
+  neckExtensors(
+    nick: [],
+    pseudo: true,
+    insertion: Bone.spineCervical,
+    heads: {},
+    movements: [
+      Movement(
+        articulation: Articulation.cervicalSpineExtension,
+        strength: 6,
+        rangeStart: 0,
+        rangeEnd: 35,
+      ),
+    ],
+  );
 
   const Muscle({
     required this.nick,
