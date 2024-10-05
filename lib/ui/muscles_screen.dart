@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/muscle_screen.dart';
-import 'package:ptc/util.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_outline.dart';
 

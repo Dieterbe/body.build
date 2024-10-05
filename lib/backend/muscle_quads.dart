@@ -1,0 +1,68 @@
+import 'package:ptc/backend/articulations.dart';
+import 'package:ptc/backend/bones.dart';
+import 'package:ptc/backend/movements.dart';
+import 'package:ptc/backend/muscles.dart';
+
+final quadricepsFemoris = Muscle(
+    nick: ['quads'],
+    pseudo: false,
+    insertion: Bone.patella,
+    movements: [
+      const Movement(
+        articulation: Articulation.kneeExtension,
+        rangeStart: 150,
+        rangeEnd: 0,
+        momentMax:
+            45, // leverage close to optimal up to full extension. bending more than 45 deteriorates leverage
+        // most tension in anatomical position, bending produces less force
+        strength: 6, // quads are the only knee extensors
+      )
+    ],
+    heads: {
+      'rectus femoris': const Head(
+        origin: [Bone.hip],
+        articular: 2,
+        name: 'rectus femoris',
+        nick: [],
+        activeInsufficiency: Insufficiency(
+          comment:
+              'fully contracted at knee and hip (lean back during knee extensions to stimulate rectus femoris)',
+          factors: [
+            InsufficiencyFactor(Articulation.kneeFlexion, 0),
+            InsufficiencyFactor(Articulation.hipFlexion, 140)
+          ],
+        ),
+        movements: [
+          Movement(
+              articulation: Articulation.hipFlexion,
+              strength: 6,
+              rangeStart: 0,
+              momentMax:
+                  0, // pull up knees worsens moment. https://www.ncbi.nlm.nih.gov/pubmed/2079066
+              // tesnion-> length best in anatomic position, worsens when lengthen or contracts
+              rangeEnd: 140),
+        ],
+      ),
+      'vastus lateralis': const Head(
+        articular: 1,
+        origin: [Bone.femur],
+        name: 'vastus lateralis',
+        nick: [],
+        movements: [],
+      ),
+      'vastus intermedius': const Head(
+        articular: 1,
+        origin: [Bone.femur],
+        name: 'vastus intermedius',
+        nick: [],
+        movements: [],
+      ),
+      // includes VMO
+      'vastus medialis': const Head(
+        articular: 1,
+        origin: [Bone.femur],
+        name: 'vastus medialis',
+        nick: [],
+        movements: [],
+      ),
+    });
