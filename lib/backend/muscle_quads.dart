@@ -3,9 +3,8 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final quadricepsFemoris = Muscle(
+final quadricepsFemoris = MultiHeadMuscle(
     nick: ['quads'],
-    pseudo: false,
     insertion: Bone.patella,
     movements: [
       const Movement(
@@ -23,7 +22,6 @@ final quadricepsFemoris = Muscle(
         origin: [Bone.hip],
         articular: 2,
         name: 'rectus femoris',
-        nick: [],
         activeInsufficiency: Insufficiency(
           comment:
               'fully contracted at knee and hip (lean back during knee extensions to stimulate rectus femoris)',
@@ -44,25 +42,19 @@ final quadricepsFemoris = Muscle(
         ],
       ),
       'vastus lateralis': const Head(
-        articular: 1,
         origin: [Bone.femur],
         name: 'vastus lateralis',
-        nick: [],
         movements: [],
       ),
       'vastus intermedius': const Head(
-        articular: 1,
         origin: [Bone.femur],
         name: 'vastus intermedius',
-        nick: [],
         movements: [],
       ),
       // includes VMO
       'vastus medialis': const Head(
-        articular: 1,
         origin: [Bone.femur],
         name: 'vastus medialis',
-        nick: [],
         movements: [],
       ),
     });

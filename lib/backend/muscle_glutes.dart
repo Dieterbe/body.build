@@ -3,9 +3,7 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final gluteMaximus = Muscle(
-  nick: [],
-  pseudo: false,
+final gluteMaximus = SingleHeadMuscle(
   insertion: Bone.femur,
   movements: [
     // bend knee -> shorter hammies -> weaker hammies -> glute max primary
@@ -44,20 +42,10 @@ final gluteMaximus = Muscle(
         rangeStart: 30,
         rangeEnd: 0), // speculatively, lower fibers only
   ],
-  heads: {
-    'whole': const Head(
-      name: 'whole',
-      articular: 1,
-      movements: [],
-      nick: [],
-      origin: [Bone.iliacCrest, Bone.sacrum],
-    ),
-  },
+  origin: [Bone.iliacCrest, Bone.sacrum],
 );
-final gluteMedius = Muscle(
+final gluteMedius = SingleHeadMuscle(
 // wide hips
-  nick: [],
-  pseudo: false,
   insertion: Bone.femur,
   // note: rotations are impractical to train, so just focus on hip abduction in extension position
   movements: [
@@ -75,20 +63,10 @@ final gluteMedius = Muscle(
 // most anterior fibers only. so hopefully something else does this stronger
     const Movement(articulation: Articulation.hipInternalRotation, strength: 4),
   ],
-  heads: {
-    'whole': const Head(
-      name: 'whole',
-      articular: 1,
-      movements: [],
-      nick: [],
-      origin: [Bone.iliacCrest],
-    )
-  },
+  origin: [Bone.iliacCrest],
 );
-final gluteMinimus = Muscle(
+final gluteMinimus = SingleHeadMuscle(
   // invisible muscle
-  nick: [],
-  pseudo: false,
   insertion: Bone.femur,
   movements: [
     const Movement(articulation: Articulation.hipAbduction, strength: 6),
@@ -96,13 +74,5 @@ final gluteMinimus = Muscle(
         articulation: Articulation.hipInternalRotation,
         strength: 4), // during abduction only. strange movement pattern
   ],
-  heads: {
-    'whole': const Head(
-      name: 'whole',
-      articular: 1,
-      movements: [],
-      nick: [],
-      origin: [Bone.iliacCrest],
-    )
-  },
+  origin: [Bone.iliacCrest],
 );

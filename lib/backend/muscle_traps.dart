@@ -6,7 +6,7 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final trapeziusUpper = Muscle(
+final trapeziusUpper = MultiHeadMuscle(
     nick: ['upper traps'],
     pseudo: true,
     insertion: Bone.clavicle,
@@ -21,7 +21,6 @@ final trapeziusUpper = Muscle(
     heads: {
       'upper fibers': const Head(
         name: 'upper fibers',
-        nick: [],
         origin: [
           Bone.skull,
         ],
@@ -67,7 +66,6 @@ final trapeziusUpper = Muscle(
       ),
       'lower fibers': const Head(
         name: 'lower fibers',
-        nick: [],
         origin: [Bone.spineCervical],
         articular: 2,
         movements: [
@@ -80,66 +78,52 @@ final trapeziusUpper = Muscle(
         ],
       ),
     });
-final trapeziusMiddle = Muscle(
-    nick: ['middle traps'],
-    pseudo: true,
-    insertion: Bone.scapula,
-    movements: [
-      const Movement(
-          articulation: Articulation.scapularRetraction, // main function
-          strength: 4,
-          rangeStart: 0,
-          rangeEnd: 25),
-      const Movement(
-        articulation: Articulation.scapularElevation,
-        strength: 2, // very weak. don't count it
-        rangeStart: 0,
-        rangeEnd: 60,
-      ),
-      const Movement(
-        // don't typically target this with training. occurs during overhead pressing
-        articulation: Articulation.scapularUpwardRotation,
-        strength: 4,
-        rangeStart: 0, rangeEnd: 60,
-      ),
-    ],
-    heads: {
-      'whole': const Head(
-        name: 'whole',
-        nick: [],
-        origin: [Bone.spineC7T1],
-        articular: 1,
-        movements: [],
-      ),
-    });
-final trapeziusLower = Muscle(
-    nick: ['lower traps'],
-    pseudo: true,
-    insertion: Bone.scapula,
-    movements: [
-      const Movement(
-          articulation: Articulation.scapularDepression,
-          strength: 4,
-          rangeStart: 0,
-          rangeEnd: 10),
-      const Movement(
-          articulation: Articulation.scapularRetraction,
-          strength: 4,
-          rangeStart: 0,
-          rangeEnd: 25),
-      const Movement(
-        articulation: Articulation.scapularUpwardRotation,
+final trapeziusMiddle = SingleHeadMuscle(
+  nick: ['middle traps'],
+  pseudo: true,
+  insertion: Bone.scapula,
+  movements: [
+    const Movement(
+        articulation: Articulation.scapularRetraction, // main function
         strength: 4,
         rangeStart: 0,
-        rangeEnd: 60,
-      ),
-    ],
-    heads: {
-      'whole': const Head(
-        name: 'whole',
-        nick: [],
-        origin: [Bone.spineThoracic],
-        articular: 1,
-        movements: [],
-      )
-    });
+        rangeEnd: 25),
+    const Movement(
+      articulation: Articulation.scapularElevation,
+      strength: 2, // very weak. don't count it
+      rangeStart: 0,
+      rangeEnd: 60,
+    ),
+    const Movement(
+      // don't typically target this with training. occurs during overhead pressing
+      articulation: Articulation.scapularUpwardRotation,
+      strength: 4,
+      rangeStart: 0, rangeEnd: 60,
+    ),
+  ],
+  origin: [Bone.spineC7T1],
+);
+final trapeziusLower = SingleHeadMuscle(
+  nick: ['lower traps'],
+  pseudo: true,
+  insertion: Bone.scapula,
+  movements: [
+    const Movement(
+        articulation: Articulation.scapularDepression,
+        strength: 4,
+        rangeStart: 0,
+        rangeEnd: 10),
+    const Movement(
+        articulation: Articulation.scapularRetraction,
+        strength: 4,
+        rangeStart: 0,
+        rangeEnd: 25),
+    const Movement(
+      articulation: Articulation.scapularUpwardRotation,
+      strength: 4,
+      rangeStart: 0,
+      rangeEnd: 60,
+    ),
+  ],
+  origin: [Bone.spineThoracic],
+);

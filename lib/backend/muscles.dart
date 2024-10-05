@@ -32,20 +32,16 @@ enum MuscleName {
   neckExtensors,
 }
 
-class Muscle {
+sealed class Muscle {
   Muscle({
     this.nick = const [],
     this.pseudo = false,
     required this.insertion,
-    required this.heads,
-    required this.movements,
   });
 
   final List<String> nick;
   final bool pseudo;
   final Bone insertion;
-  final List<Movement> movements;
-  final Map<String, Head> heads;
 
   String nameWithHead(String? head) =>
       name.camelToTitle() + (head != null ? ' ($head head)' : '');
@@ -64,18 +60,57 @@ class Muscle {
       }.toList();
 }
 
+class MultiHeadMuscle extends Muscle {
+  final List<Movement> movements;
+  final Map<String, Head> heads;
+
+  MultiHeadMuscle({
+    // required super.name,
+    super.nick,
+    super.pseudo,
+    required super.insertion,
+    required this.movements,
+    required this.heads,
+  });
+}
+
+class SingleHeadMuscle extends Muscle {
+  late Head wholeHead;
+
+  SingleHeadMuscle({
+    //required super.name,
+    super.nick,
+    super.pseudo,
+    required super.insertion,
+    // head properties
+    required List<Bone> origin,
+    int articular = 1,
+    required List<Movement> movements,
+    Insufficiency? activeInsufficiency,
+    Insufficiency? passiveInsufficiency,
+  }) {
+    wholeHead = Head(
+      origin: origin,
+      articular: articular,
+      movements: movements,
+      activeInsufficiency: activeInsufficiency,
+      passiveInsufficiency: passiveInsufficiency,
+    );
+  }
+}
+
 class Head {
   const Head({
-    required this.name,
-    required this.nick,
+    this.name,
+    this.nick = const [],
     required this.origin,
-    required this.articular,
+    this.articular = 1,
     required this.movements,
     this.activeInsufficiency,
     this.passiveInsufficiency,
   });
 
-  final String name;
+  final String? name;
   final List<String> nick;
   final List<Bone> origin;
   final int articular;

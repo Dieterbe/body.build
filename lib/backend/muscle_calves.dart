@@ -4,9 +4,7 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final gastrocnemius = Muscle(
-  nick: [],
-  pseudo: false,
+final gastrocnemius = MultiHeadMuscle(
   movements: [
     const Movement(
       articulation: Articulation.anklePlantarFlexion,
@@ -34,14 +32,12 @@ final gastrocnemius = Muscle(
   insertion: Bone.heel,
   heads: {
     'medial': const Head(
-      nick: [],
       movements: [],
       articular: 2,
       name: 'medial',
       origin: [Bone.femur],
     ),
     'lateral': const Head(
-      nick: [],
       movements: [],
       name: 'lateral',
       articular: 2,
@@ -49,10 +45,9 @@ final gastrocnemius = Muscle(
     ),
   },
 );
-final soleus = Muscle(
-  nick: [],
-  pseudo: false,
+final soleus = SingleHeadMuscle(
   insertion: Bone.heel,
+  origin: [Bone.tibiaFibula],
   movements: [
     const Movement(
       articulation: Articulation.anklePlantarFlexion,
@@ -61,13 +56,4 @@ final soleus = Muscle(
       rangeEnd: 50,
     ),
   ],
-  heads: {
-    'whole': const Head(
-      nick: [],
-      movements: [],
-      name: 'whole',
-      articular: 1,
-      origin: [Bone.tibiaFibula],
-    )
-  },
 );

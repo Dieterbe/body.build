@@ -3,8 +3,7 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final tricepsBrachii = Muscle(
-  pseudo: false,
+final tricepsBrachii = MultiHeadMuscle(
   nick: ['tris'],
   insertion: Bone.ulna,
   movements: [
@@ -25,7 +24,6 @@ final tricepsBrachii = Muscle(
     // inside of arm
     'long': const Head(
       name: 'long',
-      nick: [],
       origin: [Bone.scapula],
       articular: 2,
       movements: [
@@ -56,16 +54,14 @@ final tricepsBrachii = Muscle(
     // outside of arm
     'lateral': const Head(
       name: 'lateral',
-      nick: [],
       origin: [Bone.humerus], // top of
-      articular: 1, movements: [],
+      movements: [],
     ),
     // covered
     'medial': const Head(
       name: 'medial',
-      nick: [],
       origin: [Bone.humerus], // middle of
-      articular: 1, movements: [],
+      movements: [],
       activeInsufficiency: Insufficiency(
         comment: "arm extended behind body",
         factors: [

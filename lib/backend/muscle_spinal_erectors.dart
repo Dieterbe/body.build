@@ -5,9 +5,7 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final erectorSpinae = Muscle(
-  nick: [],
-  pseudo: false,
+final erectorSpinae = MultiHeadMuscle(
   insertion: Bone.spine,
   movements: [
     const Movement(
@@ -26,7 +24,6 @@ final erectorSpinae = Muscle(
   heads: {
     // the biggest one
     'longissimus': const Head(
-      nick: [],
       movements: [
         Movement(
           articulation: Articulation.cervicalSpineLateralFlexion,
@@ -42,13 +39,11 @@ final erectorSpinae = Muscle(
         )
       ],
       name: 'longissimus',
-      articular: 1,
       origin: [Bone.spine],
     ),
     // most lateral (outside)
 
     'iliocostalis': const Head(
-      nick: [],
       movements: [
         Movement(
           articulation: Articulation.spinalLateralFlexion,
@@ -64,13 +59,11 @@ final erectorSpinae = Muscle(
         )
       ],
       name: 'iliocostalis',
-      articular: 1,
       origin: [Bone.iliacCrest],
     ),
     // closest to spine (medial)
 
     'spinalis': const Head(
-      nick: [],
       movements: [
         Movement(
           articulation: Articulation.cervicalSpineLateralFlexion,
@@ -86,7 +79,6 @@ final erectorSpinae = Muscle(
         )
       ],
       name: 'spinalis',
-      articular: 1,
       origin: [Bone.spine],
     )
   },

@@ -5,9 +5,8 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final forearmPronators = Muscle(
+final forearmPronators = SingleHeadMuscle(
   pseudo: true,
-  nick: [],
   insertion: Bone.radioUlnarJoint,
   movements: [
     const Movement(
@@ -17,26 +16,15 @@ final forearmPronators = Muscle(
       strength: 5,
     ),
   ],
-  heads: {
-    'whole': const Head(
-      name: 'whole',
-      nick: [],
-      origin: [
-        Bone.humerus,
-      ],
-      articular: 1,
-      movements: [],
-    )
-  },
+  origin: [Bone.humerus],
 );
 
-final wristExtensors = Muscle(
-  nick: [],
+final wristExtensors = SingleHeadMuscle(
   pseudo: true,
+  origin: [Bone.radius], // just a guess
   insertion: Bone.hand,
-  heads: {},
   movements: [
-    Movement(
+    const Movement(
       articulation: Articulation.wristExtension,
       strength: 6,
       rangeStart: 0,
@@ -44,13 +32,12 @@ final wristExtensors = Muscle(
     ),
   ],
 );
-final wristFlexors = Muscle(
-  nick: [],
+final wristFlexors = SingleHeadMuscle(
   pseudo: true,
+  origin: [Bone.radius], // just a guess
   insertion: Bone.hand,
-  heads: {},
   movements: [
-    Movement(
+    const Movement(
       articulation: Articulation.wristFlexion,
       strength: 6,
       rangeStart: 0,

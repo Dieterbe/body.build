@@ -3,9 +3,8 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final hamstrings = Muscle(
+final hamstrings = MultiHeadMuscle(
   nick: ['hams', 'hammies'],
-  pseudo: false,
   insertion: Bone.tibiaFibula,
   movements: [
     const Movement(
@@ -32,9 +31,7 @@ final hamstrings = Muscle(
   heads: {
     'biceps femoris, short head': const Head(
       name: 'biceps femoris, short head',
-      articular: 1,
       origin: [Bone.femur],
-      nick: [],
       movements: [
         Movement(
           articulation: Articulation.kneeExternalRotation,
@@ -47,7 +44,6 @@ final hamstrings = Muscle(
     'biceps femoris, long head': const Head(
       name: 'biceps femoris, long head',
       articular: 2,
-      nick: [],
       origin: [Bone.hip],
       movements: [
         Movement(
@@ -67,8 +63,6 @@ final hamstrings = Muscle(
     ),
     'semitendinosus': const Head(
       name: 'semitendinosus',
-      nick: [],
-      articular: 1,
       origin: [Bone.hip],
       movements: [
         Movement(
@@ -88,8 +82,6 @@ final hamstrings = Muscle(
     ),
     'semimembranosus': const Head(
       name: 'semimembranosus',
-      nick: [],
-      articular: 1,
       origin: [Bone.hip],
       movements: [
         Movement(

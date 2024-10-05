@@ -5,9 +5,8 @@ import 'package:ptc/backend/muscles.dart';
 
 // none of the elbow flexors are really affected by shoulder position
 // see https://www.ncbi.nlm.nih.gov/pubmed/8429057
-final bicepsBrachii = Muscle(
+final bicepsBrachii = MultiHeadMuscle(
     nick: ['biceps'],
-    pseudo: false,
     insertion: Bone.radius,
     movements: [
       const Movement(
@@ -75,33 +74,23 @@ final bicepsBrachii = Muscle(
       ),
     });
 
-final brachialis = Muscle(
-    // small and simple. covered by biceps
-    nick: [],
-    pseudo: false,
-    insertion: Bone.ulna,
-    movements: [
-      const Movement(
-        articulation: Articulation.elbowFlexion,
-        rangeStart: 0,
-        rangeEnd: 150,
-        momentMax: 90,
-        // most tension in anatomic position (max length). looses half strength when shorten
-        strength: 5,
-      ),
-    ],
-    heads: {
-      'whole': const Head(
-        name: 'whole',
-        nick: [],
-        origin: [Bone.humerus],
-        articular: 1,
-        movements: [],
-      )
-    });
-final brachioradialis = Muscle(
-  nick: [],
-  pseudo: false,
+final brachialis = SingleHeadMuscle(
+  // small and simple. covered by biceps
+  insertion: Bone.ulna,
+  movements: [
+    const Movement(
+      articulation: Articulation.elbowFlexion,
+      rangeStart: 0,
+      rangeEnd: 150,
+      momentMax: 90,
+      // most tension in anatomic position (max length). looses half strength when shorten
+      strength: 5,
+    ),
+  ],
+
+  origin: [Bone.humerus],
+);
+final brachioradialis = SingleHeadMuscle(
   insertion: Bone.radioUlnarJoint,
   movements: [
     const Movement(
@@ -129,15 +118,6 @@ final brachioradialis = Muscle(
       momentMax: -85,
     ),
   ],
-  heads: {
-    'whole': const Head(
-      name: 'whole',
-      nick: [],
-      origin: [
-        Bone.humerus,
-      ],
-      articular: 1, // note: kindof by convention. could be sort of 1.5
-      movements: [],
-    )
-  },
+  origin: [Bone.humerus],
+  articular: 1, // note: kindof by convention. could be sort of 1.5
 );

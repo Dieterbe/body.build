@@ -3,8 +3,7 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-final pectoralisMajor = Muscle(
-    pseudo: false,
+final pectoralisMajor = MultiHeadMuscle(
     nick: ['chest', 'pecs'],
     insertion: Bone.humerus,
     movements: [
@@ -40,7 +39,6 @@ final pectoralisMajor = Muscle(
         name: 'clavicular',
         nick: ['upper'],
         origin: [Bone.clavicle],
-        articular: 1,
         movements: [
           Movement(
             articulation: Articulation.shoulderFlexion,
@@ -64,7 +62,6 @@ final pectoralisMajor = Muscle(
         name: 'sternal',
         nick: ['lower'],
         origin: [Bone.sternum],
-        articular: 1,
         movements: [
           Movement(
             articulation: Articulation.shoulderExtension,
