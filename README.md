@@ -17,9 +17,6 @@ so I've pretty much given up on that
 in a way the codification here is a summarized, easy to use reference (that could get a simple GUI), at the same time, there's some nuance that can't easily be coded...
 
 
-
-
-
 ## multi-tier muscles
 sometimes it's not clear what is a muscle vs what is a head. e.g. quadriceps,
 * deltoids separate muscles or heads?
@@ -39,8 +36,14 @@ sometimes it's not clear what is a muscle vs what is a head. e.g. quadriceps,
 #### M:N mappings
 
 do we need to support M:N mappings? i don't think so. maybe later, though!
-could implement this as separate collections structures which include overlapping sets of muscles, or "tags"
-in the UI we could then show the collections, and don't show any muscles that are already shown as part of a collection.
+implementation ideas:
+1) separate collections structures which include overlapping sets of muscles
+2) OR: add N "tags" or 1-N "collection" (enum) field to singlehead and multihead muscles. this way we can iterate over the muscles directly
+
+in the UI we could then show the collections, and don't show any muscles that are already shown as part of a collection, or just create a "collection" for everything we want to render. this kindof makes sense, to separate out the UI listing from the anatomical model, and give each their structure
+
+2) seems like my favorite idea for now. but what if we want subgroups? like 'forearm' and 'wrist' ? i guess we can just make those..
+what if distinct muscles in the same group share a bunch of functions? let's implement DRY at the anatomy level, and keep the categories for .. well categorizatian
 
 #### 3-tier structure
 
@@ -50,6 +53,15 @@ in the UI we could then show the collections, and don't show any muscles that ar
   actually no, we couldn't keep make elbowFlexors an enum value and its child also an enum value, i think
   maybe define the structures first, and then maintain the list of enums separately, pointing into it. ah no, the enums must be const so that probably doesn't work? [1]
   we could however, maintain the enums, and then use a conversion function that maps the enum to the data at runtime.. that woud also allow to declare enums for heads, and have our own classes with inheritance etc
+
+  maybe the better way is to have "MuscleGroup" as top-level. it can be (or hold) a singlehead, or multihead, or contain singleheads and multiheads?
+  but seems weird to have MuscleGroup as highlevel even for a relatively simple muscle such as pecs or tris
+
+#### flatten the hierarchy via strings
+
+e.g. the entire group is 1 muscle, and use use like 'upper traps, upper fibers', 'upper traps, lower fibers', 'middle traps', 'lower traps' as heads.
+this makes UI code the simplest, I think. no need to write complicated recursion etc. we can have our listing view for the head muscle, and show the whole 2nd/3rd hierarchy with 1 simple loop. we would use the same 'children' for both 'other muscles in the same group' and 'heads'. the distinction is often blurry, could set a field hint to mark a preferred terminology.
+but this looses the ability to set commonalaties on the intermediate layer. need to repeat them at the leaf nodes, e.g. the gastroc has 2 common movements for its two heads, the bicep has 4 over 2 heads
 
 ## 'whole' head
 

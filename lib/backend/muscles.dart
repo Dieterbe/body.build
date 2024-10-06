@@ -36,12 +36,12 @@ sealed class Muscle {
   Muscle({
     this.nick = const [],
     this.pseudo = false,
-    required this.insertion,
+    this.insertion,
   });
 
   final List<String> nick;
   final bool pseudo;
-  final Bone insertion;
+  final Bone? insertion; // rarely, set at the Head level instead
 
   String nameWithHead(String? head) =>
       name.camelToTitle() + (head != null ? ' ($head head)' : '');
@@ -68,7 +68,7 @@ class MultiHeadMuscle extends Muscle {
     // required super.name,
     super.nick,
     super.pseudo,
-    required super.insertion,
+    super.insertion, // rarely, set at the Head level instead
     required this.movements,
     required this.heads,
   });
@@ -104,6 +104,7 @@ class Head {
     this.name,
     this.nick = const [],
     required this.origin,
+    this.insertion,
     this.articular = 1,
     required this.movements,
     this.activeInsufficiency,
@@ -113,6 +114,7 @@ class Head {
   final String? name;
   final List<String> nick;
   final List<Bone> origin;
+  final Bone? insertion; // rarely, heads insert to a different place
   final int articular;
   final List<Movement> movements;
   final Insufficiency? activeInsufficiency;
