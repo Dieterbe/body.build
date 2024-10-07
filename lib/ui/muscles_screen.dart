@@ -60,13 +60,6 @@ class _MusclesScreenState extends State<MusclesScreen> {
                       Text(category.name.camelToTitle()),
                     ],
                   ),
-/*
-                  subtitle: Text(
-                      '${muscle.movements.length + muscle.heads.values.fold<int>(
-                            0,
-                            (prev, h) => prev + h.movements.length,
-                          )} known movements.'),
-                          */
                   onTap: () => context.pushNamed(
                     MuscleScreen.routeName,
                     pathParameters: {"id": category.name},
