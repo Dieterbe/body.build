@@ -49,13 +49,13 @@ final iliocostalis = SingleHeadMuscle(
   movements: [
     ...erectorSpinaeSharedMovements,
     const Movement(
-      articulation: Articulation.spinalLateralFlexion,
+      articulation: Articulation.spineLateralFlexion,
       strength: 4,
       rangeStart: 0,
       rangeEnd: 45,
     ),
     const Movement(
-      articulation: Articulation.spinalRotationLumbarThoracic,
+      articulation: Articulation.lumbarThoracicSpineRotation,
       strength: 2,
       rangeStart: 0,
       rangeEnd: 80,

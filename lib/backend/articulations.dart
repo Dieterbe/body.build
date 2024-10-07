@@ -33,10 +33,10 @@ enum Articulation {
   shoulderAbduction(nick: [], constraint: null),
   spinalExtension(nick: [], constraint: null),
   spinalHyperextension(nick: [], constraint: null),
-  spinalFlexion(nick: [], constraint: null),
-  spinalRotation(nick: [], constraint: null),
-  spinalRotationLumbarThoracic(nick: [], constraint: null),
-  spinalLateralFlexion(nick: [], constraint: null),
+  spineFlexion(nick: [], constraint: null),
+  spineRotation(nick: [], constraint: null),
+  lumbarThoracicSpineRotation(nick: [], constraint: null),
+  spineLateralFlexion(nick: [], constraint: null),
   elbowExtension(nick: [], constraint: null),
   elbowFlexion(nick: [], constraint: null),
   forearmSupination(nick: [], constraint: null),
@@ -83,9 +83,18 @@ final _articulationRelated = [
       Articulation.cervicalSpineHyperextension,
     ],
     [
-      Articulation.spinalFlexion,
+      Articulation.spineFlexion,
       Articulation.spinalExtension,
+      Articulation.spinalHyperextension,
     ],
+    [
+      Articulation.cervicalSpineLateralFlexion,
+      Articulation.cervicalSpineRotation,
+    ],
+    [
+      Articulation.lumbarThoracicSpineRotation,
+      Articulation.spineLateralFlexion,
+    ]
   ],
   [
     [
@@ -133,6 +142,10 @@ final _articulationRelated = [
       Articulation.forearmPronation,
       Articulation.forearmSupination,
     ],
+    [
+      Articulation.wristExtension,
+      Articulation.wristFlexion,
+    ],
   ],
   [
     [
@@ -168,6 +181,11 @@ final _articulationRelated = [
       Articulation.hipTransverseAdduction,
     ],
   ],
+  [
+    [
+      Articulation.intraAbdominalPressure,
+    ]
+  ]
 ];
 
 // for the given articulation, return a tuple that has:

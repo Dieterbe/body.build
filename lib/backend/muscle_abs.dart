@@ -11,7 +11,7 @@ final rectusAbdominis = SingleHeadMuscle(
   nick: ['sixpack'],
   movements: [
     const Movement(
-      articulation: Articulation.spinalFlexion,
+      articulation: Articulation.spineFlexion,
       strength: 4,
       rangeStart: 0,
       rangeEnd: 85,
@@ -32,19 +32,19 @@ final externalObliques = SingleHeadMuscle(
   insertion: Bone.pubicCrest,
   movements: [
     const Movement(
-      articulation: Articulation.spinalFlexion,
+      articulation: Articulation.spineFlexion,
       strength: 4,
       rangeStart: 0,
       rangeEnd: 85,
     ),
     const Movement(
-      articulation: Articulation.spinalLateralFlexion,
+      articulation: Articulation.spineLateralFlexion,
       strength: 4,
       rangeStart: 0,
       rangeEnd: 40,
     ),
     const Movement(
-      articulation: Articulation.spinalRotation,
+      articulation: Articulation.spineRotation,
       strength: 2,
       rangeStart: 0,
       rangeEnd: 40,
