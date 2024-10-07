@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:iconify_flutter/iconify_flutter.dart';
-import 'package:iconify_flutter/icons/icon_park_outline.dart';
 import 'package:ptc/backend/movements.dart';
-import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/chart_widget.dart';
 import 'package:ptc/ui/colors.dart';
-import 'package:ptc/ui/muscle_screen.dart';
+import 'package:ptc/ui/muscle_button.dart';
 
 class RangeWidget extends StatelessWidget {
   final ArticulationMovements am;
@@ -209,33 +205,6 @@ class RangeWidget extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class MuscleButton extends StatelessWidget {
-  final Muscle muscle;
-  final String? head;
-  const MuscleButton({
-    super.key,
-    required this.muscle,
-    this.head,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => context.pushNamed(
-        MuscleScreen.routeName,
-        pathParameters: {"id": muscle.name},
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Iconify(IconParkOutline.muscle, size: 20),
-          Text(muscle.nameWithHead(head)),
-        ],
-      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/articulation_button.dart';
 import 'package:ptc/ui/colors.dart';
+import 'package:ptc/ui/insufficiency_widget.dart';
 import 'package:ptc/util.dart';
 
 const double chartHeight = 100;
@@ -247,21 +248,4 @@ String articularString(int articular) {
     3 => 'tri-articulate',
     int() => 'articulate $articular is not supported',
   };
-}
-
-class InsufficiencyWidget extends StatelessWidget {
-  const InsufficiencyWidget({super.key, required this.insufficiency});
-  final Insufficiency insufficiency;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (insufficiency.comment != null) Text('(${insufficiency.comment!})'),
-        const Text('Conditions:'),
-        ...insufficiency.factors.map((i) => Text(i.toString())),
-      ],
-    );
-  }
 }

@@ -51,7 +51,8 @@ final trapezius = MultiHeadMuscle(
       ],
       activeInsufficiency: Insufficiency(
         comment:
-            "contracted at both neck and shoulder (technically, also a bit lower fibers). keep head forward during shrugs",
+            """contracted at both neck and shoulder (technically, also a bit lower fibers).
+keep head forward during shrugs""",
         factors: [
           InsufficiencyFactor(Articulation.cervicalSpineExtension, 361),
           InsufficiencyFactor(Articulation.scapularElevation, 361),

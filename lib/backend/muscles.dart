@@ -123,8 +123,7 @@ sealed class Muscle {
   List<MovementStruct> getMovements(Articulation a);
   List<Articulation> getArticulations();
 
-  String nameWithHead(String? head) =>
-      name + (head != null ? ' ($head head)' : '');
+  String nameWithHead(String? head) => name + (head != null ? ' ($head)' : '');
 }
 
 class MultiHeadMuscle extends Muscle {
@@ -236,11 +235,6 @@ class InsufficiencyFactor {
 
   final Articulation articulation;
   final int degrees;
-
-  @override
-  String toString() {
-    return '${articulation.name.camelToTitle()} @ $degrees';
-  }
 }
 
 class MovementStruct {
