@@ -3,9 +3,9 @@ import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
-//final abdominals = MultiHeadMuscle(
-//   nick: ['abs'],
 final rectusAbdominis = SingleHeadMuscle(
+  categories: [MuscleCategory.abs],
+  id: MuscleId.rectusAbdominis,
   insertion: Bone.sternum,
 
   nick: ['sixpack'],
@@ -27,6 +27,8 @@ final rectusAbdominis = SingleHeadMuscle(
 );
 final externalObliques = SingleHeadMuscle(
   // lateral
+  categories: [MuscleCategory.abs],
+  id: MuscleId.externalObliques,
   insertion: Bone.pubicCrest,
   movements: [
     const Movement(
@@ -60,6 +62,8 @@ final externalObliques = SingleHeadMuscle(
 // inner & invisible
 final internalObliques = SingleHeadMuscle(
   //  'internal obliques': const Head(
+  categories: [MuscleCategory.abs],
+  id: MuscleId.externalObliques,
   movements: [],
   // name: 'internal obliques',
   origin: [Bone.spine],
@@ -67,6 +71,8 @@ final internalObliques = SingleHeadMuscle(
 );
 final transverseAbdominis = SingleHeadMuscle(
   // inner & invisible
+  categories: [MuscleCategory.abs],
+  id: MuscleId.transverseAbdominis,
   movements: [],
   // name: 'transverse abdominis',
   origin: [Bone.spine],

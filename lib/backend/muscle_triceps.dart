@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final tricepsBrachii = MultiHeadMuscle(
+  id: MuscleId.tricepsBrachii,
+  categories: [MuscleCategory.triceps],
   nick: ['tris'],
   insertion: Bone.ulna,
   movements: [
@@ -20,10 +22,10 @@ final tricepsBrachii = MultiHeadMuscle(
       strength: 6,
     ),
   ],
-  heads: {
+  headsMap: {
     // inside of arm
     'long': const Head(
-      name: 'long',
+      name: 'long head',
       origin: [Bone.scapula],
       articular: 2,
       movements: [
@@ -53,13 +55,13 @@ final tricepsBrachii = MultiHeadMuscle(
     ),
     // outside of arm
     'lateral': const Head(
-      name: 'lateral',
+      name: 'lateral head',
       origin: [Bone.humerus], // top of
       movements: [],
     ),
     // covered
     'medial': const Head(
-      name: 'medial',
+      name: 'medial head',
       origin: [Bone.humerus], // middle of
       movements: [],
       activeInsufficiency: Insufficiency(

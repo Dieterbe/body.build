@@ -4,6 +4,7 @@ import 'package:ptc/backend/muscles.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_outline.dart';
+import 'package:ptc/util.dart';
 
 class MusclesScreen extends StatefulWidget {
   static const routeName = 'muscles';
@@ -18,7 +19,7 @@ class _MusclesScreenState extends State<MusclesScreen> {
   String _filter = '';
   @override
   Widget build(BuildContext context) {
-    String varTitle = 'select a muscle';
+    String varTitle = 'select a muscle category';
 
     return Scaffold(
       appBar: AppBar(
@@ -43,12 +44,12 @@ class _MusclesScreenState extends State<MusclesScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: Muscle.values
+              itemCount: MuscleCategory.values
                   .where((a) =>
                       a.name.toLowerCase().contains(_filter.toLowerCase()))
                   .length,
               itemBuilder: (context, index) {
-                final muscle = Muscle.values
+                final category = MuscleCategory.values
                     .where((a) =>
                         a.name.toLowerCase().contains(_filter.toLowerCase()))
                     .toList()[index];
@@ -56,17 +57,19 @@ class _MusclesScreenState extends State<MusclesScreen> {
                   title: Row(
                     children: [
                       const Iconify(IconParkOutline.muscle, size: 20),
-                      Text(muscle.name.camelToTitle()),
+                      Text(category.name.camelToTitle()),
                     ],
                   ),
+/*
                   subtitle: Text(
                       '${muscle.movements.length + muscle.heads.values.fold<int>(
                             0,
                             (prev, h) => prev + h.movements.length,
                           )} known movements.'),
+                          */
                   onTap: () => context.pushNamed(
                     MuscleScreen.routeName,
-                    pathParameters: {"id": muscle.name},
+                    pathParameters: {"id": category.name},
                   ),
                 );
               },

@@ -5,6 +5,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final gastrocnemius = MultiHeadMuscle(
+  id: MuscleId.gastrocnemius,
+  categories: [MuscleCategory.calves],
   movements: [
     const Movement(
       articulation: Articulation.anklePlantarFlexion,
@@ -30,22 +32,24 @@ final gastrocnemius = MultiHeadMuscle(
         rangeEnd: 150),
   ],
   insertion: Bone.heel,
-  heads: {
+  headsMap: {
     'medial': const Head(
       movements: [],
       articular: 2,
-      name: 'medial',
+      name: 'medial head',
       origin: [Bone.femur],
     ),
     'lateral': const Head(
       movements: [],
-      name: 'lateral',
+      name: 'lateral head',
       articular: 2,
       origin: [Bone.femur],
     ),
   },
 );
 final soleus = SingleHeadMuscle(
+  id: MuscleId.soleus,
+  categories: [MuscleCategory.calves],
   insertion: Bone.heel,
   origin: [Bone.tibiaFibula],
   movements: [

@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final gluteMaximus = SingleHeadMuscle(
+  id: MuscleId.gluteMaximus,
+  categories: [MuscleCategory.glutes],
   insertion: Bone.femur,
   movements: [
     // bend knee -> shorter hammies -> weaker hammies -> glute max primary
@@ -45,6 +47,8 @@ final gluteMaximus = SingleHeadMuscle(
   origin: [Bone.iliacCrest, Bone.sacrum],
 );
 final gluteMedius = SingleHeadMuscle(
+  id: MuscleId.gluteMedius,
+  categories: [MuscleCategory.glutes],
 // wide hips
   insertion: Bone.femur,
   // note: rotations are impractical to train, so just focus on hip abduction in extension position
@@ -66,6 +70,8 @@ final gluteMedius = SingleHeadMuscle(
   origin: [Bone.iliacCrest],
 );
 final gluteMinimus = SingleHeadMuscle(
+  id: MuscleId.gluteMinimus,
+  categories: [MuscleCategory.glutes],
   // invisible muscle
   insertion: Bone.femur,
   movements: [

@@ -15,8 +15,10 @@ const upperTrapeziusSharedMovements = [
   ),
 ];
 final trapezius = MultiHeadMuscle(
+  id: MuscleId.trapezius,
+  categories: [MuscleCategory.traps],
   movements: [],
-  heads: {
+  headsMap: {
     'upper traps, upper fibers': const Head(
       name: 'upper traps, upper fibers',
       insertion: Bone.clavicle,

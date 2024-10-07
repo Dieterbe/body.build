@@ -87,5 +87,5 @@ class ArticulationMovements {
   int get range => (rangeEnd - rangeStart).abs();
 
   List<MovementStruct> _getMovements(Articulation a) =>
-      Muscle.values.expand((mu) => mu.getMovements(a)).toList();
+      muscles.expand((mu) => mu.getMovements(a)).toList();
 }

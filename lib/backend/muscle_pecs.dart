@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final pectoralisMajor = MultiHeadMuscle(
+    id: MuscleId.pectoralisMajor,
+    categories: [MuscleCategory.pecs],
     nick: ['chest', 'pecs'],
     insertion: Bone.humerus,
     movements: [
@@ -34,9 +36,9 @@ final pectoralisMajor = MultiHeadMuscle(
         strength: 4,
       ),
     ],
-    heads: {
+    headsMap: {
       'clavicular': const Head(
-        name: 'clavicular',
+        name: 'clavicular head',
         nick: ['upper'],
         origin: [Bone.clavicle],
         movements: [
@@ -59,7 +61,7 @@ final pectoralisMajor = MultiHeadMuscle(
         ],
       ),
       'sternal': const Head(
-        name: 'sternal',
+        name: 'sternal head',
         nick: ['lower'],
         origin: [Bone.sternum],
         movements: [

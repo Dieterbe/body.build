@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final quadricepsFemoris = MultiHeadMuscle(
+    id: MuscleId.quadricepsFemoris,
+    categories: [MuscleCategory.quads],
     nick: ['quads'],
     insertion: Bone.patella,
     movements: [
@@ -17,7 +19,7 @@ final quadricepsFemoris = MultiHeadMuscle(
         strength: 6, // quads are the only knee extensors
       )
     ],
-    heads: {
+    headsMap: {
       'rectus femoris': const Head(
         origin: [Bone.hip],
         articular: 2,

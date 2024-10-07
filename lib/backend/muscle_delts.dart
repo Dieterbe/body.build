@@ -4,12 +4,14 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final deltoids = MultiHeadMuscle(
+  id: MuscleId.deltoids,
+  categories: [MuscleCategory.delts],
   insertion: Bone.humerus,
   movements: [],
-  heads: {
+  headsMap: {
     // standard U length-tension relation. optimum at middle
     'anterior': const Head(
-      name: 'anterior',
+      name: 'anterior head',
       nick: ['front'],
       origin: [Bone.clavicle],
       movements: [
@@ -49,7 +51,7 @@ final deltoids = MultiHeadMuscle(
     // standard U length-tension relation. optimum at middle
 // weakest at full contraction
     'lateral': const Head(
-      name: 'lateral',
+      name: 'lateral head',
       movements: [
         Movement(
           // higher up is more leverage, upto at least 12 degrees of flexion
@@ -79,6 +81,7 @@ final deltoids = MultiHeadMuscle(
     // max length is most strong
 // weak when shortened
     'posterior': const Head(
+      name: 'posterior head',
       nick: ['rear delts'],
       origin: [Bone.scapula],
       movements: [

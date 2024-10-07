@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final neckFlexors = SingleHeadMuscle(
+  id: MuscleId.neckFlexors,
+  categories: [MuscleCategory.neck],
   pseudo: true,
   insertion: Bone.spineCervical,
   origin: [Bone.spineCervical],
@@ -17,6 +19,8 @@ final neckFlexors = SingleHeadMuscle(
   ],
 );
 final neckExtensors = SingleHeadMuscle(
+  id: MuscleId.neckExtensors,
+  categories: [MuscleCategory.neck],
   pseudo: true,
   insertion: Bone.spineCervical,
   origin: [Bone.spineCervical],

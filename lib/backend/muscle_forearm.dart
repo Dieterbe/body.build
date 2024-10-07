@@ -6,6 +6,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final forearmPronators = SingleHeadMuscle(
+  id: MuscleId.forearmPronators,
+  categories: [MuscleCategory.forearm],
   pseudo: true,
   insertion: Bone.radioUlnarJoint,
   movements: [
@@ -20,6 +22,8 @@ final forearmPronators = SingleHeadMuscle(
 );
 
 final wristExtensors = SingleHeadMuscle(
+  id: MuscleId.wristExtensors,
+  categories: [MuscleCategory.forearm],
   pseudo: true,
   origin: [Bone.radius], // just a guess
   insertion: Bone.hand,
@@ -33,6 +37,8 @@ final wristExtensors = SingleHeadMuscle(
   ],
 );
 final wristFlexors = SingleHeadMuscle(
+  id: MuscleId.wristFlexors,
+  categories: [MuscleCategory.forearm],
   pseudo: true,
   origin: [Bone.radius], // just a guess
   insertion: Bone.hand,

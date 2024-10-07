@@ -38,7 +38,8 @@ sometimes it's not clear what is a muscle vs what is a head. e.g. quadriceps,
 do we need to support M:N mappings? i don't think so. maybe later, though!
 implementation ideas:
 1) separate collections structures which include overlapping sets of muscles
-2) OR: add N "tags" or 1-N "collection" (enum) field to singlehead and multihead muscles. this way we can iterate over the muscles directly
+2) OR: add N "tags" or 1-N "collection" (enum) field to singlehead and multihead muscles. this way we can iterate over the muscles directly,
+   but we'd need to somehow get a list of all defined muscles, still..
 
 in the UI we could then show the collections, and don't show any muscles that are already shown as part of a collection, or just create a "collection" for everything we want to render. this kindof makes sense, to separate out the UI listing from the anatomical model, and give each their structure
 

@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final latissimusDorsi = SingleHeadMuscle(
+    id: MuscleId.latissimusDorsi,
+    categories: [MuscleCategory.lats],
     nick: ['lats'],
     insertion: Bone.humerus,
     movements: [

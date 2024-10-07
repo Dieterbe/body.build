@@ -19,9 +19,9 @@ final erectorSpinaeSharedMovements = [
     strength: 6,
   ),
 ];
-//final erectorSpinae = MultiHeadMuscle( // group name
-
 final longissimus = SingleHeadMuscle(
+  id: MuscleId.longissimus,
+  categories: [MuscleCategory.spinalErectors],
   // the biggest one
   insertion: Bone.spine,
   movements: [
@@ -44,6 +44,8 @@ final longissimus = SingleHeadMuscle(
 );
 // most lateral (outside)
 final iliocostalis = SingleHeadMuscle(
+  id: MuscleId.iliocostalis,
+  categories: [MuscleCategory.spinalErectors],
   movements: [
     ...erectorSpinaeSharedMovements,
     const Movement(
@@ -66,6 +68,8 @@ final iliocostalis = SingleHeadMuscle(
 
 // closest to spine (medial)
 final spinalis = SingleHeadMuscle(
+  id: MuscleId.spinalis,
+  categories: [MuscleCategory.spinalErectors],
   movements: [
     ...erectorSpinaeSharedMovements,
     const Movement(

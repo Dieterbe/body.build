@@ -6,6 +6,8 @@ import 'package:ptc/backend/muscles.dart';
 // none of the elbow flexors are really affected by shoulder position
 // see https://www.ncbi.nlm.nih.gov/pubmed/8429057
 final bicepsBrachii = MultiHeadMuscle(
+    id: MuscleId.bicepsBrachii,
+    categories: [MuscleCategory.elbowFlexors],
     nick: ['biceps'],
     insertion: Bone.radius,
     movements: [
@@ -45,16 +47,16 @@ final bicepsBrachii = MultiHeadMuscle(
         rangeEnd: 180,
       ),
     ],
-    heads: {
+    headsMap: {
       'long': const Head(
-        name: 'long',
+        name: 'long head',
         nick: ['outer'],
         origin: [Bone.scapula],
         articular: 3,
         movements: [],
       ),
       'short': const Head(
-        name: 'short',
+        name: 'short head',
         nick: ['inner'],
         origin: [Bone.scapula],
         articular: 3,
@@ -75,6 +77,8 @@ final bicepsBrachii = MultiHeadMuscle(
     });
 
 final brachialis = SingleHeadMuscle(
+  id: MuscleId.brachialis,
+  categories: [MuscleCategory.elbowFlexors],
   // small and simple. covered by biceps
   insertion: Bone.ulna,
   movements: [
@@ -91,6 +95,8 @@ final brachialis = SingleHeadMuscle(
   origin: [Bone.humerus],
 );
 final brachioradialis = SingleHeadMuscle(
+  id: MuscleId.brachioradialis,
+  categories: [MuscleCategory.elbowFlexors],
   insertion: Bone.radioUlnarJoint,
   movements: [
     const Movement(

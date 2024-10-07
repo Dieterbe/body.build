@@ -4,6 +4,8 @@ import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
 
 final hamstrings = MultiHeadMuscle(
+  id: MuscleId.hamstrings,
+  categories: [MuscleCategory.hams],
   nick: ['hams', 'hammies'],
   insertion: Bone.tibiaFibula,
   movements: [
@@ -28,7 +30,7 @@ final hamstrings = MultiHeadMuscle(
       //
     )
   ],
-  heads: {
+  headsMap: {
     'biceps femoris, short head': const Head(
       name: 'biceps femoris, short head',
       origin: [Bone.femur],
