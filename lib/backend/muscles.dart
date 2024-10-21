@@ -68,6 +68,7 @@ enum MuscleCategory {
   triceps,
 }
 
+// the actual instantiated Muscle objects
 List<Muscle> muscles = [
   rectusAbdominis,
   externalObliques,
@@ -97,6 +98,16 @@ List<Muscle> muscles = [
   trapezius,
   tricepsBrachii,
 ];
+
+/* comment from Menno
+
+Most are balanced.
+Pecs and triceps a bit more fast-twitch.
+Core muscles and traps a bit more slow-twitch.
+The hams are a bit of an interesting case, because they’re quite balanced but have a very high proportion of type IIb fibers which makes them functionally fast-twitch dominant in most people.
+Soleus super slow-twitch.
+
+*/
 
 sealed class Muscle {
   Muscle({

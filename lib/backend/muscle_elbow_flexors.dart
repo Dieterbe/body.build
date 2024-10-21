@@ -2,6 +2,8 @@ import 'package:ptc/backend/articulations.dart';
 import 'package:ptc/backend/bones.dart';
 import 'package:ptc/backend/movements.dart';
 import 'package:ptc/backend/muscles.dart';
+// biceps https://www.instagram.com/p/CiDdmgFLeTo/
+// A study by Sato et al. (2021) found that training the biceps over the bottom 0-50° of elbow flexion – at longer lengths – resulted in triple the growth compared to training the biceps over the top 80-130° of elbow flexion– at shorter lengths
 
 // none of the elbow flexors are really affected by shoulder position
 // see https://www.ncbi.nlm.nih.gov/pubmed/8429057
