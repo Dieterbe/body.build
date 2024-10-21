@@ -19,66 +19,62 @@ import 'package:ptc/util.dart';
 
 // contains Id's for muscles, muscle heads, and areas within muscles or heads
 // primary purpose here is anatomical correctness and using correct scientific terminology
-// for workout programming, we have "groups" that can:
-// 1. contain multiple or single heads, or muscles
-// 2. match an entire anatomical category, but that's just "coincidence"
-// these groups should have "easy names"
 enum MuscleId {
   wholeMuscle, // for single head muscles
 
   pectoralisMajor,
-  pectoralisMajorClavicularHead, // x
-  pectoralisMajorSternalHead, // x
+  pectoralisMajorClavicularHead,
+  pectoralisMajorSternalHead,
 
-  tricepsBrachii, // X : medial+lateral, long
-  tricepsBrachiiMedialHead, // x
-  tricepsBrachiiLateralHead, // x
-  tricepsBrachiiLongHead, // x
+  tricepsBrachii,
+  tricepsBrachiiMedialHead,
+  tricepsBrachiiLateralHead,
+  tricepsBrachiiLongHead,
 
-  latissimusDorsi, // x
+  latissimusDorsi,
 
-  bicepsBrachii, // x
+  bicepsBrachii,
   bicepsBrachiiShortHead,
   bicepsBrachiiLongHead,
-  brachialis, // (x probably assumed)
-  brachioradialis, // (probably assumed)
+  brachialis,
+  brachioradialis,
 
   forearmPronators,
 
   trapezius,
-  trapeziusUpper, // unused // x
-  trapeziusMiddle, // unused // x
-  trapeziusLower, // unused // x
+  trapeziusUpper,
+  trapeziusMiddle,
+  trapeziusLower,
   upperTrapsUpperFibers,
   upperTrapsLowerFibers,
   lowerTraps,
   middleTraps,
 
-  deltoids, // x: front, rear, lateral
+  deltoids,
   deltoidsAnteriorHead,
   deltoidsLateralHead,
   deltoidsPosteriorHead,
 
-  gluteMaximus, //  x
-  gluteMedius, // x
+  gluteMaximus,
+  gluteMedius,
   gluteMinimus,
 
-  quadricepsFemoris, // X: vastii, RF
-  rectusFemoris, // x
+  quadricepsFemoris,
+  rectusFemoris,
   vastusMedialis,
   vastusLateralis,
   vastusIntermedius,
 
-  hamstrings, // x BF short head, biceps femoris long head+semis
+  hamstrings,
   bicepsFemorisLongHead,
   bicepsFemorisShortHead,
   semitendinosus,
   semimembranosus,
 
-  gastrocnemius, // x
+  gastrocnemius,
   gastrocnemiusLateralHead,
   gastrocnemiusMedialHead,
-  soleus, // x
+  soleus,
 
   wristExtensors,
   wristFlexors,
@@ -86,15 +82,13 @@ enum MuscleId {
   neckFlexors,
   neckExtensors,
 
-  // abs: X
-  abdominals, // unused
+  // abs
   rectusAbdominis,
   externalObliques,
   internalObliques,
   transverseAbdominis,
 
-  // spinal erectors: X
-  errectorSpinae, // unused
+  // spinal erectors
   longissimus,
   iliocostalis,
   spinalis,
@@ -114,7 +108,7 @@ enum MuscleCategory {
   neck,
   pecs,
   quads,
-  spinalErectors, // X
+  spinalErectors,
   traps,
   triceps,
 }
@@ -126,28 +120,28 @@ List<Muscle> muscles = [
   internalObliques,
   transverseAbdominis,
   gastrocnemius, //x
-  soleus, // x
-  deltoids, // X: front, rear, lateral
-  bicepsBrachii, // X
+  soleus,
+  deltoids,
+  bicepsBrachii,
   brachialis,
   brachioradialis,
   forearmPronators,
   wristExtensors,
   wristFlexors,
-  gluteMaximus, // x
-  gluteMedius, // x
+  gluteMaximus,
+  gluteMedius,
   gluteMinimus,
   hamstrings, // BF short head, biceps femoris long head+semis
-  latissimusDorsi, // X
+  latissimusDorsi,
   neckFlexors,
   neckExtensors,
-  pectoralisMajor, // X: upper, lower
-  quadricepsFemoris, // X: vastii, RF
+  pectoralisMajor,
+  quadricepsFemoris,
   longissimus,
   iliocostalis,
   spinalis,
-  trapezius, // X: upper, middle, lower
-  tricepsBrachii, // X : medial+lateral, long
+  trapezius,
+  tricepsBrachii,
 ];
 
 /* comment from Menno
