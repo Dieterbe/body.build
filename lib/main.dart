@@ -6,6 +6,7 @@ import 'package:ptc/ui/home_screen.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/ui/muscles_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ptc/ui/programmer_screen.dart';
 
 void main() {
   // *without* this flag, behavior is like so:
@@ -61,6 +62,11 @@ class MyApp extends StatelessWidget {
                   id: state.pathParameters['id']!,
                 ),
               ),
+              GoRoute(
+                name: ProgrammerScreen.routeName,
+                path: ProgrammerScreen.routeName,
+                builder: (context, state) => const ProgrammerScreen(),
+              )
             ],
           ),
         ],
