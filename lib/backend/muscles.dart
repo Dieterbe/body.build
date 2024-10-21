@@ -17,42 +17,63 @@ import 'package:ptc/backend/muscle_traps.dart';
 import 'package:ptc/backend/muscle_triceps.dart';
 import 'package:ptc/util.dart';
 
+// this may contain some old id's that are no longer used, e.g. muscles that are now just heads
+// but still seems sensible to be able to refer to heads
 enum MuscleId {
-  pectoralisMajor,
-  tricepsBrachii,
-  latissimusDorsi,
-  bicepsBrachii,
-  brachialis,
-  brachioradialis,
+  pectoralisMajor, // x : upper, lower
+
+  tricepsBrachii, // X : medial+lateral, long
+
+  latissimusDorsi, // x
+
+  bicepsBrachii, // x
+  brachialis, // (x probably assumed)
+  brachioradialis, // (probably assumed)
+
   forearmPronators,
-  trapeziusUpper,
-  trapeziusMiddle,
-  trapeziusLower,
-  deltoids,
-  gluteMaximus,
-  gluteMedius,
+
+  trapezius,
+  trapeziusUpper, // unused // x
+  trapeziusMiddle, // unused // x
+  trapeziusLower, // unused // x
+
+  deltoids, // x: front, rear, lateral
+
+  gluteMaximus, //  x
+  gluteMedius, // x
   gluteMinimus,
-  quadricepsFemoris,
-  hamstrings,
-  gastrocnemius,
-  soleus,
-  errectorSpinae,
-  abdominals,
+
+  quadricepsFemoris, // X: vastii, RF
+
+  hamstrings, // x BF short head, biceps femoris long head+semis
+
+  gastrocnemius, // x
+  soleus, // x
+
   wristExtensors,
   wristFlexors,
+
   neckFlexors,
   neckExtensors,
+
+  // abs: X
+  abdominals, // unused
   rectusAbdominis,
   externalObliques,
+  internalObliques,
   transverseAbdominis,
+
+  // spinal erectors: X
+  errectorSpinae, // unused
   longissimus,
   iliocostalis,
-  trapezius,
   spinalis,
 }
 
+// muscles are assigned a category (or maybe in the future, multiple) when instantiating
+// used for grouping them in the UI
 enum MuscleCategory {
-  abs, // abdominals
+  abs, // abdominals. X
   calves,
   delts, // deltoids
   elbowFlexors,
@@ -63,7 +84,7 @@ enum MuscleCategory {
   neck,
   pecs,
   quads,
-  spinalErectors,
+  spinalErectors, // X
   traps,
   triceps,
 }
@@ -74,29 +95,29 @@ List<Muscle> muscles = [
   externalObliques,
   internalObliques,
   transverseAbdominis,
-  gastrocnemius,
-  soleus,
-  deltoids,
-  bicepsBrachii,
+  gastrocnemius, //x
+  soleus, // x
+  deltoids, // X: front, rear, lateral
+  bicepsBrachii, // X
   brachialis,
   brachioradialis,
   forearmPronators,
   wristExtensors,
   wristFlexors,
-  gluteMaximus,
-  gluteMedius,
+  gluteMaximus, // x
+  gluteMedius, // x
   gluteMinimus,
-  hamstrings,
-  latissimusDorsi,
+  hamstrings, // BF short head, biceps femoris long head+semis
+  latissimusDorsi, // X
   neckFlexors,
   neckExtensors,
-  pectoralisMajor,
-  quadricepsFemoris,
+  pectoralisMajor, // X: upper, lower
+  quadricepsFemoris, // X: vastii, RF
   longissimus,
   iliocostalis,
   spinalis,
-  trapezius,
-  tricepsBrachii,
+  trapezius, // X: upper, middle, lower
+  tricepsBrachii, // X : medial+lateral, long
 ];
 
 /* comment from Menno
