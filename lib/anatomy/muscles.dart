@@ -1,24 +1,28 @@
-import 'package:ptc/backend/articulations.dart';
-import 'package:ptc/backend/bones.dart';
-import 'package:ptc/backend/movements.dart';
-import 'package:ptc/backend/muscle_abs.dart';
-import 'package:ptc/backend/muscle_calves.dart';
-import 'package:ptc/backend/muscle_delts.dart';
-import 'package:ptc/backend/muscle_elbow_flexors.dart';
-import 'package:ptc/backend/muscle_forearm.dart';
-import 'package:ptc/backend/muscle_glutes.dart';
-import 'package:ptc/backend/muscle_hams.dart';
-import 'package:ptc/backend/muscle_lats.dart';
-import 'package:ptc/backend/muscle_neck.dart';
-import 'package:ptc/backend/muscle_pecs.dart';
-import 'package:ptc/backend/muscle_quads.dart';
-import 'package:ptc/backend/muscle_spinal_erectors.dart';
-import 'package:ptc/backend/muscle_traps.dart';
-import 'package:ptc/backend/muscle_triceps.dart';
+import 'package:ptc/anatomy/articulations.dart';
+import 'package:ptc/anatomy/bones.dart';
+import 'package:ptc/anatomy/movements.dart';
+import 'package:ptc/anatomy/muscle_abs.dart';
+import 'package:ptc/anatomy/muscle_calves.dart';
+import 'package:ptc/anatomy/muscle_delts.dart';
+import 'package:ptc/anatomy/muscle_elbow_flexors.dart';
+import 'package:ptc/anatomy/muscle_forearm.dart';
+import 'package:ptc/anatomy/muscle_glutes.dart';
+import 'package:ptc/anatomy/muscle_hams.dart';
+import 'package:ptc/anatomy/muscle_lats.dart';
+import 'package:ptc/anatomy/muscle_neck.dart';
+import 'package:ptc/anatomy/muscle_pecs.dart';
+import 'package:ptc/anatomy/muscle_quads.dart';
+import 'package:ptc/anatomy/muscle_spinal_erectors.dart';
+import 'package:ptc/anatomy/muscle_traps.dart';
+import 'package:ptc/anatomy/muscle_triceps.dart';
 import 'package:ptc/util.dart';
 
-// this may contain some old id's that are no longer used, e.g. muscles that are now just heads
-// but still seems sensible to be able to refer to heads
+// contains Id's for muscles, muscle heads, and areas within muscles or heads
+// primary purpose here is anatomical correctness and using correct scientific terminology
+// for workout programming, we have "groups" that can:
+// 1. contain multiple or single heads, or muscles
+// 2. match an entire anatomical category, but that's just "coincidence"
+// these groups should have "easy names"
 enum MuscleId {
   wholeMuscle, // for single head muscles
 

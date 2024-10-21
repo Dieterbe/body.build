@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/backend/articulations.dart';
-import 'package:ptc/backend/movements.dart';
-import 'package:ptc/backend/muscles.dart';
+import 'package:ptc/anatomy/articulations.dart';
+import 'package:ptc/anatomy/movements.dart';
+import 'package:ptc/anatomy/muscles.dart';
 import 'package:ptc/ui/articulation_button.dart';
 import 'package:ptc/ui/insufficiency_widget.dart';
 import 'package:ptc/ui/muscle_button.dart';

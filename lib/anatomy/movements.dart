@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:ptc/backend/articulations.dart';
-import 'package:ptc/backend/muscles.dart';
+import 'package:ptc/anatomy/articulations.dart';
+import 'package:ptc/anatomy/muscles.dart';
 
 // types of strength:
 // "absolute" due to muscle length

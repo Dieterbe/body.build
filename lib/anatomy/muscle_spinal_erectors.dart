@@ -1,9 +1,9 @@
 // spinal erectors aka erector spinae
 // group of muscles that stabilize the vertebral column
-import 'package:ptc/backend/articulations.dart';
-import 'package:ptc/backend/bones.dart';
-import 'package:ptc/backend/movements.dart';
-import 'package:ptc/backend/muscles.dart';
+import 'package:ptc/anatomy/articulations.dart';
+import 'package:ptc/anatomy/bones.dart';
+import 'package:ptc/anatomy/movements.dart';
+import 'package:ptc/anatomy/muscles.dart';
 
 final erectorSpinaeSharedMovements = [
   const Movement(

@@ -1,8 +1,8 @@
 // tricepsSurae and calves comprise of 2 separate muscles
-import 'package:ptc/backend/articulations.dart';
-import 'package:ptc/backend/bones.dart';
-import 'package:ptc/backend/movements.dart';
-import 'package:ptc/backend/muscles.dart';
+import 'package:ptc/anatomy/articulations.dart';
+import 'package:ptc/anatomy/bones.dart';
+import 'package:ptc/anatomy/movements.dart';
+import 'package:ptc/anatomy/muscles.dart';
 
 final gastrocnemius = MultiHeadMuscle(
   id: MuscleId.gastrocnemius,

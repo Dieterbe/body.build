@@ -1,10 +1,10 @@
 //	traps are also stabilizers during many movements
 // most strong near full length. least force when fully contracted
 // main function, shoulder needs to be somewhat abducted. e.g. wide grip shrugs
-import 'package:ptc/backend/articulations.dart';
-import 'package:ptc/backend/bones.dart';
-import 'package:ptc/backend/movements.dart';
-import 'package:ptc/backend/muscles.dart';
+import 'package:ptc/anatomy/articulations.dart';
+import 'package:ptc/anatomy/bones.dart';
+import 'package:ptc/anatomy/movements.dart';
+import 'package:ptc/anatomy/muscles.dart';
 
 const upperTrapeziusSharedMovements = [
   Movement(

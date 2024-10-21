@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/backend/articulations.dart';
+import 'package:ptc/anatomy/articulations.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/util.dart';
 
