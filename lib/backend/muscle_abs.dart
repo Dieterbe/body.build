@@ -63,7 +63,7 @@ final externalObliques = SingleHeadMuscle(
 final internalObliques = SingleHeadMuscle(
   //  'internal obliques': const Head(
   categories: [MuscleCategory.abs],
-  id: MuscleId.externalObliques,
+  id: MuscleId.internalObliques,
   movements: [],
   // name: 'internal obliques',
   origin: [Bone.spine],
