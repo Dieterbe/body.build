@@ -33,13 +33,15 @@ final gastrocnemius = MultiHeadMuscle(
   ],
   insertion: Bone.heel,
   headsMap: {
-    'medial': const Head(
+    MuscleId.gastrocnemiusMedialHead: const Head(
+      id: MuscleId.gastrocnemiusMedialHead,
       movements: [],
       articular: 2,
       name: 'medial head',
       origin: [Bone.femur],
     ),
-    'lateral': const Head(
+    MuscleId.gastrocnemiusLateralHead: const Head(
+      id: MuscleId.gastrocnemiusLateralHead,
       movements: [],
       name: 'lateral head',
       articular: 2,

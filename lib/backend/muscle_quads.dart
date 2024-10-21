@@ -20,7 +20,8 @@ final quadricepsFemoris = MultiHeadMuscle(
       )
     ],
     headsMap: {
-      'rectus femoris': const Head(
+      MuscleId.rectusFemoris: const Head(
+        id: MuscleId.rectusFemoris,
         origin: [Bone.hip],
         articular: 2,
         name: 'rectus femoris',
@@ -43,18 +44,21 @@ final quadricepsFemoris = MultiHeadMuscle(
               rangeEnd: 140),
         ],
       ),
-      'vastus lateralis': const Head(
+      MuscleId.vastusLateralis: const Head(
+        id: MuscleId.vastusLateralis,
         origin: [Bone.femur],
         name: 'vastus lateralis',
         movements: [],
       ),
-      'vastus intermedius': const Head(
+      MuscleId.vastusIntermedius: const Head(
+        id: MuscleId.vastusIntermedius,
         origin: [Bone.femur],
         name: 'vastus intermedius',
         movements: [],
       ),
       // includes VMO
-      'vastus medialis': const Head(
+      MuscleId.vastusMedialis: const Head(
+        id: MuscleId.vastusMedialis,
         origin: [Bone.femur],
         name: 'vastus medialis',
         movements: [],

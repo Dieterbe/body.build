@@ -19,7 +19,8 @@ final trapezius = MultiHeadMuscle(
   categories: [MuscleCategory.traps],
   movements: [],
   headsMap: {
-    'upper traps, upper fibers': const Head(
+    MuscleId.upperTrapsUpperFibers: const Head(
+      id: MuscleId.upperTrapsUpperFibers,
       name: 'upper traps, upper fibers',
       insertion: Bone.clavicle,
       origin: [
@@ -67,7 +68,8 @@ keep head forward during shrugs""",
         ],
       ),
     ),
-    'upper traps, lower fibers': const Head(
+    MuscleId.upperTrapsLowerFibers: const Head(
+      id: MuscleId.upperTrapsLowerFibers,
       name: 'upper traps, lower fibers',
       origin: [Bone.spineCervical],
       insertion: Bone.clavicle,
@@ -82,7 +84,8 @@ keep head forward during shrugs""",
         ),
       ],
     ),
-    'middle traps': const Head(
+    MuscleId.middleTraps: const Head(
+      id: MuscleId.middleTraps,
       name: 'middle traps',
       insertion: Bone.scapula,
       movements: [
@@ -106,7 +109,8 @@ keep head forward during shrugs""",
       ],
       origin: [Bone.spineC7T1],
     ),
-    'lower traps': const Head(
+    MuscleId.lowerTraps: const Head(
+      id: MuscleId.lowerTraps,
       name: 'lower traps',
       insertion: Bone.scapula,
       movements: [

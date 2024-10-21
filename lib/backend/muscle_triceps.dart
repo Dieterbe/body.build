@@ -24,7 +24,8 @@ final tricepsBrachii = MultiHeadMuscle(
   ],
   headsMap: {
     // inside of arm
-    'long': const Head(
+    MuscleId.tricepsBrachiiLongHead: const Head(
+      id: MuscleId.tricepsBrachiiLongHead,
       name: 'long head',
       origin: [Bone.scapula],
       articular: 2,
@@ -54,13 +55,15 @@ final tricepsBrachii = MultiHeadMuscle(
       ],
     ),
     // outside of arm
-    'lateral': const Head(
+    MuscleId.tricepsBrachiiLateralHead: const Head(
+      id: MuscleId.tricepsBrachiiLateralHead,
       name: 'lateral head',
       origin: [Bone.humerus], // top of
       movements: [],
     ),
     // covered
-    'medial': const Head(
+    MuscleId.tricepsBrachiiMedialHead: const Head(
+      id: MuscleId.tricepsBrachiiMedialHead,
       name: 'medial head',
       origin: [Bone.humerus], // middle of
       movements: [],

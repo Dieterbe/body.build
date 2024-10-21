@@ -10,7 +10,8 @@ final deltoids = MultiHeadMuscle(
   movements: [],
   headsMap: {
     // standard U length-tension relation. optimum at middle
-    'anterior': const Head(
+    MuscleId.deltoidsAnteriorHead: const Head(
+      id: MuscleId.deltoidsAnteriorHead,
       name: 'anterior head',
       nick: ['front'],
       origin: [Bone.clavicle],
@@ -50,7 +51,8 @@ final deltoids = MultiHeadMuscle(
     ),
     // standard U length-tension relation. optimum at middle
 // weakest at full contraction
-    'lateral': const Head(
+    MuscleId.deltoidsLateralHead: const Head(
+      id: MuscleId.deltoidsLateralHead,
       name: 'lateral head',
       movements: [
         Movement(
@@ -80,7 +82,8 @@ final deltoids = MultiHeadMuscle(
     ),
     // max length is most strong
 // weak when shortened
-    'posterior': const Head(
+    MuscleId.deltoidsPosteriorHead: const Head(
+      id: MuscleId.deltoidsPosteriorHead,
       name: 'posterior head',
       nick: ['rear delts'],
       origin: [Bone.scapula],

@@ -31,7 +31,8 @@ final hamstrings = MultiHeadMuscle(
     )
   ],
   headsMap: {
-    'biceps femoris, short head': const Head(
+    MuscleId.bicepsFemorisShortHead: const Head(
+      id: MuscleId.bicepsFemorisShortHead,
       name: 'biceps femoris, short head',
       origin: [Bone.femur],
       movements: [
@@ -43,7 +44,8 @@ final hamstrings = MultiHeadMuscle(
         ),
       ],
     ),
-    'biceps femoris, long head': const Head(
+    MuscleId.bicepsFemorisLongHead: const Head(
+      id: MuscleId.bicepsFemorisLongHead,
       name: 'biceps femoris, long head',
       articular: 2,
       origin: [Bone.hip],
@@ -63,7 +65,8 @@ final hamstrings = MultiHeadMuscle(
         ),
       ],
     ),
-    'semitendinosus': const Head(
+    MuscleId.semitendinosus: const Head(
+      id: MuscleId.semitendinosus,
       name: 'semitendinosus',
       origin: [Bone.hip],
       movements: [
@@ -82,7 +85,8 @@ final hamstrings = MultiHeadMuscle(
         ),
       ],
     ),
-    'semimembranosus': const Head(
+    MuscleId.semimembranosus: const Head(
+      id: MuscleId.semimembranosus,
       name: 'semimembranosus',
       origin: [Bone.hip],
       movements: [

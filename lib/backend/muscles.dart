@@ -20,13 +20,22 @@ import 'package:ptc/util.dart';
 // this may contain some old id's that are no longer used, e.g. muscles that are now just heads
 // but still seems sensible to be able to refer to heads
 enum MuscleId {
-  pectoralisMajor, // x : upper, lower
+  wholeMuscle, // for single head muscles
+
+  pectoralisMajor,
+  pectoralisMajorClavicularHead, // x
+  pectoralisMajorSternalHead, // x
 
   tricepsBrachii, // X : medial+lateral, long
+  tricepsBrachiiMedialHead, // x
+  tricepsBrachiiLateralHead, // x
+  tricepsBrachiiLongHead, // x
 
   latissimusDorsi, // x
 
   bicepsBrachii, // x
+  bicepsBrachiiShortHead,
+  bicepsBrachiiLongHead,
   brachialis, // (x probably assumed)
   brachioradialis, // (probably assumed)
 
@@ -36,18 +45,35 @@ enum MuscleId {
   trapeziusUpper, // unused // x
   trapeziusMiddle, // unused // x
   trapeziusLower, // unused // x
+  upperTrapsUpperFibers,
+  upperTrapsLowerFibers,
+  lowerTraps,
+  middleTraps,
 
   deltoids, // x: front, rear, lateral
+  deltoidsAnteriorHead,
+  deltoidsLateralHead,
+  deltoidsPosteriorHead,
 
   gluteMaximus, //  x
   gluteMedius, // x
   gluteMinimus,
 
   quadricepsFemoris, // X: vastii, RF
+  rectusFemoris, // x
+  vastusMedialis,
+  vastusLateralis,
+  vastusIntermedius,
 
   hamstrings, // x BF short head, biceps femoris long head+semis
+  bicepsFemorisLongHead,
+  bicepsFemorisShortHead,
+  semitendinosus,
+  semimembranosus,
 
   gastrocnemius, // x
+  gastrocnemiusLateralHead,
+  gastrocnemiusMedialHead,
   soleus, // x
 
   wristExtensors,
@@ -155,12 +181,13 @@ sealed class Muscle {
   List<MovementStruct> getMovements(Articulation a);
   List<Articulation> getArticulations();
 
-  String nameWithHead(String? head) => name + (head != null ? ' ($head)' : '');
+  String nameWithHead(MuscleId? head) =>
+      name + (head != null ? ' ($head)' : ''); // TODO do name better?
 }
 
 class MultiHeadMuscle extends Muscle {
   final List<Movement> movements; // movements that all heads have in common
-  final Map<String, Head> headsMap;
+  final Map<MuscleId, Head> headsMap;
 
   MultiHeadMuscle({
     // required super.name,
@@ -210,6 +237,7 @@ class SingleHeadMuscle extends Muscle {
     required super.id,
   }) {
     wholeHead = Head(
+      id: MuscleId.wholeMuscle,
       name: 'whole muscle',
       origin: origin,
       articular: articular,
@@ -236,6 +264,7 @@ class SingleHeadMuscle extends Muscle {
 class Head {
   const Head({
     required this.name, // for display purposes
+    required this.id,
     this.nick = const [],
     required this.origin,
     this.insertion,
@@ -246,6 +275,7 @@ class Head {
   });
 
   final String name;
+  final MuscleId id;
   final List<String> nick;
   final List<Bone> origin;
   final Bone? insertion; // rarely, heads insert to a different place
@@ -271,7 +301,7 @@ class InsufficiencyFactor {
 
 class MovementStruct {
   final Muscle muscle;
-  final String? head;
+  final MuscleId? head;
   final Movement mo;
 
   MovementStruct(this.muscle, this.head, this.mo);

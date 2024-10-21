@@ -50,14 +50,16 @@ final bicepsBrachii = MultiHeadMuscle(
       ),
     ],
     headsMap: {
-      'long': const Head(
+      MuscleId.bicepsBrachiiLongHead: const Head(
+        id: MuscleId.bicepsBrachiiLongHead,
         name: 'long head',
         nick: ['outer'],
         origin: [Bone.scapula],
         articular: 3,
         movements: [],
       ),
-      'short': const Head(
+      MuscleId.bicepsBrachiiShortHead: const Head(
+        id: MuscleId.bicepsBrachiiShortHead,
         name: 'short head',
         nick: ['inner'],
         origin: [Bone.scapula],

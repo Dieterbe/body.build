@@ -7,7 +7,7 @@ import 'package:ptc/ui/muscle_screen.dart';
 
 class MuscleButton extends StatelessWidget {
   final Muscle muscle;
-  final String? head;
+  final MuscleId? head;
   const MuscleButton({
     super.key,
     required this.muscle,

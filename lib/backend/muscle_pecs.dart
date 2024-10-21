@@ -37,7 +37,8 @@ final pectoralisMajor = MultiHeadMuscle(
       ),
     ],
     headsMap: {
-      'clavicular': const Head(
+      MuscleId.pectoralisMajorClavicularHead: const Head(
+        id: MuscleId.pectoralisMajorClavicularHead,
         name: 'clavicular head',
         nick: ['upper'],
         origin: [Bone.clavicle],
@@ -60,7 +61,8 @@ final pectoralisMajor = MultiHeadMuscle(
           ),
         ],
       ),
-      'sternal': const Head(
+      MuscleId.pectoralisMajorSternalHead: const Head(
+        id: MuscleId.pectoralisMajorSternalHead,
         name: 'sternal head',
         nick: ['lower'],
         origin: [Bone.sternum],

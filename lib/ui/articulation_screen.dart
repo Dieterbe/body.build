@@ -108,7 +108,7 @@ class InsufficiencyWrapperWidget extends StatelessWidget {
               Center(
                 child: MuscleButton(
                   muscle: muscle,
-                  head: head.name,
+                  head: head.id,
                 ),
               ),
               if (active)
