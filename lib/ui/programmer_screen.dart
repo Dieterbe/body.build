@@ -84,34 +84,36 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                 ),
               ],
             ),
+            Divider(),
             // eventually we will show relevant exercises (e.g. part of a program)
             // for now, let's just show our volume assignment rules
             ...volumeAssignments.map((e) => Row(children: [
                   Text(e.match),
                   Expanded(child: Container()),
-                  ...ProgramGroup.values
-                      .map((g) => muscleMark(e.assign[g] ?? 0.0, context)),
+                  ...ProgramGroup.values.map((g) => Container(
+                      color: bgColorForProgramGroup(g),
+                      child: muscleMark(e.assign[g] ?? 0.0, context))),
                 ])),
             const Divider(),
             // show a nice legend that displays what the muscle marks for 0.25, 0.5, 0.75 and 1.0 look like
             Row(children: [
               const Spacer(),
-              Text('Legend'),
-              SizedBox(width: 30),
-              Text('0.25'),
-              SizedBox(width: 4),
+              const Text('Legend'),
+              const SizedBox(width: 30),
+              const Text('0.25'),
+              const SizedBox(width: 4),
               muscleMark(0.25, context),
-              SizedBox(width: 30),
-              Text('0.5'),
-              SizedBox(width: 4),
+              const SizedBox(width: 30),
+              const Text('0.5'),
+              const SizedBox(width: 4),
               muscleMark(0.5, context),
-              SizedBox(width: 30),
-              Text('0.75'),
-              SizedBox(width: 4),
+              const SizedBox(width: 30),
+              const Text('0.75'),
+              const SizedBox(width: 4),
               muscleMark(0.75, context),
-              SizedBox(width: 30),
-              Text('1.0'),
-              SizedBox(width: 4),
+              const SizedBox(width: 30),
+              const Text('1.0'),
+              const SizedBox(width: 4),
               muscleMark(1.0, context),
             ]),
           ]),
@@ -161,7 +163,7 @@ Widget headers() {
       .map((e) => Opacity(
             opacity: 0,
             child: Text(
-              e.name.camelToSpace(),
+              e.name.camelToTitle(),
             ),
           ))
       .toList();
@@ -176,12 +178,12 @@ Widget headers() {
                 child: RotatedBox(
                   quarterTurns: 3,
                   child: Container(
-                    // color: Colors.yellow,
+                    color: bgColorForProgramGroup(e),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2),
                       child: Stack(children: [
                         SizedBox(
-                            height: 26, child: Text(e.name.camelToSpace())),
+                            height: 26, child: Text(e.name.camelToTitle())),
                         ...all
                       ]),
                     ),
@@ -191,6 +193,56 @@ Widget headers() {
   );
 }
 
+Color bgColorForProgramGroup(ProgramGroup g) {
+  switch (g) {
+    case ProgramGroup.lowerPecs:
+      return Colors.yellow.shade100;
+    case ProgramGroup.upperPecs:
+      return Colors.yellow.shade200;
+    case ProgramGroup.frontDelts:
+      return Colors.yellow.shade100;
+    case ProgramGroup.sideDelts:
+      return Colors.yellow.shade200;
+    case ProgramGroup.rearDelts:
+      return Colors.yellow.shade100;
+    case ProgramGroup.lowerTraps:
+      return Colors.blue.shade50;
+    case ProgramGroup.middleTraps:
+      return Colors.blue.shade100;
+    case ProgramGroup.upperTraps:
+      return Colors.blue.shade50;
+    case ProgramGroup.lats:
+      return Colors.blue.shade100;
+    case ProgramGroup.biceps:
+      return Colors.green.shade100;
+    case ProgramGroup.triceps:
+      return Colors.green.shade200;
+    case ProgramGroup.tricepsLongHead:
+      return Colors.green.shade100;
+    case ProgramGroup.spinalErectors:
+      return Colors.purple.shade100;
+    case ProgramGroup.quadsVasti:
+      return Colors.red.shade50;
+    case ProgramGroup.quadsRectusFemoris:
+      return Colors.red.shade100;
+    case ProgramGroup.hams:
+      return Colors.red.shade50;
+    case ProgramGroup.hamsShortHead:
+      return Colors.red.shade100;
+    case ProgramGroup.gluteMax:
+      return Colors.red.shade50;
+    case ProgramGroup.gluteMed:
+      return Colors.red.shade100;
+    case ProgramGroup.gastroc:
+      return Colors.red.shade50;
+    case ProgramGroup.soleus:
+      return Colors.red.shade100;
+    case ProgramGroup.abs:
+      return Colors.purple.shade100;
+    default:
+      return Colors.transparent;
+  }
+}
 /*
 volume distribution?
 menno says: equal for all muscles

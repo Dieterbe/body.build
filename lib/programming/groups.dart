@@ -144,7 +144,7 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.abs: 0.25,
   }), // has RF, others don't. so do we assume upright posture? (hip extension)
   const VolumeAssignment(
-      'lunges, step-ups, Reverse deficit lunges, modified step-ups, pistols, sissy/Spanish squats on apparatus',
+      'lunges, step-ups, Reverse deficit lunges, pistols, assisted sissy/Spanish squats',
       {
         ProgramGroup.spinalErectors: 0.5,
         ProgramGroup.quadsVasti: 1,
@@ -272,8 +272,68 @@ List<VolumeAssignment> volumeAssignments = [
   }),
   const VolumeAssignment('tricep extension, skull-overs, tricep kickbacks',
       {ProgramGroup.triceps: 1, ProgramGroup.tricepsLongHead: 1}),
+  /* overhead 40% more growth than pushdown: https://pubmed.ncbi.nlm.nih.gov/35819335/
+  50% for long head
+  40% more growth for the other two
+  due to more tension on all heads
+  -> skull overs, skull crushers (elbows!)
+
+  kickbacks, pushdowns not so great
+  */
   const VolumeAssignment('bicep curl', {ProgramGroup.biceps: 1}),
   const VolumeAssignment('ab crunch', {ProgramGroup.abs: 1}),
 ];
 
+// given an exercise, process all names and apply all volume assignemnts that match
+//Map{ProgramGroup, double} computeVolumeForExercise() {}
+
 // why no seperation in lats activation for rows vs prayers. various triceps extensions
+
+// you should count barbell presses as achieving only a 50% triceps stimulus compared to
+// 100% for triceps isolation exercises. Exercises like lat prayers, a variant of straight-arm
+// pulldowns, can effectively stimulate the long head of the triceps in relative isolation to
+// compensate for its lack of activation during pushing exercises.
+
+
+// bulgarians here assume you use rear leg so you activate RF on that. could also hav variant that doesn't use rear leg
+// TODO split up chest upper / lower / mid
+
+
+
+// triceps pitfall:
+// pressing exercises train medial/lateral head
+// triceps isolation train all heads
+// -> medial/lateral get more volume, while long head gets less but it's the biggest head
+// solution 1:
+// de-emphasize triceps in pressing chest/shoulder work + isolated tri work
+// overhead press -> lat raise // TODO does this refer to barbell overhead press? i guess so
+// press -> fly, cable chest press
+// dumbbel overhead and bench press instead of barbell
+// convergent machine also an option according to menno
+// solution 2:
+// straight arm pull-downs, lat prayers: trains long head, but not really the other ones
+// combine with your normal chest/shoulder stuff which hit only the other heads
+// in this case, iso work not really needed
+
+//                           medial/lat    long
+// barbell presses              v
+// cable/dummbell presses       
+// tri isolation work           v            v
+// lat pulldown                              v
+
+
+/* families etc?
+what are the use cases?
+- true "alternatives"? don't really exist, always some level of difference, but maybe useful still to find alternative exercises
+- seeing difference in results between different versions of something 
+- matchers for volume assignment
+should probably not put all squats or bench presses in the same family. that doesn't seem very useful
+leg curls
+bicep curls
+tricep extensions
+deadlifts
+different squats: what's the point of having a category that includes bulgarian and hack squat and goblet, and bodyweight, etc? they are quite different (e.g. in back load
+bench press (inclide, decline, barbell, dumbell)
+pull-downs (chinup, neutral grip, wide, etc), also assisted vs unassisted
+pull-ups (chinup, neutral grip, wide, etc)
+*/

@@ -102,3 +102,7 @@ enum MP {
 }
 ```
 ```
+
+
+// not included: hip adductor muscles
+2) If you want thicker inner legs, you should train them. For most people, they get as much growth as desired from hip extension already.

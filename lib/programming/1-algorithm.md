@@ -24,6 +24,8 @@ low intensity for isolation for injury/technique
 // step X ? rep targets: maybe not really a step. could be part of the routine.
 // given 1RM + desired intensity targets, use muscle-specific hypertrophy method (but that already requires a whole program) or lookup table to come up with rep targets
 
+for women, use muscle-specific hypertrophy method because they can do more reps
+
 // step 4: determine volume: number of sets per week per muscle group
 hypertrophy: positive growth up to at least 10 sets per week per muscle group, if not 20-30. but also possible reduction of results starting at 20.
 strength: tapers off well before 10 sets per week per exercise, but not much data, hence probably need different exercises
@@ -37,6 +39,9 @@ women or young -> can do more
 see volume calculator https://docs.google.com/spreadsheets/d/1Jc4ZpWSjq8Y8tHS29sijzz20Rvk-hsbE/edit?gid=1727367196#gid=1727367196
 
 The calculator considers only the listed factors, so if there are other factors at play that likely influence someone’s volume tolerance, such as performance enhancing drugs or elite genetics, you’ll have to account for that manually. The calculator assumes that your program design in terms of proximity to failure, diet set-up, rest intervals and training frequency is in line with the course recommendations. If that’s not the case, you’ll have to adjust it accordingly
+
+do more volume in follicular phase, and less in luteal phase. e.g. +- 33%
+(adjust volume over time, via AVT or tracking work capacity)
 
 // step 5: training frequency
 
@@ -62,4 +67,8 @@ If you have unequal numbers of rest days in your training split, perform your mo
 
 // TAKE HOME
 
-For maximum muscle growth, a training program should have the following parameters.• Training intensity: 30-90% of 1RM, ideally with the muscle-specific hypertrophy method and higher intensities for compound exercises.• Training volume: generally in between 10-30 sets per week per muscle group based on someone’s recovery capacity.• Training frequency: at least once per week for every 6 sets of training volume per muscle, increasing up to daily or even bidaily training as training volume and training advancement increase. In practice, many trained individuals can make each workout a full-body training session.• Your training split should logically follow from your optimized training frequencies and volume, not the other way around. Make the training split fit your optimized parameters for each muscle group and then configure it to maximize the total weekly training volume load
+For maximum muscle growth, a training program should have the following parameters.
+• Training intensity: 30-90% of 1RM, ideally with the muscle-specific hypertrophy method and higher intensities for compound exercises.
+• Training volume: generally in between 10-30 sets per week per muscle group based on someone’s recovery capacity.
+• Training frequency: at least once per week for every 6 sets of training volume per muscle, increasing up to daily or even bidaily training as training volume and training advancement increase. In practice, many trained individuals can make each workout a full-body training session.
+• Your training split should logically follow from your optimized training frequencies and volume, not the other way around. Make the training split fit your optimized parameters for each muscle group and then configure it to maximize the total weekly training volume load

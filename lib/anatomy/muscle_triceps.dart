@@ -23,7 +23,7 @@ final tricepsBrachii = MultiHeadMuscle(
     ),
   ],
   headsMap: {
-    // inside of arm
+    // inside of arm. biggest head of tricep and biggest part of arm
     MuscleId.tricepsBrachiiLongHead: const Head(
       id: MuscleId.tricepsBrachiiLongHead,
       name: 'long head',
@@ -61,7 +61,7 @@ final tricepsBrachii = MultiHeadMuscle(
       origin: [Bone.humerus], // top of
       movements: [],
     ),
-    // covered
+    // covered and small
     MuscleId.tricepsBrachiiMedialHead: const Head(
       id: MuscleId.tricepsBrachiiMedialHead,
       name: 'medial head',

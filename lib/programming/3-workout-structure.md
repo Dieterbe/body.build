@@ -2,7 +2,7 @@ when re-hitting same muscles:
     for strength, need full ATP-CP recovery (esp for high intensity training), which takes about 3 min, especially in trained
     for hypertrophy, it's volume that counts. need >1 min to keep work capacity/volume up
 but antagonist supersets allow cutting rest
-* women recover faster than men
+* women recover faster than men, and need less rest time between sets (and between workouts)
 * intensity:
   - 90-100% RM low work output&fatigue recovers fairly fast
   - high intensity in general: ATP-CP crucial, needs more time
@@ -39,3 +39,6 @@ ordering:
     - allows to give focus to many muscle groups
     - more rest before hitting same muscle group again
     - bit more cardio intense too
+
+
+    FUTURE: more on interference effect? in cardio module?

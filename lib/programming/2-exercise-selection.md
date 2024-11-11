@@ -228,3 +228,6 @@ deadlifts 100% erector spinae even if only stabilizer
 quads 50% in deadlifts
 
 depends on form. maybe just do 50-75-100 and ignore everything <40-60
+
+
+do you see any value in training spine lateral flexion (e.g. side bends on hyper extension) -> not really, just for waist thickening

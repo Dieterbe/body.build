@@ -38,11 +38,17 @@ final gluteMaximus = SingleHeadMuscle(
       rangeStart: 0,
       rangeEnd: 50,
     ),
+    /*
+    // there is speculation about this, for the lower fibers only
+    // anatomically it seems to make sense
+    // however, EMG seems to indicate otherwise
+    // https://pubmed.ncbi.nlm.nih.gov/14290738/
     const Movement(
         articulation: Articulation.hipAdduction,
         strength: 4,
         rangeStart: 30,
         rangeEnd: 0), // speculatively, lower fibers only
+  */
   ],
   origin: [Bone.iliacCrest, Bone.sacrum],
 );
