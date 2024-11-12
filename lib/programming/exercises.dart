@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kaos/model/exercise.dart';
 import "package:flutter/services.dart" as s;
 import 'dart:convert';
-import 'package:kaos/model/category.dart';
-import 'package:kaos/model/exercise_list.dart';
+
 import 'package:ptc/programming/groups.dart';
 
 // Exercise Base
@@ -84,10 +82,10 @@ class Ex {
       id; // identifier to match to kaos exercise. does not need to be human friendly
   // TODO: in fact, should be super specific here? to account for future additions of other
   // variations? e.g. add "barbell" even when that is obvious
-  Exercise? exercise;
+  //Exercise? exercise;
   late VolumeAssignment va;
 
-  Ex(this.base, this.id, {this.exercise}) {
+  Ex(this.base, this.id) {
     // for now, rely on the idea that we have 1 rule for each type of exercise
     // perhaps in the future we can do something more fancy with rules overriding each other etc
     for (var v in volumeAssignments) {
@@ -203,7 +201,7 @@ final List<Ex> exes = [
   Ex(EBase.abCrunch, "ab crunch machine"),
   Ex(EBase.abCrunch, "laying ab crunch"),
 ];
-
+/*
 loadKaos() async {
   var warnings = 0;
   var matches = 0;
@@ -236,3 +234,4 @@ loadKaos() async {
   }
   print('total found: $matches - warnings: $warnings');
 }
+*/
