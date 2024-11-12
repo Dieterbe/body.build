@@ -10,8 +10,9 @@ import 'package:go_router/go_router.dart';
 import 'package:ptc/ui/programmer_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  loadKaos();
+  // disabled for now. not all that useful actually..
+  // WidgetsFlutterBinding.ensureInitialized();
+//  loadKaos();
 
   // *without* this flag, behavior is like so:
   // go -> uses proper URL, but overrides 'back' stack, goes straight back to home
