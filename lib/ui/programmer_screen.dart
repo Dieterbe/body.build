@@ -1,13 +1,15 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:kaos/model/category.dart';
-import 'package:kaos/model/exercise_list.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ptc/programming/ex_set.dart';
+import 'package:ptc/programming/exercises.dart';
 import 'package:ptc/programming/groups.dart';
-import 'package:ptc/ui/muscles_screen.dart';
+import 'package:ptc/ui/ex_set.dart';
+import 'package:ptc/ui/groups.dart';
+import 'package:ptc/ui/label_bar.dart';
+import 'package:ptc/ui/programmer_config.dart';
 import 'package:ptc/util.dart';
-import "package:flutter/services.dart" as s;
 
 class ProgrammerScreen extends StatefulWidget {
   const ProgrammerScreen({super.key});
@@ -19,8 +21,7 @@ class ProgrammerScreen extends StatefulWidget {
 }
 
 class _ProgrammerScreenState extends State<ProgrammerScreen> {
-  String dropdownValue = 'beginner';
-
+  List<ExSet> sets = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,65 +33,129 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
-            Row(children: [
-              const Text('Starting trainee level'),
-              DropdownButton<String>(
-                value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
-                iconSize: 24,
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurple,
-                ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: <String>['beginner', 'intermediate', 'advanced', 'elite']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Column(
-                      children: [
-                        Text(value),
-                        const SizedBox(height: 8),
-                        Text(switch (value) {
-                          'beginner' => 'bench 1RM > 0kg',
-                          'intermediate' => 'bench 1RM > 90kg',
-                          'advanced' => 'bench 1RM > 125kg',
-                          'elite' => 'bench 1RM > 160kg',
-                          _ => value,
-                        }),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              )
-            ]),
-            Text(
-                'based on https://exrx.net/Testing/WeightLifting/StrengthStandards'),
-            Text(
-                'in the future, we will help you figure this out more elegantly rather than consulting exrx tables'),
-            Text(
-                'note: exrx category untrained and novice are combined into beginner, because some people may train for years and still be considered "untrained" by exrx standards'),
-            Text(
-                'also, all advice/calculations remain the same for both exrx untrained and novice anyway'),
+            const LabelBar("Set up"),
+            const ProgrammerConfig(),
+            const LabelBar("Exercise selector"),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('exercise'),
                 Expanded(child: Container()),
-                Container(
-                  child: headers(),
+                headers(),
+              ],
+            ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      sets.add(ExSet());
+                    });
+                  },
+                  icon: const Icon(Icons.add),
+                  // style: IconButton.styleFrom(
+                  //   minimumSize: const Size(40, 40),
+                  //   ),
                 ),
+                Text('Exercise sets'),
+                Expanded(child: Container()),
+                ...ProgramGroup.values.map((g) => Container(
+                    height: 30,
+                    // width: 30,
+                    color: bgColorForProgramGroup(g),
+                    child: GestureDetector(
+                      onTap: () {
+                        print('clicked');
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return SimpleDialog(
+                              title:
+                                  Text('Add an exercise which recruits ${g}'),
+                              children: [
+                                Text(
+                                    'below are recommended exercises in order of recruitment'),
+                                // ideally, user wants to preview the possible exercises within the program volume stats, so we could plonk them there
+                                // in a special "WIP" section (e.g. hatched background)
+                                // on the other hand, they also probably want to do a search to narrow it down to specific exercises, so they would
+                                // need a text filter, and in the future maybe future filters
+                                // putting all of that in the main UI seems a bit too much. let's just use a simple selection for now
+                                Autocomplete<Ex>(
+                                  displayStringForOption: (e) => e.id,
+                                  optionsBuilder: (textEditingValue) {
+                                    final opts = exes
+                                        .where((e) => (e.va.assign[g] ?? 0) > 0)
+                                        .where((e) => e.id
+                                            .toLowerCase()
+                                            .contains(textEditingValue.text
+                                                .toLowerCase()))
+                                        .toList();
+                                    opts.sort((a, b) => (b.va.assign[g] ?? 0)
+                                        .compareTo(a.va.assign[g] ?? 0));
+                                    return opts;
+                                  },
+                                  onSelected: (e) {
+                                    context.pop();
+                                    setState(() {
+                                      sets.add(ExSet(ex: e));
+                                      print(e);
+                                    });
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                          width: 30, child: const Icon(Icons.add, size: 16)),
+                      //style: IconButton.styleFrom(
+                      //  maximumSize: const Size(30, 30),
+                      //),
+                    )))
               ],
             ),
             Divider(),
-            // eventually we will show relevant exercises (e.g. part of a program)
-            // for now, let's just show our volume assignment rules
+            ...sets.map((s) => Row(children: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        s.ex = null;
+                      });
+                    },
+                    icon: const Icon(Icons.edit),
+                    style: IconButton.styleFrom(
+                        //  minimumSize: const Size(40, 40), -- used to work
+                        ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        setState(() {
+                          sets.remove(s);
+                        });
+                      });
+                    },
+                    icon: const Icon(Icons.delete),
+                    style: IconButton.styleFrom(
+                        //  minimumSize: const Size(40, 40), -- used to work
+                        ),
+                  ),
+                  ExSetWidget(s, (ex) {
+                    setState(() {
+                      s.ex = ex;
+                    });
+                  }),
+                  Expanded(child: Container()),
+                  ...ProgramGroup.values.map((g) => Container(
+                      height: 40,
+                      //  width: 40,
+                      color: bgColorForProgramGroup(g),
+                      child: Center(
+                          child:
+                              muscleMark(s.ex?.va.assign[g] ?? 0.0, context)))),
+                ])),
+            // if you want to show the actual volume assignment rules, uncomment this:
+            /*
             ...volumeAssignments.map((e) => Row(children: [
                   Text(e.match.map((e) => e.toString()).join(' OR ')),
                   Expanded(child: Container()),
@@ -98,28 +163,11 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                       color: bgColorForProgramGroup(g),
                       child: muscleMark(e.assign[g] ?? 0.0, context))),
                 ])),
+                */
             const Divider(),
-            // show a nice legend that displays what the muscle marks for 0.25, 0.5, 0.75 and 1.0 look like
-            Row(children: [
-              const Spacer(),
-              const Text('Legend'),
-              const SizedBox(width: 30),
-              const Text('0.25'),
-              const SizedBox(width: 4),
-              muscleMark(0.25, context),
-              const SizedBox(width: 30),
-              const Text('0.5'),
-              const SizedBox(width: 4),
-              muscleMark(0.5, context),
-              const SizedBox(width: 30),
-              const Text('0.75'),
-              const SizedBox(width: 4),
-              muscleMark(0.75, context),
-              const SizedBox(width: 30),
-              const Text('1.0'),
-              const SizedBox(width: 4),
-              muscleMark(1.0, context),
-            ]),
+            const Legend(),
+            const Divider(),
+            TotalsWidget(sets),
           ]),
         ),
       ),
@@ -138,13 +186,11 @@ Widget rotatedText(String text) {
 }
 
 Widget muscleMark(double recruitment, BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(2.0),
-    child: Container(
-      width: 26,
-      height: 26,
-      color: Theme.of(context).colorScheme.primary.withOpacity(recruitment),
-    ),
+  return Container(
+    // padding: const EdgeInsets.all(2.0),
+    width: 30,
+    height: 30,
+    color: Theme.of(context).colorScheme.primary.withOpacity(recruitment),
   );
 }
 
@@ -163,7 +209,7 @@ Widget headers() {
 // the resulting widget will have the width of whichever is the longest of the text boxes
 // therefore, by stacking each entry on top of this stack, they all have the same length
 // and therefore, consistent rotation origins
-  final all = ProgramGroup.values
+  /* final all = ProgramGroup.values
       .map((e) => Opacity(
             opacity: 0,
             child: Text(
@@ -171,6 +217,12 @@ Widget headers() {
             ),
           ))
       .toList();
+      */
+  // better hack which reduces the number of widgets: just manually define the longest one...
+  const dummy = Opacity(
+    opacity: 0,
+    child: Text('Quads Rectus Femoris'),
+  );
   return Transform.translate(
     offset: const Offset(
         0, -10), // because we pivot around bottom center, raise text up a bit
@@ -187,8 +239,10 @@ Widget headers() {
                       padding: const EdgeInsets.symmetric(vertical: 2),
                       child: Stack(children: [
                         SizedBox(
-                            height: 26, child: Text(e.name.camelToTitle())),
-                        ...all
+                          height: 26,
+                          child: Text(e.name.camelToTitle()),
+                        ),
+                        dummy,
                       ]),
                     ),
                   ),
@@ -197,56 +251,126 @@ Widget headers() {
   );
 }
 
-Color bgColorForProgramGroup(ProgramGroup g) {
-  switch (g) {
-    case ProgramGroup.lowerPecs:
-      return Colors.yellow.shade100;
-    case ProgramGroup.upperPecs:
-      return Colors.yellow.shade200;
-    case ProgramGroup.frontDelts:
-      return Colors.yellow.shade100;
-    case ProgramGroup.sideDelts:
-      return Colors.yellow.shade200;
-    case ProgramGroup.rearDelts:
-      return Colors.yellow.shade100;
-    case ProgramGroup.lowerTraps:
-      return Colors.blue.shade50;
-    case ProgramGroup.middleTraps:
-      return Colors.blue.shade100;
-    case ProgramGroup.upperTraps:
-      return Colors.blue.shade50;
-    case ProgramGroup.lats:
-      return Colors.blue.shade100;
-    case ProgramGroup.biceps:
-      return Colors.green.shade100;
-    case ProgramGroup.triceps:
-      return Colors.green.shade200;
-    case ProgramGroup.tricepsLongHead:
-      return Colors.green.shade100;
-    case ProgramGroup.spinalErectors:
-      return Colors.purple.shade100;
-    case ProgramGroup.quadsVasti:
-      return Colors.red.shade50;
-    case ProgramGroup.quadsRectusFemoris:
-      return Colors.red.shade100;
-    case ProgramGroup.hams:
-      return Colors.red.shade50;
-    case ProgramGroup.hamsShortHead:
-      return Colors.red.shade100;
-    case ProgramGroup.gluteMax:
-      return Colors.red.shade50;
-    case ProgramGroup.gluteMed:
-      return Colors.red.shade100;
-    case ProgramGroup.gastroc:
-      return Colors.red.shade50;
-    case ProgramGroup.soleus:
-      return Colors.red.shade100;
-    case ProgramGroup.abs:
-      return Colors.purple.shade100;
-    default:
-      return Colors.transparent;
+class Legend extends StatelessWidget {
+  const Legend({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      const Spacer(),
+      const Text('Legend'),
+      const SizedBox(width: 30),
+      const Text('0.25'),
+      const SizedBox(width: 4),
+      muscleMark(0.25, context),
+      const SizedBox(width: 30),
+      const Text('0.5'),
+      const SizedBox(width: 4),
+      muscleMark(0.5, context),
+      const SizedBox(width: 30),
+      const Text('0.75'),
+      const SizedBox(width: 4),
+      muscleMark(0.75, context),
+      const SizedBox(width: 30),
+      const Text('1.0'),
+      const SizedBox(width: 4),
+      muscleMark(1.0, context),
+    ]);
   }
 }
+
+class TotalsWidget extends StatelessWidget {
+  final List<ExSet> sets;
+  const TotalsWidget(this.sets, {super.key});
+
+// return a map with for each program group, the volume, summed from all the exercises found in our sets
+// if any of the values exceeds `normalize`, we normalize wrt. to that value
+// volumes < cutoff are counted as 0
+  (double, Map<ProgramGroup, double>) _compute(
+      double cutoff, double normalize) {
+    final assignments =
+        sets.where((s) => s.ex != null).map((s) => s.ex!.va.assign);
+    final totals = assignments.fold<Map<ProgramGroup, double>>(
+        {for (var group in ProgramGroup.values) group: 0.0},
+        (totals, assign) => {
+              for (var group in ProgramGroup.values)
+                group: totals[group]! +
+                    ((assign[group] ?? 0.0) >= cutoff ? assign[group]! : 0.0)
+            });
+    final maxVal = totals.values.reduce(max);
+    if (maxVal <= normalize) {
+      return (maxVal, totals);
+    }
+    // if maxVal is 6 and normalize is 3, we need to divide every value by 2
+    // i.o.w. each value in totals needs to be divided by `maxVal` and multiplied by `normalize`
+    return (
+      normalize,
+      Map.fromEntries(totals.entries
+          .map((e) => MapEntry(e.key, (e.value / maxVal) * normalize)))
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final (maxVal, totals) = _compute(0.5, 2);
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(child: Container()),
+            GestureDetector(
+              onTap: () {
+                print('clicked');
+              },
+              child: const Text(
+                "Total volume\n(only counts volumes >=0.5)",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            const SizedBox(width: 30),
+            ...ProgramGroup.values
+                .map((g) => Stack(alignment: Alignment.bottomCenter, children: [
+                      Container(
+                        width: 30,
+                        height: max(40 * maxVal, 40),
+                        color: bgColorForProgramGroup(g),
+                      ),
+                      Container(
+                        width: 30,
+                        height: 40 * totals[g]!,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ]))
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Container()),
+            ...ProgramGroup.values.map((g) => Container(
+                  width: 30,
+                  height: 40,
+                  color: bgColorForProgramGroup(g),
+                  child: totals[g]! == 0
+                      ? const Offstage()
+                      : Center(
+                          child: Text(
+                          totals[g]!.toStringAsFixed(1),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        )),
+                ))
+          ],
+        )
+      ],
+    );
+  }
+}
+
 /*
 volume distribution?
 menno says: equal for all muscles

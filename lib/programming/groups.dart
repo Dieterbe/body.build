@@ -211,6 +211,7 @@ List<VolumeAssignment> volumeAssignments = [
 
   const VolumeAssignment([
     EBase.pullupSupinated,
+    EBase.pulldownSupinated, // TODO: not part of menno's sheet
     EBase.pulldown,
     EBase.pulldownNeutral,
     EBase.pullupNeutral,
@@ -226,6 +227,7 @@ List<VolumeAssignment> volumeAssignments = [
   const VolumeAssignment([
     EBase.pullup,
     EBase.pulldownWidePronated,
+    EBase.pullupWidePronated // TODO: confirm with menno. wasn't part
   ], {
     ProgramGroup.lowerPecs: 0.5,
     ProgramGroup.rearDelts: 0.25,

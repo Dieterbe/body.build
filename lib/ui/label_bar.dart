@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+
+class LabelBar extends StatelessWidget {
+  final String title;
+  const LabelBar(this.title, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      const SizedBox(height: 8),
+      Row(
+        children: [
+          Container(
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+              ),
+            ),
+          ),
+          Expanded(child: Container()),
+        ],
+      ),
+      Divider(
+          height: 2,
+          thickness: 2,
+          color: Theme.of(context).colorScheme.secondaryContainer),
+      const SizedBox(height: 8),
+    ]);
+  }
+}

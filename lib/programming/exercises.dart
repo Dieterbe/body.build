@@ -4,6 +4,7 @@ import "package:flutter/services.dart" as s;
 import 'dart:convert';
 import 'package:kaos/model/category.dart';
 import 'package:kaos/model/exercise_list.dart';
+import 'package:ptc/programming/groups.dart';
 
 // Exercise Base
 enum EBase {
@@ -38,10 +39,10 @@ enum EBase {
   pullup,
   pullupNeutral,
   pullupSupinated,
-  pullupWidePronated, // TODO unused in vol assignment
+  pullupWidePronated,
   pulldown,
   pulldownNeutral,
-  pulldownSupinated, // TODO unused in vol assignment
+  pulldownSupinated,
   pulldownWidePronated,
   diagonalRow,
   cableRowWithForwardLean,
@@ -84,8 +85,20 @@ class Ex {
   // TODO: in fact, should be super specific here? to account for future additions of other
   // variations? e.g. add "barbell" even when that is obvious
   Exercise? exercise;
+  late VolumeAssignment va;
 
-  Ex(this.base, this.id, {this.exercise});
+  Ex(this.base, this.id, {this.exercise}) {
+    // for now, rely on the idea that we have 1 rule for each type of exercise
+    // perhaps in the future we can do something more fancy with rules overriding each other etc
+    for (var v in volumeAssignments) {
+      if (v.match.contains(base)) {
+        va = v;
+        return;
+      }
+    }
+    throw Exception(
+        'no matching volume assignment found for exercise with id $id');
+  }
 }
 
 final List<Ex> exes = [
