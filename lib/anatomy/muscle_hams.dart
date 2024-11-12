@@ -68,6 +68,7 @@ final hamstrings = MultiHeadMuscle(
     MuscleId.semitendinosus: const Head(
       id: MuscleId.semitendinosus,
       name: 'semitendinosus',
+      articular: 2,
       origin: [Bone.hip],
       movements: [
         Movement(
@@ -88,6 +89,7 @@ final hamstrings = MultiHeadMuscle(
     MuscleId.semimembranosus: const Head(
       id: MuscleId.semimembranosus,
       name: 'semimembranosus',
+      articular: 2,
       origin: [Bone.hip],
       movements: [
         Movement(
