@@ -2,6 +2,7 @@
 // https://www.scielo.br/j/motriz/a/jbfGfJrRsXbfc9BrfXgVSPy/?lang=en
 
 import 'package:ptc/anatomy/muscles.dart';
+import 'package:ptc/programming/exercises.dart';
 
 // muscle groups for the purpose of training
 // * uses a bit more "common language" (e.g. biceps to mean elbow flexors)
@@ -52,15 +53,16 @@ enum ProgramGroup {
   const ProgramGroup(this.muscles);
   final List<MuscleId> muscles;
 }
+
 class VolumeAssignment {
-  final List<String> match;
+  final List<EBase> match; // OR (any)
   final Map<ProgramGroup, double> assign;
   const VolumeAssignment(this.match, this.assign);
 }
 
 List<VolumeAssignment> volumeAssignments = [
   const VolumeAssignment(
-    ['deadlift'],
+    [EBase.deadlift],
     {
       ProgramGroup.upperTraps: 1,
       ProgramGroup.lats: 0.25,
@@ -73,7 +75,7 @@ List<VolumeAssignment> volumeAssignments = [
     },
   ),
   const VolumeAssignment(
-    ['romanian deadlift'],
+    [EBase.deadliftRDL],
     {
       ProgramGroup.upperTraps: 1,
       ProgramGroup.lats: 0.25,
@@ -84,7 +86,7 @@ List<VolumeAssignment> volumeAssignments = [
     },
   ),
   const VolumeAssignment(
-    ['goodmorning'],
+    [EBase.goodMorning],
     {
       ProgramGroup.spinalErectors: 1,
       ProgramGroup.hams: 1,
@@ -93,7 +95,10 @@ List<VolumeAssignment> volumeAssignments = [
     },
   ),
   const VolumeAssignment(
-    ['hip extension and pull-throughs'], // incl 45 & 90 degree hip extension, reverse hyperextension,
+    [
+      EBase.hipExtension,
+      EBase.pullThrough,
+    ],
     {
       ProgramGroup.spinalErectors: 0.25,
       ProgramGroup.hams: 1,
@@ -101,20 +106,25 @@ List<VolumeAssignment> volumeAssignments = [
     },
   ),
   const VolumeAssignment(
-    ['back extensions'],
+    [EBase.backExtension],
     {
       ProgramGroup.spinalErectors: 1,
       ProgramGroup.hams: 1,
       ProgramGroup.gluteMax: 1,
     },
   ),
-  const VolumeAssignment(['leg curl'], {
+  const VolumeAssignment([
+    EBase.legCurl
+  ], {
     ProgramGroup.hamsShortHead: 1,
     ProgramGroup.hams: 1,
     ProgramGroup.gastroc: 1 // assuming full dorsiflexion
   }),
   const VolumeAssignment(
-    ['barbell squat'], // Incl. High-bar back squats, low-bar back squats, front squats, goblet squats
+    [
+      EBase.squatBB,
+      EBase.squatGoblet,
+    ],
     {
       ProgramGroup.spinalErectors: 1,
       ProgramGroup.quadsVasti: 1,
@@ -125,7 +135,7 @@ List<VolumeAssignment> volumeAssignments = [
     },
   ),
   const VolumeAssignment(
-    ['leg press, hack squat, belt squat'],
+    [EBase.legPress, EBase.squatHack, EBase.squatBelt],
     {
       ProgramGroup.spinalErectors: 0.25,
       ProgramGroup.quadsVasti: 1,
@@ -133,7 +143,9 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
     },
   ),
-  const VolumeAssignment(['bulgarian split squat'], {
+  const VolumeAssignment([
+    EBase.squatBSQ,
+  ], {
     ProgramGroup.spinalErectors: 0.5,
     ProgramGroup.quadsVasti: 1,
     ProgramGroup.quadsRectusFemoris: 1,
@@ -142,43 +154,68 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
     ProgramGroup.abs: 0.25,
   }), // has RF, others don't. so do we assume upright posture? (hip extension)
-  const VolumeAssignment(
-      ['lunges, step-ups, Reverse deficit lunges, pistols, assisted sissy/Spanish squats'],
-      {
-        ProgramGroup.spinalErectors: 0.5,
-        ProgramGroup.quadsVasti: 1,
-        ProgramGroup.gluteMax: 1,
-        ProgramGroup.gluteMed: 0.5,
-        ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
-        ProgramGroup.abs: 0.25,
-      }),
-  const VolumeAssignment(
-      ['leg extension, reverse nordic ham curls, unassisted sissy squats'], {
+  const VolumeAssignment([
+    EBase.lunge,
+    EBase.stepUp,
+    EBase.squatPistol,
+    EBase.squatSissyAssisted,
+    EBase.squatSpanish,
+  ], {
+    ProgramGroup.spinalErectors: 0.5,
+    ProgramGroup.quadsVasti: 1,
+    ProgramGroup.gluteMax: 1,
+    ProgramGroup.gluteMed: 0.5,
+    ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
+    ProgramGroup.abs: 0.25,
+  }),
+  const VolumeAssignment([
+    EBase.legExtension,
+    EBase.reverseNordicHamCurl,
+    EBase.squatSissy
+  ], {
     ProgramGroup.quadsVasti: 1,
     ProgramGroup.quadsRectusFemoris: 1,
   }),
-  const VolumeAssignment(['hip thrust, glute kickback, pendulum kickbacks'], {
+  const VolumeAssignment([
+    EBase.hipThrust,
+    EBase.gluteKickback
+  ], {
     ProgramGroup.quadsVasti:
         0.5, // depends.. more knee flexion -> more vasti involved
     ProgramGroup.gluteMax: 1,
   }),
-  const VolumeAssignment(['hip abduction with hip flexed'], {
+  const VolumeAssignment([
+    EBase.hipAbductionHipFlexed,
+  ], {
     ProgramGroup.gluteMax: 0.5, // upper fibers only
     ProgramGroup.gluteMed: 0.25,
   }),
-  const VolumeAssignment(['hip abduction'], {
+  const VolumeAssignment([
+    EBase.hipAbductionHipExtended,
+  ], {
     ProgramGroup.gluteMed: 1,
   }),
-  const VolumeAssignment(['standing calf raise, calf jumps'], {
+  const VolumeAssignment([
+    EBase.standingCalfRaise,
+    EBase.calfJump,
+  ], {
     ProgramGroup.gastroc: 1,
     ProgramGroup.soleus: 1,
   }),
-  const VolumeAssignment(['seated calf raise'], {
+  const VolumeAssignment([
+    EBase.seatedCalfRaise
+  ], {
     ProgramGroup.gastroc: 0.25,
     ProgramGroup.soleus: 1,
   }),
-  const VolumeAssignment(
-      ['chin-up, pull down, neutral grip chinup/pull down, diagonal rows'], {
+
+  const VolumeAssignment([
+    EBase.pullupSupinated,
+    EBase.pulldown,
+    EBase.pulldownNeutral,
+    EBase.pullupNeutral,
+    EBase.diagonalRow,
+  ], {
     ProgramGroup.lowerPecs: 0.25,
     ProgramGroup.rearDelts: 1,
     ProgramGroup.lowerTraps: 1,
@@ -186,7 +223,10 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.lats: 1,
     ProgramGroup.biceps: 1,
   }),
-  const VolumeAssignment(['pull-up, wide pull down'], {
+  const VolumeAssignment([
+    EBase.pullup,
+    EBase.pulldownWidePronated,
+  ], {
     ProgramGroup.lowerPecs: 0.5,
     ProgramGroup.rearDelts: 0.25,
     ProgramGroup.lowerTraps: 1,
@@ -194,7 +234,10 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.lats: 1,
     ProgramGroup.biceps: 1,
   }),
-  const VolumeAssignment(['cable row with spinal flexion, bent over rows'], {
+  const VolumeAssignment([
+    EBase.cableRowWithForwardLean,
+    EBase.bentOverRow,
+  ], {
     ProgramGroup.rearDelts: 1,
     ProgramGroup.lowerTraps: 1,
     ProgramGroup.middleTraps: 1,
@@ -205,40 +248,57 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.hams: 0.25,
     ProgramGroup.gluteMax: 0.25,
   }), // shouldn't that be extension? where are the normal rows?
-  const VolumeAssignment(['pull-over, lat prayer'], {
+  const VolumeAssignment([
+    EBase.pullOver,
+    EBase.latPrayer
+  ], {
     ProgramGroup.lowerPecs: 0.5,
     ProgramGroup.rearDelts: 1,
     ProgramGroup.lats: 1,
     ProgramGroup.tricepsLongHead: 1,
   }),
-  const VolumeAssignment(
-      ['high row, rear delt fly, side lying rear delt raises, shoulder pulls, face pulls'],
-      {
-        ProgramGroup.rearDelts: 1,
-        ProgramGroup.lowerTraps: 1,
-        ProgramGroup.middleTraps: 1,
-      }),
-  const VolumeAssignment(
-      ['barbell bench press, machine chest press, push-up'], {
+  const VolumeAssignment([
+    EBase.highRow,
+    EBase.rearDeltFly,
+    EBase.rearDeltRaise,
+    EBase.shoulderPull,
+    EBase.facePull,
+  ], {
+    ProgramGroup.rearDelts: 1,
+    ProgramGroup.lowerTraps: 1,
+    ProgramGroup.middleTraps: 1,
+  }),
+  const VolumeAssignment([
+    EBase.benchPressBB,
+    EBase.chestPressMachine,
+    EBase.pushUp,
+  ], {
     ProgramGroup.lowerPecs: 1,
     ProgramGroup.upperPecs: 1,
     ProgramGroup.frontDelts: 1,
     ProgramGroup.triceps: 1,
     ProgramGroup.tricepsLongHead: 0.25,
   }),
-  const VolumeAssignment(
-      ['dumbbell bench press, 15 incline dumbbell press, cable chest press'], {
+  const VolumeAssignment([
+    EBase.benchPressDB,
+    EBase.chestPressCable,
+  ], {
     ProgramGroup.lowerPecs: 1,
     ProgramGroup.upperPecs: 1,
     ProgramGroup.frontDelts: 1,
     ProgramGroup.triceps: 0.5,
   }),
-  const VolumeAssignment(['chest fly, bayesian fly, pec deck'], {
+  const VolumeAssignment([
+    EBase.fly,
+    EBase.pecDeck
+  ], {
     ProgramGroup.lowerPecs: 1,
     ProgramGroup.upperPecs: 1,
     ProgramGroup.frontDelts: 1,
   }), // no diff in lower vs upper?
-  const VolumeAssignment(['barbell overhead press'], {
+  const VolumeAssignment([
+    EBase.overheadPressBB
+  ], {
     ProgramGroup.upperPecs: 0.25,
     ProgramGroup.frontDelts: 1,
     ProgramGroup.sideDelts: 1,
@@ -249,7 +309,9 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.tricepsLongHead: 0.25,
     ProgramGroup.abs: 0.25,
   }),
-  const VolumeAssignment(['dumbbell overhead press'], {
+  const VolumeAssignment([
+    EBase.overheadPressDB,
+  ], {
     ProgramGroup.upperPecs: 0.25,
     ProgramGroup.frontDelts: 1,
     ProgramGroup.sideDelts: 1,
@@ -259,7 +321,9 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.triceps: 0.5,
     ProgramGroup.abs: 0.25,
   }),
-  const VolumeAssignment(['lateral raise'], {
+  const VolumeAssignment([
+    EBase.lateralRaise
+  ], {
     ProgramGroup.upperPecs: 0.25,
     ProgramGroup.frontDelts: 1,
     ProgramGroup.sideDelts: 1,
@@ -267,10 +331,12 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.middleTraps: 0.25,
     ProgramGroup.upperTraps: 0.25,
   }),
-  const VolumeAssignment('shrug', {
+  const VolumeAssignment([
+    EBase.shrug
+  ], {
     ProgramGroup.upperTraps: 1,
   }),
-  const VolumeAssignment('tricep extension, skull-overs, tricep kickbacks',
+  const VolumeAssignment([EBase.tricepExtension],
       {ProgramGroup.triceps: 1, ProgramGroup.tricepsLongHead: 1}),
   /* overhead 40% more growth than pushdown: https://pubmed.ncbi.nlm.nih.gov/35819335/
   50% for long head
@@ -280,8 +346,8 @@ List<VolumeAssignment> volumeAssignments = [
 
   kickbacks, pushdowns not so great
   */
-  const VolumeAssignment('bicep curl', {ProgramGroup.biceps: 1}),
-  const VolumeAssignment('ab crunch', {ProgramGroup.abs: 1}),
+  const VolumeAssignment([EBase.bicepCurl], {ProgramGroup.biceps: 1}),
+  const VolumeAssignment([EBase.abCrunch], {ProgramGroup.abs: 1}),
 ];
 
 // given an exercise, process all names and apply all volume assignemnts that match

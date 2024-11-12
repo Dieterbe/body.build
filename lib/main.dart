@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ptc/programming/exercises.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/ui/articulations_screen.dart';
 import 'package:ptc/ui/colors.dart';
@@ -8,7 +9,10 @@ import 'package:ptc/ui/muscles_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ptc/ui/programmer_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  loadKaos();
+
   // *without* this flag, behavior is like so:
   // go -> uses proper URL, but overrides 'back' stack, goes straight back to home
   // push -> uses stack, keeps back working, but not proper URL

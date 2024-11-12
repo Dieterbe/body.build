@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:kaos/model/category.dart';
+import 'package:kaos/model/exercise_list.dart';
 import 'package:ptc/programming/groups.dart';
 import 'package:ptc/ui/muscles_screen.dart';
 import 'package:ptc/util.dart';
+import "package:flutter/services.dart" as s;
 
 class ProgrammerScreen extends StatefulWidget {
   const ProgrammerScreen({super.key});
@@ -88,7 +92,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
             // eventually we will show relevant exercises (e.g. part of a program)
             // for now, let's just show our volume assignment rules
             ...volumeAssignments.map((e) => Row(children: [
-                  Text(e.match),
+                  Text(e.match.map((e) => e.toString()).join(' OR ')),
                   Expanded(child: Container()),
                   ...ProgramGroup.values.map((g) => Container(
                       color: bgColorForProgramGroup(g),
