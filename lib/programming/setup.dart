@@ -12,18 +12,32 @@ enum Level {
 class Settings {
   Level level = Level.beginner;
   List<Equipment> selectedEquipment = [];
+
+  Settings copyWith({Level? level, List<Equipment>? selectedEquipment}) {
+    return Settings()
+      ..level = level ?? this.level
+      ..selectedEquipment = selectedEquipment ?? this.selectedEquipment;
+  }
 }
 
 @riverpod
 class Setup extends _$Setup {
   @override
-  Settings build() => Settings();
+  Settings build() {
+    ref.onDispose(() {
+      print('disposed');
+    });
+    return Settings();
+  }
 
-  void setLevel(Level level) => state.level = level;
+  void setLevel(Level level) => state = state.copyWith(level: level);
 
-  void addEquipment(Equipment equipment) =>
-      state.selectedEquipment.add(equipment);
+  void addEquipment(Equipment equipment) => state = state.copyWith(
+        selectedEquipment: [...state.selectedEquipment, equipment],
+      );
 
-  void removeEquipment(Equipment equipment) =>
-      state.selectedEquipment.remove(equipment);
+  void removeEquipment(Equipment equipment) => state = state.copyWith(
+        selectedEquipment:
+            state.selectedEquipment.where((e) => e != equipment).toList(),
+      );
 }

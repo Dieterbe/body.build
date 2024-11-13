@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/programming/exercises.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/ui/articulations_screen.dart';
 import 'package:ptc/ui/colors.dart';
@@ -8,7 +7,7 @@ import 'package:ptc/ui/home_screen.dart';
 import 'package:ptc/ui/muscle_screen.dart';
 import 'package:ptc/ui/muscles_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/ui/programmer_screen.dart';
+import 'package:ptc/ui/programmer/programmer_screen.dart';
 
 void main() async {
   // disabled for now. not all that useful actually..

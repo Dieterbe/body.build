@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ptc/programming/groups.dart';
-import 'package:ptc/ui/groups.dart';
+import 'package:ptc/ui/programmer/groups.dart';
 import 'package:ptc/util.dart';
 
 Widget headers() {

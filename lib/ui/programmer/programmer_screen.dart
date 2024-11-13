@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/ui/programmer_exercise_selection/programmer_exercise_selection.dart';
-import 'package:ptc/ui/programmer_setup.dart';
+import 'package:ptc/ui/programmer/programmer_exercise_selection.dart';
+import 'package:ptc/ui/programmer/programmer_setup.dart';
 
 class ProgrammerScreen extends StatefulWidget {
   const ProgrammerScreen({super.key});
@@ -25,12 +25,12 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
         child: TabBarView(
           children: [
             SingleChildScrollView(child: ProgrammerSetup()),
-            const SingleChildScrollView(child: ProgrammerExerciseSelection()),
+            SingleChildScrollView(child: ProgrammerExerciseSelection()),
           ],
         ),
       ),

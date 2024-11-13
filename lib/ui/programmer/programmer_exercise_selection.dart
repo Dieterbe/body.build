@@ -3,13 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:ptc/programming/ex_set.dart';
 import 'package:ptc/programming/exercises.dart';
 import 'package:ptc/programming/groups.dart';
-import 'package:ptc/ui/equip_label.dart';
-import 'package:ptc/ui/ex_set.dart';
-import 'package:ptc/ui/groups.dart';
-import 'package:ptc/ui/programmer_exercise_selection/headers.dart';
-import 'package:ptc/ui/programmer_exercise_selection/legend.dart';
-import 'package:ptc/ui/programmer_exercise_selection/totals_widget.dart';
-import 'package:ptc/ui/programmer_exercise_selection/widgets.dart';
+import 'package:ptc/ui/programmer/equip_label.dart';
+import 'package:ptc/ui/programmer/ex_set.dart';
+import 'package:ptc/ui/programmer/groups.dart';
+import 'package:ptc/ui/programmer/headers.dart';
+import 'package:ptc/ui/programmer/legend.dart';
+import 'package:ptc/ui/programmer/totals_widget.dart';
+import 'package:ptc/ui/programmer/widgets.dart';
 
 class ProgrammerExerciseSelection extends StatefulWidget {
   const ProgrammerExerciseSelection({super.key});
@@ -46,7 +46,7 @@ class _ProgrammerExerciseSelectionState
             //   minimumSize: const Size(40, 40),
             //   ),
           ),
-          Text('Exercise sets'),
+          const Text('Exercise sets'),
           Expanded(child: Container()),
           ...ProgramGroup.values.map((g) => Container(
               height: 30,
@@ -58,9 +58,9 @@ class _ProgrammerExerciseSelectionState
                     context: context,
                     builder: (context) {
                       return SimpleDialog(
-                        title: Text('Add an exercise which recruits ${g}'),
+                        title: Text('Add an exercise which recruits $g'),
                         children: [
-                          Text(
+                          const Text(
                               'below are recommended exercises in order of recruitment'),
                           // ideally, user wants to preview the possible exercises within the program volume stats, so we could plonk them there
                           // in a special "WIP" section (e.g. hatched background)
@@ -83,7 +83,6 @@ class _ProgrammerExerciseSelectionState
                               context.pop();
                               setState(() {
                                 sets.add(ExSet(ex: e));
-                                print(e);
                               });
                             },
                           )
@@ -92,15 +91,15 @@ class _ProgrammerExerciseSelectionState
                     },
                   );
                 },
-                child: Container(
-                    width: 30, child: const Icon(Icons.add, size: 16)),
+                child:
+                    const SizedBox(width: 30, child: Icon(Icons.add, size: 16)),
                 //style: IconButton.styleFrom(
                 //  maximumSize: const Size(30, 30),
                 //),
               )))
         ],
       ),
-      Divider(),
+      const Divider(),
       ...sets.map((s) => Row(children: [
             IconButton(
               onPressed: () {

@@ -3,7 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ptc/ui/articulations_screen.dart';
 import 'package:ptc/ui/muscles_screen.dart';
-import 'package:ptc/ui/programmer_screen.dart';
+import 'package:ptc/ui/programmer/programmer_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';

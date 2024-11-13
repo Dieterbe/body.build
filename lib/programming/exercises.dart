@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-import "package:flutter/services.dart" as s;
-import 'dart:convert';
-
 import 'package:ptc/programming/groups.dart';
 
 // Exercise Base

@@ -18,3 +18,11 @@ Widget muscleMark(double recruitment, BuildContext context) {
     color: Theme.of(context).colorScheme.primary.withOpacity(recruitment),
   );
 }
+
+// fixed with, for use in rows
+Widget titleText(String title, BuildContext context) => titleWidget(
+    Text(title, style: Theme.of(context).textTheme.titleMedium), context);
+
+// fixed with, for use in rows
+Widget titleWidget(Widget child, BuildContext context) =>
+    Container(alignment: Alignment.centerRight, width: 140, child: child);

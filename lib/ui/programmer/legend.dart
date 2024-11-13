@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/ui/programmer_exercise_selection/widgets.dart';
+import 'package:ptc/ui/programmer/widgets.dart';
 
 class Legend extends StatelessWidget {
   const Legend({super.key});
