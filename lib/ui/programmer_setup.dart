@@ -1,7 +1,9 @@
 //  const MarkdownBody(data: markdownSource),
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/programming/exercises.dart';
+import 'package:ptc/programming/setup.dart';
 import 'package:ptc/ui/equip_label.dart';
 
 const String help = '''
@@ -12,25 +14,16 @@ because some people may train for years and still be considered "untrained" by e
 also, all advice/calculations remain the same for both exrx untrained and novice anyway
 ''';
 
-class ProgrammerSetup extends StatefulWidget {
-  const ProgrammerSetup({super.key});
-
+class ProgrammerSetup extends ConsumerWidget {
   @override
-  State<ProgrammerSetup> createState() => _ProgrammerSetupState();
-}
-
-class _ProgrammerSetupState extends State<ProgrammerSetup> {
-  String dropdownValue = 'beginner';
-  List<Equipment> selectedEquipment = [];
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final setup = ref.watch(setupProvider);
     return Column(
       children: [
         Row(children: [
-          const Text('Starting trainee level'),
-          DropdownButton<String>(
-            value: dropdownValue,
+          const Text('Trainee level'),
+          DropdownButton<Level>(
+            value: setup.level,
             icon: const Icon(Icons.arrow_downward),
             iconSize: 24,
             elevation: 16,
@@ -39,25 +32,21 @@ class _ProgrammerSetupState extends State<ProgrammerSetup> {
               height: 2,
               color: Colors.deepPurple,
             ),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownValue = newValue!;
-              });
+            onChanged: (Level? newValue) {
+              ref.read(setupProvider.notifier).setLevel(newValue!);
             },
-            items: <String>['beginner', 'intermediate', 'advanced', 'elite']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
+            items: Level.values.map<DropdownMenuItem<Level>>((Level value) {
+              return DropdownMenuItem<Level>(
                 value: value,
                 child: Column(
                   children: [
-                    Text(value),
+                    Text(value.name),
                     const SizedBox(height: 8),
                     Text(switch (value) {
-                      'beginner' => 'bench 1RM > 0kg',
-                      'intermediate' => 'bench 1RM > 90kg',
-                      'advanced' => 'bench 1RM > 125kg',
-                      'elite' => 'bench 1RM > 160kg',
-                      _ => value,
+                      Level.beginner => 'bench 1RM > 0kg',
+                      Level.intermediate => 'bench 1RM > 90kg',
+                      Level.advanced => 'bench 1RM > 125kg',
+                      Level.elite => 'bench 1RM > 160kg',
                     }),
                   ],
                 ),
@@ -87,15 +76,17 @@ like sex, age, body fat %, muscle memory, steroids, etc
                   return FilterChip(
                     label: EquipmentLabel(equipment),
                     side: const BorderSide(width: 0),
-                    selected: selectedEquipment.contains(equipment),
+                    selected: setup.selectedEquipment.contains(equipment),
                     onSelected: (bool selected) {
-                      setState(() {
-                        if (selected) {
-                          selectedEquipment.add(equipment);
-                        } else {
-                          selectedEquipment.remove(equipment);
-                        }
-                      });
+                      if (selected) {
+                        ref
+                            .read(setupProvider.notifier)
+                            .addEquipment(equipment);
+                      } else {
+                        ref
+                            .read(setupProvider.notifier)
+                            .removeEquipment(equipment);
+                      }
                     },
                   );
                 }).toList(),

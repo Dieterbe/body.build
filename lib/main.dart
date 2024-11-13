@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/programming/exercises.dart';
 import 'package:ptc/ui/articulation_screen.dart';
 import 'package:ptc/ui/articulations_screen.dart';
@@ -20,7 +21,7 @@ void main() async {
   // with this flag, we get proper URL's and proper stack
   // this was noticebale e.g. on /muscles when trying to navigate to /muscles/biceps
   GoRouter.optionURLReflectsImperativeAPIs = true;
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
