@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ptc/programming/ex_set.dart';
 import 'package:ptc/programming/exercises.dart';
 import 'package:ptc/programming/groups.dart';
+import 'package:ptc/ui/equip_label.dart';
 import 'package:ptc/ui/ex_set.dart';
 import 'package:ptc/ui/groups.dart';
 import 'package:ptc/ui/label_bar.dart';
@@ -146,6 +147,8 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                     });
                   }),
                   Expanded(child: Container()),
+                  if (s.ex != null)
+                    ...s.ex!.equipment.map((e) => EquipmentLabel(e)),
                   ...ProgramGroup.values.map((g) => Container(
                       height: 40,
                       //  width: 40,

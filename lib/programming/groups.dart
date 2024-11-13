@@ -350,6 +350,7 @@ List<VolumeAssignment> volumeAssignments = [
   */
   const VolumeAssignment([EBase.bicepCurl], {ProgramGroup.biceps: 1}),
   const VolumeAssignment([EBase.abCrunch], {ProgramGroup.abs: 1}),
+  const VolumeAssignment([EBase.abIsometric], {ProgramGroup.abs: 1}),
 ];
 
 // given an exercise, process all names and apply all volume assignemnts that match
@@ -387,8 +388,8 @@ List<VolumeAssignment> volumeAssignments = [
 // barbell presses              v
 // cable/dummbell presses       
 // tri isolation work           v            v
-// lat pulldown                              v
-
+// lat prayer                                v
+//
 
 /* families etc?
 what are the use cases?
@@ -412,4 +413,7 @@ for volume assignments, we use
 
 we don't to have simple prefix search like "hip abduction" because then you need to give names like "hip abduction, standing"
 so either we declare family manually, or we parse it out by removing "standing" etc. probably better to be a bit redundant and make it explicit
+*/
+/* TODO
+add accessory things like dead hangs (shoulder health, grip) and holds (grip)
 */
