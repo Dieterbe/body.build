@@ -12,14 +12,14 @@ because some people may train for years and still be considered "untrained" by e
 also, all advice/calculations remain the same for both exrx untrained and novice anyway
 ''';
 
-class ProgrammerConfig extends StatefulWidget {
-  const ProgrammerConfig({super.key});
+class ProgrammerSetup extends StatefulWidget {
+  const ProgrammerSetup({super.key});
 
   @override
-  State<ProgrammerConfig> createState() => _ProgrammerConfigState();
+  State<ProgrammerSetup> createState() => _ProgrammerSetupState();
 }
 
-class _ProgrammerConfigState extends State<ProgrammerConfig> {
+class _ProgrammerSetupState extends State<ProgrammerSetup> {
   String dropdownValue = 'beginner';
   List<Equipment> selectedEquipment = [];
 

@@ -267,3 +267,8 @@ loadKaos() async {
   print('total found: $matches - warnings: $warnings');
 }
 */
+/*
+TODO
+Plank - 1 Abs (needs some isometric ab work to learn to control his core rigidity and lumbopelvic movement
+Gastrocs and soleus a little higher because they often need a little more volume
+*/
