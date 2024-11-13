@@ -23,6 +23,9 @@ Widget muscleMark(double recruitment, BuildContext context) {
 Widget titleText(String title, BuildContext context) => titleWidget(
     Text(title, style: Theme.of(context).textTheme.titleMedium), context);
 
+Widget titleTextLarge(String title, BuildContext context) => titleWidget(
+    Text(title, style: Theme.of(context).textTheme.titleLarge), context);
+
 // fixed with, for use in rows
 Widget titleWidget(Widget child, BuildContext context) =>
     Container(alignment: Alignment.centerRight, width: 140, child: child);
