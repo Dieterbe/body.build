@@ -14,15 +14,16 @@ class TotalsWidget extends StatelessWidget {
 // volumes < cutoff are counted as 0
   (double, Map<ProgramGroup, double>) _compute(
       double cutoff, double normalize) {
-    final assignments =
-        sets.where((s) => s.ex != null).map((s) => s.ex!.va.assign);
-    final totals = assignments.fold<Map<ProgramGroup, double>>(
-        {for (var group in ProgramGroup.values) group: 0.0},
-        (totals, assign) => {
-              for (var group in ProgramGroup.values)
-                group: totals[group]! +
-                    ((assign[group] ?? 0.0) >= cutoff ? assign[group]! : 0.0)
-            });
+    final totals =
+        sets.where((s) => s.ex != null).fold<Map<ProgramGroup, double>>(
+            {for (var group in ProgramGroup.values) group: 0.0},
+            (totals, set) => {
+                  for (var group in ProgramGroup.values)
+                    group: totals[group]! +
+                        (set.ex!.recruitment(group) >= cutoff
+                            ? set.ex!.recruitment(group)
+                            : 0.0)
+                });
     final maxVal = totals.values.reduce(max);
     if (maxVal <= normalize) {
       return (maxVal, totals);

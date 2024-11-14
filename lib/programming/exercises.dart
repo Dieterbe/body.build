@@ -54,7 +54,8 @@ enum EBase {
   benchPressDB,
   chestPressCable,
   fly,
-  pecDeck,
+  pecDeckHandGrip,
+  pecDeckElbowPad,
   overheadPressBB,
   overheadPressDB,
   lateralRaise,
@@ -70,6 +71,7 @@ enum Equipment {
   dumbbell,
   kettlebell,
   cable,
+  smithMachine,
   machine,
   trx,
   squatRack, // assumes barbell also
@@ -106,6 +108,17 @@ class Ex {
     throw Exception(
         'no matching volume assignment found for exercise with id $id');
   }
+
+  double recruitment(ProgramGroup pg) {
+    // first see if there's an equipment specific rule that describes our pg.
+    for (final entry in va.assignEquip.entries) {
+      if (equipment.contains(entry.key) && entry.value.containsKey(pg)) {
+        return entry.value[pg]!;
+      }
+    }
+    // if not, let's see if we have a general rule
+    return va.assign[pg] ?? 0.0;
+  }
 }
 
 final List<Ex> exes = [
@@ -130,15 +143,20 @@ final List<Ex> exes = [
   Ex(EBase.squatHack, "machine hack squat", [Equipment.machine]),
   Ex(EBase.squatBelt, "belt squat", [Equipment.machine]),
   Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell]),
+  Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell]),
   Ex(EBase.squatBSQ, "smith machine bulgarian split squat",
-      [Equipment.machine]),
+      [Equipment.smithMachine]),
   Ex(EBase.legPress, "machine leg press", [Equipment.machine]),
-  Ex(EBase.lunge, "forward lunge",
-      []), // could add "dumbell", but then which hand(s)? etc
+  Ex(EBase.lunge, "forward lunge", []),
   Ex(EBase.lunge, "backward lunge", []),
   Ex(EBase.lunge, "backward deficit lunge", []),
   Ex(EBase.lunge, "forward deficit lunge", []),
   Ex(EBase.lunge, "walking lunge", []),
+  Ex(EBase.lunge, "dumbbell forward lunge", [Equipment.dumbbell]),
+  Ex(EBase.lunge, "dumbbell backward lunge", [Equipment.dumbbell]),
+  Ex(EBase.lunge, "dumbbell backward deficit lunge", [Equipment.dumbbell]),
+  Ex(EBase.lunge, "dumbbell forward deficit lunge", [Equipment.dumbbell]),
+  Ex(EBase.lunge, "dumbbell walking lunge", [Equipment.dumbbell]),
   Ex(EBase.stepUp, "step up", []),
   Ex(EBase.squatPistol, "pistol squat", []),
   Ex(EBase.squatSissyAssisted, "assisted sissy squat", []),
@@ -148,7 +166,7 @@ final List<Ex> exes = [
       [Equipment.machine]),
   Ex(EBase.squatSissy, "sissy squat", []),
   Ex(EBase.hipThrust, "barbell hip thrust", [Equipment.barbell]),
-  Ex(EBase.hipThrust, "smith machine hip thrust", [Equipment.machine]),
+  Ex(EBase.hipThrust, "smith machine hip thrust", [Equipment.smithMachine]),
   Ex(EBase.hipThrust, "machine hip thrust", [Equipment.machine]),
   Ex(EBase.gluteKickback, "glute kickback machine", [Equipment.machine]),
   Ex(EBase.gluteKickback, "pendulum glute kickback", [Equipment.machine]),
@@ -157,10 +175,11 @@ final List<Ex> exes = [
   Ex(EBase.hipAbductionHipExtended, "standing cable hip abduction",
       [Equipment.cable]),
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
-      [Equipment.machine]),
+      [Equipment.smithMachine]),
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise (unilateral)",
-      [Equipment.machine]),
-  Ex(EBase.calfJump, "calf jumps", []),
+      [Equipment.smithMachine]),
+  Ex(EBase.calfJump, "bodyweight calf jumps", []),
+  Ex(EBase.calfJump, "dumbbell calf jumps", [Equipment.dumbbell]),
   Ex(EBase.seatedCalfRaise, "seated calf raise machine", [Equipment.machine]),
   Ex(EBase.pullup, "pullup", []),
   Ex(EBase.pullupNeutral, "pullup neutral grip", []),
@@ -189,6 +208,7 @@ final List<Ex> exes = [
   Ex(EBase.facePull, "TRX face pull", [Equipment.trx]),
   Ex(EBase.benchPressBB, "flat barbell bench press", [Equipment.barbell]),
   Ex(EBase.benchPressBB, "15 degree barbell bench press", [Equipment.barbell]),
+  // TODO add smitch machine bench press
   Ex(EBase.chestPressMachine, "chest press machine", [Equipment.machine]),
   Ex(EBase.pushUp, "push-up", []),
   Ex(EBase.benchPressDB, "flat dumbbell bench press", [Equipment.dumbbell]),
@@ -198,7 +218,8 @@ final List<Ex> exes = [
   Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell]),
   Ex(EBase.fly, "chest fly machine", [Equipment.machine]),
   Ex(EBase.fly, "bayesian fly", [Equipment.cable]),
-  Ex(EBase.pecDeck, "pec deck", [Equipment.machine]),
+  Ex(EBase.pecDeckElbowPad, "pec deck (elbow pad)", [Equipment.machine]),
+  Ex(EBase.pecDeckHandGrip, "pec deck (hand grip)", [Equipment.machine]),
   Ex(EBase.overheadPressDB, "dumbbell overhead press", [Equipment.dumbbell]),
   Ex(EBase.overheadPressBB, "barbell overhead press", [Equipment.barbell]),
   Ex(EBase.lateralRaise, "standing dumbbell lateral raise",

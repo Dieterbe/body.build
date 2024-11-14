@@ -32,7 +32,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(24.0),
               child: ProgrammerExerciseSelection(),
             ),
           ),

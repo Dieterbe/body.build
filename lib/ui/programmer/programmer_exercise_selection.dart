@@ -71,12 +71,12 @@ class _ProgrammerExerciseSelectionState
                             displayStringForOption: (e) => e.id,
                             optionsBuilder: (textEditingValue) {
                               final opts = exes
-                                  .where((e) => (e.va.assign[g] ?? 0) > 0)
+                                  .where((e) => e.recruitment(g) > 0)
                                   .where((e) => e.id.toLowerCase().contains(
                                       textEditingValue.text.toLowerCase()))
                                   .toList();
-                              opts.sort((a, b) => (b.va.assign[g] ?? 0)
-                                  .compareTo(a.va.assign[g] ?? 0));
+                              opts.sort((a, b) => (b.recruitment(g))
+                                  .compareTo(a.recruitment(g)));
                               return opts;
                             },
                             onSelected: (e) {
@@ -137,7 +137,8 @@ class _ProgrammerExerciseSelectionState
                 //  width: 40,
                 color: bgColorForProgramGroup(g),
                 child: Center(
-                    child: muscleMark(s.ex?.va.assign[g] ?? 0.0, context)))),
+                    child: muscleMark(
+                        s.ex == null ? 0 : s.ex!.recruitment(g), context)))),
           ])),
       // if you want to show the actual volume assignment rules, uncomment this:
       /*

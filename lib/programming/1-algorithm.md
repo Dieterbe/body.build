@@ -72,3 +72,6 @@ For maximum muscle growth, a training program should have the following paramete
 • Training volume: generally in between 10-30 sets per week per muscle group based on someone’s recovery capacity.
 • Training frequency: at least once per week for every 6 sets of training volume per muscle, increasing up to daily or even bidaily training as training volume and training advancement increase. In practice, many trained individuals can make each workout a full-body training session.
 • Your training split should logically follow from your optimized training frequencies and volume, not the other way around. Make the training split fit your optimized parameters for each muscle group and then configure it to maximize the total weekly training volume load
+
+
+// TODO: the code treats upper vs lower pecs, solues vs gastroc, etc as separate muscle groups. does that inflate muscle group volume counts?
