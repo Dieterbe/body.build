@@ -475,6 +475,9 @@ List<VolumeAssignment> volumeAssignments = [
   }),
   const VolumeAssignment([EBase.abCrunch], {ProgramGroup.abs: 1}),
   const VolumeAssignment([EBase.abIsometric], {ProgramGroup.abs: 1}),
+  const VolumeAssignment(
+      [EBase.wristExtension], {ProgramGroup.wristExtensors: 1}),
+  const VolumeAssignment([EBase.wristFlexion], {ProgramGroup.wristFlexors: 1}),
 ];
 
 
@@ -538,4 +541,11 @@ so either we declare family manually, or we parse it out by removing "standing" 
 */
 /* TODO
 add accessory things like dead hangs (shoulder health, grip) and holds (grip)
+*/
+
+/*
+TODO
+how to validate that each day is similarly intense? e.g.
+- every day is a mix of some intense compounds and some lighter work
+- or every day has a mix of low and high reps
 */

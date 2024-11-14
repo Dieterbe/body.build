@@ -64,6 +64,8 @@ enum EBase {
   bicepCurl,
   abCrunch,
   abIsometric,
+  wristFlexion,
+  wristExtension,
 }
 
 enum Equipment {
@@ -145,6 +147,12 @@ final List<Ex> exes = [
   Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell]),
   Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell]),
   Ex(EBase.squatBSQ, "smith machine bulgarian split squat",
+      [Equipment.smithMachine]),
+  Ex(EBase.squatBSQ, "dumbbell bulgarian split squat from deficit",
+      [Equipment.dumbbell]),
+  Ex(EBase.squatBSQ, "barbell bulgarian split squat from deficit",
+      [Equipment.barbell]),
+  Ex(EBase.squatBSQ, "smith machine bulgarian split squat from deficit",
       [Equipment.smithMachine]),
   Ex(EBase.legPress, "machine leg press", [Equipment.machine]),
   Ex(EBase.lunge, "forward lunge", []),
@@ -249,6 +257,8 @@ final List<Ex> exes = [
   Ex(EBase.abCrunch, "cable ab crunch", [Equipment.cable]),
   Ex(EBase.abCrunch, "laying ab crunch", []),
   Ex(EBase.abIsometric, "plank", []),
+  Ex(EBase.wristFlexion, "dumbbell wrist curls", [Equipment.dumbbell]),
+  Ex(EBase.wristExtension, "dumbbell wrist extensions", [Equipment.cable]),
 ];
 /*
 loadKaos() async {
