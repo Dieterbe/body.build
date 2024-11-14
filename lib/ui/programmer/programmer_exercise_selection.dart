@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/programming/ex_set.dart';
+import 'package:ptc/programming/set_group.dart';
 import 'package:ptc/programming/exercises.dart';
 import 'package:ptc/programming/groups.dart';
 import 'package:ptc/ui/programmer/equip_label.dart';
-import 'package:ptc/ui/programmer/ex_set.dart';
+import 'package:ptc/ui/programmer/set_group.dart';
 import 'package:ptc/ui/programmer/groups.dart';
 import 'package:ptc/ui/programmer/headers.dart';
 import 'package:ptc/ui/programmer/legend.dart';
@@ -21,7 +21,7 @@ class ProgrammerExerciseSelection extends StatefulWidget {
 
 class _ProgrammerExerciseSelectionState
     extends State<ProgrammerExerciseSelection> {
-  List<ExSet> sets = [];
+  List<SetGroup> sets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _ProgrammerExerciseSelectionState
           IconButton(
             onPressed: () {
               setState(() {
-                sets.add(ExSet());
+                sets.add(SetGroup());
               });
             },
             icon: const Icon(Icons.add),
@@ -82,7 +82,7 @@ class _ProgrammerExerciseSelectionState
                             onSelected: (e) {
                               context.pop();
                               setState(() {
-                                sets.add(ExSet(ex: e));
+                                sets.add(SetGroup(ex: e));
                               });
                             },
                           )
@@ -101,6 +101,21 @@ class _ProgrammerExerciseSelectionState
       ),
       const Divider(),
       ...sets.map((s) => Row(children: [
+            DropdownButton<int>(
+              value: s.n,
+              items: List.generate(10, (index) => index + 1)
+                  .map<DropdownMenuItem<int>>((int value) {
+                return DropdownMenuItem<int>(
+                  value: value,
+                  child: Text(value.toString()),
+                );
+              }).toList(),
+              onChanged: (int? newValue) {
+                setState(() {
+                  s.n = newValue!;
+                });
+              },
+            ),
             IconButton(
               onPressed: () {
                 setState(() {
@@ -125,7 +140,7 @@ class _ProgrammerExerciseSelectionState
                   //  minimumSize: const Size(40, 40), -- used to work
                   ),
             ),
-            ExSetWidget(s, (ex) {
+            SetGroupWidget(s, (ex) {
               setState(() {
                 s.ex = ex;
               });

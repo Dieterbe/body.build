@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/programming/ex_set.dart';
+import 'package:ptc/programming/set_group.dart';
 import 'package:ptc/programming/exercises.dart';
 
-class ExSetWidget extends StatelessWidget {
+class SetGroupWidget extends StatelessWidget {
   final void Function(Ex) onSelected;
-  final ExSet s;
-  const ExSetWidget(this.s, this.onSelected, {super.key});
+  final SetGroup s;
+  const SetGroupWidget(this.s, this.onSelected, {super.key});
 
   @override
   Widget build(BuildContext context) {

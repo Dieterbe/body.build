@@ -1,45 +1,37 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ptc/programming/ex_set.dart';
+import 'package:ptc/programming/set_group.dart';
 import 'package:ptc/programming/groups.dart';
 import 'package:ptc/ui/programmer/groups.dart';
 
 class TotalsWidget extends StatelessWidget {
-  final List<ExSet> sets;
-  const TotalsWidget(this.sets, {super.key});
+  final List<SetGroup> setGroups;
+  const TotalsWidget(this.setGroups, {super.key});
 
 // return a map with for each program group, the volume, summed from all the exercises found in our sets
-// if any of the values exceeds `normalize`, we normalize wrt. to that value
 // volumes < cutoff are counted as 0
-  (double, Map<ProgramGroup, double>) _compute(
-      double cutoff, double normalize) {
+  (double, Map<ProgramGroup, double>) _compute(double cutoff) {
     final totals =
-        sets.where((s) => s.ex != null).fold<Map<ProgramGroup, double>>(
+        setGroups.where((s) => s.ex != null).fold<Map<ProgramGroup, double>>(
             {for (var group in ProgramGroup.values) group: 0.0},
-            (totals, set) => {
+            (totals, sg) => {
                   for (var group in ProgramGroup.values)
                     group: totals[group]! +
-                        (set.ex!.recruitment(group) >= cutoff
-                            ? set.ex!.recruitment(group)
+                        (sg.ex!.recruitment(group) >= cutoff
+                            ? sg.ex!.recruitment(group) * sg.n
                             : 0.0)
                 });
     final maxVal = totals.values.reduce(max);
-    if (maxVal <= normalize) {
-      return (maxVal, totals);
-    }
-    // if maxVal is 6 and normalize is 3, we need to divide every value by 2
-    // i.o.w. each value in totals needs to be divided by `maxVal` and multiplied by `normalize`
-    return (
-      normalize,
-      Map.fromEntries(totals.entries
-          .map((e) => MapEntry(e.key, (e.value / maxVal) * normalize)))
-    );
+    return (maxVal, totals);
   }
 
   @override
   Widget build(BuildContext context) {
-    final (maxVal, totals) = _compute(0.5, 2);
+    final (maxVal, totals) = _compute(0.5);
+    // to normalize the values, reducing the amount of vertical space needed if (some of) the volumes become high
+    const limit = 2.0;
+
     return Column(
       children: [
         Row(
@@ -57,12 +49,20 @@ class TotalsWidget extends StatelessWidget {
                 .map((g) => Stack(alignment: Alignment.bottomCenter, children: [
                       Container(
                         width: 30,
-                        height: max(40 * maxVal, 40),
+                        // "background" height.
+                        // if maxVal < 1 -> should be 40
+                        // if 1 < maxVal < limit: should be 40 * maxVal
+                        // if maxVal > limit: should be 40 * limit
+//                        height: max(40 * maxVal / limit, 40),
+                        height: 40 * max(1, min(maxVal, limit)),
                         color: bgColorForProgramGroup(g),
                       ),
                       Container(
                         width: 30,
-                        height: 40 * totals[g]!,
+                        height: 40 *
+                            (maxVal > limit
+                                ? totals[g]! / maxVal * limit
+                                : totals[g]!),
                         color: Theme.of(context).colorScheme.primary,
                       ),
                     ]))
