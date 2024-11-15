@@ -6,7 +6,7 @@ class Legend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
+    return Row(mainAxisSize: MainAxisSize.min, children: [
       const Spacer(),
       const Text('Legend'),
       const SizedBox(width: 30),

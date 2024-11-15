@@ -1,28 +1,36 @@
-import 'package:ptc/model/programmer/set_group.dart';
+import 'package:ptc/model/programmer/workout.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'program.g.dart';
 
 class ProgramState {
-  final List<SetGroup> setGroups;
-  ProgramState({this.setGroups = const []});
+  final List<Workout> workouts;
+  ProgramState({this.workouts = const []});
 
-  copyWith({List<SetGroup>? setGroups}) =>
-      ProgramState(setGroups: setGroups ?? this.setGroups);
+  copyWith({List<Workout>? workouts}) =>
+      ProgramState(workouts: workouts ?? this.workouts);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Program extends _$Program {
   @override
-  ProgramState build() => ProgramState();
-
-  void add(SetGroup set) =>
-      state = state.copyWith(setGroups: [...state.setGroups, set]);
-
-  void updateSetGroup(SetGroup s, SetGroup Function(SetGroup) update) {
-    state = state.copyWith(
-        setGroups: state.setGroups.map((sg) {
-      return (sg == s) ? update(sg) : sg;
-    }).toList());
+  ProgramState build() {
+    ref.onDispose(() {
+      print('programmer program provider disposed');
+    });
+    return ProgramState();
   }
+
+  void add(Workout w) =>
+      state = state.copyWith(workouts: [...state.workouts, w]);
+
+  void remove(Workout w) => state = state.copyWith(
+        workouts: state.workouts.where((e) => e != w).toList(),
+      );
+
+  void updateWorkout(Workout wOld, Workout? wNew) => state = state.copyWith(
+        workouts: (wNew == null)
+            ? state.workouts.where((e) => (e != wOld)).toList()
+            : state.workouts.map((e) => ((e == wOld) ? wNew : e)).toList(),
+      );
 }

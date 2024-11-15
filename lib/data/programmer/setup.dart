@@ -90,12 +90,12 @@ class Settings {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Setup extends _$Setup {
   @override
   Settings build() {
     ref.onDispose(() {
-      print('disposed');
+      print('programmer setup provider disposed');
     });
     return Settings();
   }

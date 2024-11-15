@@ -20,10 +20,10 @@ class ProgrammerSetup extends StatelessWidget {
             child: ProgrammerSetupInputs(),
           ),
         ),
-        Expanded(
+        const Expanded(
           flex: 4,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: ProgrammerSetupParams(),
           ),
         ),

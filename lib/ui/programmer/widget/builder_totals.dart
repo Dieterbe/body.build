@@ -5,9 +5,9 @@ import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
 
-class TotalsWidget extends StatelessWidget {
+class BuilderTotalsWidget extends StatelessWidget {
   final List<SetGroup> setGroups;
-  const TotalsWidget(this.setGroups, {super.key});
+  const BuilderTotalsWidget(this.setGroups, {super.key});
 
 // return a map with for each program group, the volume, summed from all the exercises found in our sets
 // volumes < cutoff are counted as 0
@@ -34,17 +34,24 @@ class TotalsWidget extends StatelessWidget {
 
     return Column(
       children: [
+        Row(children: [
+          Expanded(child: Container()),
+          // "bottom line"
+          SizedBox(
+              width: 30.0 * ProgramGroup.values.length + 30,
+              child: const Divider(
+                thickness: 2,
+              )),
+        ]),
         Row(
           children: [
             Expanded(child: Container()),
-            const Text(
-              "Total volume\n(only counts volumes >=0.5)",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Icon(Icons.add,
+                  size: 20, color: Theme.of(context).colorScheme.outline),
             ),
-            const SizedBox(width: 30),
+            const SizedBox(width: 10),
             ...ProgramGroup.values
                 .map((g) => Stack(alignment: Alignment.bottomCenter, children: [
                       Container(

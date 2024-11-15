@@ -25,14 +25,14 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           ],
         ),
       ),
-      body: TabBarView(
+      body: const TabBarView(
         children: [
-          const SingleChildScrollView(
+          SingleChildScrollView(
             child: ProgrammerSetup(),
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                   left: 8, right: 28), // to fix header overflow
               child: ProgrammerBuilder(),
             ),

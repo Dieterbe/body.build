@@ -156,7 +156,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             titleText('Energy balance %', context),
-            Text(
+            const Text(
                 '100 = maintenance\n70 for cut 30% deficit\n110 for bulk with 10% surplus')
           ],
         ),
@@ -164,7 +164,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             titleText('Recovery factor', context),
-            Text(
+            const Text(
                 'Recovery quality: 0.5 - 1.2\nPrimarily based on lifestyle factors such as stress level and sleep quality')
           ],
         ),

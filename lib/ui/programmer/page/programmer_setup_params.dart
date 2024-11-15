@@ -8,7 +8,7 @@ import 'package:ptc/ui/programmer/widget/widgets.dart';
 import '../../../data/programmer/setup.dart';
 
 class ProgrammerSetupParams extends ConsumerWidget {
-  ProgrammerSetupParams({super.key});
+  const ProgrammerSetupParams({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
@@ -22,20 +22,20 @@ class ProgrammerSetupParams extends ConsumerWidget {
             titleTextLarge('Facts', context),
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           titleText('BMI', context),
           const SizedBox(width: 25),
           Text(bmi.toStringAsFixed(2)),
         ]),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             titleTextLarge('Parameters', context),
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           titleText('Intensity', context),
           const SizedBox(width: 25),
