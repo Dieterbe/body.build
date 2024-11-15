@@ -12,49 +12,51 @@ import 'package:ptc/data/programmer/exercises.dart';
 //   training a certain group may involve specific heads or muscles belonging to different groups or categories
 // can contain heads and/or muscles, in which case they should be "expanded" to mean to include all their heads
 enum ProgramGroup {
-  wristFlexors([MuscleId.wristFlexors]),
-  wristExtensors([MuscleId.wristExtensors]),
-  lowerPecs([MuscleId.pectoralisMajorSternalHead]),
-  upperPecs([MuscleId.pectoralisMajorClavicularHead]),
-  frontDelts([MuscleId.deltoidsAnteriorHead]),
-  sideDelts([MuscleId.deltoidsLateralHead]),
-  rearDelts([MuscleId.deltoidsPosteriorHead]),
-  lowerTraps([MuscleId.lowerTraps]),
-  middleTraps([MuscleId.middleTraps]),
-  upperTraps([MuscleId.upperTrapsLowerFibers, MuscleId.upperTrapsUpperFibers]),
-  lats([MuscleId.latissimusDorsi]),
-  biceps([
+  wristFlexors("Wrist Flexors", [MuscleId.wristFlexors]),
+  wristExtensors('Wrist Extensors', [MuscleId.wristExtensors]),
+  lowerPecs('Lower Pecs', [MuscleId.pectoralisMajorSternalHead]),
+  upperPecs('Upper Pecs', [MuscleId.pectoralisMajorClavicularHead]),
+  frontDelts('Front Delts', [MuscleId.deltoidsAnteriorHead]),
+  sideDelts('Side Delts', [MuscleId.deltoidsLateralHead]),
+  rearDelts('Rear Delts', [MuscleId.deltoidsPosteriorHead]),
+  lowerTraps('Lower Traps', [MuscleId.lowerTraps]),
+  middleTraps('Middle Traps', [MuscleId.middleTraps]),
+  upperTraps('Upper Traps',
+      [MuscleId.upperTrapsLowerFibers, MuscleId.upperTrapsUpperFibers]),
+  lats('Lats', [MuscleId.latissimusDorsi]),
+  biceps('Biceps', [
     MuscleId.bicepsBrachiiShortHead,
     MuscleId.bicepsBrachiiLongHead,
     MuscleId.brachialis,
     MuscleId.brachioradialis
   ]), // as long as you do elbow flexion anyway, i think we can include all these
-  triceps(
+  tricepsMedLatH('Triceps Med/Lat H.',
       [MuscleId.tricepsBrachiiMedialHead, MuscleId.tricepsBrachiiLateralHead]),
-  tricepsLongHead([MuscleId.tricepsBrachiiLongHead]),
-  abs([MuscleId.rectusAbdominis, MuscleId.externalObliques]),
+  tricepsLongHead('Triceps Long H.', [MuscleId.tricepsBrachiiLongHead]),
+  abs('Abs', [MuscleId.rectusAbdominis, MuscleId.externalObliques]),
 
-  spinalErectors(
+  spinalErectors('Spinal Erectors',
       [MuscleId.spinalis, MuscleId.longissimus, MuscleId.iliocostalis]),
-  quadsVasti([
+  quadsVasti('Quads Vasti', [
     MuscleId.vastusIntermedius,
     MuscleId.vastusLateralis,
     MuscleId.vastusMedialis
   ]),
-  quadsRectusFemoris([MuscleId.rectusFemoris]),
-  hams([
+  quadsRF('Quads RF', [MuscleId.rectusFemoris]),
+  hams('Ham Long H. & semis', [
     MuscleId.bicepsFemorisLongHead,
     MuscleId.semimembranosus,
     MuscleId.semitendinosus
   ]),
-  hamsShortHead([MuscleId.bicepsFemorisShortHead]),
-  gluteMax([MuscleId.gluteMaximus]),
-  gluteMed([MuscleId.gluteMedius]),
-  gastroc([MuscleId.gastrocnemius]),
-  soleus([MuscleId.soleus]);
+  hamsShortHead('Ham Short H.', [MuscleId.bicepsFemorisShortHead]),
+  gluteMax('Glute Max', [MuscleId.gluteMaximus]),
+  gluteMed('Glute Med', [MuscleId.gluteMedius]),
+  gastroc('Gastroc', [MuscleId.gastrocnemius]),
+  soleus('Soleus', [MuscleId.soleus]);
 
-  const ProgramGroup(this.muscles);
   final List<MuscleId> muscles;
+  final String displayName;
+  const ProgramGroup(this.displayName, this.muscles);
 }
 
 class VolumeAssignment {
@@ -177,7 +179,7 @@ List<VolumeAssignment> volumeAssignments = [
   ], {
     ProgramGroup.spinalErectors: 0.5,
     ProgramGroup.quadsVasti: 1,
-    ProgramGroup.quadsRectusFemoris: 1, // contribution rear leg
+    ProgramGroup.quadsRF: 1, // contribution rear leg
     ProgramGroup.gluteMax: 1,
     ProgramGroup.gluteMed: 0.5,
     ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
@@ -230,7 +232,7 @@ List<VolumeAssignment> volumeAssignments = [
     EBase.squatSissy
   ], {
     ProgramGroup.quadsVasti: 1,
-    ProgramGroup.quadsRectusFemoris: 1,
+    ProgramGroup.quadsRF: 1,
   }),
   const VolumeAssignment([
     EBase.hipThrust,
@@ -363,7 +365,7 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.lowerPecs: 1,
     ProgramGroup.upperPecs: 1,
     ProgramGroup.frontDelts: 1,
-    ProgramGroup.triceps: 1,
+    ProgramGroup.tricepsMedLatH: 1,
     ProgramGroup.tricepsLongHead: 0.25,
   }, assignEquip: {
     Equipment.barbell: {
@@ -382,7 +384,7 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.lowerPecs: 1,
     ProgramGroup.upperPecs: 1,
     ProgramGroup.frontDelts: 1,
-    ProgramGroup.triceps: 0.5,
+    ProgramGroup.tricepsMedLatH: 0.5,
     ProgramGroup.wristExtensors: 0.5,
     ProgramGroup.wristFlexors: 0.5,
   }),
@@ -413,7 +415,7 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.lowerTraps: 0.25,
     ProgramGroup.middleTraps: 0.25,
     ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.triceps: 1,
+    ProgramGroup.tricepsMedLatH: 1,
     ProgramGroup.tricepsLongHead: 0.25,
     ProgramGroup.abs: 0.25,
     ProgramGroup.wristExtensors: 0.5,
@@ -428,7 +430,7 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.lowerTraps: 0.25,
     ProgramGroup.middleTraps: 0.25,
     ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.triceps: 0.5,
+    ProgramGroup.tricepsMedLatH: 0.5,
     ProgramGroup.abs: 0.25,
     ProgramGroup.wristExtensors: 0.5,
     ProgramGroup.wristFlexors: 0.5,
@@ -454,7 +456,7 @@ List<VolumeAssignment> volumeAssignments = [
   const VolumeAssignment([
     EBase.tricepExtension
   ], {
-    ProgramGroup.triceps: 1,
+    ProgramGroup.tricepsMedLatH: 1,
     ProgramGroup.tricepsLongHead: 1,
     ProgramGroup.wristFlexors: 0.25,
     ProgramGroup.wristExtensors: 0.25,

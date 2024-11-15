@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
-import 'package:ptc/util.dart';
 
 Widget headers() {
   // when column headers are horizontal, they take too much space
@@ -32,7 +31,7 @@ Widget headers() {
   // better hack which reduces the number of widgets: just manually define the longest one...
   const dummy = Opacity(
     opacity: 0,
-    child: Text('Quads Rectus Femoris'),
+    child: Text('Ham Long H. & semis'),
   );
   return Transform.translate(
     offset: const Offset(
@@ -51,7 +50,7 @@ Widget headers() {
                       child: Stack(children: [
                         SizedBox(
                           height: 26,
-                          child: Text(e.name.camelToTitle()),
+                          child: Text(e.displayName),
                         ),
                         dummy,
                       ]),

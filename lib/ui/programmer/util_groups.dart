@@ -27,7 +27,7 @@ Color bgColorForProgramGroup(ProgramGroup g) {
       return Colors.blue.shade100;
     case ProgramGroup.biceps:
       return Colors.green.shade100;
-    case ProgramGroup.triceps:
+    case ProgramGroup.tricepsMedLatH:
       return Colors.green.shade200;
     case ProgramGroup.tricepsLongHead:
       return Colors.green.shade100;
@@ -37,7 +37,7 @@ Color bgColorForProgramGroup(ProgramGroup g) {
       return Colors.purple.shade50;
     case ProgramGroup.quadsVasti:
       return Colors.red.shade100;
-    case ProgramGroup.quadsRectusFemoris:
+    case ProgramGroup.quadsRF:
       return Colors.red.shade50;
     case ProgramGroup.hams:
       return Colors.red.shade100;

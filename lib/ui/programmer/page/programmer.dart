@@ -32,7 +32,8 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.only(
+                  left: 8, right: 28), // to fix header overflow
               child: ProgrammerBuilder(),
             ),
           ),
