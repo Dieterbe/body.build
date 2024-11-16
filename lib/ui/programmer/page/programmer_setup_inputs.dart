@@ -18,12 +18,34 @@ because some people may train for years and still be considered "untrained" by e
 also, all advice/calculations remain the same for both exrx untrained and novice anyway
 ''';
 
+const String helpEnergyBalance = '''
+examples:
+* 70  for cut with 30% deficit
+* 100 for maintenance
+* 110 for bulk with 10% surplus
+''';
+
+const String helpBodyFat = '''
+ men:   ~3% essential body fat  
+ women: ~12% essential body fat
+ ''';
+
+const String helpRecoveryFactor = '''
+Recovery quality: 0.5 - 1.2
+Primarily based on lifestyle factors such as stress level and sleep quality
+''';
+
+
 class ProgrammerSetupInputs extends ConsumerWidget {
   ProgrammerSetupInputs({super.key});
   // keys for TextFormField's that don't use Form. see TextFormField docs
   final keyAge = GlobalKey<FormFieldState>();
   final keyWeight = GlobalKey<FormFieldState>();
   final keyLength = GlobalKey<FormFieldState>();
+  final keyBodyFat = GlobalKey<FormFieldState>();
+  final keyEnergyBalance = GlobalKey<FormFieldState>();
+  final keyRecoveryFactor = GlobalKey<FormFieldState>();
+  final keyWorkoutsPerWeek = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -71,7 +93,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Sex', context),
             const SizedBox(width: 25),
@@ -92,7 +114,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Age', context),
             const SizedBox(width: 25),
@@ -103,15 +125,17 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                 initialValue: setup.age.toString(),
                 keyboardType: TextInputType.number,
                 autovalidateMode: AutovalidateMode.always,
-                decoration: const InputDecoration(border: OutlineInputBorder()),
                 validator: notifier.ageValidator,
                 onChanged: notifier.setAgeMaybe,
               ),
             ),
+            const SizedBox(width: 25),
+
+            Text('years'),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Weight', context),
             const SizedBox(width: 25),
@@ -122,15 +146,16 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                 initialValue: setup.weight.toString(),
                 keyboardType: TextInputType.number,
                 autovalidateMode: AutovalidateMode.always,
-                decoration: const InputDecoration(border: OutlineInputBorder()),
                 validator: notifier.weightValidator,
                 onChanged: notifier.setWeightMaybe,
               ),
             ),
+            const SizedBox(width: 25),
+            Text('kg'),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Length', context),
             const SizedBox(width: 25),
@@ -141,45 +166,90 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                 initialValue: setup.length.toString(),
                 keyboardType: TextInputType.number,
                 autovalidateMode: AutovalidateMode.always,
-                decoration: const InputDecoration(border: OutlineInputBorder()),
                 validator: notifier.lengthValidator,
                 onChanged: notifier.setLengthMaybe,
               ),
             ),
+            const SizedBox(width: 25),
+            Text('cm'),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Body fat %', context),
+            const SizedBox(width: 25),
+            SizedBox(
+              width: 200,
+              child: TextFormField(
+                key: keyBodyFat,
+                initialValue: setup.bodyFat.toString(),
+                keyboardType: TextInputType.number,
+                autovalidateMode: AutovalidateMode.always,
+                validator: notifier.bodyFatValidator,
+                onChanged: notifier.setBodyFatMaybe,
+              ),
+            ),
+            const SizedBox(width: 25),
+            const MarkdownBody(data: helpBodyFat),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Energy balance %', context),
-            const Text(
-                '100 = maintenance\n70 for cut 30% deficit\n110 for bulk with 10% surplus')
+            const SizedBox(width: 25),
+            SizedBox(
+              width: 200,
+              child: TextFormField(
+                key: keyEnergyBalance,
+                initialValue: setup.energyBalance.toString(),
+                validator: notifier.energyBalanceValidator,
+                onChanged: notifier.setEnergyBalanceMaybe,
+              ),
+            ),
+            const SizedBox(width: 25),
+            const MarkdownBody(data: helpEnergyBalance),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Recovery factor', context),
-            const Text(
-                'Recovery quality: 0.5 - 1.2\nPrimarily based on lifestyle factors such as stress level and sleep quality')
+            const SizedBox(width: 25),
+            SizedBox(
+              width: 200,
+              child: TextFormField(
+                key: keyRecoveryFactor,
+                initialValue: setup.recoveryFactor.toString(),
+                keyboardType: TextInputType.number,
+                autovalidateMode: AutovalidateMode.always,
+                validator: notifier.recoveryFactorValidator,
+                onChanged: notifier.setRecoveryFactorMaybe,
+              ),
+            ),
+            const SizedBox(width: 25),
+            const MarkdownBody(data: helpRecoveryFactor),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            titleText('PED\'s', context),
-          ],
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            titleText('Muscle memory', context),
+            titleText('Workouts per week', context),
+            const SizedBox(width: 25),
+            SizedBox(
+              width: 200,
+              child: TextFormField(
+                key: keyWorkoutsPerWeek,
+                initialValue: setup.workoutsPerWeek.toString(),
+                keyboardType: TextInputType.number,
+                autovalidateMode: AutovalidateMode.always,
+                validator: notifier.workoutsPerWeekValidator,
+                onChanged: notifier.setWorkoutsPerWeekMaybe,
+              ),
+            ),
+            const SizedBox(width: 25),
+            Text('sessions per week'),
           ],
         ),
         const SizedBox(height: 20),

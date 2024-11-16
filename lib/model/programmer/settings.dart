@@ -11,6 +11,10 @@ class Settings {
   int age = 30;
   int weight = 75;
   int length = 178;
+  int bodyFat = 15;  // Body fat percentage
+  int energyBalance = 100;  // Energy balance percentage (100 = maintenance)
+  double recoveryFactor = 1.0;  // Recovery quality factor (0.5 - 1.2)
+  int workoutsPerWeek = 3;  
   Parameters paramSuggest = Parameters();
   ParameterOverrides paramOverrides = ParameterOverrides();
 
@@ -25,6 +29,10 @@ class Settings {
       int? age,
       int? weight,
       int? length,
+      int? bodyFat,
+      int? energyBalance,
+      double? recoveryFactor,
+      int? workoutsPerWeek,
       List<Equipment>? selectedEquipment,
       ParameterOverrides? paramOverrides}) {
     var newSettings = Settings()
@@ -33,6 +41,10 @@ class Settings {
       ..age = age ?? this.age
       ..weight = weight ?? this.weight
       ..length = length ?? this.length
+      ..bodyFat = bodyFat ?? this.bodyFat
+      ..energyBalance = energyBalance ?? this.energyBalance
+      ..recoveryFactor = recoveryFactor ?? this.recoveryFactor
+      ..workoutsPerWeek = workoutsPerWeek ?? this.workoutsPerWeek
       ..selectedEquipment = selectedEquipment ?? this.selectedEquipment
       ..paramOverrides = paramOverrides ?? this.paramOverrides;
     newSettings.paramSuggest = Parameters.fromSettings(newSettings);

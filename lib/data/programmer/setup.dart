@@ -50,6 +50,50 @@ class Setup extends _$Setup {
     return (null, weight);
   }
 
+  (String?, int) _bodyFatValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return ('Please enter body fat percentage', 0);
+    }
+    final bf = int.tryParse(value);
+    if (bf == null || bf < 0 || bf > 100) {
+      return ('Must be between 0 & 100', 0);
+    }
+    return (null, bf);
+  }
+
+  (String?, int) _energyBalanceValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return ('Please enter energy balance percentage', 0);
+    }
+    final eb = int.tryParse(value);
+    if (eb == null || eb < 50 || eb > 150) {
+      return ('Must be between 50 & 150', 0);
+    }
+    return (null, eb);
+  }
+
+  (String?, double) _recoveryFactorValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return ('Please enter recovery factor', 0.0);
+    }
+    final rf = double.tryParse(value);
+    if (rf == null || rf < 0.5 || rf > 1.2) {
+      return ('Must be between 0.5 & 1.2', 0.0);
+    }
+    return (null, rf);
+  }
+
+  (String?, int) _workoutsPerWeekValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return ('Please enter workouts per week', 0);
+    }
+    final freq = int.tryParse(value);
+    if (freq == null || freq < 1 || freq > 7) {
+      return ('Must be between 1 & 7', 0);
+    }
+    return (null, freq);
+  }
+
   (String?, List<int>?) _intensitiesValidator(String? value) {
     // you're allowed to not override
     if (value == null || value.isEmpty) {
@@ -78,6 +122,26 @@ class Setup extends _$Setup {
     return msg;
   }
 
+  String? bodyFatValidator(String? value) {
+    final (msg, _) = _bodyFatValidator(value);
+    return msg;
+  }
+
+  String? energyBalanceValidator(String? value) {
+    final (msg, _) = _energyBalanceValidator(value);
+    return msg;
+  }
+
+  String? recoveryFactorValidator(String? value) {
+    final (msg, _) = _recoveryFactorValidator(value);
+    return msg;
+  }
+
+  String? workoutsPerWeekValidator(String? value) {
+    final (msg, _) = _workoutsPerWeekValidator(value);
+    return msg;
+  }
+
   String? intensitiesValidator(String? value) {
     final (msg, _) = _intensitiesValidator(value);
     return msg;
@@ -90,6 +154,10 @@ class Setup extends _$Setup {
   void setAge(int? age) => state = state.copyWith(age: age);
   void setLength(int? length) => state = state.copyWith(length: length);
   void setWeight(int? weight) => state = state.copyWith(weight: weight);
+  void setBodyFat(int? bodyFat) => state = state.copyWith(bodyFat: bodyFat);
+  void setEnergyBalance(int? energyBalance) => state = state.copyWith(energyBalance: energyBalance);
+  void setRecoveryFactor(double? recoveryFactor) => state = state.copyWith(recoveryFactor: recoveryFactor);
+  void setWorkoutsPerWeek(int? freq) => state = state.copyWith(workoutsPerWeek: freq);
 
   void setAgeMaybe(String value) {
     final (msg, age) = _ageValidator(value);
@@ -109,6 +177,34 @@ class Setup extends _$Setup {
     final (msg, weight) = _weightValidator(value);
     if (msg == null) {
       setWeight(weight);
+    }
+  }
+
+  void setBodyFatMaybe(String value) {
+    final (msg, bf) = _bodyFatValidator(value);
+    if (msg == null) {
+      setBodyFat(bf);
+    }
+  }
+
+  void setEnergyBalanceMaybe(String value) {
+    final (msg, eb) = _energyBalanceValidator(value);
+    if (msg == null) {
+      setEnergyBalance(eb);
+    }
+  }
+
+  void setRecoveryFactorMaybe(String value) {
+    final (msg, rf) = _recoveryFactorValidator(value);
+    if (msg == null) {
+      setRecoveryFactor(rf);
+    }
+  }
+
+  void setWorkoutsPerWeekMaybe(String value) {
+    final (msg, freq) = _workoutsPerWeekValidator(value);
+    if (msg == null) {
+      setWorkoutsPerWeek(freq);
     }
   }
 

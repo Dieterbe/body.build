@@ -23,7 +23,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 20),
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           titleText('BMI', context),
           const SizedBox(width: 25),
           Text(bmi.toStringAsFixed(2)),
@@ -36,7 +36,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 20),
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           titleText('Intensity', context),
           const SizedBox(width: 25),
           Text(setup.paramSuggest.intensities

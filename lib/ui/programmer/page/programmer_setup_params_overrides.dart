@@ -17,6 +17,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(setupProvider.notifier);
     final bmi = setup.weight / pow(setup.length * 0.01, 2);
+final     setsPerWeekMenno = 10;
     return Column(
       children: [
         const LabelBar('Overrides'),
@@ -27,10 +28,16 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 20),
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           titleText('BMI', context),
           const SizedBox(width: 25),
           Text(bmi.toStringAsFixed(2)),
+        ]),
+        const SizedBox(height: 20),
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          titleText('Estimated optimal sets per week per muscle group (Menno\'s formula)', context),
+          const SizedBox(width: 25),
+          Text(setsPerWeekMenno.toStringAsFixed(0)),
         ]),
         const SizedBox(height: 20),
         Row(
@@ -40,7 +47,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 20),
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           titleText('Intensity', context),
           const SizedBox(width: 25),
           SizedBox(
