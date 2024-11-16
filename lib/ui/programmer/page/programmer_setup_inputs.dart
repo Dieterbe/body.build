@@ -131,7 +131,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             ),
             const SizedBox(width: 25),
 
-            Text('years'),
+            const Text('years'),
           ],
         ),
         Row(
@@ -151,7 +151,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 25),
-            Text('kg'),
+            const Text('kg'),
           ],
         ),
         Row(
@@ -171,7 +171,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 25),
-            Text('cm'),
+            const Text('cm'),
           ],
         ),
         Row(
@@ -249,7 +249,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 25),
-            Text('sessions per week'),
+            const Text('sessions per week'),
           ],
         ),
         const SizedBox(height: 20),

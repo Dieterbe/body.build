@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
+import 'package:ptc/util/formulas.dart';
 
 import '../../../data/programmer/setup.dart';
 
@@ -16,8 +15,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(setupProvider.notifier);
-    final bmi = setup.weight / pow(setup.length * 0.01, 2);
-final     setsPerWeekMenno = 10;
+    final bmi = calcBMI(setup.weight, setup.length);
     return Column(
       children: [
         const LabelBar('Overrides'),
@@ -32,12 +30,6 @@ final     setsPerWeekMenno = 10;
           titleText('BMI', context),
           const SizedBox(width: 25),
           Text(bmi.toStringAsFixed(2)),
-        ]),
-        const SizedBox(height: 20),
-        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          titleText('Estimated optimal sets per week per muscle group (Menno\'s formula)', context),
-          const SizedBox(width: 25),
-          Text(setsPerWeekMenno.toStringAsFixed(0)),
         ]),
         const SizedBox(height: 20),
         Row(
