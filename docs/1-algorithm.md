@@ -26,19 +26,14 @@ low intensity for isolation for injury/technique
 
 for women, use muscle-specific hypertrophy method because they can do more reps
 
-// step 4: determine volume: number of sets per week per muscle group
+// step 4: determine volume: number of sets per week per muscle group. see calculator
 hypertrophy: positive growth up to at least 10 sets per week per muscle group, if not 20-30. but also possible reduction of results starting at 20.
 strength: tapers off well before 10 sets per week per exercise, but not much data, hence probably need different exercises
 Based on the above meta-analyses and theory, we can roughly say that for many people, the optimal training volume is somewhere in the range of 10 to 20 sets per muscle group per week. However, these numbers are based on averages from the total literature
 
-Based on all the data, novice trainees can likely maximize their gains with around 6-10 sets per muscle group per week, whereas trained individuals generally need 12-20 sets, sometimes more
 
-women or young -> can do more
-
-20-33% reduction in volume is generally appropriate during a cut compared to during a bulk (though at end of bulk, may have become advanced enough to eat the diff)
-see volume calculator https://docs.google.com/spreadsheets/d/1Jc4ZpWSjq8Y8tHS29sijzz20Rvk-hsbE/edit?gid=1727367196#gid=1727367196
-
-The calculator considers only the listed factors, so if there are other factors at play that likely influence someone’s volume tolerance, such as performance enhancing drugs or elite genetics, you’ll have to account for that manually. The calculator assumes that your program design in terms of proximity to failure, diet set-up, rest intervals and training frequency is in line with the course recommendations. If that’s not the case, you’ll have to adjust it accordingly
+elderly -> should be less
+rest intervals and training frequency is in line with the course recommendations. If that’s not the case, you’ll have to adjust it accordingly
 
 do more volume in follicular phase, and less in luteal phase. e.g. +- 33%
 (adjust volume over time, via AVT or tracking work capacity)

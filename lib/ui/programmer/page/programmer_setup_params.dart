@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
@@ -59,7 +58,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
           Text(setsPerWeekMenno.toStringAsFixed(0)),
         ]),
         const Text(
-            'note: does not consider age, menopause, hormone replacement, diet, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.  Adjust as needed'),
+            'Does not consider age, menopause, hormone replacement, diet, rest intervals, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.  Adjust as needed. Practical tips\nless volume for elderly TODO confirm. do more volume in follicular phase, and less in luteal phase. e.g. +- 33%'),
         const SizedBox(height: 20),
       ],
     );

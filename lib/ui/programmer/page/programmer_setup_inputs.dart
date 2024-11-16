@@ -11,8 +11,10 @@ import 'package:ptc/ui/programmer/widget/widgets.dart';
 import '../../../data/programmer/setup.dart';
 
 const String helpTraineeLevel = '''
-based on https://exrx.net/Testing/WeightLifting/StrengthStandards  
-in the future, rather than having to consult exrx tables, this will be built-in.  
+Use the strength-based Kilgore-Rippetoe-Pendlay strength standards.  
+On https://exrx.net/Testing/WeightLifting/StrengthStandards look up how you classify  
+based on your age, sex, weight and performance for common exercises.  
+In the future, rather than having to consult exrx tables, this will be built-in.  
 note: exrx category untrained and novice are combined into beginner,  
 because some people may train for years and still be considered "untrained" by exrx standards  
 also, all advice/calculations remain the same for both exrx untrained and novice anyway
@@ -34,7 +36,6 @@ const String helpRecoveryFactor = '''
 Recovery quality: 0.5 - 1.2
 Primarily based on lifestyle factors such as stress level and sleep quality
 ''';
-
 
 class ProgrammerSetupInputs extends ConsumerWidget {
   ProgrammerSetupInputs({super.key});
@@ -69,21 +70,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                 items: Level.values.map<DropdownMenuItem<Level>>((Level value) {
                   return DropdownMenuItem<Level>(
                     value: value,
-                    child: Column(
-                      children: [
-                        Text(value.name),
-                        const SizedBox(height: 4),
-                        Text(
-                          switch (value) {
-                            Level.beginner => 'bench 1RM > 0kg',
-                            Level.intermediate => 'bench 1RM > 90kg',
-                            Level.advanced => 'bench 1RM > 125kg',
-                            Level.elite => 'bench 1RM > 160kg',
-                          },
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
+                    child: Text(value.name),
                   );
                 }).toList(),
               ),
@@ -130,7 +117,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 25),
-
             const Text('years'),
           ],
         ),
