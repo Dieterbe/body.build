@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/model/programmer/level.dart';
+import 'package:ptc/model/programmer/sex.dart';
 import 'package:ptc/ui/programmer/widget/equip_label.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/programmer/program.dart';
+import 'package:ptc/data/programmer/setup.dart';
 import 'package:ptc/model/programmer/workout.dart';
 import 'package:ptc/ui/programmer/widget/builder_workout.dart';
 import 'package:ptc/ui/programmer/widget/headers.dart';
@@ -12,6 +13,7 @@ class ProgrammerBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final program = ref.watch(programProvider);
+    final setup = ref.watch(setupProvider);
     final notifier = ref.read(programProvider.notifier);
     return Column(children: [
       Row(
@@ -38,7 +40,7 @@ class ProgrammerBuilder extends ConsumerWidget {
       ),
       ...program.workouts.map((w) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: BuilderWorkoutWidget(w, (Workout? wNew) {
+            child: BuilderWorkoutWidget(setup, w, (Workout? wNew) {
               notifier.updateWorkout(w, wNew);
             }),
           )),

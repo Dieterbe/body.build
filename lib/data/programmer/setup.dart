@@ -1,94 +1,10 @@
 import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/model/programmer/level.dart';
+import 'package:ptc/model/programmer/parameter_overrides.dart';
+import 'package:ptc/model/programmer/settings.dart';
+import 'package:ptc/model/programmer/sex.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'setup.g.dart';
-
-enum Level {
-  beginner,
-  intermediate,
-  advanced,
-  elite,
-}
-
-enum Sex {
-  male,
-  female,
-}
-
-class Parameters {
-  late List<int> intensities;
-
-  Parameters() {
-    intensities = [];
-  }
-  static Parameters fromSettings(Settings s) {
-    var p = Parameters();
-    p.intensities = switch (s.level) {
-      Level.beginner => [60],
-      Level.intermediate => [60, 70],
-      Level.advanced => [65, 85],
-      Level.elite => [70, 75, 80, 90],
-      // TODO: age affects intensity
-    };
-    /*
-    novice -> 6-10 sets per muscle group per week
-    trained -> 12-25 sets per muscle group per week
-    elite -> 15 - 30 sets per muscle group per week
-
-    Optimal gains rules of thumb
-    novice trainees: 6-10 sets per muscle group per week
-    trained: 12-20 sets, sometimes more
-
-women -> can do a bit more probably
-
-20-33% reduction in volume is generally appropriate during a cut compared to during a bulk (though at end of bulk, may have become advanced enough to eat the diff)
-
-// other factors: PED, elite genetics, elderly a bit less
-
-//////////////////////
-in the setup, we ideally don't want to be too prescriptive in terms of sets volume per muscle group, such that the program
-can prioritize exercises not just thru volume, also thru ordering
-OTOH, we do want to be able to express "don't train at all - vs de-emph - vs normal - vs prioritize"
-
-*/
-
-    return p;
-  }
-
-  Parameters copyWith({List<int>? intensities}) {
-    return Parameters()..intensities = intensities ?? this.intensities;
-  }
-}
-
-class Settings {
-  Level level = Level.beginner;
-  Sex sex = Sex.male;
-  List<Equipment> selectedEquipment = [];
-  int age = 30;
-  int weight = 75;
-  int length = 178;
-  Parameters paramSuggest = Parameters();
-  Parameters paramOverrides = Parameters();
-
-  Settings copyWith(
-      {Level? level,
-      Sex? sex,
-      int? age,
-      int? weight,
-      int? length,
-      List<Equipment>? selectedEquipment,
-      Parameters? paramOverrides}) {
-    var newSettings = Settings()
-      ..level = level ?? this.level
-      ..sex = sex ?? this.sex
-      ..age = age ?? this.age
-      ..weight = weight ?? this.weight
-      ..length = length ?? this.length
-      ..selectedEquipment = selectedEquipment ?? this.selectedEquipment
-      ..paramOverrides = paramOverrides ?? this.paramOverrides;
-    newSettings.paramSuggest = Parameters.fromSettings(newSettings);
-    return newSettings;
-  }
-}
 
 @Riverpod(keepAlive: true)
 class Setup extends _$Setup {
@@ -134,14 +50,14 @@ class Setup extends _$Setup {
     return (null, weight);
   }
 
-  (String?, List<int>) _intensitiesValidator(String? value) {
+  (String?, List<int>?) _intensitiesValidator(String? value) {
     // you're allowed to not override
     if (value == null || value.isEmpty) {
-      return (null, []);
+      return (null, null);
     }
     final intensities = value.split(',').map((i) => int.tryParse(i)).toList();
     if (intensities.any((i) => i == null || i < 1 || i > 100)) {
-      return ('Intensities must be between 1 & 100', []);
+      return ('Intensities must be between 1 & 100', null);
     }
     return (null, intensities.map((i) => i!).toList());
   }
@@ -199,9 +115,8 @@ class Setup extends _$Setup {
   void setIntensitiesMaybe(String value) {
     final (msg, intensities) = _intensitiesValidator(value);
     if (msg == null) {
-      state = state.copyWith(
-          paramOverrides:
-              state.paramOverrides.copyWith(intensities: intensities));
+      state =
+          state.copyWith(paramOverrides: ParameterOverrides.full(intensities));
     }
   }
 

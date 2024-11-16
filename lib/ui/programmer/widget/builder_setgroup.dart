@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programmer/set_group.dart';
+import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
 import 'package:ptc/ui/programmer/widget/equip_label.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 
 class BuilderSetGroup extends StatelessWidget {
   final SetGroup sg;
+  final Settings setup;
   final Function(SetGroup? sgNew) onChange;
 
-  const BuilderSetGroup(this.sg, this.onChange, {super.key});
+  const BuilderSetGroup(this.setup, this.sg, this.onChange, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,12 @@ class BuilderSetGroup extends StatelessWidget {
       SizedBox(
         width: 45,
         child: DropdownButton<int>(
-          value: sg.intensity,
-          items: <int>[69, 70].map<DropdownMenuItem<int>>((int value) {
+          // if you go back and change the setup, we must reset the intensity to something that's allowed
+          value: (setup.paramFinal.intensities.contains(sg.intensity))
+              ? sg.intensity
+              : setup.paramFinal.intensities.first,
+          items: setup.paramFinal.intensities
+              .map<DropdownMenuItem<int>>((int value) {
             return DropdownMenuItem<int>(
               value: value,
               child: Text(value.toString()),

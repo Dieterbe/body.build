@@ -47,9 +47,11 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
             width: 100,
             child: TextFormField(
               key: keyIntensities,
-              initialValue: setup.paramOverrides.intensities
-                  .map((i) => i.toString())
-                  .join(','),
+              initialValue: (setup.paramOverrides.intensities == null)
+                  ? ''
+                  : setup.paramOverrides.intensities!
+                      .map((i) => i.toString())
+                      .join(','),
               keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.always,
               decoration: const InputDecoration(border: OutlineInputBorder()),

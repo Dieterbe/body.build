@@ -1,15 +1,8 @@
+import 'package:ptc/model/programmer/program_state.dart';
 import 'package:ptc/model/programmer/workout.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'program.g.dart';
-
-class ProgramState {
-  final List<Workout> workouts;
-  ProgramState({this.workouts = const []});
-
-  copyWith({List<Workout>? workouts}) =>
-      ProgramState(workouts: workouts ?? this.workouts);
-}
 
 @Riverpod(keepAlive: true)
 class Program extends _$Program {

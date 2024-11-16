@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programmer/set_group.dart';
+import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/model/programmer/workout.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
 import 'package:ptc/ui/programmer/widget/builder_setgroup.dart';
@@ -10,9 +11,11 @@ import 'package:ptc/ui/programmer/widget/builder_totals.dart';
 
 class BuilderWorkoutWidget extends StatelessWidget {
   final Workout workout;
+  final Settings setup;
   final Function(Workout? w) onChange;
 
-  const BuilderWorkoutWidget(this.workout, this.onChange, {super.key});
+  const BuilderWorkoutWidget(this.setup, this.workout, this.onChange,
+      {super.key});
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController(text: workout.name);
@@ -62,8 +65,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                onChange(workout
-                    .copyWith(setGroups: [...workout.setGroups, SetGroup(69)]));
+                onChange(workout.copyWith(setGroups: [
+                  ...workout.setGroups,
+                  SetGroup(setup.paramFinal.intensities.first)
+                ]));
               },
               child: const Text('Add any set'),
             ),
@@ -103,7 +108,8 @@ class BuilderWorkoutWidget extends StatelessWidget {
                                 context.pop();
                                 onChange(workout.copyWith(setGroups: [
                                   ...workout.setGroups,
-                                  SetGroup(69, ex: e)
+                                  SetGroup(setup.paramFinal.intensities.first,
+                                      ex: e)
                                 ]));
                               },
                             )
@@ -121,15 +127,16 @@ class BuilderWorkoutWidget extends StatelessWidget {
           ],
         ),
         // TODO: support combo sets
-        ...workout.setGroups.map((s) => BuilderSetGroup(s, (SetGroup? sNew) {
-              onChange(workout.copyWith(
-                setGroups: (sNew == null)
-                    ? workout.setGroups.where((sg) => sg != s).toList()
-                    : workout.setGroups
-                        .map((sg) => sg == s ? sNew : sg)
-                        .toList(),
-              ));
-            })),
+        ...workout.setGroups
+            .map((s) => BuilderSetGroup(setup, s, (SetGroup? sNew) {
+                  onChange(workout.copyWith(
+                    setGroups: (sNew == null)
+                        ? workout.setGroups.where((sg) => sg != s).toList()
+                        : workout.setGroups
+                            .map((sg) => sg == s ? sNew : sg)
+                            .toList(),
+                  ));
+                })),
         BuilderTotalsWidget(workout.setGroups),
       ]),
     );
