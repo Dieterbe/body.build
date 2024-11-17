@@ -12,12 +12,6 @@ class ProgrammerSetupParams extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
     final bmi = calcBMI(setup.weight, setup.length);
-    final setsPerWeekMenno = calcOptimalSetsPerWeekPerMuscleGroupMH(
-        setup.sex,
-        setup.level,
-        setup.recoveryFactor,
-        setup.energyBalance / 100,
-        setup.workoutsPerWeek * 1.0);
 
     return Column(
       children: [
@@ -51,14 +45,12 @@ class ProgrammerSetupParams extends ConsumerWidget {
         ]),
         const SizedBox(height: 20),
         Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          titleText(
-              'Base optimal sets per week per muscle group (Menno\'s formula)',
-              context),
+          titleText('Sets Per week per muscle group', context),
           const SizedBox(width: 25),
-          Text(setsPerWeekMenno.toStringAsFixed(0)),
+          Text(setup.paramSuggest.setsPerweekPerMuscleGroup.toStringAsFixed(0)),
         ]),
         const Text(
-            'Does not consider age, menopause, hormone replacement, diet, rest intervals, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.  Adjust as needed. Practical tips\nless volume for elderly TODO confirm. do more volume in follicular phase, and less in luteal phase. e.g. +- 33%'),
+            'Based on Menno\'s calculator.\nDoes not consider age, menopause, hormone replacement, diet, rest intervals, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.  Adjust as needed. Practical tips\nless volume for elderly TODO confirm. do more volume in follicular phase, and less in luteal phase. e.g. +- 33%'),
         const SizedBox(height: 20),
       ],
     );

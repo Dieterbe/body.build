@@ -1,12 +1,15 @@
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/settings.dart';
+import 'package:ptc/util/formulas.dart';
 
 class Parameters {
   late List<int> intensities;
+  late int setsPerweekPerMuscleGroup;
 
   Parameters() {
     intensities = [];
+    setsPerweekPerMuscleGroup = 0;
   }
   static Parameters fromSettings(Settings s) {
     var p = Parameters();
@@ -17,36 +20,21 @@ class Parameters {
       Level.elite => [70, 75, 80, 90],
       // TODO: age affects intensity
     };
+    p.setsPerweekPerMuscleGroup = calcOptimalSetsPerWeekPerMuscleGroupMH(
+        s.sex,
+        s.level,
+        s.recoveryFactor,
+        s.energyBalance / 100,
+        s.workoutsPerWeek * 1.0);
     /*
-    novice -> 6-10 sets per muscle group per week
-    trained -> 12-25 sets per muscle group per week
-    elite -> 15 - 30 sets per muscle group per week
-
-    Optimal gains rules of thumb
-    novice trainees: 6-10 sets per muscle group per week
-    trained: 12-20 sets, sometimes more
-
-women -> can do a bit more probably
-
-20-33% reduction in volume is generally appropriate during a cut compared to during a bulk (though at end of bulk, may have become advanced enough to eat the diff)
-
-// other factors: PED, elite genetics, elderly a bit less
-
-//////////////////////
 in the setup, we ideally don't want to be too prescriptive in terms of sets volume per muscle group, such that the program
 can prioritize exercises not just thru volume, also thru ordering
 OTOH, we do want to be able to express "don't train at all - vs de-emph - vs normal - vs prioritize"
-
 */
 
     return p;
   }
 
-// when you empty the override form, this is an empty list
-// so the override fails
-
-// OTOH, with default settings, overrides is just an empty list
-// then we don't want it to override
   Parameters copyWith({List<int>? intensities}) {
     return Parameters()..intensities = intensities ?? this.intensities;
   }

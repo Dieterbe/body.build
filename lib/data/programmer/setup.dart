@@ -105,6 +105,18 @@ class Setup extends _$Setup {
     }
     return (null, intensities.map((i) => i!).toList());
   }
+
+  (String?, int?) _setsPerWeekPerMuscleGroupValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return (null, null); // Optional field, empty is valid
+    }
+    final volume = int.tryParse(value);
+    if (volume == null || volume < 0 || volume > 30) {
+      return ('Must be between 0 & 30', null);
+    }
+    return (null, volume);
+  }
+
   /* VALIDATION FUNCTIONS FOR TEXTFORMFIELDS */
 
   String? ageValidator(String? value) {
@@ -147,6 +159,11 @@ class Setup extends _$Setup {
     return msg;
   }
 
+  String? setsPerWeekPerMuscleGroupValidator(String? value) {
+    final (msg, _) = _setsPerWeekPerMuscleGroupValidator(value);
+    return msg;
+  }
+
   /* END VALIDATION FUNCTIONS */
 
   void setLevel(Level? level) => state = state.copyWith(level: level);
@@ -155,9 +172,12 @@ class Setup extends _$Setup {
   void setLength(int? length) => state = state.copyWith(length: length);
   void setWeight(int? weight) => state = state.copyWith(weight: weight);
   void setBodyFat(int? bodyFat) => state = state.copyWith(bodyFat: bodyFat);
-  void setEnergyBalance(int? energyBalance) => state = state.copyWith(energyBalance: energyBalance);
-  void setRecoveryFactor(double? recoveryFactor) => state = state.copyWith(recoveryFactor: recoveryFactor);
-  void setWorkoutsPerWeek(int? freq) => state = state.copyWith(workoutsPerWeek: freq);
+  void setEnergyBalance(int? energyBalance) =>
+      state = state.copyWith(energyBalance: energyBalance);
+  void setRecoveryFactor(double? recoveryFactor) =>
+      state = state.copyWith(recoveryFactor: recoveryFactor);
+  void setWorkoutsPerWeek(int? freq) =>
+      state = state.copyWith(workoutsPerWeek: freq);
 
   void setAgeMaybe(String value) {
     final (msg, age) = _ageValidator(value);
@@ -211,8 +231,19 @@ class Setup extends _$Setup {
   void setIntensitiesMaybe(String value) {
     final (msg, intensities) = _intensitiesValidator(value);
     if (msg == null) {
-      state =
-          state.copyWith(paramOverrides: ParameterOverrides.full(intensities));
+      state = state.copyWith(
+          paramOverrides: ParameterOverrides.full(
+              intensities, state.paramOverrides.setsPerweekPerMuscleGroup));
+    }
+  }
+
+  void setSetsPerWeekPerMuscleGroupMaybe(String value) {
+    final (msg, volume) = _setsPerWeekPerMuscleGroupValidator(value);
+    if (msg == null) {
+      state = state.copyWith(
+        paramOverrides:
+            ParameterOverrides.full(state.paramOverrides.intensities, volume),
+      );
     }
   }
 

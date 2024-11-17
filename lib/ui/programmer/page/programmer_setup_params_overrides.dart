@@ -10,6 +10,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
   ProgrammerSetupParamOverrides({super.key});
   // keys for TextFormField's that don't use Form. see TextFormField docs
   final keyIntensities = GlobalKey<FormFieldState>();
+  final keyWeeklyVolume = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,6 +57,25 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
               decoration: const InputDecoration(border: OutlineInputBorder()),
               validator: notifier.intensitiesValidator,
               onChanged: notifier.setIntensitiesMaybe,
+            ),
+          ),
+        ]),
+        const SizedBox(height: 20),
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          titleText('Sets per week per muscle group', context),
+          const SizedBox(width: 25),
+          SizedBox(
+            width: 100,
+            child: TextFormField(
+              key: keyWeeklyVolume,
+              initialValue:
+                  setup.paramOverrides.setsPerweekPerMuscleGroup?.toString() ??
+                      '',
+              keyboardType: TextInputType.number,
+              autovalidateMode: AutovalidateMode.always,
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              validator: notifier.setsPerWeekPerMuscleGroupValidator,
+              onChanged: notifier.setSetsPerWeekPerMuscleGroupMaybe,
             ),
           ),
         ]),
