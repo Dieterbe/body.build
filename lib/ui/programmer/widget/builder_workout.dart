@@ -31,6 +31,8 @@ class BuilderWorkoutWidget extends StatelessWidget {
             const SizedBox(width: 45, child: Text('sets')),
             const SizedBox(width: 10),
             const SizedBox(width: 45, child: Text('%1RM')),
+            const SizedBox(width: 80),
+            const SizedBox(width: 45, child: Text('Exercise')),
             Expanded(child: Container()),
             IconButton(
               onPressed: () {

@@ -38,19 +38,17 @@ class BuilderTotalsWidget extends StatelessWidget {
           Expanded(child: Container()),
           // "bottom line"
           SizedBox(
-              width: 30.0 * ProgramGroup.values.length + 30,
+              width: 30.0 * ProgramGroup.values.length + 36,
               child: const Divider(
                 thickness: 2,
               )),
         ]),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(child: Container()),
-            Align(
-              alignment: Alignment.topRight,
-              child: Icon(Icons.add,
-                  size: 20, color: Theme.of(context).colorScheme.outline),
-            ),
+            Icon(Icons.add,
+                size: 24, color: Theme.of(context).colorScheme.outline),
             const SizedBox(width: 10),
             ...ProgramGroup.values
                 .map((g) => Stack(alignment: Alignment.bottomCenter, children: [
