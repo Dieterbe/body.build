@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 import 'package:ptc/util/formulas.dart';
@@ -17,6 +18,14 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(setupProvider.notifier);
     final bmi = calcBMI(setup.weight, setup.length);
+
+    // Get the list of available program groups (those not already overridden)
+    final availableGroups = setup.paramOverrides.muscleGroupOverrides == null
+        ? ProgramGroup.values
+        : ProgramGroup.values.where((group) => !setup
+            .paramOverrides.muscleGroupOverrides!
+            .any((override) => override.group == group));
+
     return Column(
       children: [
         const LabelBar('Overrides'),
@@ -79,6 +88,69 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
             ),
           ),
         ]),
+        const SizedBox(height: 10),
+        // Muscle group overrides section
+        const Text('Muscle Group specific Overrides:'),
+
+        if (availableGroups.isNotEmpty) ...[
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              const Text('Add for: '),
+              DropdownButton<ProgramGroup>(
+                value: null,
+                hint: const Text('Select muscle group'),
+                items: availableGroups
+                    .map((group) => DropdownMenuItem(
+                          value: group,
+                          child: Text(group.name),
+                        ))
+                    .toList(),
+                onChanged: (group) {
+                  if (group != null) {
+                    notifier.addMuscleGroupOverride(group);
+                  }
+                },
+              ),
+            ],
+          ),
+        ],
+        if (setup.paramOverrides.muscleGroupOverrides?.isNotEmpty == true) ...[
+          const SizedBox(height: 10),
+          const SizedBox(height: 10),
+          ...setup.paramOverrides.muscleGroupOverrides!.map(
+            (override) => Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 140,
+                    child: Text('  ${override.group.name}'),
+                  ),
+                  const SizedBox(width: 25),
+                  SizedBox(
+                    width: 100,
+                    child: TextFormField(
+                      initialValue: override.sets.toString(),
+                      keyboardType: TextInputType.number,
+                      autovalidateMode: AutovalidateMode.always,
+                      decoration:
+                          const InputDecoration(border: OutlineInputBorder()),
+                      validator: notifier.setsPerWeekPerMuscleGroupValidator,
+                      onChanged: (value) =>
+                          notifier.updateMuscleGroupOverride(override.group, value),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () =>
+                        notifier.removeMuscleGroupOverride(override.group),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }

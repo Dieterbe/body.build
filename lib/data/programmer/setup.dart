@@ -1,4 +1,5 @@
 import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/settings.dart';
@@ -233,7 +234,9 @@ class Setup extends _$Setup {
     if (msg == null) {
       state = state.copyWith(
           paramOverrides: ParameterOverrides.full(
-              intensities, state.paramOverrides.setsPerweekPerMuscleGroup));
+              intensities,
+              state.paramOverrides.setsPerweekPerMuscleGroup,
+              state.paramOverrides.muscleGroupOverrides));
     }
   }
 
@@ -241,9 +244,50 @@ class Setup extends _$Setup {
     final (msg, volume) = _setsPerWeekPerMuscleGroupValidator(value);
     if (msg == null) {
       state = state.copyWith(
-        paramOverrides:
-            ParameterOverrides.full(state.paramOverrides.intensities, volume),
+        paramOverrides: ParameterOverrides.full(
+            state.paramOverrides.intensities,
+            volume,
+            state.paramOverrides.muscleGroupOverrides),
       );
+    }
+  }
+
+  void addMuscleGroupOverride(ProgramGroup group) {
+    final newOverrides = [...?state.paramOverrides.muscleGroupOverrides];
+    newOverrides.add(MuscleGroupOverride(group, 1));
+
+    state = state.copyWith(
+      paramOverrides: state.paramOverrides.copyWith(
+        muscleGroupOverrides: newOverrides,
+      ),
+    );
+  }
+
+  void removeMuscleGroupOverride(ProgramGroup group) {
+    final newOverrides = [...?state.paramOverrides.muscleGroupOverrides];
+    newOverrides.removeWhere((override) => override.group == group);
+
+    state = state.copyWith(
+      paramOverrides: state.paramOverrides.copyWith(
+        muscleGroupOverrides: newOverrides,
+      ),
+    );
+  }
+
+  void updateMuscleGroupOverride(ProgramGroup group, String value) {
+    final (msg, sets) = _setsPerWeekPerMuscleGroupValidator(value);
+    if (msg == null && sets != null) {
+      final newOverrides = [...?state.paramOverrides.muscleGroupOverrides];
+      final index =
+          newOverrides.indexWhere((override) => override.group == group);
+      if (index != -1) {
+        newOverrides[index] = MuscleGroupOverride(group, sets);
+        state = state.copyWith(
+          paramOverrides: state.paramOverrides.copyWith(
+            muscleGroupOverrides: newOverrides,
+          ),
+        );
+      }
     }
   }
 
