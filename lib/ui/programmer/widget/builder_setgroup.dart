@@ -73,7 +73,7 @@ class BuilderSetGroup extends StatelessWidget {
             ),
       ),
       SizedBox(
-        width: 200,
+        width: 250,
         height: 40,
         child: (sg.ex != null && !sg.changeEx)
             ? Align(alignment: Alignment.center, child: Text(sg.ex!.id))
