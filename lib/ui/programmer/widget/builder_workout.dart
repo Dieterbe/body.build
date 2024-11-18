@@ -130,7 +130,6 @@ class BuilderWorkoutWidget extends StatelessWidget {
         ),
         // TODO: support combo sets
         // TODO: support drag and dropping of sets, even across workouts
-        // TODO: when finished editing set name, put out of edit mode
         ...workout.setGroups
             .map((s) => BuilderSetGroup(setup, s, (SetGroup? sNew) {
                   onChange(workout.copyWith(

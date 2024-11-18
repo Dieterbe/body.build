@@ -87,7 +87,7 @@ class BuilderSetGroup extends StatelessWidget {
                       .toList();
                 },
                 onSelected: (Ex e) {
-                  onChange(sg.copyWith(ex: e));
+                  onChange(sg.copyWith(ex: e, changeEx: false));
                 }),
       ),
       const SizedBox(width: 10),
