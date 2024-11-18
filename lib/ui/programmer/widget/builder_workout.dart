@@ -225,21 +225,27 @@ class BuilderWorkoutWidget extends StatelessWidget {
                         // need a text filter, and in the future maybe future filters
                         // putting all of that in the main UI seems a bit too much. let's just use a simple selection for now    
                                 */
+
                               Autocomplete<Ex>(
                                   displayStringForOption: (e) => e.id,
                                   optionsBuilder: (textEditingValue) {
-                                    return exes
+                                    final opts = exes
+                                        .where((e) => e.recruitment(g) > 0)
                                         .where((e) => e.id
                                             .toLowerCase()
                                             .contains(textEditingValue.text
                                                 .toLowerCase()))
                                         .toList();
+                                    opts.sort((a, b) => (b.recruitment(g))
+                                        .compareTo(a.recruitment(g)));
+                                    return opts;
                                   },
                                   onSelected: (Ex e) {
                                     onChange(workout.copyWith(setGroups: [
                                       ...workout.setGroups,
                                       SetGroup(
-                                          setup.paramFinal.intensities.first)
+                                          setup.paramFinal.intensities.first,
+                                          ex: e)
                                     ]));
                                     context.pop();
                                   }),
