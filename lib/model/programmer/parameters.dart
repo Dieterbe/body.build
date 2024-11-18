@@ -33,6 +33,8 @@ class Parameters {
 in the setup, we ideally don't want to be too prescriptive in terms of sets volume per muscle group, such that the program
 can prioritize exercises not just thru volume, also thru ordering
 OTOH, we do want to be able to express "don't train at all - vs de-emph - vs normal - vs prioritize"
+
+TODO: implement ceiling of max sets per workout per MG: research says 6. but depends on factors such as genetics, closeness to failure, and rest intervals
 */
 
     return p;
