@@ -6,6 +6,7 @@ import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/model/programmer/workout.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
+import 'package:ptc/ui/programmer/widget/add_set_button.dart';
 import 'package:ptc/ui/programmer/widget/builder_setgroup.dart';
 import 'package:ptc/ui/programmer/widget/builder_totals.dart';
 
@@ -21,115 +22,239 @@ class BuilderWorkoutWidget extends StatelessWidget {
     final nameController = TextEditingController(text: workout.name);
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).colorScheme.secondary),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       child: Column(children: [
-        Row(
-          children: [
-            const SizedBox(width: 10),
-            const SizedBox(width: 45, child: Text('sets')),
-            const SizedBox(width: 10),
-            const SizedBox(width: 45, child: Text('%1RM')),
-            const SizedBox(width: 80),
-            const SizedBox(
-                width: 250,
-                child: Align(
-                    alignment: Alignment.center, child: Text('Exercise'))),
-            Expanded(child: Container()),
-            IconButton(
-              onPressed: () {
-                onChange(null);
-              },
-              icon: const Icon(Icons.delete),
-              style: IconButton.styleFrom(
-                  //  minimumSize: const Size(40, 40), -- used to work
-                  ),
-            ),
-            SizedBox(
-              width: 200,
-              height: 36,
-              child: Focus(
-                child: TextField(
-                  controller: nameController,
-                  /*  onSubmitted: (v) {
-                    onChange(workout.copyWith(name: v));
-                  },
-                  */
-                ),
-                onFocusChange: (focus) {
-                  if (focus) {
-                    return;
-                  }
-                  // when you leave the textfield, update the state
-                  // if we update the state in the textFiled itself, the whole tree
-                  // constantly refreshes and the editing experience is subbar
-                  onChange(workout.copyWith(name: nameController.text));
-                },
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                onChange(workout.copyWith(setGroups: [
-                  ...workout.setGroups,
-                  SetGroup(setup.paramFinal.intensities.first)
-                ]));
-              },
-              child: const Text('Add any set'),
-            ),
-            const Text('add set for muscle ->'),
-            ...ProgramGroup.values.map((g) => Container(
-                height: 30,
-                // width: 30,
-                color: bgColorForProgramGroup(g),
-                child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return SimpleDialog(
-                          title: Text('Add an exercise which recruits $g'),
-                          children: [
-                            const Text(
-                                'below are recommended exercises in order of recruitment'),
-                            // ideally, user wants to preview the possible exercises within the program volume stats, so we could plonk them there
-                            // in a special "WIP" section (e.g. hatched background)
-                            // on the other hand, they also probably want to do a search to narrow it down to specific exercises, so they would
-                            // need a text filter, and in the future maybe future filters
-                            // putting all of that in the main UI seems a bit too much. let's just use a simple selection for now
-                            Autocomplete<Ex>(
-                              displayStringForOption: (e) => e.id,
-                              optionsBuilder: (textEditingValue) {
-                                final opts = exes
-                                    .where((e) => e.recruitment(g) > 0)
-                                    .where((e) => e.id.toLowerCase().contains(
-                                        textEditingValue.text.toLowerCase()))
-                                    .toList();
-                                opts.sort((a, b) => (b.recruitment(g))
-                                    .compareTo(a.recruitment(g)));
-                                return opts;
-                              },
-                              onSelected: (e) {
-                                context.pop();
-                                onChange(workout.copyWith(setGroups: [
-                                  ...workout.setGroups,
-                                  SetGroup(setup.paramFinal.intensities.first,
-                                      ex: e)
-                                ]));
-                              },
-                            )
-                          ],
-                        );
-                      },
-                    );
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: Row(
+            children: [
+              Expanded(child: Container()),
+              SizedBox(
+                width: 200,
+                child: Focus(
+                  child: TextField(
+                    controller: nameController,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      hintText: 'Workout name',
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.5),
+                      ),
+                      filled: true,
+                      fillColor: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.05),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.2),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    onSubmitted: (value) {
+                      onChange(workout.copyWith(name: value));
+                    },
+                  ),
+                  onFocusChange: (focus) {
+                    if (focus) {
+                      return;
+                    }
+                    // when you leave the textfield, update the state
+                    // if we update the state in the textFiled itself, the whole tree
+                    // constantly refreshes and the editing experience is subbar
+                    onChange(workout.copyWith(name: nameController.text));
                   },
-                  child: const SizedBox(
-                      width: 30, child: Icon(Icons.add, size: 16)),
-                  //style: IconButton.styleFrom(
-                  //  maximumSize: const Size(30, 30),
-                  //),
-                )))
-          ],
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  onChange(null);
+                },
+                icon: Icon(
+                  Icons.delete_outline,
+                  size: 20,
+                  color: Theme.of(context).colorScheme.error.withOpacity(0.8),
+                ),
+                style: IconButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              Expanded(child: Container()),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 45,
+                child: Text(
+                  'Sets',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    letterSpacing: 0.3,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              SizedBox(
+                width: 45,
+                child: Text(
+                  '%1RM',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    letterSpacing: 0.3,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 80),
+              SizedBox(
+                width: 250,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Exercise',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      letterSpacing: 0.3,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(child: Container()),
+              AddSetButton(
+                () {
+                  onChange(workout.copyWith(setGroups: [
+                    ...workout.setGroups,
+                    SetGroup(setup.paramFinal.intensities.first)
+                  ]));
+                },
+              ),
+              const SizedBox(width: 16),
+              Text(
+                'Add set for muscle',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  letterSpacing: 0.3,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(
+                Icons.arrow_forward,
+                size: 18,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              ...ProgramGroup.values.map(
+                (g) => Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: bgColorForProgramGroup(g),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return SimpleDialog(
+                            title: Text('Add an exercise which recruits $g'),
+                            children: [
+                              const Text(
+                                  'below are recommended exercises in order of recruitment'),
+                              /*
+                                 // ideally, user wants to preview the possible exercises within the program volume stats, so we could plonk them there
+                        // in a special "WIP" section (e.g. hatched background)
+                      // on the other hand, they also probably want to do a search to narrow it down to specific exercises, so they would
+                        // need a text filter, and in the future maybe future filters
+                        // putting all of that in the main UI seems a bit too much. let's just use a simple selection for now    
+                                */
+                              Autocomplete<Ex>(
+                                  displayStringForOption: (e) => e.id,
+                                  optionsBuilder: (textEditingValue) {
+                                    return exes
+                                        .where((e) => e.id
+                                            .toLowerCase()
+                                            .contains(textEditingValue.text
+                                                .toLowerCase()))
+                                        .toList();
+                                  },
+                                  onSelected: (Ex e) {
+                                    onChange(workout.copyWith(setGroups: [
+                                      ...workout.setGroups,
+                                      SetGroup(
+                                          setup.paramFinal.intensities.first)
+                                    ]));
+                                    context.pop();
+                                  }),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: const SizedBox(
+                        width: 30, child: Icon(Icons.add, size: 16)),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         // TODO: support combo sets
         // TODO: support drag and dropping of sets, even across workouts
@@ -143,7 +268,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
                             .toList(),
                   ));
                 })),
-        BuilderTotalsWidget(workout.setGroups),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: BuilderTotalsWidget(workout.setGroups),
+        ),
       ]),
     );
   }

@@ -31,7 +31,7 @@ Widget headers() {
   // better hack which reduces the number of widgets: just manually define the longest one...
   const dummy = Opacity(
     opacity: 0,
-    child: Text('Ham Long H. & semis'),
+    child: HeaderLabel('Ham Long H. & semis'),
   );
   return Transform.translate(
     offset: const Offset(
@@ -48,10 +48,7 @@ Widget headers() {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2),
                       child: Stack(children: [
-                        SizedBox(
-                          height: 26,
-                          child: Text(e.displayName),
-                        ),
+                        HeaderLabel(e.displayName),
                         dummy,
                       ]),
                     ),
@@ -59,4 +56,24 @@ Widget headers() {
                 )))
             .toList()),
   );
+}
+
+class HeaderLabel extends StatelessWidget {
+  final String title;
+  const HeaderLabel(this.title, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 36,
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.3,
+        ),
+      ),
+    );
+  }
 }

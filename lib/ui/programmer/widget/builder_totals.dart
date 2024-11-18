@@ -42,7 +42,7 @@ class BuilderTotalsWidget extends StatelessWidget {
           Expanded(child: Container()),
           // "bottom line"
           SizedBox(
-              width: 30.0 * ProgramGroup.values.length + 36,
+              width: 40.0 * ProgramGroup.values.length + 36,
               child: const Divider(
                 thickness: 2,
               )),
@@ -57,7 +57,7 @@ class BuilderTotalsWidget extends StatelessWidget {
             ...ProgramGroup.values
                 .map((g) => Stack(alignment: Alignment.bottomCenter, children: [
                       Container(
-                        width: 30,
+                        width: 40,
                         // "background" height.
                         // if maxVal < 1 -> should be 40
                         // if 1 < maxVal < limit: should be 40 * maxVal
@@ -67,7 +67,7 @@ class BuilderTotalsWidget extends StatelessWidget {
                         color: bgColorForProgramGroup(g),
                       ),
                       Container(
-                        width: 30,
+                        width: 40,
                         height: 40 *
                             (maxVal > limit
                                 ? totals[g]! / maxVal * limit
@@ -81,7 +81,7 @@ class BuilderTotalsWidget extends StatelessWidget {
           children: [
             Expanded(child: Container()),
             ...ProgramGroup.values.map((g) => Container(
-                  width: 30,
+                  width: 40,
                   height: 40,
                   color: bgColorForProgramGroup(g),
                   child: Center(

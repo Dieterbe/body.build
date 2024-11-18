@@ -36,6 +36,7 @@ class ProgrammerBuilder extends ConsumerWidget {
           */
           const SizedBox(width: 30),
           headers(),
+          const SizedBox(width: 20),
         ],
       ),
       ...program.workouts.map((w) => Padding(
@@ -45,10 +46,13 @@ class ProgrammerBuilder extends ConsumerWidget {
             }),
           )),
       if (program.workouts.isNotEmpty)
-        BuilderTotalsWidget(
-            program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
-            setup: setup),
-      if (program.workouts.isNotEmpty) const SizedBox(height: 30),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          child: BuilderTotalsWidget(
+              program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
+              setup: setup),
+        ),
+      if (program.workouts.isNotEmpty) const SizedBox(height: 20),
       if (program.workouts.isNotEmpty)
         Row(
           children: [
