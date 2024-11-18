@@ -10,12 +10,12 @@ class MuscleGroupOverride {
 class ParameterOverrides {
   late List<int>? intensities;
   late int? setsPerweekPerMuscleGroup;
-  late List<MuscleGroupOverride>? muscleGroupOverrides;
+  late List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual;
 
   ParameterOverrides({
     this.intensities,
     this.setsPerweekPerMuscleGroup,
-    this.muscleGroupOverrides,
+    this.setsPerWeekPerMuscleGroupIndividual,
   });
 
   // explicitly specify all fields. useful for copying an override structure into another
@@ -23,7 +23,7 @@ class ParameterOverrides {
   ParameterOverrides.full(
     this.intensities,
     this.setsPerweekPerMuscleGroup,
-    this.muscleGroupOverrides,
+    this.setsPerWeekPerMuscleGroupIndividual,
   );
 
   ParameterOverrides copyWith({
@@ -35,7 +35,7 @@ class ParameterOverrides {
       ..intensities = intensities ?? this.intensities
       ..setsPerweekPerMuscleGroup =
           setsPerweekPerMuscleGroup ?? this.setsPerweekPerMuscleGroup
-      ..muscleGroupOverrides =
-          muscleGroupOverrides ?? this.muscleGroupOverrides;
+      ..setsPerWeekPerMuscleGroupIndividual =
+          muscleGroupOverrides ?? setsPerWeekPerMuscleGroupIndividual;
   }
 }

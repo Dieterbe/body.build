@@ -20,11 +20,12 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
     final bmi = calcBMI(setup.weight, setup.length);
 
     // Get the list of available program groups (those not already overridden)
-    final availableGroups = setup.paramOverrides.muscleGroupOverrides == null
-        ? ProgramGroup.values
-        : ProgramGroup.values.where((group) => !setup
-            .paramOverrides.muscleGroupOverrides!
-            .any((override) => override.group == group));
+    final availableGroups =
+        setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual == null
+            ? ProgramGroup.values
+            : ProgramGroup.values.where((group) => !setup
+                .paramOverrides.setsPerWeekPerMuscleGroupIndividual!
+                .any((override) => override.group == group));
 
     return Column(
       children: [
@@ -115,10 +116,12 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
             ],
           ),
         ],
-        if (setup.paramOverrides.muscleGroupOverrides?.isNotEmpty == true) ...[
+        if (setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+                ?.isNotEmpty ==
+            true) ...[
           const SizedBox(height: 10),
           const SizedBox(height: 10),
-          ...setup.paramOverrides.muscleGroupOverrides!.map(
+          ...setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual!.map(
             (override) => Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Row(
@@ -137,8 +140,8 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
                       decoration:
                           const InputDecoration(border: OutlineInputBorder()),
                       validator: notifier.setsPerWeekPerMuscleGroupValidator,
-                      onChanged: (value) =>
-                          notifier.updateMuscleGroupOverride(override.group, value),
+                      onChanged: (value) => notifier.updateMuscleGroupOverride(
+                          override.group, value),
                     ),
                   ),
                   IconButton(

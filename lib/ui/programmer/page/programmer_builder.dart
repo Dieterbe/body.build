@@ -46,7 +46,8 @@ class ProgrammerBuilder extends ConsumerWidget {
           )),
       if (program.workouts.isNotEmpty)
         BuilderTotalsWidget(
-            program.workouts.fold([], (e, w) => [...e, ...w.setGroups])),
+            program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
+            setup: setup),
       if (program.workouts.isNotEmpty) const SizedBox(height: 30),
       if (program.workouts.isNotEmpty)
         Row(

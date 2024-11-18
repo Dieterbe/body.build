@@ -32,7 +32,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
             const SizedBox(width: 10),
             const SizedBox(width: 45, child: Text('%1RM')),
             const SizedBox(width: 80),
-            const SizedBox(width: 45, child: Text('Exercise')),
+            Align(alignment: Alignment.center, child: const Text('Exercise')),
             Expanded(child: Container()),
             IconButton(
               onPressed: () {
@@ -129,6 +129,8 @@ class BuilderWorkoutWidget extends StatelessWidget {
           ],
         ),
         // TODO: support combo sets
+        // TODO: support drag and dropping of sets, even across workouts
+        // TODO: when finished editing set name, put out of edit mode
         ...workout.setGroups
             .map((s) => BuilderSetGroup(setup, s, (SetGroup? sNew) {
                   onChange(workout.copyWith(

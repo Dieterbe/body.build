@@ -236,7 +236,7 @@ class Setup extends _$Setup {
           paramOverrides: ParameterOverrides.full(
               intensities,
               state.paramOverrides.setsPerweekPerMuscleGroup,
-              state.paramOverrides.muscleGroupOverrides));
+              state.paramOverrides.setsPerWeekPerMuscleGroupIndividual));
     }
   }
 
@@ -247,13 +247,15 @@ class Setup extends _$Setup {
         paramOverrides: ParameterOverrides.full(
             state.paramOverrides.intensities,
             volume,
-            state.paramOverrides.muscleGroupOverrides),
+            state.paramOverrides.setsPerWeekPerMuscleGroupIndividual),
       );
     }
   }
 
   void addMuscleGroupOverride(ProgramGroup group) {
-    final newOverrides = [...?state.paramOverrides.muscleGroupOverrides];
+    final newOverrides = [
+      ...?state.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+    ];
     newOverrides.add(MuscleGroupOverride(group, 1));
 
     state = state.copyWith(
@@ -264,7 +266,9 @@ class Setup extends _$Setup {
   }
 
   void removeMuscleGroupOverride(ProgramGroup group) {
-    final newOverrides = [...?state.paramOverrides.muscleGroupOverrides];
+    final newOverrides = [
+      ...?state.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+    ];
     newOverrides.removeWhere((override) => override.group == group);
 
     state = state.copyWith(
@@ -277,7 +281,9 @@ class Setup extends _$Setup {
   void updateMuscleGroupOverride(ProgramGroup group, String value) {
     final (msg, sets) = _setsPerWeekPerMuscleGroupValidator(value);
     if (msg == null && sets != null) {
-      final newOverrides = [...?state.paramOverrides.muscleGroupOverrides];
+      final newOverrides = [
+        ...?state.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+      ];
       final index =
           newOverrides.indexWhere((override) => override.group == group);
       if (index != -1) {

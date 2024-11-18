@@ -5,9 +5,13 @@ import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
 
+import '../../../model/programmer/settings.dart';
+
 class BuilderTotalsWidget extends StatelessWidget {
   final List<SetGroup> setGroups;
-  const BuilderTotalsWidget(this.setGroups, {super.key});
+  final Settings? setup; // to validate the totals against desired volumes
+
+  const BuilderTotalsWidget(this.setGroups, {this.setup, super.key});
 
 // return a map with for each program group, the volume, summed from all the exercises found in our sets
 // volumes < cutoff are counted as 0
@@ -68,7 +72,7 @@ class BuilderTotalsWidget extends StatelessWidget {
                             (maxVal > limit
                                 ? totals[g]! / maxVal * limit
                                 : totals[g]!),
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.tertiary,
                       ),
                     ]))
           ],
@@ -80,16 +84,21 @@ class BuilderTotalsWidget extends StatelessWidget {
                   width: 30,
                   height: 40,
                   color: bgColorForProgramGroup(g),
-                  child: totals[g]! == 0
-                      ? const Offstage()
-                      : Center(
-                          child: Text(
-                          totals[g]!.toStringAsFixed(1),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        )),
+                  child: Center(
+                      child: Text(
+                    totals[g]!.toStringAsFixed(1),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: (setup == null)
+                          ? Colors.black
+                          : (totals[g]! >=
+                                  setup!.paramFinal
+                                      .getSetsPerWeekPerMuscleGroupFor(g)
+                              ? Colors.green
+                              : Colors.red),
+                    ),
+                  )),
                 ))
           ],
         )

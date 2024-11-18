@@ -1,3 +1,4 @@
+import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/settings.dart';
@@ -6,10 +7,12 @@ import 'package:ptc/util/formulas.dart';
 class Parameters {
   late List<int> intensities;
   late int setsPerweekPerMuscleGroup;
+  late List<MuscleGroupOverride> setsPerWeekPerMuscleGroupIndividual;
 
   Parameters() {
     intensities = [];
     setsPerweekPerMuscleGroup = 0;
+    setsPerWeekPerMuscleGroupIndividual = [];
   }
   static Parameters fromSettings(Settings s) {
     var p = Parameters();
@@ -35,11 +38,33 @@ OTOH, we do want to be able to express "don't train at all - vs de-emph - vs nor
     return p;
   }
 
-  Parameters copyWith({List<int>? intensities}) {
-    return Parameters()..intensities = intensities ?? this.intensities;
+  Parameters copyWith(
+      {List<int>? intensities,
+      int? setsPerweekPerMuscleGroup,
+      List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual}) {
+    return Parameters()
+      ..intensities = intensities ?? this.intensities
+      ..setsPerweekPerMuscleGroup =
+          setsPerweekPerMuscleGroup ?? this.setsPerweekPerMuscleGroup
+      ..setsPerWeekPerMuscleGroupIndividual =
+          setsPerWeekPerMuscleGroupIndividual ??
+              this.setsPerWeekPerMuscleGroupIndividual;
   }
 
   Parameters apply(ParameterOverrides overrides) {
-    return copyWith(intensities: overrides.intensities);
+    return copyWith(
+        intensities: overrides.intensities,
+        setsPerweekPerMuscleGroup: overrides.setsPerweekPerMuscleGroup,
+        setsPerWeekPerMuscleGroupIndividual:
+            overrides.setsPerWeekPerMuscleGroupIndividual);
+  }
+
+  int getSetsPerWeekPerMuscleGroupFor(ProgramGroup group) {
+    for (final override in setsPerWeekPerMuscleGroupIndividual) {
+      if (override.group == group) {
+        return override.sets;
+      }
+    }
+    return setsPerweekPerMuscleGroup;
   }
 }

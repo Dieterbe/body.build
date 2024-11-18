@@ -93,8 +93,8 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.hams: 1,
       ProgramGroup.gluteMax: 1,
       ProgramGroup.abs: 0.25,
-      ProgramGroup.wristExtensors: 0.75,
-      ProgramGroup.wristFlexors: 0.75,
+      ProgramGroup.wristExtensors: 0.5,
+      ProgramGroup.wristFlexors: 0.5,
     },
   ),
   const VolumeAssignment(
