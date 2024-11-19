@@ -9,8 +9,10 @@ class DraggableSetGroup extends StatelessWidget {
   final Workout workout;
   final SetGroup s;
   final Settings setup;
+  final bool isDragging;
   final Function(Workout) onChange;
-  const DraggableSetGroup(this.setup, this.workout, this.s, this.onChange,
+  const DraggableSetGroup(
+      this.setup, this.workout, this.s, this.isDragging, this.onChange,
       {super.key});
 
   @override
@@ -25,36 +27,55 @@ class DraggableSetGroup extends StatelessWidget {
                 : workout.setGroups.map((sg) => sg == s ? sNew : sg).toList()));
       },
     );
-    return Draggable<MapEntry<Workout, SetGroup>>(
-      data: MapEntry(workout, s),
-      onDragStarted: () {
-        dragInProgressNotifier.value = true;
-      },
-      onDragEnd: (_) {
-        dragInProgressNotifier.value = false;
-      },
-      feedback: Material(
-        elevation: 4,
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.95,
-          color: Theme.of(context).colorScheme.surface,
-          child: builderSetGroup,
+
+    return Container(
+      decoration: isDragging
+          ? BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                width: 2,
+                style: BorderStyle.solid,
+              ),
+            )
+          : null,
+      child: Draggable<MapEntry<Workout, SetGroup>>(
+        data: MapEntry(workout, s),
+        onDragStarted: () {
+          dragInProgressNotifier.value = true;
+        },
+        onDragEnd: (_) {
+          dragInProgressNotifier.value = false;
+        },
+        onDraggableCanceled: (_, __) {
+          dragInProgressNotifier.value = false;
+        },
+        feedback: Material(
+          elevation: 4,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.95,
+            color: Theme.of(context).colorScheme.surface,
+            child: builderSetGroup,
+          ),
         ),
-      ),
-      childWhenDragging: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(8),
+        childWhenDragging: Container(
+          height: 60,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
+        onDragCompleted: () {
+          // Remove from this workout when successfully dropped elsewhere
+          dragInProgressNotifier.value = false;
+
+          onChange(workout.copyWith(
+            setGroups: workout.setGroups.where((sg) => sg != s).toList(),
+          ));
+        },
+        child: builderSetGroup,
       ),
-      onDragCompleted: () {
-        // Remove from this workout when successfully dropped elsewhere
-        onChange(workout.copyWith(
-          setGroups: workout.setGroups.where((sg) => sg != s).toList(),
-        ));
-      },
-      child: builderSetGroup,
     );
   }
 }

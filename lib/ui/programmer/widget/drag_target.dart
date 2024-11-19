@@ -18,10 +18,7 @@ class DragTargetWidget extends StatelessWidget {
     return DragTarget<MapEntry<Workout, SetGroup>>(
       key: ValueKey(MapEntry(workout, s)),
       onWillAcceptWithDetails: (details) {
-        final accept = details.data.value != s;
-        print(
-            'Will accept? pos $pos, setGroup $s, onSet $onSet, ${details.data.key} ${details.data.value} $s -> $accept');
-        return accept;
+        return details.data.value != s;
       },
       onAcceptWithDetails: (details) {
         final sourceWorkout = details.data.key;
