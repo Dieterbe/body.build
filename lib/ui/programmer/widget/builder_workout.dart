@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ptc/data/programmer/exercises.dart';
@@ -9,6 +10,10 @@ import 'package:ptc/ui/programmer/util_groups.dart';
 import 'package:ptc/ui/programmer/widget/add_set_button.dart';
 import 'package:ptc/ui/programmer/widget/builder_setgroup.dart';
 import 'package:ptc/ui/programmer/widget/builder_totals.dart';
+import 'package:ptc/ui/programmer/widget/drag_target.dart';
+import 'package:ptc/ui/programmer/widget/draggable_setgroup.dart';
+import 'package:ptc/ui/programmer/widget/drag_target_empty.dart';
+import 'package:ptc/ui/programmer/widget/set_group_landing_zone.dart';
 
 class BuilderWorkoutWidget extends StatelessWidget {
   final Workout workout;
@@ -42,6 +47,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
             border: Border(
               bottom: BorderSide(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                width: 1,
               ),
             ),
           ),
@@ -262,18 +268,66 @@ class BuilderWorkoutWidget extends StatelessWidget {
             ],
           ),
         ),
-        // TODO: support combo sets
-        // TODO: support drag and dropping of sets, even across workouts
-        ...workout.setGroups
-            .map((s) => BuilderSetGroup(setup, s, (SetGroup? sNew) {
-                  onChange(workout.copyWith(
-                    setGroups: (sNew == null)
-                        ? workout.setGroups.where((sg) => sg != s).toList()
-                        : workout.setGroups
-                            .map((sg) => sg == s ? sNew : sg)
-                            .toList(),
-                  ));
-                })),
+        if (workout.setGroups.isEmpty)
+          DragTarget<MapEntry<Workout, SetGroup>>(
+            onWillAcceptWithDetails: (details) => true,
+            onAcceptWithDetails: (details) {
+              onChange(workout.copyWith(setGroups: [details.data.value]));
+            },
+            builder: (context, candidateData, rejectedData) {
+              print(
+                  'empty workout dragTarget activated -> candidateData: $candidateData');
+              return DragTargetWidgetEmpty(candidateData.isNotEmpty);
+            },
+          )
+        else
+          Column(
+            children: [
+              ...workout.setGroups.mapIndexed((i, s) {
+                return Column(
+                  children: [
+                    DragTargetWidget(workout, i, s, false, onChange: onChange,
+                        builder: (context, candidateData, rejectedData) {
+                      if (candidateData.isNotEmpty) {
+                        return Container(
+                          height: 70,
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          color: Colors
+                              .blue, //Theme.of(context).colorScheme.primary,
+                        );
+                      }
+                      return const SetGroupLandingZone();
+                    }),
+                    DragTargetWidget(workout, i, s, true, onChange: onChange,
+                        builder: (context, candidateData, rejectedData) {
+                      //  if (candidateData.isNotEmpty)
+                      return DraggableSetGroup(setup, workout, s, onChange);
+                    }),
+                  ],
+                );
+              }),
+              // Add drop target for the end of the list
+              DragTargetWidget(
+                workout,
+                workout.setGroups.length,
+                null,
+                false,
+                onChange: onChange,
+                builder: (context, candidateData, rejectedData) {
+                  print(
+                      'end-of-workout.setlist dragTarget activated -> candidateData: $candidateData');
+
+                  return candidateData.isNotEmpty
+                      ? Container(
+                          height: 2,
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                      : const SizedBox(height: 8);
+                },
+              ),
+            ],
+          ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           child: BuilderTotalsWidget(workout.setGroups),
