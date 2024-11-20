@@ -16,6 +16,13 @@ why e.g. data/programmer and not programmer/data - wouldn't that make more sense
 * it's because we except certain commonalities between different data files, ui files etc, so putting them closer together may help with diffing files, copying them etc on the CLI
 
 
+
+### TODO: incorporate eccentric overloading.it's recommended for all
+
+ if you have machines or weight-releasers available to implement eccentric overloading, it’s generally good to do so. If not, there are still several ways you can implement eccentric overloading in your training.1. Bilaterally performing the concentric phase of an exercise, while unilaterally performing the eccentric. For example, during a machine leg extension or lying leg curl you can lift up the pad with both legs and then lower it under control with just one leg.2. Using momentum to aid the concentric phase while controlling the eccentric. This can be used during, for example, calf jumps, butterfly lateral raises, step-ups, pulldowns and seated cable rows. (See the exercise selection course module for the exercise library with detailed exercise descriptions.)3. Biomechanically decreasing your strength during the eccentric phase. For example, you could switch from a supinated to a pronated grip during chin-ups. Zottman curls are an exercise that inherently have eccentric overloading. Strategy 2 is generally by far the most practical to implement
+
+ 
+
 TODO: look throughout the course modules about injury management and how it affects program.
 for sure:
 - eccentric overloading
