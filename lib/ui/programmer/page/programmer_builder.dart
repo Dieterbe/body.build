@@ -49,6 +49,7 @@ class ProgrammerBuilder extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: BuilderTotalsWidget(
+              multiplier: 2,
               program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
               setup: setup),
         ),

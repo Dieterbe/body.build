@@ -7,12 +7,16 @@ import 'package:ptc/ui/programmer/util_groups.dart';
 import 'package:ptc/ui/programmer/widget/equip_label.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 
-class BuilderSetGroup extends StatelessWidget {
-  final SetGroup sg;
+class BuilderSets extends StatelessWidget {
+  final Sets sets;
   final Settings setup;
-  final Function(SetGroup? sgNew) onChange;
+  final bool hasNewComboButton;
 
-  const BuilderSetGroup(this.setup, this.sg, this.onChange, {super.key});
+  final Function(Sets? sgNew) onChange;
+
+  const BuilderSets(
+      this.setup, this.sets, this.hasNewComboButton, this.onChange,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class BuilderSetGroup extends StatelessWidget {
           width: 45,
           child: DropdownButtonHideUnderline(
             child: DropdownButton<int>(
-              value: sg.n,
+              value: sets.n,
               icon: Icon(
                 Icons.arrow_drop_down,
                 color: Theme.of(context).colorScheme.primary,
@@ -50,7 +54,7 @@ class BuilderSetGroup extends StatelessWidget {
                 );
               }).toList(),
               onChanged: (int? newValue) {
-                onChange(sg.copyWith(n: newValue));
+                onChange(sets.copyWith(n: newValue));
               },
             ),
           ),
@@ -61,8 +65,8 @@ class BuilderSetGroup extends StatelessWidget {
           child: DropdownButtonHideUnderline(
             child: DropdownButton<int>(
               // if you go back and change the setup, we must reset the intensity to something that's allowed
-              value: (setup.paramFinal.intensities.contains(sg.intensity))
-                  ? sg.intensity
+              value: (setup.paramFinal.intensities.contains(sets.intensity))
+                  ? sets.intensity
                   : setup.paramFinal.intensities.first,
               icon: Icon(
                 Icons.arrow_drop_down,
@@ -82,7 +86,7 @@ class BuilderSetGroup extends StatelessWidget {
                 );
               }).toList(),
               onChanged: (int? newValue) {
-                onChange(sg.copyWith(intensity: newValue));
+                onChange(sets.copyWith(intensity: newValue));
               },
             ),
           ),
@@ -90,7 +94,7 @@ class BuilderSetGroup extends StatelessWidget {
         const SizedBox(width: 16),
         IconButton(
           onPressed: () {
-            onChange(sg.copyWith(changeEx: !sg.changeEx));
+            onChange(sets.copyWith(changeEx: !sets.changeEx));
           },
           icon: Icon(
             Icons.edit,
@@ -98,7 +102,7 @@ class BuilderSetGroup extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
           ),
           style: IconButton.styleFrom(
-            backgroundColor: sg.changeEx
+            backgroundColor: sets.changeEx
                 ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
                 : Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -124,13 +128,13 @@ class BuilderSetGroup extends StatelessWidget {
         SizedBox(
           width: 250,
           height: 40,
-          child: (sg.ex != null && !sg.changeEx)
+          child: (sets.ex != null && !sets.changeEx)
               ? Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
-                      sg.ex!.id,
+                      sets.ex!.id,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.onSurface,
@@ -189,15 +193,35 @@ class BuilderSetGroup extends StatelessWidget {
                     );
                   },
                   onSelected: (Ex e) {
-                    onChange(sg.copyWith(ex: e, changeEx: false));
+                    onChange(sets.copyWith(ex: e, changeEx: false));
                   }),
         ),
         const SizedBox(width: 16),
-        if (sg.ex != null)
-          ...sg.ex!.equipment.map((e) => Padding(
+        if (sets.ex != null)
+          ...sets.ex!.equipment.map((e) => Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: EquipmentLabel(e),
               )),
+        if (hasNewComboButton)
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.merge_type, size: 16, color: Colors.blue),
+                  SizedBox(width: 4),
+                  Text('New ComboSet', style: TextStyle(color: Colors.blue)),
+                ],
+              ),
+            ),
+          ),
         Expanded(child: Container()),
         // muscle recruitment values
         ...ProgramGroup.values.map(
@@ -213,7 +237,7 @@ class BuilderSetGroup extends StatelessWidget {
             ),
             child: Center(
                 child: muscleMark(
-                    sg.ex == null ? 0 : sg.ex!.recruitment(g), context)),
+                    sets.ex == null ? 0 : sets.ex!.recruitment(g), context)),
           ),
         ),
       ]),

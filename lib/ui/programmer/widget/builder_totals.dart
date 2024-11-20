@@ -9,23 +9,32 @@ import '../../../model/programmer/settings.dart';
 
 class BuilderTotalsWidget extends StatelessWidget {
   final List<SetGroup> setGroups;
+  final int multiplier;
   final Settings? setup; // to validate the totals against desired volumes
 
-  const BuilderTotalsWidget(this.setGroups, {this.setup, super.key});
+  const BuilderTotalsWidget(this.setGroups,
+      {this.multiplier = 1, this.setup, super.key});
 
 // return a map with for each program group, the volume, summed from all the exercises found in our sets
 // volumes < cutoff are counted as 0
   (double, Map<ProgramGroup, double>) _compute(double cutoff) {
-    final totals =
-        setGroups.where((s) => s.ex != null).fold<Map<ProgramGroup, double>>(
-            {for (var group in ProgramGroup.values) group: 0.0},
-            (totals, sg) => {
-                  for (var group in ProgramGroup.values)
-                    group: totals[group]! +
-                        (sg.ex!.recruitment(group) >= cutoff
-                            ? sg.ex!.recruitment(group) * sg.n
-                            : 0.0)
-                });
+    var totals = setGroups.fold<Map<ProgramGroup, double>>(
+        {for (var group in ProgramGroup.values) group: 0.0}, (totals, sg) {
+      // Process each set in the SetGroup
+      for (var set in sg.sets) {
+        if (set.ex != null) {
+          for (var group in ProgramGroup.values) {
+            totals[group] = totals[group]! +
+                (set.ex!.recruitment(group) >= cutoff
+                    ? set.ex!.recruitment(group) * set.n
+                    : 0.0);
+          }
+        }
+      }
+      totals =
+          totals.map((group, value) => MapEntry(group, value * multiplier));
+      return totals;
+    });
     final maxVal = totals.values.reduce(max);
     return (maxVal, totals);
   }

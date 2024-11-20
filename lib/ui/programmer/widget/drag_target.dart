@@ -5,20 +5,19 @@ import 'package:ptc/model/programmer/workout.dart';
 class DragTargetWidget extends StatelessWidget {
   final Workout workout;
   final int pos;
-  final SetGroup? s;
-  final bool onSet;
-  final Function(Workout) onChange;
+  final Sets? reject;
+  final Function(Sets) onChange;
   final DragTargetBuilder builder;
 
-  const DragTargetWidget(this.workout, this.pos, this.s, this.onSet,
+  const DragTargetWidget(this.workout, this.pos, this.reject,
       {required this.onChange, required this.builder, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DragTarget<MapEntry<Workout, SetGroup>>(
-      key: ValueKey(MapEntry(workout, s)),
+    return DragTarget<MapEntry<Workout, Sets>>(
+      key: ValueKey(MapEntry(workout, reject)),
       onWillAcceptWithDetails: (details) {
-        return details.data.value != s;
+        return (reject == null || details.data.value != reject);
       },
       onAcceptWithDetails: (details) {
         final sourceWorkout = details.data.key;
@@ -26,7 +25,8 @@ class DragTargetWidget extends StatelessWidget {
 
         final items = List<SetGroup>.from(workout.setGroups);
         var insertPos = pos;
-
+        onChange(draggedSet);
+/*
         if (sourceWorkout == workout) {
           // Reordering within same workout: first remove the original
           final oldIndex = items.indexOf(draggedSet);
@@ -40,6 +40,7 @@ class DragTargetWidget extends StatelessWidget {
         }
         items.insert(insertPos, draggedSet);
         onChange(workout.copyWith(setGroups: items));
+        */
       },
       builder: builder,
     );

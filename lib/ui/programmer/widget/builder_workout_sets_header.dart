@@ -11,12 +11,10 @@ import 'package:ptc/ui/programmer/widget/add_set_button.dart';
 class BuilderWorkoutSetsHeader extends StatelessWidget {
   final Workout workout;
   final Settings setup;
-  final bool isDragging;
   final Function(Workout) onChange;
   const BuilderWorkoutSetsHeader(
     this.workout,
-    this.setup,
-    this.isDragging, {
+    this.setup, {
     required this.onChange,
     super.key,
   });
@@ -25,17 +23,6 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: isDragging
-          ? BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                width: 2,
-                style: BorderStyle.solid,
-              ),
-            )
-          : null,
       child: Row(
         children: [
           SizedBox(
@@ -84,7 +71,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
             () {
               onChange(workout.copyWith(setGroups: [
                 ...workout.setGroups,
-                SetGroup(setup.paramFinal.intensities.first)
+                SetGroup([Sets(setup.paramFinal.intensities.first)])
               ]));
             },
           ),
@@ -145,8 +132,10 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                               onSelected: (Ex e) {
                                 onChange(workout.copyWith(setGroups: [
                                   ...workout.setGroups,
-                                  SetGroup(setup.paramFinal.intensities.first,
-                                      ex: e)
+                                  SetGroup([
+                                    Sets(setup.paramFinal.intensities.first,
+                                        ex: e)
+                                  ])
                                 ]));
                                 context.pop();
                               }),
