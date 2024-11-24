@@ -44,7 +44,7 @@ class DraggableSets extends StatelessWidget {
     });
 
     return Container(
-      decoration: isDragging
+      /*  decoration: isDragging
           ? BoxDecoration(
               color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
@@ -54,7 +54,7 @@ class DraggableSets extends StatelessWidget {
                 style: BorderStyle.solid,
               ),
             )
-          : null,
+          : null, */
       child: Draggable<MapEntry<Workout, Sets>>(
         data: MapEntry(workout, sets),
         onDragStarted: () {
