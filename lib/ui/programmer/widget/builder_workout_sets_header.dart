@@ -22,7 +22,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
           SizedBox(

@@ -31,10 +31,10 @@ class BuilderTotalsWidget extends StatelessWidget {
           }
         }
       }
-      totals =
-          totals.map((group, value) => MapEntry(group, value * multiplier));
       return totals;
     });
+
+    totals = totals.map((group, value) => MapEntry(group, value * multiplier));
     final maxVal = totals.values.reduce(max);
     return (maxVal, totals);
   }

@@ -17,10 +17,24 @@ class Sets {
       changeEx: changeEx ?? this.changeEx,
     );
   }
+
+  @override
+  String toString() {
+    return "Set(int=$intensity, n=$n, changeEx=$changeEx, ex=${ex?.id})";
+  }
 }
 
 // represents a group of sets (e.g. a comboset or circuit)
 class SetGroup {
   final List<Sets> sets;
   SetGroup(this.sets);
+
+  SetGroup copyWith({List<Sets>? sets}) {
+    return SetGroup(sets ?? this.sets);
+  }
+
+  @override
+  String toString() {
+    return "SetGroup(sets=${sets.map((s) => s.toString()).join(', ')})";
+  }
 }

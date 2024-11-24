@@ -10,11 +10,10 @@ class DraggableSets extends StatelessWidget {
   final SetGroup sg;
   final Sets sets;
   final Settings setup;
-  final bool isDragging;
   final bool hasNewComboButton;
   final Function(Workout) onChange;
   const DraggableSets(this.setup, this.workout, this.sg, this.sets,
-      this.isDragging, this.hasNewComboButton, this.onChange,
+      this.hasNewComboButton, this.onChange,
       {super.key});
 
   @override
@@ -44,17 +43,6 @@ class DraggableSets extends StatelessWidget {
     });
 
     return Container(
-      /*  decoration: isDragging
-          ? BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                width: 2,
-                style: BorderStyle.solid,
-              ),
-            )
-          : null, */
       child: Draggable<MapEntry<Workout, Sets>>(
         data: MapEntry(workout, sets),
         onDragStarted: () {
@@ -82,15 +70,8 @@ class DraggableSets extends StatelessWidget {
           ),
         ),
         onDragCompleted: () {
-          // Remove from this workout when successfully dropped elsewhere
-          // TODO: i think this means we can delete twice, if it's within same workout
-          // then destination DragTarget also deletes
           dragInProgressNotifier.value = false;
-
-          onChange(workout.copyWith(
-            setGroups:
-                workout.setGroups.where((sg) => sg != sets).toList(), // FIXME
-          ));
+          // We don't do any updates to the workout state here. that is left to the drop target
         },
         child: builderSets,
       ),

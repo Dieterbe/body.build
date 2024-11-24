@@ -21,13 +21,10 @@ class BuilderSets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-        ),
       ),
       child: Row(children: [
         const SizedBox(width: 16),

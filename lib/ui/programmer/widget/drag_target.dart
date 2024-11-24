@@ -6,11 +6,16 @@ class DragTargetWidget extends StatelessWidget {
   final Workout workout;
   final int pos;
   final Sets? reject;
-  final Function(Sets) onChange;
+  final Workout Function(Sets)
+      onDrop; // note: callbacks receive a *copy* of the original set
+  final Function(Workout) onChange;
   final DragTargetBuilder builder;
 
   const DragTargetWidget(this.workout, this.pos, this.reject,
-      {required this.onChange, required this.builder, super.key});
+      {required this.onDrop,
+      required this.onChange,
+      required this.builder,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +25,22 @@ class DragTargetWidget extends StatelessWidget {
         return (reject == null || details.data.value != reject);
       },
       onAcceptWithDetails: (details) {
-        final sourceWorkout = details.data.key;
         final draggedSet = details.data.value;
 
-        final items = List<SetGroup>.from(workout.setGroups);
-        var insertPos = pos;
-        onChange(draggedSet);
-/*
-        if (sourceWorkout == workout) {
-          // Reordering within same workout: first remove the original
-          final oldIndex = items.indexOf(draggedSet);
-          items.removeAt(oldIndex);
-          // All elements after the removed element are now at an index one lower.
-          // If the removed element was before our 'insertPos', we need to adust
-          // 'insertPos' accordingly
-          if (oldIndex <= insertPos) {
-            insertPos -= 1;
-          }
-        }
-        items.insert(insertPos, draggedSet);
-        onChange(workout.copyWith(setGroups: items));
-        */
+        // give the callback a *copy* of the dragged set, which they can use
+        // to modify the workout (e.g. insert the set somewhere) ...
+        final workout = onDrop(draggedSet.copyWith());
+        // ... so that we can then update the state to remove the original set from
+        // its original location
+        onChange(
+          workout.copyWith(
+            setGroups: workout.setGroups
+                .map((sg) => sg.copyWith(
+                    sets: sg.sets.where((s) => s != draggedSet).toList()))
+                .where((sg) => sg.sets.isNotEmpty)
+                .toList(),
+          ),
+        );
       },
       builder: builder,
     );

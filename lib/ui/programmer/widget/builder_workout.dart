@@ -8,6 +8,8 @@ import 'package:ptc/ui/programmer/widget/builder_totals.dart';
 import 'package:ptc/ui/programmer/widget/builder_workout_sets_header.dart';
 import 'package:ptc/ui/programmer/widget/drag_target.dart';
 import 'package:ptc/ui/programmer/widget/draggable_setgroup.dart';
+import 'package:ptc/ui/programmer/widget/drop_bar.dart';
+import 'package:ptc/util.dart';
 
 class BuilderWorkoutWidget extends StatelessWidget {
   final Workout workout;
@@ -35,6 +37,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
           ),
         ],
       ),
+      // looks like "around" the container
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       child: Column(children: [
         Container(
@@ -130,168 +133,132 @@ class BuilderWorkoutWidget extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(height: 12),
         BuilderWorkoutSetsHeader(
           workout,
           setup,
           onChange: onChange,
         ),
-        DragTargetWidget(
-          workout,
-          0,
-          null,
-          onChange: (Sets sNew) {
-            onChange(workout.copyWith(setGroups: [
-              SetGroup([sNew]),
-              ...workout.setGroups
-            ]));
-          },
-          builder: (context, candidateData, rejectedData) {
-            return ValueListenableBuilder<bool>(
-              // TODO: we can probably add this into DragTargetWidget's callback closure
-              valueListenable: dragInProgressNotifier,
-              builder: (context, isDragging, child) {
-                return Text(
-                    'HEAD WIDGET. workout -> workout.setgroups([set, ...oldstuff]). drag in progress? $isDragging');
-              },
-            );
-          },
-        ),
-        ...workout.setGroups.mapIndexed((i, sg) => setGroupSection(setup, sg,
-            i == 0, i == workout.setGroups.length - 1, workout, onChange)),
-        DragTargetWidget(
-          workout,
-          0,
-          null,
-          onChange: (Sets sNew) {
-            onChange(workout.copyWith(setGroups: [
-              ...workout.setGroups,
-              SetGroup([sNew])
-            ]));
-          },
-          builder: (context, candidateData, rejectedData) {
-            return ValueListenableBuilder<bool>(
-              // TODO: we can probably add this into DragTargetWidget's callback closure
-              valueListenable: dragInProgressNotifier,
-              builder: (context, isDragging, child) {
-                return Text(
-                    'TAIL WIDGET. workout -> workout.setgroups([...oldstuff, set]). drag in progress? $isDragging');
-              },
-            );
-          },
-        ),
+        //     const SizedBox(height: 3),
+        //       const SizedBox(height: 3),
+        ...workout.setGroups
+            .mapIndexed((i, sg) =>
+                setGroupSection(context, setup, sg, workout, onChange))
+            .insertBeforeBetweenAfter(
+              // if you drop a set in between setgroups (or at the start or end),
+              // it becomes a new setgroup
+              (i) => DropBar(
+                // colorInactive: Colors.cyan,
+                colorActive:
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                workout,
+                onChange,
+                (Sets sNew) {
+                  var newSetGroups = workout.setGroups;
+                  newSetGroups.insert(i, SetGroup([sNew]));
+                  return workout.copyWith(setGroups: newSetGroups);
+                },
+              ),
+            ),
+
+        // SizedBox(height: 12)), // to separate combosets from each other
+        // SizedBox(height: 3),
+
+        // const SizedBox(height: 3),
         BuilderTotalsWidget(workout.setGroups),
       ]),
     );
   }
 }
 
-Widget setGroupSection(Settings setup, SetGroup sg, bool isFirst, bool isLast,
-    Workout workout, Function(Workout? w) onChange) {
-  return Column(
-    children: [
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: (sg.sets.length > 1) ? Colors.red : Colors.green,
-            width: 2,
+Widget setGroupSection(
+  BuildContext context,
+  Settings setup,
+  SetGroup sg,
+  Workout workout,
+  Function(Workout? w) onChange,
+) {
+  if (sg.sets.length == 1) {
+    // if this setgroup only contains 1 set,
+    // then we can turn it into a comboset by dragging another set onto it
+    return ValueListenableBuilder<bool>(
+      valueListenable: dragInProgressNotifier,
+      builder: (context, isDragging, child) {
+        final widget = DraggableSets(setup, workout, sg, sg.sets.first,
+            isDragging && sg.sets.length == 1, onChange);
+        if (isDragging && sg.sets.length == 1) {
+          return DragTargetWidget(
+            workout,
+            0,
+            null,
+            onChange: onChange,
+            onDrop: (Sets sNew) => workout.copyWith(
+                setGroups: workout.setGroups
+                    .map((e) => (e == sg)
+                        ? e.copyWith(sets: [
+                            ...e.sets,
+                            sNew,
+                          ])
+                        : e)
+                    .toList()),
+            builder: (context, candidateData, rejectedData) => widget,
+          );
+        } else {
+          return widget;
+        }
+      },
+    );
+  }
+  // if sets > 1, then we already have a comboset.
+  // we want widget.insertBeforeBetweenAfter(dropbar) with dropbars to add a set
+  // to the existing comboset in the correct spot.
+  // dragging onto the set itself does nothing
+
+  return Container(
+    padding: const EdgeInsets.all(8.0),
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.surface,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+        width: 2,
+      ),
+    ),
+    child: Stack(
+      children: [
+        const RotatedBox(
+          quarterTurns: 1,
+          child: Text(
+            'COMBO',
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        child: Column(children: [
-          for (var (index, sets) in sg.sets.indexed) ...[
-            // if we only contain a single set, then we just need a widget to drop a set into a new setgroup before us.
-            // if we are the first setgroup,then the HEAD widget already takes care of this
-            // if length > 1, then, we want a widget which drops a set into the same setgroup, before this set.
-            if (!isFirst || sg.sets.length > 1)
-              DragTargetWidget(
-                workout,
-                0,
-                null,
-                onChange: (Sets sNew) {
-                  if (sg.sets.length == 1) {
-                    onChange(workout.copyWith(setGroups: [
-                      SetGroup([sNew]),
-                      ...workout.setGroups
-                    ]));
-                    return;
-                  }
-                  onChange(workout.copyWith(
-                      setGroups: workout.setGroups
-                          .map((e) => (e == sg)
-                              ? SetGroup([
-                                  ...e.sets.sublist(0, index),
-                                  sNew,
-                                  ...e.sets.sublist(index)
-                                ])
-                              : e)
-                          .toList()));
-                  return;
-                },
-                builder: (context, candidateData, rejectedData) {
-                  return ValueListenableBuilder<bool>(
-                    // TODO: we can probably add this into DragTargetWidget's callback closure
-                    valueListenable: dragInProgressNotifier,
-                    builder: (context, isDragging, child) {
-                      return Text(
-                          'dropperrr PRE drag in progress? $isDragging');
+        Column(
+          children: sg.sets
+              .mapIndexed<Widget>((i, sets) =>
+                  DraggableSets(setup, workout, sg, sets, false, onChange))
+              .insertBeforeBetweenAfter((i) => DropBar(
+                    colorActive: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.2),
+                    workout,
+                    onChange,
+                    (Sets sNew) {
+                      var newSets = sg.sets;
+                      newSets.insert(i, sNew);
+                      return workout.copyWith(
+                          setGroups: workout.setGroups
+                              .map((e) => (e == sg) ? SetGroup(newSets) : e)
+                              .toList());
                     },
-                  );
-                },
-              ),
-
-            ValueListenableBuilder<bool>(
-              valueListenable: dragInProgressNotifier,
-              builder: (context, isDragging, child) => DraggableSets(
-                  setup,
-                  workout,
-                  sg,
-                  sets,
-                  isDragging,
-                  isDragging && sg.sets.length == 1,
-                  onChange),
-            ),
-
-            // if we only contain a single set, then we just need a widget to drop a set into a new setgroup after us.
-            // if we are the last setgroup,then the TAIL widget will take care of this
-            // if length > 1, then, we want a widget which drops a set into the same setgroup, after this set.
-            if (!isLast || sg.sets.length > 1)
-              DragTargetWidget(
-                workout,
-                0,
-                null,
-                onChange: (Sets sNew) {
-                  if (sg.sets.length == 1) {
-                    onChange(workout.copyWith(setGroups: [
-                      ...workout.setGroups,
-                      SetGroup([sNew]),
-                    ]));
-                    return;
-                  }
-                  onChange(workout.copyWith(
-                      setGroups: workout.setGroups
-                          .map((e) => (e == sg)
-                              ? SetGroup([
-                                  ...e.sets.sublist(0, index + 1),
-                                  sNew,
-                                  ...e.sets.sublist(index + 1)
-                                ])
-                              : e)
-                          .toList()));
-                  return;
-                },
-                builder: (context, candidateData, rejectedData) {
-                  return ValueListenableBuilder<bool>(
-                    // TODO: we can probably add this into DragTargetWidget's callback closure
-                    valueListenable: dragInProgressNotifier,
-                    builder: (context, isDragging, child) {
-                      return Text(
-                          'dropperrr POST drag in progress? $isDragging');
-                    },
-                  );
-                },
-              ),
-          ]
-        ]),
-      ),
-    ],
+                  ))
+              .toList(),
+        ),
+      ],
+    ),
   );
 }
