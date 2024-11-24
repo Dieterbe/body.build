@@ -19,174 +19,175 @@ class BuilderWorkoutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController(text: workout.name);
-
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-      child: Column(children: [
-        Container(
+    return ValueListenableBuilder<bool>(
+      // TODO: we can probably add this into DragTargetWidget's callback closure
+      valueListenable: dragInProgressNotifier,
+      builder: (context, isDragging, child) {
+        return Container(
           decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                width: 1,
-              ),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              width: 1.5,
             ),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          child: Row(
-            children: [
-              Expanded(child: Container()),
-              SizedBox(
-                width: 200,
-                child: Focus(
-                  child: TextField(
-                    controller: nameController,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      hintText: 'Workout name',
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withOpacity(0.5),
-                      ),
-                      filled: true,
-                      fillColor: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.05),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.2),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    onSubmitted: (value) {
-                      onChange(workout.copyWith(name: value));
-                    },
-                  ),
-                  onFocusChange: (focus) {
-                    if (focus) {
-                      return;
-                    }
-                    // when you leave the textfield, update the state
-                    // if we update the state in the textFiled itself, the whole tree
-                    // constantly refreshes and the editing experience is subbar
-                    onChange(workout.copyWith(name: nameController.text));
-                  },
-                ),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
               ),
-              IconButton(
-                onPressed: () {
-                  onChange(null);
-                },
-                icon: Icon(
-                  Icons.delete_outline,
-                  size: 20,
-                  color: Theme.of(context).colorScheme.error.withOpacity(0.8),
-                ),
-                style: IconButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              Expanded(child: Container()),
             ],
           ),
-        ),
-        BuilderWorkoutSetsHeader(
-          workout,
-          setup,
-          onChange: onChange,
-        ),
-        DragTargetWidget(
-          workout,
-          0,
-          null,
-          onChange: (Sets sNew) {
-            onChange(workout.copyWith(setGroups: [
-              SetGroup([sNew]),
-              ...workout.setGroups
-            ]));
-          },
-          builder: (context, candidateData, rejectedData) {
-            return ValueListenableBuilder<bool>(
-              // TODO: we can probably add this into DragTargetWidget's callback closure
-              valueListenable: dragInProgressNotifier,
-              builder: (context, isDragging, child) {
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          child: Column(children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    width: 1,
+                  ),
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              child: Row(
+                children: [
+                  Expanded(child: Container()),
+                  SizedBox(
+                    width: 200,
+                    child: Focus(
+                      child: TextField(
+                        controller: nameController,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          hintText: 'Workout name',
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.5),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.05),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.2),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        onSubmitted: (value) {
+                          onChange(workout.copyWith(name: value));
+                        },
+                      ),
+                      onFocusChange: (focus) {
+                        if (focus) {
+                          return;
+                        }
+                        // when you leave the textfield, update the state
+                        // if we update the state in the textFiled itself, the whole tree
+                        // constantly refreshes and the editing experience is subbar
+                        onChange(workout.copyWith(name: nameController.text));
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      onChange(null);
+                    },
+                    icon: Icon(
+                      Icons.delete_outline,
+                      size: 20,
+                      color:
+                          Theme.of(context).colorScheme.error.withOpacity(0.8),
+                    ),
+                    style: IconButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                  Expanded(child: Container()),
+                ],
+              ),
+            ),
+            BuilderWorkoutSetsHeader(
+              workout,
+              setup,
+              onChange: onChange,
+            ),
+            DragTargetWidget(
+              workout,
+              0,
+              null,
+              onChange: (Sets sNew) {
+                onChange(workout.copyWith(setGroups: [
+                  SetGroup([sNew]),
+                  ...workout.setGroups
+                ]));
+              },
+              builder: (context, candidateData, rejectedData) {
                 return Text(
                     'HEAD WIDGET. workout -> workout.setgroups([set, ...oldstuff]). drag in progress? $isDragging');
               },
-            );
-          },
-        ),
-        ...workout.setGroups.mapIndexed((i, sg) => setGroupSection(setup, sg,
-            i == 0, i == workout.setGroups.length - 1, workout, onChange)),
-        DragTargetWidget(
-          workout,
-          0,
-          null,
-          onChange: (Sets sNew) {
-            onChange(workout.copyWith(setGroups: [
-              ...workout.setGroups,
-              SetGroup([sNew])
-            ]));
-          },
-          builder: (context, candidateData, rejectedData) {
-            return ValueListenableBuilder<bool>(
-              // TODO: we can probably add this into DragTargetWidget's callback closure
-              valueListenable: dragInProgressNotifier,
-              builder: (context, isDragging, child) {
+            ),
+            ...workout.setGroups.mapIndexed((i, sg) => setGroupSection(
+                setup,
+                sg,
+                i == 0,
+                i == workout.setGroups.length - 1,
+                isDragging,
+                workout,
+                onChange)),
+            DragTargetWidget(
+              workout,
+              0,
+              null,
+              onChange: (Sets sNew) {
+                onChange(workout.copyWith(setGroups: [
+                  ...workout.setGroups,
+                  SetGroup([sNew])
+                ]));
+              },
+              builder: (context, candidateData, rejectedData) {
                 return Text(
                     'TAIL WIDGET. workout -> workout.setgroups([...oldstuff, set]). drag in progress? $isDragging');
               },
-            );
-          },
-        ),
-        BuilderTotalsWidget(workout.setGroups),
-      ]),
+            ),
+            BuilderTotalsWidget(workout.setGroups),
+          ]),
+        );
+      },
     );
   }
 }
 
 Widget setGroupSection(Settings setup, SetGroup sg, bool isFirst, bool isLast,
-    Workout workout, Function(Workout? w) onChange) {
+    bool isDragging, Workout workout, Function(Workout? w) onChange) {
   return Column(
     children: [
       Container(
@@ -227,28 +228,12 @@ Widget setGroupSection(Settings setup, SetGroup sg, bool isFirst, bool isLast,
                   return;
                 },
                 builder: (context, candidateData, rejectedData) {
-                  return ValueListenableBuilder<bool>(
-                    // TODO: we can probably add this into DragTargetWidget's callback closure
-                    valueListenable: dragInProgressNotifier,
-                    builder: (context, isDragging, child) {
-                      return Text(
-                          'dropperrr PRE drag in progress? $isDragging');
-                    },
-                  );
+                  return Text('dropperrr PRE drag in progress? $isDragging');
                 },
               ),
 
-            ValueListenableBuilder<bool>(
-              valueListenable: dragInProgressNotifier,
-              builder: (context, isDragging, child) => DraggableSets(
-                  setup,
-                  workout,
-                  sg,
-                  sets,
-                  false,
-                  isDragging && sg.sets.length > 1,
-                  onChange),
-            ),
+            DraggableSets(setup, workout, sg, sets, isDragging,
+                isDragging && sg.sets.length == 1, onChange),
 
             // if we only contain a single set, then we just need a widget to drop a set into a new setgroup after us.
             // if we are the last setgroup,then the TAIL widget will take care of this
@@ -279,16 +264,9 @@ Widget setGroupSection(Settings setup, SetGroup sg, bool isFirst, bool isLast,
                   return;
                 },
                 builder: (context, candidateData, rejectedData) {
-                  return ValueListenableBuilder<bool>(
-                    // TODO: we can probably add this into DragTargetWidget's callback closure
-                    valueListenable: dragInProgressNotifier,
-                    builder: (context, isDragging, child) {
-                      return Text(
-                          'dropperrr POST drag in progress? $isDragging');
-                    },
-                  );
+                  return Text('dropperrr POST drag in progress? $isDragging');
                 },
-              ),
+              )
           ]
         ]),
       ),
