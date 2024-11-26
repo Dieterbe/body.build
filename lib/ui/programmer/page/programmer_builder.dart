@@ -7,7 +7,7 @@ import 'package:ptc/ui/programmer/widget/builder_workout.dart';
 import 'package:ptc/ui/programmer/widget/headers.dart';
 import 'package:ptc/ui/programmer/widget/builder_totals.dart';
 import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programmer/set_group_generator.dart';
+import 'package:ptc/model/programgen/generator.dart';
 
 class ProgrammerBuilder extends ConsumerWidget {
   const ProgrammerBuilder({super.key});

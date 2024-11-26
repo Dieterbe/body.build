@@ -1,4 +1,5 @@
 import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/data/programmer/groups.dart';
 
 // represents a single set with its properties
 class Sets {
@@ -21,6 +22,12 @@ class Sets {
   @override
   String toString() {
     return "Set(int=$intensity, n=$n, changeEx=$changeEx, ex=${ex?.id})";
+  }
+
+  double recruitment(ProgramGroup pg, double cutoff) {
+    if (ex == null) return 0.0;
+    final r = ex!.recruitment(pg);
+    return (r >= cutoff) ? r * n : 0.0;
   }
 }
 

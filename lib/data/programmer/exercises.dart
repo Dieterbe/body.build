@@ -121,6 +121,9 @@ class Ex {
     // if not, let's see if we have a general rule
     return va.assign[pg] ?? 0.0;
   }
+
+  double totalRecruitment() =>
+      ProgramGroup.values.fold(0.0, (sum, group) => sum + recruitment(group));
 }
 
 final List<Ex> exes = [

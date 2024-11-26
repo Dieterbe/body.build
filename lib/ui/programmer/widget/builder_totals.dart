@@ -24,10 +24,7 @@ class BuilderTotalsWidget extends StatelessWidget {
       for (var set in sg.sets) {
         if (set.ex != null) {
           for (var group in ProgramGroup.values) {
-            totals[group] = totals[group]! +
-                (set.ex!.recruitment(group) >= cutoff
-                    ? set.ex!.recruitment(group) * set.n
-                    : 0.0);
+            totals[group] = totals[group]! + set.recruitment(group, cutoff);
           }
         }
       }
