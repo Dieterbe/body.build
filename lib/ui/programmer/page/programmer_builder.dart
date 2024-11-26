@@ -6,6 +6,8 @@ import 'package:ptc/model/programmer/workout.dart';
 import 'package:ptc/ui/programmer/widget/builder_workout.dart';
 import 'package:ptc/ui/programmer/widget/headers.dart';
 import 'package:ptc/ui/programmer/widget/builder_totals.dart';
+import 'package:ptc/data/programmer/groups.dart';
+import 'package:ptc/model/programmer/set_group_generator.dart';
 
 class ProgrammerBuilder extends ConsumerWidget {
   const ProgrammerBuilder({super.key});
@@ -25,6 +27,28 @@ class ProgrammerBuilder extends ConsumerWidget {
             },
             child: const Row(
               children: [Icon(Icons.add), Text('add workout')],
+            ),
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () {
+              // Create map of target recruitments from setup parameters
+              final target = <ProgramGroup, double>{};
+              for (final group in ProgramGroup.values) {
+                target[group] =
+                    setup.paramFinal.getSetsPerWeekPerMuscleGroupFor(group) *
+                        1.0;
+              }
+
+              // Generate optimized SetGroup
+              final optimizedSetGroup = generateOptimizedSetGroup(target);
+
+              // Create new workout with the optimized SetGroup
+              final workout = Workout(setGroups: [optimizedSetGroup]);
+              notifier.add(workout);
+            },
+            child: const Row(
+              children: [Icon(Icons.auto_awesome), Text('generate workout')],
             ),
           ),
           Expanded(child: Container()),
