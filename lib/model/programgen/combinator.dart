@@ -18,7 +18,7 @@ combinator(List<RankedExercise> exercises, int minExercises, int maxExercises,
     void generateCombinations(List<RankedExercise> current, int start) {
       if (current.length == numExercises) {
         results++;
-        if (results % 10000 == 0) {
+        if (results % 100 == 0) {
           print('combinator at $results / $totalResults');
         }
         callback(current);

@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen/combinator.dart';
+import 'package:ptc/model/programgen/components.dart';
 import 'package:ptc/model/programgen/cost.dart';
 import 'package:ptc/model/programgen/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
@@ -27,10 +29,37 @@ SetGroup generateOptimizedSetGroup(
   return generateLowestCostSetGroup(compounds, targetRecruitment);
 }
 
-// future optimizations.. identify combo's that only differ in disjoint parts
-// e.g. we don't need to calc all combo's of all leg exercises with all combo's of all chest exercises
-// could identify disjoint groups, and process them separately
 SetGroup generateLowestCostSetGroup(Iterable<RankedExercise> compounds,
+    Map<ProgramGroup, double> targetRecruitment) {
+  // Find disjoint components
+  final components = findExerciseComponents(compounds, targetRecruitment);
+  print('Found ${components.length} disjoint exercise components:');
+
+  // Process each component separately
+  final componentSetGroups = <SetGroup>[];
+  for (final component in components) {
+    final componentTargets = Map.of(targetRecruitment);
+    // Zero out targets for program groups not affected by this component
+    final componentProgramGroups = ProgramGroup.values
+        .where((pg) => component.any((ex) => ex.ex.recruitment(pg) > 0));
+    for (final pg in ProgramGroup.values) {
+      if (!componentProgramGroups.contains(pg)) {
+        componentTargets[pg] = 0;
+      }
+    }
+
+    final setGroup = _generateComponentSetGroup(component, componentTargets);
+    if (setGroup.sets.isNotEmpty) {
+      componentSetGroups.add(setGroup);
+    }
+  }
+
+  // Combine all component results
+  return SetGroup(componentSetGroups.expand((sg) => sg.sets).toList());
+}
+
+// Original algorithm, now operating on a single component
+SetGroup _generateComponentSetGroup(List<RankedExercise> compounds,
     Map<ProgramGroup, double> targetRecruitment) {
   final numSignificantGroups =
       targetRecruitment.entries.where((entry) => entry.value > 0.5).length;
@@ -74,8 +103,7 @@ SetGroup generateLowestCostSetGroup(Iterable<RankedExercise> compounds,
     generateSetGroups(List.filled(selectedExercises.length, 1), 0);
   }
 
-  combinator(
-      compounds.toList(), minExercises, minExercises + 2, trySetCombinations);
+  combinator(compounds, minExercises, minExercises + 2, trySetCombinations);
 
   return bestSetGroup;
 }
