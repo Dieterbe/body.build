@@ -8,6 +8,8 @@ class MatrixOptimizer {
   final Vector targetVector; // [program_groups]
   final List<RankedExercise> exercises;
   final List<ProgramGroup> programGroups;
+  final List<List<double>> recruitmentData; // cached matrix data
+  final List<double> targetData; // cached target data
   int setCombosTried = 0;
 
   MatrixOptimizer(List<RankedExercise> exs, Map<ProgramGroup, double> targets)
@@ -18,37 +20,40 @@ class MatrixOptimizer {
             exs.length,
             (i) => List.generate(
               targets.length,
-              (j) => exs[i]
-                  .ex
-                  .recruitment(targets.keys.elementAt(j)), // todo cutoff
+              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j)),
             ),
           ),
         ),
-        targetVector = Vector.fromList(targets.values.toList());
+        targetVector = Vector.fromList(targets.values.toList()),
+        // Cache the data as lists for faster access
+        recruitmentData = Matrix.fromList(
+          List.generate(
+            exs.length,
+            (i) => List.generate(
+              targets.length,
+              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j)),
+            ),
+          ),
+        ).toList().map((row) => row.toList()).toList(),
+        targetData = targets.values.toList();
 
   // Calculate cost for a given set combination (vector of setcounts per exercise)
   double calculateCost(List<int> setCounts) {
     setCombosTried++;
 
-    // Convert set counts to vector
-    final setVector =
-        Vector.fromList(setCounts.map((i) => i.toDouble()).toList());
-
-    // Scale recruitment matrix by real set counts
-    // we now have a matrix of size [exercises x program_groups] with "true" (set adjusted) recruitments
-    final scaledRecruitments =
-        recruitmentMatrix.mapColumns((col) => col * setVector);
-    // sum up recruitments for each program group across all exercises
-    final totalRecruitments = scaledRecruitments.reduceRows((a, b) => a + b);
-
-    // Calculate difference from target
-    final diff = totalRecruitments - targetVector;
-
-    // maybe do this more optimized too
     var cost = 0.0;
-    for (var i = 0; i < diff.length; i++) {
-      cost += diff[i] > 0 ? diff[i] * 3 : -diff[i];
+    // For each program group
+    for (var groupIdx = 0; groupIdx < programGroups.length; groupIdx++) {
+      var totalRecruitment = 0.0;
+      // Sum up (recruitment * sets) for each exercise
+      for (var exIdx = 0; exIdx < exercises.length; exIdx++) {
+        totalRecruitment += recruitmentData[exIdx][groupIdx] * setCounts[exIdx];
+      }
+      // Calculate cost component for this group
+      final diff = totalRecruitment - targetData[groupIdx];
+      cost += diff > 0 ? diff * 3 : -diff;
     }
+
     return cost;
   }
 
