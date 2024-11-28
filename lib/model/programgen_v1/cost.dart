@@ -14,7 +14,7 @@ double calculateCost(Map<ProgramGroup, double> targets, SetGroup group) {
 
     // Sum up actual recruitment from all sets
     final actualValue = group.sets.fold(0.0, (sum, set) {
-      return sum + set.recruitment(pg, 0.5);
+      return sum + set.recruitmentFiltered(pg, 0.5);
     });
 
     final diff = actualValue - recruitTarget;

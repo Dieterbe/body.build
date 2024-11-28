@@ -122,6 +122,11 @@ class Ex {
     return va.assign[pg] ?? 0.0;
   }
 
+  double recruitmentFiltered(ProgramGroup pg, double cutoff) {
+    final raw = recruitment(pg);
+    return raw >= cutoff ? raw : 0.0;
+  }
+
   double totalRecruitment() =>
       ProgramGroup.values.fold(0.0, (sum, group) => sum + recruitment(group));
 }

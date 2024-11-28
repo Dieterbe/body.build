@@ -24,10 +24,9 @@ class Sets {
     return "Set(int=$intensity, n=$n, changeEx=$changeEx, ex=${ex?.id})";
   }
 
-  double recruitment(ProgramGroup pg, double cutoff) {
+  double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;
-    final r = ex!.recruitment(pg);
-    return (r >= cutoff) ? r * n : 0.0;
+    return ex!.recruitmentFiltered(pg, cutoff) * n;
   }
 }
 
