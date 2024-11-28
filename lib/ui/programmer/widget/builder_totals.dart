@@ -37,9 +37,39 @@ class BuilderTotalsWidget extends StatelessWidget {
     return (maxVal, totals);
   }
 
+  // Calculate the average score by comparing recruitment totals to desired volumes
+  double _calculateScore(Map<ProgramGroup, double> totals) {
+    if (setup == null) return 0.0;
+
+    var costs = <double>[];
+    for (var group in ProgramGroup.values) {
+      final desired = setup!.paramFinal.getSetsPerWeekPerMuscleGroupFor(group);
+      final actual = totals[group] ?? 0.0;
+      final diff = actual - desired;
+
+      // For overshooting, double the excess before calculating relative error
+      final effectiveDiff = (diff > 0) ? diff * 2 : diff;
+      final cost = effectiveDiff.abs() / desired;
+
+      // Cost is now a relative error:
+      // 0.0 = perfect match
+      // 1.0 = off by 100% (undershoot)
+      // 2.0 = off by 100% (overshoot, due to 2x punishment)
+      costs.add(cost);
+    }
+
+    final avgCost = costs.reduce((a, b) => a + b) / costs.length;
+    // Convert cost to score (0-100%):
+    // cost 0.0 -> score 100%
+    // cost 1.0 -> score 0%
+    // cost 2.0 -> score 0%
+    return max(0.0, 1.0 - avgCost);
+  }
+
   @override
   Widget build(BuildContext context) {
     final (maxVal, totals) = _compute(0.5);
+    final score = _calculateScore(totals);
     // to normalize the values, reducing the amount of vertical space needed if (some of) the volumes become high
     const limit = 2.0;
 
@@ -58,6 +88,24 @@ class BuilderTotalsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(child: Container()),
+            if (setup != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Score', style: TextStyle(fontSize: 12)),
+                    Text(
+                      '${(score * 100).toStringAsFixed(1)}%',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            if (setup != null) const SizedBox(width: 100),
             Icon(Icons.add,
                 size: 24, color: Theme.of(context).colorScheme.outline),
             const SizedBox(width: 10),

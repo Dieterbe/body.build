@@ -165,7 +165,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
         // SizedBox(height: 3),
 
         // const SizedBox(height: 3),
-        BuilderTotalsWidget(workout.setGroups),
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: BuilderTotalsWidget(workout.setGroups),
+        ),
       ]),
     );
   }
