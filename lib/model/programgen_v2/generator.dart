@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
@@ -5,7 +7,9 @@ import 'package:ptc/model/programgen_v2/solution_node.dart';
 
 /// Generates an optimized SetGroup that matches the desired recruitment targets
 /// for each ProgramGroup as closely as possible while minimizing overshoot.
-SetGroup generateOptimalSetGroup(Map<ProgramGroup, double> targetRecruitment) {
+/// Returns a stream of solutions, with each new solution being better than the last.
+Stream<SetGroup> generateOptimalSetGroup(
+    Map<ProgramGroup, double> targetRecruitment) async* {
   final exercises = rankExercises();
   print('\nStarting workout generation:');
   print('Available exercises: ${exercises.length}');
@@ -14,7 +18,8 @@ SetGroup generateOptimalSetGroup(Map<ProgramGroup, double> targetRecruitment) {
   var nodesExplored = 0;
 
   // Recursive function to explore solutions
-  SolutionNode explore(SolutionNode current) {
+  Future<SolutionNode> explore(
+      SolutionNode current, StreamController<SetGroup> controller) async {
     nodesExplored++;
     if (nodesExplored % 1000 == 0) {
       print(
@@ -32,9 +37,13 @@ SetGroup generateOptimalSetGroup(Map<ProgramGroup, double> targetRecruitment) {
         print('Cost: ${current.cost}');
         print(
             'Exercises: ${current.exercises.map((e) => "${e.ex.id}:${current.setCounts[current.exercises.indexOf(e)]}").join(", ")}');
+
+        // Emit new best solution
+        controller.add(current.toSetGroup());
       }
       return bestSolution;
     }
+
     final (targetGroup, targetValue) = highest;
 
     var best = bestSolution;
@@ -60,7 +69,7 @@ SetGroup generateOptimalSetGroup(Map<ProgramGroup, double> targetRecruitment) {
         // TODO: we may need to tolerate a small amount of worsening here, if it leads
         // to a great solution deeper down
         if (newSolution.cost < best.cost) {
-          var result = explore(newSolution);
+          var result = await explore(newSolution, controller);
           if (result.cost < best.cost) {
             best = result;
           }
@@ -71,17 +80,15 @@ SetGroup generateOptimalSetGroup(Map<ProgramGroup, double> targetRecruitment) {
     return best;
   }
 
-  // Start exploration from initial state
-  bestSolution = explore(bestSolution);
+  // Create stream controller to emit solutions
+  final controller = StreamController<SetGroup>();
 
-  print('\nWorkout generation complete:');
-  print('Nodes explored: $nodesExplored');
-  print('Final cost: ${bestSolution.cost}');
-  print('Final exercises:');
-  for (var i = 0; i < bestSolution.exercises.length; i++) {
-    print(
-        '  ${bestSolution.exercises[i].ex.id}: ${bestSolution.setCounts[i]} sets');
-  }
+  // Start exploration and emit solutions
+  explore(bestSolution, controller).then((_) {
+    // Close stream when done
+    controller.close();
+  });
 
-  return bestSolution.toSetGroup();
+  // Return the stream
+  yield* controller.stream;
 }

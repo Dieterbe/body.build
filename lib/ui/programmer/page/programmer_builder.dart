@@ -31,7 +31,7 @@ class ProgrammerBuilder extends ConsumerWidget {
           ),
           const SizedBox(width: 10),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               // Create map of target recruitments from setup parameters
               final target = <ProgramGroup, double>{};
               for (final group in ProgramGroup.values) {
@@ -40,12 +40,17 @@ class ProgrammerBuilder extends ConsumerWidget {
                         1.0;
               }
 
-              // Generate optimized SetGroup
-              final optimizedSetGroup = generateOptimalSetGroup(target);
+              // Create a workout to hold our evolving solution
+              var oldWorkout = Workout();
+              notifier.add(oldWorkout);
 
-              // Create new workout with the optimized SetGroup
-              final workout = Workout(setGroups: [optimizedSetGroup]);
-              notifier.add(workout);
+              // Listen to stream of solutions and update the workout
+              await for (final setGroup in generateOptimalSetGroup(target)) {
+                final newWorkout = Workout(setGroups: [setGroup]);
+                notifier.updateWorkout(oldWorkout, newWorkout);
+                await Future.delayed(const Duration(milliseconds: 100));
+                oldWorkout = newWorkout;
+              }
             },
             child: const Row(
               children: [Icon(Icons.auto_awesome), Text('generate workout')],
