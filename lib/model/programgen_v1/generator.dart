@@ -1,9 +1,9 @@
 import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programgen/combinator.dart';
-import 'package:ptc/model/programgen/components.dart';
-import 'package:ptc/model/programgen/cost.dart';
-import 'package:ptc/model/programgen/matrix_optimizer.dart';
-import 'package:ptc/model/programgen/rank.dart';
+import 'package:ptc/model/programgen_v1/combinator.dart';
+import 'package:ptc/model/programgen_v1/components.dart';
+import 'package:ptc/model/programgen_v1/cost.dart';
+import 'package:ptc/model/programgen_v1/matrix_optimizer.dart';
+import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 
 /// Generates an optimized SetGroup that matches the desired recruitment targets

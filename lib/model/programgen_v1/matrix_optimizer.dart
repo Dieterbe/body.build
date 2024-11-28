@@ -1,6 +1,6 @@
 import 'package:ml_linalg/linalg.dart';
 import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programgen/rank.dart';
+import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 
 class MatrixOptimizer {
@@ -40,7 +40,6 @@ class MatrixOptimizer {
   // Calculate cost for a given set combination (vector of setcounts per exercise)
   double calculateCost(List<int> setCounts) {
     setCombosTried++;
-
     var cost = 0.0;
     // For each program group
     for (var groupIdx = 0; groupIdx < programGroups.length; groupIdx++) {
