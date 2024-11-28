@@ -80,8 +80,8 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.gluteMax: 1,
       ProgramGroup.abs: 0.25,
       ProgramGroup.soleus: 0.5,
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.3,
+      ProgramGroup.wristFlexors: 0.3,
     },
   ),
   const VolumeAssignment(
@@ -93,8 +93,8 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.hams: 1,
       ProgramGroup.gluteMax: 1,
       ProgramGroup.abs: 0.25,
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.3,
+      ProgramGroup.wristFlexors: 0.3,
     },
   ),
   const VolumeAssignment(
@@ -104,8 +104,8 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.hams: 1,
       ProgramGroup.gluteMax: 1,
       ProgramGroup.abs: 0.25,
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.25,
+      ProgramGroup.wristFlexors: 0.25,
     },
   ),
   const VolumeAssignment(
@@ -128,8 +128,8 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.spinalErectors: 0.25,
       ProgramGroup.hams: 1,
       ProgramGroup.gluteMax: 1,
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.3,
+      ProgramGroup.wristFlexors: 0.3,
     },
   ),
   const VolumeAssignment(
@@ -161,8 +161,8 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.soleus:
           0.5, // 0.25 for low bar squats if shins stay vertical
       ProgramGroup.abs: 0.25,
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.3,
+      ProgramGroup.wristFlexors: 0.3,
     },
   ),
   const VolumeAssignment(
@@ -186,12 +186,12 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.abs: 0.25,
   }, assignEquip: {
     Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.3,
+      ProgramGroup.wristFlexors: 0.3,
     },
     Equipment.barbell: {
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.25,
+      ProgramGroup.wristFlexors: 0.25,
     },
     Equipment.smithMachine: {
       ProgramGroup.wristExtensors: 0.25,
@@ -210,8 +210,8 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.abs: 0.25,
   }, assignEquip: {
     Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.3,
+      ProgramGroup.wristFlexors: 0.3,
     }
   }),
   const VolumeAssignment([
@@ -270,8 +270,8 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristFlexors: 0.25,
     },
     Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.3,
+      ProgramGroup.wristFlexors: 0.3,
     },
     Equipment.smithMachine: {
       ProgramGroup.wristExtensors: 0.25,
@@ -302,6 +302,7 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.wristExtensors: 0.5,
     ProgramGroup.wristFlexors: 0.5,
   }),
+  // TODO: add hanging leg raises? wrist stuff 0.5
   const VolumeAssignment([
     EBase.pullup,
     EBase.pulldownWidePronated,
@@ -341,8 +342,8 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.rearDelts: 1,
     ProgramGroup.lats: 1,
     ProgramGroup.tricepsLongHead: 1,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.wristExtensors: 0.3,
+    ProgramGroup.wristFlexors: 0.3,
   }),
   const VolumeAssignment([
     EBase.highRow,
@@ -354,8 +355,8 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.rearDelts: 1,
     ProgramGroup.lowerTraps: 1,
     ProgramGroup.middleTraps: 1,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.wristExtensors: 0.3,
+    ProgramGroup.wristFlexors: 0.3,
   }),
   const VolumeAssignment([
     EBase.benchPressBB,
@@ -369,12 +370,12 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.tricepsLongHead: 0.25,
   }, assignEquip: {
     Equipment.barbell: {
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.25,
+      ProgramGroup.wristFlexors: 0.25,
     },
     Equipment.machine: {
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: 0.25,
+      ProgramGroup.wristFlexors: 0.25,
     }
   }),
   const VolumeAssignment([
@@ -385,8 +386,8 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.upperPecs: 1,
     ProgramGroup.frontDelts: 1,
     ProgramGroup.tricepsMedLatH: 0.5,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.wristExtensors: 0.25,
+    ProgramGroup.wristFlexors: 0.25,
   }),
   // TODO: differentiate lower and upper pecs
   const VolumeAssignment([
@@ -418,8 +419,8 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.tricepsMedLatH: 1,
     ProgramGroup.tricepsLongHead: 0.25,
     ProgramGroup.abs: 0.25,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.wristExtensors: 0.25,
+    ProgramGroup.wristFlexors: 0.25,
   }),
   const VolumeAssignment([
     EBase.overheadPressDB,
@@ -432,8 +433,8 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.upperTraps: 0.25,
     ProgramGroup.tricepsMedLatH: 0.5,
     ProgramGroup.abs: 0.25,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.wristExtensors: 0.25,
+    ProgramGroup.wristFlexors: 0.25,
   }),
   const VolumeAssignment([
     EBase.lateralRaise
@@ -444,14 +445,14 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.lowerTraps: 0.25,
     ProgramGroup.middleTraps: 0.25,
     ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.wristExtensors: 0.5,
+    ProgramGroup.wristExtensors: 0.3,
   }),
   const VolumeAssignment([
     EBase.shrug
   ], {
     ProgramGroup.upperTraps: 1,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.wristExtensors: 0.25,
+    ProgramGroup.wristFlexors: 0.25,
   }),
   const VolumeAssignment([
     EBase.tricepExtension
