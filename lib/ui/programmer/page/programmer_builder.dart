@@ -41,7 +41,7 @@ class ProgrammerBuilder extends ConsumerWidget {
               }
 
               // Generate optimized SetGroup
-              final optimizedSetGroup = generateOptimizedSetGroup(target);
+              final optimizedSetGroup = generateOptimalSetGroup(target);
 
               // Create new workout with the optimized SetGroup
               final workout = Workout(setGroups: [optimizedSetGroup]);
