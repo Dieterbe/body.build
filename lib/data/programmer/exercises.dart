@@ -129,6 +129,9 @@ class Ex {
 
   double totalRecruitment() =>
       ProgramGroup.values.fold(0.0, (sum, group) => sum + recruitment(group));
+
+  double totalRecruitmentFiltered(double cutoff) => ProgramGroup.values
+      .fold(0.0, (sum, group) => sum + recruitmentFiltered(group, cutoff));
 }
 
 final List<Ex> exes = [

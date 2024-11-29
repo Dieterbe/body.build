@@ -11,10 +11,25 @@ import 'package:ptc/model/programgen_v2/solution_node.dart';
 Stream<SetGroup> generateOptimalSetGroup(
     Map<ProgramGroup, double> targetRecruitment) async* {
   final exercises = rankExercises();
+
+  // caches to save CPU at runtime..
+  final totalRecruitments =
+      exercises.map((e) => e.ex.totalRecruitmentFiltered(0.5)).toList();
+  final recruitments = List.generate(
+    exercises.length,
+    (i) => Map.fromEntries(
+      ProgramGroup.values.map(
+        (group) =>
+            MapEntry(group, exercises[i].ex.recruitmentFiltered(group, 0.5)),
+      ),
+    ),
+  );
+
   print('\nStarting workout generation:');
   print('Available exercises: ${exercises.length}');
 
-  var bestSolution = SolutionNode.initial(targetRecruitment);
+  var bestSolution =
+      SolutionNode.initial(exercises, recruitments, targetRecruitment);
   print('Best solution cost: ${bestSolution.cost}');
   var nodesExplored = 0;
 
@@ -41,7 +56,7 @@ Stream<SetGroup> generateOptimalSetGroup(
         print('${indent}\nFound better solution:');
         print('${indent}Cost: ${current.cost}');
         print(
-            '${indent}Exercises: ${current.exercises.map((e) => "${e.ex.id}:${current.setCounts[current.exercises.indexOf(e)]}").join(", ")}');
+            '${indent}Exercises: ${current.exercises.map((e) => "${e.ex.id}:${current.sets[current.exercises.indexOf(e)]}").join(", ")}');
 
         // Emit new best solution
         controller.add(current.toSetGroup());
@@ -63,19 +78,18 @@ Stream<SetGroup> generateOptimalSetGroup(
       _ => (0.5, 0.5), // Small deficit: precise matching
     };
 
-    for (final exercise in exercises) {
-      final recruitment = exercise.ex.recruitmentFiltered(targetGroup, 0.5);
+    for (final (i, exercise) in exercises.indexed) {
+      final recruitment = recruitments[i][targetGroup]!;
 
       if (recruitment >= minRecruitment && recruitment <= maxRecruitment) {
         // Try adding one set for this exercise
-        var newSolution = current.addSetFor(exercise);
+        var newSolution = current.addSetFor(i);
 
         // All children that sufficiently improve upon their parent, are worth exploring.
         // even if e.g. the 2nd child does not improve upon the first child
         // if an exercise has total recruitment of, say 5, you would expect it to at least increase the score by 2.5
         // if not, too much of the recruitment goes towards overshooting sets
-        if (newSolution.cost <=
-            current.cost - (totalRecruitmentsFiltered[i] / 2)) {
+        if (newSolution.cost <= current.cost - (totalRecruitments[i] / 2)) {
           print(
               '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> exploring it...');
 

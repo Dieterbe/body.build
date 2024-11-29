@@ -1,4 +1,3 @@
-import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
@@ -6,11 +5,8 @@ import 'package:ptc/model/programmer/set_group.dart';
 /// Represents a node in the solution search tree, containing a partial solution
 /// to the workout generation problem.
 class SolutionNode implements Comparable<SolutionNode> {
-  /// Exercises chosen so far
-  final List<RankedExercise> exercises;
-
-  /// Number of sets for each exercise
-  final List<int> setCounts;
+  /// Number of sets for each exercise. id corresponds to index in [exercises]
+  final List<int> sets;
 
   /// Original target recruitment for each group
   final Map<ProgramGroup, double> targets;
@@ -18,23 +14,34 @@ class SolutionNode implements Comparable<SolutionNode> {
   /// Cost of current solution (lower is better)
   final double cost;
 
-  SolutionNode(this.exercises, this.setCounts, this.targets, this.cost);
+  // cache
+  final List<Map<ProgramGroup, double>> recruitments;
+  List<RankedExercise>
+      exercises; // only used for printing and turning into a setGroup
+
+  SolutionNode(
+      this.sets, this.targets, this.cost, this.recruitments, this.exercises);
 
   /// Creates initial empty solution with given targets
-  factory SolutionNode.initial(Map<ProgramGroup, double> targets) {
+  factory SolutionNode.initial(
+      List<RankedExercise> exercises,
+      List<Map<ProgramGroup, double>> recruitments,
+      Map<ProgramGroup, double> targets) {
     // Calculate initial cost based on all targets being unmet
     var initialCost = 0.0;
     for (final entry in targets.entries) {
       initialCost += entry.value; // Cost is just the sum of unfulfilled targets
     }
-    return SolutionNode([], [], targets, initialCost);
+    return SolutionNode(List.filled(exercises.length, 0), targets, initialCost,
+        recruitments, exercises);
   }
 
   /// Get current recruitment for a program group
+  /// // TODO: can rewrite this as a fold() ?
   double getCurrentRecruitment(ProgramGroup group) {
     var total = 0.0;
-    for (var i = 0; i < exercises.length; i++) {
-      total += exercises[i].ex.recruitmentFiltered(group, 0.5) * setCounts[i];
+    for (var i = 0; i < recruitments.length; i++) {
+      total += recruitments[i][group]! * sets[i];
     }
     return total;
   }
@@ -44,32 +51,19 @@ class SolutionNode implements Comparable<SolutionNode> {
     return (targets[group] ?? 0) - getCurrentRecruitment(group);
   }
 
-  /// Creates a new solution by adding a set for the given exercise
-  SolutionNode addSetFor(RankedExercise exercise) {
+  /// Creates a new solution by adding a set for the given exercise id
+  SolutionNode addSetFor(int i) {
     // Copy state that needs to be copied in all cases
-    final newSetCounts = List<int>.from(setCounts);
-    var newExercises = exercises; // may not need to be copied
-
-    // Find existing exercise or add new one
-    final existingIndex = exercises.indexOf(exercise);
-    if (existingIndex >= 0) {
-      // Update existing exercise's sets
-      newSetCounts[existingIndex]++;
-    } else {
-      // Add new exercise
-      newExercises = List<RankedExercise>.from(exercises);
-      newExercises.add(exercise);
-      newSetCounts.add(1);
-    }
+    final newSets = List<int>.from(sets);
+    newSets[i]++;
 
     // Calculate new cost based on deficits
     var cost = 0.0;
     for (final group in ProgramGroup.values) {
       // Calculate new recruitment and deficit
       var newRecruitment = 0.0;
-      for (var i = 0; i < newExercises.length; i++) {
-        newRecruitment += newExercises[i].ex.recruitmentFiltered(group, 0.5) *
-            newSetCounts[i];
+      for (var i = 0; i < recruitments.length; i++) {
+        newRecruitment += recruitments[i][group]! * newSets[i];
       }
       final deficit = (targets[group] ?? 0) - newRecruitment;
 
@@ -81,7 +75,7 @@ class SolutionNode implements Comparable<SolutionNode> {
       }
     }
 
-    return SolutionNode(newExercises, newSetCounts, targets, cost);
+    return SolutionNode(newSets, targets, cost, recruitments, exercises);
   }
 
   /// Finds program group with highest remaining target
@@ -103,7 +97,7 @@ class SolutionNode implements Comparable<SolutionNode> {
     return SetGroup(
       List.generate(
         exercises.length,
-        (i) => Sets(60, ex: exercises[i].ex, n: setCounts[i]),
+        (i) => Sets(60, ex: exercises[i].ex, n: sets[i]),
       ),
     );
   }
@@ -113,6 +107,6 @@ class SolutionNode implements Comparable<SolutionNode> {
 
   @override
   String toString() {
-    return 'Solution(cost: $cost, exercises: ${exercises.map((e) => "${e.ex.id}:${setCounts[exercises.indexOf(e)]}").join(", ")})';
+    return 'Solution(cost: $cost, exercises: ${exercises.map((e) => "${e.ex.id}:${sets[exercises.indexOf(e)]}").join(", ")})';
   }
 }
