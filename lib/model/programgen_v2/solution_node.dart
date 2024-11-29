@@ -22,14 +22,19 @@ class SolutionNode implements Comparable<SolutionNode> {
 
   /// Creates initial empty solution with given targets
   factory SolutionNode.initial(Map<ProgramGroup, double> targets) {
-    return SolutionNode([], [], targets, double.infinity);
+    // Calculate initial cost based on all targets being unmet
+    var initialCost = 0.0;
+    for (final entry in targets.entries) {
+      initialCost += entry.value; // Cost is just the sum of unfulfilled targets
+    }
+    return SolutionNode([], [], targets, initialCost);
   }
 
   /// Get current recruitment for a program group
   double getCurrentRecruitment(ProgramGroup group) {
     var total = 0.0;
     for (var i = 0; i < exercises.length; i++) {
-      total += exercises[i].ex.recruitment(group) * setCounts[i];
+      total += exercises[i].ex.recruitmentFiltered(group, 0.5) * setCounts[i];
     }
     return total;
   }
@@ -68,7 +73,7 @@ class SolutionNode implements Comparable<SolutionNode> {
       }
       final deficit = (targets[group] ?? 0) - newRecruitment;
 
-      // Add to cost - penalize overshoot 3x
+      // Add to cost - penalize overshoot 2x
       if (deficit < 0) {
         cost += -deficit * 2; // overshoot
       } else {

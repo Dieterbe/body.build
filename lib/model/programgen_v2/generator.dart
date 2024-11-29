@@ -15,28 +15,33 @@ Stream<SetGroup> generateOptimalSetGroup(
   print('Available exercises: ${exercises.length}');
 
   var bestSolution = SolutionNode.initial(targetRecruitment);
+  print('Best solution cost: ${bestSolution.cost}');
   var nodesExplored = 0;
 
   // Recursive function to explore solutions
-  Future<SolutionNode> explore(
-      SolutionNode current, StreamController<SetGroup> controller) async {
+  Future<SolutionNode> explore(SolutionNode current,
+      StreamController<SetGroup> controller, String indent) async {
     nodesExplored++;
+    //if (nodesExplored > 500000) {
+    //  return current;
+    // }
     if (nodesExplored % 1000 == 0) {
       print(
-          'Explored $nodesExplored nodes, current best cost: ${bestSolution.cost}');
+          '${indent}Explored $nodesExplored nodes, best.cost: ${bestSolution.cost}');
     }
 
-    // Find highest remaining target
     final highest = current.findHighestTarget();
 
     if (highest == null) {
-      // No significant targets remaining, potential solution
+      print('${indent}Next target-> none. reached max depth');
+      // No significant targets remaining, we've descended as deep as we can.
+      // Emit our best solution, if it' good
       if (current.cost < bestSolution.cost) {
         bestSolution = current;
-        print('\nFound better solution:');
-        print('Cost: ${current.cost}');
+        print('${indent}\nFound better solution:');
+        print('${indent}Cost: ${current.cost}');
         print(
-            'Exercises: ${current.exercises.map((e) => "${e.ex.id}:${current.setCounts[current.exercises.indexOf(e)]}").join(", ")}');
+            '${indent}Exercises: ${current.exercises.map((e) => "${e.ex.id}:${current.setCounts[current.exercises.indexOf(e)]}").join(", ")}');
 
         // Emit new best solution
         controller.add(current.toSetGroup());
@@ -59,33 +64,39 @@ Stream<SetGroup> generateOptimalSetGroup(
     };
 
     for (final exercise in exercises) {
-      final recruitment = exercise.ex.recruitment(targetGroup);
+      final recruitment = exercise.ex.recruitmentFiltered(targetGroup, 0.5);
 
       if (recruitment >= minRecruitment && recruitment <= maxRecruitment) {
         // Try adding one set for this exercise
         var newSolution = current.addSetFor(exercise);
 
         // Only explore this branch if it has potential
-        // TODO: we may need to tolerate a small amount of worsening here, if it leads
-        // to a great solution deeper down
         if (newSolution.cost < best.cost) {
-          var result = await explore(newSolution, controller);
+          print(
+              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost} is lower. exploring it...');
+
+          var result = await explore(newSolution, controller, "$indent  ");
           if (result.cost < best.cost) {
             best = result;
           }
+        } else {
+          print(
+              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost} is not lower. not exploring it');
         }
       }
     }
 
-    return best;
+    return best; // at the root level, this is kindof redundant since we've put it on the stream and then close the stream
   }
 
   // Create stream controller to emit solutions
   final controller = StreamController<SetGroup>();
 
   // Start exploration and emit solutions
-  explore(bestSolution, controller).then((_) {
+  explore(bestSolution, controller, "").then((_) {
     // Close stream when done
+    print('All done!');
+
     controller.close();
   });
 
