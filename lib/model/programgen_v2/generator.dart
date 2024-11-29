@@ -57,7 +57,7 @@ Stream<SetGroup> generateOptimalSetGroup(
 
     final (minRecruitment, maxRecruitment) = switch (targetValue) {
       // Large deficit: accept strong exercises. maybe could accept 0.5 here if we get close
-      >= 1.0 => (0.75, 1.0),
+      >= 1.0 => (0.5, 1.0),
       0.75 => (0.5, 0.75),
       >= 0.5 => (0.5, 0.75), // Medium deficit: avoid overshooting
       _ => (0.5, 0.5), // Small deficit: precise matching
@@ -70,18 +70,22 @@ Stream<SetGroup> generateOptimalSetGroup(
         // Try adding one set for this exercise
         var newSolution = current.addSetFor(exercise);
 
-        // Only explore this branch if it has potential
-        if (newSolution.cost < best.cost) {
+        // All children that sufficiently improve upon their parent, are worth exploring.
+        // even if e.g. the 2nd child does not improve upon the first child
+        // if an exercise has total recruitment of, say 5, you would expect it to at least increase the score by 2.5
+        // if not, too much of the recruitment goes towards overshooting sets
+        if (newSolution.cost <=
+            current.cost - (totalRecruitmentsFiltered[i] / 2)) {
           print(
-              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost} is lower. exploring it...');
+              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> exploring it...');
 
-          var result = await explore(newSolution, controller, "$indent  ");
+          var result = await explore(newSolution, controller, '$indent  ');
           if (result.cost < best.cost) {
             best = result;
           }
         } else {
           print(
-              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost} is not lower. not exploring it');
+              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> not exploring it');
         }
       }
     }
