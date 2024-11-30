@@ -93,14 +93,12 @@ class SolutionNode implements Comparable<SolutionNode> {
   }
 
   /// Converts solution to final SetGroup format
-  SetGroup toSetGroup() {
-    return SetGroup(
-      List.generate(
-        exercises.length,
-        (i) => Sets(60, ex: exercises[i].ex, n: sets[i]),
-      ),
-    );
-  }
+  SetGroup toSetGroup() => SetGroup(
+        List.generate(exercises.length, (i) => (exercises[i], sets[i]))
+            .where((tuple) => tuple.$2 > 0)
+            .map((tuple) => Sets(60, ex: tuple.$1.ex, n: tuple.$2))
+            .toList(),
+      );
 
   @override
   int compareTo(SolutionNode other) => cost.compareTo(other.cost);
