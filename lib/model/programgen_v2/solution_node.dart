@@ -78,18 +78,13 @@ class SolutionNode implements Comparable<SolutionNode> {
     return SolutionNode(newSets, targets, cost, recruitments, exercises);
   }
 
-  /// Finds program group with highest remaining target
-  /// Returns (group, target value) or null if no significant targets remain
-  (ProgramGroup, double)? findHighestTarget() {
-    var maxGroup = ProgramGroup.values
-        .map((g) => MapEntry(g, getDeficit(g)))
-        .where((e) => e.value >= 0.5) // Only consider significant deficits
-        .fold<MapEntry<ProgramGroup, double>?>(
-            null,
-            (max, entry) =>
-                max == null || entry.value > max.value ? entry : max);
-
-    return maxGroup == null ? null : (maxGroup.key, maxGroup.value);
+  /// Returns list of program groups with significant deficits, ordered by deficit size
+  List<(ProgramGroup, double)> findTargets() {
+    return ProgramGroup.values
+        .map((g) => (g, getDeficit(g)))
+        .where((t) => t.$2 >= 0.5) // Only consider significant deficits
+        .toList()
+      ..sort((a, b) => b.$2.compareTo(a.$2)); // Sort by deficit, highest first
   }
 
   /// Converts solution to final SetGroup format
