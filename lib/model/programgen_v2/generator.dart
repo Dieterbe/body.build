@@ -25,7 +25,7 @@ Stream<SetGroup> generateOptimalSetGroup(
     ),
   );
 
-  print('\nStarting workout generation:');
+  print('Workout generation (generateOptimalSetGroup) start');
   print('Available exercises: ${exercises.length}');
 
   var bestSolution =
@@ -34,39 +34,33 @@ Stream<SetGroup> generateOptimalSetGroup(
   var nodesExplored = 0;
 
   // Recursive function to explore solutions
-  Future<SolutionNode> explore(SolutionNode current,
+  Future<void> explore(SolutionNode current,
       StreamController<SetGroup> controller, String indent) async {
     nodesExplored++;
     //if (nodesExplored > 500000) {
     //  return current;
     // }
-    if (nodesExplored % 1000 == 0) {
+    if (nodesExplored % 10000 == 0) {
+      // give UI a chance to update
+      await Future.delayed(Duration(milliseconds: 10));
+    }
+    if (nodesExplored % 50000 == 0) {
       print(
           '${indent}Explored $nodesExplored nodes, best.cost: ${bestSolution.cost}');
     }
 
     final highest = current.findHighestTarget();
+    // i suspect that if highest is let's say lats, but we can't optimize lats, it won't seek to try to optimize another group
 
     if (highest == null) {
-      print('${indent}Next target-> none. reached max depth');
       // No significant targets remaining, we've descended as deep as we can.
-      // Emit our best solution, if it' good
-      if (current.cost < bestSolution.cost) {
-        bestSolution = current;
-        print('${indent}\nFound better solution:');
-        print('${indent}Cost: ${current.cost}');
-        print(
-            '${indent}Exercises: ${current.exercises.map((e) => "${e.ex.id}:${current.sets[current.exercises.indexOf(e)]}").join(", ")}');
-
-        // Emit new best solution
-        controller.add(current.toSetGroup());
-      }
-      return bestSolution;
+      // this seems to happen rarely, or never
+      // maybe because we pick too "randomly"  and always get stuck with bad scores?
+      print('${indent}Next target-> none. reached max depth');
+      return;
     }
 
     final (targetGroup, targetValue) = highest;
-
-    var best = bestSolution;
 
     // Try each well-fitting exercise
 
@@ -82,42 +76,51 @@ Stream<SetGroup> generateOptimalSetGroup(
       final recruitment = recruitments[i][targetGroup]!;
 
       if (recruitment >= minRecruitment && recruitment <= maxRecruitment) {
+        // TODO: once we dip under minRecruitment we can problably break out
         // Try adding one set for this exercise
         var newSolution = current.addSetFor(i);
 
         // All children that sufficiently improve upon their parent, are worth exploring.
         // even if e.g. the 2nd child does not improve upon the first child
-        // if an exercise has total recruitment of, say 5, you would expect it to at least increase the score by 2.5
+        // if an exercise has total recruitment of, say 5, to be considered a good addition,
+        // you would expect it to:
+        // - add 4 of useful volume
+        // - worst case, add 1 of overshoot
+        // therefore, to have a score of at least 4 -2 = 2. for now we have a higher bar: to at least increase the score by 3.5
         // if not, too much of the recruitment goes towards overshooting sets
-        if (newSolution.cost <= current.cost - (totalRecruitments[i] / 2)) {
-          print(
-              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> exploring it...');
+        if (newSolution.cost <= current.cost - (totalRecruitments[i] * 0.7)) {
+          //   print(
+          //     '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> exploring it...');
 
-          var result = await explore(newSolution, controller, '$indent  ');
-          if (result.cost < best.cost) {
-            best = result;
+// Update our bestSolution, if we've improved on it
+          if (newSolution.cost < bestSolution.cost) {
+            bestSolution = newSolution;
+            print(
+                '${indent}Found better solution with cost ${bestSolution.cost}:');
+            // print(
+            //   '${indent}Exercises: ${newSolution.exercises.map((e) => "${e.ex.id}:${newSolution.sets[newSolution.exercises.indexOf(e)]}").join(", ")}');
+
+            // Emit new best solution
+            controller.add(newSolution.toSetGroup());
           }
+          await explore(newSolution, controller, '$indent  ');
         } else {
-          print(
-              '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> not exploring it');
+          //      print(
+          //        '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> not exploring it');
         }
       }
     }
-
-    return best; // at the root level, this is kindof redundant since we've put it on the stream and then close the stream
   }
 
   // Create stream controller to emit solutions
   final controller = StreamController<SetGroup>();
 
   // Start exploration and emit solutions
+  controller.add(bestSolution.toSetGroup());
   explore(bestSolution, controller, "").then((_) {
-    // Close stream when done
-    print('All done!');
+    print('Workout generation (generateOptimalSetGroup) finished.');
 
     controller.close();
   });
-
-  // Return the stream
   yield* controller.stream;
 }
