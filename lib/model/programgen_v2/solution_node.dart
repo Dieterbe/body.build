@@ -68,11 +68,14 @@ class SolutionNode implements Comparable<SolutionNode> {
       final deficit = (targets[group] ?? 0) - newRecruitment;
 
       // Add to cost - penalize overshoot 2x
+      /*
       if (deficit < 0) {
         cost += -deficit * 2; // overshoot
       } else {
         cost += deficit; // undershoot
       }
+      */
+      cost += deficit.abs();
     }
 
     return SolutionNode(newSets, targets, cost, recruitments, exercises);

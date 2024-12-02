@@ -48,9 +48,10 @@ class BuilderTotalsWidget extends StatelessWidget {
       final diff = actual - desired;
 
       // For overshooting, double the excess before calculating relative error
-      final effectiveDiff = (diff > 0) ? diff * 2 : diff;
-      final cost = effectiveDiff.abs() / desired;
+      //final effectiveDiff = (diff > 0) ? diff * 2 : diff;
+      //final cost = effectiveDiff.abs() / desired;
 
+      final cost = diff.abs() / desired;
       // Cost is now a relative error:
       // 0.0 = perfect match
       // 1.0 = off by 100% (undershoot)

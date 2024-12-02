@@ -50,7 +50,8 @@ class MatrixOptimizer {
       }
       // Calculate cost component for this group
       final diff = totalRecruitment - targetData[groupIdx];
-      cost += diff > 0 ? diff * 3 : -diff;
+      //  cost += diff > 0 ? diff * 3 : -diff;
+      cost += diff.abs();
     }
 
     return cost;

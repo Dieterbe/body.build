@@ -18,7 +18,8 @@ double calculateCost(Map<ProgramGroup, double> targets, SetGroup group) {
     });
 
     final diff = actualValue - recruitTarget;
-    totalCost += (diff > 0) ? diff * 3 : diff.abs();
+    //  totalCost += (diff > 0) ? diff * 3 : diff.abs();
+    totalCost += diff.abs();
   }
 
   return totalCost;
