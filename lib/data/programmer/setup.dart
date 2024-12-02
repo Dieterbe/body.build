@@ -311,41 +311,43 @@ class Setup extends _$Setup {
       );
 
   void addExcludedExercise(Ex exercise) {
-    final newExclusions = [...?state.paramOverrides.excludedExercises];
-    if (!newExclusions.contains(exercise)) {
-      newExclusions.add(exercise);
+    final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
+    if (excl.add(exercise)) {
       state = state.copyWith(
         paramOverrides: state.paramOverrides.copyWith(
-          excludedExercises: newExclusions,
+          excludedExercises: excl,
         ),
       );
     }
   }
 
   void removeExcludedExercise(Ex exercise) {
-    final newExclusions = [...?state.paramOverrides.excludedExercises];
-    newExclusions.remove(exercise);
+    final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
+    excl.remove(exercise);
     state = state.copyWith(
       paramOverrides: state.paramOverrides.copyWith(
-        excludedExercises: newExclusions,
+        excludedExercises: excl,
       ),
     );
   }
 
   void addExcludedBase(EBase base) {
-    final current = state.paramOverrides.excludedBases ?? [];
-    state = state.copyWith(
-      paramOverrides: state.paramOverrides.copyWith(
-        excludedBases: [...current, base],
-      ),
-    );
+    final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
+    if (excl.add(base)) {
+      state = state.copyWith(
+        paramOverrides: state.paramOverrides.copyWith(
+          excludedBases: excl,
+        ),
+      );
+    }
   }
 
   void removeExcludedBase(EBase base) {
-    final current = state.paramOverrides.excludedBases ?? [];
+    final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
+    excl.remove(base);
     state = state.copyWith(
       paramOverrides: state.paramOverrides.copyWith(
-        excludedBases: current.where((b) => b != base).toList(),
+        excludedBases: excl,
       ),
     );
   }

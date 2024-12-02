@@ -12,8 +12,8 @@ class ParameterOverrides {
   final List<int>? intensities;
   final int? setsPerweekPerMuscleGroup;
   final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual;
-  final List<Ex>? excludedExercises;
-  final List<EBase>? excludedBases;
+  final Set<Ex>? excludedExercises;
+  final Set<EBase>? excludedBases;
 
   ParameterOverrides({
     this.intensities,
@@ -37,8 +37,8 @@ class ParameterOverrides {
     List<int>? intensities,
     int? setsPerweekPerMuscleGroup,
     List<MuscleGroupOverride>? muscleGroupOverrides,
-    List<Ex>? excludedExercises,
-    List<EBase>? excludedBases,
+    Set<Ex>? excludedExercises,
+    Set<EBase>? excludedBases,
   }) =>
       ParameterOverrides(
         intensities: intensities ?? this.intensities,

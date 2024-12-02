@@ -275,8 +275,8 @@ final List<Ex> exes = [
 /// Returns a filtered list of exercises, excluding any exercises specified in [excludedExercises].
 /// If [excludedExercises] is null or empty, returns all exercises.
 List<Ex> getAvailableExercises({
-  List<Ex>? excludedExercises,
-  List<EBase>? excludedBases,
+  Set<Ex>? excludedExercises,
+  Set<EBase>? excludedBases,
 }) {
   var available = exes.toList();
 

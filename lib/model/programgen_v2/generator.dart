@@ -1,26 +1,68 @@
 import 'dart:async';
-
+import 'dart:isolate';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/model/programgen_v2/solution_node.dart';
 
+/// Parameters for workout generation
+class WorkoutGenerationParams {
+  final Map<ProgramGroup, double> targetRecruitment;
+  final Set<Ex>? excludedExercises;
+  final Set<EBase>? excludedBases;
+  final SendPort sendPort;
+
+  const WorkoutGenerationParams(
+    this.targetRecruitment,
+    this.sendPort, {
+    this.excludedExercises,
+    this.excludedBases,
+  });
+}
+
 /// Generates an optimized SetGroup that matches the desired recruitment targets
 /// for each ProgramGroup as closely as possible while minimizing overshoot.
 /// Returns a stream of solutions, with each new solution being better than the last.
 Stream<SetGroup> generateOptimalSetGroup(
-    Map<ProgramGroup, double> targetRecruitment,
-    {List<Ex>? excludedExercises,
-    List<EBase>? excludedBases,
-    Map<String, dynamic>? paramOverrides}) async* {
+  Map<ProgramGroup, double> targetRecruitment, {
+  Set<Ex>? excludedExercises,
+  Set<EBase>? excludedBases,
+}) async* {
+  final receivePort = ReceivePort();
+
+  final params = WorkoutGenerationParams(
+    targetRecruitment,
+    receivePort.sendPort,
+    excludedExercises: excludedExercises,
+    excludedBases: excludedBases,
+  );
+
+  await Isolate.spawn(_generateInIsolate, params);
+
+  await for (final solution in receivePort) {
+    if (solution is SetGroup) {
+      yield solution;
+    } else if (solution == null) {
+      // End of stream
+      break;
+    }
+  }
+
+  receivePort.close();
+}
+
+/// Isolate entry point
+void _generateInIsolate(WorkoutGenerationParams params) {
+  print('Workout generation (generateOptimalSetGroup) start');
+
   final exercises = rankExercises()
       .where((e) => getAvailableExercises(
-            excludedExercises: excludedExercises,
-            excludedBases: excludedBases,
+            excludedExercises: params.excludedExercises,
+            excludedBases: params.excludedBases,
           ).contains(e.ex))
       .toList();
-
+  print('Available exercises: ${exercises.length}');
   // caches to save CPU at runtime..
   final totalRecruitments =
       exercises.map((e) => e.ex.totalRecruitmentFiltered(0.5)).toList();
@@ -38,13 +80,12 @@ Stream<SetGroup> generateOptimalSetGroup(
   print('Available exercises: ${exercises.length}');
 
   var bestSolution =
-      SolutionNode.initial(exercises, recruitments, targetRecruitment);
+      SolutionNode.initial(exercises, recruitments, params.targetRecruitment);
   print('Best solution cost: ${bestSolution.cost}');
   var nodesExplored = 0;
 
   // Recursive function to explore solutions
-  Future<void> explore(SolutionNode current,
-      StreamController<SetGroup> controller, String indent) async {
+  Future<void> explore(SolutionNode current, String indent) async {
     nodesExplored++;
     //if (nodesExplored > 500000) {
     //  return current;
@@ -112,9 +153,9 @@ Stream<SetGroup> generateOptimalSetGroup(
               //   '${indent}Exercises: ${newSolution.exercises.map((e) => "${e.ex.id}:${newSolution.sets[newSolution.exercises.indexOf(e)]}").join(", ")}');
 
               // Emit new best solution
-              controller.add(newSolution.toSetGroup());
+              params.sendPort.send(bestSolution.toSetGroup());
             }
-            await explore(newSolution, controller, '$indent  ');
+            await explore(newSolution, '$indent  ');
           } else {
             //      print(
             //        '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> not exploring it');
@@ -124,15 +165,10 @@ Stream<SetGroup> generateOptimalSetGroup(
     }
   }
 
-  // Create stream controller to emit solutions
-  final controller = StreamController<SetGroup>();
-
   // Start exploration and emit solutions
-  controller.add(bestSolution.toSetGroup());
-  explore(bestSolution, controller, "").then((_) {
+  params.sendPort.send(bestSolution.toSetGroup());
+  explore(bestSolution, "").then((_) {
     print('Workout generation (generateOptimalSetGroup) finished.');
-
-    controller.close();
+    params.sendPort.send(null); // Signal completion
   });
-  yield* controller.stream;
 }
