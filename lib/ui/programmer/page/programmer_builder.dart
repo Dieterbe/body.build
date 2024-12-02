@@ -45,7 +45,11 @@ class ProgrammerBuilder extends ConsumerWidget {
               notifier.add(oldWorkout);
 
               // Listen to stream of solutions and update the workout
-              await for (final setGroup in generateOptimalSetGroup(target)) {
+              await for (final setGroup in generateOptimalSetGroup(
+                target,
+                excludedExercises: setup.paramOverrides.excludedExercises,
+                excludedBases: setup.paramOverrides.excludedBases,
+              )) {
                 final newWorkout = Workout(setGroups: [setGroup]);
                 notifier.updateWorkout(oldWorkout, newWorkout);
                 await Future.delayed(const Duration(milliseconds: 100));

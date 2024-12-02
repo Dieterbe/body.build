@@ -158,3 +158,8 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
     );
   }
 }
+/*
+TODO: generator section with:
+- exercises families to exclude to injuries also makes sense i guess
+- exercises to exclude due to injuries
+*/

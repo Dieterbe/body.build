@@ -1,4 +1,5 @@
 import 'package:ptc/data/programmer/groups.dart';
+import 'package:ptc/data/programmer/exercises.dart';
 
 class MuscleGroupOverride {
   final ProgramGroup group;
@@ -8,14 +9,18 @@ class MuscleGroupOverride {
 }
 
 class ParameterOverrides {
-  late List<int>? intensities;
-  late int? setsPerweekPerMuscleGroup;
-  late List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual;
+  final List<int>? intensities;
+  final int? setsPerweekPerMuscleGroup;
+  final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual;
+  final List<Ex>? excludedExercises;
+  final List<EBase>? excludedBases;
 
   ParameterOverrides({
     this.intensities,
     this.setsPerweekPerMuscleGroup,
     this.setsPerWeekPerMuscleGroupIndividual,
+    this.excludedExercises,
+    this.excludedBases,
   });
 
   // explicitly specify all fields. useful for copying an override structure into another
@@ -24,18 +29,24 @@ class ParameterOverrides {
     this.intensities,
     this.setsPerweekPerMuscleGroup,
     this.setsPerWeekPerMuscleGroupIndividual,
+    this.excludedExercises,
+    this.excludedBases,
   );
 
   ParameterOverrides copyWith({
     List<int>? intensities,
     int? setsPerweekPerMuscleGroup,
     List<MuscleGroupOverride>? muscleGroupOverrides,
-  }) {
-    return ParameterOverrides()
-      ..intensities = intensities ?? this.intensities
-      ..setsPerweekPerMuscleGroup =
-          setsPerweekPerMuscleGroup ?? this.setsPerweekPerMuscleGroup
-      ..setsPerWeekPerMuscleGroupIndividual =
-          muscleGroupOverrides ?? setsPerWeekPerMuscleGroupIndividual;
-  }
+    List<Ex>? excludedExercises,
+    List<EBase>? excludedBases,
+  }) =>
+      ParameterOverrides(
+        intensities: intensities ?? this.intensities,
+        setsPerweekPerMuscleGroup:
+            setsPerweekPerMuscleGroup ?? this.setsPerweekPerMuscleGroup,
+        setsPerWeekPerMuscleGroupIndividual:
+            muscleGroupOverrides ?? setsPerWeekPerMuscleGroupIndividual,
+        excludedExercises: excludedExercises ?? this.excludedExercises,
+        excludedBases: excludedBases ?? this.excludedBases,
+      );
 }

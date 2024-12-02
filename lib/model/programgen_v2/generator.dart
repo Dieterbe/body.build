@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
@@ -9,8 +10,16 @@ import 'package:ptc/model/programgen_v2/solution_node.dart';
 /// for each ProgramGroup as closely as possible while minimizing overshoot.
 /// Returns a stream of solutions, with each new solution being better than the last.
 Stream<SetGroup> generateOptimalSetGroup(
-    Map<ProgramGroup, double> targetRecruitment) async* {
-  final exercises = rankExercises();
+    Map<ProgramGroup, double> targetRecruitment,
+    {List<Ex>? excludedExercises,
+    List<EBase>? excludedBases,
+    Map<String, dynamic>? paramOverrides}) async* {
+  final exercises = rankExercises()
+      .where((e) => getAvailableExercises(
+            excludedExercises: excludedExercises,
+            excludedBases: excludedBases,
+          ).contains(e.ex))
+      .toList();
 
   // caches to save CPU at runtime..
   final totalRecruitments =

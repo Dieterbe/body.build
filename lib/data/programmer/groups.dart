@@ -90,7 +90,7 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.upperTraps: 1,
       ProgramGroup.lats: 0.25,
       ProgramGroup.spinalErectors: 1,
-      ProgramGroup.hams: 1,
+      ProgramGroup.hams: 1, // at long length
       ProgramGroup.gluteMax: 1,
       ProgramGroup.abs: 0.25,
       ProgramGroup.wristExtensors: 0.3,

@@ -271,6 +271,29 @@ final List<Ex> exes = [
   Ex(EBase.wristFlexion, "dumbbell wrist curls", [Equipment.dumbbell]),
   Ex(EBase.wristExtension, "dumbbell wrist extensions", [Equipment.cable]),
 ];
+
+/// Returns a filtered list of exercises, excluding any exercises specified in [excludedExercises].
+/// If [excludedExercises] is null or empty, returns all exercises.
+List<Ex> getAvailableExercises({
+  List<Ex>? excludedExercises,
+  List<EBase>? excludedBases,
+}) {
+  var available = exes.toList();
+
+  // Filter out individually excluded exercises
+  if (excludedExercises != null && excludedExercises.isNotEmpty) {
+    available = available.where((e) => !excludedExercises.contains(e)).toList();
+  }
+
+  // Filter out exercises with excluded base types
+  if (excludedBases != null && excludedBases.isNotEmpty) {
+    available =
+        available.where((e) => !excludedBases.contains(e.base)).toList();
+  }
+
+  return available;
+}
+
 /*
 loadKaos() async {
   var warnings = 0;

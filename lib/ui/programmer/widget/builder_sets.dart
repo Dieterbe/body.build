@@ -141,7 +141,10 @@ class BuilderSets extends StatelessWidget {
               : Autocomplete<Ex>(
                   displayStringForOption: (e) => e.id,
                   optionsBuilder: (textEditingValue) {
-                    return exes
+                    return getAvailableExercises(
+                      excludedExercises: setup.paramOverrides.excludedExercises,
+                      excludedBases: setup.paramOverrides.excludedBases,
+                    )
                         .where((e) => e.id
                             .toLowerCase()
                             .contains(textEditingValue.text.toLowerCase()))

@@ -236,7 +236,9 @@ class Setup extends _$Setup {
           paramOverrides: ParameterOverrides.full(
               intensities,
               state.paramOverrides.setsPerweekPerMuscleGroup,
-              state.paramOverrides.setsPerWeekPerMuscleGroupIndividual));
+              state.paramOverrides.setsPerWeekPerMuscleGroupIndividual,
+              state.paramOverrides.excludedExercises,
+              state.paramOverrides.excludedBases));
     }
   }
 
@@ -247,7 +249,9 @@ class Setup extends _$Setup {
         paramOverrides: ParameterOverrides.full(
             state.paramOverrides.intensities,
             volume,
-            state.paramOverrides.setsPerWeekPerMuscleGroupIndividual),
+            state.paramOverrides.setsPerWeekPerMuscleGroupIndividual,
+            state.paramOverrides.excludedExercises,
+            state.paramOverrides.excludedBases),
       );
     }
   }
@@ -305,4 +309,44 @@ class Setup extends _$Setup {
         selectedEquipment:
             state.selectedEquipment.where((e) => e != equipment).toList(),
       );
+
+  void addExcludedExercise(Ex exercise) {
+    final newExclusions = [...?state.paramOverrides.excludedExercises];
+    if (!newExclusions.contains(exercise)) {
+      newExclusions.add(exercise);
+      state = state.copyWith(
+        paramOverrides: state.paramOverrides.copyWith(
+          excludedExercises: newExclusions,
+        ),
+      );
+    }
+  }
+
+  void removeExcludedExercise(Ex exercise) {
+    final newExclusions = [...?state.paramOverrides.excludedExercises];
+    newExclusions.remove(exercise);
+    state = state.copyWith(
+      paramOverrides: state.paramOverrides.copyWith(
+        excludedExercises: newExclusions,
+      ),
+    );
+  }
+
+  void addExcludedBase(EBase base) {
+    final current = state.paramOverrides.excludedBases ?? [];
+    state = state.copyWith(
+      paramOverrides: state.paramOverrides.copyWith(
+        excludedBases: [...current, base],
+      ),
+    );
+  }
+
+  void removeExcludedBase(EBase base) {
+    final current = state.paramOverrides.excludedBases ?? [];
+    state = state.copyWith(
+      paramOverrides: state.paramOverrides.copyWith(
+        excludedBases: current.where((b) => b != base).toList(),
+      ),
+    );
+  }
 }

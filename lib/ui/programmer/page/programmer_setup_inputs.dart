@@ -239,7 +239,12 @@ class ProgrammerSetupInputs extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: 20),
-        const LabelBar('Available equipment'),
+        const Row(
+          children: [
+            Expanded(child: LabelBar('Available equipment')),
+            Expanded(child: LabelBar('Exercise exclusion')),
+          ],
+        ),
         Row(
           children: [
             Expanded(
@@ -264,6 +269,120 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                     ),
                   ]);
                 }).toList(),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 10),
+                  // Individual Exercises Section
+                  const Text('Individual Exercises:',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    width: 300,
+                    child: Autocomplete<Ex>(
+                      displayStringForOption: (e) => e.id,
+                      optionsBuilder: (textEditingValue) {
+                        return getAvailableExercises(
+                          excludedExercises:
+                              setup.paramOverrides.excludedExercises,
+                          excludedBases: setup.paramOverrides.excludedBases,
+                        )
+                            .where((e) => e.id
+                                .toLowerCase()
+                                .contains(textEditingValue.text.toLowerCase()))
+                            .toList();
+                      },
+                      onSelected: (Ex exercise) {
+                        ref
+                            .read(setupProvider.notifier)
+                            .addExcludedExercise(exercise);
+                      },
+                      fieldViewBuilder:
+                          (context, controller, focusNode, onFieldSubmitted) {
+                        return TextFormField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText:
+                                'Search for specific exercises to exclude',
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  if (setup.paramOverrides.excludedExercises?.isNotEmpty ==
+                      true) ...[
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      children: setup.paramOverrides.excludedExercises!
+                          .map((exercise) => Chip(
+                                label: Text(exercise.id),
+                                onDeleted: () => ref
+                                    .read(setupProvider.notifier)
+                                    .removeExcludedExercise(exercise),
+                              ))
+                          .toList(),
+                    ),
+                  ],
+                  const SizedBox(height: 20),
+                  // Base Exercises Section
+                  const Text('Base Exercise Types:',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    width: 300,
+                    child: Autocomplete<EBase>(
+                      displayStringForOption: (base) => base.name,
+                      optionsBuilder: (textEditingValue) {
+                        return EBase.values
+                            .where((base) =>
+                                setup.paramOverrides.excludedBases
+                                    ?.contains(base) !=
+                                true)
+                            .where((base) => base.name
+                                .toLowerCase()
+                                .contains(textEditingValue.text.toLowerCase()))
+                            .toList();
+                      },
+                      onSelected: (EBase base) {
+                        ref.read(setupProvider.notifier).addExcludedBase(base);
+                      },
+                      fieldViewBuilder:
+                          (context, controller, focusNode, onFieldSubmitted) {
+                        return TextFormField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Search for base exercises to exclude',
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  if (setup.paramOverrides.excludedBases?.isNotEmpty ==
+                      true) ...[
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      children: setup.paramOverrides.excludedBases!
+                          .map((base) => Chip(
+                                label: Text(base.name),
+                                onDeleted: () => ref
+                                    .read(setupProvider.notifier)
+                                    .removeExcludedBase(base),
+                              ))
+                          .toList(),
+                    ),
+                  ],
+                ],
               ),
             ),
           ],
