@@ -42,7 +42,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
   // keys for TextFormField's that don't use Form. see TextFormField docs
   final keyAge = GlobalKey<FormFieldState>();
   final keyWeight = GlobalKey<FormFieldState>();
-  final keyLength = GlobalKey<FormFieldState>();
+  final keyHeight = GlobalKey<FormFieldState>();
   final keyBodyFat = GlobalKey<FormFieldState>();
   final keyEnergyBalance = GlobalKey<FormFieldState>();
   final keyRecoveryFactor = GlobalKey<FormFieldState>();
@@ -143,17 +143,17 @@ class ProgrammerSetupInputs extends ConsumerWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            titleText('Length', context),
+            titleText('Height', context),
             const SizedBox(width: 25),
             SizedBox(
               width: 200,
               child: TextFormField(
-                key: keyLength,
-                initialValue: setup.length.toString(),
+                key: keyHeight,
+                initialValue: setup.height.toString(),
                 keyboardType: TextInputType.number,
                 autovalidateMode: AutovalidateMode.always,
-                validator: notifier.lengthValidator,
-                onChanged: notifier.setLengthMaybe,
+                validator: notifier.heightValidator,
+                onChanged: notifier.setHeightMaybe,
               ),
             ),
             const SizedBox(width: 25),

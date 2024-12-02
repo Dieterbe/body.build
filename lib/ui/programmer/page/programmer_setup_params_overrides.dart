@@ -17,7 +17,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(setupProvider.notifier);
-    final bmi = calcBMI(setup.weight, setup.length);
+    final bmi = calcBMI(setup.weight, setup.height);
 
     // Get the list of available program groups (those not already overridden)
     final availableGroups =

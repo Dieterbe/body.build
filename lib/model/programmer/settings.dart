@@ -10,11 +10,11 @@ class Settings {
   List<Equipment> selectedEquipment = [];
   int age = 30;
   int weight = 75;
-  int length = 178;
-  int bodyFat = 15;  // Body fat percentage
-  int energyBalance = 100;  // Energy balance percentage (100 = maintenance)
-  double recoveryFactor = 1.0;  // Recovery quality factor (0.5 - 1.2)
-  int workoutsPerWeek = 3;  
+  int height = 178;
+  int bodyFat = 15; // Body fat percentage
+  int energyBalance = 100; // Energy balance percentage (100 = maintenance)
+  double recoveryFactor = 1.0; // Recovery quality factor (0.5 - 1.2)
+  int workoutsPerWeek = 3;
   Parameters paramSuggest = Parameters();
   ParameterOverrides paramOverrides = ParameterOverrides();
 
@@ -28,7 +28,7 @@ class Settings {
       Sex? sex,
       int? age,
       int? weight,
-      int? length,
+      int? height,
       int? bodyFat,
       int? energyBalance,
       double? recoveryFactor,
@@ -40,7 +40,7 @@ class Settings {
       ..sex = sex ?? this.sex
       ..age = age ?? this.age
       ..weight = weight ?? this.weight
-      ..length = length ?? this.length
+      ..height = height ?? this.height
       ..bodyFat = bodyFat ?? this.bodyFat
       ..energyBalance = energyBalance ?? this.energyBalance
       ..recoveryFactor = recoveryFactor ?? this.recoveryFactor

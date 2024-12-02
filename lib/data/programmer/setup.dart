@@ -29,15 +29,15 @@ class Setup extends _$Setup {
     return (null, age);
   }
 
-  (String?, int) _lengthValidator(String? value) {
+  (String?, int) _heightValidator(String? value) {
     if (value == null || value.isEmpty) {
       return ('Please enter a length', 0);
     }
-    final length = int.tryParse(value);
-    if (length == null || length < 0 || length > 300) {
+    final height = int.tryParse(value);
+    if (height == null || height < 0 || height > 300) {
       return ('Must be between 0 & 300', 0);
     }
-    return (null, length);
+    return (null, height);
   }
 
   (String?, int) _weightValidator(String? value) {
@@ -125,8 +125,8 @@ class Setup extends _$Setup {
     return msg;
   }
 
-  String? lengthValidator(String? value) {
-    final (msg, _) = _lengthValidator(value);
+  String? heightValidator(String? value) {
+    final (msg, _) = _heightValidator(value);
     return msg;
   }
 
@@ -170,7 +170,7 @@ class Setup extends _$Setup {
   void setLevel(Level? level) => state = state.copyWith(level: level);
   void setSex(Sex? sex) => state = state.copyWith(sex: sex);
   void setAge(int? age) => state = state.copyWith(age: age);
-  void setLength(int? length) => state = state.copyWith(length: length);
+  void setHeight(int? length) => state = state.copyWith(height: length);
   void setWeight(int? weight) => state = state.copyWith(weight: weight);
   void setBodyFat(int? bodyFat) => state = state.copyWith(bodyFat: bodyFat);
   void setEnergyBalance(int? energyBalance) =>
@@ -187,10 +187,10 @@ class Setup extends _$Setup {
     }
   }
 
-  void setLengthMaybe(String value) {
-    final (msg, length) = _lengthValidator(value);
+  void setHeightMaybe(String value) {
+    final (msg, height) = _heightValidator(value);
     if (msg == null) {
-      setLength(length);
+      setHeight(height);
     }
   }
 

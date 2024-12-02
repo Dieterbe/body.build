@@ -11,7 +11,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
-    final bmi = calcBMI(setup.weight, setup.length);
+    final bmi = calcBMI(setup.weight, setup.height);
 
     return Column(
       children: [
