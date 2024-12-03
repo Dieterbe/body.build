@@ -1,9 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ptc/model/programmer/workout.dart';
 
-class ProgramState {
-  final List<Workout> workouts;
-  ProgramState({this.workouts = const []});
+part 'program_state.freezed.dart';
+part 'program_state.g.dart';
 
-  copyWith({List<Workout>? workouts}) =>
-      ProgramState(workouts: workouts ?? this.workouts);
+@freezed
+class ProgramState with _$ProgramState {
+  const factory ProgramState({
+    @Default('unnamed program') String name,
+    @Default([]) List<Workout> workouts,
+  }) = _ProgramState;
+
+  factory ProgramState.fromJson(Map<String, dynamic> json) =>
+      _$ProgramStateFromJson(json);
 }

@@ -51,6 +51,7 @@ class BuilderSets extends StatelessWidget {
                 );
               }).toList(),
               onChanged: (int? newValue) {
+                if (newValue == null) return;
                 onChange(sets.copyWith(n: newValue));
               },
             ),
@@ -83,6 +84,7 @@ class BuilderSets extends StatelessWidget {
                 );
               }).toList(),
               onChanged: (int? newValue) {
+                if (newValue == null) return;
                 onChange(sets.copyWith(intensity: newValue));
               },
             ),

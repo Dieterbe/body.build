@@ -25,6 +25,7 @@ class ParameterOverrides {
 
   // explicitly specify all fields. useful for copying an override structure into another
   // if we want to explicitly set certain fields to their null values, we can't use copyWith()
+  // TODO clean up after we switch to freezed
   ParameterOverrides.full(
     this.intensities,
     this.setsPerweekPerMuscleGroup,

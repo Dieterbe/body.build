@@ -110,3 +110,4 @@ enum MP {
 
 ### Workout programmer module
 TODO: combo sets
+slogan: - Putting the world's weight lifting wisdom in one app, free to all

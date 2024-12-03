@@ -134,6 +134,8 @@ class Ex {
       .fold(0.0, (sum, group) => sum + recruitmentFiltered(group, cutoff));
 }
 
+// TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
+// form modifiers like unilateral concentrics, unilateral
 final List<Ex> exes = [
   Ex(EBase.goodMorning, "standing good morning", [Equipment.barbell]),
   Ex(EBase.goodMorning, "seated good morning", [Equipment.barbell]),

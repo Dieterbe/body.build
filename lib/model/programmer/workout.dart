@@ -1,15 +1,15 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 
-class Workout {
-  final String name;
-  final List<SetGroup> setGroups;
+part 'workout.freezed.dart';
+part 'workout.g.dart';
 
-  Workout({this.name = 'unnamed workout', this.setGroups = const []});
+@freezed
+class Workout with _$Workout {
+  const factory Workout({
+    @Default('unnamed workout') String name,
+    @Default([]) List<SetGroup> setGroups,
+  }) = _Workout;
 
-  Workout copyWith({String? name, List<SetGroup>? setGroups}) {
-    return Workout(
-      name: name ?? this.name,
-      setGroups: setGroups ?? this.setGroups,
-    );
-  }
+  factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
 }

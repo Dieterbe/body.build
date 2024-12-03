@@ -21,44 +21,74 @@ class ProgrammerBuilder extends ConsumerWidget {
       Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              notifier.add(Workout());
-            },
-            child: const Row(
-              children: [Icon(Icons.add), Text('add workout')],
-            ),
-          ),
-          const SizedBox(width: 10),
-          ElevatedButton(
-            onPressed: () async {
-              // Create map of target recruitments from setup parameters
-              final target = <ProgramGroup, double>{};
-              for (final group in ProgramGroup.values) {
-                target[group] =
-                    setup.paramFinal.getSetsPerWeekPerMuscleGroupFor(group) *
-                        1.0;
-              }
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 200,
+                  child: TextFormField(
+                    key: ValueKey(program.name), 
+                    initialValue: program.name,
+                    decoration: const InputDecoration(
+                      labelText: 'Program Name',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      notifier.updateName(value);
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      notifier.add(Workout());
+                    },
+                    child: const Row(
+                      children: [Icon(Icons.add), Text('add workout')],
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      // Create map of target recruitments from setup parameters
+                      final target = <ProgramGroup, double>{};
+                      for (final group in ProgramGroup.values) {
+                        target[group] = setup.paramFinal
+                                .getSetsPerWeekPerMuscleGroupFor(group) *
+                            1.0;
+                      }
 
-              // Create a workout to hold our evolving solution
-              var oldWorkout = Workout();
-              notifier.add(oldWorkout);
+                      // Create a workout to hold our evolving solution
+                      var oldWorkout = Workout();
+                      notifier.add(oldWorkout);
 
-              // Listen to stream of solutions and update the workout
-              await for (final setGroup in generateOptimalSetGroup(
-                target,
-                excludedExercises: setup.paramOverrides.excludedExercises,
-                excludedBases: setup.paramOverrides.excludedBases,
-              )) {
-                final newWorkout = Workout(setGroups: [setGroup]);
-                notifier.updateWorkout(oldWorkout, newWorkout);
-                await Future.delayed(const Duration(milliseconds: 100));
-                oldWorkout = newWorkout;
-              }
-            },
-            child: const Row(
-              children: [Icon(Icons.auto_awesome), Text('generate workout')],
-            ),
+                      // Listen to stream of solutions and update the workout
+                      await for (final setGroup in generateOptimalSetGroup(
+                        target,
+                        excludedExercises:
+                            setup.paramOverrides.excludedExercises,
+                        excludedBases: setup.paramOverrides.excludedBases,
+                      )) {
+                        final newWorkout = Workout(setGroups: [setGroup]);
+                        notifier.updateWorkout(oldWorkout, newWorkout);
+                        await Future.delayed(const Duration(milliseconds: 100));
+                        oldWorkout = newWorkout;
+                      }
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(Icons.auto_awesome),
+                        Text('generate workout')
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           Expanded(child: Container()),
           /* our legend doesn't render well and is not particularly useful

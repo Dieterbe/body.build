@@ -6,7 +6,7 @@ part of 'program.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$programHash() => r'869f516f1c329aee2d527c1a2508334d09b82b5f';
+String _$programHash() => r'8f9e2862b1e1794e83e654f1b0a10058712aebdf';
 
 /// See also [Program].
 @ProviderFor(Program)
