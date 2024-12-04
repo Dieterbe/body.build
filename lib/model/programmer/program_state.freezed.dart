@@ -140,20 +140,6 @@ class _$ProgramStateImpl implements _ProgramState {
     return 'ProgramState(name: $name, workouts: $workouts)';
   }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProgramStateImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality().equals(other._workouts, _workouts));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_workouts));
-
   /// Create a copy of ProgramState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)

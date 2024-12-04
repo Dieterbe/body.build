@@ -170,23 +170,6 @@ class _$SetsImpl extends _Sets {
     return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx)';
   }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SetsImpl &&
-            (identical(other.intensity, intensity) ||
-                other.intensity == intensity) &&
-            (identical(other.ex, ex) || other.ex == ex) &&
-            (identical(other.n, n) || other.n == n) &&
-            (identical(other.changeEx, changeEx) ||
-                other.changeEx == changeEx));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, intensity, ex, n, changeEx);
-
   /// Create a copy of Sets
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -338,19 +321,6 @@ class _$SetGroupImpl implements _SetGroup {
   String toString() {
     return 'SetGroup(sets: $sets)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SetGroupImpl &&
-            const DeepCollectionEquality().equals(other._sets, _sets));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_sets));
 
   /// Create a copy of SetGroup
   /// with the given fields replaced by the non-null parameter values.
