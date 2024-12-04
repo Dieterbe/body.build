@@ -2,6 +2,7 @@ import 'package:ptc/model/programmer/program_state.dart';
 import 'package:ptc/model/programmer/workout.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ptc/provider/program_persistence_provider.dart';
+import 'package:ptc/provider/current_program_provider.dart';
 
 part 'program.g.dart';
 
@@ -16,7 +17,8 @@ class Program extends _$Program {
     // Listen to state changes and save automatically
     ref.listenSelf((previous, next) async {
       final service = await ref.read(programPersistenceProvider.future);
-      await service.saveProgram('current', next);
+      final id = ref.read(currentProgramProvider);
+      await service.saveProgram(id, next);
     });
 
     // Try to load saved program
@@ -27,7 +29,8 @@ class Program extends _$Program {
   Future<void> _loadSavedProgram() async {
     try {
       final service = await ref.read(programPersistenceProvider.future);
-      final savedProgram = await service.loadProgram('current');
+      final id = ref.read(currentProgramProvider);
+      final savedProgram = await service.loadProgram(id);
       if (savedProgram != null) {
         state = savedProgram;
       }
