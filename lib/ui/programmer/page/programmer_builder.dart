@@ -9,9 +9,9 @@ import 'package:ptc/ui/programmer/widget/headers.dart';
 import 'package:ptc/ui/programmer/widget/builder_totals.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v2/generator.dart';
-import 'package:ptc/provider/current_program_provider.dart';
-import 'package:ptc/provider/program_list_provider.dart';
-import 'package:ptc/provider/program_persistence_provider.dart';
+import 'package:ptc/data/programmer/current_program_provider.dart';
+import 'package:ptc/data/programmer/program_list_provider.dart';
+import 'package:ptc/data/programmer/program_persistence_provider.dart';
 
 class ProgrammerBuilder extends ConsumerWidget {
   const ProgrammerBuilder({super.key});

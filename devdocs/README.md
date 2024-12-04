@@ -4,7 +4,7 @@
 apply DRY at filename level. e.g. if it's in the `<feature>/page` directory, the file doesn't need to have "feature" or "page" in its name (but should have Page or Screen in its dart class)
 
 data:
-* ephemeral state (riverpod) and hardcoded data (and supporting enums)
+* ephemeral state (riverpod), persisted state (riverpod) and hardcoded data (and supporting enums)
 page:
 * main screens and huge widgets that make up large parts of a page
 model:
