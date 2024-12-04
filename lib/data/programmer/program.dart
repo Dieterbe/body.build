@@ -9,48 +9,43 @@ part 'program.g.dart';
 @Riverpod(keepAlive: true)
 class Program extends _$Program {
   @override
-  ProgramState build() {
+  Future<ProgramState> build() async {
     ref.onDispose(() {
       print('programmer program provider disposed');
     });
 
+    // Watch the current program ID to rebuild when it changes
+    final currentProgram = await ref.watch(currentProgramProvider.future);
+
     // Listen to state changes and save automatically
     ref.listenSelf((previous, next) async {
+      if (next.value == null) return;
       final service = await ref.read(programPersistenceProvider.future);
-      final id = ref.read(currentProgramProvider);
-      await service.saveProgram(id, next);
+      await service.saveProgram(currentProgram, next.value!);
     });
 
     // Try to load saved program
-    _loadSavedProgram();
-    return ProgramState();
+    final service = await ref.read(programPersistenceProvider.future);
+    final savedProgram = await service.loadProgram(currentProgram);
+    return savedProgram ?? const ProgramState();
   }
 
-  Future<void> _loadSavedProgram() async {
-    try {
-      final service = await ref.read(programPersistenceProvider.future);
-      final id = ref.read(currentProgramProvider);
-      final savedProgram = await service.loadProgram(id);
-      if (savedProgram != null) {
-        state = savedProgram;
-      }
-    } catch (e) {
-      print('Error loading saved program: $e');
-    }
-  }
+  void add(Workout w) => state =
+      AsyncData(state.value!.copyWith(workouts: [...state.value!.workouts, w]));
 
-  void add(Workout w) =>
-      state = state.copyWith(workouts: [...state.workouts, w]);
+  void remove(Workout w) => state = AsyncData(state.value!.copyWith(
+        workouts: state.value!.workouts.where((e) => e != w).toList(),
+      ));
 
-  void remove(Workout w) => state = state.copyWith(
-        workouts: state.workouts.where((e) => e != w).toList(),
-      );
-
-  void updateWorkout(Workout wOld, Workout? wNew) => state = state.copyWith(
+  void updateWorkout(Workout wOld, Workout? wNew) =>
+      state = AsyncData(state.value!.copyWith(
         workouts: (wNew == null)
-            ? state.workouts.where((e) => (e != wOld)).toList()
-            : state.workouts.map((e) => ((e == wOld) ? wNew : e)).toList(),
-      );
+            ? state.value!.workouts.where((e) => (e != wOld)).toList()
+            : state.value!.workouts
+                .map((e) => ((e == wOld) ? wNew : e))
+                .toList(),
+      ));
 
-  void updateName(String name) => state = state.copyWith(name: name);
+  void updateName(String name) =>
+      state = AsyncData(state.value!.copyWith(name: name));
 }

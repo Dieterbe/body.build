@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 
+/* 
+// this is unused for now (in the program builder)
+// our legend doesn't render well and is not particularly useful
+// (it gets confusing because the volume totals don't follow the same color scheme)
+// so let's just disable it for now.
+// better would be to have tooltips over the musclemarks, but they don't work well on flutter web - they don't respond to clicks
+*/
 class Legend extends StatelessWidget {
   const Legend({super.key});
 
