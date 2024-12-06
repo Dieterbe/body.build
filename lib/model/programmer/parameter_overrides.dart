@@ -1,53 +1,44 @@
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/data/programmer/exercises.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class MuscleGroupOverride {
-  final ProgramGroup group;
-  final int sets;
+part 'parameter_overrides.freezed.dart';
+part 'parameter_overrides.g.dart';
 
-  MuscleGroupOverride(this.group, this.sets);
+@freezed
+class MuscleGroupOverride with _$MuscleGroupOverride {
+  const factory MuscleGroupOverride(
+    ProgramGroup group,
+    int sets,
+  ) = _MuscleGroupOverride;
+
+  factory MuscleGroupOverride.fromJson(Map<String, dynamic> json) =>
+      _$MuscleGroupOverrideFromJson(json);
 }
 
-class ParameterOverrides {
-  final List<int>? intensities;
-  final int? setsPerweekPerMuscleGroup;
-  final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual;
-  final Set<Ex>? excludedExercises;
-  final Set<EBase>? excludedBases;
+@freezed
+class ParameterOverrides with _$ParameterOverrides {
+  const factory ParameterOverrides({
+    final List<int>? intensities,
+    final int? setsPerWeekPerMuscleGroup,
+    final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
+    @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
+    final Set<Ex>? excludedExercises,
+    @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
+    final Set<EBase>? excludedBases,
+  }) = _ParameterOverrides;
 
-  ParameterOverrides({
-    this.intensities,
-    this.setsPerweekPerMuscleGroup,
-    this.setsPerWeekPerMuscleGroupIndividual,
-    this.excludedExercises,
-    this.excludedBases,
-  });
-
-  // explicitly specify all fields. useful for copying an override structure into another
-  // if we want to explicitly set certain fields to their null values, we can't use copyWith()
-  // TODO clean up after we switch to freezed
-  ParameterOverrides.full(
-    this.intensities,
-    this.setsPerweekPerMuscleGroup,
-    this.setsPerWeekPerMuscleGroupIndividual,
-    this.excludedExercises,
-    this.excludedBases,
-  );
-
-  ParameterOverrides copyWith({
-    List<int>? intensities,
-    int? setsPerweekPerMuscleGroup,
-    List<MuscleGroupOverride>? muscleGroupOverrides,
-    Set<Ex>? excludedExercises,
-    Set<EBase>? excludedBases,
-  }) =>
-      ParameterOverrides(
-        intensities: intensities ?? this.intensities,
-        setsPerweekPerMuscleGroup:
-            setsPerweekPerMuscleGroup ?? this.setsPerweekPerMuscleGroup,
-        setsPerWeekPerMuscleGroupIndividual:
-            muscleGroupOverrides ?? setsPerWeekPerMuscleGroupIndividual,
-        excludedExercises: excludedExercises ?? this.excludedExercises,
-        excludedBases: excludedBases ?? this.excludedBases,
-      );
+  factory ParameterOverrides.fromJson(Map<String, dynamic> json) =>
+      _$ParameterOverridesFromJson(json);
 }
+
+List<String>? _exSetToJson(Set<Ex>? exSet) => exSet?.map((e) => e.id).toList();
+
+Set<Ex>? _exSetFromJson(List<dynamic>? json) =>
+    json?.map((e) => exes.firstWhere((ex) => ex.id == e)).toSet();
+
+List<String>? _ebaseSetToJson(Set<EBase>? ebaseSet) =>
+    ebaseSet?.map((e) => e.name).toList();
+
+Set<EBase>? _ebaseSetFromJson(List<dynamic>? json) =>
+    json?.map((e) => EBase.values.firstWhere((eb) => eb.name == e)).toSet();

@@ -3,70 +3,59 @@ import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/util/formulas.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Parameters {
-  late List<int> intensities;
-  late int setsPerweekPerMuscleGroup;
-  late List<MuscleGroupOverride> setsPerWeekPerMuscleGroupIndividual;
+part 'parameters.freezed.dart';
+part 'parameters.g.dart';
 
-  Parameters() {
-    intensities = [];
-    setsPerweekPerMuscleGroup = 0;
-    setsPerWeekPerMuscleGroupIndividual = [];
-  }
+// 37 ⋮    │TODO: implement ceiling of max sets per workout per MG: research says 6. but depends on factors such as genetics, closeness to failure, and rest intervals
+@freezed
+class Parameters with _$Parameters {
+  Parameters._(); // Private constructor for methods
+
+  factory Parameters({
+    @Default([]) List<int> intensities,
+    @Default(0) int setsPerweekPerMuscleGroup,
+    @Default([]) List<MuscleGroupOverride> setsPerWeekPerMuscleGroupIndividual,
+  }) = _Parameters;
+
+  factory Parameters.fromJson(Map<String, dynamic> json) =>
+      _$ParametersFromJson(json);
+
   static Parameters fromSettings(Settings s) {
-    var p = Parameters();
-    p.intensities = switch (s.level) {
-      Level.beginner => [60],
-      Level.intermediate => [60, 70],
-      Level.advanced => [65, 85],
-      Level.elite => [70, 75, 80, 90],
-      // TODO: age affects intensity
-    };
-    p.setsPerweekPerMuscleGroup = calcOptimalSetsPerWeekPerMuscleGroupMH(
-        s.sex,
-        s.level,
-        s.recoveryFactor,
-        s.energyBalance / 100,
-        s.workoutsPerWeek * 1.0);
-    /*
-in the setup, we ideally don't want to be too prescriptive in terms of sets volume per muscle group, such that the program
-can prioritize exercises not just thru volume, also thru ordering
-OTOH, we do want to be able to express "don't train at all - vs de-emph - vs normal - vs prioritize"
-
-TODO: implement ceiling of max sets per workout per MG: research says 6. but depends on factors such as genetics, closeness to failure, and rest intervals
-*/
-
-    return p;
+    return Parameters(
+      intensities: switch (s.level) {
+        Level.beginner => [60],
+        Level.intermediate => [60, 70],
+        Level.advanced => [65, 85],
+        Level.elite => [70, 75, 80, 90],
+        // TODO: age affects intensity
+      },
+      setsPerweekPerMuscleGroup: calcOptimalSetsPerWeekPerMuscleGroupMH(
+          s.sex,
+          s.level,
+          s.recoveryFactor,
+          s.energyBalance / 100,
+          s.workoutsPerWeek * 1.0),
+      setsPerWeekPerMuscleGroupIndividual: [],
+    );
   }
 
-  Parameters copyWith(
-      {List<int>? intensities,
-      int? setsPerweekPerMuscleGroup,
-      List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual}) {
-    return Parameters()
-      ..intensities = intensities ?? this.intensities
-      ..setsPerweekPerMuscleGroup =
-          setsPerweekPerMuscleGroup ?? this.setsPerweekPerMuscleGroup
-      ..setsPerWeekPerMuscleGroupIndividual =
-          setsPerWeekPerMuscleGroupIndividual ??
-              this.setsPerWeekPerMuscleGroupIndividual;
-  }
-
-  Parameters apply(ParameterOverrides overrides) {
+  Parameters apply(ParameterOverrides o) {
     return copyWith(
-        intensities: overrides.intensities,
-        setsPerweekPerMuscleGroup: overrides.setsPerweekPerMuscleGroup,
-        setsPerWeekPerMuscleGroupIndividual:
-            overrides.setsPerWeekPerMuscleGroupIndividual);
+      intensities: o.intensities ?? intensities,
+      setsPerweekPerMuscleGroup:
+          o.setsPerWeekPerMuscleGroup ?? setsPerweekPerMuscleGroup,
+      setsPerWeekPerMuscleGroupIndividual:
+          o.setsPerWeekPerMuscleGroupIndividual ??
+              setsPerWeekPerMuscleGroupIndividual,
+    );
   }
 
   int getSetsPerWeekPerMuscleGroupFor(ProgramGroup group) {
-    for (final override in setsPerWeekPerMuscleGroupIndividual) {
-      if (override.group == group) {
-        return override.sets;
-      }
-    }
-    return setsPerweekPerMuscleGroup;
+    final override = setsPerWeekPerMuscleGroupIndividual
+        .where((e) => e.group == group)
+        .firstOrNull;
+    return override?.sets ?? setsPerweekPerMuscleGroup;
   }
 }

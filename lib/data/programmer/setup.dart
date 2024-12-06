@@ -14,7 +14,7 @@ class Setup extends _$Setup {
     ref.onDispose(() {
       print('programmer setup provider disposed');
     });
-    return Settings();
+    return Settings.defaults();
   }
 
   /* INTERNAL VALIDATION FUNCTIONS */
@@ -167,18 +167,59 @@ class Setup extends _$Setup {
 
   /* END VALIDATION FUNCTIONS */
 
-  void setLevel(Level? level) => state = state.copyWith(level: level);
-  void setSex(Sex? sex) => state = state.copyWith(sex: sex);
-  void setAge(int? age) => state = state.copyWith(age: age);
-  void setHeight(int? length) => state = state.copyWith(height: length);
-  void setWeight(int? weight) => state = state.copyWith(weight: weight);
-  void setBodyFat(int? bodyFat) => state = state.copyWith(bodyFat: bodyFat);
-  void setEnergyBalance(int? energyBalance) =>
+  void setLevel(Level? level) {
+    if (level != null) {
+      state = state.copyWith(level: level);
+    }
+  }
+
+  void setSex(Sex? sex) {
+    if (sex != null) {
+      state = state.copyWith(sex: sex);
+    }
+  }
+
+  void setAge(int? age) {
+    if (age != null) {
+      state = state.copyWith(age: age);
+    }
+  }
+
+  void setHeight(int? length) {
+    if (length != null) {
+      state = state.copyWith(height: length);
+    }
+  }
+
+  void setWeight(int? weight) {
+    if (weight != null) {
+      state = state.copyWith(weight: weight);
+    }
+  }
+
+  void setBodyFat(int? bodyFat) {
+    if (bodyFat != null) {
+      state = state.copyWith(bodyFat: bodyFat);
+    }
+  }
+
+  void setEnergyBalance(int? energyBalance) {
+    if (energyBalance != null) {
       state = state.copyWith(energyBalance: energyBalance);
-  void setRecoveryFactor(double? recoveryFactor) =>
+    }
+  }
+
+  void setRecoveryFactor(double? recoveryFactor) {
+    if (recoveryFactor != null) {
       state = state.copyWith(recoveryFactor: recoveryFactor);
-  void setWorkoutsPerWeek(int? freq) =>
+    }
+  }
+
+  void setWorkoutsPerWeek(int? freq) {
+    if (freq != null) {
       state = state.copyWith(workoutsPerWeek: freq);
+    }
+  }
 
   void setAgeMaybe(String value) {
     final (msg, age) = _ageValidator(value);
@@ -233,12 +274,9 @@ class Setup extends _$Setup {
     final (msg, intensities) = _intensitiesValidator(value);
     if (msg == null) {
       state = state.copyWith(
-          paramOverrides: ParameterOverrides.full(
-              intensities,
-              state.paramOverrides.setsPerweekPerMuscleGroup,
-              state.paramOverrides.setsPerWeekPerMuscleGroupIndividual,
-              state.paramOverrides.excludedExercises,
-              state.paramOverrides.excludedBases));
+          paramOverrides: state.paramOverrides.copyWith(
+        intensities: intensities,
+      ));
     }
   }
 
@@ -246,12 +284,9 @@ class Setup extends _$Setup {
     final (msg, volume) = _setsPerWeekPerMuscleGroupValidator(value);
     if (msg == null) {
       state = state.copyWith(
-        paramOverrides: ParameterOverrides.full(
-            state.paramOverrides.intensities,
-            volume,
-            state.paramOverrides.setsPerWeekPerMuscleGroupIndividual,
-            state.paramOverrides.excludedExercises,
-            state.paramOverrides.excludedBases),
+        paramOverrides: state.paramOverrides.copyWith(
+          setsPerWeekPerMuscleGroup: volume,
+        ),
       );
     }
   }
@@ -264,7 +299,7 @@ class Setup extends _$Setup {
 
     state = state.copyWith(
       paramOverrides: state.paramOverrides.copyWith(
-        muscleGroupOverrides: newOverrides,
+        setsPerWeekPerMuscleGroupIndividual: newOverrides,
       ),
     );
   }
@@ -277,7 +312,7 @@ class Setup extends _$Setup {
 
     state = state.copyWith(
       paramOverrides: state.paramOverrides.copyWith(
-        muscleGroupOverrides: newOverrides,
+        setsPerWeekPerMuscleGroupIndividual: newOverrides,
       ),
     );
   }
@@ -294,7 +329,7 @@ class Setup extends _$Setup {
         newOverrides[index] = MuscleGroupOverride(group, sets);
         state = state.copyWith(
           paramOverrides: state.paramOverrides.copyWith(
-            muscleGroupOverrides: newOverrides,
+            setsPerWeekPerMuscleGroupIndividual: newOverrides,
           ),
         );
       }

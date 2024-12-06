@@ -79,7 +79,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
             child: TextFormField(
               key: keyWeeklyVolume,
               initialValue:
-                  setup.paramOverrides.setsPerweekPerMuscleGroup?.toString() ??
+                  setup.paramOverrides.setsPerWeekPerMuscleGroup?.toString() ??
                       '',
               keyboardType: TextInputType.number,
               autovalidateMode: AutovalidateMode.always,

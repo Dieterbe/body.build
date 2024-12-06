@@ -1,6 +1,7 @@
 import 'package:ptc/data/programmer/groups.dart';
 
 // Exercise Base
+// built-in: doesn't need to be persisted
 enum EBase {
   goodMorning,
   deadlift,
@@ -68,6 +69,7 @@ enum EBase {
   wristExtension,
 }
 
+// built-in: doesn't need to be persisted
 enum Equipment {
   barbell,
   dumbbell,
@@ -88,6 +90,7 @@ enum Equipment {
 // but the ex is an exact, specific, detailed exercise
 // though i'm not sure if i want to keep execution details (e.g. unilateral)
 // as separate exercises, those should perhaps be "modifiers"
+// this class is built-in, and doesn't need to be persisted
 class Ex {
   EBase base;
   List<Equipment> equipment;
