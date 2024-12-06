@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProgramPersistenceService {
   static const String _programsKey = 'programs';
+  static const String _lastProgramKey = 'last_program_id';
   final SharedPreferences _prefs;
 
   ProgramPersistenceService(this._prefs);
@@ -36,6 +37,16 @@ class ProgramPersistenceService {
     final programs = await loadPrograms();
     programs.remove(id);
     return _savePrograms(programs);
+  }
+
+  /// Saves the ID of the last selected program
+  Future<bool> saveLastProgramId(String id) {
+    return _prefs.setString(_lastProgramKey, id);
+  }
+
+  /// Loads the ID of the last selected program
+  Future<String?> loadLastProgramId() async {
+    return _prefs.getString(_lastProgramKey);
   }
 
   /// Helper method to save programs map to SharedPreferences

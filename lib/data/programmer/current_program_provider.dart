@@ -12,8 +12,20 @@ class CurrentProgram extends _$CurrentProgram {
       print('current program provider disposed');
     });
 
-    // Get the first available program ID, or create a new program if none exist
+    // Get the persistence service
     final service = await ref.read(programPersistenceProvider.future);
+
+    // Try to load the last selected program ID
+    final lastProgramId = await service.loadLastProgramId();
+    if (lastProgramId != null) {
+      // Verify the program still exists
+      final program = await service.loadProgram(lastProgramId);
+      if (program != null) {
+        return lastProgramId;
+      }
+    }
+
+    // If no last program or it doesn't exist anymore, get the first available program
     final programs = await service.loadPrograms();
 
     if (programs.isEmpty) {
@@ -22,13 +34,19 @@ class CurrentProgram extends _$CurrentProgram {
         newId,
         const ProgramState(name: 'New Program'),
       );
+      await service.saveLastProgramId(newId);
       return newId;
     }
 
-    return programs.keys.first;
+    final firstId = programs.keys.first;
+    await service.saveLastProgramId(firstId);
+    return firstId;
   }
 
-  void select(String id) {
+  void select(String id) async {
     state = AsyncData(id);
+    // Save the selected program ID
+    final service = await ref.read(programPersistenceProvider.future);
+    await service.saveLastProgramId(id);
   }
 }
