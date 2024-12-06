@@ -18,6 +18,9 @@ class Setup extends _$Setup {
   }
 
   /* INTERNAL VALIDATION FUNCTIONS */
+  // (String?, val) -> if String not null = error
+  // for some methods, an empty/unset value is an error, for others it isn't.
+  // val is the value, if it is a correct one (sometimes null is correct)
   (String?, int) _ageValidator(String? value) {
     if (value == null || value.isEmpty) {
       return ('Please enter an age', 0);
@@ -120,50 +123,17 @@ class Setup extends _$Setup {
 
   /* VALIDATION FUNCTIONS FOR TEXTFORMFIELDS */
 
-  String? ageValidator(String? value) {
-    final (msg, _) = _ageValidator(value);
-    return msg;
-  }
-
-  String? heightValidator(String? value) {
-    final (msg, _) = _heightValidator(value);
-    return msg;
-  }
-
-  String? weightValidator(String? value) {
-    final (msg, _) = _weightValidator(value);
-    return msg;
-  }
-
-  String? bodyFatValidator(String? value) {
-    final (msg, _) = _bodyFatValidator(value);
-    return msg;
-  }
-
-  String? energyBalanceValidator(String? value) {
-    final (msg, _) = _energyBalanceValidator(value);
-    return msg;
-  }
-
-  String? recoveryFactorValidator(String? value) {
-    final (msg, _) = _recoveryFactorValidator(value);
-    return msg;
-  }
-
-  String? workoutsPerWeekValidator(String? value) {
-    final (msg, _) = _workoutsPerWeekValidator(value);
-    return msg;
-  }
-
-  String? intensitiesValidator(String? value) {
-    final (msg, _) = _intensitiesValidator(value);
-    return msg;
-  }
-
-  String? setsPerWeekPerMuscleGroupValidator(String? value) {
-    final (msg, _) = _setsPerWeekPerMuscleGroupValidator(value);
-    return msg;
-  }
+  String? ageValidator(String? value) => _ageValidator(value).$1;
+  String? heightValidator(String? value) => _heightValidator(value).$1;
+  String? weightValidator(String? value) => _weightValidator(value).$1;
+  String? bodyFatValidator(String? value) => _bodyFatValidator(value).$1;
+  String? energyBalanceValidator(String? v) => _energyBalanceValidator(v).$1;
+  String? recoveryFactorValidator(String? v) => _recoveryFactorValidator(v).$1;
+  String? workoutsPerWeekValidator(String? v) =>
+      _workoutsPerWeekValidator(v).$1;
+  String? intensitiesValidator(String? v) => _intensitiesValidator(v).$1;
+  String? setsPerWeekPerMuscleGroupValidator(String? v) =>
+      _setsPerWeekPerMuscleGroupValidator(v).$1;
 
   /* END VALIDATION FUNCTIONS */
 
