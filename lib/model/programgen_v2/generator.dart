@@ -1,41 +1,35 @@
 import 'dart:async';
 import 'dart:isolate';
-import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/model/programgen_v2/solution_node.dart';
+import 'package:ptc/model/programmer/settings.dart';
 
 /// Parameters for workout generation
 class WorkoutGenerationParams {
   final Map<ProgramGroup, double> targetRecruitment;
-  final Set<Ex>? excludedExercises;
-  final Set<EBase>? excludedBases;
+  final Settings setup;
   final SendPort sendPort;
 
   const WorkoutGenerationParams(
     this.targetRecruitment,
-    this.sendPort, {
-    this.excludedExercises,
-    this.excludedBases,
-  });
+    this.setup,
+    this.sendPort,
+  );
 }
 
 /// Generates an optimized SetGroup that matches the desired recruitment targets
 /// for each ProgramGroup as closely as possible while minimizing overshoot.
 /// Returns a stream of solutions, with each new solution being better than the last.
 Stream<SetGroup> generateOptimalSetGroup(
-  Map<ProgramGroup, double> targetRecruitment, {
-  Set<Ex>? excludedExercises,
-  Set<EBase>? excludedBases,
-}) async* {
+    Map<ProgramGroup, double> targetRecruitment, Settings setup) async* {
   final receivePort = ReceivePort();
 
   final params = WorkoutGenerationParams(
     targetRecruitment,
+    setup,
     receivePort.sendPort,
-    excludedExercises: excludedExercises,
-    excludedBases: excludedBases,
   );
 
   await Isolate.spawn(_generateInIsolate, params);
@@ -56,12 +50,8 @@ Stream<SetGroup> generateOptimalSetGroup(
 void _generateInIsolate(WorkoutGenerationParams params) {
   print('Workout generation (generateOptimalSetGroup) start');
 
-  final exercises = rankExercises()
-      .where((e) => getAvailableExercises(
-            excludedExercises: params.excludedExercises,
-            excludedBases: params.excludedBases,
-          ).contains(e.ex))
-      .toList();
+  final exercises = rankExercises(params.setup.availableExercises);
+
   print('Available exercises: ${exercises.length}');
   // caches to save CPU at runtime..
   final totalRecruitments =

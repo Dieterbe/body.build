@@ -193,7 +193,11 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristExtensors: 0.25,
       ProgramGroup.wristFlexors: 0.25,
     },
-    Equipment.smithMachine: {
+    Equipment.smithMachineVertical: {
+      ProgramGroup.wristExtensors: 0.25,
+      ProgramGroup.wristFlexors: 0.25,
+    },
+    Equipment.smithMachineAngled: {
       ProgramGroup.wristExtensors: 0.25,
       ProgramGroup.wristFlexors: 0.25,
     },
@@ -270,10 +274,10 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristFlexors: 0.25,
     },
     Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: 0.3,
-      ProgramGroup.wristFlexors: 0.3,
+      ProgramGroup.wristExtensors: 0.5,
+      ProgramGroup.wristFlexors: 0.5,
     },
-    Equipment.smithMachine: {
+    Equipment.smithMachineVertical: {
       ProgramGroup.wristExtensors: 0.25,
       ProgramGroup.wristFlexors: 0.25,
     },
@@ -368,15 +372,8 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.frontDelts: 1,
     ProgramGroup.tricepsMedLatH: 1,
     ProgramGroup.tricepsLongHead: 0.25,
-  }, assignEquip: {
-    Equipment.barbell: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
-    },
-    Equipment.machine: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
-    }
+    ProgramGroup.wristExtensors: 0.25,
+    ProgramGroup.wristFlexors: 0.25,
   }),
   const VolumeAssignment([
     EBase.benchPressDB,

@@ -8,14 +8,14 @@ class RankedExercise {
   RankedExercise(this.ex, this.rank);
 }
 
-// return a list of all known exercises, sorted DESC by rank
+// sorts a list of exercises DESC by rank
 // rank is the total recruitment
 // if multiple exercises have identical recruitment profiles, only one is included
-List<RankedExercise> rankExercises() {
+List<RankedExercise> rankExercises(List<Ex> input) {
   // Create a map to group exercises by their recruitment profile
   final profileMap = <String, RankedExercise>{};
 
-  for (final ex in exes) {
+  for (final ex in input) {
     // Create a string key representing the recruitment profile
     // Format: "group1:value1,group2:value2,..."
     final profile = ProgramGroup.values
@@ -29,6 +29,6 @@ List<RankedExercise> rankExercises() {
   // Convert map values to list and sort by rank
   final ranks = profileMap.values.toList()
     ..sort((a, b) => b.rank.compareTo(a.rank));
-  print('ranker filter: ${ranks.length} / ${exes.length}');
+  print('ranker filter: ${ranks.length} / ${input.length}');
   return ranks;
 }

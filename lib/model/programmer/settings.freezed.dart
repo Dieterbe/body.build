@@ -22,8 +22,8 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) {
 mixin _$Settings {
   Level get level => throw _privateConstructorUsedError;
   Sex get sex => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-  List<Equipment> get selectedEquipment => throw _privateConstructorUsedError;
+  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+  Set<Equipment> get availEquipment => throw _privateConstructorUsedError;
   int get age => throw _privateConstructorUsedError;
   int get weight => throw _privateConstructorUsedError;
   int get height => throw _privateConstructorUsedError;
@@ -54,8 +54,8 @@ abstract class $SettingsCopyWith<$Res> {
   $Res call(
       {Level level,
       Sex sex,
-      @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-      List<Equipment> selectedEquipment,
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      Set<Equipment> availEquipment,
       int age,
       int weight,
       int height,
@@ -87,7 +87,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
   $Res call({
     Object? level = null,
     Object? sex = null,
-    Object? selectedEquipment = null,
+    Object? availEquipment = null,
     Object? age = null,
     Object? weight = null,
     Object? height = null,
@@ -107,10 +107,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
               as Sex,
-      selectedEquipment: null == selectedEquipment
-          ? _value.selectedEquipment
-          : selectedEquipment // ignore: cast_nullable_to_non_nullable
-              as List<Equipment>,
+      availEquipment: null == availEquipment
+          ? _value.availEquipment
+          : availEquipment // ignore: cast_nullable_to_non_nullable
+              as Set<Equipment>,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -182,8 +182,8 @@ abstract class _$$SettingsImplCopyWith<$Res>
   $Res call(
       {Level level,
       Sex sex,
-      @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-      List<Equipment> selectedEquipment,
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      Set<Equipment> availEquipment,
       int age,
       int weight,
       int height,
@@ -215,7 +215,7 @@ class __$$SettingsImplCopyWithImpl<$Res>
   $Res call({
     Object? level = null,
     Object? sex = null,
-    Object? selectedEquipment = null,
+    Object? availEquipment = null,
     Object? age = null,
     Object? weight = null,
     Object? height = null,
@@ -235,10 +235,10 @@ class __$$SettingsImplCopyWithImpl<$Res>
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
               as Sex,
-      selectedEquipment: null == selectedEquipment
-          ? _value._selectedEquipment
-          : selectedEquipment // ignore: cast_nullable_to_non_nullable
-              as List<Equipment>,
+      availEquipment: null == availEquipment
+          ? _value._availEquipment
+          : availEquipment // ignore: cast_nullable_to_non_nullable
+              as Set<Equipment>,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -285,8 +285,8 @@ class _$SettingsImpl extends _Settings {
   const _$SettingsImpl(
       {this.level = Level.beginner,
       this.sex = Sex.male,
-      @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-      final List<Equipment> selectedEquipment = const [],
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      final Set<Equipment> availEquipment = const {},
       this.age = 30,
       this.weight = 75,
       this.height = 178,
@@ -296,7 +296,7 @@ class _$SettingsImpl extends _Settings {
       this.workoutsPerWeek = 3,
       required this.paramSuggest,
       required this.paramOverrides})
-      : _selectedEquipment = selectedEquipment,
+      : _availEquipment = availEquipment,
         super._();
 
   factory _$SettingsImpl.fromJson(Map<String, dynamic> json) =>
@@ -308,14 +308,13 @@ class _$SettingsImpl extends _Settings {
   @override
   @JsonKey()
   final Sex sex;
-  final List<Equipment> _selectedEquipment;
+  final Set<Equipment> _availEquipment;
   @override
-  @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-  List<Equipment> get selectedEquipment {
-    if (_selectedEquipment is EqualUnmodifiableListView)
-      return _selectedEquipment;
+  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+  Set<Equipment> get availEquipment {
+    if (_availEquipment is EqualUnmodifiableSetView) return _availEquipment;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_selectedEquipment);
+    return EqualUnmodifiableSetView(_availEquipment);
   }
 
   @override
@@ -349,7 +348,7 @@ class _$SettingsImpl extends _Settings {
 
   @override
   String toString() {
-    return 'Settings(level: $level, sex: $sex, selectedEquipment: $selectedEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, workoutsPerWeek: $workoutsPerWeek, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
+    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, workoutsPerWeek: $workoutsPerWeek, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
   }
 
   /// Create a copy of Settings
@@ -372,8 +371,8 @@ abstract class _Settings extends Settings {
   const factory _Settings(
       {final Level level,
       final Sex sex,
-      @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-      final List<Equipment> selectedEquipment,
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      final Set<Equipment> availEquipment,
       final int age,
       final int weight,
       final int height,
@@ -393,8 +392,8 @@ abstract class _Settings extends Settings {
   @override
   Sex get sex;
   @override
-  @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-  List<Equipment> get selectedEquipment;
+  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+  Set<Equipment> get availEquipment;
   @override
   int get age;
   @override

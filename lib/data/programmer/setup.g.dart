@@ -6,7 +6,7 @@ part of 'setup.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$setupHash() => r'b90ea3384ccfc4660ff93963af3a8a77c572be58';
+String _$setupHash() => r'0277dfcc03fe34f5e72938054e486c47982b7f98';
 
 /// See also [Setup].
 @ProviderFor(Setup)

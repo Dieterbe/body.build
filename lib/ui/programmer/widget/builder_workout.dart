@@ -129,6 +129,11 @@ class BuilderWorkoutWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              if (workout.setGroups.isEmpty)
+                Text(
+                  "No sets yet - add sets using the 'Add Set' button or the muscle specific '+' buttons below",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               Expanded(child: Container()),
             ],
           ),

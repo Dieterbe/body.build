@@ -1,5 +1,7 @@
 # Program Generator V1 - Notes and Learnings
 
+Note: not aware of filters and exclusions
+
 ## Current Approach
 1. Exercise Selection
    - Rank exercises by total recruitment

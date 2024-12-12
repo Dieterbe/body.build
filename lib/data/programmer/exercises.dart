@@ -69,18 +69,100 @@ enum EBase {
   wristExtension,
 }
 
-// built-in: doesn't need to be persisted
-enum Equipment {
-  barbell,
-  dumbbell,
-  kettlebell,
-  cable,
-  smithMachine,
-  machine,
-  trx,
-  squatRack, // assumes barbell also
-  elastic,
+enum EquipmentCategory {
+  basics("Basic Equipment"),
+  generalMachines("General Machines"),
+  upperBodyMachines("Upper Body Machines"),
+  coreAndGluteMachines("Core and Glute Machines"),
+  lowerBodyMachines("Lower Body Machines");
+
+  final String displayName;
+  const EquipmentCategory(this.displayName);
 }
+
+// built-in: doesn't need to be persisted
+// TODO: go over exercises and make sure all equipment is used
+enum Equipment {
+  // Basics
+  barbell("Barbell", EquipmentCategory.basics),
+  dumbbell("Dumbbells", EquipmentCategory.basics),
+  kettlebell("Kettlebells", EquipmentCategory.basics),
+  trx("TRX (or similar)", EquipmentCategory.basics),
+  gymnasticRings("Gymnastic Rings", EquipmentCategory.basics),
+  elastic("Resistance bands", EquipmentCategory.basics),
+
+  // General machines
+  smithMachineAngled("Smith Machine angled", EquipmentCategory.generalMachines),
+  smithMachineVertical(
+      "Smith Machine vertical", EquipmentCategory.generalMachines),
+  cableTower("Cable Tower", EquipmentCategory.generalMachines),
+  cableTowerDual("Dual Cable Tower", EquipmentCategory.generalMachines),
+
+  // Upper body machines
+  shoulderPressMachine(
+      "Shoulder Press Machine", EquipmentCategory.upperBodyMachines),
+  chestPressMachine("Chest Press Machine", EquipmentCategory.upperBodyMachines),
+  pecDeckMachine("Pec Deck (elbow pad)", EquipmentCategory.upperBodyMachines),
+  chestFlyMachine(
+      "Chest Fly Machine (hand grips)", EquipmentCategory.upperBodyMachines),
+  rearDeltFlyMachine(
+      "Rear Delt Fly Machine", EquipmentCategory.upperBodyMachines),
+  latPullDownMachine(
+      "Lat Pulldown Machine", EquipmentCategory.upperBodyMachines),
+  cableRowMachine("Cable Row Machine", EquipmentCategory.upperBodyMachines),
+  preacherCurlMachine(
+      "Preacher Curl Machine", EquipmentCategory.upperBodyMachines),
+  bicepsCurlMachine("Biceps Curl Machine", EquipmentCategory.upperBodyMachines),
+
+  // Core and glute machines
+  abCrunchMachine("Ab Crunch Machine", EquipmentCategory.coreAndGluteMachines),
+  hyper45("45° Back Extension", EquipmentCategory.coreAndGluteMachines),
+  hyper90("90° Back Extension", EquipmentCategory.coreAndGluteMachines),
+  hyperReverse("Reverse Hyper", EquipmentCategory.coreAndGluteMachines),
+  hipThrustMachine(
+      "Hip Thrust Machine", EquipmentCategory.coreAndGluteMachines),
+  gluteKickbackMachine(
+      "Glute Kickback Machine", EquipmentCategory.coreAndGluteMachines),
+  pendulumGluteKickback(
+      "Pendulum Kickback", EquipmentCategory.coreAndGluteMachines),
+  hipAdductionAbductionMachine(
+      "Hip (Add/Abd)uction Machine", EquipmentCategory.coreAndGluteMachines),
+
+  // Lower body machines
+
+  beltSquatMachine("Belt Squat Machine", EquipmentCategory.lowerBodyMachines),
+  hackSquatMachine("Hack Squat Machine", EquipmentCategory.lowerBodyMachines),
+  squatRack("Squat rack/cage", EquipmentCategory.lowerBodyMachines),
+  hamCurlMachineLying(
+      "Lying Leg Curl Machine", EquipmentCategory.lowerBodyMachines),
+  hamCurlMachineSeated(
+      "Seated Leg Curl Machine", EquipmentCategory.lowerBodyMachines),
+  hamCurlMachineStanding(
+      "Standing Leg Curl Machine", EquipmentCategory.lowerBodyMachines),
+  legExtensionMachine(
+      "Leg Extension Machine", EquipmentCategory.lowerBodyMachines),
+  legPressMachine("Leg Press Machine", EquipmentCategory.lowerBodyMachines),
+  calfRaiseMachineSeated(
+      "Seated Calf Raise Machine", EquipmentCategory.lowerBodyMachines),
+  calfRaiseMachineStanding(
+      "Standing Calf Raise Machine", EquipmentCategory.lowerBodyMachines);
+
+  final String displayName;
+  final EquipmentCategory category;
+  const Equipment(this.displayName, this.category);
+}
+
+/*
+others that menno asks about:
+a glute-ham raise?
+a dip/chin-up belt?
+a pair of knee wraps? 
+powerlifting bands (not the light home workout stuff)?
+powerlifting chains?
+
+
+
+*/
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
@@ -139,38 +221,40 @@ class Ex {
 
 // TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
 // form modifiers like unilateral concentrics, unilateral
+// important: id's should not change! perhaps we should introduce seperate human friendly naming
 final List<Ex> exes = [
   Ex(EBase.goodMorning, "standing good morning", [Equipment.barbell]),
   Ex(EBase.goodMorning, "seated good morning", [Equipment.barbell]),
   Ex(EBase.deadlift, "deadlift (powerlift)", [Equipment.barbell]),
   Ex(EBase.deadlift, "deadlift", [Equipment.barbell]),
   Ex(EBase.deadliftRDL, "romanian deadlift", [Equipment.barbell]),
-  Ex(EBase.backExtension, "45 degree back extension", [Equipment.machine]),
-  Ex(EBase.hipExtension, "45 degree hip extension", [Equipment.machine]),
-  Ex(EBase.hipExtension, "90 degree hip extension", [Equipment.machine]),
-  Ex(EBase.hipExtension, "reverse hyperextension", [Equipment.machine]),
-  Ex(EBase.pullThrough, "cable pull-through", [Equipment.cable]),
-  Ex(EBase.legCurl, "seated leg curl machine", [Equipment.machine]),
+  Ex(EBase.backExtension, "45° back extension", [Equipment.hyper45]),
+  Ex(EBase.hipExtension, "45° hip extension", [Equipment.hyper45]),
+  Ex(EBase.hipExtension, "90° hip extension", [Equipment.hyper90]),
+  Ex(EBase.hipExtension, "reverse hyperextension", [Equipment.hyperReverse]),
+  Ex(EBase.pullThrough, "cable pull-through", [Equipment.cableTower]),
+  Ex(EBase.legCurl, "seated leg curl machine",
+      [Equipment.hamCurlMachineSeated]),
   Ex(EBase.legCurl, "standing unilateral leg curl machine",
-      [Equipment.machine]),
-  Ex(EBase.legCurl, "laying leg curl", [Equipment.machine]),
+      [Equipment.hamCurlMachineStanding]),
+  Ex(EBase.legCurl, "lying leg curl", [Equipment.hamCurlMachineLying]),
   Ex(EBase.squatBB, "high bar back squat", [Equipment.squatRack]),
   Ex(EBase.squatBB, "low bar back squat", [Equipment.squatRack]),
   Ex(EBase.squatBB, "front squat", [Equipment.squatRack]),
   Ex(EBase.squatGoblet, "goblet squat", []),
-  Ex(EBase.squatHack, "machine hack squat", [Equipment.machine]),
-  Ex(EBase.squatBelt, "belt squat", [Equipment.machine]),
+  Ex(EBase.squatHack, "machine hack squat", [Equipment.hackSquatMachine]),
+  Ex(EBase.squatBelt, "belt squat", [Equipment.beltSquatMachine]),
   Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell]),
   Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell]),
   Ex(EBase.squatBSQ, "smith machine bulgarian split squat",
-      [Equipment.smithMachine]),
+      [Equipment.smithMachineVertical]),
   Ex(EBase.squatBSQ, "dumbbell bulgarian split squat from deficit",
       [Equipment.dumbbell]),
   Ex(EBase.squatBSQ, "barbell bulgarian split squat from deficit",
       [Equipment.barbell]),
   Ex(EBase.squatBSQ, "smith machine bulgarian split squat from deficit",
-      [Equipment.smithMachine]),
-  Ex(EBase.legPress, "machine leg press", [Equipment.machine]),
+      [Equipment.smithMachineVertical]),
+  Ex(EBase.legPress, "machine leg press", [Equipment.legPressMachine]),
   Ex(EBase.lunge, "forward lunge", []),
   Ex(EBase.lunge, "backward lunge", []),
   Ex(EBase.lunge, "backward deficit lunge", []),
@@ -185,103 +269,115 @@ final List<Ex> exes = [
   Ex(EBase.squatPistol, "pistol squat", []),
   Ex(EBase.squatSissyAssisted, "assisted sissy squat", []),
   Ex(EBase.squatSpanish, "spanish squat", [Equipment.elastic]),
-  Ex(EBase.legExtension, "seated leg extension machine", [Equipment.machine]),
-  Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl",
-      [Equipment.machine]),
+  Ex(EBase.legExtension, "seated leg extension machine",
+      [Equipment.legExtensionMachine]),
+  Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl", []),
   Ex(EBase.squatSissy, "sissy squat", []),
   Ex(EBase.hipThrust, "barbell hip thrust", [Equipment.barbell]),
-  Ex(EBase.hipThrust, "smith machine hip thrust", [Equipment.smithMachine]),
-  Ex(EBase.hipThrust, "machine hip thrust", [Equipment.machine]),
-  Ex(EBase.gluteKickback, "glute kickback machine", [Equipment.machine]),
-  Ex(EBase.gluteKickback, "pendulum glute kickback", [Equipment.machine]),
+  Ex(EBase.hipThrust, "smith machine hip thrust",
+      [Equipment.smithMachineVertical]),
+  Ex(EBase.hipThrust, "machine hip thrust", [Equipment.hipThrustMachine]),
+  Ex(EBase.gluteKickback, "glute kickback machine",
+      [Equipment.gluteKickbackMachine]),
+  Ex(EBase.gluteKickback, "pendulum glute kickback",
+      [Equipment.pendulumGluteKickback]),
   Ex(EBase.hipAbductionHipFlexed, "seated hip abduction machine",
-      [Equipment.machine]),
+      [Equipment.hipAdductionAbductionMachine]),
   Ex(EBase.hipAbductionHipExtended, "standing cable hip abduction",
-      [Equipment.cable]),
+      [Equipment.cableTower]),
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
-      [Equipment.smithMachine]),
+      [Equipment.smithMachineVertical]),
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise (unilateral)",
-      [Equipment.smithMachine]),
+      [Equipment.smithMachineVertical]),
   Ex(EBase.calfJump, "bodyweight calf jumps", []),
   Ex(EBase.calfJump, "dumbbell calf jumps", [Equipment.dumbbell]),
-  Ex(EBase.seatedCalfRaise, "seated calf raise machine", [Equipment.machine]),
+  Ex(EBase.seatedCalfRaise, "seated calf raise machine",
+      [Equipment.calfRaiseMachineSeated]),
   Ex(EBase.pullup, "pullup", []),
   Ex(EBase.pullupNeutral, "pullup neutral grip", []),
   Ex(EBase.pullupSupinated, "pullup supinated grip", []),
   Ex(EBase.pullupWidePronated, "pullup wide pronated grip", []),
-  Ex(EBase.pulldown, "lat pulldown", [Equipment.machine]),
-  Ex(EBase.pulldownNeutral, "lat pulldown neutral grip", [Equipment.machine]),
+  Ex(EBase.pulldown, "lat pulldown", [Equipment.latPullDownMachine]),
+  Ex(EBase.pulldownNeutral, "lat pulldown neutral grip",
+      [Equipment.latPullDownMachine]),
   Ex(EBase.pulldownSupinated, "lat pulldown supinated grip",
-      [Equipment.machine]),
+      [Equipment.latPullDownMachine]),
   Ex(EBase.pulldownWidePronated, "lat pulldown wide pronated grip",
-      [Equipment.machine]),
-  Ex(EBase.diagonalRow, "kneeling diagonal cable row", [Equipment.cable]),
+      [Equipment.latPullDownMachine]),
+  Ex(EBase.diagonalRow, "kneeling diagonal cable row", [Equipment.cableTower]),
   Ex(EBase.cableRowWithForwardLean, "seated cable row with forward lean",
-      [Equipment.machine]),
+      [Equipment.cableRowMachine]),
   Ex(EBase.bentOverRow, "standing bent over barbell row", [Equipment.barbell]),
-  Ex(EBase.pullOver, "pull over", [Equipment.cable]),
-  Ex(EBase.latPrayer, "lat prayer", [Equipment.cable]),
-  Ex(EBase.highRow, "seated cable high row", [Equipment.machine]),
-  Ex(EBase.rearDeltFly, "rear delt fly machine", [Equipment.machine]),
+  Ex(EBase.pullOver, "pull over", [Equipment.cableTower]),
+  Ex(EBase.latPrayer, "lat prayer", [Equipment.cableTower]),
+  Ex(EBase.highRow, "seated cable high row", [Equipment.cableRowMachine]),
+  Ex(EBase.rearDeltFly, "rear delt fly machine",
+      [Equipment.rearDeltFlyMachine]),
   Ex(EBase.rearDeltRaise, "side lying rear delt dumbbell raise",
       [Equipment.dumbbell]),
-  Ex(EBase.shoulderPull, "standing cable shoulder pull", [Equipment.cable]),
-  Ex(EBase.shoulderPull, "seated cable shoulder pull", [Equipment.cable]),
-  Ex(EBase.facePull, "standing cable face pull", [Equipment.cable]),
-  Ex(EBase.facePull, "seated cable face pull", [Equipment.cable]),
+  Ex(EBase.shoulderPull, "standing cable shoulder pull",
+      [Equipment.cableTower]),
+  Ex(EBase.shoulderPull, "seated cable shoulder pull", [Equipment.cableTower]),
+  Ex(EBase.facePull, "standing cable face pull", [Equipment.cableTower]),
+  Ex(EBase.facePull, "seated cable face pull", [Equipment.cableTower]),
   Ex(EBase.facePull, "TRX face pull", [Equipment.trx]),
   Ex(EBase.benchPressBB, "flat barbell bench press", [Equipment.barbell]),
-  Ex(EBase.benchPressBB, "15 degree barbell bench press", [Equipment.barbell]),
+  Ex(EBase.benchPressBB, "15° barbell bench press", [Equipment.barbell]),
   // TODO add smitch machine bench press
-  Ex(EBase.chestPressMachine, "chest press machine", [Equipment.machine]),
+  Ex(EBase.chestPressMachine, "chest press machine",
+      [Equipment.chestPressMachine]),
   Ex(EBase.pushUp, "push-up", []),
   Ex(EBase.benchPressDB, "flat dumbbell bench press", [Equipment.dumbbell]),
-  Ex(EBase.benchPressDB, "15 degree dumbbell bench press",
-      [Equipment.dumbbell]),
-  Ex(EBase.chestPressCable, "cable chest press", [Equipment.cable]),
+  Ex(EBase.benchPressDB, "15° dumbbell bench press", [Equipment.dumbbell]),
+  Ex(EBase.chestPressCable, "cable chest press", [Equipment.cableTower]),
   Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell]),
-  Ex(EBase.fly, "chest fly machine", [Equipment.machine]),
-  Ex(EBase.fly, "bayesian fly", [Equipment.cable]),
-  Ex(EBase.pecDeckElbowPad, "pec deck (elbow pad)", [Equipment.machine]),
-  Ex(EBase.pecDeckHandGrip, "pec deck (hand grip)", [Equipment.machine]),
+  Ex(EBase.fly, "chest fly machine", [Equipment.chestFlyMachine]),
+  Ex(EBase.fly, "bayesian fly", [Equipment.cableTower]),
+  Ex(EBase.pecDeckElbowPad, "pec deck (elbow pad)", [Equipment.pecDeckMachine]),
+  Ex(EBase.pecDeckHandGrip, "chest machine fly (pec deck withhand grip)",
+      [Equipment.chestFlyMachine]),
   Ex(EBase.overheadPressDB, "dumbbell overhead press", [Equipment.dumbbell]),
   Ex(EBase.overheadPressBB, "barbell overhead press", [Equipment.barbell]),
   Ex(EBase.lateralRaise, "standing dumbbell lateral raise",
       [Equipment.dumbbell]),
-  Ex(EBase.lateralRaise, "standing cable lateral raise", [Equipment.cable]),
+  Ex(EBase.lateralRaise, "standing cable lateral raise",
+      [Equipment.cableTower]),
   Ex(EBase.tricepExtension, "cable overhead tricep extension",
-      [Equipment.cable]),
+      [Equipment.cableTower]),
   Ex(EBase.tricepExtension, "dumbbell overhead tricep extension",
       [Equipment.dumbbell]),
   Ex(EBase.tricepExtension, "dumbbell skull-over", [Equipment.dumbbell]),
   Ex(EBase.tricepExtension, "barbell skull-over", [Equipment.barbell]),
   Ex(EBase.tricepExtension, "elastic skull-over", [Equipment.elastic]),
   Ex(EBase.tricepExtension, "tricep kickback", [Equipment.dumbbell]),
-  Ex(EBase.tricepExtension, "tricep cable pushdown", [Equipment.cable]),
+  Ex(EBase.tricepExtension, "tricep cable pushdown", [Equipment.cableTower]),
   Ex(EBase.shrug, "barbell shrug", [Equipment.barbell]),
   Ex(EBase.shrug, "dumbbell shrug", [Equipment.dumbbell]),
   Ex(EBase.shrug, "wide grip barbell shrug", [Equipment.barbell]),
   Ex(EBase.bicepCurl, "barbell bicep curl", [Equipment.barbell]),
-  Ex(EBase.bicepCurl, "cable bicep curl", [Equipment.cable]),
+  Ex(EBase.bicepCurl, "cable bicep curl", [Equipment.cableTower]),
   Ex(EBase.bicepCurl, "dumbbell bicep curl", [Equipment.dumbbell]),
   Ex(EBase.bicepCurl, "dumbbell hammer bicep curl", [Equipment.dumbbell]),
   Ex(EBase.bicepCurl, "kettlebell bicep curl", [Equipment.kettlebell]),
   Ex(EBase.bicepCurl, "preacher bicep curl", [Equipment.barbell]),
-  Ex(EBase.bicepCurl, "bayesian curl", [Equipment.cable]),
+  Ex(EBase.bicepCurl, "bayesian curl", [Equipment.cableTower]),
   Ex(EBase.bicepCurl, "concentration curl", [Equipment.dumbbell]),
-  Ex(EBase.abCrunch, "ab crunch machine", [Equipment.machine]),
-  Ex(EBase.abCrunch, "cable ab crunch", [Equipment.cable]),
+  Ex(EBase.abCrunch, "ab crunch machine", [Equipment.abCrunchMachine]),
+  Ex(EBase.abCrunch, "cable ab crunch", [Equipment.cableTower]),
   Ex(EBase.abCrunch, "laying ab crunch", []),
   Ex(EBase.abIsometric, "plank", []),
   Ex(EBase.wristFlexion, "dumbbell wrist curls", [Equipment.dumbbell]),
-  Ex(EBase.wristExtension, "dumbbell wrist extensions", [Equipment.cable]),
+  Ex(EBase.wristExtension, "dumbbell wrist extensions", [Equipment.cableTower]),
 ];
 
-/// Returns a filtered list of exercises, excluding any exercises specified in [excludedExercises].
-/// If [excludedExercises] is null or empty, returns all exercises.
+/// Returns a filtered list of exercises based on various criteria:
+/// - Excludes exercises specified in [excludedExercises]
+/// - Excludes exercises with base types in [excludedBases]
+/// - If [availEquipment] is provided, only includes exercises that use available equipment
 List<Ex> getAvailableExercises({
   Set<Ex>? excludedExercises,
   Set<EBase>? excludedBases,
+  Set<Equipment>? availEquipment,
 }) {
   var available = exes.toList();
 
@@ -294,6 +390,14 @@ List<Ex> getAvailableExercises({
   if (excludedBases != null && excludedBases.isNotEmpty) {
     available =
         available.where((e) => !excludedBases.contains(e.base)).toList();
+  }
+
+  // Filter exercises based on available equipment:
+  // whatever equipment the exercise requires must be available
+  if (availEquipment != null) {
+    available = available.where((e) {
+      return e.equipment.every((eq) => availEquipment.contains(eq));
+    }).toList();
   }
 
   return available;

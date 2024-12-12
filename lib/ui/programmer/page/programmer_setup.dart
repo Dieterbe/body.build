@@ -1,5 +1,6 @@
 //  const MarkdownBody(data: markdownSource),
 import 'package:flutter/material.dart';
+import 'package:ptc/ui/programmer/page/programmer_setup_filters.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_inputs.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_params.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_params_overrides.dart';
@@ -9,30 +10,38 @@ class ProgrammerSetup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
       children: [
-        Expanded(
-          flex: 10,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ProgrammerSetupInputs(),
-          ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ProgrammerSetupInputs(),
+              ),
+            ),
+            const Expanded(
+              flex: 4,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: ProgrammerSetupParams(),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ProgrammerSetupParamOverrides(),
+              ),
+            ),
+          ],
         ),
-        const Expanded(
-          flex: 4,
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: ProgrammerSetupParams(),
-          ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ProgrammerSetupParamOverrides(),
-          ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: ProgrammerSetupFilters(),
         ),
       ],
     );

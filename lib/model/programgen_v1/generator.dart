@@ -1,3 +1,4 @@
+import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v1/combinator.dart';
 import 'package:ptc/model/programgen_v1/components.dart';
@@ -8,8 +9,9 @@ import 'package:ptc/model/programmer/set_group.dart';
 
 /// Generates an optimized SetGroup that matches the desired recruitment targets
 /// for each ProgramGroup as closely as possible while minimizing overshoot.
+/// NOTE: not aware of filters and exclusions!
 SetGroup generateOptimalSetGroup(Map<ProgramGroup, double> targetRecruitment) {
-  final rankedExercises = rankExercises();
+  final rankedExercises = rankExercises(exes);
 
   // Print all ranked exercises with their total recruitment values
   // for (final ranked in rankedExercises) {

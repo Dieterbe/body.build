@@ -120,7 +120,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                           Autocomplete<Ex>(
                               displayStringForOption: (e) => e.id,
                               optionsBuilder: (textEditingValue) {
-                                final opts = exes
+                                final opts = setup.availableExercises
                                     .where((e) => e.recruitment(g) > 0)
                                     .where((e) => e.id.toLowerCase().contains(
                                         textEditingValue.text.toLowerCase()))

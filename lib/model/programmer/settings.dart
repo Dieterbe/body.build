@@ -17,9 +17,9 @@ class Settings with _$Settings {
   const factory Settings({
     @Default(Level.beginner) Level level,
     @Default(Sex.male) Sex sex,
-    @JsonKey(toJson: _equipmentListToJson, fromJson: _equipmentListFromJson)
-    @Default([])
-    List<Equipment> selectedEquipment,
+    @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+    @Default({})
+    Set<Equipment> availEquipment,
     @Default(30) int age,
     @Default(75) int weight,
     @Default(178) int height,
@@ -38,7 +38,7 @@ class Settings with _$Settings {
   factory Settings.defaults({
     Level level = Level.beginner,
     Sex sex = Sex.male,
-    List<Equipment> selectedEquipment = const [],
+    Set<Equipment> availEquipment = const {},
     int age = 30,
     int weight = 75,
     int height = 178,
@@ -51,7 +51,7 @@ class Settings with _$Settings {
     final tempSettings = Settings(
       level: level,
       sex: sex,
-      selectedEquipment: selectedEquipment,
+      availEquipment: availEquipment,
       age: age,
       weight: weight,
       height: height,
@@ -68,10 +68,15 @@ class Settings with _$Settings {
   }
 
   Parameters get paramFinal => paramSuggest.apply(paramOverrides);
+  List<Ex> get availableExercises => getAvailableExercises(
+        excludedExercises: paramOverrides.excludedExercises,
+        excludedBases: paramOverrides.excludedBases,
+        availEquipment: availEquipment,
+      );
 }
 
-List<String> _equipmentListToJson(List<Equipment> equipment) =>
+List<String> _equipmentSetToJson(Set<Equipment> equipment) =>
     equipment.map((e) => e.name).toList();
 
-List<Equipment> _equipmentListFromJson(List<dynamic> json) =>
-    json.map((e) => Equipment.values.firstWhere((eq) => eq.name == e)).toList();
+Set<Equipment> _equipmentSetFromJson(List<dynamic> json) =>
+    json.map((e) => Equipment.values.firstWhere((eq) => eq.name == e)).toSet();

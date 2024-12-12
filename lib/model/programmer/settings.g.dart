@@ -11,9 +11,9 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
       level:
           $enumDecodeNullable(_$LevelEnumMap, json['level']) ?? Level.beginner,
       sex: $enumDecodeNullable(_$SexEnumMap, json['sex']) ?? Sex.male,
-      selectedEquipment: json['selectedEquipment'] == null
-          ? const []
-          : _equipmentListFromJson(json['selectedEquipment'] as List),
+      availEquipment: json['availEquipment'] == null
+          ? const {}
+          : _equipmentSetFromJson(json['availEquipment'] as List),
       age: (json['age'] as num?)?.toInt() ?? 30,
       weight: (json['weight'] as num?)?.toInt() ?? 75,
       height: (json['height'] as num?)?.toInt() ?? 178,
@@ -31,7 +31,7 @@ Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
     <String, dynamic>{
       'level': _$LevelEnumMap[instance.level]!,
       'sex': _$SexEnumMap[instance.sex]!,
-      'selectedEquipment': _equipmentListToJson(instance.selectedEquipment),
+      'availEquipment': _equipmentSetToJson(instance.availEquipment),
       'age': instance.age,
       'weight': instance.weight,
       'height': instance.height,

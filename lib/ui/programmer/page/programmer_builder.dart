@@ -27,10 +27,25 @@ class ProgrammerBuilder extends ConsumerWidget {
             ProgramHeader(program: program),
             Expanded(child: Container()),
             const SizedBox(width: 30),
-            headers(),
+            if (program.workouts.isNotEmpty) headers(),
             const SizedBox(width: 20),
           ],
         ),
+        if (program.workouts.isEmpty)
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: Text(
+                'No workouts yet in this program. Add one!',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
+                    ),
+              ),
+            ),
+          ),
         ...program.workouts.map((w) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: BuilderWorkoutWidget(setup, w, (Workout? wNew) {
@@ -41,9 +56,10 @@ class ProgrammerBuilder extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
             child: BuilderTotalsWidget(
-                //   multiplier: 2,
-                program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
-                setup: setup),
+              //   multiplier: 2,
+              program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
+              setup: setup,
+            ),
           ),
         if (program.workouts.isNotEmpty) const SizedBox(height: 20),
         if (program.workouts.isNotEmpty)

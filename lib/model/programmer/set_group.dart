@@ -31,7 +31,12 @@ String? _exToJson(Ex? ex) => ex?.id;
 
 Ex? _exFromJson(String? id) {
   if (id == null) return null;
-  return exes.firstWhere((e) => e.id == id);
+  try {
+    return exes.firstWhere((e) => e.id == id);
+  } catch (e) {
+    print('could not find exercise $id - this should never happen');
+    return null;
+  }
 }
 
 @freezed

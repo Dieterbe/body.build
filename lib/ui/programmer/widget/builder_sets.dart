@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
+import 'package:ptc/data/programmer/setup.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
 import 'package:ptc/ui/programmer/widget/equip_label.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 
-class BuilderSets extends StatelessWidget {
+class BuilderSets extends ConsumerWidget {
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
@@ -19,7 +21,9 @@ class BuilderSets extends StatelessWidget {
       {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final setup = ref.watch(setupProvider);
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -143,10 +147,7 @@ class BuilderSets extends StatelessWidget {
               : Autocomplete<Ex>(
                   displayStringForOption: (e) => e.id,
                   optionsBuilder: (textEditingValue) {
-                    return getAvailableExercises(
-                      excludedExercises: setup.paramOverrides.excludedExercises,
-                      excludedBases: setup.paramOverrides.excludedBases,
-                    )
+                    return setup.availableExercises
                         .where((e) => e.id
                             .toLowerCase()
                             .contains(textEditingValue.text.toLowerCase()))
@@ -202,7 +203,8 @@ class BuilderSets extends StatelessWidget {
         if (sets.ex != null)
           ...sets.ex!.equipment.map((e) => Padding(
                 padding: const EdgeInsets.only(right: 8),
-                child: EquipmentLabel(e),
+                child:
+                    EquipmentLabel(e, err: !setup.availEquipment.contains(e)),
               )),
         if (hasNewComboButton)
           Padding(

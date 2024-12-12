@@ -307,12 +307,12 @@ class Setup extends _$Setup {
   }
 
   void addEquipment(Equipment equipment) => state = state.copyWith(
-        selectedEquipment: [...state.selectedEquipment, equipment],
+        availEquipment: {...state.availEquipment, equipment},
       );
 
   void removeEquipment(Equipment equipment) => state = state.copyWith(
-        selectedEquipment:
-            state.selectedEquipment.where((e) => e != equipment).toList(),
+        availEquipment:
+            state.availEquipment.where((e) => e != equipment).toSet(),
       );
 
   void addExcludedExercise(Ex exercise) {
