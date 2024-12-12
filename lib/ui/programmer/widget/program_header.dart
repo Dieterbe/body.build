@@ -23,7 +23,7 @@ class ProgramHeader extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -358,7 +358,7 @@ class ProgramHeader extends ConsumerWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  notifier.add(Workout());
+                  notifier.add(const Workout());
                 },
                 child: const Row(
                   children: [Icon(Icons.add), Text('add workout')],

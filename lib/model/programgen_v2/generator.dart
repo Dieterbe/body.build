@@ -92,7 +92,7 @@ void _generateInIsolate(WorkoutGenerationParams params) {
     // }
     if (nodesExplored % 10000 == 0) {
       // give UI a chance to update
-      await Future.delayed(Duration(milliseconds: 10));
+      await Future.delayed(const Duration(milliseconds: 10));
     }
     if (nodesExplored % 50000 == 0) {
       print(
@@ -124,7 +124,7 @@ void _generateInIsolate(WorkoutGenerationParams params) {
       };
 
       // Try each well-fitting exercise
-      for (final (i, exercise) in exercises.indexed) {
+      for (final (i, _) in exercises.indexed) {
         final recruitment = recruitments[i][targetGroup]!;
 
         if (recruitment >= minRecruitment && recruitment <= maxRecruitment) {

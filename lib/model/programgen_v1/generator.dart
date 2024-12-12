@@ -94,7 +94,7 @@ SetGroup _generateComponentSetGroup(List<RankedExercise> compounds,
   print(
       'Will try combinations of $minExercises to ${minExercises + 2} exercises');
 
-  var bestSetGroup = SetGroup([]);
+  var bestSetGroup = const SetGroup([]);
   var bestCost = double.infinity;
   var combinationsTried = 0;
 

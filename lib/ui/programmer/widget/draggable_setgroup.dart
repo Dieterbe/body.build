@@ -42,39 +42,37 @@ class DraggableSets extends StatelessWidget {
               workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()));
     });
 
-    return Container(
-      child: Draggable<MapEntry<Workout, Sets>>(
-        data: MapEntry(workout, sets),
-        onDragStarted: () {
-          dragInProgressNotifier.value = true;
-        },
-        onDragEnd: (_) {
-          dragInProgressNotifier.value = false;
-        },
-        onDraggableCanceled: (_, __) {
-          dragInProgressNotifier.value = false;
-        },
-        feedback: Material(
-          elevation: 4,
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.5,
-            color: Theme.of(context).colorScheme.surface,
-            child: builderSets,
-          ),
+    return Draggable<MapEntry<Workout, Sets>>(
+      data: MapEntry(workout, sets),
+      onDragStarted: () {
+        dragInProgressNotifier.value = true;
+      },
+      onDragEnd: (_) {
+        dragInProgressNotifier.value = false;
+      },
+      onDraggableCanceled: (_, __) {
+        dragInProgressNotifier.value = false;
+      },
+      feedback: Material(
+        elevation: 4,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.5,
+          color: Theme.of(context).colorScheme.surface,
+          child: builderSets,
         ),
-        childWhenDragging: Container(
-          height: 60,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        onDragCompleted: () {
-          dragInProgressNotifier.value = false;
-          // We don't do any updates to the workout state here. that is left to the drop target
-        },
-        child: builderSets,
       ),
+      childWhenDragging: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      onDragCompleted: () {
+        dragInProgressNotifier.value = false;
+        // We don't do any updates to the workout state here. that is left to the drop target
+      },
+      child: builderSets,
     );
   }
 }
