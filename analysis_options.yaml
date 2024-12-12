@@ -12,6 +12,10 @@ analyzer:
     - custom_lint
   errors:
     avoid_print: ignore
+    invalid_annotation_target: ignore # see https://github.com/rrousselGit/freezed/issues/488
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
 include: package:flutter_lints/flutter.yaml
 
 linter:
