@@ -379,28 +379,14 @@ List<Ex> getAvailableExercises({
   Set<EBase>? excludedBases,
   Set<Equipment>? availEquipment,
 }) {
-  var available = exes.toList();
-
-  // Filter out individually excluded exercises
-  if (excludedExercises != null && excludedExercises.isNotEmpty) {
-    available = available.where((e) => !excludedExercises.contains(e)).toList();
-  }
-
-  // Filter out exercises with excluded base types
-  if (excludedBases != null && excludedBases.isNotEmpty) {
-    available =
-        available.where((e) => !excludedBases.contains(e.base)).toList();
-  }
-
-  // Filter exercises based on available equipment:
-  // whatever equipment the exercise requires must be available
-  if (availEquipment != null) {
-    available = available.where((e) {
-      return e.equipment.every((eq) => availEquipment.contains(eq));
-    }).toList();
-  }
-
-  return available;
+  return exes.where((e) {
+    if (excludedExercises?.contains(e) ?? false) return false;
+    if (excludedBases?.contains(e.base) ?? false) return false;
+    if (availEquipment != null && !e.equipment.every(availEquipment.contains)) {
+      return false;
+    }
+    return true;
+  }).toList();
 }
 
 /*
