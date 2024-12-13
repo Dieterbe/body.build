@@ -37,7 +37,6 @@ class SolutionNode implements Comparable<SolutionNode> {
   }
 
   /// Get current recruitment for a program group
-  /// // TODO: can rewrite this as a fold() ?
   double getCurrentRecruitment(ProgramGroup group) {
     var total = 0.0;
     for (var i = 0; i < recruitments.length; i++) {
