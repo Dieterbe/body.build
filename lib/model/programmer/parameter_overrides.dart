@@ -1,3 +1,4 @@
+import 'package:ptc/data/programmer/exercise_base.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

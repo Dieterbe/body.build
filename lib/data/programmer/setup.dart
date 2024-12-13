@@ -1,3 +1,5 @@
+import 'package:ptc/data/programmer/equipment.dart';
+import 'package:ptc/data/programmer/exercise_base.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programmer/level.dart';

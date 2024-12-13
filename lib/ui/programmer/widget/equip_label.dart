@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/data/programmer/equipment.dart';
 
 class EquipmentLabel extends StatelessWidget {
   final Equipment e;

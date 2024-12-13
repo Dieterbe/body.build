@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ptc/data/programmer/equipment.dart';
+import 'package:ptc/data/programmer/exercise_base.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/setup.dart';
 import 'package:ptc/ui/programmer/widget/equip_label.dart';

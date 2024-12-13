@@ -1,3 +1,4 @@
+import 'package:ptc/data/programmer/equipment.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';

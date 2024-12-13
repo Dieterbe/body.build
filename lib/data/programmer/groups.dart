@@ -2,7 +2,8 @@
 // https://www.scielo.br/j/motriz/a/jbfGfJrRsXbfc9BrfXgVSPy/?lang=en
 
 import 'package:ptc/data/anatomy/muscles.dart';
-import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/data/programmer/equipment.dart';
+import 'package:ptc/data/programmer/exercise_base.dart';
 
 // muscle groups for the purpose of training
 // * uses a bit more "common language" (e.g. biceps to mean elbow flexors)
@@ -288,10 +289,15 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.gastroc: 0.25,
     ProgramGroup.soleus: 1,
   }),
-
+/* Note, in the PTC course exercise library:
+pull up -> grip just outside shoulder width
+wide grip pull down -> grip just outside shoulder width
+lat pull down -> not mentioned :?
+this explains why pull up goes together with wide grip pull down
+*/
   const VolumeAssignment([
     EBase.pullupSupinated,
-    EBase.pulldownSupinated, // TODO: not part of menno's sheet
+    EBase.pulldownSupinated,
     EBase.pulldown,
     EBase.pulldownNeutral,
     EBase.pullupNeutral,
