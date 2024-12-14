@@ -22,6 +22,34 @@ class ProgrammerSetupFilters extends ConsumerWidget {
             Flexible(flex: 1, child: LabelBar('Exercise exclusion')),
           ],
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Wrap(
+            spacing: 8.0,
+            children: [
+              OutlinedButton(
+                onPressed: () => ref.read(setupProvider.notifier).state = 
+                  setup.copyWith(availEquipment: const {}),
+                child: const Text('Bodyweight Only'),
+              ),
+              OutlinedButton(
+                onPressed: () => ref.read(setupProvider.notifier).state = 
+                  setup.copyWith(availEquipment: {
+                    Equipment.barbell,
+                    Equipment.dumbbell,
+                    Equipment.kettlebell,
+                    Equipment.elastic,
+                  }),
+                child: const Text('Basic Equipment'),
+              ),
+              OutlinedButton(
+                onPressed: () => ref.read(setupProvider.notifier).state = 
+                  setup.copyWith(availEquipment: Equipment.values.toSet()),
+                child: const Text('All Equipment'),
+              ),
+            ],
+          ),
+        ),
         Row(
           children: [
             Flexible(
