@@ -4,6 +4,7 @@ import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
+import 'package:ptc/model/programmer/parameters.dart';
 import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/model/programmer/sex.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -139,57 +140,64 @@ class Setup extends _$Setup {
 
   /* END VALIDATION FUNCTIONS */
 
+  void _updateState(Settings Function(Settings) update) {
+    final newState = update(state);
+    state = newState.copyWith(
+      paramSuggest: Parameters.fromSettings(newState),
+    );
+  }
+
   void setLevel(Level? level) {
     if (level != null) {
-      state = state.copyWith(level: level);
+      _updateState((s) => s.copyWith(level: level));
     }
   }
 
   void setSex(Sex? sex) {
     if (sex != null) {
-      state = state.copyWith(sex: sex);
+      _updateState((s) => s.copyWith(sex: sex));
     }
   }
 
   void setAge(int? age) {
     if (age != null) {
-      state = state.copyWith(age: age);
+      _updateState((s) => s.copyWith(age: age));
     }
   }
 
   void setHeight(int? length) {
     if (length != null) {
-      state = state.copyWith(height: length);
+      _updateState((s) => s.copyWith(height: length));
     }
   }
 
   void setWeight(int? weight) {
     if (weight != null) {
-      state = state.copyWith(weight: weight);
+      _updateState((s) => s.copyWith(weight: weight));
     }
   }
 
   void setBodyFat(int? bodyFat) {
     if (bodyFat != null) {
-      state = state.copyWith(bodyFat: bodyFat);
+      _updateState((s) => s.copyWith(bodyFat: bodyFat));
     }
   }
 
   void setEnergyBalance(int? energyBalance) {
     if (energyBalance != null) {
-      state = state.copyWith(energyBalance: energyBalance);
+      _updateState((s) => s.copyWith(energyBalance: energyBalance));
     }
   }
 
   void setRecoveryFactor(double? recoveryFactor) {
     if (recoveryFactor != null) {
-      state = state.copyWith(recoveryFactor: recoveryFactor);
+      _updateState((s) => s.copyWith(recoveryFactor: recoveryFactor));
     }
   }
 
   void setWorkoutsPerWeek(int? freq) {
     if (freq != null) {
-      state = state.copyWith(workoutsPerWeek: freq);
+      _updateState((s) => s.copyWith(workoutsPerWeek: freq));
     }
   }
 
