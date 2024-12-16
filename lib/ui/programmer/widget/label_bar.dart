@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class LabelBar extends StatelessWidget {
   final String title;
-  const LabelBar(this.title, {super.key});
+  final List<Widget> children;
+  const LabelBar(this.title, {super.key, this.children = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,8 @@ class LabelBar extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(width: 8),
+          ...children,
           Expanded(child: Container()),
         ],
       ),

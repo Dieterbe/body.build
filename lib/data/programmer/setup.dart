@@ -325,6 +325,10 @@ class Setup extends _$Setup {
             state.availEquipment.where((e) => e != equipment).toSet(),
       );
 
+  void setEquipment(Set<Equipment> equipment) => state = state.copyWith(
+        availEquipment: equipment,
+      );
+
   void addExcludedExercise(Ex exercise) {
     final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
     if (excl.add(exercise)) {

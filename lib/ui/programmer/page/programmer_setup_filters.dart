@@ -7,6 +7,7 @@ import 'package:ptc/data/programmer/setup.dart';
 import 'package:ptc/ui/programmer/widget/equip_label.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
+import 'package:ptc/util.dart';
 
 class ProgrammerSetupFilters extends ConsumerWidget {
   const ProgrammerSetupFilters({super.key});
@@ -16,39 +17,46 @@ class ProgrammerSetupFilters extends ConsumerWidget {
     final setup = ref.watch(setupProvider);
     return Column(
       children: [
-        const Row(
+        Row(
           children: [
-            Flexible(flex: 2, child: LabelBar('Available equipment')),
-            Flexible(flex: 1, child: LabelBar('Exercise exclusion')),
+            Flexible(
+              flex: 2,
+              child: LabelBar(
+                'Available equipment',
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () =>
+                        ref.read(setupProvider.notifier).setEquipment({}),
+                    child: const Text('None'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      final notifier = ref.read(setupProvider.notifier);
+                      notifier.setEquipment({
+                        Equipment.barbell,
+                        Equipment.dumbbell,
+                        Equipment.cableTower,
+                        Equipment.smithMachineAngled,
+                        Equipment.cableTowerDual,
+                        Equipment.latPullDownMachine,
+                        Equipment.squatRack,
+                        Equipment.legExtensionMachine,
+                      });
+                    },
+                    child: const Text('Basic Gym'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      final notifier = ref.read(setupProvider.notifier);
+                      notifier.setEquipment(Equipment.values.toSet());
+                    },
+                    child: const Text('All'),
+                  ),
+                ].insertBetween(const SizedBox(width: 8)).toList(),
+              ),
+            ),
+            const Flexible(flex: 1, child: LabelBar('Exercise exclusion')),
           ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Wrap(
-            spacing: 8.0,
-            children: [
-              OutlinedButton(
-                onPressed: () => ref.read(setupProvider.notifier).state = 
-                  setup.copyWith(availEquipment: const {}),
-                child: const Text('Bodyweight Only'),
-              ),
-              OutlinedButton(
-                onPressed: () => ref.read(setupProvider.notifier).state = 
-                  setup.copyWith(availEquipment: {
-                    Equipment.barbell,
-                    Equipment.dumbbell,
-                    Equipment.kettlebell,
-                    Equipment.elastic,
-                  }),
-                child: const Text('Basic Equipment'),
-              ),
-              OutlinedButton(
-                onPressed: () => ref.read(setupProvider.notifier).state = 
-                  setup.copyWith(availEquipment: Equipment.values.toSet()),
-                child: const Text('All Equipment'),
-              ),
-            ],
-          ),
         ),
         Row(
           children: [

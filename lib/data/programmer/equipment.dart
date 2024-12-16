@@ -1,5 +1,5 @@
 enum EquipmentCategory {
-  basics("Basic Equipment"),
+  nonMachine("Non-machine"),
   generalMachines("General Machines"),
   upperBodyMachines("Upper Body Machines"),
   coreAndGluteMachines("Core and Glute Machines"),
@@ -11,13 +11,13 @@ enum EquipmentCategory {
 
 // built-in: doesn't need to be persisted
 enum Equipment {
-  // Basics
-  barbell("Barbell", EquipmentCategory.basics),
-  dumbbell("Dumbbells", EquipmentCategory.basics),
-  kettlebell("Kettlebells", EquipmentCategory.basics),
-  trx("TRX (or similar)", EquipmentCategory.basics),
-  gymnasticRings("Gymnastic Rings", EquipmentCategory.basics),
-  elastic("Resistance bands", EquipmentCategory.basics),
+  // Non-machine
+  barbell("Barbell", EquipmentCategory.nonMachine),
+  dumbbell("Dumbbells", EquipmentCategory.nonMachine),
+  kettlebell("Kettlebells", EquipmentCategory.nonMachine),
+  trx("TRX (or similar)", EquipmentCategory.nonMachine),
+  gymnasticRings("Gymnastic Rings", EquipmentCategory.nonMachine),
+  elastic("Resistance bands", EquipmentCategory.nonMachine),
 
   // General machines
   smithMachineAngled("Smith Machine angled", EquipmentCategory.generalMachines),
