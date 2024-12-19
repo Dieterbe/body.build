@@ -231,3 +231,18 @@ depends on form. maybe just do 50-75-100 and ignore everything <40-60
 
 
 do you see any value in training spine lateral flexion (e.g. side bends on hyper extension) -> not really, just for waist thickening
+
+
+### advanced techniques
+
+exceprt from a q&a session:
+
+- advanced techniques
+	- combo sets, unilateral, eccentric overloading: do all of it as much as possible?
+		- in principle yes. in practice it's hard because:
+			- e.g. eccentric overloading bench press needs spotter
+			- ecc overloading is hard to measure progress
+				- with concentric: did you get it up or not, for eccentric, speed is very relevant and not tightly controlled
+				- more variance in how you do it. e.g. angles for lateral raise
+		- therefore, tip:
+			- do it for last set or all sets after the first. use the first ones for measurements
