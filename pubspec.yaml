@@ -43,6 +43,7 @@ dependencies:
   json_annotation: ^4.9.0
   freezed_annotation: ^2.4.4
   shared_preferences: ^2.3.3
+  uuid: ^4.2.2
 
 dev_dependencies:
   flutter_test:

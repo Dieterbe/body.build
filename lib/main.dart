@@ -8,6 +8,7 @@ import 'package:ptc/ui/anatomy/page/muscle.dart';
 import 'package:ptc/ui/anatomy/page/muscles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ptc/ui/programmer/page/programmer.dart';
+import 'package:ptc/ui/mealplanner/page/mealplanner.dart';
 
 void main() async {
   // disabled for now. not all that useful actually..
@@ -71,7 +72,12 @@ class MyApp extends StatelessWidget {
                 name: ProgrammerScreen.routeName,
                 path: ProgrammerScreen.routeName,
                 builder: (context, state) => const DefaultTabController(
-                    length: 2, child: ProgrammerScreen()),
+                    length: 3, child: ProgrammerScreen()),
+              ),
+              GoRoute(
+                name: MealPlanScreen.routeName,
+                path: MealPlanScreen.routeName,
+                builder: (context, state) => const MealPlanScreen(),
               )
             ],
           ),

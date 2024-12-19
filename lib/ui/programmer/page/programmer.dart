@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ptc/ui/mealplanner/page/mealplanner.dart';
 import 'package:ptc/ui/programmer/page/programmer_builder.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup.dart';
 
@@ -21,7 +22,8 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
         bottom: const TabBar(
           tabs: [
             Tab(text: "Set up"),
-            Tab(text: "Build"),
+            Tab(text: "Nutrition planner"),
+            Tab(text: "Workout planner"),
           ],
         ),
       ),
@@ -29,6 +31,9 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
         children: [
           SingleChildScrollView(
             child: ProgrammerSetup(),
+          ),
+          SingleChildScrollView(
+            child: MealPlanScreen(),
           ),
           SingleChildScrollView(
             child: Padding(

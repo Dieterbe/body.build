@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ptc/ui/anatomy/page/articulations.dart';
 import 'package:ptc/ui/anatomy/page/muscles.dart';
 import 'package:ptc/ui/programmer/page/programmer.dart';
+import 'package:ptc/ui/mealplanner/page/mealplanner.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';
@@ -65,6 +66,14 @@ To see it, hit the "articulations" button, and then click on "shoulder flexion".
                 context.goNamed(ProgrammerScreen.routeName);
               },
               child: Text('programmer',
+                  style: Theme.of(context).textTheme.titleLarge),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                context.goNamed(MealPlanScreen.routeName);
+              },
+              child: Text('meal planner',
                   style: Theme.of(context).textTheme.titleLarge),
             ),
           ],
