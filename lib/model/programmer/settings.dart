@@ -30,6 +30,7 @@ class Settings with _$Settings {
     @Default(100) int energyBalance, // percentage (100 = maintenance)
     @Default(1.0) double recoveryFactor, // Recovery quality factor (0.5 - 1.2)
     @Default(3) int workoutsPerWeek,
+    @Default(60) int workoutDuration, // minutes
     @Default(BMRMethod.tenHaaf) BMRMethod bmrMethod,
     @Default(ActivityLevel.sedentary) ActivityLevel activityLevel,
     required Parameters paramSuggest,
@@ -51,6 +52,7 @@ class Settings with _$Settings {
     int energyBalance = 100,
     double recoveryFactor = 1.0,
     int workoutsPerWeek = 3,
+    int workoutDuration = 60,
     BMRMethod bmrMethod = BMRMethod.cunningham,
     ActivityLevel activityLevel = ActivityLevel.sedentary,
     ParameterOverrides paramOverrides = const ParameterOverrides(),
@@ -66,6 +68,7 @@ class Settings with _$Settings {
       energyBalance: energyBalance,
       recoveryFactor: recoveryFactor,
       workoutsPerWeek: workoutsPerWeek,
+      workoutDuration: workoutDuration,
       bmrMethod: bmrMethod,
       activityLevel: activityLevel,
       paramSuggest: Parameters(),

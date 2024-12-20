@@ -80,6 +80,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
   final keyEnergyBalance = GlobalKey<FormFieldState>();
   final keyRecoveryFactor = GlobalKey<FormFieldState>();
   final keyWorkoutsPerWeek = GlobalKey<FormFieldState>();
+  final _durationKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -321,6 +322,58 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                     .toList(),
               ),
             ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            titleWidget(
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.info_outline, size: 18),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Workout Duration'),
+                          content: MarkdownBody(data: helpWorkoutDuration),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  Text('Workout Duration',
+                      style: Theme.of(context).textTheme.titleMedium),
+                ],
+              ),
+              context,
+            ),
+            const SizedBox(width: 25),
+            SizedBox(
+              width: 200,
+              child: TextFormField(
+                key: _durationKey,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                ),
+                initialValue: setup.workoutDuration.toString(),
+                autovalidateMode: AutovalidateMode.always,
+                validator: notifier.workoutDurationValidator,
+                onChanged: notifier.setWorkoutDurationMaybe,
+              ),
+            ),
+            const SizedBox(width: 25),
+            const Text('minutes'),
           ],
         ),
         const SizedBox(height: 20),

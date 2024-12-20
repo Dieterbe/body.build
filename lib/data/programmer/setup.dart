@@ -127,6 +127,17 @@ class Setup extends _$Setup {
     return (null, volume);
   }
 
+  (String?, int) _workoutDurationValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return ('Please enter workout duration', 0);
+    }
+    final duration = int.tryParse(value);
+    if (duration == null || duration < 10 || duration > 180) {
+      return ('Must be between 10 & 180', 0);
+    }
+    return (null, duration);
+  }
+
   /* VALIDATION FUNCTIONS FOR TEXTFORMFIELDS */
 
   String? ageValidator(String? value) => _ageValidator(value).$1;
@@ -140,6 +151,8 @@ class Setup extends _$Setup {
   String? intensitiesValidator(String? v) => _intensitiesValidator(v).$1;
   String? setsPerWeekPerMuscleGroupValidator(String? v) =>
       _setsPerWeekPerMuscleGroupValidator(v).$1;
+  String? workoutDurationValidator(String? v) =>
+      _workoutDurationValidator(v).$1;
 
   /* END VALIDATION FUNCTIONS */
 
@@ -207,6 +220,17 @@ class Setup extends _$Setup {
   void setWorkoutsPerWeek(int? freq) {
     if (freq != null) {
       _updateState((s) => s.copyWith(workoutsPerWeek: freq));
+    }
+  }
+
+  void setWorkoutDuration(int duration) {
+    _updateState((s) => s.copyWith(workoutDuration: duration));
+  }
+
+  void setWorkoutDurationMaybe(String value) {
+    final (msg, duration) = _workoutDurationValidator(value);
+    if (msg == null) {
+      setWorkoutDuration(duration);
     }
   }
 

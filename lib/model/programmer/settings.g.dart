@@ -21,6 +21,7 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
       energyBalance: (json['energyBalance'] as num?)?.toInt() ?? 100,
       recoveryFactor: (json['recoveryFactor'] as num?)?.toDouble() ?? 1.0,
       workoutsPerWeek: (json['workoutsPerWeek'] as num?)?.toInt() ?? 3,
+      workoutDuration: (json['workoutDuration'] as num?)?.toInt() ?? 60,
       bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ??
           BMRMethod.tenHaaf,
       activityLevel:
@@ -44,6 +45,7 @@ Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
       'energyBalance': instance.energyBalance,
       'recoveryFactor': instance.recoveryFactor,
       'workoutsPerWeek': instance.workoutsPerWeek,
+      'workoutDuration': instance.workoutDuration,
       'bmrMethod': _$BMRMethodEnumMap[instance.bmrMethod]!,
       'activityLevel': _$ActivityLevelEnumMap[instance.activityLevel]!,
       'paramSuggest': instance.paramSuggest,
