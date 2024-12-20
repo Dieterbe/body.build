@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
-import 'package:ptc/util/formulas.dart';
 
 import '../../../data/programmer/setup.dart';
 
@@ -17,7 +16,6 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(setupProvider.notifier);
-    final bmi = calcBMI(setup.weight, setup.height);
 
     // Get the list of available program groups (those not already overridden)
     final availableGroups =
@@ -29,27 +27,8 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
 
     return Column(
       children: [
-        const LabelBar('Overrides'),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            titleTextLarge('Facts', context),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          titleText('BMI', context),
-          const SizedBox(width: 25),
-          Text(bmi.toStringAsFixed(2)),
-        ]),
-        const SizedBox(height: 20),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            titleTextLarge('Parameters', context),
-          ],
-        ),
-        const SizedBox(height: 20),
+        const LabelBar('Parameter Overrides'),
+
         Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           titleText('Intensity', context),
           const SizedBox(width: 25),

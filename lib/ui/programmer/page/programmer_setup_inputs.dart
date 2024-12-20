@@ -11,12 +11,13 @@ import '../../../data/programmer/setup.dart';
 const String helpTraineeLevel = '''
 Use the strength-based Kilgore-Rippetoe-Pendlay strength standards.  
 On https://exrx.net/Testing/WeightLifting/StrengthStandards look up how you classify  
-based on your age, sex, weight and performance for common exercises.  
-In the future, rather than having to consult exrx tables, this will be built-in.  
+based on your age, sex, weight and performance for common exercises. 
+''';
+/*In the future, rather than having to consult exrx tables, this will be built-in.  
 note: exrx category untrained and novice are combined into beginner,  
 because some people may train for years and still be considered "untrained" by exrx standards  
 also, all advice/calculations remain the same for both exrx untrained and novice anyway
-''';
+*/
 
 const String helpEnergyBalance = '''
 examples:

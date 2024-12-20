@@ -1,5 +1,6 @@
 //  const MarkdownBody(data: markdownSource),
 import 'package:flutter/material.dart';
+import 'package:ptc/ui/programmer/page/programmer_setup_facts.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_filters.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_inputs.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_params.dart';
@@ -23,18 +24,22 @@ class ProgrammerSetup extends StatelessWidget {
                 child: ProgrammerSetupInputs(),
               ),
             ),
-            const Expanded(
-              flex: 4,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: ProgrammerSetupParams(),
-              ),
-            ),
             Expanded(
-              flex: 3,
+              flex: 8,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ProgrammerSetupParamOverrides(),
+                child: Column(
+                  children: [
+                    const ProgrammerSetupFacts(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Expanded(child: ProgrammerSetupParams()),
+                        Expanded(child: ProgrammerSetupParamOverrides()),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],
