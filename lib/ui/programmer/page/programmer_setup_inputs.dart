@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/sex.dart';
+import 'package:ptc/model/programmer/activity_level.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 
@@ -34,6 +35,39 @@ const String helpBodyFat = '''
 const String helpRecoveryFactor = '''
 Recovery quality: 0.5 - 1.2
 Primarily based on lifestyle factors such as stress level and sleep quality
+''';
+
+const String helpActivityLevel = '''
+Physical Activity Level (PAL) describes your daily activity level **outside of workouts**:
+
+### Sedentary:
+- Office job with standard life chores
+- Mostly sitting throughout the day
+- Limited physical activity outside of workouts (walking the dog, groceries, etc)
+
+### Somewhat active:
+- Part-time physical job (e.g. part time personal trainer)
+- Long daily bicycle commute
+- Regular standing or walking throughout the day
+
+### Active:
+- Full-time physical job (e.g. full-time personal trainer)
+- On your feet most of the day
+- Regular physical tasks or movement
+
+### Very active:
+- Full day of manual labor
+- Constant physical activity
+''';
+
+const String helpWorkoutDuration = '''
+Duration of strength training sessions.
+
+Be conservative and use the time you could perform the workout in if pushing
+through it efficiently and intensely, with shorter, cardio-conditioned rest periods.
+
+Rule of thumb: count 2.5 minutes per work set.
+For most people, this duration ends up considerably shorter than their actual workout duration.
 ''';
 
 class ProgrammerSetupInputs extends ConsumerWidget {
@@ -237,6 +271,59 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             const Text('sessions per week'),
           ],
         ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            titleWidget(
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.info_outline, size: 18),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Activity Level'),
+                          content: MarkdownBody(data: helpActivityLevel),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  Text('Activity Level',
+                      style: Theme.of(context).textTheme.titleMedium),
+                ],
+              ),
+              context,
+            ),
+            const SizedBox(width: 25),
+            SizedBox(
+              width: 200,
+              child: DropdownButton<ActivityLevel>(
+                value: setup.activityLevel,
+                isExpanded: true,
+                onChanged: (ActivityLevel? level) {
+                  if (level != null) {
+                    notifier.setActivityLevel(level);
+                  }
+                },
+                items: ActivityLevel.values
+                    .map((level) => DropdownMenuItem(
+                          value: level,
+                          child: Text(level.displayName),
+                        ))
+                    .toList(),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
       ],
     );
   }

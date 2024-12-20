@@ -2,6 +2,7 @@ import 'package:ptc/data/programmer/equipment.dart';
 import 'package:ptc/data/programmer/exercise_base.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
+import 'package:ptc/model/programmer/activity_level.dart';
 import 'package:ptc/model/programmer/bmr_method.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
@@ -185,6 +186,10 @@ class Setup extends _$Setup {
 
   void setBMRMethod(BMRMethod method) {
     _updateState((s) => s.copyWith(bmrMethod: method));
+  }
+
+  void setActivityLevel(ActivityLevel level) {
+    _updateState((s) => s.copyWith(activityLevel: level));
   }
 
   void setEnergyBalance(int? energyBalance) {

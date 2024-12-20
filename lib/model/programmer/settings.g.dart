@@ -23,6 +23,9 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
       workoutsPerWeek: (json['workoutsPerWeek'] as num?)?.toInt() ?? 3,
       bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ??
           BMRMethod.tenHaaf,
+      activityLevel:
+          $enumDecodeNullable(_$ActivityLevelEnumMap, json['activityLevel']) ??
+              ActivityLevel.sedentary,
       paramSuggest:
           Parameters.fromJson(json['paramSuggest'] as Map<String, dynamic>),
       paramOverrides: ParameterOverrides.fromJson(
@@ -42,6 +45,7 @@ Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
       'recoveryFactor': instance.recoveryFactor,
       'workoutsPerWeek': instance.workoutsPerWeek,
       'bmrMethod': _$BMRMethodEnumMap[instance.bmrMethod]!,
+      'activityLevel': _$ActivityLevelEnumMap[instance.activityLevel]!,
       'paramSuggest': instance.paramSuggest,
       'paramOverrides': instance.paramOverrides,
     };
@@ -62,4 +66,11 @@ const _$BMRMethodEnumMap = {
   BMRMethod.cunningham: 'cunningham',
   BMRMethod.tinsley: 'tinsley',
   BMRMethod.tenHaaf: 'tenHaaf',
+};
+
+const _$ActivityLevelEnumMap = {
+  ActivityLevel.sedentary: 'sedentary',
+  ActivityLevel.somewhatActive: 'somewhatActive',
+  ActivityLevel.active: 'active',
+  ActivityLevel.veryActive: 'veryActive',
 };

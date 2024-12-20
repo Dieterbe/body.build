@@ -1,5 +1,6 @@
 import 'package:ptc/data/programmer/equipment.dart';
 import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/model/programmer/activity_level.dart';
 import 'package:ptc/model/programmer/bmr_method.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
@@ -30,6 +31,7 @@ class Settings with _$Settings {
     @Default(1.0) double recoveryFactor, // Recovery quality factor (0.5 - 1.2)
     @Default(3) int workoutsPerWeek,
     @Default(BMRMethod.tenHaaf) BMRMethod bmrMethod,
+    @Default(ActivityLevel.sedentary) ActivityLevel activityLevel,
     required Parameters paramSuggest,
     required ParameterOverrides paramOverrides,
   }) = _Settings;
@@ -50,6 +52,7 @@ class Settings with _$Settings {
     double recoveryFactor = 1.0,
     int workoutsPerWeek = 3,
     BMRMethod bmrMethod = BMRMethod.cunningham,
+    ActivityLevel activityLevel = ActivityLevel.sedentary,
     ParameterOverrides paramOverrides = const ParameterOverrides(),
   }) {
     final tempSettings = Settings(
@@ -64,6 +67,7 @@ class Settings with _$Settings {
       recoveryFactor: recoveryFactor,
       workoutsPerWeek: workoutsPerWeek,
       bmrMethod: bmrMethod,
+      activityLevel: activityLevel,
       paramSuggest: Parameters(),
       paramOverrides: paramOverrides,
     );
@@ -78,6 +82,19 @@ class Settings with _$Settings {
         excludedBases: paramOverrides.excludedBases,
         availEquipment: availEquipment,
       );
+
+  double getPAL() {
+    switch (activityLevel) {
+      case ActivityLevel.sedentary:
+        return 1;
+      case ActivityLevel.somewhatActive:
+        return sex == Sex.male ? 1.11 : 1.12;
+      case ActivityLevel.active:
+        return sex == Sex.male ? 1.25 : 1.27;
+      case ActivityLevel.veryActive:
+        return sex == Sex.male ? 1.48 : 1.45;
+    }
+  }
 }
 
 List<String> _equipmentSetToJson(Set<Equipment> equipment) =>

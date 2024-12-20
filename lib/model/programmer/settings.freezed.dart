@@ -34,6 +34,7 @@ mixin _$Settings {
       throw _privateConstructorUsedError; // Recovery quality factor (0.5 - 1.2)
   int get workoutsPerWeek => throw _privateConstructorUsedError;
   BMRMethod get bmrMethod => throw _privateConstructorUsedError;
+  ActivityLevel get activityLevel => throw _privateConstructorUsedError;
   Parameters get paramSuggest => throw _privateConstructorUsedError;
   ParameterOverrides get paramOverrides => throw _privateConstructorUsedError;
 
@@ -65,6 +66,7 @@ abstract class $SettingsCopyWith<$Res> {
       double recoveryFactor,
       int workoutsPerWeek,
       BMRMethod bmrMethod,
+      ActivityLevel activityLevel,
       Parameters paramSuggest,
       ParameterOverrides paramOverrides});
 
@@ -98,6 +100,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? recoveryFactor = null,
     Object? workoutsPerWeek = null,
     Object? bmrMethod = null,
+    Object? activityLevel = null,
     Object? paramSuggest = null,
     Object? paramOverrides = null,
   }) {
@@ -146,6 +149,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.bmrMethod
           : bmrMethod // ignore: cast_nullable_to_non_nullable
               as BMRMethod,
+      activityLevel: null == activityLevel
+          ? _value.activityLevel
+          : activityLevel // ignore: cast_nullable_to_non_nullable
+              as ActivityLevel,
       paramSuggest: null == paramSuggest
           ? _value.paramSuggest
           : paramSuggest // ignore: cast_nullable_to_non_nullable
@@ -199,6 +206,7 @@ abstract class _$$SettingsImplCopyWith<$Res>
       double recoveryFactor,
       int workoutsPerWeek,
       BMRMethod bmrMethod,
+      ActivityLevel activityLevel,
       Parameters paramSuggest,
       ParameterOverrides paramOverrides});
 
@@ -232,6 +240,7 @@ class __$$SettingsImplCopyWithImpl<$Res>
     Object? recoveryFactor = null,
     Object? workoutsPerWeek = null,
     Object? bmrMethod = null,
+    Object? activityLevel = null,
     Object? paramSuggest = null,
     Object? paramOverrides = null,
   }) {
@@ -280,6 +289,10 @@ class __$$SettingsImplCopyWithImpl<$Res>
           ? _value.bmrMethod
           : bmrMethod // ignore: cast_nullable_to_non_nullable
               as BMRMethod,
+      activityLevel: null == activityLevel
+          ? _value.activityLevel
+          : activityLevel // ignore: cast_nullable_to_non_nullable
+              as ActivityLevel,
       paramSuggest: null == paramSuggest
           ? _value.paramSuggest
           : paramSuggest // ignore: cast_nullable_to_non_nullable
@@ -308,6 +321,7 @@ class _$SettingsImpl extends _Settings {
       this.recoveryFactor = 1.0,
       this.workoutsPerWeek = 3,
       this.bmrMethod = BMRMethod.tenHaaf,
+      this.activityLevel = ActivityLevel.sedentary,
       required this.paramSuggest,
       required this.paramOverrides})
       : _availEquipment = availEquipment,
@@ -359,13 +373,16 @@ class _$SettingsImpl extends _Settings {
   @JsonKey()
   final BMRMethod bmrMethod;
   @override
+  @JsonKey()
+  final ActivityLevel activityLevel;
+  @override
   final Parameters paramSuggest;
   @override
   final ParameterOverrides paramOverrides;
 
   @override
   String toString() {
-    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, workoutsPerWeek: $workoutsPerWeek, bmrMethod: $bmrMethod, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
+    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, workoutsPerWeek: $workoutsPerWeek, bmrMethod: $bmrMethod, activityLevel: $activityLevel, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
   }
 
   /// Create a copy of Settings
@@ -398,6 +415,7 @@ abstract class _Settings extends Settings {
       final double recoveryFactor,
       final int workoutsPerWeek,
       final BMRMethod bmrMethod,
+      final ActivityLevel activityLevel,
       required final Parameters paramSuggest,
       required final ParameterOverrides paramOverrides}) = _$SettingsImpl;
   const _Settings._() : super._();
@@ -428,6 +446,8 @@ abstract class _Settings extends Settings {
   int get workoutsPerWeek;
   @override
   BMRMethod get bmrMethod;
+  @override
+  ActivityLevel get activityLevel;
   @override
   Parameters get paramSuggest;
   @override
