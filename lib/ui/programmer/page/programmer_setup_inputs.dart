@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/sex.dart';
 import 'package:ptc/model/programmer/activity_level.dart';
+import 'package:ptc/ui/core/info_button.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 
@@ -33,7 +34,7 @@ const String helpBodyFat = '''
  ''';
 
 const String helpRecoveryFactor = '''
-Recovery quality: 0.5 - 1.2
+Recovery quality: 0.5 - 1.2  
 Primarily based on lifestyle factors such as stress level and sleep quality
 ''';
 
@@ -91,7 +92,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
       children: [
         const LabelBar('Personal information'),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             titleText('Trainee level', context),
             const SizedBox(width: 25),
@@ -99,7 +99,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               width: 200,
               child: DropdownButton<Level>(
                 value: setup.level,
-                icon: const Icon(Icons.arrow_downward),
+                isExpanded: true,
                 onChanged: notifier.setLevel,
                 items: Level.values.map<DropdownMenuItem<Level>>((Level value) {
                   return DropdownMenuItem<Level>(
@@ -109,12 +109,14 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                 }).toList(),
               ),
             ),
-            const SizedBox(width: 25),
-            const MarkdownBody(data: helpTraineeLevel),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Trainee Level',
+              child: MarkdownBody(data: helpTraineeLevel),
+            )
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Sex', context),
             const SizedBox(width: 25),
@@ -122,7 +124,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               width: 200,
               child: DropdownButton<Sex>(
                 value: setup.sex,
-                icon: const Icon(Icons.arrow_downward),
+                isExpanded: true,
                 onChanged: notifier.setSex,
                 items: Sex.values.map<DropdownMenuItem<Sex>>((Sex value) {
                   return DropdownMenuItem<Sex>(
@@ -135,174 +137,118 @@ class ProgrammerSetupInputs extends ConsumerWidget {
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Age', context),
             const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: keyAge,
-                initialValue: setup.age.toString(),
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.always,
-                validator: notifier.ageValidator,
-                onChanged: notifier.setAgeMaybe,
-              ),
+            numInput(
+              keyAge,
+              'years',
+              setup.age.toString(),
+              validator: notifier.ageValidator,
+              onChanged: notifier.setAgeMaybe,
             ),
-            const SizedBox(width: 25),
-            const Text('years'),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Weight', context),
             const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: keyWeight,
-                initialValue: setup.weight.toString(),
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.always,
-                validator: notifier.weightValidator,
-                onChanged: notifier.setWeightMaybe,
-              ),
+            numInput(
+              keyWeight,
+              'kg',
+              setup.weight.toString(),
+              validator: notifier.weightValidator,
+              onChanged: notifier.setWeightMaybe,
             ),
-            const SizedBox(width: 25),
-            const Text('kg'),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             titleText('Height', context),
             const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: keyHeight,
-                initialValue: setup.height.toString(),
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.always,
-                validator: notifier.heightValidator,
-                onChanged: notifier.setHeightMaybe,
-              ),
+            numInput(
+              keyHeight,
+              'cm',
+              setup.height.toString(),
+              validator: notifier.heightValidator,
+              onChanged: notifier.setHeightMaybe,
             ),
-            const SizedBox(width: 25),
-            const Text('cm'),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            titleText('Body fat %', context),
+            titleText('Body Fat', context),
             const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: keyBodyFat,
-                initialValue: setup.bodyFat?.toString(),
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.always,
-                validator: notifier.bodyFatValidator,
-                onChanged: notifier.setBodyFatMaybe,
-              ),
+            numInput(
+              keyBodyFat,
+              '%',
+              setup.bodyFat?.toStringAsFixed(1) ?? '',
+              validator: notifier.bodyFatValidator,
+              onChanged: notifier.setBodyFatMaybe,
             ),
-            const SizedBox(width: 25),
-            const MarkdownBody(data: helpBodyFat),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Body Fat',
+              child: MarkdownBody(data: helpBodyFat),
+            )
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            titleText('Energy balance %', context),
+            titleText('Energy balance', context),
             const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: keyEnergyBalance,
-                initialValue: setup.energyBalance.toString(),
-                validator: notifier.energyBalanceValidator,
-                onChanged: notifier.setEnergyBalanceMaybe,
-              ),
+            numInput(
+              keyEnergyBalance,
+              '%',
+              setup.energyBalance.toString(),
+              validator: notifier.energyBalanceValidator,
+              onChanged: notifier.setEnergyBalanceMaybe,
             ),
-            const SizedBox(width: 25),
-            const MarkdownBody(data: helpEnergyBalance),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Energy Balance %',
+              child: MarkdownBody(data: helpEnergyBalance),
+            ),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            titleText('Recovery factor', context),
-            const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: keyRecoveryFactor,
-                initialValue: setup.recoveryFactor.toString(),
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.always,
-                validator: notifier.recoveryFactorValidator,
-                onChanged: notifier.setRecoveryFactorMaybe,
-              ),
+            titleText(
+              'Recovery Factor',
+              context,
             ),
             const SizedBox(width: 25),
-            const MarkdownBody(data: helpRecoveryFactor),
+            numInput(
+              keyRecoveryFactor,
+              '',
+              setup.recoveryFactor.toStringAsFixed(1),
+              validator: notifier.recoveryFactorValidator,
+              onChanged: notifier.setRecoveryFactorMaybe,
+            ),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Recovery Factor',
+              child: MarkdownBody(data: helpRecoveryFactor),
+            ),
           ],
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            titleText('Workouts per week', context),
+            titleText('Workouts', context),
             const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: keyWorkoutsPerWeek,
-                initialValue: setup.workoutsPerWeek.toString(),
-                keyboardType: TextInputType.number,
-                autovalidateMode: AutovalidateMode.always,
-                validator: notifier.workoutsPerWeekValidator,
-                onChanged: notifier.setWorkoutsPerWeekMaybe,
-              ),
+            numInput(
+              keyWorkoutsPerWeek,
+              'per week',
+              setup.workoutsPerWeek.toString(),
+              validator: notifier.workoutsPerWeekValidator,
+              onChanged: notifier.setWorkoutsPerWeekMaybe,
             ),
-            const SizedBox(width: 25),
-            const Text('sessions per week'),
           ],
         ),
         const SizedBox(height: 20),
         Row(
           children: [
-            titleWidget(
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.info_outline, size: 18),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Activity Level'),
-                          content: MarkdownBody(data: helpActivityLevel),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  Text('Activity Level',
-                      style: Theme.of(context).textTheme.titleMedium),
-                ],
-              ),
-              context,
-            ),
+            titleText('Activity Level', context),
             const SizedBox(width: 25),
             SizedBox(
               width: 200,
@@ -322,58 +268,33 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                     .toList(),
               ),
             ),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Activity Level',
+              child: MarkdownBody(data: helpActivityLevel),
+            ),
           ],
         ),
         const SizedBox(height: 20),
         Row(
           children: [
-            titleWidget(
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.info_outline, size: 18),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Workout Duration'),
-                          content: MarkdownBody(data: helpWorkoutDuration),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  Text('Workout Duration',
-                      style: Theme.of(context).textTheme.titleMedium),
-                ],
-              ),
+            titleText(
+              'Workout Duration',
               context,
             ),
             const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: TextFormField(
-                key: _durationKey,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  isDense: true,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                ),
-                initialValue: setup.workoutDuration.toString(),
-                autovalidateMode: AutovalidateMode.always,
-                validator: notifier.workoutDurationValidator,
-                onChanged: notifier.setWorkoutDurationMaybe,
-              ),
+            numInput(
+              _durationKey,
+              'min',
+              setup.workoutDuration.toString(),
+              validator: notifier.workoutDurationValidator,
+              onChanged: notifier.setWorkoutDurationMaybe,
             ),
-            const SizedBox(width: 25),
-            const Text('minutes'),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Workout Duration',
+              child: MarkdownBody(data: helpWorkoutDuration),
+            ),
           ],
         ),
         const SizedBox(height: 20),
@@ -381,3 +302,27 @@ class ProgrammerSetupInputs extends ConsumerWidget {
     );
   }
 }
+
+Widget numInput(
+  GlobalKey key,
+  String suffix,
+  String value, {
+  required String? Function(String?)? validator,
+  required void Function(String)? onChanged,
+}) =>
+    SizedBox(
+      width: 200,
+      child: TextFormField(
+        key: key,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          isDense: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          suffixText: suffix,
+        ),
+        initialValue: value,
+        autovalidateMode: AutovalidateMode.always,
+        validator: validator,
+        onChanged: onChanged,
+      ),
+    );
