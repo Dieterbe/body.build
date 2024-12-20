@@ -1,5 +1,6 @@
 import 'package:ptc/data/programmer/equipment.dart';
 import 'package:ptc/data/programmer/exercises.dart';
+import 'package:ptc/model/programmer/bmr_method.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/parameters.dart';
@@ -21,13 +22,14 @@ class Settings with _$Settings {
     @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
     @Default({})
     Set<Equipment> availEquipment,
-    @Default(30) int age,
-    @Default(75) int weight,
-    @Default(178) int height,
-    @Default(15) int bodyFat, // percentage
+    @Default(30) double age,
+    @Default(75) double weight,
+    @Default(178) double height,
+    @Default(null) double? bodyFat, // percentage
     @Default(100) int energyBalance, // percentage (100 = maintenance)
     @Default(1.0) double recoveryFactor, // Recovery quality factor (0.5 - 1.2)
     @Default(3) int workoutsPerWeek,
+    @Default(BMRMethod.tenHaaf) BMRMethod bmrMethod,
     required Parameters paramSuggest,
     required ParameterOverrides paramOverrides,
   }) = _Settings;
@@ -40,13 +42,14 @@ class Settings with _$Settings {
     Level level = Level.beginner,
     Sex sex = Sex.male,
     Set<Equipment> availEquipment = const {},
-    int age = 30,
-    int weight = 75,
-    int height = 178,
-    int bodyFat = 15,
+    double age = 30,
+    double weight = 75,
+    double height = 178,
+    double? bodyFat,
     int energyBalance = 100,
     double recoveryFactor = 1.0,
     int workoutsPerWeek = 3,
+    BMRMethod bmrMethod = BMRMethod.cunningham,
     ParameterOverrides paramOverrides = const ParameterOverrides(),
   }) {
     final tempSettings = Settings(
@@ -60,6 +63,7 @@ class Settings with _$Settings {
       energyBalance: energyBalance,
       recoveryFactor: recoveryFactor,
       workoutsPerWeek: workoutsPerWeek,
+      bmrMethod: bmrMethod,
       paramSuggest: Parameters(),
       paramOverrides: paramOverrides,
     );

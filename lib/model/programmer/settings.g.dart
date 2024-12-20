@@ -14,13 +14,15 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
       availEquipment: json['availEquipment'] == null
           ? const {}
           : _equipmentSetFromJson(json['availEquipment'] as List),
-      age: (json['age'] as num?)?.toInt() ?? 30,
-      weight: (json['weight'] as num?)?.toInt() ?? 75,
-      height: (json['height'] as num?)?.toInt() ?? 178,
-      bodyFat: (json['bodyFat'] as num?)?.toInt() ?? 15,
+      age: (json['age'] as num?)?.toDouble() ?? 30,
+      weight: (json['weight'] as num?)?.toDouble() ?? 75,
+      height: (json['height'] as num?)?.toDouble() ?? 178,
+      bodyFat: (json['bodyFat'] as num?)?.toDouble() ?? null,
       energyBalance: (json['energyBalance'] as num?)?.toInt() ?? 100,
       recoveryFactor: (json['recoveryFactor'] as num?)?.toDouble() ?? 1.0,
       workoutsPerWeek: (json['workoutsPerWeek'] as num?)?.toInt() ?? 3,
+      bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ??
+          BMRMethod.tenHaaf,
       paramSuggest:
           Parameters.fromJson(json['paramSuggest'] as Map<String, dynamic>),
       paramOverrides: ParameterOverrides.fromJson(
@@ -39,6 +41,7 @@ Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
       'energyBalance': instance.energyBalance,
       'recoveryFactor': instance.recoveryFactor,
       'workoutsPerWeek': instance.workoutsPerWeek,
+      'bmrMethod': _$BMRMethodEnumMap[instance.bmrMethod]!,
       'paramSuggest': instance.paramSuggest,
       'paramOverrides': instance.paramOverrides,
     };
@@ -53,4 +56,10 @@ const _$LevelEnumMap = {
 const _$SexEnumMap = {
   Sex.male: 'male',
   Sex.female: 'female',
+};
+
+const _$BMRMethodEnumMap = {
+  BMRMethod.cunningham: 'cunningham',
+  BMRMethod.tinsley: 'tinsley',
+  BMRMethod.tenHaaf: 'tenHaaf',
 };

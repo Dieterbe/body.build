@@ -24,15 +24,16 @@ mixin _$Settings {
   Sex get sex => throw _privateConstructorUsedError;
   @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
   Set<Equipment> get availEquipment => throw _privateConstructorUsedError;
-  int get age => throw _privateConstructorUsedError;
-  int get weight => throw _privateConstructorUsedError;
-  int get height => throw _privateConstructorUsedError;
-  int get bodyFat => throw _privateConstructorUsedError; // percentage
+  double get age => throw _privateConstructorUsedError;
+  double get weight => throw _privateConstructorUsedError;
+  double get height => throw _privateConstructorUsedError;
+  double? get bodyFat => throw _privateConstructorUsedError; // percentage
   int get energyBalance =>
       throw _privateConstructorUsedError; // percentage (100 = maintenance)
   double get recoveryFactor =>
       throw _privateConstructorUsedError; // Recovery quality factor (0.5 - 1.2)
   int get workoutsPerWeek => throw _privateConstructorUsedError;
+  BMRMethod get bmrMethod => throw _privateConstructorUsedError;
   Parameters get paramSuggest => throw _privateConstructorUsedError;
   ParameterOverrides get paramOverrides => throw _privateConstructorUsedError;
 
@@ -56,13 +57,14 @@ abstract class $SettingsCopyWith<$Res> {
       Sex sex,
       @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
       Set<Equipment> availEquipment,
-      int age,
-      int weight,
-      int height,
-      int bodyFat,
+      double age,
+      double weight,
+      double height,
+      double? bodyFat,
       int energyBalance,
       double recoveryFactor,
       int workoutsPerWeek,
+      BMRMethod bmrMethod,
       Parameters paramSuggest,
       ParameterOverrides paramOverrides});
 
@@ -91,10 +93,11 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? age = null,
     Object? weight = null,
     Object? height = null,
-    Object? bodyFat = null,
+    Object? bodyFat = freezed,
     Object? energyBalance = null,
     Object? recoveryFactor = null,
     Object? workoutsPerWeek = null,
+    Object? bmrMethod = null,
     Object? paramSuggest = null,
     Object? paramOverrides = null,
   }) {
@@ -114,19 +117,19 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
-      bodyFat: null == bodyFat
+              as double,
+      bodyFat: freezed == bodyFat
           ? _value.bodyFat
           : bodyFat // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double?,
       energyBalance: null == energyBalance
           ? _value.energyBalance
           : energyBalance // ignore: cast_nullable_to_non_nullable
@@ -139,6 +142,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.workoutsPerWeek
           : workoutsPerWeek // ignore: cast_nullable_to_non_nullable
               as int,
+      bmrMethod: null == bmrMethod
+          ? _value.bmrMethod
+          : bmrMethod // ignore: cast_nullable_to_non_nullable
+              as BMRMethod,
       paramSuggest: null == paramSuggest
           ? _value.paramSuggest
           : paramSuggest // ignore: cast_nullable_to_non_nullable
@@ -184,13 +191,14 @@ abstract class _$$SettingsImplCopyWith<$Res>
       Sex sex,
       @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
       Set<Equipment> availEquipment,
-      int age,
-      int weight,
-      int height,
-      int bodyFat,
+      double age,
+      double weight,
+      double height,
+      double? bodyFat,
       int energyBalance,
       double recoveryFactor,
       int workoutsPerWeek,
+      BMRMethod bmrMethod,
       Parameters paramSuggest,
       ParameterOverrides paramOverrides});
 
@@ -219,10 +227,11 @@ class __$$SettingsImplCopyWithImpl<$Res>
     Object? age = null,
     Object? weight = null,
     Object? height = null,
-    Object? bodyFat = null,
+    Object? bodyFat = freezed,
     Object? energyBalance = null,
     Object? recoveryFactor = null,
     Object? workoutsPerWeek = null,
+    Object? bmrMethod = null,
     Object? paramSuggest = null,
     Object? paramOverrides = null,
   }) {
@@ -242,19 +251,19 @@ class __$$SettingsImplCopyWithImpl<$Res>
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
-              as int,
-      bodyFat: null == bodyFat
+              as double,
+      bodyFat: freezed == bodyFat
           ? _value.bodyFat
           : bodyFat // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double?,
       energyBalance: null == energyBalance
           ? _value.energyBalance
           : energyBalance // ignore: cast_nullable_to_non_nullable
@@ -267,6 +276,10 @@ class __$$SettingsImplCopyWithImpl<$Res>
           ? _value.workoutsPerWeek
           : workoutsPerWeek // ignore: cast_nullable_to_non_nullable
               as int,
+      bmrMethod: null == bmrMethod
+          ? _value.bmrMethod
+          : bmrMethod // ignore: cast_nullable_to_non_nullable
+              as BMRMethod,
       paramSuggest: null == paramSuggest
           ? _value.paramSuggest
           : paramSuggest // ignore: cast_nullable_to_non_nullable
@@ -290,10 +303,11 @@ class _$SettingsImpl extends _Settings {
       this.age = 30,
       this.weight = 75,
       this.height = 178,
-      this.bodyFat = 15,
+      this.bodyFat = null,
       this.energyBalance = 100,
       this.recoveryFactor = 1.0,
       this.workoutsPerWeek = 3,
+      this.bmrMethod = BMRMethod.tenHaaf,
       required this.paramSuggest,
       required this.paramOverrides})
       : _availEquipment = availEquipment,
@@ -319,16 +333,16 @@ class _$SettingsImpl extends _Settings {
 
   @override
   @JsonKey()
-  final int age;
+  final double age;
   @override
   @JsonKey()
-  final int weight;
+  final double weight;
   @override
   @JsonKey()
-  final int height;
+  final double height;
   @override
   @JsonKey()
-  final int bodyFat;
+  final double? bodyFat;
 // percentage
   @override
   @JsonKey()
@@ -342,13 +356,16 @@ class _$SettingsImpl extends _Settings {
   @JsonKey()
   final int workoutsPerWeek;
   @override
+  @JsonKey()
+  final BMRMethod bmrMethod;
+  @override
   final Parameters paramSuggest;
   @override
   final ParameterOverrides paramOverrides;
 
   @override
   String toString() {
-    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, workoutsPerWeek: $workoutsPerWeek, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
+    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, workoutsPerWeek: $workoutsPerWeek, bmrMethod: $bmrMethod, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
   }
 
   /// Create a copy of Settings
@@ -373,13 +390,14 @@ abstract class _Settings extends Settings {
       final Sex sex,
       @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
       final Set<Equipment> availEquipment,
-      final int age,
-      final int weight,
-      final int height,
-      final int bodyFat,
+      final double age,
+      final double weight,
+      final double height,
+      final double? bodyFat,
       final int energyBalance,
       final double recoveryFactor,
       final int workoutsPerWeek,
+      final BMRMethod bmrMethod,
       required final Parameters paramSuggest,
       required final ParameterOverrides paramOverrides}) = _$SettingsImpl;
   const _Settings._() : super._();
@@ -395,19 +413,21 @@ abstract class _Settings extends Settings {
   @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
   Set<Equipment> get availEquipment;
   @override
-  int get age;
+  double get age;
   @override
-  int get weight;
+  double get weight;
   @override
-  int get height;
+  double get height;
   @override
-  int get bodyFat; // percentage
+  double? get bodyFat; // percentage
   @override
   int get energyBalance; // percentage (100 = maintenance)
   @override
   double get recoveryFactor; // Recovery quality factor (0.5 - 1.2)
   @override
   int get workoutsPerWeek;
+  @override
+  BMRMethod get bmrMethod;
   @override
   Parameters get paramSuggest;
   @override

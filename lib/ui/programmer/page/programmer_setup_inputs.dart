@@ -168,7 +168,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               width: 200,
               child: TextFormField(
                 key: keyBodyFat,
-                initialValue: setup.bodyFat.toString(),
+                initialValue: setup.bodyFat?.toString(),
                 keyboardType: TextInputType.number,
                 autovalidateMode: AutovalidateMode.always,
                 validator: notifier.bodyFatValidator,

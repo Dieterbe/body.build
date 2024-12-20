@@ -2,6 +2,7 @@ import 'package:ptc/data/programmer/equipment.dart';
 import 'package:ptc/data/programmer/exercise_base.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
+import 'package:ptc/model/programmer/bmr_method.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/parameters.dart';
@@ -24,46 +25,47 @@ class Setup extends _$Setup {
   // (String?, val) -> if String not null = error
   // for some methods, an empty/unset value is an error, for others it isn't.
   // val is the value, if it is a correct one (sometimes null is correct)
-  (String?, int) _ageValidator(String? value) {
+  (String?, double) _ageValidator(String? value) {
     if (value == null || value.isEmpty) {
       return ('Please enter an age', 0);
     }
-    final age = int.tryParse(value);
+    final age = double.tryParse(value);
     if (age == null || age < 0 || age > 120) {
       return ('Must be between 0 & 120', 0);
     }
     return (null, age);
   }
 
-  (String?, int) _heightValidator(String? value) {
+  (String?, double) _heightValidator(String? value) {
     if (value == null || value.isEmpty) {
       return ('Please enter a length', 0);
     }
-    final height = int.tryParse(value);
+    final height = double.tryParse(value);
     if (height == null || height < 0 || height > 300) {
       return ('Must be between 0 & 300', 0);
     }
     return (null, height);
   }
 
-  (String?, int) _weightValidator(String? value) {
+  (String?, double) _weightValidator(String? value) {
     if (value == null || value.isEmpty) {
       return ('Please enter a weight', 0);
     }
-    final weight = int.tryParse(value);
+    final weight = double.tryParse(value);
     if (weight == null || weight < 0 || weight > 800) {
       return ('Must be between 0 & 800', 0);
     }
     return (null, weight);
   }
 
-  (String?, int) _bodyFatValidator(String? value) {
+// can be unset
+  (String?, double?) _bodyFatValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return ('Please enter body fat percentage', 0);
+      return (null, null);
     }
-    final bf = int.tryParse(value);
+    final bf = double.tryParse(value);
     if (bf == null || bf < 0 || bf > 100) {
-      return ('Must be between 0 & 100', 0);
+      return ('Must be between 0 & 100', null);
     }
     return (null, bf);
   }
@@ -159,28 +161,30 @@ class Setup extends _$Setup {
     }
   }
 
-  void setAge(int? age) {
+  void setAge(double? age) {
     if (age != null) {
       _updateState((s) => s.copyWith(age: age));
     }
   }
 
-  void setHeight(int? length) {
+  void setHeight(double? length) {
     if (length != null) {
       _updateState((s) => s.copyWith(height: length));
     }
   }
 
-  void setWeight(int? weight) {
+  void setWeight(double? weight) {
     if (weight != null) {
       _updateState((s) => s.copyWith(weight: weight));
     }
   }
 
-  void setBodyFat(int? bodyFat) {
-    if (bodyFat != null) {
-      _updateState((s) => s.copyWith(bodyFat: bodyFat));
-    }
+  void setBodyFat(double? bodyFat) {
+    _updateState((s) => s.copyWith(bodyFat: bodyFat));
+  }
+
+  void setBMRMethod(BMRMethod method) {
+    _updateState((s) => s.copyWith(bmrMethod: method));
   }
 
   void setEnergyBalance(int? energyBalance) {

@@ -5,7 +5,10 @@ import 'dart:math';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/sex.dart';
 
-double calcBMI(int weight, int length) => 10000 * weight / (length * length);
+const double kJToKcal = 0.239006;
+
+double calcBMI(double weight, double length) =>
+    10000 * weight / (length * length);
 
 // implements Menno's suggested formula
 int calcOptimalSetsPerWeekPerMuscleGroupMH(Sex sex, Level level,
@@ -26,3 +29,30 @@ int calcOptimalSetsPerWeekPerMuscleGroupMH(Sex sex, Level level,
       (sex == Sex.female ? 3 : 0);
   return result.round();
 }
+
+// cunningham et al. 1991
+// weigt must be in kg
+// BMR via cunningham 1991 (aka katch-mcArdle)
+// been validated in a wide range of
+// populations from untrained individuals to athletes
+bmrCunningham(double weight, double fatPct) {
+  final ffm = weight * (1 - fatPct / 100);
+  return 370 + (21.6 * ffm);
+}
+
+// Tinsley et al. (2018) BMR
+// great for physique athletes, high level athletes, and bodybuilders (on AAS)
+bmrTinsley(double weight) => 10 + weight * 24.8;
+
+// Ten Haaf et al. (2014) BMR
+// weight in kg
+// height in m
+// age in years
+// good for athletes if you don't know BF
+bmrTenHaaf(double weight, double height, double age, Sex sex) =>
+    (49.94 * weight +
+        24.59053 * height -
+        34.014 * age +
+        (sex == Sex.male ? 799.257 : 0) +
+        122.502) *
+    kJToKcal;
