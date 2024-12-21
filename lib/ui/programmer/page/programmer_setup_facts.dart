@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ptc/model/programmer/activity_level.dart';
 import 'package:ptc/model/programmer/bmr_method.dart';
+import 'package:ptc/ui/core/info_button.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
 import 'package:ptc/util/formulas.dart';
@@ -86,64 +88,129 @@ class ProgrammerSetupFacts extends ConsumerWidget {
       (BMRMethod.tenHaaf, bmrTH, null),
     ];
 
+// for most people, not counting the EPOC is okay because we count the basal expenditure
+// during workouts twice.  However for highly physically active people,
+// the displaced resting EE is rather significant, so account for it.
+    final displacedEE =
+        (setup.getBMR() * setup.getPAL()) / (24 * 60) * setup.workoutDuration;
+    final epoc = 50; // roughly true for most workouts
+    final baseRT = 0.1 * setup.weight * setup.workoutDuration;
+    final (trainingEE, adjusted) =
+        (setup.activityLevel == ActivityLevel.veryActive)
+            ? (baseRT - displacedEE + epoc, true)
+            : (baseRT, false);
+    print(
+        'RT EE $baseRT adjusted $adjusted (displaced $displacedEE epoc $epoc)');
+    final restingDayEE = setup.getBMR() * setup.getPAL() * setup.thermicEffect;
+    final trainingDayEE =
+        (setup.getBMR() * setup.getPAL() + trainingEE) * setup.thermicEffect;
+
+    final averageDayEE = (restingDayEE * (7 - setup.workoutsPerWeek) +
+            trainingDayEE * setup.workoutsPerWeek) /
+        7;
+    final targetIntake = averageDayEE * setup.energyBalance / 100;
     return Column(
       children: [
         const LabelBar('Resulting Facts'),
-        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          titleText('BMI', context),
-          const SizedBox(width: 25),
-          Text(bmi.toStringAsFixed(2)),
-        ]),
-        const SizedBox(height: 20),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            titleWidget(
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.info_outline, size: 18),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Basal Metabolic Rate (BMR)'),
-                          content: Text(helpBMR),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  Text('BMR', style: Theme.of(context).textTheme.titleMedium),
-                ],
-              ),
-              context,
-            ),
-            const SizedBox(width: 25),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (final (method, value, error) in bmrMethods) ...[
-                  _buildBMRRow(
-                    context,
-                    method,
-                    value,
-                    setup.bmrMethod == method,
-                    () => notifier.setBMRMethod(method),
-                    errorMessage: error,
-                  ),
-                  const SizedBox(height: 8),
-                ],
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  titleText('BMI', context),
+                  const SizedBox(width: 25),
+                  Text(bmi.toStringAsFixed(2)),
+                ]),
+                const SizedBox(height: 20),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    titleWidget(
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const InfoButton(
+                            title: 'Basal Metabolic Rate (BMR)',
+                            child: Text(helpBMR),
+                          ),
+                          Text('BMR',
+                              style: Theme.of(context).textTheme.titleMedium),
+                        ],
+                      ),
+                      context,
+                    ),
+                    const SizedBox(width: 25),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        for (final (method, value, error) in bmrMethods) ...[
+                          _buildBMRRow(
+                            context,
+                            method,
+                            value,
+                            setup.bmrMethod == method,
+                            () => notifier.setBMRMethod(method),
+                            errorMessage: error,
+                          ),
+                          const SizedBox(height: 8),
+                        ],
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  titleText('Training EE', context),
+                  const SizedBox(width: 25),
+                  Text(trainingEE.round().toString()),
+                ]),
+                const SizedBox(height: 20),
+                Row(children: [
+                  titleText('Displaced EE', context),
+                  const SizedBox(width: 25),
+                  Text(displacedEE.round().toString()),
+                  const SizedBox(width: 25),
+                  Text(adjusted ? '(accounted for)' : '(ignored)'),
+                ]),
+                const SizedBox(height: 20),
+                Row(children: [
+                  titleText('Resting Day EE', context),
+                  const SizedBox(width: 25),
+                  Text(restingDayEE.round().toString()),
+                ]),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    titleText('Training Day EE', context),
+                    const SizedBox(width: 25),
+                    Text(trainingDayEE.round().toString()),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    titleText('Average Day EE', context),
+                    const SizedBox(width: 25),
+                    Text(averageDayEE.round().toString()),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    titleText('Target Intake', context),
+                    const SizedBox(width: 25),
+                    Text(targetIntake.round().toString()),
+                  ],
+                ),
+              ],
+            )
           ],
-        ),
+        )
       ],
     );
   }

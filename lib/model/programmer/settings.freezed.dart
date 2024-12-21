@@ -32,6 +32,8 @@ mixin _$Settings {
       throw _privateConstructorUsedError; // percentage (100 = maintenance)
   double get recoveryFactor =>
       throw _privateConstructorUsedError; // Recovery quality factor (0.5 - 1.2)
+  double get thermicEffect =>
+      throw _privateConstructorUsedError; // Thermic effect of food
   int get workoutsPerWeek => throw _privateConstructorUsedError;
   int get workoutDuration => throw _privateConstructorUsedError; // minutes
   BMRMethod get bmrMethod => throw _privateConstructorUsedError;
@@ -65,6 +67,7 @@ abstract class $SettingsCopyWith<$Res> {
       double? bodyFat,
       int energyBalance,
       double recoveryFactor,
+      double thermicEffect,
       int workoutsPerWeek,
       int workoutDuration,
       BMRMethod bmrMethod,
@@ -100,6 +103,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? bodyFat = freezed,
     Object? energyBalance = null,
     Object? recoveryFactor = null,
+    Object? thermicEffect = null,
     Object? workoutsPerWeek = null,
     Object? workoutDuration = null,
     Object? bmrMethod = null,
@@ -143,6 +147,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
       recoveryFactor: null == recoveryFactor
           ? _value.recoveryFactor
           : recoveryFactor // ignore: cast_nullable_to_non_nullable
+              as double,
+      thermicEffect: null == thermicEffect
+          ? _value.thermicEffect
+          : thermicEffect // ignore: cast_nullable_to_non_nullable
               as double,
       workoutsPerWeek: null == workoutsPerWeek
           ? _value.workoutsPerWeek
@@ -211,6 +219,7 @@ abstract class _$$SettingsImplCopyWith<$Res>
       double? bodyFat,
       int energyBalance,
       double recoveryFactor,
+      double thermicEffect,
       int workoutsPerWeek,
       int workoutDuration,
       BMRMethod bmrMethod,
@@ -246,6 +255,7 @@ class __$$SettingsImplCopyWithImpl<$Res>
     Object? bodyFat = freezed,
     Object? energyBalance = null,
     Object? recoveryFactor = null,
+    Object? thermicEffect = null,
     Object? workoutsPerWeek = null,
     Object? workoutDuration = null,
     Object? bmrMethod = null,
@@ -290,6 +300,10 @@ class __$$SettingsImplCopyWithImpl<$Res>
           ? _value.recoveryFactor
           : recoveryFactor // ignore: cast_nullable_to_non_nullable
               as double,
+      thermicEffect: null == thermicEffect
+          ? _value.thermicEffect
+          : thermicEffect // ignore: cast_nullable_to_non_nullable
+              as double,
       workoutsPerWeek: null == workoutsPerWeek
           ? _value.workoutsPerWeek
           : workoutsPerWeek // ignore: cast_nullable_to_non_nullable
@@ -332,6 +346,7 @@ class _$SettingsImpl extends _Settings {
       this.bodyFat = null,
       this.energyBalance = 100,
       this.recoveryFactor = 1.0,
+      this.thermicEffect = 1.2,
       this.workoutsPerWeek = 3,
       this.workoutDuration = 60,
       this.bmrMethod = BMRMethod.tenHaaf,
@@ -382,6 +397,10 @@ class _$SettingsImpl extends _Settings {
 // Recovery quality factor (0.5 - 1.2)
   @override
   @JsonKey()
+  final double thermicEffect;
+// Thermic effect of food
+  @override
+  @JsonKey()
   final int workoutsPerWeek;
   @override
   @JsonKey()
@@ -400,7 +419,7 @@ class _$SettingsImpl extends _Settings {
 
   @override
   String toString() {
-    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, workoutsPerWeek: $workoutsPerWeek, workoutDuration: $workoutDuration, bmrMethod: $bmrMethod, activityLevel: $activityLevel, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
+    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, thermicEffect: $thermicEffect, workoutsPerWeek: $workoutsPerWeek, workoutDuration: $workoutDuration, bmrMethod: $bmrMethod, activityLevel: $activityLevel, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
   }
 
   /// Create a copy of Settings
@@ -431,6 +450,7 @@ abstract class _Settings extends Settings {
       final double? bodyFat,
       final int energyBalance,
       final double recoveryFactor,
+      final double thermicEffect,
       final int workoutsPerWeek,
       final int workoutDuration,
       final BMRMethod bmrMethod,
@@ -461,6 +481,8 @@ abstract class _Settings extends Settings {
   int get energyBalance; // percentage (100 = maintenance)
   @override
   double get recoveryFactor; // Recovery quality factor (0.5 - 1.2)
+  @override
+  double get thermicEffect; // Thermic effect of food
   @override
   int get workoutsPerWeek;
   @override

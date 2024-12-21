@@ -138,6 +138,17 @@ class Setup extends _$Setup {
     return (null, duration);
   }
 
+  (String?, double) _thermicEffectValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return ('Please enter a TEF factor', 0);
+    }
+    final effect = double.tryParse(value);
+    if (effect == null || effect < 0.8 || effect > 1.25) {
+      return ('Must be between 0.8 & 1.25', 0.1);
+    }
+    return (null, effect);
+  }
+
   /* VALIDATION FUNCTIONS FOR TEXTFORMFIELDS */
 
   String? ageValidator(String? value) => _ageValidator(value).$1;
@@ -153,6 +164,8 @@ class Setup extends _$Setup {
       _setsPerWeekPerMuscleGroupValidator(v).$1;
   String? workoutDurationValidator(String? v) =>
       _workoutDurationValidator(v).$1;
+  String? thermicEffectValidator(String? value) =>
+      _thermicEffectValidator(value).$1;
 
   /* END VALIDATION FUNCTIONS */
 
@@ -225,6 +238,10 @@ class Setup extends _$Setup {
 
   void setWorkoutDuration(int duration) {
     _updateState((s) => s.copyWith(workoutDuration: duration));
+  }
+
+  void setThermicEffect(double value) {
+    state = state.copyWith(thermicEffect: value);
   }
 
   void setWorkoutDurationMaybe(String value) {
@@ -301,6 +318,13 @@ class Setup extends _$Setup {
           setsPerWeekPerMuscleGroup: volume,
         ),
       );
+    }
+  }
+
+  void setThermicEffectMaybe(String value) {
+    final (msg, effect) = _thermicEffectValidator(value);
+    if (msg == null) {
+      setThermicEffect(effect);
     }
   }
 

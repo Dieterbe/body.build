@@ -81,6 +81,43 @@ Rule of thumb: count 2.5 minutes per work set.
 For most people, this duration ends up considerably shorter than their actual workout duration.
 ''';
 
+const String helpThermicEffect = '''
+The Thermic Effect of Food (TEF) aka diet induced thermogenesis (DIT) is:  
+the energy expended during metabolizing of food.  
+It is a multiplier, typically between 1 and 1.25.
+A higher TEF can significantly increase energy expenditure, and thereby support fat loss.
+
+## In isolation (not very practically relevant):
+- dieteray fat: 1.15 for lean, 0 for overweight.
+- carbs: 1.15 for lean, less if insulin resistant, and possibly based on carb tolerance.
+- protein: always around 1.20
+
+## With real meals:
+- The TEF for high-fat and low-fat meals is often similar (when calorie and protein matched)
+- The amount of protein does not materially affect the TEF
+- mixed meals tend to have a relatively constant TEF, higher than the sum of its parts.
+- for lean individuals, the TEF of a regular mixed meal is around 1.25
+- Note that MCT's and omega3's, can considerably raise the TEF of a meal, and unsaturated fats have a higher TEF than saturated fats
+
+## Food processing
+food processing causes reduction around 10% in TEF
+
+
+## In practice
+
+Assuming mixed meal compositions, TEF generally varies from 1.1 to 1.25.  
+The low end is for overweight people eating an average diet.
+The higher end is for lean strength trainees eating a diet from whole foods that is:
+* high in protein 
+* plenty of unsaturated fats or MCTs
+* a high volume of food
+* lots of fiber
+
+For very lean athletes, such as body builders in contest prep, a factor of 0.8 to 1 is appropriate.
+
+Note that meal frequency is not relevant, and salt intake is insignificant.
+''';
+
 class ProgrammerSetupInputs extends ConsumerWidget {
   ProgrammerSetupInputs({super.key});
   // keys for TextFormField's that don't use Form. see TextFormField docs
@@ -92,6 +129,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
   final keyRecoveryFactor = GlobalKey<FormFieldState>();
   final keyWorkoutsPerWeek = GlobalKey<FormFieldState>();
   final _durationKey = GlobalKey<FormFieldState>();
+  final keyThermicEffect = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -285,6 +323,25 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             const InfoButton(
               title: 'Activity Level',
               child: MarkdownBody(data: helpActivityLevel),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            titleText('TEF', context),
+            const SizedBox(width: 25),
+            numInput(
+              keyThermicEffect,
+              '',
+              setup.thermicEffect.toStringAsFixed(2),
+              validator: notifier.thermicEffectValidator,
+              onChanged: notifier.setThermicEffectMaybe,
+            ),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Thermic Effect of Food',
+              child: MarkdownBody(data: helpThermicEffect),
             ),
           ],
         ),

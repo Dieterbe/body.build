@@ -7,6 +7,7 @@ import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/parameters.dart';
 import 'package:ptc/model/programmer/sex.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:ptc/util/formulas.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';
@@ -29,6 +30,7 @@ class Settings with _$Settings {
     @Default(null) double? bodyFat, // percentage
     @Default(100) int energyBalance, // percentage (100 = maintenance)
     @Default(1.0) double recoveryFactor, // Recovery quality factor (0.5 - 1.2)
+    @Default(1.2) double thermicEffect, // Thermic effect of food
     @Default(3) int workoutsPerWeek,
     @Default(60) int workoutDuration, // minutes
     @Default(BMRMethod.tenHaaf) BMRMethod bmrMethod,
@@ -51,6 +53,7 @@ class Settings with _$Settings {
     double? bodyFat,
     int energyBalance = 100,
     double recoveryFactor = 1.0,
+    double thermicEffect = 1.2,
     int workoutsPerWeek = 3,
     int workoutDuration = 60,
     BMRMethod bmrMethod = BMRMethod.cunningham,
@@ -67,6 +70,7 @@ class Settings with _$Settings {
       bodyFat: bodyFat,
       energyBalance: energyBalance,
       recoveryFactor: recoveryFactor,
+      thermicEffect: thermicEffect,
       workoutsPerWeek: workoutsPerWeek,
       workoutDuration: workoutDuration,
       bmrMethod: bmrMethod,
@@ -96,6 +100,17 @@ class Settings with _$Settings {
         return sex == Sex.male ? 1.25 : 1.27;
       case ActivityLevel.veryActive:
         return sex == Sex.male ? 1.48 : 1.45;
+    }
+  }
+
+  double getBMR() {
+    switch (bmrMethod) {
+      case BMRMethod.cunningham:
+        return bmrCunningham(weight, bodyFat ?? 0);
+      case BMRMethod.tenHaaf:
+        return bmrTenHaaf(weight, height, age, sex);
+      case BMRMethod.tinsley:
+        return bmrTinsley(weight);
     }
   }
 }
