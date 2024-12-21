@@ -56,3 +56,9 @@ bmrTenHaaf(double weight, double height, double age, Sex sex) =>
         (sex == Sex.male ? 799.257 : 0) +
         122.502) *
     kJToKcal;
+
+// get a body fat percentage estimate. not accurate for trained individuals with a good amount
+// of lean body mass. but useful ballpark for untrained individuals
+// Deurenberg et al. (1991)
+BfDeurenberg(double bmi, double age, Sex sex) =>
+    1.2 * bmi + 0.23 * age - (sex == Sex.male ? 10.8 : 0) - 5.4;

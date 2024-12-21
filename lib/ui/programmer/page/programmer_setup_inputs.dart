@@ -7,6 +7,7 @@ import 'package:ptc/model/programmer/activity_level.dart';
 import 'package:ptc/ui/core/info_button.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
+import 'package:ptc/util/formulas.dart';
 
 import '../../../data/programmer/setup.dart';
 
@@ -28,10 +29,19 @@ examples:
 * 110 for bulk with 10% surplus
 ''';
 
-const String helpBodyFat = '''
- men:   ~3% essential body fat  
- women: ~12% essential body fat
- ''';
+String helpBodyFat(double bfDeurenberg) => '''
+## Men
+~3% essential body fat
+
+## Women
+~12% essential body fat
+
+## Estimate via BMI
+${bfDeurenberg.toStringAsFixed(1)}  
+Computed based on BMI, age, and sex, according to Deurenberg et al. (1991)  
+Not accurate for trained individuals with a good amount of lean body mass.  
+But useful ballpark for untrained individuals. I would not rely on this to calculate BMR, however.
+''';
 
 const String helpRecoveryFactor = '''
 Recovery quality: 0.5 - 1.2  
@@ -87,6 +97,9 @@ class ProgrammerSetupInputs extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(setupProvider.notifier);
+
+    final bmi = calcBMI(setup.weight, setup.height);
+    final bfDeurenberg = BfDeurenberg(bmi, setup.age, setup.sex);
 
     return Column(
       children: [
@@ -187,9 +200,9 @@ class ProgrammerSetupInputs extends ConsumerWidget {
               onChanged: notifier.setBodyFatMaybe,
             ),
             const SizedBox(width: 12),
-            const InfoButton(
+            InfoButton(
               title: 'Body Fat',
-              child: MarkdownBody(data: helpBodyFat),
+              child: MarkdownBody(data: helpBodyFat(bfDeurenberg)),
             )
           ],
         ),
