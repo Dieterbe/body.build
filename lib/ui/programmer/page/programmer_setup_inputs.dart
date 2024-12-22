@@ -113,9 +113,25 @@ The higher end is for lean strength trainees eating a diet from whole foods that
 * a high volume of food
 * lots of fiber
 
-For very lean athletes, such as body builders in contest prep, a factor of 0.8 to 1 is appropriate.
-
 Note that meal frequency is not relevant, and salt intake is insignificant.
+''';
+
+const String helpAdaptiveThermogenesis = '''
+Adaptive Thermogenesis (AT) represents how your metabolism adapts to your bodyfat levels.
+
+* When lean, your body can reduce your metabolic rate.
+* When overweight, your body can increase your metabolic rate.
+
+It depends on:
+* your current body fat level (not your dieting or body composition history)
+* your genes.
+
+Therefore this multiplier is applied to adjust your BMR accordingly.
+The effect of current inergy intake is minor.
+
+### Guidelines:
+- 0.9 to 1.1 is typical. I.o.w. a 10% change in BMR
+- For some bodybuilders, it varies between 0.8 (when very lean, e.g. contest prep) and 1.2 at the end of a long bulk.
 ''';
 
 class ProgrammerSetupInputs extends ConsumerWidget {
@@ -130,6 +146,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
   final keyWorkoutsPerWeek = GlobalKey<FormFieldState>();
   final _durationKey = GlobalKey<FormFieldState>();
   final keyThermicEffect = GlobalKey<FormFieldState>();
+  final keyAdaptiveThermogenesis = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -329,12 +346,12 @@ class ProgrammerSetupInputs extends ConsumerWidget {
         const SizedBox(height: 20),
         Row(
           children: [
-            titleText('TEF', context),
+            titleText('TEF multiplier', context),
             const SizedBox(width: 25),
             numInput(
               keyThermicEffect,
               '',
-              setup.thermicEffect.toStringAsFixed(2),
+              setup.tefFactor.toStringAsFixed(2),
               validator: notifier.thermicEffectValidator,
               onChanged: notifier.setThermicEffectMaybe,
             ),
@@ -342,6 +359,25 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             const InfoButton(
               title: 'Thermic Effect of Food',
               child: MarkdownBody(data: helpThermicEffect),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            titleText('AT multiplier', context),
+            const SizedBox(width: 25),
+            numInput(
+              keyAdaptiveThermogenesis,
+              '',
+              setup.atFactor.toStringAsFixed(2),
+              validator: notifier.adaptiveThermogenesisValidator,
+              onChanged: notifier.setAdaptiveThermogenesisMaybe,
+            ),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Adaptive Thermogenesis',
+              child: MarkdownBody(data: helpAdaptiveThermogenesis),
             ),
           ],
         ),

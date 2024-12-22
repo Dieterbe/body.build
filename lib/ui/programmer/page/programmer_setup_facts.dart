@@ -91,9 +91,10 @@ class ProgrammerSetupFacts extends ConsumerWidget {
 // for most people, not counting the EPOC is okay because we count the basal expenditure
 // during workouts twice.  However for highly physically active people,
 // the displaced resting EE is rather significant, so account for it.
-    final displacedEE =
-        (setup.getBMR() * setup.getPAL()) / (24 * 60) * setup.workoutDuration;
-    final epoc = 50; // roughly true for most workouts
+    final displacedEE = (setup.getBMR() * setup.getPAL() * setup.atFactor) /
+        (24 * 60) *
+        setup.workoutDuration;
+    const epoc = 50; // roughly true for most workouts
     final baseRT = 0.1 * setup.weight * setup.workoutDuration;
     final (trainingEE, adjusted) =
         (setup.activityLevel == ActivityLevel.veryActive)
@@ -101,9 +102,11 @@ class ProgrammerSetupFacts extends ConsumerWidget {
             : (baseRT, false);
     print(
         'RT EE $baseRT adjusted $adjusted (displaced $displacedEE epoc $epoc)');
-    final restingDayEE = setup.getBMR() * setup.getPAL() * setup.thermicEffect;
-    final trainingDayEE =
-        (setup.getBMR() * setup.getPAL() + trainingEE) * setup.thermicEffect;
+    final restingDayEE =
+        setup.getBMR() * setup.getPAL() * setup.tefFactor * setup.atFactor;
+    final trainingDayEE = (setup.getBMR() * setup.getPAL() + trainingEE) *
+        setup.tefFactor *
+        setup.atFactor;
 
     final averageDayEE = (restingDayEE * (7 - setup.workoutsPerWeek) +
             trainingDayEE * setup.workoutsPerWeek) /

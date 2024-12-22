@@ -30,7 +30,8 @@ class Settings with _$Settings {
     @Default(null) double? bodyFat, // percentage
     @Default(100) int energyBalance, // percentage (100 = maintenance)
     @Default(1.0) double recoveryFactor, // Recovery quality factor (0.5 - 1.2)
-    @Default(1.2) double thermicEffect, // Thermic effect of food
+    @Default(1.2) double tefFactor, // Thermic effect of food
+    @Default(1.0) double atFactor,
     @Default(3) int workoutsPerWeek,
     @Default(60) int workoutDuration, // minutes
     @Default(BMRMethod.tenHaaf) BMRMethod bmrMethod,
@@ -53,7 +54,8 @@ class Settings with _$Settings {
     double? bodyFat,
     int energyBalance = 100,
     double recoveryFactor = 1.0,
-    double thermicEffect = 1.2,
+    double tefFactor = 1.2,
+    double atFactor = 1.0,
     int workoutsPerWeek = 3,
     int workoutDuration = 60,
     BMRMethod bmrMethod = BMRMethod.cunningham,
@@ -70,7 +72,8 @@ class Settings with _$Settings {
       bodyFat: bodyFat,
       energyBalance: energyBalance,
       recoveryFactor: recoveryFactor,
-      thermicEffect: thermicEffect,
+      tefFactor: tefFactor,
+      atFactor: atFactor,
       workoutsPerWeek: workoutsPerWeek,
       workoutDuration: workoutDuration,
       bmrMethod: bmrMethod,

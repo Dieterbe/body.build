@@ -66,7 +66,7 @@ class Ex {
 // for advanced, prefer barbell DL's over deadlifts maybe? and things like back extensions will use more than bodyweidht, bodyweight exercises like push-ups, squats don't make sense anymore
 // generally machines/cables should come out better compared to body weight (e.g. nordic curls is less comfortable at least)
 // todo give exercises properties to sort their quality by. e.g. range, train at long length, and also setup time
-
+// TODO: do i have good boyweight exercises for most stuff?
 final List<Ex> exes = [
   Ex(EBase.goodMorning, "standing barbell good morning", [Equipment.barbell]),
   Ex(EBase.goodMorning, "standing dumbbell good morning", [Equipment.dumbbell]),

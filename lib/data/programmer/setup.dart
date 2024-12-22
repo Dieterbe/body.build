@@ -149,6 +149,17 @@ class Setup extends _$Setup {
     return (null, effect);
   }
 
+  (String?, double) _adaptiveThermogenesisValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return ('Please enter adaptive thermogenesis multiplier', 0.0);
+    }
+    final effect = double.tryParse(value);
+    if (effect == null || effect < 0.5 || effect > 1.5) {
+      return ('Must be between 0.5 & 1.5', 0.0);
+    }
+    return (null, effect);
+  }
+
   /* VALIDATION FUNCTIONS FOR TEXTFORMFIELDS */
 
   String? ageValidator(String? value) => _ageValidator(value).$1;
@@ -166,6 +177,8 @@ class Setup extends _$Setup {
       _workoutDurationValidator(v).$1;
   String? thermicEffectValidator(String? value) =>
       _thermicEffectValidator(value).$1;
+  String? adaptiveThermogenesisValidator(String? value) =>
+      _adaptiveThermogenesisValidator(value).$1;
 
   /* END VALIDATION FUNCTIONS */
 
@@ -241,7 +254,11 @@ class Setup extends _$Setup {
   }
 
   void setThermicEffect(double value) {
-    state = state.copyWith(thermicEffect: value);
+    state = state.copyWith(tefFactor: value);
+  }
+
+  void setAdaptiveThermogenesis(double value) {
+    state = state.copyWith(atFactor: value);
   }
 
   void setWorkoutDurationMaybe(String value) {
@@ -325,6 +342,13 @@ class Setup extends _$Setup {
     final (msg, effect) = _thermicEffectValidator(value);
     if (msg == null) {
       setThermicEffect(effect);
+    }
+  }
+
+  void setAdaptiveThermogenesisMaybe(String value) {
+    final (msg, effect) = _adaptiveThermogenesisValidator(value);
+    if (msg == null) {
+      setAdaptiveThermogenesis(effect);
     }
   }
 
