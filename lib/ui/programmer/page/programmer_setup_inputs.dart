@@ -161,31 +161,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
         const LabelBar('Personal information'),
         Row(
           children: [
-            titleText('Trainee level', context),
-            const SizedBox(width: 25),
-            SizedBox(
-              width: 200,
-              child: DropdownButton<Level>(
-                value: setup.level,
-                isExpanded: true,
-                onChanged: notifier.setLevel,
-                items: Level.values.map<DropdownMenuItem<Level>>((Level value) {
-                  return DropdownMenuItem<Level>(
-                    value: value,
-                    child: Text(value.name),
-                  );
-                }).toList(),
-              ),
-            ),
-            const SizedBox(width: 12),
-            const InfoButton(
-              title: 'Trainee Level',
-              child: MarkdownBody(data: helpTraineeLevel),
-            )
-          ],
-        ),
-        Row(
-          children: [
             titleText('Sex', context),
             const SizedBox(width: 25),
             SizedBox(
@@ -204,6 +179,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             ),
           ],
         ),
+        const SizedBox(height: 12),
         Row(
           children: [
             titleText('Age', context),
@@ -217,6 +193,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             ),
           ],
         ),
+        const SizedBox(height: 12),
         Row(
           children: [
             titleText('Weight', context),
@@ -230,6 +207,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             ),
           ],
         ),
+        const SizedBox(height: 12),
         Row(
           children: [
             titleText('Height', context),
@@ -243,6 +221,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             ),
           ],
         ),
+        const SizedBox(height: 12),
         Row(
           children: [
             titleText('Body Fat', context),
@@ -261,59 +240,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             )
           ],
         ),
-        Row(
-          children: [
-            titleText('Energy balance', context),
-            const SizedBox(width: 25),
-            numInput(
-              keyEnergyBalance,
-              '%',
-              setup.energyBalance.toString(),
-              validator: notifier.energyBalanceValidator,
-              onChanged: notifier.setEnergyBalanceMaybe,
-            ),
-            const SizedBox(width: 12),
-            const InfoButton(
-              title: 'Energy Balance %',
-              child: MarkdownBody(data: helpEnergyBalance),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            titleText(
-              'Recovery Factor',
-              context,
-            ),
-            const SizedBox(width: 25),
-            numInput(
-              keyRecoveryFactor,
-              '',
-              setup.recoveryFactor.toStringAsFixed(1),
-              validator: notifier.recoveryFactorValidator,
-              onChanged: notifier.setRecoveryFactorMaybe,
-            ),
-            const SizedBox(width: 12),
-            const InfoButton(
-              title: 'Recovery Factor',
-              child: MarkdownBody(data: helpRecoveryFactor),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            titleText('Workouts', context),
-            const SizedBox(width: 25),
-            numInput(
-              keyWorkoutsPerWeek,
-              'per week',
-              setup.workoutsPerWeek.toString(),
-              validator: notifier.workoutsPerWeekValidator,
-              onChanged: notifier.setWorkoutsPerWeekMaybe,
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
         Row(
           children: [
             titleText('Activity Level', context),
@@ -343,45 +270,69 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
         Row(
           children: [
-            titleText('TEF multiplier', context),
+            titleText(
+              'Recovery Factor',
+              context,
+            ),
             const SizedBox(width: 25),
             numInput(
-              keyThermicEffect,
+              keyRecoveryFactor,
               '',
-              setup.tefFactor.toStringAsFixed(2),
-              validator: notifier.thermicEffectValidator,
-              onChanged: notifier.setThermicEffectMaybe,
+              setup.recoveryFactor.toStringAsFixed(1),
+              validator: notifier.recoveryFactorValidator,
+              onChanged: notifier.setRecoveryFactorMaybe,
             ),
             const SizedBox(width: 12),
             const InfoButton(
-              title: 'Thermic Effect of Food',
-              child: MarkdownBody(data: helpThermicEffect),
+              title: 'Recovery Factor',
+              child: MarkdownBody(data: helpRecoveryFactor),
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
         Row(
           children: [
-            titleText('AT multiplier', context),
+            titleText('Trainee level', context),
             const SizedBox(width: 25),
-            numInput(
-              keyAdaptiveThermogenesis,
-              '',
-              setup.atFactor.toStringAsFixed(2),
-              validator: notifier.adaptiveThermogenesisValidator,
-              onChanged: notifier.setAdaptiveThermogenesisMaybe,
+            SizedBox(
+              width: 200,
+              child: DropdownButton<Level>(
+                value: setup.level,
+                isExpanded: true,
+                onChanged: notifier.setLevel,
+                items: Level.values.map<DropdownMenuItem<Level>>((Level value) {
+                  return DropdownMenuItem<Level>(
+                    value: value,
+                    child: Text(value.name),
+                  );
+                }).toList(),
+              ),
             ),
             const SizedBox(width: 12),
             const InfoButton(
-              title: 'Adaptive Thermogenesis',
-              child: MarkdownBody(data: helpAdaptiveThermogenesis),
+              title: 'Trainee Level',
+              child: MarkdownBody(data: helpTraineeLevel),
+            )
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            titleText('Workouts', context),
+            const SizedBox(width: 25),
+            numInput(
+              keyWorkoutsPerWeek,
+              'per week',
+              setup.workoutsPerWeek.toString(),
+              validator: notifier.workoutsPerWeekValidator,
+              onChanged: notifier.setWorkoutsPerWeekMaybe,
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
         Row(
           children: [
             titleText(
@@ -403,7 +354,63 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            titleText('Energy balance', context),
+            const SizedBox(width: 25),
+            numInput(
+              keyEnergyBalance,
+              '%',
+              setup.energyBalance.toString(),
+              validator: notifier.energyBalanceValidator,
+              onChanged: notifier.setEnergyBalanceMaybe,
+            ),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Energy Balance %',
+              child: MarkdownBody(data: helpEnergyBalance),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            titleText('TEF multiplier', context),
+            const SizedBox(width: 25),
+            numInput(
+              keyThermicEffect,
+              '',
+              setup.tefFactor.toStringAsFixed(2),
+              validator: notifier.thermicEffectValidator,
+              onChanged: notifier.setThermicEffectMaybe,
+            ),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Thermic Effect of Food',
+              child: MarkdownBody(data: helpThermicEffect),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            titleText('AT multiplier', context),
+            const SizedBox(width: 25),
+            numInput(
+              keyAdaptiveThermogenesis,
+              '',
+              setup.atFactor.toStringAsFixed(2),
+              validator: notifier.adaptiveThermogenesisValidator,
+              onChanged: notifier.setAdaptiveThermogenesisMaybe,
+            ),
+            const SizedBox(width: 12),
+            const InfoButton(
+              title: 'Adaptive Thermogenesis',
+              child: MarkdownBody(data: helpAdaptiveThermogenesis),
+            ),
+          ],
+        ),
       ],
     );
   }
