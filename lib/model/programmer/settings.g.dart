@@ -8,6 +8,7 @@ part of 'settings.dart';
 
 _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
     _$SettingsImpl(
+      name: json['name'] as String? ?? 'unnamed profile',
       level:
           $enumDecodeNullable(_$LevelEnumMap, json['level']) ?? Level.beginner,
       sex: $enumDecodeNullable(_$SexEnumMap, json['sex']) ?? Sex.male,
@@ -37,6 +38,7 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
     <String, dynamic>{
+      'name': instance.name,
       'level': _$LevelEnumMap[instance.level]!,
       'sex': _$SexEnumMap[instance.sex]!,
       'availEquipment': _equipmentSetToJson(instance.availEquipment),

@@ -20,6 +20,7 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Settings {
+  String get name => throw _privateConstructorUsedError;
   Level get level => throw _privateConstructorUsedError;
   Sex get sex => throw _privateConstructorUsedError;
   @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
@@ -58,7 +59,8 @@ abstract class $SettingsCopyWith<$Res> {
       _$SettingsCopyWithImpl<$Res, Settings>;
   @useResult
   $Res call(
-      {Level level,
+      {String name,
+      Level level,
       Sex sex,
       @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
       Set<Equipment> availEquipment,
@@ -96,6 +98,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? level = null,
     Object? sex = null,
     Object? availEquipment = null,
@@ -115,6 +118,10 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? paramOverrides = null,
   }) {
     return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -216,7 +223,8 @@ abstract class _$$SettingsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Level level,
+      {String name,
+      Level level,
       Sex sex,
       @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
       Set<Equipment> availEquipment,
@@ -254,6 +262,7 @@ class __$$SettingsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? level = null,
     Object? sex = null,
     Object? availEquipment = null,
@@ -273,6 +282,10 @@ class __$$SettingsImplCopyWithImpl<$Res>
     Object? paramOverrides = null,
   }) {
     return _then(_$SettingsImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       level: null == level
           ? _value.level
           : level // ignore: cast_nullable_to_non_nullable
@@ -349,7 +362,8 @@ class __$$SettingsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SettingsImpl extends _Settings {
   const _$SettingsImpl(
-      {this.level = Level.beginner,
+      {this.name = 'unnamed profile',
+      this.level = Level.beginner,
       this.sex = Sex.male,
       @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
       final Set<Equipment> availEquipment = const {},
@@ -373,6 +387,9 @@ class _$SettingsImpl extends _Settings {
   factory _$SettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$SettingsImplFromJson(json);
 
+  @override
+  @JsonKey()
+  final String name;
   @override
   @JsonKey()
   final Level level;
@@ -436,7 +453,7 @@ class _$SettingsImpl extends _Settings {
 
   @override
   String toString() {
-    return 'Settings(level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, tefFactor: $tefFactor, atFactor: $atFactor, workoutsPerWeek: $workoutsPerWeek, workoutDuration: $workoutDuration, bmrMethod: $bmrMethod, activityLevel: $activityLevel, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
+    return 'Settings(name: $name, level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, tefFactor: $tefFactor, atFactor: $atFactor, workoutsPerWeek: $workoutsPerWeek, workoutDuration: $workoutDuration, bmrMethod: $bmrMethod, activityLevel: $activityLevel, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
   }
 
   /// Create a copy of Settings
@@ -457,7 +474,8 @@ class _$SettingsImpl extends _Settings {
 
 abstract class _Settings extends Settings {
   const factory _Settings(
-      {final Level level,
+      {final String name,
+      final Level level,
       final Sex sex,
       @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
       final Set<Equipment> availEquipment,
@@ -480,6 +498,8 @@ abstract class _Settings extends Settings {
   factory _Settings.fromJson(Map<String, dynamic> json) =
       _$SettingsImpl.fromJson;
 
+  @override
+  String get name;
   @override
   Level get level;
   @override

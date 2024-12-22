@@ -19,6 +19,7 @@ class Settings with _$Settings {
   // This is the main constructor, for Freezed.
   // Look at the defaults constructor below
   const factory Settings({
+    @Default('unnamed profile') String name,
     @Default(Level.beginner) Level level,
     @Default(Sex.male) Sex sex,
     @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)

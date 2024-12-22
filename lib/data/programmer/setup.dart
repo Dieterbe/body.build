@@ -9,7 +9,10 @@ import 'package:ptc/model/programmer/parameter_overrides.dart';
 import 'package:ptc/model/programmer/parameters.dart';
 import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/model/programmer/sex.dart';
+import 'package:ptc/data/programmer/current_setup_profile_provider.dart';
+import 'package:ptc/data/programmer/setup_persistence_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 part 'setup.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -19,7 +22,32 @@ class Setup extends _$Setup {
     ref.onDispose(() {
       print('programmer setup provider disposed');
     });
+
+    // Watch the current profile ID to rebuild when it changes
+    ref.listen(currentSetupProfileProvider, (previous, next) async {
+      if (next.value == null) return;
+      final service = await ref.read(setupPersistenceProvider.future);
+      final profile = await service.loadProfile(next.value!);
+      if (profile != null) {
+        state = profile;
+      }
+    });
+
     return Settings.defaults();
+  }
+
+  Future<void> _saveCurrentProfile() async {
+    final currentProfile = await ref.read(currentSetupProfileProvider.future);
+    final service = await ref.read(setupPersistenceProvider.future);
+    await service.saveProfile(currentProfile, state);
+  }
+
+  void _updateState(Settings Function(Settings) update) {
+    final newState = update(state);
+    state = newState.copyWith(
+      paramSuggest: Parameters.fromSettings(newState),
+    );
+    _saveCurrentProfile();
   }
 
   /* INTERNAL VALIDATION FUNCTIONS */
@@ -181,13 +209,6 @@ class Setup extends _$Setup {
       _adaptiveThermogenesisValidator(value).$1;
 
   /* END VALIDATION FUNCTIONS */
-
-  void _updateState(Settings Function(Settings) update) {
-    final newState = update(state);
-    state = newState.copyWith(
-      paramSuggest: Parameters.fromSettings(newState),
-    );
-  }
 
   void setLevel(Level? level) {
     if (level != null) {
@@ -397,58 +418,61 @@ class Setup extends _$Setup {
     }
   }
 
-  void addEquipment(Equipment equipment) => state = state.copyWith(
-        availEquipment: {...state.availEquipment, equipment},
-      );
+  /* EQUIPMENT MANAGEMENT */
+  void addEquipment(Equipment equipment) {
+    _updateState(
+        (s) => s.copyWith(availEquipment: {...s.availEquipment, equipment}));
+  }
 
-  void removeEquipment(Equipment equipment) => state = state.copyWith(
-        availEquipment:
-            state.availEquipment.where((e) => e != equipment).toSet(),
-      );
+  void removeEquipment(Equipment equipment) {
+    _updateState((s) => s.copyWith(
+        availEquipment: s.availEquipment.where((e) => e != equipment).toSet()));
+  }
 
-  void setEquipment(Set<Equipment> equipment) => state = state.copyWith(
-        availEquipment: equipment,
-      );
+  void setEquipment(Set<Equipment> equipment) {
+    _updateState((s) => s.copyWith(availEquipment: equipment));
+  }
 
+  /* EXERCISE EXCLUSION */
   void addExcludedExercise(Ex exercise) {
     final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
     if (excl.add(exercise)) {
-      state = state.copyWith(
-        paramOverrides: state.paramOverrides.copyWith(
-          excludedExercises: excl,
-        ),
-      );
+      _updateState((s) => s.copyWith(
+            paramOverrides: s.paramOverrides.copyWith(
+              excludedExercises: excl,
+            ),
+          ));
     }
   }
 
   void removeExcludedExercise(Ex exercise) {
     final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
     excl.remove(exercise);
-    state = state.copyWith(
-      paramOverrides: state.paramOverrides.copyWith(
-        excludedExercises: excl,
-      ),
-    );
+    _updateState((s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(
+            excludedExercises: excl,
+          ),
+        ));
   }
 
   void addExcludedBase(EBase base) {
     final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
     if (excl.add(base)) {
-      state = state.copyWith(
-        paramOverrides: state.paramOverrides.copyWith(
-          excludedBases: excl,
-        ),
-      );
+      _updateState((s) => s.copyWith(
+            paramOverrides: s.paramOverrides.copyWith(
+              excludedBases: excl,
+            ),
+          ));
     }
   }
 
   void removeExcludedBase(EBase base) {
     final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
     excl.remove(base);
-    state = state.copyWith(
-      paramOverrides: state.paramOverrides.copyWith(
-        excludedBases: excl,
-      ),
-    );
+    _updateState((s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(
+            excludedBases: excl,
+          ),
+        ));
   }
 }

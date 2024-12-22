@@ -1,10 +1,10 @@
-//  const MarkdownBody(data: markdownSource),
 import 'package:flutter/material.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_facts.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_filters.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_inputs.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_params.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_params_overrides.dart';
+import 'package:ptc/ui/programmer/widget/setup_profile_header.dart';
 
 class ProgrammerSetup extends StatelessWidget {
   const ProgrammerSetup({super.key});
@@ -13,6 +13,10 @@ class ProgrammerSetup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: SetupProfileHeader(),
+        ),
         Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
