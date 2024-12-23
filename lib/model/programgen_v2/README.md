@@ -17,3 +17,5 @@ TODO: exit when cost is 0?
 ## ideas for future optimizations
 - Explore most promising child first?
 - if we plot score over time, perhaps we'll realize we can stop searching earlier
+
+TODO: cost for overshooting front delt is not so high, more important to get your side delt and pec volume in

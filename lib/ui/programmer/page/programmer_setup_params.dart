@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/programmer/setup.dart';
+import 'package:ptc/ui/core/info_button.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
 import 'package:ptc/ui/programmer/widget/widgets.dart';
+
+const String helpSetsPerWeekPerMuscleGroup = '''
+Based on Menno's calculator.
+
+Does not consider age, menopause, hormone replacement, diet, rest intervals, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.
+Adjust as needed.
+
+Practical tips:
+* less volume for elderly TODO confirm
+* more volume in follicular phase, and less in luteal phase. e.g. +- 33%
+''';
 
 class ProgrammerSetupParams extends ConsumerWidget {
   const ProgrammerSetupParams({super.key});
@@ -29,10 +42,11 @@ class ProgrammerSetupParams extends ConsumerWidget {
             const SizedBox(width: 25),
             Text(setup.paramSuggest.setsPerweekPerMuscleGroup
                 .toStringAsFixed(0)),
+            const SizedBox(width: 12),
+            const InfoButton(
+                title: 'Sets per week per muscle group',
+                child: MarkdownBody(data: helpSetsPerWeekPerMuscleGroup)),
           ]),
-          const Text(
-              'Based on Menno\'s calculator.\nDoes not consider age, menopause, hormone replacement, diet, rest intervals, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.  Adjust as needed. Practical tips\nless volume for elderly TODO confirm. do more volume in follicular phase, and less in luteal phase. e.g. +- 33%'),
-          const SizedBox(height: 20),
         ],
       ),
     );
