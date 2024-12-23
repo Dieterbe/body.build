@@ -147,9 +147,12 @@ class SetupProfileHeader extends ConsumerWidget {
                                       currentProfile.copyWith(name: newName),
                                     );
                                     ref.invalidate(setupProfileListProvider);
+                                    // Wait for the profile list to be reloaded
+                                    await ref
+                                        .read(setupProfileListProvider.future);
+                                    // ignore: use_build_context_synchronously
+                                    Navigator.pop(context);
                                   }
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.pop(context);
                                 },
                                 child: const Text('Save'),
                               ),
@@ -222,7 +225,9 @@ class SetupProfileHeader extends ConsumerWidget {
                             DateTime.now().millisecondsSinceEpoch.toString();
                         await service.saveProfile(newId, Settings.defaults());
                         ref.invalidate(setupProfileListProvider);
-                        await ref.read(setupProfileListProvider.future).then((_) {
+                        await ref
+                            .read(setupProfileListProvider.future)
+                            .then((_) {
                           // Then switch to the new profile
                           ref
                               .read(currentSetupProfileProvider.notifier)
