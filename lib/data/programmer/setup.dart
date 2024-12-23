@@ -33,21 +33,25 @@ class Setup extends _$Setup {
       }
     });
 
+    // Listen to self to update paramSuggest and save changes
+    ref.listen(setupProvider, (previous, next) async {
+      if (previous == null) return; // Skip initial build
+
+      // Update paramSuggest
+      if (next != previous) {
+        state = next.copyWith(
+          paramSuggest: Parameters.fromSettings(next),
+        );
+
+        // Save changes
+        final service = await ref.read(setupPersistenceProvider.future);
+        final currentProfile =
+            await ref.read(currentSetupProfileProvider.future);
+        await service.saveProfile(currentProfile, state);
+      }
+    });
+
     return Settings.defaults();
-  }
-
-  Future<void> _saveCurrentProfile() async {
-    final currentProfile = await ref.read(currentSetupProfileProvider.future);
-    final service = await ref.read(setupPersistenceProvider.future);
-    await service.saveProfile(currentProfile, state);
-  }
-
-  void _updateState(Settings Function(Settings) update) {
-    final newState = update(state);
-    state = newState.copyWith(
-      paramSuggest: Parameters.fromSettings(newState),
-    );
-    _saveCurrentProfile();
   }
 
   /* INTERNAL VALIDATION FUNCTIONS */
@@ -212,66 +216,66 @@ class Setup extends _$Setup {
 
   void setLevel(Level? level) {
     if (level != null) {
-      _updateState((s) => s.copyWith(level: level));
+      state = state.copyWith(level: level);
     }
   }
 
   void setSex(Sex? sex) {
     if (sex != null) {
-      _updateState((s) => s.copyWith(sex: sex));
+      state = state.copyWith(sex: sex);
     }
   }
 
   void setAge(double? age) {
     if (age != null) {
-      _updateState((s) => s.copyWith(age: age));
+      state = state.copyWith(age: age);
     }
   }
 
   void setHeight(double? length) {
     if (length != null) {
-      _updateState((s) => s.copyWith(height: length));
+      state = state.copyWith(height: length);
     }
   }
 
   void setWeight(double? weight) {
     if (weight != null) {
-      _updateState((s) => s.copyWith(weight: weight));
+      state = state.copyWith(weight: weight);
     }
   }
 
   void setBodyFat(double? bodyFat) {
-    _updateState((s) => s.copyWith(bodyFat: bodyFat));
+    state = state.copyWith(bodyFat: bodyFat);
   }
 
   void setBMRMethod(BMRMethod method) {
-    _updateState((s) => s.copyWith(bmrMethod: method));
+    state = state.copyWith(bmrMethod: method);
   }
 
   void setActivityLevel(ActivityLevel level) {
-    _updateState((s) => s.copyWith(activityLevel: level));
+    state = state.copyWith(activityLevel: level);
   }
 
   void setEnergyBalance(int? energyBalance) {
     if (energyBalance != null) {
-      _updateState((s) => s.copyWith(energyBalance: energyBalance));
+      state = state.copyWith(energyBalance: energyBalance);
     }
   }
 
   void setRecoveryFactor(double? recoveryFactor) {
     if (recoveryFactor != null) {
-      _updateState((s) => s.copyWith(recoveryFactor: recoveryFactor));
+      state = state.copyWith(recoveryFactor: recoveryFactor);
     }
   }
 
   void setWorkoutsPerWeek(int? freq) {
     if (freq != null) {
-      _updateState((s) => s.copyWith(workoutsPerWeek: freq));
+      state = state.copyWith(workoutsPerWeek: freq);
     }
   }
 
   void setWorkoutDuration(int duration) {
-    _updateState((s) => s.copyWith(workoutDuration: duration));
+    state = state.copyWith(workoutDuration: duration);
   }
 
   void setThermicEffect(double value) {
@@ -420,59 +424,60 @@ class Setup extends _$Setup {
 
   /* EQUIPMENT MANAGEMENT */
   void addEquipment(Equipment equipment) {
-    _updateState(
-        (s) => s.copyWith(availEquipment: {...s.availEquipment, equipment}));
+    state =
+        state.copyWith(availEquipment: {...state.availEquipment, equipment});
   }
 
   void removeEquipment(Equipment equipment) {
-    _updateState((s) => s.copyWith(
-        availEquipment: s.availEquipment.where((e) => e != equipment).toSet()));
+    state = state.copyWith(
+        availEquipment:
+            state.availEquipment.where((e) => e != equipment).toSet());
   }
 
   void setEquipment(Set<Equipment> equipment) {
-    _updateState((s) => s.copyWith(availEquipment: equipment));
+    state = state.copyWith(availEquipment: equipment);
   }
 
   /* EXERCISE EXCLUSION */
   void addExcludedExercise(Ex exercise) {
     final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
     if (excl.add(exercise)) {
-      _updateState((s) => s.copyWith(
-            paramOverrides: s.paramOverrides.copyWith(
-              excludedExercises: excl,
-            ),
-          ));
+      state = state.copyWith(
+        paramOverrides: state.paramOverrides.copyWith(
+          excludedExercises: excl,
+        ),
+      );
     }
   }
 
   void removeExcludedExercise(Ex exercise) {
     final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
     excl.remove(exercise);
-    _updateState((s) => s.copyWith(
-          paramOverrides: s.paramOverrides.copyWith(
-            excludedExercises: excl,
-          ),
-        ));
+    state = state.copyWith(
+      paramOverrides: state.paramOverrides.copyWith(
+        excludedExercises: excl,
+      ),
+    );
   }
 
   void addExcludedBase(EBase base) {
     final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
     if (excl.add(base)) {
-      _updateState((s) => s.copyWith(
-            paramOverrides: s.paramOverrides.copyWith(
-              excludedBases: excl,
-            ),
-          ));
+      state = state.copyWith(
+        paramOverrides: state.paramOverrides.copyWith(
+          excludedBases: excl,
+        ),
+      );
     }
   }
 
   void removeExcludedBase(EBase base) {
     final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
     excl.remove(base);
-    _updateState((s) => s.copyWith(
-          paramOverrides: s.paramOverrides.copyWith(
-            excludedBases: excl,
-          ),
-        ));
+    state = state.copyWith(
+      paramOverrides: state.paramOverrides.copyWith(
+        excludedBases: excl,
+      ),
+    );
   }
 }
