@@ -170,7 +170,7 @@ class Setup extends _$Setup {
     return (null, duration);
   }
 
-  (String?, double) _thermicEffectValidator(String? value) {
+  (String?, double) _tefFactorValidator(String? value) {
     if (value == null || value.isEmpty) {
       return ('Please enter a TEF factor', 0);
     }
@@ -181,9 +181,9 @@ class Setup extends _$Setup {
     return (null, effect);
   }
 
-  (String?, double) _adaptiveThermogenesisValidator(String? value) {
+  (String?, double) _atFactorValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return ('Please enter adaptive thermogenesis multiplier', 0.0);
+      return ('Please enter adaptive thermogenesis factor', 0.0);
     }
     final effect = double.tryParse(value);
     if (effect == null || effect < 0.5 || effect > 1.5) {
@@ -207,12 +207,10 @@ class Setup extends _$Setup {
       _setsPerWeekPerMuscleGroupValidator(v).$1;
   String? workoutDurationValidator(String? v) =>
       _workoutDurationValidator(v).$1;
-  String? thermicEffectValidator(String? value) =>
-      _thermicEffectValidator(value).$1;
-  String? adaptiveThermogenesisValidator(String? value) =>
-      _adaptiveThermogenesisValidator(value).$1;
+  String? tefFactorValidator(String? value) => _tefFactorValidator(value).$1;
+  String? atFactorValidator(String? value) => _atFactorValidator(value).$1;
 
-  /* END VALIDATION FUNCTIONS */
+  // Setters. Note the null checks for those properties that cannot be null
 
   void setLevel(Level? level) {
     if (level != null) {
@@ -278,14 +276,15 @@ class Setup extends _$Setup {
     state = state.copyWith(workoutDuration: duration);
   }
 
-  void setThermicEffect(double value) {
+  void setTefFactor(double value) {
     state = state.copyWith(tefFactor: value);
   }
 
-  void setAdaptiveThermogenesis(double value) {
+  void setAtFactor(double value) {
     state = state.copyWith(atFactor: value);
   }
 
+// Conditional setters: set if passed value is valid
   void setWorkoutDurationMaybe(String value) {
     final (msg, duration) = _workoutDurationValidator(value);
     if (msg == null) {
@@ -363,17 +362,17 @@ class Setup extends _$Setup {
     }
   }
 
-  void setThermicEffectMaybe(String value) {
-    final (msg, effect) = _thermicEffectValidator(value);
+  void setTefFactorMaybe(String value) {
+    final (msg, effect) = _tefFactorValidator(value);
     if (msg == null) {
-      setThermicEffect(effect);
+      setTefFactor(effect);
     }
   }
 
-  void setAdaptiveThermogenesisMaybe(String value) {
-    final (msg, effect) = _adaptiveThermogenesisValidator(value);
+  void setAtFactorMaybe(String value) {
+    final (msg, effect) = _atFactorValidator(value);
     if (msg == null) {
-      setAdaptiveThermogenesis(effect);
+      setAtFactor(effect);
     }
   }
 

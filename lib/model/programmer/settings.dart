@@ -20,11 +20,9 @@ class Settings with _$Settings {
   // Look at the defaults constructor below
   const factory Settings({
     @Default('unnamed profile') String name,
+    // Personal information
     @Default(Level.beginner) Level level,
     @Default(Sex.male) Sex sex,
-    @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-    @Default({})
-    Set<Equipment> availEquipment,
     @Default(30) double age,
     @Default(75) double weight,
     @Default(178) double height,
@@ -35,8 +33,12 @@ class Settings with _$Settings {
     @Default(1.0) double atFactor,
     @Default(3) int workoutsPerWeek,
     @Default(60) int workoutDuration, // minutes
-    @Default(BMRMethod.tenHaaf) BMRMethod bmrMethod,
     @Default(ActivityLevel.sedentary) ActivityLevel activityLevel,
+    // other
+    @Default(BMRMethod.tenHaaf) BMRMethod bmrMethod,
+    @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+    @Default({})
+    Set<Equipment> availEquipment,
     required Parameters paramSuggest,
     required ParameterOverrides paramOverrides,
   }) = _Settings;
@@ -46,9 +48,10 @@ class Settings with _$Settings {
   // this constructor sets paramSuggest correctly based on the settings
   // normally, we'd do this in the default constructor, but Freezed doesn't allow that
   factory Settings.defaults({
+    String name = 'unnamed profile',
+    // Personal information
     Level level = Level.beginner,
     Sex sex = Sex.male,
-    Set<Equipment> availEquipment = const {},
     double age = 30,
     double weight = 75,
     double height = 178,
@@ -59,14 +62,18 @@ class Settings with _$Settings {
     double atFactor = 1.0,
     int workoutsPerWeek = 3,
     int workoutDuration = 60,
-    BMRMethod bmrMethod = BMRMethod.cunningham,
     ActivityLevel activityLevel = ActivityLevel.sedentary,
+
+    // other
+    Set<Equipment> availEquipment = const {},
+    BMRMethod bmrMethod = BMRMethod.tenHaaf,
     ParameterOverrides paramOverrides = const ParameterOverrides(),
   }) {
     final tempSettings = Settings(
+      name: name,
+      // Personal information
       level: level,
       sex: sex,
-      availEquipment: availEquipment,
       age: age,
       weight: weight,
       height: height,
@@ -77,10 +84,12 @@ class Settings with _$Settings {
       atFactor: atFactor,
       workoutsPerWeek: workoutsPerWeek,
       workoutDuration: workoutDuration,
-      bmrMethod: bmrMethod,
       activityLevel: activityLevel,
+      // other
       paramSuggest: Parameters(),
       paramOverrides: paramOverrides,
+      availEquipment: availEquipment,
+      bmrMethod: bmrMethod,
     );
 
     return tempSettings.copyWith(

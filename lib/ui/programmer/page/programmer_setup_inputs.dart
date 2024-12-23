@@ -81,7 +81,7 @@ Rule of thumb: count 2.5 minutes per work set.
 For most people, this duration ends up considerably shorter than their actual workout duration.
 ''';
 
-const String helpThermicEffect = '''
+const String helpTefFactor = '''
 The Thermic Effect of Food (TEF) aka diet induced thermogenesis (DIT) is:  
 the energy expended during metabolizing of food.  
 It is a multiplier, typically between 1 and 1.25.
@@ -116,7 +116,7 @@ The higher end is for lean strength trainees eating a diet from whole foods that
 Note that meal frequency is not relevant, and salt intake is insignificant.
 ''';
 
-const String helpAdaptiveThermogenesis = '''
+const String helpAtFactor = '''
 Adaptive Thermogenesis (AT) represents how your metabolism adapts to your bodyfat levels.
 
 * When lean, your body can reduce your metabolic rate.
@@ -145,8 +145,8 @@ class ProgrammerSetupInputs extends ConsumerWidget {
   final keyRecoveryFactor = GlobalKey<FormFieldState>();
   final keyWorkoutsPerWeek = GlobalKey<FormFieldState>();
   final _durationKey = GlobalKey<FormFieldState>();
-  final keyThermicEffect = GlobalKey<FormFieldState>();
-  final keyAdaptiveThermogenesis = GlobalKey<FormFieldState>();
+  final keyTefFactor = GlobalKey<FormFieldState>();
+  final keyAtFactor = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -379,16 +379,16 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             titleText('TEF multiplier', context),
             const SizedBox(width: 25),
             numInput(
-              keyThermicEffect,
+              keyTefFactor,
               '',
               setup.tefFactor.toStringAsFixed(2),
-              validator: notifier.thermicEffectValidator,
-              onChanged: notifier.setThermicEffectMaybe,
+              validator: notifier.tefFactorValidator,
+              onChanged: notifier.setTefFactorMaybe,
             ),
             const SizedBox(width: 12),
             const InfoButton(
               title: 'Thermic Effect of Food',
-              child: MarkdownBody(data: helpThermicEffect),
+              child: MarkdownBody(data: helpTefFactor),
             ),
           ],
         ),
@@ -398,16 +398,16 @@ class ProgrammerSetupInputs extends ConsumerWidget {
             titleText('AT multiplier', context),
             const SizedBox(width: 25),
             numInput(
-              keyAdaptiveThermogenesis,
+              keyAtFactor,
               '',
               setup.atFactor.toStringAsFixed(2),
-              validator: notifier.adaptiveThermogenesisValidator,
-              onChanged: notifier.setAdaptiveThermogenesisMaybe,
+              validator: notifier.atFactorValidator,
+              onChanged: notifier.setAtFactorMaybe,
             ),
             const SizedBox(width: 12),
             const InfoButton(
               title: 'Adaptive Thermogenesis',
-              child: MarkdownBody(data: helpAdaptiveThermogenesis),
+              child: MarkdownBody(data: helpAtFactor),
             ),
           ],
         ),
