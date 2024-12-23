@@ -25,6 +25,7 @@ class Setup extends _$Setup {
 
     // Watch the current profile ID to rebuild when it changes
     ref.listen(currentSetupProfileProvider, (previous, next) async {
+      print('listener triggered - ');
       if (next.value == null) return;
       final service = await ref.read(setupPersistenceProvider.future);
       final profile = await service.loadProfile(next.value!);
@@ -33,25 +34,21 @@ class Setup extends _$Setup {
       }
     });
 
-    // Listen to self to update paramSuggest and save changes
-    ref.listen(setupProvider, (previous, next) async {
-      if (previous == null) return; // Skip initial build
-
-      // Update paramSuggest
-      if (next != previous) {
-        state = next.copyWith(
-          paramSuggest: Parameters.fromSettings(next),
-        );
-
-        // Save changes
-        final service = await ref.read(setupPersistenceProvider.future);
-        final currentProfile =
-            await ref.read(currentSetupProfileProvider.future);
-        await service.saveProfile(currentProfile, state);
-      }
-    });
-
     return Settings.defaults();
+  }
+
+  Future<void> _saveCurrentProfile() async {
+    final currentProfile = await ref.read(currentSetupProfileProvider.future);
+    final service = await ref.read(setupPersistenceProvider.future);
+    await service.saveProfile(currentProfile, state);
+  }
+
+  void _updateState(Settings Function(Settings) update) {
+    final newState = update(state);
+    state = newState.copyWith(
+      paramSuggest: Parameters.fromSettings(newState),
+    );
+    _saveCurrentProfile();
   }
 
   /* INTERNAL VALIDATION FUNCTIONS */
@@ -214,74 +211,74 @@ class Setup extends _$Setup {
 
   void setLevel(Level? level) {
     if (level != null) {
-      state = state.copyWith(level: level);
+      _updateState((s) => s.copyWith(level: level));
     }
   }
 
   void setSex(Sex? sex) {
     if (sex != null) {
-      state = state.copyWith(sex: sex);
+      _updateState((s) => s.copyWith(sex: sex));
     }
   }
 
   void setAge(double? age) {
     if (age != null) {
-      state = state.copyWith(age: age);
+      _updateState((s) => s.copyWith(age: age));
     }
   }
 
   void setHeight(double? length) {
     if (length != null) {
-      state = state.copyWith(height: length);
+      _updateState((s) => s.copyWith(height: length));
     }
   }
 
   void setWeight(double? weight) {
     if (weight != null) {
-      state = state.copyWith(weight: weight);
+      _updateState((s) => s.copyWith(weight: weight));
     }
   }
 
   void setBodyFat(double? bodyFat) {
-    state = state.copyWith(bodyFat: bodyFat);
+    _updateState((s) => s.copyWith(bodyFat: bodyFat));
   }
 
   void setBMRMethod(BMRMethod method) {
-    state = state.copyWith(bmrMethod: method);
+    _updateState((s) => s.copyWith(bmrMethod: method));
   }
 
   void setActivityLevel(ActivityLevel level) {
-    state = state.copyWith(activityLevel: level);
+    _updateState((s) => s.copyWith(activityLevel: level));
   }
 
   void setEnergyBalance(int? energyBalance) {
     if (energyBalance != null) {
-      state = state.copyWith(energyBalance: energyBalance);
+      _updateState((s) => s.copyWith(energyBalance: energyBalance));
     }
   }
 
   void setRecoveryFactor(double? recoveryFactor) {
     if (recoveryFactor != null) {
-      state = state.copyWith(recoveryFactor: recoveryFactor);
+      _updateState((s) => s.copyWith(recoveryFactor: recoveryFactor));
     }
   }
 
   void setWorkoutsPerWeek(int? freq) {
     if (freq != null) {
-      state = state.copyWith(workoutsPerWeek: freq);
+      _updateState((s) => s.copyWith(workoutsPerWeek: freq));
     }
   }
 
   void setWorkoutDuration(int duration) {
-    state = state.copyWith(workoutDuration: duration);
+    _updateState((s) => s.copyWith(workoutDuration: duration));
   }
 
   void setTefFactor(double value) {
-    state = state.copyWith(tefFactor: value);
+    _updateState((s) => s.copyWith(tefFactor: value));
   }
 
   void setAtFactor(double value) {
-    state = state.copyWith(atFactor: value);
+    _updateState((s) => s.copyWith(atFactor: value));
   }
 
 // Conditional setters: set if passed value is valid
@@ -382,11 +379,11 @@ class Setup extends _$Setup {
     ];
     newOverrides.add(MuscleGroupOverride(group, 1));
 
-    state = state.copyWith(
-      paramOverrides: state.paramOverrides.copyWith(
-        setsPerWeekPerMuscleGroupIndividual: newOverrides,
-      ),
-    );
+    _updateState((s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(
+            setsPerWeekPerMuscleGroupIndividual: newOverrides,
+          ),
+        ));
   }
 
   void removeMuscleGroupOverride(ProgramGroup group) {
@@ -395,11 +392,11 @@ class Setup extends _$Setup {
     ];
     newOverrides.removeWhere((override) => override.group == group);
 
-    state = state.copyWith(
-      paramOverrides: state.paramOverrides.copyWith(
-        setsPerWeekPerMuscleGroupIndividual: newOverrides,
-      ),
-    );
+    _updateState((s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(
+            setsPerWeekPerMuscleGroupIndividual: newOverrides,
+          ),
+        ));
   }
 
   void updateMuscleGroupOverride(ProgramGroup group, String value) {
@@ -412,71 +409,70 @@ class Setup extends _$Setup {
           newOverrides.indexWhere((override) => override.group == group);
       if (index != -1) {
         newOverrides[index] = MuscleGroupOverride(group, sets);
-        state = state.copyWith(
-          paramOverrides: state.paramOverrides.copyWith(
-            setsPerWeekPerMuscleGroupIndividual: newOverrides,
-          ),
-        );
+        _updateState((s) => s.copyWith(
+              paramOverrides: s.paramOverrides.copyWith(
+                setsPerWeekPerMuscleGroupIndividual: newOverrides,
+              ),
+            ));
       }
     }
   }
 
   /* EQUIPMENT MANAGEMENT */
   void addEquipment(Equipment equipment) {
-    state =
-        state.copyWith(availEquipment: {...state.availEquipment, equipment});
+    _updateState(
+        (s) => s.copyWith(availEquipment: {...s.availEquipment, equipment}));
   }
 
   void removeEquipment(Equipment equipment) {
-    state = state.copyWith(
-        availEquipment:
-            state.availEquipment.where((e) => e != equipment).toSet());
+    _updateState((s) => s.copyWith(
+        availEquipment: s.availEquipment.where((e) => e != equipment).toSet()));
   }
 
   void setEquipment(Set<Equipment> equipment) {
-    state = state.copyWith(availEquipment: equipment);
+    _updateState((s) => s.copyWith(availEquipment: equipment));
   }
 
   /* EXERCISE EXCLUSION */
   void addExcludedExercise(Ex exercise) {
     final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
     if (excl.add(exercise)) {
-      state = state.copyWith(
-        paramOverrides: state.paramOverrides.copyWith(
-          excludedExercises: excl,
-        ),
-      );
+      _updateState((s) => s.copyWith(
+            paramOverrides: s.paramOverrides.copyWith(
+              excludedExercises: excl,
+            ),
+          ));
     }
   }
 
   void removeExcludedExercise(Ex exercise) {
     final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
     excl.remove(exercise);
-    state = state.copyWith(
-      paramOverrides: state.paramOverrides.copyWith(
-        excludedExercises: excl,
-      ),
-    );
+    _updateState((s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(
+            excludedExercises: excl,
+          ),
+        ));
   }
 
   void addExcludedBase(EBase base) {
     final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
     if (excl.add(base)) {
-      state = state.copyWith(
-        paramOverrides: state.paramOverrides.copyWith(
-          excludedBases: excl,
-        ),
-      );
+      _updateState((s) => s.copyWith(
+            paramOverrides: s.paramOverrides.copyWith(
+              excludedBases: excl,
+            ),
+          ));
     }
   }
 
   void removeExcludedBase(EBase base) {
     final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
     excl.remove(base);
-    state = state.copyWith(
-      paramOverrides: state.paramOverrides.copyWith(
-        excludedBases: excl,
-      ),
-    );
+    _updateState((s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(
+            excludedBases: excl,
+          ),
+        ));
   }
 }

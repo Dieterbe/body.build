@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:ptc/model/programmer/parameters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ptc/model/programmer/settings.dart';
 
