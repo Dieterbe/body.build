@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/data/programmer/setup.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/model/programmer/settings.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
@@ -22,8 +21,6 @@ class BuilderSets extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final setup = ref.watch(setupProvider);
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(

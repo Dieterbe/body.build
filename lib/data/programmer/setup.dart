@@ -15,39 +15,43 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'setup.g.dart';
 
+// TODO: is this used?
+@riverpod
+Future<Settings?> currentProfile(CurrentProfileRef ref) async {
+  final profileId = await ref.watch(currentSetupProfileProvider.future);
+  final service = await ref.read(setupPersistenceProvider.future);
+  return service.loadProfile(profileId);
+}
+
 @Riverpod(keepAlive: true)
 class Setup extends _$Setup {
   @override
-  Settings build() {
+  Future<Settings> build() async {
     ref.onDispose(() {
       print('programmer setup provider disposed');
     });
 
     // Watch the current profile ID to rebuild when it changes
-    ref.listen(currentSetupProfileProvider, (previous, next) async {
-      print('listener triggered - ');
-      if (next.value == null) return;
-      final service = await ref.read(setupPersistenceProvider.future);
-      final profile = await service.loadProfile(next.value!);
-      if (profile != null) {
-        state = profile;
-      }
-    });
+    final profileId = await ref.watch(currentSetupProfileProvider.future);
+    final service = await ref.read(setupPersistenceProvider.future);
+    final profile = await service.loadProfile(profileId);
 
-    return Settings.defaults();
+    return profile ?? Settings.defaults();
   }
 
   Future<void> _saveCurrentProfile() async {
-    final currentProfile = await ref.read(currentSetupProfileProvider.future);
+    final profileId = await ref.read(currentSetupProfileProvider.future);
     final service = await ref.read(setupPersistenceProvider.future);
-    await service.saveProfile(currentProfile, state);
+    final settings = await future;
+    await service.saveProfile(profileId, settings);
   }
 
-  void _updateState(Settings Function(Settings) update) {
-    final newState = update(state);
-    state = newState.copyWith(
-      paramSuggest: Parameters.fromSettings(newState),
-    );
+  Future<void> _updateState(Settings Function(Settings) update) async {
+    final settings = await future;
+    final newSettings = update(settings);
+    state = AsyncData(newSettings.copyWith(
+      paramSuggest: Parameters.fromSettings(newSettings),
+    ));
     _saveCurrentProfile();
   }
 
@@ -209,173 +213,178 @@ class Setup extends _$Setup {
 
   // Setters. Note the null checks for those properties that cannot be null
 
-  void setLevel(Level? level) {
+  Future<void> setLevel(Level? level) async {
     if (level != null) {
-      _updateState((s) => s.copyWith(level: level));
+      await _updateState((s) => s.copyWith(level: level));
     }
   }
 
-  void setSex(Sex? sex) {
+  Future<void> setSex(Sex? sex) async {
     if (sex != null) {
-      _updateState((s) => s.copyWith(sex: sex));
+      await _updateState((s) => s.copyWith(sex: sex));
     }
   }
 
-  void setAge(double? age) {
+  Future<void> setAge(double? age) async {
     if (age != null) {
-      _updateState((s) => s.copyWith(age: age));
+      await _updateState((s) => s.copyWith(age: age));
     }
   }
 
-  void setHeight(double? length) {
+  Future<void> setHeight(double? length) async {
     if (length != null) {
-      _updateState((s) => s.copyWith(height: length));
+      await _updateState((s) => s.copyWith(height: length));
     }
   }
 
-  void setWeight(double? weight) {
+  Future<void> setWeight(double? weight) async {
     if (weight != null) {
-      _updateState((s) => s.copyWith(weight: weight));
+      await _updateState((s) => s.copyWith(weight: weight));
     }
   }
 
-  void setBodyFat(double? bodyFat) {
-    _updateState((s) => s.copyWith(bodyFat: bodyFat));
+  Future<void> setBodyFat(double? bodyFat) async {
+    await _updateState((s) => s.copyWith(bodyFat: bodyFat));
   }
 
-  void setBMRMethod(BMRMethod method) {
-    _updateState((s) => s.copyWith(bmrMethod: method));
+  Future<void> setBMRMethod(BMRMethod method) async {
+    await _updateState((s) => s.copyWith(bmrMethod: method));
   }
 
-  void setActivityLevel(ActivityLevel level) {
-    _updateState((s) => s.copyWith(activityLevel: level));
+  Future<void> setActivityLevel(ActivityLevel level) async {
+    await _updateState((s) => s.copyWith(activityLevel: level));
   }
 
-  void setEnergyBalance(int? energyBalance) {
+  Future<void> setEnergyBalance(int? energyBalance) async {
     if (energyBalance != null) {
-      _updateState((s) => s.copyWith(energyBalance: energyBalance));
+      await _updateState((s) => s.copyWith(energyBalance: energyBalance));
     }
   }
 
-  void setRecoveryFactor(double? recoveryFactor) {
+  Future<void> setRecoveryFactor(double? recoveryFactor) async {
     if (recoveryFactor != null) {
-      _updateState((s) => s.copyWith(recoveryFactor: recoveryFactor));
+      await _updateState((s) => s.copyWith(recoveryFactor: recoveryFactor));
     }
   }
 
-  void setWorkoutsPerWeek(int? freq) {
+  Future<void> setWorkoutsPerWeek(int? freq) async {
     if (freq != null) {
-      _updateState((s) => s.copyWith(workoutsPerWeek: freq));
+      await _updateState((s) => s.copyWith(workoutsPerWeek: freq));
     }
   }
 
-  void setWorkoutDuration(int duration) {
-    _updateState((s) => s.copyWith(workoutDuration: duration));
+  Future<void> setWorkoutDuration(int duration) async {
+    await _updateState((s) => s.copyWith(workoutDuration: duration));
   }
 
-  void setTefFactor(double value) {
-    _updateState((s) => s.copyWith(tefFactor: value));
+  Future<void> setTefFactor(double value) async {
+    await _updateState((s) => s.copyWith(tefFactor: value));
   }
 
-  void setAtFactor(double value) {
-    _updateState((s) => s.copyWith(atFactor: value));
+  Future<void> setAtFactor(double value) async {
+    await _updateState((s) => s.copyWith(atFactor: value));
+  }
+
+// special setters. used internally. i factored this out and was probably not useful
+  Future<void> setIntensities(List<int>? intensities) async {
+    await _updateState((s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(intensities: intensities),
+        ));
   }
 
 // Conditional setters: set if passed value is valid
-  void setWorkoutDurationMaybe(String value) {
+  Future<void> setWorkoutDurationMaybe(String value) async {
     final (msg, duration) = _workoutDurationValidator(value);
     if (msg == null) {
-      setWorkoutDuration(duration);
+      await setWorkoutDuration(duration);
     }
   }
 
-  void setAgeMaybe(String value) {
+  Future<void> setAgeMaybe(String value) async {
     final (msg, age) = _ageValidator(value);
     if (msg == null) {
-      setAge(age);
+      await setAge(age);
     }
   }
 
-  void setHeightMaybe(String value) {
+  Future<void> setHeightMaybe(String value) async {
     final (msg, height) = _heightValidator(value);
     if (msg == null) {
-      setHeight(height);
+      await setHeight(height);
     }
   }
 
-  void setWeightMaybe(String value) {
+  Future<void> setWeightMaybe(String value) async {
     final (msg, weight) = _weightValidator(value);
     if (msg == null) {
-      setWeight(weight);
+      await setWeight(weight);
     }
   }
 
-  void setBodyFatMaybe(String value) {
+  Future<void> setBodyFatMaybe(String value) async {
     final (msg, bf) = _bodyFatValidator(value);
     if (msg == null) {
-      setBodyFat(bf);
+      await setBodyFat(bf);
     }
   }
 
-  void setEnergyBalanceMaybe(String value) {
+  Future<void> setEnergyBalanceMaybe(String value) async {
     final (msg, eb) = _energyBalanceValidator(value);
     if (msg == null) {
-      setEnergyBalance(eb);
+      await setEnergyBalance(eb);
     }
   }
 
-  void setRecoveryFactorMaybe(String value) {
+  Future<void> setRecoveryFactorMaybe(String value) async {
     final (msg, rf) = _recoveryFactorValidator(value);
     if (msg == null) {
-      setRecoveryFactor(rf);
+      await setRecoveryFactor(rf);
     }
   }
 
-  void setWorkoutsPerWeekMaybe(String value) {
+  Future<void> setWorkoutsPerWeekMaybe(String value) async {
     final (msg, freq) = _workoutsPerWeekValidator(value);
     if (msg == null) {
-      setWorkoutsPerWeek(freq);
+      await setWorkoutsPerWeek(freq);
     }
   }
 
-  void setIntensitiesMaybe(String value) {
-    final (msg, intensities) = _intensitiesValidator(value);
-    if (msg == null) {
-      state = state.copyWith(
-          paramOverrides: state.paramOverrides.copyWith(
-        intensities: intensities,
-      ));
-    }
-  }
-
-  void setSetsPerWeekPerMuscleGroupMaybe(String value) {
-    final (msg, volume) = _setsPerWeekPerMuscleGroupValidator(value);
-    if (msg == null) {
-      state = state.copyWith(
-        paramOverrides: state.paramOverrides.copyWith(
-          setsPerWeekPerMuscleGroup: volume,
-        ),
-      );
-    }
-  }
-
-  void setTefFactorMaybe(String value) {
+  Future<void> setTefFactorMaybe(String value) async {
     final (msg, effect) = _tefFactorValidator(value);
     if (msg == null) {
-      setTefFactor(effect);
+      await setTefFactor(effect);
     }
   }
 
-  void setAtFactorMaybe(String value) {
+  Future<void> setAtFactorMaybe(String value) async {
     final (msg, effect) = _atFactorValidator(value);
     if (msg == null) {
-      setAtFactor(effect);
+      await setAtFactor(effect);
     }
   }
 
-  void addMuscleGroupOverride(ProgramGroup group) {
+  Future<void> setIntensitiesMaybe(String value) async {
+    final (msg, intensities) = _intensitiesValidator(value);
+    if (msg == null) {
+      await setIntensities(intensities);
+    }
+  }
+
+  Future<void> setSetsPerWeekPerMuscleGroupMaybe(String value) async {
+    final (msg, volume) = _setsPerWeekPerMuscleGroupValidator(value);
+    if (msg == null) {
+      await _updateState((s) => s.copyWith(
+            paramOverrides: s.paramOverrides.copyWith(
+              setsPerWeekPerMuscleGroup: volume,
+            ),
+          ));
+    }
+  }
+
+  Future<void> addMuscleGroupOverride(ProgramGroup group) async {
+    final settings = await future;
     final newOverrides = [
-      ...?state.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+      ...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual
     ];
     newOverrides.add(MuscleGroupOverride(group, 1));
 
@@ -386,9 +395,10 @@ class Setup extends _$Setup {
         ));
   }
 
-  void removeMuscleGroupOverride(ProgramGroup group) {
+  Future<void> removeMuscleGroupOverride(ProgramGroup group) async {
+    final settings = await future;
     final newOverrides = [
-      ...?state.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+      ...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual
     ];
     newOverrides.removeWhere((override) => override.group == group);
 
@@ -399,16 +409,18 @@ class Setup extends _$Setup {
         ));
   }
 
-  void updateMuscleGroupOverride(ProgramGroup group, String value) {
+  Future<void> updateMuscleGroupOverride(
+      ProgramGroup group, String value) async {
     final (msg, sets) = _setsPerWeekPerMuscleGroupValidator(value);
     if (msg == null && sets != null) {
+      final settings = await future;
       final newOverrides = [
-        ...?state.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+        ...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual
       ];
-      final index =
+      final idx =
           newOverrides.indexWhere((override) => override.group == group);
-      if (index != -1) {
-        newOverrides[index] = MuscleGroupOverride(group, sets);
+      if (idx != -1) {
+        newOverrides[idx] = MuscleGroupOverride(group, sets);
         _updateState((s) => s.copyWith(
               paramOverrides: s.paramOverrides.copyWith(
                 setsPerWeekPerMuscleGroupIndividual: newOverrides,
@@ -419,60 +431,70 @@ class Setup extends _$Setup {
   }
 
   /* EQUIPMENT MANAGEMENT */
-  void addEquipment(Equipment equipment) {
+  Future<void> addEquipment(Equipment equipment) async {
     _updateState(
         (s) => s.copyWith(availEquipment: {...s.availEquipment, equipment}));
   }
 
-  void removeEquipment(Equipment equipment) {
+  Future<void> removeEquipment(Equipment equipment) async {
     _updateState((s) => s.copyWith(
         availEquipment: s.availEquipment.where((e) => e != equipment).toSet()));
   }
 
-  void setEquipment(Set<Equipment> equipment) {
+  Future<void> setEquipment(Set<Equipment> equipment) async {
     _updateState((s) => s.copyWith(availEquipment: equipment));
   }
 
   /* EXERCISE EXCLUSION */
-  void addExcludedExercise(Ex exercise) {
-    final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
-    if (excl.add(exercise)) {
-      _updateState((s) => s.copyWith(
-            paramOverrides: s.paramOverrides.copyWith(
-              excludedExercises: excl,
-            ),
-          ));
-    }
-  }
-
-  void removeExcludedExercise(Ex exercise) {
-    final excl = Set<Ex>.from(state.paramOverrides.excludedExercises ?? {});
-    excl.remove(exercise);
-    _updateState((s) => s.copyWith(
+  Future<void> addExcludedExercise(Ex exercise) async {
+    _updateState((s) {
+      final excl = Set<Ex>.from(s.paramOverrides.excludedExercises ?? {});
+      if (excl.add(exercise)) {
+        return s.copyWith(
           paramOverrides: s.paramOverrides.copyWith(
             excludedExercises: excl,
           ),
-        ));
+        );
+      }
+      return s;
+    });
   }
 
-  void addExcludedBase(EBase base) {
-    final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
-    if (excl.add(base)) {
-      _updateState((s) => s.copyWith(
-            paramOverrides: s.paramOverrides.copyWith(
-              excludedBases: excl,
-            ),
-          ));
-    }
-  }
-
-  void removeExcludedBase(EBase base) {
-    final excl = Set<EBase>.from(state.paramOverrides.excludedBases ?? {});
-    excl.remove(base);
-    _updateState((s) => s.copyWith(
+  Future<void> removeExcludedExercise(Ex exercise) async {
+    _updateState((s) {
+      final excl = Set<Ex>.from(s.paramOverrides.excludedExercises ?? {});
+      if (excl.remove(exercise)) {
+        return s.copyWith(
           paramOverrides: s.paramOverrides.copyWith(
-            excludedBases: excl,
+            excludedExercises: excl,
           ),
-        ));
+        );
+      }
+      return s;
+    });
+  }
+
+  Future<void> addExcludedBase(EBase base) async {
+    _updateState((s) {
+      final excl = Set<EBase>.from(s.paramOverrides.excludedBases ?? {});
+      excl.add(base);
+      return s.copyWith(
+        paramOverrides: s.paramOverrides.copyWith(
+          excludedBases: excl,
+        ),
+      );
+    });
+  }
+
+  Future<void> removeExcludedBase(EBase base) async {
+    _updateState((s) {
+      final excl = Set<EBase>.from(s.paramOverrides.excludedBases ?? {});
+      excl.remove(base);
+      return s.copyWith(
+        paramOverrides: s.paramOverrides.copyWith(
+          excludedBases: excl,
+        ),
+      );
+    });
   }
 }
