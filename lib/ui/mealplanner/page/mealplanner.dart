@@ -6,7 +6,7 @@ import 'mealplanner_setup.dart';
 class MealPlanScreen extends ConsumerStatefulWidget {
   static const String routeName = 'meal-planner';
 
-  const MealPlanScreen({Key? key}) : super(key: key);
+  const MealPlanScreen({super.key});
 
   @override
   ConsumerState<MealPlanScreen> createState() => _MealPlanScreenState();

@@ -157,7 +157,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
       data: (setup) {
         final notifier = ref.read(setupProvider.notifier);
         final bmi = calcBMI(setup.weight, setup.height);
-        final bfDeurenberg = BfDeurenberg(bmi, setup.age, setup.sex);
+        final bfDeur = bfDeurenberg(bmi, setup.age, setup.sex);
 
         return Column(
           children: [
@@ -255,7 +255,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                         const SizedBox(width: 12),
                         InfoButton(
                           title: 'Body Fat',
-                          child: MarkdownBody(data: helpBodyFat(bfDeurenberg)),
+                          child: MarkdownBody(data: helpBodyFat(bfDeur)),
                         )
                       ],
                     ),
@@ -465,7 +465,8 @@ Widget numInput(
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           isDense: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           suffixText: suffix,
         ),
         initialValue: value,

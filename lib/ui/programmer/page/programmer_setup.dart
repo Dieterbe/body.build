@@ -4,7 +4,6 @@ import 'package:ptc/ui/programmer/page/programmer_setup_filters.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_inputs.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_params.dart';
 import 'package:ptc/ui/programmer/page/programmer_setup_params_overrides.dart';
-import 'package:ptc/ui/programmer/widget/setup_profile_header.dart';
 
 class ProgrammerSetup extends StatelessWidget {
   const ProgrammerSetup({super.key});

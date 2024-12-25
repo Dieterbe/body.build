@@ -11,7 +11,8 @@ class AddSetButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        backgroundColor:
+            Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
         foregroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         shape: RoundedRectangleBorder(

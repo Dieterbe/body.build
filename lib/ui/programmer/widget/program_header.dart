@@ -30,7 +30,7 @@ class ProgramHeader extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -151,8 +151,8 @@ class ProgramHeader extends ConsumerWidget {
                                   child: const Text('Cancel'),
                                 ),
                                 TextButton(
-                                  onPressed: () async =>
-                                      Navigator.of(context).pop(controller.text),
+                                  onPressed: () async => Navigator.of(context)
+                                      .pop(controller.text),
                                   child: const Text('Rename'),
                                 ),
                               ],
@@ -218,7 +218,9 @@ class ProgramHeader extends ConsumerWidget {
                             ProgramState(name: newName),
                           );
                           ref.invalidate(programListProvider);
-                          ref.read(currentProgramProvider.notifier).select(newId);
+                          ref
+                              .read(currentProgramProvider.notifier)
+                              .select(newId);
                         },
                       ),
                       // Duplicate program button
@@ -272,8 +274,9 @@ class ProgramHeader extends ConsumerWidget {
                               newName = '$baseName (Copy ${maxNumber + 1})';
                             }
 
-                            final newId =
-                                DateTime.now().millisecondsSinceEpoch.toString();
+                            final newId = DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString();
                             await service.saveProgram(
                               newId,
                               currentProgram.copyWith(name: newName),
@@ -319,8 +322,8 @@ class ProgramHeader extends ConsumerWidget {
                           );
 
                           if (shouldDelete == true) {
-                            final service =
-                                await ref.read(programPersistenceProvider.future);
+                            final service = await ref
+                                .read(programPersistenceProvider.future);
                             final currentId =
                                 await ref.read(currentProgramProvider.future);
                             await service.deleteProgram(currentId);

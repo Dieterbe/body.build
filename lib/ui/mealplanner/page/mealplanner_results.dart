@@ -5,7 +5,7 @@ import 'package:ptc/data/mealplanner/meal_plan_persistence_provider.dart';
 import 'package:ptc/data/mealplanner/meal_plan_provider.dart';
 
 class MealPlannerResults extends ConsumerWidget {
-  const MealPlannerResults({Key? key}) : super(key: key);
+  const MealPlannerResults({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,7 +66,7 @@ class MealPlannerResults extends ConsumerWidget {
         const SizedBox(height: 24),
         ...currentPlan.dayplans
             .map((day) => _buildDayCard(context, day))
-            .toList(),
+            ,
       ],
     );
   }
@@ -95,7 +95,7 @@ class MealPlannerResults extends ConsumerWidget {
             const SizedBox(height: 16),
             _buildMacroTargetsRow(context, day.targets),
             const Divider(),
-            ...day.meals.map((meal) => _buildMealRow(context, meal)).toList(),
+            ...day.meals.map((meal) => _buildMealRow(context, meal)),
           ],
         ),
       ),

@@ -99,11 +99,11 @@ class BuilderSets extends ConsumerWidget {
           icon: Icon(
             Icons.edit,
             size: 20,
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
           ),
           style: IconButton.styleFrom(
             backgroundColor: sets.changeEx
-                ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
                 : Colors.transparent,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
@@ -117,7 +117,7 @@ class BuilderSets extends ConsumerWidget {
           icon: Icon(
             Icons.delete_outline,
             size: 20,
-            color: Theme.of(context).colorScheme.error.withOpacity(0.8),
+            color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
           ),
           style: IconButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -164,13 +164,13 @@ class BuilderSets extends ConsumerWidget {
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                              .withOpacity(0.5),
+                              .withValues(alpha: 0.5),
                         ),
                         filled: true,
                         fillColor: Theme.of(context)
                             .colorScheme
                             .primary
-                            .withOpacity(0.05),
+                            .withValues(alpha: 0.05),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide.none,
@@ -185,7 +185,7 @@ class BuilderSets extends ConsumerWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(0.2),
+                                .withValues(alpha: 0.2),
                             width: 2,
                           ),
                         ),
@@ -209,9 +209,9 @@ class BuilderSets extends ConsumerWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
               ),
               child: const Row(
                 mainAxisSize: MainAxisSize.min,

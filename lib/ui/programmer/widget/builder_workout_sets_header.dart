@@ -82,7 +82,10 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
               fontWeight: FontWeight.w500,
               fontSize: 14,
               letterSpacing: 0.3,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.8),
             ),
           ),
           const SizedBox(width: 8),

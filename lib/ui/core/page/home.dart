@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ptc/ui/anatomy/page/articulations.dart';
 import 'package:ptc/ui/anatomy/page/muscles.dart';
 import 'package:ptc/ui/programmer/page/programmer.dart';
-import 'package:ptc/ui/mealplanner/page/mealplanner.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';

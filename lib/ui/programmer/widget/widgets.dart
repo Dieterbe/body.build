@@ -15,7 +15,7 @@ Widget muscleMark(double recruitment, BuildContext context) {
     // padding: const EdgeInsets.all(2.0),
     width: 30,
     height: 30,
-    color: Theme.of(context).colorScheme.primary.withOpacity(recruitment),
+    color: Theme.of(context).colorScheme.primary.withValues(alpha: recruitment),
   );
 }
 

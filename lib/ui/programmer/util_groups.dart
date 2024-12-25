@@ -51,7 +51,5 @@ Color bgColorForProgramGroup(ProgramGroup g) {
       return Colors.red.shade100;
     case ProgramGroup.soleus:
       return Colors.red.shade50;
-    default:
-      return Colors.transparent;
   }
 }

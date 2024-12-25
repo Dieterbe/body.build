@@ -26,12 +26,12 @@ class BuilderWorkoutWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -44,7 +44,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                color: Theme.of(context)
+                    .colorScheme
+                    .primary
+                    .withValues(alpha: 0.1),
                 width: 1,
               ),
             ),
@@ -73,13 +76,13 @@ class BuilderWorkoutWidget extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(0.5),
+                            .withValues(alpha: 0.5),
                       ),
                       filled: true,
                       fillColor: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(0.05),
+                          .withValues(alpha: 0.05),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide.none,
@@ -94,7 +97,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                           color: Theme.of(context)
                               .colorScheme
                               .primary
-                              .withOpacity(0.2),
+                              .withValues(alpha: 0.2),
                           width: 2,
                         ),
                       ),
@@ -121,7 +124,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
                 icon: Icon(
                   Icons.delete_outline,
                   size: 20,
-                  color: Theme.of(context).colorScheme.error.withOpacity(0.8),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .error
+                      .withValues(alpha: 0.8),
                 ),
                 style: IconButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -154,8 +160,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
               // it becomes a new setgroup
               (i) => DropBar(
                 // colorInactive: Colors.cyan,
-                colorActive:
-                    Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                colorActive: Theme.of(context)
+                    .colorScheme
+                    .secondary
+                    .withValues(alpha: 0.3),
                 workout,
                 onChange,
                 (Sets sNew) {
@@ -228,7 +236,7 @@ Widget setGroupSection(
       color: Theme.of(context).colorScheme.surface,
       borderRadius: BorderRadius.circular(8),
       border: Border.all(
-        color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
         width: 2,
       ),
     ),
@@ -252,7 +260,7 @@ Widget setGroupSection(
                     colorActive: Theme.of(context)
                         .colorScheme
                         .secondary
-                        .withOpacity(0.2),
+                        .withValues(alpha: 0.2),
                     workout,
                     onChange,
                     (Sets sNew) {

@@ -6,7 +6,7 @@ import '../../../data/mealplanner/meal_plan_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class MealPlannerSetup extends ConsumerWidget {
-  const MealPlannerSetup({Key? key}) : super(key: key);
+  const MealPlannerSetup({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,7 +33,7 @@ class MealPlannerSetup extends ConsumerWidget {
 
   MealPlan _generateMealPlan(MealPlanSetup setup) {
     final dailyKcal = setup.weeklyKcal / 7;
-    final uuid = const Uuid();
+    const uuid = Uuid();
 
     // Create daily targets
     final baseTargets = Targets(
