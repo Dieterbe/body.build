@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-// TODO: add a method to make sure the chosen name is unique
 class DataManager extends StatelessWidget {
   final List<String> opts;
   final Function(String name) onSelect;
@@ -171,18 +170,30 @@ class DataManager extends StatelessWidget {
     BuildContext context,
   ) async {
     final controller = TextEditingController();
+    final formKey = GlobalKey<FormFieldState>();
+
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Create New'),
-        content: TextField(
-          controller:
-              controller, // TODO: suggest a good name based on what exists
+        content: TextFormField(
+          controller: controller,
+          key: formKey,
           decoration: const InputDecoration(
             labelText: 'Name',
             hintText: 'Enter a name',
             border: OutlineInputBorder(),
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Name cannot be empty';
+            }
+            if (opts.contains(value)) {
+              return 'This name already exists';
+            }
+            return null;
+          },
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: true,
         ),
         actions: [
@@ -191,7 +202,11 @@ class DataManager extends StatelessWidget {
             child: const Text('Cancel'),
           ),
           FilledButton(
-            onPressed: () => Navigator.pop(context, controller.text),
+            onPressed: () {
+              if (formKey.currentState?.validate() ?? false) {
+                Navigator.pop(context, controller.text);
+              }
+            },
             child: const Text('Create'),
           ),
         ],
@@ -205,17 +220,30 @@ class DataManager extends StatelessWidget {
 
   Future<void> _showRenameDialog(BuildContext context, String item) async {
     final controller = TextEditingController(text: item);
+    final formKey = GlobalKey<FormFieldState>();
+
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Rename'),
-        content: TextField(
+        content: TextFormField(
           controller: controller,
+          key: formKey,
           decoration: const InputDecoration(
             labelText: 'New Name',
             hintText: 'Enter a new name',
             border: OutlineInputBorder(),
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Name cannot be empty';
+            }
+            if (value != item && opts.contains(value)) {
+              return 'This name already exists';
+            }
+            return null;
+          },
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: true,
         ),
         actions: [
@@ -224,7 +252,11 @@ class DataManager extends StatelessWidget {
             child: const Text('Cancel'),
           ),
           FilledButton(
-            onPressed: () => Navigator.pop(context, controller.text),
+            onPressed: () {
+              if (formKey.currentState?.validate() ?? false) {
+                Navigator.pop(context, controller.text);
+              }
+            },
             child: const Text('Rename'),
           ),
         ],
@@ -238,17 +270,30 @@ class DataManager extends StatelessWidget {
 
   Future<void> _showDuplicateDialog(BuildContext context, String item) async {
     final controller = TextEditingController(text: '$item (Copy)');
+    final formKey = GlobalKey<FormFieldState>();
+
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Duplicate'),
-        content: TextField(
+        content: TextFormField(
           controller: controller,
+          key: formKey,
           decoration: const InputDecoration(
             labelText: 'New Name',
             hintText: 'Enter a new name',
             border: OutlineInputBorder(),
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Name cannot be empty';
+            }
+            if (opts.contains(value)) {
+              return 'This name already exists';
+            }
+            return null;
+          },
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: true,
         ),
         actions: [
@@ -257,7 +302,11 @@ class DataManager extends StatelessWidget {
             child: const Text('Cancel'),
           ),
           FilledButton(
-            onPressed: () => Navigator.pop(context, controller.text),
+            onPressed: () {
+              if (formKey.currentState?.validate() ?? false) {
+                Navigator.pop(context, controller.text);
+              }
+            },
             child: const Text('Duplicate'),
           ),
         ],
