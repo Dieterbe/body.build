@@ -20,15 +20,12 @@ class MealPlannerSetup extends ConsumerWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 24,
       children: [
         _buildWeeklyKcalInput(context, ref, setup),
-        const SizedBox(height: 24),
         _buildCalorieCyclingSelector(context, ref, setup),
-        const SizedBox(height: 24),
         _buildMealsPerDayInput(context, ref, setup),
-        const SizedBox(height: 24),
         _buildEnergyBalanceInput(context, ref, setup),
-        const SizedBox(height: 24),
         _buildTrainingDaysInput(context, ref, setup),
       ],
     );
