@@ -68,14 +68,6 @@ To see it, hit the "articulations" button, and then click on "shoulder flexion".
               child: Text('programmer',
                   style: Theme.of(context).textTheme.titleLarge),
             ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                context.goNamed(MealPlanScreen.routeName);
-              },
-              child: Text('meal planner',
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
           ],
         )),
       ),

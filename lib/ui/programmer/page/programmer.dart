@@ -22,8 +22,8 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
         bottom: const TabBar(
           tabs: [
             Tab(text: "Set up"),
-            Tab(text: "Nutrition planner"),
             Tab(text: "Workout planner"),
+            Tab(text: "Nutrition planner"),
           ],
         ),
       ),
@@ -33,14 +33,14 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
             child: ProgrammerSetup(),
           ),
           SingleChildScrollView(
-            child: MealPlanScreen(),
-          ),
-          SingleChildScrollView(
             child: Padding(
               padding:
                   EdgeInsets.only(left: 8, right: 28), // to fix header overflow
               child: ProgrammerBuilder(),
             ),
+          ),
+          SingleChildScrollView(
+            child: MealPlanScreen(),
           ),
         ],
       ),
