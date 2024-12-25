@@ -21,7 +21,6 @@ class MealPlannerSetup extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //    const LabelBar('Setup'),
         _buildWeeklyKcalInput(context, ref, setup),
         const SizedBox(height: 24),
         _buildCalorieCyclingSelector(context, ref, setup),
@@ -31,15 +30,6 @@ class MealPlannerSetup extends ConsumerWidget {
         _buildEnergyBalanceInput(context, ref, setup),
         const SizedBox(height: 24),
         _buildTrainingDaysInput(context, ref, setup),
-        const SizedBox(height: 32),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Done'),
-          ),
-        ),
       ],
     );
   }
@@ -152,7 +142,7 @@ class MealPlannerSetup extends ConsumerWidget {
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Enter weekly calories',
-                  suffixText: 'kcal',
+                  suffixText: 'kcal/week',
                   border: OutlineInputBorder(),
                 ),
                 onChanged: (value) {
@@ -164,11 +154,6 @@ class MealPlannerSetup extends ConsumerWidget {
                   }
                 },
               ),
-            ),
-            const SizedBox(width: 16),
-            Text(
-              '${(setup.weeklyKcal / 7).round()} kcal/day',
-              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

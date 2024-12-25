@@ -15,21 +15,24 @@ class MealPlanScreen extends ConsumerStatefulWidget {
 class _MealPlanScreenState extends ConsumerState<MealPlanScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: MealPlannerSetup(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: MealPlannerResults(),
-            ),
-          ],
+    return const Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: MealPlannerSetup(),
+          ),
         ),
-      ),
+        Expanded(
+          flex: 2,
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: MealPlannerResults(),
+          ),
+        ),
+      ],
     );
   }
 }
