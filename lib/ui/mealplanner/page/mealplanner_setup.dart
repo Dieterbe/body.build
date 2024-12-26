@@ -83,16 +83,30 @@ class MealPlannerSetup extends ConsumerWidget {
             ? 'Training Day ${days.where((d) => d.desc.contains('Training')).length + 1}'
             : 'Rest Day ${days.where((d) => d.desc.contains('Rest')).length + 1}',
         targets: dayTargets,
-        meals: _generateMeals(setup.mealsPerDay, dayTargets),
+        events: _generateEvents(setup.mealsPerDay, dayTargets, isTrainingDay),
       ));
     }
 
     return days;
   }
 
-  List<Meal> _generateMeals(int mealsPerDay, Targets dayTargets) {
-    final meals = <Meal>[];
-    final mealKcal = dayTargets.kCal / mealsPerDay;
+  List<Event> _generateEvents(int mealsPerDay, Targets dayTargets, bool isTrainingDay) {
+    final events = <Event>[];
+    double remainingKcal = dayTargets.kCal;
+
+    // If it's a training day, add a workout event first
+    if (isTrainingDay) {
+      const workoutKcal = 300.0; // Estimated calorie burn for strength training
+      events.add(Event.strengthWorkout(
+        desc: 'Strength Training',
+        estimatedKcal: workoutKcal,
+      ));
+      // Add these calories back to account for the workout
+      remainingKcal += workoutKcal;
+    }
+
+    // Calculate calories per meal after accounting for workout
+    final mealKcal = remainingKcal / mealsPerDay;
 
     for (var i = 0; i < mealsPerDay; i++) {
       final isMainMeal =
@@ -100,27 +114,24 @@ class MealPlannerSetup extends ConsumerWidget {
       final factor = isMainMeal ? 1.2 : 0.8; // Main meals get 20% more calories
       final adjustedKcal = mealKcal * factor;
 
-      meals.add(Meal(
-        desc: isMainMeal
-            ? i == 0
-                ? 'Breakfast'
-                : i == mealsPerDay - 1
-                    ? 'Dinner'
-                    : 'Lunch'
-            : 'Snack ${meals.where((m) => m.desc.contains('Snack')).length + 1}',
-        targets: Targets(
-          minProtein: dayTargets.minProtein / mealsPerDay * factor,
-          maxProtein: dayTargets.maxProtein / mealsPerDay * factor,
-          minCarbs: dayTargets.minCarbs / mealsPerDay * factor,
-          maxCarbs: dayTargets.maxCarbs / mealsPerDay * factor,
-          minFats: dayTargets.minFats / mealsPerDay * factor,
-          maxFats: dayTargets.maxFats / mealsPerDay * factor,
-          kCal: adjustedKcal,
-        ),
+      // Calculate macro targets for this meal
+      final mealTargets = Targets(
+        minProtein: (dayTargets.minProtein * factor) / mealsPerDay,
+        maxProtein: (dayTargets.maxProtein * factor) / mealsPerDay,
+        minCarbs: (dayTargets.minCarbs * factor) / mealsPerDay,
+        maxCarbs: (dayTargets.maxCarbs * factor) / mealsPerDay,
+        minFats: (dayTargets.minFats * factor) / mealsPerDay,
+        maxFats: (dayTargets.maxFats * factor) / mealsPerDay,
+        kCal: adjustedKcal,
+      );
+
+      events.add(Event.meal(
+        desc: 'Meal ${i + 1}',
+        targets: mealTargets,
       ));
     }
 
-    return meals;
+    return events;
   }
 
   Widget _buildWeeklyKcalInput(

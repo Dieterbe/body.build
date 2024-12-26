@@ -21,7 +21,7 @@ class DayPlan with _$DayPlan {
   const factory DayPlan({
     required String desc,
     required Targets targets,
-    required List<Meal> meals,
+    required List<Event> events,
   }) = _DayPlan;
 
   factory DayPlan.fromJson(Map<String, dynamic> json) =>
@@ -29,13 +29,18 @@ class DayPlan with _$DayPlan {
 }
 
 @freezed
-class Meal with _$Meal {
-  const factory Meal({
+class Event with _$Event {
+  const factory Event.meal({
     required String desc,
     required Targets targets,
-  }) = _Meal;
+  }) = MealEvent;
 
-  factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);
+  const factory Event.strengthWorkout({
+    required String desc,
+    required double estimatedKcal,
+  }) = StrengthWorkoutEvent;
+
+  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 }
 
 @freezed

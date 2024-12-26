@@ -7,7 +7,7 @@ part of 'meal_plan_persistence_provider.dart';
 // **************************************************************************
 
 String _$mealPlanPersistenceHash() =>
-    r'7cf220001856cb44e244a56ff66752c1a9445d6b';
+    r'dc89fc852e260b5850503d73eb04fdb7f3caca85';
 
 /// See also [MealPlanPersistence].
 @ProviderFor(MealPlanPersistence)

@@ -210,7 +210,7 @@ DayPlan _$DayPlanFromJson(Map<String, dynamic> json) {
 mixin _$DayPlan {
   String get desc => throw _privateConstructorUsedError;
   Targets get targets => throw _privateConstructorUsedError;
-  List<Meal> get meals => throw _privateConstructorUsedError;
+  List<Event> get events => throw _privateConstructorUsedError;
 
   /// Serializes this DayPlan to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -226,7 +226,7 @@ abstract class $DayPlanCopyWith<$Res> {
   factory $DayPlanCopyWith(DayPlan value, $Res Function(DayPlan) then) =
       _$DayPlanCopyWithImpl<$Res, DayPlan>;
   @useResult
-  $Res call({String desc, Targets targets, List<Meal> meals});
+  $Res call({String desc, Targets targets, List<Event> events});
 
   $TargetsCopyWith<$Res> get targets;
 }
@@ -248,7 +248,7 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
   $Res call({
     Object? desc = null,
     Object? targets = null,
-    Object? meals = null,
+    Object? events = null,
   }) {
     return _then(_value.copyWith(
       desc: null == desc
@@ -259,10 +259,10 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
           ? _value.targets
           : targets // ignore: cast_nullable_to_non_nullable
               as Targets,
-      meals: null == meals
-          ? _value.meals
-          : meals // ignore: cast_nullable_to_non_nullable
-              as List<Meal>,
+      events: null == events
+          ? _value.events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<Event>,
     ) as $Val);
   }
 
@@ -284,7 +284,7 @@ abstract class _$$DayPlanImplCopyWith<$Res> implements $DayPlanCopyWith<$Res> {
       __$$DayPlanImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String desc, Targets targets, List<Meal> meals});
+  $Res call({String desc, Targets targets, List<Event> events});
 
   @override
   $TargetsCopyWith<$Res> get targets;
@@ -305,7 +305,7 @@ class __$$DayPlanImplCopyWithImpl<$Res>
   $Res call({
     Object? desc = null,
     Object? targets = null,
-    Object? meals = null,
+    Object? events = null,
   }) {
     return _then(_$DayPlanImpl(
       desc: null == desc
@@ -316,10 +316,10 @@ class __$$DayPlanImplCopyWithImpl<$Res>
           ? _value.targets
           : targets // ignore: cast_nullable_to_non_nullable
               as Targets,
-      meals: null == meals
-          ? _value._meals
-          : meals // ignore: cast_nullable_to_non_nullable
-              as List<Meal>,
+      events: null == events
+          ? _value._events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<Event>,
     ));
   }
 }
@@ -330,8 +330,8 @@ class _$DayPlanImpl with DiagnosticableTreeMixin implements _DayPlan {
   const _$DayPlanImpl(
       {required this.desc,
       required this.targets,
-      required final List<Meal> meals})
-      : _meals = meals;
+      required final List<Event> events})
+      : _events = events;
 
   factory _$DayPlanImpl.fromJson(Map<String, dynamic> json) =>
       _$$DayPlanImplFromJson(json);
@@ -340,17 +340,17 @@ class _$DayPlanImpl with DiagnosticableTreeMixin implements _DayPlan {
   final String desc;
   @override
   final Targets targets;
-  final List<Meal> _meals;
+  final List<Event> _events;
   @override
-  List<Meal> get meals {
-    if (_meals is EqualUnmodifiableListView) return _meals;
+  List<Event> get events {
+    if (_events is EqualUnmodifiableListView) return _events;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_meals);
+    return EqualUnmodifiableListView(_events);
   }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DayPlan(desc: $desc, targets: $targets, meals: $meals)';
+    return 'DayPlan(desc: $desc, targets: $targets, events: $events)';
   }
 
   @override
@@ -360,7 +360,7 @@ class _$DayPlanImpl with DiagnosticableTreeMixin implements _DayPlan {
       ..add(DiagnosticsProperty('type', 'DayPlan'))
       ..add(DiagnosticsProperty('desc', desc))
       ..add(DiagnosticsProperty('targets', targets))
-      ..add(DiagnosticsProperty('meals', meals));
+      ..add(DiagnosticsProperty('events', events));
   }
 
   /// Create a copy of DayPlan
@@ -383,7 +383,7 @@ abstract class _DayPlan implements DayPlan {
   const factory _DayPlan(
       {required final String desc,
       required final Targets targets,
-      required final List<Meal> meals}) = _$DayPlanImpl;
+      required final List<Event> events}) = _$DayPlanImpl;
 
   factory _DayPlan.fromJson(Map<String, dynamic> json) = _$DayPlanImpl.fromJson;
 
@@ -392,7 +392,7 @@ abstract class _DayPlan implements DayPlan {
   @override
   Targets get targets;
   @override
-  List<Meal> get meals;
+  List<Event> get events;
 
   /// Create a copy of DayPlan
   /// with the given fields replaced by the non-null parameter values.
@@ -402,96 +402,126 @@ abstract class _DayPlan implements DayPlan {
       throw _privateConstructorUsedError;
 }
 
-Meal _$MealFromJson(Map<String, dynamic> json) {
-  return _Meal.fromJson(json);
+Event _$EventFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType']) {
+    case 'meal':
+      return MealEvent.fromJson(json);
+    case 'strengthWorkout':
+      return StrengthWorkoutEvent.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'Event',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
 }
 
 /// @nodoc
-mixin _$Meal {
+mixin _$Event {
   String get desc => throw _privateConstructorUsedError;
-  Targets get targets => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String desc, Targets targets) meal,
+    required TResult Function(String desc, double estimatedKcal)
+        strengthWorkout,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String desc, Targets targets)? meal,
+    TResult? Function(String desc, double estimatedKcal)? strengthWorkout,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String desc, Targets targets)? meal,
+    TResult Function(String desc, double estimatedKcal)? strengthWorkout,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealEvent value) meal,
+    required TResult Function(StrengthWorkoutEvent value) strengthWorkout,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealEvent value)? meal,
+    TResult? Function(StrengthWorkoutEvent value)? strengthWorkout,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealEvent value)? meal,
+    TResult Function(StrengthWorkoutEvent value)? strengthWorkout,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 
-  /// Serializes this Meal to a JSON map.
+  /// Serializes this Event to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Meal
+  /// Create a copy of Event
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $MealCopyWith<Meal> get copyWith => throw _privateConstructorUsedError;
+  $EventCopyWith<Event> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MealCopyWith<$Res> {
-  factory $MealCopyWith(Meal value, $Res Function(Meal) then) =
-      _$MealCopyWithImpl<$Res, Meal>;
+abstract class $EventCopyWith<$Res> {
+  factory $EventCopyWith(Event value, $Res Function(Event) then) =
+      _$EventCopyWithImpl<$Res, Event>;
   @useResult
-  $Res call({String desc, Targets targets});
-
-  $TargetsCopyWith<$Res> get targets;
+  $Res call({String desc});
 }
 
 /// @nodoc
-class _$MealCopyWithImpl<$Res, $Val extends Meal>
-    implements $MealCopyWith<$Res> {
-  _$MealCopyWithImpl(this._value, this._then);
+class _$EventCopyWithImpl<$Res, $Val extends Event>
+    implements $EventCopyWith<$Res> {
+  _$EventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Meal
+  /// Create a copy of Event
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? desc = null,
-    Object? targets = null,
   }) {
     return _then(_value.copyWith(
       desc: null == desc
           ? _value.desc
           : desc // ignore: cast_nullable_to_non_nullable
               as String,
-      targets: null == targets
-          ? _value.targets
-          : targets // ignore: cast_nullable_to_non_nullable
-              as Targets,
     ) as $Val);
-  }
-
-  /// Create a copy of Meal
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $TargetsCopyWith<$Res> get targets {
-    return $TargetsCopyWith<$Res>(_value.targets, (value) {
-      return _then(_value.copyWith(targets: value) as $Val);
-    });
   }
 }
 
 /// @nodoc
-abstract class _$$MealImplCopyWith<$Res> implements $MealCopyWith<$Res> {
-  factory _$$MealImplCopyWith(
-          _$MealImpl value, $Res Function(_$MealImpl) then) =
-      __$$MealImplCopyWithImpl<$Res>;
+abstract class _$$MealEventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
+  factory _$$MealEventImplCopyWith(
+          _$MealEventImpl value, $Res Function(_$MealEventImpl) then) =
+      __$$MealEventImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String desc, Targets targets});
 
-  @override
   $TargetsCopyWith<$Res> get targets;
 }
 
 /// @nodoc
-class __$$MealImplCopyWithImpl<$Res>
-    extends _$MealCopyWithImpl<$Res, _$MealImpl>
-    implements _$$MealImplCopyWith<$Res> {
-  __$$MealImplCopyWithImpl(_$MealImpl _value, $Res Function(_$MealImpl) _then)
+class __$$MealEventImplCopyWithImpl<$Res>
+    extends _$EventCopyWithImpl<$Res, _$MealEventImpl>
+    implements _$$MealEventImplCopyWith<$Res> {
+  __$$MealEventImplCopyWithImpl(
+      _$MealEventImpl _value, $Res Function(_$MealEventImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Meal
+  /// Create a copy of Event
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -499,7 +529,7 @@ class __$$MealImplCopyWithImpl<$Res>
     Object? desc = null,
     Object? targets = null,
   }) {
-    return _then(_$MealImpl(
+    return _then(_$MealEventImpl(
       desc: null == desc
           ? _value.desc
           : desc // ignore: cast_nullable_to_non_nullable
@@ -510,69 +540,322 @@ class __$$MealImplCopyWithImpl<$Res>
               as Targets,
     ));
   }
+
+  /// Create a copy of Event
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TargetsCopyWith<$Res> get targets {
+    return $TargetsCopyWith<$Res>(_value.targets, (value) {
+      return _then(_value.copyWith(targets: value));
+    });
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$MealImpl with DiagnosticableTreeMixin implements _Meal {
-  const _$MealImpl({required this.desc, required this.targets});
+class _$MealEventImpl with DiagnosticableTreeMixin implements MealEvent {
+  const _$MealEventImpl(
+      {required this.desc, required this.targets, final String? $type})
+      : $type = $type ?? 'meal';
 
-  factory _$MealImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MealImplFromJson(json);
+  factory _$MealEventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MealEventImplFromJson(json);
 
   @override
   final String desc;
   @override
   final Targets targets;
 
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Meal(desc: $desc, targets: $targets)';
+    return 'Event.meal(desc: $desc, targets: $targets)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Meal'))
+      ..add(DiagnosticsProperty('type', 'Event.meal'))
       ..add(DiagnosticsProperty('desc', desc))
       ..add(DiagnosticsProperty('targets', targets));
   }
 
-  /// Create a copy of Meal
+  /// Create a copy of Event
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$MealImplCopyWith<_$MealImpl> get copyWith =>
-      __$$MealImplCopyWithImpl<_$MealImpl>(this, _$identity);
+  _$$MealEventImplCopyWith<_$MealEventImpl> get copyWith =>
+      __$$MealEventImplCopyWithImpl<_$MealEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String desc, Targets targets) meal,
+    required TResult Function(String desc, double estimatedKcal)
+        strengthWorkout,
+  }) {
+    return meal(desc, targets);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String desc, Targets targets)? meal,
+    TResult? Function(String desc, double estimatedKcal)? strengthWorkout,
+  }) {
+    return meal?.call(desc, targets);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String desc, Targets targets)? meal,
+    TResult Function(String desc, double estimatedKcal)? strengthWorkout,
+    required TResult orElse(),
+  }) {
+    if (meal != null) {
+      return meal(desc, targets);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealEvent value) meal,
+    required TResult Function(StrengthWorkoutEvent value) strengthWorkout,
+  }) {
+    return meal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealEvent value)? meal,
+    TResult? Function(StrengthWorkoutEvent value)? strengthWorkout,
+  }) {
+    return meal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealEvent value)? meal,
+    TResult Function(StrengthWorkoutEvent value)? strengthWorkout,
+    required TResult orElse(),
+  }) {
+    if (meal != null) {
+      return meal(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MealImplToJson(
+    return _$$MealEventImplToJson(
       this,
     );
   }
 }
 
-abstract class _Meal implements Meal {
-  const factory _Meal(
+abstract class MealEvent implements Event {
+  const factory MealEvent(
       {required final String desc,
-      required final Targets targets}) = _$MealImpl;
+      required final Targets targets}) = _$MealEventImpl;
 
-  factory _Meal.fromJson(Map<String, dynamic> json) = _$MealImpl.fromJson;
+  factory MealEvent.fromJson(Map<String, dynamic> json) =
+      _$MealEventImpl.fromJson;
 
   @override
   String get desc;
-  @override
   Targets get targets;
 
-  /// Create a copy of Meal
+  /// Create a copy of Event
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MealImplCopyWith<_$MealImpl> get copyWith =>
+  _$$MealEventImplCopyWith<_$MealEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$StrengthWorkoutEventImplCopyWith<$Res>
+    implements $EventCopyWith<$Res> {
+  factory _$$StrengthWorkoutEventImplCopyWith(_$StrengthWorkoutEventImpl value,
+          $Res Function(_$StrengthWorkoutEventImpl) then) =
+      __$$StrengthWorkoutEventImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String desc, double estimatedKcal});
+}
+
+/// @nodoc
+class __$$StrengthWorkoutEventImplCopyWithImpl<$Res>
+    extends _$EventCopyWithImpl<$Res, _$StrengthWorkoutEventImpl>
+    implements _$$StrengthWorkoutEventImplCopyWith<$Res> {
+  __$$StrengthWorkoutEventImplCopyWithImpl(_$StrengthWorkoutEventImpl _value,
+      $Res Function(_$StrengthWorkoutEventImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Event
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? desc = null,
+    Object? estimatedKcal = null,
+  }) {
+    return _then(_$StrengthWorkoutEventImpl(
+      desc: null == desc
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
+              as String,
+      estimatedKcal: null == estimatedKcal
+          ? _value.estimatedKcal
+          : estimatedKcal // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$StrengthWorkoutEventImpl
+    with DiagnosticableTreeMixin
+    implements StrengthWorkoutEvent {
+  const _$StrengthWorkoutEventImpl(
+      {required this.desc, required this.estimatedKcal, final String? $type})
+      : $type = $type ?? 'strengthWorkout';
+
+  factory _$StrengthWorkoutEventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StrengthWorkoutEventImplFromJson(json);
+
+  @override
+  final String desc;
+  @override
+  final double estimatedKcal;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'Event.strengthWorkout(desc: $desc, estimatedKcal: $estimatedKcal)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Event.strengthWorkout'))
+      ..add(DiagnosticsProperty('desc', desc))
+      ..add(DiagnosticsProperty('estimatedKcal', estimatedKcal));
+  }
+
+  /// Create a copy of Event
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StrengthWorkoutEventImplCopyWith<_$StrengthWorkoutEventImpl>
+      get copyWith =>
+          __$$StrengthWorkoutEventImplCopyWithImpl<_$StrengthWorkoutEventImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String desc, Targets targets) meal,
+    required TResult Function(String desc, double estimatedKcal)
+        strengthWorkout,
+  }) {
+    return strengthWorkout(desc, estimatedKcal);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String desc, Targets targets)? meal,
+    TResult? Function(String desc, double estimatedKcal)? strengthWorkout,
+  }) {
+    return strengthWorkout?.call(desc, estimatedKcal);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String desc, Targets targets)? meal,
+    TResult Function(String desc, double estimatedKcal)? strengthWorkout,
+    required TResult orElse(),
+  }) {
+    if (strengthWorkout != null) {
+      return strengthWorkout(desc, estimatedKcal);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MealEvent value) meal,
+    required TResult Function(StrengthWorkoutEvent value) strengthWorkout,
+  }) {
+    return strengthWorkout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MealEvent value)? meal,
+    TResult? Function(StrengthWorkoutEvent value)? strengthWorkout,
+  }) {
+    return strengthWorkout?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MealEvent value)? meal,
+    TResult Function(StrengthWorkoutEvent value)? strengthWorkout,
+    required TResult orElse(),
+  }) {
+    if (strengthWorkout != null) {
+      return strengthWorkout(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StrengthWorkoutEventImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class StrengthWorkoutEvent implements Event {
+  const factory StrengthWorkoutEvent(
+      {required final String desc,
+      required final double estimatedKcal}) = _$StrengthWorkoutEventImpl;
+
+  factory StrengthWorkoutEvent.fromJson(Map<String, dynamic> json) =
+      _$StrengthWorkoutEventImpl.fromJson;
+
+  @override
+  String get desc;
+  double get estimatedKcal;
+
+  /// Create a copy of Event
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$StrengthWorkoutEventImplCopyWith<_$StrengthWorkoutEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 Targets _$TargetsFromJson(Map<String, dynamic> json) {

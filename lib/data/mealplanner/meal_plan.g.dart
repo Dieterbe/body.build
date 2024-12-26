@@ -26,8 +26,8 @@ _$DayPlanImpl _$$DayPlanImplFromJson(Map<String, dynamic> json) =>
     _$DayPlanImpl(
       desc: json['desc'] as String,
       targets: Targets.fromJson(json['targets'] as Map<String, dynamic>),
-      meals: (json['meals'] as List<dynamic>)
-          .map((e) => Meal.fromJson(e as Map<String, dynamic>))
+      events: (json['events'] as List<dynamic>)
+          .map((e) => Event.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -35,18 +35,37 @@ Map<String, dynamic> _$$DayPlanImplToJson(_$DayPlanImpl instance) =>
     <String, dynamic>{
       'desc': instance.desc,
       'targets': instance.targets,
-      'meals': instance.meals,
+      'events': instance.events,
     };
 
-_$MealImpl _$$MealImplFromJson(Map<String, dynamic> json) => _$MealImpl(
+_$MealEventImpl _$$MealEventImplFromJson(Map<String, dynamic> json) =>
+    _$MealEventImpl(
       desc: json['desc'] as String,
       targets: Targets.fromJson(json['targets'] as Map<String, dynamic>),
+      $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$MealImplToJson(_$MealImpl instance) =>
+Map<String, dynamic> _$$MealEventImplToJson(_$MealEventImpl instance) =>
     <String, dynamic>{
       'desc': instance.desc,
       'targets': instance.targets,
+      'runtimeType': instance.$type,
+    };
+
+_$StrengthWorkoutEventImpl _$$StrengthWorkoutEventImplFromJson(
+        Map<String, dynamic> json) =>
+    _$StrengthWorkoutEventImpl(
+      desc: json['desc'] as String,
+      estimatedKcal: (json['estimatedKcal'] as num).toDouble(),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$StrengthWorkoutEventImplToJson(
+        _$StrengthWorkoutEventImpl instance) =>
+    <String, dynamic>{
+      'desc': instance.desc,
+      'estimatedKcal': instance.estimatedKcal,
+      'runtimeType': instance.$type,
     };
 
 _$TargetsImpl _$$TargetsImplFromJson(Map<String, dynamic> json) =>

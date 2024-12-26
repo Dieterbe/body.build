@@ -26,8 +26,32 @@ class MealPlanHeader extends ConsumerWidget {
           ),
           error: (error, stack) => Text('Error: $error'),
           data: (plans) {
-            final currentPlan =
-                ref.watch(currentMealPlanProvider) ?? plans.first;
+            final currentPlan = ref.watch(currentMealPlanProvider);
+            
+            // If no plan is selected but we have plans, select the first one
+            if (currentPlan == null && plans.isNotEmpty) {
+              // Use Future to avoid modifying state during build
+              Future(() {
+                ref.read(currentMealPlanProvider.notifier).setMealPlan(plans.first);
+              });
+              return const SizedBox(
+                width: 200,
+                child: LinearProgressIndicator(),
+              );
+            }
+
+            // If we have no plans at all, show empty state
+            if (plans.isEmpty) {
+              return const SizedBox(
+                width: 500,
+                child: Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text('No meal plans yet. Create one to get started!'),
+                  ),
+                ),
+              );
+            }
 
             return SizedBox(
               width: 500,
@@ -61,7 +85,7 @@ class MealPlanHeader extends ConsumerWidget {
                   await ref
                       .read(mealPlanPersistenceProvider.notifier)
                       .saveMealPlan(updatedPlan);
-                  if (currentPlan.id == plan.id) {
+                  if (currentPlan?.id == plan.id) {
                     ref
                         .read(currentMealPlanProvider.notifier)
                         .setMealPlan(updatedPlan);
@@ -85,13 +109,10 @@ class MealPlanHeader extends ConsumerWidget {
                   await ref
                       .read(mealPlanPersistenceProvider.notifier)
                       .deleteMealPlan(plan.id);
-
+                  
                   // Get remaining plans after deletion (persistence provider ensures there's at least one)
-                  final remainingPlans =
-                      await ref.read(mealPlanPersistenceProvider.future);
-                  ref
-                      .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(remainingPlans.first);
+                  final remainingPlans = await ref.read(mealPlanPersistenceProvider.future);
+                  ref.read(currentMealPlanProvider.notifier).setMealPlan(remainingPlans.first);
                 },
               ),
             );
