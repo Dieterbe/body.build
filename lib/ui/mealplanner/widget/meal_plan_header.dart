@@ -26,63 +26,74 @@ class MealPlanHeader extends ConsumerWidget {
           ),
           error: (error, stack) => Text('Error: $error'),
           data: (plans) {
-            final currentPlan = ref.watch(currentMealPlanProvider) ?? plans.first;
-            
-            return DataManager(
-              opts: getOpts(currentPlan, plans),
-              onSelect: (name) {
-                final selectedPlan = plans.firstWhere((p) => p.name == name);
-                ref
-                    .read(currentMealPlanProvider.notifier)
-                    .setMealPlan(selectedPlan);
-              },
-              onCreate: (id, name) async {
-                final newPlan = MealPlan(
-                  id: id,
-                  name: name,
-                  dayplans: [],
-                );
-                await ref
-                    .read(mealPlanPersistenceProvider.notifier)
-                    .saveMealPlan(newPlan);
-                ref.read(currentMealPlanProvider.notifier).setMealPlan(newPlan);
-              },
-              onRename: (nameOld, nameNew) async {
-                final plan = plans.firstWhere((p) => p.name == nameOld);
-                final updatedPlan = plan.copyWith(name: nameNew);
-                await ref
-                    .read(mealPlanPersistenceProvider.notifier)
-                    .deleteMealPlan(plan.id);
-                await ref
-                    .read(mealPlanPersistenceProvider.notifier)
-                    .saveMealPlan(updatedPlan);
-                if (currentPlan.id == plan.id) {
+            final currentPlan =
+                ref.watch(currentMealPlanProvider) ?? plans.first;
+
+            return SizedBox(
+              width: 500,
+              child: DataManager(
+                opts: getOpts(currentPlan, plans),
+                onSelect: (name) {
+                  final selectedPlan = plans.firstWhere((p) => p.name == name);
                   ref
                       .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(updatedPlan);
-                }
-              },
-              onDuplicate: (nameOld, nameNew) async {
-                final plan = plans.firstWhere((p) => p.name == nameOld);
-                final newPlan = plan.copyWith(
-                  id: const Uuid().v4(),
-                  name: nameNew,
-                );
-                await ref
-                    .read(mealPlanPersistenceProvider.notifier)
-                    .saveMealPlan(newPlan);
-                ref.read(currentMealPlanProvider.notifier).setMealPlan(newPlan);
-              },
-              onDelete: (name) async {
-                final plan = plans.firstWhere((p) => p.name == name);
-                await ref
-                    .read(mealPlanPersistenceProvider.notifier)
-                    .deleteMealPlan(plan.id);
-                
-                // Get remaining plans after deletion (persistence provider ensures there's at least one)
-                final remainingPlans = await ref.read(mealPlanPersistenceProvider.future);
-                ref.read(currentMealPlanProvider.notifier).setMealPlan(remainingPlans.first);
-              },
+                      .setMealPlan(selectedPlan);
+                },
+                onCreate: (id, name) async {
+                  final newPlan = MealPlan(
+                    id: id,
+                    name: name,
+                    dayplans: [],
+                  );
+                  await ref
+                      .read(mealPlanPersistenceProvider.notifier)
+                      .saveMealPlan(newPlan);
+                  ref
+                      .read(currentMealPlanProvider.notifier)
+                      .setMealPlan(newPlan);
+                },
+                onRename: (nameOld, nameNew) async {
+                  final plan = plans.firstWhere((p) => p.name == nameOld);
+                  final updatedPlan = plan.copyWith(name: nameNew);
+                  await ref
+                      .read(mealPlanPersistenceProvider.notifier)
+                      .deleteMealPlan(plan.id);
+                  await ref
+                      .read(mealPlanPersistenceProvider.notifier)
+                      .saveMealPlan(updatedPlan);
+                  if (currentPlan.id == plan.id) {
+                    ref
+                        .read(currentMealPlanProvider.notifier)
+                        .setMealPlan(updatedPlan);
+                  }
+                },
+                onDuplicate: (nameOld, nameNew) async {
+                  final plan = plans.firstWhere((p) => p.name == nameOld);
+                  final newPlan = plan.copyWith(
+                    id: const Uuid().v4(),
+                    name: nameNew,
+                  );
+                  await ref
+                      .read(mealPlanPersistenceProvider.notifier)
+                      .saveMealPlan(newPlan);
+                  ref
+                      .read(currentMealPlanProvider.notifier)
+                      .setMealPlan(newPlan);
+                },
+                onDelete: (name) async {
+                  final plan = plans.firstWhere((p) => p.name == name);
+                  await ref
+                      .read(mealPlanPersistenceProvider.notifier)
+                      .deleteMealPlan(plan.id);
+
+                  // Get remaining plans after deletion (persistence provider ensures there's at least one)
+                  final remainingPlans =
+                      await ref.read(mealPlanPersistenceProvider.future);
+                  ref
+                      .read(currentMealPlanProvider.notifier)
+                      .setMealPlan(remainingPlans.first);
+                },
+              ),
             );
           },
         );

@@ -40,50 +40,52 @@ class DataManager extends StatelessWidget {
           Row(
             children: [
               // Combined selector and name editor
-              SizedBox(
-                width: 400,
-                child: DropdownButtonFormField<String>(
-                  value: opts.isEmpty ? null : opts.first,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+              Expanded(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  child: DropdownButtonFormField<String>(
+                    value: opts.isEmpty ? null : opts.first,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Theme.of(context).colorScheme.surface,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
                       ),
                     ),
-                    filled: true,
-                    fillColor: Theme.of(context).colorScheme.surface,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                  ),
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  items: opts
-                      .map((name) => DropdownMenuItem(
-                            value: name,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    name,
-                                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    items: opts
+                        .map((name) => DropdownMenuItem(
+                              value: name,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      name,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ))
-                      .toList(),
-                  onChanged: (id) {
-                    if (id != null) {
-                      onSelect(id);
-                    }
-                  },
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (id) {
+                      if (id != null) {
+                        onSelect(id);
+                      }
+                    },
+                  ),
                 ),
               ),
               const SizedBox(width: 16),

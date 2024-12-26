@@ -174,13 +174,16 @@ class ProgramHeader extends ConsumerWidget {
                     currentProgram.when(
                       loading: () => const CircularProgressIndicator(),
                       error: (error, stack) => Text('Error: $error'),
-                      data: (program) => DataManager(
-                        opts: getOpts(currentId, programs),
-                        onSelect: (name) => onSelect(name, programs),
-                        onCreate: onCreate,
-                        onRename: onRename,
-                        onDuplicate: onDuplicate,
-                        onDelete: onDelete,
+                      data: (program) => SizedBox(
+                        width: 600,
+                        child: DataManager(
+                          opts: getOpts(currentId, programs),
+                          onSelect: (name) => onSelect(name, programs),
+                          onCreate: onCreate,
+                          onRename: onRename,
+                          onDuplicate: onDuplicate,
+                          onDelete: onDelete,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
