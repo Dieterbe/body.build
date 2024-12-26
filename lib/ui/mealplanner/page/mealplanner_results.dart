@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/mealplanner/meal_plan.dart';
 import 'package:ptc/data/mealplanner/meal_plan_persistence_provider.dart';
 import 'package:ptc/data/mealplanner/meal_plan_provider.dart';
+import 'package:ptc/ui/mealplanner/widget/meal_plan_header.dart';
 
 class MealPlannerResults extends ConsumerWidget {
   const MealPlannerResults({super.key});
@@ -12,62 +13,45 @@ class MealPlannerResults extends ConsumerWidget {
     final currentPlan = ref.watch(currentMealPlanProvider);
     final savedPlans = ref.watch(mealPlanPersistenceProvider);
 
-    if (currentPlan == null) {
-      return savedPlans.when(
-        data: (plans) => plans.isEmpty
-            ? const Center(
-                child: Text('No meal plans yet. Create one in Setup!'))
-            : ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: plans.length,
-                itemBuilder: (context, index) {
-                  final plan = plans[index];
-                  return ListTile(
-                    title: Text(plan.name),
-                    subtitle: Text('${plan.dayplans.length} days'),
-                    onTap: () {
-                      ref
-                          .read(currentMealPlanProvider.notifier)
-                          .setMealPlan(plan);
-                    },
-                  );
-                },
-              ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error: $error')),
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //  LabelBar('Build'),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+    return savedPlans.when(
+      data: (plans) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const MealPlanHeader(),
+          if (currentPlan != null) ...[
+            const SizedBox(height: 24),
             Text(
               currentPlan.name,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            IconButton(
-              icon: const Icon(Icons.save),
-              onPressed: () {
-                ref
-                    .read(mealPlanPersistenceProvider.notifier)
-                    .saveMealPlan(currentPlan);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Meal plan saved!')),
-                );
-              },
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  currentPlan.name,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.save),
+                  onPressed: () {
+                    ref
+                        .read(mealPlanPersistenceProvider.notifier)
+                        .saveMealPlan(currentPlan);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Meal plan saved!')),
+                    );
+                  },
+                ),
+              ],
             ),
+            const SizedBox(height: 24),
+            ...currentPlan.dayplans.map((day) => _buildDayCard(context, day)),
           ],
-        ),
-        const SizedBox(height: 24),
-        ...currentPlan.dayplans
-            .map((day) => _buildDayCard(context, day))
-            ,
-      ],
+        ],
+      ),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(child: Text('Error: $error')),
     );
   }
 

@@ -1,0 +1,109 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
+import 'package:ptc/data/mealplanner/meal_plan.dart';
+import 'package:ptc/data/mealplanner/meal_plan_persistence_provider.dart';
+import 'package:ptc/data/mealplanner/meal_plan_provider.dart';
+import 'package:ptc/ui/core/widget/data_manager.dart';
+
+class MealPlanHeader extends ConsumerWidget {
+  const MealPlanHeader({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<String> getOpts(MealPlan? currentPlan, List<MealPlan> plans) {
+      if (currentPlan == null) return plans.map((p) => p.name).toList();
+      return [
+        currentPlan.name,
+        ...plans.where((p) => p.id != currentPlan.id).map((p) => p.name),
+      ];
+    }
+
+    return ref.watch(mealPlanPersistenceProvider).when(
+          loading: () => const SizedBox(
+            width: 200,
+            child: LinearProgressIndicator(),
+          ),
+          error: (error, stack) => Text('Error: $error'),
+          data: (plans) {
+            final currentPlan = ref.watch(currentMealPlanProvider);
+            return DataManager(
+              opts: getOpts(currentPlan, plans),
+              onSelect: (name) {
+                final selectedPlan = plans.firstWhere((p) => p.name == name);
+                ref
+                    .read(currentMealPlanProvider.notifier)
+                    .setMealPlan(selectedPlan);
+              },
+              onCreate: (id, name) async {
+                final newPlan = MealPlan(
+                  id: id,
+                  name: name,
+                  dayplans: [],
+                );
+                await ref
+                    .read(mealPlanPersistenceProvider.notifier)
+                    .saveMealPlan(newPlan);
+                ref.read(currentMealPlanProvider.notifier).setMealPlan(newPlan);
+              },
+              onRename: (nameOld, nameNew) async {
+                final plan = plans.firstWhere((p) => p.name == nameOld);
+                final updatedPlan = plan.copyWith(name: nameNew);
+                await ref
+                    .read(mealPlanPersistenceProvider.notifier)
+                    .deleteMealPlan(plan.id);
+                await ref
+                    .read(mealPlanPersistenceProvider.notifier)
+                    .saveMealPlan(updatedPlan);
+                if (currentPlan?.id == plan.id) {
+                  ref
+                      .read(currentMealPlanProvider.notifier)
+                      .setMealPlan(updatedPlan);
+                }
+              },
+              onDuplicate: (nameOld, nameNew) async {
+                final plan = plans.firstWhere((p) => p.name == nameOld);
+                final newPlan = plan.copyWith(
+                  id: const Uuid().v4(),
+                  name: nameNew,
+                );
+                await ref
+                    .read(mealPlanPersistenceProvider.notifier)
+                    .saveMealPlan(newPlan);
+                ref.read(currentMealPlanProvider.notifier).setMealPlan(newPlan);
+              },
+              onDelete: (name) async {
+                final plan = plans.firstWhere((p) => p.name == name);
+                await ref
+                    .read(mealPlanPersistenceProvider.notifier)
+                    .deleteMealPlan(plan.id);
+
+                // Get remaining plans after deletion
+                final remainingPlans =
+                    plans.where((p) => p.id != plan.id).toList();
+
+                if (remainingPlans.isEmpty) {
+                  // Create a new default plan if no plans exist
+                  final newPlan = MealPlan(
+                    id: const Uuid().v4(),
+                    name: 'New Meal Plan',
+                    dayplans: [],
+                  );
+                  await ref
+                      .read(mealPlanPersistenceProvider.notifier)
+                      .saveMealPlan(newPlan);
+                  ref
+                      .read(currentMealPlanProvider.notifier)
+                      .setMealPlan(newPlan);
+                } else {
+                  // Select the first available plan
+                  ref
+                      .read(currentMealPlanProvider.notifier)
+                      .setMealPlan(remainingPlans.first);
+                }
+              },
+            );
+          },
+        );
+  }
+}
