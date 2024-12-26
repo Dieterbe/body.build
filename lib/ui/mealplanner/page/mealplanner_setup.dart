@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ptc/ui/mealplanner/widget/meal_plan_header.dart';
 import '../../../data/mealplanner/meal_plan_setup.dart';
 import '../../../data/mealplanner/meal_plan.dart';
 import '../../../data/mealplanner/meal_plan_provider.dart';
@@ -22,6 +23,7 @@ class MealPlannerSetup extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 24,
       children: [
+        const MealPlanHeader(),
         _buildWeeklyKcalInput(context, ref, setup),
         _buildCalorieCyclingSelector(context, ref, setup),
         _buildMealsPerDayInput(context, ref, setup),

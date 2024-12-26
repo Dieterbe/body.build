@@ -26,7 +26,8 @@ class MealPlanHeader extends ConsumerWidget {
           ),
           error: (error, stack) => Text('Error: $error'),
           data: (plans) {
-            final currentPlan = ref.watch(currentMealPlanProvider);
+            final currentPlan = ref.watch(currentMealPlanProvider) ?? plans.first;
+            
             return DataManager(
               opts: getOpts(currentPlan, plans),
               onSelect: (name) {
@@ -55,7 +56,7 @@ class MealPlanHeader extends ConsumerWidget {
                 await ref
                     .read(mealPlanPersistenceProvider.notifier)
                     .saveMealPlan(updatedPlan);
-                if (currentPlan?.id == plan.id) {
+                if (currentPlan.id == plan.id) {
                   ref
                       .read(currentMealPlanProvider.notifier)
                       .setMealPlan(updatedPlan);
@@ -77,30 +78,10 @@ class MealPlanHeader extends ConsumerWidget {
                 await ref
                     .read(mealPlanPersistenceProvider.notifier)
                     .deleteMealPlan(plan.id);
-
-                // Get remaining plans after deletion
-                final remainingPlans =
-                    plans.where((p) => p.id != plan.id).toList();
-
-                if (remainingPlans.isEmpty) {
-                  // Create a new default plan if no plans exist
-                  final newPlan = MealPlan(
-                    id: const Uuid().v4(),
-                    name: 'New Meal Plan',
-                    dayplans: [],
-                  );
-                  await ref
-                      .read(mealPlanPersistenceProvider.notifier)
-                      .saveMealPlan(newPlan);
-                  ref
-                      .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(newPlan);
-                } else {
-                  // Select the first available plan
-                  ref
-                      .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(remainingPlans.first);
-                }
+                
+                // Get remaining plans after deletion (persistence provider ensures there's at least one)
+                final remainingPlans = await ref.read(mealPlanPersistenceProvider.future);
+                ref.read(currentMealPlanProvider.notifier).setMealPlan(remainingPlans.first);
               },
             );
           },

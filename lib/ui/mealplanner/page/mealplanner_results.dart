@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/data/mealplanner/meal_plan.dart';
 import 'package:ptc/data/mealplanner/meal_plan_persistence_provider.dart';
 import 'package:ptc/data/mealplanner/meal_plan_provider.dart';
-import 'package:ptc/ui/mealplanner/widget/meal_plan_header.dart';
 
 class MealPlannerResults extends ConsumerWidget {
   const MealPlannerResults({super.key});
@@ -11,47 +10,19 @@ class MealPlannerResults extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentPlan = ref.watch(currentMealPlanProvider);
-    final savedPlans = ref.watch(mealPlanPersistenceProvider);
 
-    return savedPlans.when(
-      data: (plans) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const MealPlanHeader(),
-          if (currentPlan != null) ...[
-            const SizedBox(height: 24),
-            Text(
-              currentPlan.name,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  currentPlan.name,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.save),
-                  onPressed: () {
-                    ref
-                        .read(mealPlanPersistenceProvider.notifier)
-                        .saveMealPlan(currentPlan);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Meal plan saved!')),
-                    );
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            ...currentPlan.dayplans.map((day) => _buildDayCard(context, day)),
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (currentPlan != null) ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [],
+          ),
+          const SizedBox(height: 24),
+          ...currentPlan.dayplans.map((day) => _buildDayCard(context, day)),
         ],
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Error: $error')),
+      ],
     );
   }
 
