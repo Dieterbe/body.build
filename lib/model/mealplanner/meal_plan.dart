@@ -4,12 +4,22 @@ import 'package:flutter/foundation.dart';
 part 'meal_plan.freezed.dart';
 part 'meal_plan.g.dart';
 
+enum CalorieCyclingType {
+  off,
+  on,
+  psmf,
+}
+
 @freezed
 class MealPlan with _$MealPlan {
   const factory MealPlan({
-    required String id,
     required String name,
-    required List<DayPlan> dayplans,
+    @Default(<DayPlan>[]) List<DayPlan> dayplans,
+    @Default(CalorieCyclingType.off) CalorieCyclingType calorieCycling,
+    @Default(4) int mealsPerDay,
+    // TODO: should we get rid of these?
+    @Default(1.0) double energyBalanceFactor,
+    @Default(3) int trainingDaysPerWeek,
   }) = _MealPlan;
 
   factory MealPlan.fromJson(Map<String, dynamic> json) =>

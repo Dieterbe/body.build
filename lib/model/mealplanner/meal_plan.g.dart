@@ -8,19 +8,35 @@ part of 'meal_plan.dart';
 
 _$MealPlanImpl _$$MealPlanImplFromJson(Map<String, dynamic> json) =>
     _$MealPlanImpl(
-      id: json['id'] as String,
       name: json['name'] as String,
-      dayplans: (json['dayplans'] as List<dynamic>)
-          .map((e) => DayPlan.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      dayplans: (json['dayplans'] as List<dynamic>?)
+              ?.map((e) => DayPlan.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <DayPlan>[],
+      calorieCycling: $enumDecodeNullable(
+              _$CalorieCyclingTypeEnumMap, json['calorieCycling']) ??
+          CalorieCyclingType.off,
+      mealsPerDay: (json['mealsPerDay'] as num?)?.toInt() ?? 4,
+      energyBalanceFactor:
+          (json['energyBalanceFactor'] as num?)?.toDouble() ?? 1.0,
+      trainingDaysPerWeek: (json['trainingDaysPerWeek'] as num?)?.toInt() ?? 3,
     );
 
 Map<String, dynamic> _$$MealPlanImplToJson(_$MealPlanImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'name': instance.name,
       'dayplans': instance.dayplans,
+      'calorieCycling': _$CalorieCyclingTypeEnumMap[instance.calorieCycling]!,
+      'mealsPerDay': instance.mealsPerDay,
+      'energyBalanceFactor': instance.energyBalanceFactor,
+      'trainingDaysPerWeek': instance.trainingDaysPerWeek,
     };
+
+const _$CalorieCyclingTypeEnumMap = {
+  CalorieCyclingType.off: 'off',
+  CalorieCyclingType.on: 'on',
+  CalorieCyclingType.psmf: 'psmf',
+};
 
 _$DayPlanImpl _$$DayPlanImplFromJson(Map<String, dynamic> json) =>
     _$DayPlanImpl(

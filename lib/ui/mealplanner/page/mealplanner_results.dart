@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/mealplanner/meal_plan.dart';
-import 'package:ptc/data/mealplanner/meal_plan_persistence_provider.dart';
-import 'package:ptc/data/mealplanner/meal_plan_provider.dart';
+import 'package:ptc/model/mealplanner/meal_plan.dart';
 import 'package:ptc/ui/core/widget/editable_header.dart';
 import 'package:ptc/ui/core/widget/editable_header.dart';
 import 'package:uuid/uuid.dart';

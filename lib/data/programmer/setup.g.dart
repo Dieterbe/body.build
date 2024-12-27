@@ -23,7 +23,7 @@ final currentProfileProvider = AutoDisposeFutureProvider<Settings?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentProfileRef = AutoDisposeFutureProviderRef<Settings?>;
-String _$setupHash() => r'59eda5edd3ca745aaf44e35aa0676c1716b7fd76';
+String _$setupHash() => r'a4961ebf11e387238cb411e82e729e86e67d4df3';
 
 /// See also [Setup].
 @ProviderFor(Setup)

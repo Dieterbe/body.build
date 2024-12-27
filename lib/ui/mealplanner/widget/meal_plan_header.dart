@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
-import 'package:ptc/data/mealplanner/meal_plan.dart';
-import 'package:ptc/data/mealplanner/meal_plan_persistence_provider.dart';
-import 'package:ptc/data/mealplanner/meal_plan_provider.dart';
+import 'package:ptc/model/mealplanner/meal_plan.dart';
 import 'package:ptc/ui/core/widget/data_manager.dart';
 
 class MealPlanHeader extends ConsumerWidget {
@@ -27,12 +25,14 @@ class MealPlanHeader extends ConsumerWidget {
           error: (error, stack) => Text('Error: $error'),
           data: (plans) {
             final currentPlan = ref.watch(currentMealPlanProvider);
-            
+
             // If no plan is selected but we have plans, select the first one
             if (currentPlan == null && plans.isNotEmpty) {
               // Use Future to avoid modifying state during build
               Future(() {
-                ref.read(currentMealPlanProvider.notifier).setMealPlan(plans.first);
+                ref
+                    .read(currentMealPlanProvider.notifier)
+                    .setMealPlan(plans.first);
               });
               return const SizedBox(
                 width: 200,
@@ -47,7 +47,8 @@ class MealPlanHeader extends ConsumerWidget {
                 child: Card(
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
-                    child: Text('No meal plans yet. Create one to get started!'),
+                    child:
+                        Text('No meal plans yet. Create one to get started!'),
                   ),
                 ),
               );
@@ -109,10 +110,13 @@ class MealPlanHeader extends ConsumerWidget {
                   await ref
                       .read(mealPlanPersistenceProvider.notifier)
                       .deleteMealPlan(plan.id);
-                  
+
                   // Get remaining plans after deletion (persistence provider ensures there's at least one)
-                  final remainingPlans = await ref.read(mealPlanPersistenceProvider.future);
-                  ref.read(currentMealPlanProvider.notifier).setMealPlan(remainingPlans.first);
+                  final remainingPlans =
+                      await ref.read(mealPlanPersistenceProvider.future);
+                  ref
+                      .read(currentMealPlanProvider.notifier)
+                      .setMealPlan(remainingPlans.first);
                 },
               ),
             );

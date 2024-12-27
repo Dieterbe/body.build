@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ptc/ui/mealplanner/widget/meal_plan_header.dart';
-import '../../../data/mealplanner/meal_plan_setup.dart';
-import '../../../data/mealplanner/meal_plan.dart';
-import '../../../data/mealplanner/meal_plan_provider.dart';
+import '../../../model/mealplanner/meal_plan.dart';
 import 'package:uuid/uuid.dart';
 
 class MealPlannerSetup extends ConsumerWidget {
@@ -90,7 +88,8 @@ class MealPlannerSetup extends ConsumerWidget {
     return days;
   }
 
-  List<Event> _generateEvents(int mealsPerDay, Targets dayTargets, bool isTrainingDay) {
+  List<Event> _generateEvents(
+      int mealsPerDay, Targets dayTargets, bool isTrainingDay) {
     final events = <Event>[];
     double remainingKcal = dayTargets.kCal;
 

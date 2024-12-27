@@ -20,9 +20,13 @@ MealPlan _$MealPlanFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MealPlan {
-  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<DayPlan> get dayplans => throw _privateConstructorUsedError;
+  CalorieCyclingType get calorieCycling => throw _privateConstructorUsedError;
+  int get mealsPerDay =>
+      throw _privateConstructorUsedError; // TODO: should we get rid of these?
+  double get energyBalanceFactor => throw _privateConstructorUsedError;
+  int get trainingDaysPerWeek => throw _privateConstructorUsedError;
 
   /// Serializes this MealPlan to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +43,13 @@ abstract class $MealPlanCopyWith<$Res> {
   factory $MealPlanCopyWith(MealPlan value, $Res Function(MealPlan) then) =
       _$MealPlanCopyWithImpl<$Res, MealPlan>;
   @useResult
-  $Res call({String id, String name, List<DayPlan> dayplans});
+  $Res call(
+      {String name,
+      List<DayPlan> dayplans,
+      CalorieCyclingType calorieCycling,
+      int mealsPerDay,
+      double energyBalanceFactor,
+      int trainingDaysPerWeek});
 }
 
 /// @nodoc
@@ -57,15 +67,14 @@ class _$MealPlanCopyWithImpl<$Res, $Val extends MealPlan>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
     Object? dayplans = null,
+    Object? calorieCycling = null,
+    Object? mealsPerDay = null,
+    Object? energyBalanceFactor = null,
+    Object? trainingDaysPerWeek = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -74,6 +83,22 @@ class _$MealPlanCopyWithImpl<$Res, $Val extends MealPlan>
           ? _value.dayplans
           : dayplans // ignore: cast_nullable_to_non_nullable
               as List<DayPlan>,
+      calorieCycling: null == calorieCycling
+          ? _value.calorieCycling
+          : calorieCycling // ignore: cast_nullable_to_non_nullable
+              as CalorieCyclingType,
+      mealsPerDay: null == mealsPerDay
+          ? _value.mealsPerDay
+          : mealsPerDay // ignore: cast_nullable_to_non_nullable
+              as int,
+      energyBalanceFactor: null == energyBalanceFactor
+          ? _value.energyBalanceFactor
+          : energyBalanceFactor // ignore: cast_nullable_to_non_nullable
+              as double,
+      trainingDaysPerWeek: null == trainingDaysPerWeek
+          ? _value.trainingDaysPerWeek
+          : trainingDaysPerWeek // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -86,7 +111,13 @@ abstract class _$$MealPlanImplCopyWith<$Res>
       __$$MealPlanImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, List<DayPlan> dayplans});
+  $Res call(
+      {String name,
+      List<DayPlan> dayplans,
+      CalorieCyclingType calorieCycling,
+      int mealsPerDay,
+      double energyBalanceFactor,
+      int trainingDaysPerWeek});
 }
 
 /// @nodoc
@@ -102,15 +133,14 @@ class __$$MealPlanImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
     Object? dayplans = null,
+    Object? calorieCycling = null,
+    Object? mealsPerDay = null,
+    Object? energyBalanceFactor = null,
+    Object? trainingDaysPerWeek = null,
   }) {
     return _then(_$MealPlanImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -119,6 +149,22 @@ class __$$MealPlanImplCopyWithImpl<$Res>
           ? _value._dayplans
           : dayplans // ignore: cast_nullable_to_non_nullable
               as List<DayPlan>,
+      calorieCycling: null == calorieCycling
+          ? _value.calorieCycling
+          : calorieCycling // ignore: cast_nullable_to_non_nullable
+              as CalorieCyclingType,
+      mealsPerDay: null == mealsPerDay
+          ? _value.mealsPerDay
+          : mealsPerDay // ignore: cast_nullable_to_non_nullable
+              as int,
+      energyBalanceFactor: null == energyBalanceFactor
+          ? _value.energyBalanceFactor
+          : energyBalanceFactor // ignore: cast_nullable_to_non_nullable
+              as double,
+      trainingDaysPerWeek: null == trainingDaysPerWeek
+          ? _value.trainingDaysPerWeek
+          : trainingDaysPerWeek // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -127,20 +173,22 @@ class __$$MealPlanImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
   const _$MealPlanImpl(
-      {required this.id,
-      required this.name,
-      required final List<DayPlan> dayplans})
+      {required this.name,
+      final List<DayPlan> dayplans = const <DayPlan>[],
+      this.calorieCycling = CalorieCyclingType.off,
+      this.mealsPerDay = 4,
+      this.energyBalanceFactor = 1.0,
+      this.trainingDaysPerWeek = 3})
       : _dayplans = dayplans;
 
   factory _$MealPlanImpl.fromJson(Map<String, dynamic> json) =>
       _$$MealPlanImplFromJson(json);
 
   @override
-  final String id;
-  @override
   final String name;
   final List<DayPlan> _dayplans;
   @override
+  @JsonKey()
   List<DayPlan> get dayplans {
     if (_dayplans is EqualUnmodifiableListView) return _dayplans;
     // ignore: implicit_dynamic_type
@@ -148,8 +196,22 @@ class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
   }
 
   @override
+  @JsonKey()
+  final CalorieCyclingType calorieCycling;
+  @override
+  @JsonKey()
+  final int mealsPerDay;
+// TODO: should we get rid of these?
+  @override
+  @JsonKey()
+  final double energyBalanceFactor;
+  @override
+  @JsonKey()
+  final int trainingDaysPerWeek;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MealPlan(id: $id, name: $name, dayplans: $dayplans)';
+    return 'MealPlan(name: $name, dayplans: $dayplans, calorieCycling: $calorieCycling, mealsPerDay: $mealsPerDay, energyBalanceFactor: $energyBalanceFactor, trainingDaysPerWeek: $trainingDaysPerWeek)';
   }
 
   @override
@@ -157,9 +219,12 @@ class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'MealPlan'))
-      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('dayplans', dayplans));
+      ..add(DiagnosticsProperty('dayplans', dayplans))
+      ..add(DiagnosticsProperty('calorieCycling', calorieCycling))
+      ..add(DiagnosticsProperty('mealsPerDay', mealsPerDay))
+      ..add(DiagnosticsProperty('energyBalanceFactor', energyBalanceFactor))
+      ..add(DiagnosticsProperty('trainingDaysPerWeek', trainingDaysPerWeek));
   }
 
   /// Create a copy of MealPlan
@@ -180,19 +245,28 @@ class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
 
 abstract class _MealPlan implements MealPlan {
   const factory _MealPlan(
-      {required final String id,
-      required final String name,
-      required final List<DayPlan> dayplans}) = _$MealPlanImpl;
+      {required final String name,
+      final List<DayPlan> dayplans,
+      final CalorieCyclingType calorieCycling,
+      final int mealsPerDay,
+      final double energyBalanceFactor,
+      final int trainingDaysPerWeek}) = _$MealPlanImpl;
 
   factory _MealPlan.fromJson(Map<String, dynamic> json) =
       _$MealPlanImpl.fromJson;
 
   @override
-  String get id;
-  @override
   String get name;
   @override
   List<DayPlan> get dayplans;
+  @override
+  CalorieCyclingType get calorieCycling;
+  @override
+  int get mealsPerDay; // TODO: should we get rid of these?
+  @override
+  double get energyBalanceFactor;
+  @override
+  int get trainingDaysPerWeek;
 
   /// Create a copy of MealPlan
   /// with the given fields replaced by the non-null parameter values.
