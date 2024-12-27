@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uuid/uuid.dart';
+import 'package:ptc/data/mealplan/current_mealplan_provider.dart';
+import 'package:ptc/data/mealplan/mealplan_list_provider.dart';
+import 'package:ptc/data/mealplan/mealplan_persistence_provider.dart';
 import 'package:ptc/model/mealplanner/meal_plan.dart';
 import 'package:ptc/ui/core/widget/data_manager.dart';
 
@@ -9,118 +11,113 @@ class MealPlanHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<String> getOpts(MealPlan? currentPlan, List<MealPlan> plans) {
-      if (currentPlan == null) return plans.map((p) => p.name).toList();
-      return [
-        currentPlan.name,
-        ...plans.where((p) => p.id != currentPlan.id).map((p) => p.name),
-      ];
+    final currentMealPlanId = ref.watch(currentMealplanProvider);
+
+    List<String> getOpts(String currentId, Map<String, MealPlan> plans) {
+      final currentName = plans[currentId]!.name;
+      final otherNames = plans.entries
+          .where((e) => e.key != currentId)
+          .map((e) => e.value.name)
+          .toList();
+      return [currentName, ...otherNames];
     }
 
-    return ref.watch(mealPlanPersistenceProvider).when(
+    onSelect(String name, Map<String, MealPlan> plans) {
+      final plan = plans.entries.firstWhere((p) => p.value.name == name);
+      ref.read(currentMealplanProvider.notifier).select(plan.key);
+    }
+
+    onCreate(String id, String name) async {
+      final service = await ref.read(mealplanPersistenceProvider.future);
+      final newPlan = MealPlan(
+        name: name,
+        dayplans: [],
+      );
+      await service.saveMealplan(id, newPlan);
+      ref.invalidate(mealplanListProvider);
+      await ref.read(mealplanListProvider.future).then((_) {
+        // Then switch to the new plan
+        ref.read(currentMealplanProvider.notifier).select(id);
+      });
+    }
+
+    onRename(String oldName, String newName) async {
+      final service = await ref.read(mealplanPersistenceProvider.future);
+      final plans = await service.loadMealplans();
+      final plan = plans.entries.firstWhere((p) => p.value.name == oldName);
+
+      await service.saveMealplan(
+        plan.key,
+        plan.value.copyWith(name: newName),
+      );
+      ref.invalidate(mealplanListProvider);
+      // Wait for the plan list to be reloaded
+      await ref.read(mealplanListProvider.future);
+    }
+
+    onDuplicate(String nameOld, String nameNew) async {
+      final service = await ref.read(mealplanPersistenceProvider.future);
+      final plans = await service.loadMealplans();
+
+      final plan = plans.entries.firstWhere((p) => p.value.name == nameOld);
+      final newPlan = plan.value.copyWith(
+        name: nameNew,
+      );
+      final newId = DateTime.now().millisecondsSinceEpoch.toString();
+
+      await service.saveMealplan(newId, newPlan);
+      ref.invalidate(mealplanListProvider);
+      await ref.read(mealplanListProvider.future);
+
+      // Then switch to the new plan
+      ref.read(currentMealplanProvider.notifier).select(newId);
+    }
+
+    onDelete(String name) async {
+      final service = await ref.read(mealplanPersistenceProvider.future);
+      var plans = await service.loadMealplans();
+      final plan = plans.entries.firstWhere((p) => p.value.name == name);
+      await service.deleteMealplan(plan.key);
+
+      // Get remaining plans after deletion
+      plans = await service.loadMealplans();
+      ref.invalidate(mealplanListProvider);
+
+      // If no plans exist, create a new default one
+      if (plans.isEmpty) {
+        final newId = DateTime.now().millisecondsSinceEpoch.toString();
+        await service.saveMealplan(
+          newId,
+          const MealPlan(name: "default name mealplan"),
+        );
+        ref.invalidate(mealplanListProvider);
+        ref.read(currentMealplanProvider.notifier).select(newId);
+      } else {
+        // Select the first available plan
+        ref.read(currentMealplanProvider.notifier).select(plans.keys.first);
+      }
+    }
+
+    return ref.watch(mealplanListProvider).when(
           loading: () => const SizedBox(
             width: 200,
             child: LinearProgressIndicator(),
           ),
           error: (error, stack) => Text('Error: $error'),
-          data: (plans) {
-            final currentPlan = ref.watch(currentMealPlanProvider);
-
-            // If no plan is selected but we have plans, select the first one
-            if (currentPlan == null && plans.isNotEmpty) {
-              // Use Future to avoid modifying state during build
-              Future(() {
-                ref
-                    .read(currentMealPlanProvider.notifier)
-                    .setMealPlan(plans.first);
-              });
-              return const SizedBox(
-                width: 200,
-                child: LinearProgressIndicator(),
-              );
-            }
-
-            // If we have no plans at all, show empty state
-            if (plans.isEmpty) {
-              return const SizedBox(
+          data: (plans) => currentMealPlanId.when(
+            loading: () => const CircularProgressIndicator(),
+            error: (error, stack) => Text('Error: $error'),
+            data: (currentId) => SizedBox(
                 width: 500,
-                child: Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child:
-                        Text('No meal plans yet. Create one to get started!'),
-                  ),
-                ),
-              );
-            }
-
-            return SizedBox(
-              width: 500,
-              child: DataManager(
-                opts: getOpts(currentPlan, plans),
-                onSelect: (name) {
-                  final selectedPlan = plans.firstWhere((p) => p.name == name);
-                  ref
-                      .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(selectedPlan);
-                },
-                onCreate: (id, name) async {
-                  final newPlan = MealPlan(
-                    id: id,
-                    name: name,
-                    dayplans: [],
-                  );
-                  await ref
-                      .read(mealPlanPersistenceProvider.notifier)
-                      .saveMealPlan(newPlan);
-                  ref
-                      .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(newPlan);
-                },
-                onRename: (nameOld, nameNew) async {
-                  final plan = plans.firstWhere((p) => p.name == nameOld);
-                  final updatedPlan = plan.copyWith(name: nameNew);
-                  await ref
-                      .read(mealPlanPersistenceProvider.notifier)
-                      .deleteMealPlan(plan.id);
-                  await ref
-                      .read(mealPlanPersistenceProvider.notifier)
-                      .saveMealPlan(updatedPlan);
-                  if (currentPlan?.id == plan.id) {
-                    ref
-                        .read(currentMealPlanProvider.notifier)
-                        .setMealPlan(updatedPlan);
-                  }
-                },
-                onDuplicate: (nameOld, nameNew) async {
-                  final plan = plans.firstWhere((p) => p.name == nameOld);
-                  final newPlan = plan.copyWith(
-                    id: const Uuid().v4(),
-                    name: nameNew,
-                  );
-                  await ref
-                      .read(mealPlanPersistenceProvider.notifier)
-                      .saveMealPlan(newPlan);
-                  ref
-                      .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(newPlan);
-                },
-                onDelete: (name) async {
-                  final plan = plans.firstWhere((p) => p.name == name);
-                  await ref
-                      .read(mealPlanPersistenceProvider.notifier)
-                      .deleteMealPlan(plan.id);
-
-                  // Get remaining plans after deletion (persistence provider ensures there's at least one)
-                  final remainingPlans =
-                      await ref.read(mealPlanPersistenceProvider.future);
-                  ref
-                      .read(currentMealPlanProvider.notifier)
-                      .setMealPlan(remainingPlans.first);
-                },
-              ),
-            );
-          },
+                child: DataManager(
+                  opts: getOpts(currentId, plans),
+                  onSelect: (name) => onSelect(name, plans),
+                  onCreate: onCreate,
+                  onRename: onRename,
+                  onDuplicate: onDuplicate,
+                  onDelete: onDelete,
+                )),
+          ),
         );
   }
 }

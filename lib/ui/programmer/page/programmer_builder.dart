@@ -30,7 +30,7 @@ class ProgrammerBuilder extends ConsumerWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              ProgramHeader(program: program),
+              ProgramHeader(),
               Expanded(child: Container()),
               const SizedBox(width: 30),
               if (program.workouts.isNotEmpty) headers(),

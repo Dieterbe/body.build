@@ -12,9 +12,8 @@ import 'package:ptc/model/programmer/workout.dart';
 import 'package:ptc/ui/core/widget/data_manager.dart';
 
 class ProgramHeader extends ConsumerWidget {
-  final ProgramState program;
+  const ProgramHeader({super.key});
 
-  const ProgramHeader({super.key, required this.program});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
@@ -88,45 +87,45 @@ class ProgramHeader extends ConsumerWidget {
       final service = await ref.read(programPersistenceProvider.future);
       final currentId = await ref.read(currentProgramProvider.future);
       final currentProgram = await service.loadProgram(currentId);
-      if (currentProgram != null) {
-        // Get all programs to check for existing copies
-        final programs = await service.loadPrograms();
-        final baseName = currentProgram.name;
+      if (currentProgram == null) return;
 
-        // Find all copies of this program
-        final copies = programs.values
-            .map((p) => p.name)
-            .where((name) => name.startsWith(baseName))
-            .toList();
+      // Get all programs to check for existing copies
+      final programs = await service.loadPrograms();
+      final baseName = currentProgram.name;
 
-        // Determine the new name
-        String newName;
-        if (copies.isEmpty) {
-          newName = '$baseName (Copy)';
-        } else {
-          // Find highest copy number
-          int maxNumber = 1;
-          for (final name in copies) {
-            final match = RegExp(r'\(Copy (\d+)\)').firstMatch(name);
-            if (match != null) {
-              final number = int.parse(match.group(1)!);
-              maxNumber = number > maxNumber ? number : maxNumber;
-            } else {
-              // If we find a plain "(Copy)", treat it as number 1
-              maxNumber = maxNumber > 1 ? maxNumber : 1;
-            }
+      // Find all copies of this program
+      final copies = programs.values
+          .map((p) => p.name)
+          .where((name) => name.startsWith(baseName))
+          .toList();
+
+      // Determine the new name
+      String newName;
+      if (copies.isEmpty) {
+        newName = '$baseName (Copy)';
+      } else {
+        // Find highest copy number
+        int maxNumber = 1;
+        for (final name in copies) {
+          final match = RegExp(r'\(Copy (\d+)\)').firstMatch(name);
+          if (match != null) {
+            final number = int.parse(match.group(1)!);
+            maxNumber = number > maxNumber ? number : maxNumber;
+          } else {
+            // If we find a plain "(Copy)", treat it as number 1
+            maxNumber = maxNumber > 1 ? maxNumber : 1;
           }
-          newName = '$baseName (Copy ${maxNumber + 1})';
         }
-
-        final newId = DateTime.now().millisecondsSinceEpoch.toString();
-        await service.saveProgram(
-          newId,
-          currentProgram.copyWith(name: newName),
-        );
-        ref.invalidate(programListProvider);
-        ref.read(currentProgramProvider.notifier).select(newId);
+        newName = '$baseName (Copy ${maxNumber + 1})';
       }
+
+      final newId = DateTime.now().millisecondsSinceEpoch.toString();
+      await service.saveProgram(
+        newId,
+        currentProgram.copyWith(name: newName),
+      );
+      ref.invalidate(programListProvider);
+      ref.read(currentProgramProvider.notifier).select(newId);
     }
 
     onDelete(String name) async {
@@ -166,24 +165,18 @@ class ProgramHeader extends ConsumerWidget {
               loading: () => const CircularProgressIndicator(),
               error: (error, stack) => Text('Error: $error'),
               data: (currentId) {
-                // Watch the current program to rebuild when it changes
-                final currentProgram = ref.watch(programProvider);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    currentProgram.when(
-                      loading: () => const CircularProgressIndicator(),
-                      error: (error, stack) => Text('Error: $error'),
-                      data: (program) => SizedBox(
-                        width: 600,
-                        child: DataManager(
-                          opts: getOpts(currentId, programs),
-                          onSelect: (name) => onSelect(name, programs),
-                          onCreate: onCreate,
-                          onRename: onRename,
-                          onDuplicate: onDuplicate,
-                          onDelete: onDelete,
-                        ),
+                    SizedBox(
+                      width: 600,
+                      child: DataManager(
+                        opts: getOpts(currentId, programs),
+                        onSelect: (name) => onSelect(name, programs),
+                        onCreate: onCreate,
+                        onRename: onRename,
+                        onDuplicate: onDuplicate,
+                        onDelete: onDelete,
                       ),
                     ),
                     const SizedBox(height: 20),
