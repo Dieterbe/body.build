@@ -9,13 +9,6 @@ class ProgramPersistenceService {
 
   ProgramPersistenceService(this._prefs);
 
-  /// Saves a program to SharedPreferences
-  Future<bool> saveProgram(String id, ProgramState program) async {
-    final programs = await loadPrograms();
-    programs[id] = program;
-    return _savePrograms(programs);
-  }
-
   /// Loads all programs from SharedPreferences
   Future<Map<String, ProgramState>> loadPrograms() async {
     final String? programsJson = _prefs.getString(_programsKey);
@@ -26,10 +19,24 @@ class ProgramPersistenceService {
         MapEntry(key, ProgramState.fromJson(value as Map<String, dynamic>)));
   }
 
+  /// Helper method to save programs map to SharedPreferences
+  Future<bool> _savePrograms(Map<String, ProgramState> programs) {
+    final programsJson = json
+        .encode(programs.map((key, value) => MapEntry(key, value.toJson())));
+    return _prefs.setString(_programsKey, programsJson);
+  }
+
   /// Loads a specific program by ID
   Future<ProgramState?> loadProgram(String id) async {
     final programs = await loadPrograms();
     return programs[id];
+  }
+
+  /// Saves a program to SharedPreferences
+  Future<bool> saveProgram(String id, ProgramState program) async {
+    final programs = await loadPrograms();
+    programs[id] = program;
+    return _savePrograms(programs);
   }
 
   /// Deletes a program by ID
@@ -39,20 +46,13 @@ class ProgramPersistenceService {
     return _savePrograms(programs);
   }
 
-  /// Saves the ID of the last selected program
-  Future<bool> saveLastProgramId(String id) {
-    return _prefs.setString(_lastProgramKey, id);
-  }
-
   /// Loads the ID of the last selected program
   Future<String?> loadLastProgramId() async {
     return _prefs.getString(_lastProgramKey);
   }
 
-  /// Helper method to save programs map to SharedPreferences
-  Future<bool> _savePrograms(Map<String, ProgramState> programs) {
-    final programsJson = json
-        .encode(programs.map((key, value) => MapEntry(key, value.toJson())));
-    return _prefs.setString(_programsKey, programsJson);
+  /// Saves the ID of the last selected program
+  Future<bool> saveLastProgramId(String id) {
+    return _prefs.setString(_lastProgramKey, id);
   }
 }

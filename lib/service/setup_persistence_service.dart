@@ -19,13 +19,6 @@ class SetupPersistenceService {
         MapEntry(key, Settings.fromJson(value as Map<String, dynamic>)));
   }
 
-  /// Saves a setup profile to SharedPreferences
-  Future<bool> saveProfile(String id, Settings profile) async {
-    final profiles = await loadProfiles();
-    profiles[id] = profile;
-    return _saveProfiles(profiles);
-  }
-
   /// Helper method to save profiles map to SharedPreferences
   Future<bool> _saveProfiles(Map<String, Settings> profiles) {
     final profilesJson = json
@@ -39,6 +32,13 @@ class SetupPersistenceService {
     return profiles[id];
   }
 
+  /// Saves a setup profile to SharedPreferences
+  Future<bool> saveProfile(String id, Settings profile) async {
+    final profiles = await loadProfiles();
+    profiles[id] = profile;
+    return _saveProfiles(profiles);
+  }
+
   /// Deletes a profile by ID
   Future<bool> deleteProfile(String id) async {
     final profiles = await loadProfiles();
@@ -46,13 +46,13 @@ class SetupPersistenceService {
     return _saveProfiles(profiles);
   }
 
-  /// Saves the ID of the last selected profile
-  Future<bool> saveLastProfileId(String id) {
-    return _prefs.setString(_lastProfileKey, id);
-  }
-
   /// Loads the ID of the last selected profile
   Future<String?> loadLastProfileId() {
     return Future.value(_prefs.getString(_lastProfileKey));
+  }
+
+  /// Saves the ID of the last selected profile
+  Future<bool> saveLastProfileId(String id) {
+    return _prefs.setString(_lastProfileKey, id);
   }
 }
