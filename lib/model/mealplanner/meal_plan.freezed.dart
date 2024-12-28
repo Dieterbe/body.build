@@ -21,11 +21,10 @@ MealPlan _$MealPlanFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MealPlan {
   String get name => throw _privateConstructorUsedError;
-  List<DayPlan> get dayplans => throw _privateConstructorUsedError;
+  List<DayPlan> get dayplans =>
+      throw _privateConstructorUsedError; // to support the wizard.
   CalorieCyclingType get calorieCycling => throw _privateConstructorUsedError;
-  int get mealsPerDay =>
-      throw _privateConstructorUsedError; // TODO: should we get rid of these?
-  double get energyBalanceFactor => throw _privateConstructorUsedError;
+  int get mealsPerDay => throw _privateConstructorUsedError;
   int get trainingDaysPerWeek => throw _privateConstructorUsedError;
 
   /// Serializes this MealPlan to a JSON map.
@@ -48,7 +47,6 @@ abstract class $MealPlanCopyWith<$Res> {
       List<DayPlan> dayplans,
       CalorieCyclingType calorieCycling,
       int mealsPerDay,
-      double energyBalanceFactor,
       int trainingDaysPerWeek});
 }
 
@@ -71,7 +69,6 @@ class _$MealPlanCopyWithImpl<$Res, $Val extends MealPlan>
     Object? dayplans = null,
     Object? calorieCycling = null,
     Object? mealsPerDay = null,
-    Object? energyBalanceFactor = null,
     Object? trainingDaysPerWeek = null,
   }) {
     return _then(_value.copyWith(
@@ -91,10 +88,6 @@ class _$MealPlanCopyWithImpl<$Res, $Val extends MealPlan>
           ? _value.mealsPerDay
           : mealsPerDay // ignore: cast_nullable_to_non_nullable
               as int,
-      energyBalanceFactor: null == energyBalanceFactor
-          ? _value.energyBalanceFactor
-          : energyBalanceFactor // ignore: cast_nullable_to_non_nullable
-              as double,
       trainingDaysPerWeek: null == trainingDaysPerWeek
           ? _value.trainingDaysPerWeek
           : trainingDaysPerWeek // ignore: cast_nullable_to_non_nullable
@@ -116,7 +109,6 @@ abstract class _$$MealPlanImplCopyWith<$Res>
       List<DayPlan> dayplans,
       CalorieCyclingType calorieCycling,
       int mealsPerDay,
-      double energyBalanceFactor,
       int trainingDaysPerWeek});
 }
 
@@ -137,7 +129,6 @@ class __$$MealPlanImplCopyWithImpl<$Res>
     Object? dayplans = null,
     Object? calorieCycling = null,
     Object? mealsPerDay = null,
-    Object? energyBalanceFactor = null,
     Object? trainingDaysPerWeek = null,
   }) {
     return _then(_$MealPlanImpl(
@@ -157,10 +148,6 @@ class __$$MealPlanImplCopyWithImpl<$Res>
           ? _value.mealsPerDay
           : mealsPerDay // ignore: cast_nullable_to_non_nullable
               as int,
-      energyBalanceFactor: null == energyBalanceFactor
-          ? _value.energyBalanceFactor
-          : energyBalanceFactor // ignore: cast_nullable_to_non_nullable
-              as double,
       trainingDaysPerWeek: null == trainingDaysPerWeek
           ? _value.trainingDaysPerWeek
           : trainingDaysPerWeek // ignore: cast_nullable_to_non_nullable
@@ -177,7 +164,6 @@ class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
       final List<DayPlan> dayplans = const <DayPlan>[],
       this.calorieCycling = CalorieCyclingType.off,
       this.mealsPerDay = 4,
-      this.energyBalanceFactor = 1.0,
       this.trainingDaysPerWeek = 3})
       : _dayplans = dayplans;
 
@@ -195,23 +181,20 @@ class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
     return EqualUnmodifiableListView(_dayplans);
   }
 
+// to support the wizard.
   @override
   @JsonKey()
   final CalorieCyclingType calorieCycling;
   @override
   @JsonKey()
   final int mealsPerDay;
-// TODO: should we get rid of these?
-  @override
-  @JsonKey()
-  final double energyBalanceFactor;
   @override
   @JsonKey()
   final int trainingDaysPerWeek;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MealPlan(name: $name, dayplans: $dayplans, calorieCycling: $calorieCycling, mealsPerDay: $mealsPerDay, energyBalanceFactor: $energyBalanceFactor, trainingDaysPerWeek: $trainingDaysPerWeek)';
+    return 'MealPlan(name: $name, dayplans: $dayplans, calorieCycling: $calorieCycling, mealsPerDay: $mealsPerDay, trainingDaysPerWeek: $trainingDaysPerWeek)';
   }
 
   @override
@@ -223,7 +206,6 @@ class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
       ..add(DiagnosticsProperty('dayplans', dayplans))
       ..add(DiagnosticsProperty('calorieCycling', calorieCycling))
       ..add(DiagnosticsProperty('mealsPerDay', mealsPerDay))
-      ..add(DiagnosticsProperty('energyBalanceFactor', energyBalanceFactor))
       ..add(DiagnosticsProperty('trainingDaysPerWeek', trainingDaysPerWeek));
   }
 
@@ -249,7 +231,6 @@ abstract class _MealPlan implements MealPlan {
       final List<DayPlan> dayplans,
       final CalorieCyclingType calorieCycling,
       final int mealsPerDay,
-      final double energyBalanceFactor,
       final int trainingDaysPerWeek}) = _$MealPlanImpl;
 
   factory _MealPlan.fromJson(Map<String, dynamic> json) =
@@ -258,13 +239,11 @@ abstract class _MealPlan implements MealPlan {
   @override
   String get name;
   @override
-  List<DayPlan> get dayplans;
+  List<DayPlan> get dayplans; // to support the wizard.
   @override
   CalorieCyclingType get calorieCycling;
   @override
-  int get mealsPerDay; // TODO: should we get rid of these?
-  @override
-  double get energyBalanceFactor;
+  int get mealsPerDay;
   @override
   int get trainingDaysPerWeek;
 
@@ -284,7 +263,9 @@ DayPlan _$DayPlanFromJson(Map<String, dynamic> json) {
 mixin _$DayPlan {
   String get desc => throw _privateConstructorUsedError;
   Targets get targets => throw _privateConstructorUsedError;
-  List<Event> get events => throw _privateConstructorUsedError;
+  List<Event> get events =>
+      throw _privateConstructorUsedError; // how many times this day is done within one plan (the plan duration is the sum of the num of all its days)
+  int get num => throw _privateConstructorUsedError;
 
   /// Serializes this DayPlan to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -300,7 +281,7 @@ abstract class $DayPlanCopyWith<$Res> {
   factory $DayPlanCopyWith(DayPlan value, $Res Function(DayPlan) then) =
       _$DayPlanCopyWithImpl<$Res, DayPlan>;
   @useResult
-  $Res call({String desc, Targets targets, List<Event> events});
+  $Res call({String desc, Targets targets, List<Event> events, int num});
 
   $TargetsCopyWith<$Res> get targets;
 }
@@ -323,6 +304,7 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
     Object? desc = null,
     Object? targets = null,
     Object? events = null,
+    Object? num = null,
   }) {
     return _then(_value.copyWith(
       desc: null == desc
@@ -337,6 +319,10 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
           ? _value.events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Event>,
+      num: null == num
+          ? _value.num
+          : num // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -358,7 +344,7 @@ abstract class _$$DayPlanImplCopyWith<$Res> implements $DayPlanCopyWith<$Res> {
       __$$DayPlanImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String desc, Targets targets, List<Event> events});
+  $Res call({String desc, Targets targets, List<Event> events, int num});
 
   @override
   $TargetsCopyWith<$Res> get targets;
@@ -380,6 +366,7 @@ class __$$DayPlanImplCopyWithImpl<$Res>
     Object? desc = null,
     Object? targets = null,
     Object? events = null,
+    Object? num = null,
   }) {
     return _then(_$DayPlanImpl(
       desc: null == desc
@@ -394,6 +381,10 @@ class __$$DayPlanImplCopyWithImpl<$Res>
           ? _value._events
           : events // ignore: cast_nullable_to_non_nullable
               as List<Event>,
+      num: null == num
+          ? _value.num
+          : num // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -404,7 +395,8 @@ class _$DayPlanImpl with DiagnosticableTreeMixin implements _DayPlan {
   const _$DayPlanImpl(
       {required this.desc,
       required this.targets,
-      required final List<Event> events})
+      required final List<Event> events,
+      this.num = 1})
       : _events = events;
 
   factory _$DayPlanImpl.fromJson(Map<String, dynamic> json) =>
@@ -422,9 +414,14 @@ class _$DayPlanImpl with DiagnosticableTreeMixin implements _DayPlan {
     return EqualUnmodifiableListView(_events);
   }
 
+// how many times this day is done within one plan (the plan duration is the sum of the num of all its days)
+  @override
+  @JsonKey()
+  final int num;
+
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DayPlan(desc: $desc, targets: $targets, events: $events)';
+    return 'DayPlan(desc: $desc, targets: $targets, events: $events, num: $num)';
   }
 
   @override
@@ -434,7 +431,8 @@ class _$DayPlanImpl with DiagnosticableTreeMixin implements _DayPlan {
       ..add(DiagnosticsProperty('type', 'DayPlan'))
       ..add(DiagnosticsProperty('desc', desc))
       ..add(DiagnosticsProperty('targets', targets))
-      ..add(DiagnosticsProperty('events', events));
+      ..add(DiagnosticsProperty('events', events))
+      ..add(DiagnosticsProperty('num', num));
   }
 
   /// Create a copy of DayPlan
@@ -457,7 +455,8 @@ abstract class _DayPlan implements DayPlan {
   const factory _DayPlan(
       {required final String desc,
       required final Targets targets,
-      required final List<Event> events}) = _$DayPlanImpl;
+      required final List<Event> events,
+      final int num}) = _$DayPlanImpl;
 
   factory _DayPlan.fromJson(Map<String, dynamic> json) = _$DayPlanImpl.fromJson;
 
@@ -466,7 +465,10 @@ abstract class _DayPlan implements DayPlan {
   @override
   Targets get targets;
   @override
-  List<Event> get events;
+  List<Event>
+      get events; // how many times this day is done within one plan (the plan duration is the sum of the num of all its days)
+  @override
+  int get num;
 
   /// Create a copy of DayPlan
   /// with the given fields replaced by the non-null parameter values.

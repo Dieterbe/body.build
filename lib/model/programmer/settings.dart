@@ -30,7 +30,7 @@ class Settings with _$Settings {
     @Default(100) int energyBalance, // percentage (100 = maintenance)
     @Default(1.0) double recoveryFactor, // Recovery quality factor (0.5 - 1.2)
     @Default(1.2) double tefFactor, // Thermic effect of food
-    @Default(1.0) double atFactor,
+    @Default(1.0) double atFactor, // Adaptive thermogenesis
     @Default(3) int workoutsPerWeek,
     @Default(60) int workoutDuration, // minutes
     @Default(ActivityLevel.sedentary) ActivityLevel activityLevel,
@@ -125,6 +125,27 @@ class Settings with _$Settings {
       case BMRMethod.tinsley:
         return bmrTinsley(weight);
     }
+  }
+
+  double getDisplacedEE(int duration) {
+    return (getBMR() * getPAL() * atFactor) / (24 * 60) * duration;
+  }
+
+  (double trainingEE, bool adjusted) getTrainingEE(int duration) {
+    final displacedEE = getDisplacedEE(duration);
+    const epoc = 50; // roughly true for most workouts
+
+    final baseRT = 0.1 * weight * duration;
+    final (trainingEE, adjusted) = (activityLevel == ActivityLevel.veryActive)
+        ? (baseRT - displacedEE + epoc, true)
+        : (baseRT, false);
+    print(
+        'RT EE $baseRT adjusted $adjusted (displaced $displacedEE epoc $epoc)');
+    return (trainingEE, adjusted);
+  }
+
+  getDailyEE(double trainingEE) {
+    return (getBMR() * getPAL() + trainingEE) * tefFactor * atFactor;
   }
 }
 

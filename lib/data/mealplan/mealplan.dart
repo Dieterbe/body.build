@@ -26,12 +26,33 @@ class Mealplan extends _$Mealplan {
     // Try to load saved mealplan
     final service = await ref.read(mealplanPersistenceProvider.future);
     final savedMealplan = await service.loadMealplan(currentMealplan);
-    return savedMealplan ??
-        MealPlan(
-            name:
-                'Meal Plan ${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}');
+    return savedMealplan ?? const MealPlan(name: 'New Mealplan');
   }
 
   void updateName(String name) =>
       state = AsyncData(state.value!.copyWith(name: name));
+
+  void updateTrainingDaysPerWeek(double trainingDaysPerWeek) =>
+      state = AsyncData(state.value!
+          .copyWith(trainingDaysPerWeek: trainingDaysPerWeek.round()));
+
+  void addDay(DayPlan day) => state = AsyncData(
+      state.value!.copyWith(dayplans: [...state.value!.dayplans, day]));
+
+  void updateDay(DayPlan oldDay, DayPlan newDay) {
+    print('called updateDay');
+    print(oldDay);
+    print(newDay);
+    state = AsyncData(state.value!.copyWith(
+      dayplans: state.value!.dayplans
+          .map((e) => ((e == oldDay) ? newDay : e))
+          .toList(),
+    ));
+  }
+
+  void deleteDay(DayPlan day) {
+    state = AsyncData(state.value!.copyWith(
+      dayplans: state.value!.dayplans.where((e) => e != day).toList(),
+    ));
+  }
 }

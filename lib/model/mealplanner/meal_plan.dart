@@ -10,15 +10,20 @@ enum CalorieCyclingType {
   psmf,
 }
 
+/*
+no weekly targets because:
+- don't want to be locked in to week intervals
+- what matters is the per day amounts, as those correspond to workouts
+*/
 @freezed
 class MealPlan with _$MealPlan {
   const factory MealPlan({
     required String name,
     @Default(<DayPlan>[]) List<DayPlan> dayplans,
+
+// to support the wizard.
     @Default(CalorieCyclingType.off) CalorieCyclingType calorieCycling,
     @Default(4) int mealsPerDay,
-    // TODO: should we get rid of these?
-    @Default(1.0) double energyBalanceFactor,
     @Default(3) int trainingDaysPerWeek,
   }) = _MealPlan;
 
@@ -32,6 +37,8 @@ class DayPlan with _$DayPlan {
     required String desc,
     required Targets targets,
     required List<Event> events,
+    // how many times this day is done within one plan (the plan duration is the sum of the num of all its days)
+    @Default(1) int num,
   }) = _DayPlan;
 
   factory DayPlan.fromJson(Map<String, dynamic> json) =>

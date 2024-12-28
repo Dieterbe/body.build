@@ -17,8 +17,6 @@ _$MealPlanImpl _$$MealPlanImplFromJson(Map<String, dynamic> json) =>
               _$CalorieCyclingTypeEnumMap, json['calorieCycling']) ??
           CalorieCyclingType.off,
       mealsPerDay: (json['mealsPerDay'] as num?)?.toInt() ?? 4,
-      energyBalanceFactor:
-          (json['energyBalanceFactor'] as num?)?.toDouble() ?? 1.0,
       trainingDaysPerWeek: (json['trainingDaysPerWeek'] as num?)?.toInt() ?? 3,
     );
 
@@ -28,7 +26,6 @@ Map<String, dynamic> _$$MealPlanImplToJson(_$MealPlanImpl instance) =>
       'dayplans': instance.dayplans,
       'calorieCycling': _$CalorieCyclingTypeEnumMap[instance.calorieCycling]!,
       'mealsPerDay': instance.mealsPerDay,
-      'energyBalanceFactor': instance.energyBalanceFactor,
       'trainingDaysPerWeek': instance.trainingDaysPerWeek,
     };
 
@@ -45,6 +42,7 @@ _$DayPlanImpl _$$DayPlanImplFromJson(Map<String, dynamic> json) =>
       events: (json['events'] as List<dynamic>)
           .map((e) => Event.fromJson(e as Map<String, dynamic>))
           .toList(),
+      num: (json['num'] as num?)?.toInt() ?? 1,
     );
 
 Map<String, dynamic> _$$DayPlanImplToJson(_$DayPlanImpl instance) =>
@@ -52,6 +50,7 @@ Map<String, dynamic> _$$DayPlanImplToJson(_$DayPlanImpl instance) =>
       'desc': instance.desc,
       'targets': instance.targets,
       'events': instance.events,
+      'num': instance.num,
     };
 
 _$MealEventImpl _$$MealEventImplFromJson(Map<String, dynamic> json) =>

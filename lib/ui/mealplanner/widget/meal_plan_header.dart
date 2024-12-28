@@ -23,8 +23,10 @@ class MealPlanHeader extends ConsumerWidget {
     }
 
     onSelect(String name, Map<String, MealPlan> plans) {
-      final plan = plans.entries.firstWhere((p) => p.value.name == name);
-      ref.read(currentMealplanProvider.notifier).select(plan.key);
+      final entry = plans.entries.firstWhere(
+        (e) => e.value.name == name,
+      );
+      ref.read(currentMealplanProvider.notifier).select(entry.key);
     }
 
     onCreate(String id, String name) async {
@@ -98,26 +100,21 @@ class MealPlanHeader extends ConsumerWidget {
       }
     }
 
-    return ref.watch(mealplanListProvider).when(
-          loading: () => const SizedBox(
-            width: 200,
-            child: LinearProgressIndicator(),
-          ),
-          error: (error, stack) => Text('Error: $error'),
-          data: (plans) => currentMealPlanId.when(
+    return currentMealPlanId.when(
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stack) => Text('Error: $error'),
+      data: (currentId) => ref.watch(mealplanListProvider).when(
             loading: () => const CircularProgressIndicator(),
             error: (error, stack) => Text('Error: $error'),
-            data: (currentId) => SizedBox(
-                width: 500,
-                child: DataManager(
-                  opts: getOpts(currentId, plans),
-                  onSelect: (name) => onSelect(name, plans),
-                  onCreate: onCreate,
-                  onRename: onRename,
-                  onDuplicate: onDuplicate,
-                  onDelete: onDelete,
-                )),
+            data: (plans) => DataManager(
+              opts: getOpts(currentId, plans),
+              onSelect: (name) => onSelect(name, plans),
+              onCreate: onCreate,
+              onRename: onRename,
+              onDuplicate: onDuplicate,
+              onDelete: onDelete,
+            ),
           ),
-        );
+    );
   }
 }

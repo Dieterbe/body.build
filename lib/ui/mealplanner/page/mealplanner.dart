@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/ui/mealplanner/page/mealplanner_results.dart';
-import 'mealplanner_setup.dart';
+import 'package:ptc/ui/mealplanner/page/mealplanner_builder.dart';
+import 'mealplanner_wizard.dart';
 
 class MealPlanScreen extends ConsumerStatefulWidget {
   static const String routeName = 'meal-planner';
@@ -22,14 +22,14 @@ class _MealPlanScreenState extends ConsumerState<MealPlanScreen> {
           flex: 1,
           child: Padding(
             padding: EdgeInsets.all(16.0),
-            child: MealPlannerSetup(),
+            child: MealPlannerWizard(),
           ),
         ),
         Expanded(
-          flex: 2,
+          flex: 3,
           child: Padding(
             padding: EdgeInsets.all(16.0),
-            child: MealPlannerResults(),
+            child: MealPlannerBuilder(),
           ),
         ),
       ],

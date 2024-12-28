@@ -12,9 +12,6 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
       level:
           $enumDecodeNullable(_$LevelEnumMap, json['level']) ?? Level.beginner,
       sex: $enumDecodeNullable(_$SexEnumMap, json['sex']) ?? Sex.male,
-      availEquipment: json['availEquipment'] == null
-          ? const {}
-          : _equipmentSetFromJson(json['availEquipment'] as List),
       age: (json['age'] as num?)?.toDouble() ?? 30,
       weight: (json['weight'] as num?)?.toDouble() ?? 75,
       height: (json['height'] as num?)?.toDouble() ?? 178,
@@ -25,11 +22,14 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
       atFactor: (json['atFactor'] as num?)?.toDouble() ?? 1.0,
       workoutsPerWeek: (json['workoutsPerWeek'] as num?)?.toInt() ?? 3,
       workoutDuration: (json['workoutDuration'] as num?)?.toInt() ?? 60,
-      bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ??
-          BMRMethod.tenHaaf,
       activityLevel:
           $enumDecodeNullable(_$ActivityLevelEnumMap, json['activityLevel']) ??
               ActivityLevel.sedentary,
+      bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ??
+          BMRMethod.tenHaaf,
+      availEquipment: json['availEquipment'] == null
+          ? const {}
+          : _equipmentSetFromJson(json['availEquipment'] as List),
       paramSuggest:
           Parameters.fromJson(json['paramSuggest'] as Map<String, dynamic>),
       paramOverrides: ParameterOverrides.fromJson(
@@ -41,7 +41,6 @@ Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
       'name': instance.name,
       'level': _$LevelEnumMap[instance.level]!,
       'sex': _$SexEnumMap[instance.sex]!,
-      'availEquipment': _equipmentSetToJson(instance.availEquipment),
       'age': instance.age,
       'weight': instance.weight,
       'height': instance.height,
@@ -52,8 +51,9 @@ Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
       'atFactor': instance.atFactor,
       'workoutsPerWeek': instance.workoutsPerWeek,
       'workoutDuration': instance.workoutDuration,
-      'bmrMethod': _$BMRMethodEnumMap[instance.bmrMethod]!,
       'activityLevel': _$ActivityLevelEnumMap[instance.activityLevel]!,
+      'bmrMethod': _$BMRMethodEnumMap[instance.bmrMethod]!,
+      'availEquipment': _equipmentSetToJson(instance.availEquipment),
       'paramSuggest': instance.paramSuggest,
       'paramOverrides': instance.paramOverrides,
     };
@@ -70,15 +70,15 @@ const _$SexEnumMap = {
   Sex.female: 'female',
 };
 
-const _$BMRMethodEnumMap = {
-  BMRMethod.cunningham: 'cunningham',
-  BMRMethod.tinsley: 'tinsley',
-  BMRMethod.tenHaaf: 'tenHaaf',
-};
-
 const _$ActivityLevelEnumMap = {
   ActivityLevel.sedentary: 'sedentary',
   ActivityLevel.somewhatActive: 'somewhatActive',
   ActivityLevel.active: 'active',
   ActivityLevel.veryActive: 'veryActive',
+};
+
+const _$BMRMethodEnumMap = {
+  BMRMethod.cunningham: 'cunningham',
+  BMRMethod.tinsley: 'tinsley',
+  BMRMethod.tenHaaf: 'tenHaaf',
 };

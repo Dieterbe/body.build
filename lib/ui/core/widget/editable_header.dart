@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/util.dart';
 
 class EditableHeader extends StatelessWidget {
   final String text;
   final String? hintText;
   final VoidCallback? onDelete;
   final ValueChanged<String>? onTextChanged;
+  final ValueChanged<int>?
+      onNumChanged; // shows a number before the name. optional
+  final int? n; // shows a number before the name. optional
 
   const EditableHeader({
     super.key,
@@ -13,6 +15,8 @@ class EditableHeader extends StatelessWidget {
     this.hintText,
     this.onDelete,
     this.onTextChanged,
+    this.onNumChanged,
+    this.n,
   });
 
   @override
@@ -31,6 +35,23 @@ class EditableHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: Row(
         children: [
+          if (onNumChanged != null)
+            DropdownButton<int>(
+              value: n,
+              items: List.generate(10, (i) => i + 1).map((int value) {
+                return DropdownMenuItem<int>(
+                  value: value,
+                  child: Text('$value'),
+                );
+              }).toList(),
+              onChanged: (int? value) {
+                if (value != null) {
+                  onNumChanged!(value);
+                }
+              },
+            ),
+          if (onNumChanged != null)
+            Text(' x ', style: Theme.of(context).textTheme.titleLarge),
           Expanded(
             child: TextField(
               controller: controller,
@@ -52,8 +73,10 @@ class EditableHeader extends StatelessWidget {
                       .withValues(alpha: 0.5),
                 ),
                 filled: true,
-                fillColor:
-                    Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+                fillColor: Theme.of(context)
+                    .colorScheme
+                    .primary
+                    .withValues(alpha: 0.05),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,

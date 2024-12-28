@@ -23,3 +23,8 @@ meals within the peak of the anabolic window should have a protein intake up to 
 
 
 calorie cycling with PSMF is at worst, equally good as isocaliric, at best, better.
+
+// dieter other notes:
+protein: need 1.6 or 1.8 or 2.2 per day. use minima per meal, and ratios based on PSMF
+fats: we need our 20-40% per day. can either be 0 fats outside of anabolic window, or everything pro-rata
+per course: you can generally set protein, fat and fiber intakes as minima rather than set targets

@@ -20,11 +20,9 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Settings {
-  String get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError; // Personal information
   Level get level => throw _privateConstructorUsedError;
   Sex get sex => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-  Set<Equipment> get availEquipment => throw _privateConstructorUsedError;
   double get age => throw _privateConstructorUsedError;
   double get weight => throw _privateConstructorUsedError;
   double get height => throw _privateConstructorUsedError;
@@ -35,11 +33,15 @@ mixin _$Settings {
       throw _privateConstructorUsedError; // Recovery quality factor (0.5 - 1.2)
   double get tefFactor =>
       throw _privateConstructorUsedError; // Thermic effect of food
-  double get atFactor => throw _privateConstructorUsedError;
+  double get atFactor =>
+      throw _privateConstructorUsedError; // Adaptive thermogenesis
   int get workoutsPerWeek => throw _privateConstructorUsedError;
   int get workoutDuration => throw _privateConstructorUsedError; // minutes
+  ActivityLevel get activityLevel =>
+      throw _privateConstructorUsedError; // other
   BMRMethod get bmrMethod => throw _privateConstructorUsedError;
-  ActivityLevel get activityLevel => throw _privateConstructorUsedError;
+  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+  Set<Equipment> get availEquipment => throw _privateConstructorUsedError;
   Parameters get paramSuggest => throw _privateConstructorUsedError;
   ParameterOverrides get paramOverrides => throw _privateConstructorUsedError;
 
@@ -62,8 +64,6 @@ abstract class $SettingsCopyWith<$Res> {
       {String name,
       Level level,
       Sex sex,
-      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-      Set<Equipment> availEquipment,
       double age,
       double weight,
       double height,
@@ -74,8 +74,10 @@ abstract class $SettingsCopyWith<$Res> {
       double atFactor,
       int workoutsPerWeek,
       int workoutDuration,
-      BMRMethod bmrMethod,
       ActivityLevel activityLevel,
+      BMRMethod bmrMethod,
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      Set<Equipment> availEquipment,
       Parameters paramSuggest,
       ParameterOverrides paramOverrides});
 
@@ -101,7 +103,6 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? name = null,
     Object? level = null,
     Object? sex = null,
-    Object? availEquipment = null,
     Object? age = null,
     Object? weight = null,
     Object? height = null,
@@ -112,8 +113,9 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
     Object? atFactor = null,
     Object? workoutsPerWeek = null,
     Object? workoutDuration = null,
-    Object? bmrMethod = null,
     Object? activityLevel = null,
+    Object? bmrMethod = null,
+    Object? availEquipment = null,
     Object? paramSuggest = null,
     Object? paramOverrides = null,
   }) {
@@ -130,10 +132,6 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
               as Sex,
-      availEquipment: null == availEquipment
-          ? _value.availEquipment
-          : availEquipment // ignore: cast_nullable_to_non_nullable
-              as Set<Equipment>,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -174,14 +172,18 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
           ? _value.workoutDuration
           : workoutDuration // ignore: cast_nullable_to_non_nullable
               as int,
-      bmrMethod: null == bmrMethod
-          ? _value.bmrMethod
-          : bmrMethod // ignore: cast_nullable_to_non_nullable
-              as BMRMethod,
       activityLevel: null == activityLevel
           ? _value.activityLevel
           : activityLevel // ignore: cast_nullable_to_non_nullable
               as ActivityLevel,
+      bmrMethod: null == bmrMethod
+          ? _value.bmrMethod
+          : bmrMethod // ignore: cast_nullable_to_non_nullable
+              as BMRMethod,
+      availEquipment: null == availEquipment
+          ? _value.availEquipment
+          : availEquipment // ignore: cast_nullable_to_non_nullable
+              as Set<Equipment>,
       paramSuggest: null == paramSuggest
           ? _value.paramSuggest
           : paramSuggest // ignore: cast_nullable_to_non_nullable
@@ -226,8 +228,6 @@ abstract class _$$SettingsImplCopyWith<$Res>
       {String name,
       Level level,
       Sex sex,
-      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-      Set<Equipment> availEquipment,
       double age,
       double weight,
       double height,
@@ -238,8 +238,10 @@ abstract class _$$SettingsImplCopyWith<$Res>
       double atFactor,
       int workoutsPerWeek,
       int workoutDuration,
-      BMRMethod bmrMethod,
       ActivityLevel activityLevel,
+      BMRMethod bmrMethod,
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      Set<Equipment> availEquipment,
       Parameters paramSuggest,
       ParameterOverrides paramOverrides});
 
@@ -265,7 +267,6 @@ class __$$SettingsImplCopyWithImpl<$Res>
     Object? name = null,
     Object? level = null,
     Object? sex = null,
-    Object? availEquipment = null,
     Object? age = null,
     Object? weight = null,
     Object? height = null,
@@ -276,8 +277,9 @@ class __$$SettingsImplCopyWithImpl<$Res>
     Object? atFactor = null,
     Object? workoutsPerWeek = null,
     Object? workoutDuration = null,
-    Object? bmrMethod = null,
     Object? activityLevel = null,
+    Object? bmrMethod = null,
+    Object? availEquipment = null,
     Object? paramSuggest = null,
     Object? paramOverrides = null,
   }) {
@@ -294,10 +296,6 @@ class __$$SettingsImplCopyWithImpl<$Res>
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
               as Sex,
-      availEquipment: null == availEquipment
-          ? _value._availEquipment
-          : availEquipment // ignore: cast_nullable_to_non_nullable
-              as Set<Equipment>,
       age: null == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
@@ -338,14 +336,18 @@ class __$$SettingsImplCopyWithImpl<$Res>
           ? _value.workoutDuration
           : workoutDuration // ignore: cast_nullable_to_non_nullable
               as int,
-      bmrMethod: null == bmrMethod
-          ? _value.bmrMethod
-          : bmrMethod // ignore: cast_nullable_to_non_nullable
-              as BMRMethod,
       activityLevel: null == activityLevel
           ? _value.activityLevel
           : activityLevel // ignore: cast_nullable_to_non_nullable
               as ActivityLevel,
+      bmrMethod: null == bmrMethod
+          ? _value.bmrMethod
+          : bmrMethod // ignore: cast_nullable_to_non_nullable
+              as BMRMethod,
+      availEquipment: null == availEquipment
+          ? _value._availEquipment
+          : availEquipment // ignore: cast_nullable_to_non_nullable
+              as Set<Equipment>,
       paramSuggest: null == paramSuggest
           ? _value.paramSuggest
           : paramSuggest // ignore: cast_nullable_to_non_nullable
@@ -365,8 +367,6 @@ class _$SettingsImpl extends _Settings {
       {this.name = 'unnamed profile',
       this.level = Level.beginner,
       this.sex = Sex.male,
-      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-      final Set<Equipment> availEquipment = const {},
       this.age = 30,
       this.weight = 75,
       this.height = 178,
@@ -377,8 +377,10 @@ class _$SettingsImpl extends _Settings {
       this.atFactor = 1.0,
       this.workoutsPerWeek = 3,
       this.workoutDuration = 60,
-      this.bmrMethod = BMRMethod.tenHaaf,
       this.activityLevel = ActivityLevel.sedentary,
+      this.bmrMethod = BMRMethod.tenHaaf,
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      final Set<Equipment> availEquipment = const {},
       required this.paramSuggest,
       required this.paramOverrides})
       : _availEquipment = availEquipment,
@@ -390,21 +392,13 @@ class _$SettingsImpl extends _Settings {
   @override
   @JsonKey()
   final String name;
+// Personal information
   @override
   @JsonKey()
   final Level level;
   @override
   @JsonKey()
   final Sex sex;
-  final Set<Equipment> _availEquipment;
-  @override
-  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-  Set<Equipment> get availEquipment {
-    if (_availEquipment is EqualUnmodifiableSetView) return _availEquipment;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_availEquipment);
-  }
-
   @override
   @JsonKey()
   final double age;
@@ -433,6 +427,7 @@ class _$SettingsImpl extends _Settings {
   @override
   @JsonKey()
   final double atFactor;
+// Adaptive thermogenesis
   @override
   @JsonKey()
   final int workoutsPerWeek;
@@ -442,10 +437,20 @@ class _$SettingsImpl extends _Settings {
 // minutes
   @override
   @JsonKey()
-  final BMRMethod bmrMethod;
+  final ActivityLevel activityLevel;
+// other
   @override
   @JsonKey()
-  final ActivityLevel activityLevel;
+  final BMRMethod bmrMethod;
+  final Set<Equipment> _availEquipment;
+  @override
+  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+  Set<Equipment> get availEquipment {
+    if (_availEquipment is EqualUnmodifiableSetView) return _availEquipment;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_availEquipment);
+  }
+
   @override
   final Parameters paramSuggest;
   @override
@@ -453,7 +458,7 @@ class _$SettingsImpl extends _Settings {
 
   @override
   String toString() {
-    return 'Settings(name: $name, level: $level, sex: $sex, availEquipment: $availEquipment, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, tefFactor: $tefFactor, atFactor: $atFactor, workoutsPerWeek: $workoutsPerWeek, workoutDuration: $workoutDuration, bmrMethod: $bmrMethod, activityLevel: $activityLevel, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
+    return 'Settings(name: $name, level: $level, sex: $sex, age: $age, weight: $weight, height: $height, bodyFat: $bodyFat, energyBalance: $energyBalance, recoveryFactor: $recoveryFactor, tefFactor: $tefFactor, atFactor: $atFactor, workoutsPerWeek: $workoutsPerWeek, workoutDuration: $workoutDuration, activityLevel: $activityLevel, bmrMethod: $bmrMethod, availEquipment: $availEquipment, paramSuggest: $paramSuggest, paramOverrides: $paramOverrides)';
   }
 
   /// Create a copy of Settings
@@ -477,8 +482,6 @@ abstract class _Settings extends Settings {
       {final String name,
       final Level level,
       final Sex sex,
-      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-      final Set<Equipment> availEquipment,
       final double age,
       final double weight,
       final double height,
@@ -489,8 +492,10 @@ abstract class _Settings extends Settings {
       final double atFactor,
       final int workoutsPerWeek,
       final int workoutDuration,
-      final BMRMethod bmrMethod,
       final ActivityLevel activityLevel,
+      final BMRMethod bmrMethod,
+      @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+      final Set<Equipment> availEquipment,
       required final Parameters paramSuggest,
       required final ParameterOverrides paramOverrides}) = _$SettingsImpl;
   const _Settings._() : super._();
@@ -499,14 +504,11 @@ abstract class _Settings extends Settings {
       _$SettingsImpl.fromJson;
 
   @override
-  String get name;
+  String get name; // Personal information
   @override
   Level get level;
   @override
   Sex get sex;
-  @override
-  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
-  Set<Equipment> get availEquipment;
   @override
   double get age;
   @override
@@ -522,15 +524,18 @@ abstract class _Settings extends Settings {
   @override
   double get tefFactor; // Thermic effect of food
   @override
-  double get atFactor;
+  double get atFactor; // Adaptive thermogenesis
   @override
   int get workoutsPerWeek;
   @override
   int get workoutDuration; // minutes
   @override
+  ActivityLevel get activityLevel; // other
+  @override
   BMRMethod get bmrMethod;
   @override
-  ActivityLevel get activityLevel;
+  @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
+  Set<Equipment> get availEquipment;
   @override
   Parameters get paramSuggest;
   @override
