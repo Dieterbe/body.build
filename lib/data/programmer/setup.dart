@@ -15,14 +15,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'setup.g.dart';
 
-// TODO: is this used?
-@riverpod
-Future<Settings?> currentProfile(CurrentProfileRef ref) async {
-  final profileId = await ref.watch(currentSetupProfileProvider.future);
-  final service = await ref.read(setupPersistenceProvider.future);
-  return service.loadProfile(profileId);
-}
-
 @Riverpod(keepAlive: true)
 class Setup extends _$Setup {
   @override

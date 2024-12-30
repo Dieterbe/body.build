@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/model/programmer/activity_level.dart';
 import 'package:ptc/model/programmer/bmr_method.dart';
 import 'package:ptc/ui/core/info_button.dart';
 import 'package:ptc/ui/programmer/widget/label_bar.dart';
