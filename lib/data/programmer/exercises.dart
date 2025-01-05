@@ -85,15 +85,17 @@ final List<Ex> exes = [
   Ex(EBase.hipExtension, "reverse hyperextension", [Equipment.hyperReverse]),
   Ex(EBase.pullThrough, "cable pull-through", [Equipment.cableTower]),
 
-  Ex(EBase.legCurl, "seated leg curl machine",
+  Ex(EBase.legCurlHipFlexed, "seated leg curl machine",
       [Equipment.hamCurlMachineSeated]),
-  Ex(EBase.legCurl, "standing unilateral leg curl machine",
+  Ex(EBase.legCurlHipExtended, "standing unilateral leg curl machine",
       [Equipment.hamCurlMachineStanding]),
-  Ex(EBase.legCurl, "lying leg curl machine", [Equipment.hamCurlMachineLying]),
-  Ex(EBase.legCurl, "bodyweight leg curl with trx", [Equipment.trx]),
-  Ex(EBase.legCurl, "bodyweight leg curl with rings",
+  Ex(EBase.legCurlHipExtended, "lying leg curl machine",
+      [Equipment.hamCurlMachineLying]),
+  Ex(EBase.legCurlHipExtended, "bodyweight leg curl with trx (hip extended)",
+      [Equipment.trx]),
+  Ex(EBase.legCurlHipExtended, "bodyweight leg curl with rings (hip extended)",
       [Equipment.gymnasticRings]),
-  Ex(EBase.legCurl, "nordic curl", []),
+  Ex(EBase.legCurlHipExtended, "nordic curl (hip extended)", []),
 
   Ex(EBase.squatBB, "high bar back squat", [Equipment.squatRack]),
   Ex(EBase.squatBB, "low bar back squat", [Equipment.squatRack]),
@@ -107,14 +109,22 @@ final List<Ex> exes = [
   Ex(EBase.squatBelt, "belt squat", [Equipment.beltSquatMachine]),
   Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell]),
   Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell]),
-  Ex(EBase.squatBSQ, "smith machine bulgarian split squat",
+  Ex(EBase.squatBSQ, "smith machine (vertical) bulgarian split squat",
       [Equipment.smithMachineVertical]),
+  Ex(EBase.squatBSQ, "smith machine (angled) bulgarian split squat",
+      [Equipment.smithMachineAngled]),
   Ex(EBase.squatBSQ, "dumbbell bulgarian split squat from deficit",
       [Equipment.dumbbell]),
   Ex(EBase.squatBSQ, "barbell bulgarian split squat from deficit",
       [Equipment.barbell]),
-  Ex(EBase.squatBSQ, "smith machine bulgarian split squat from deficit",
+  Ex(
+      EBase.squatBSQ,
+      "smith machine (vertical) bulgarian split squat from deficit",
       [Equipment.smithMachineVertical]),
+  Ex(
+      EBase.squatBSQ,
+      "smith machine (angled) bulgarian split squat from deficit",
+      [Equipment.smithMachineAngled]),
 
   Ex(EBase.legPress, "machine leg press", [Equipment.legPressMachine]),
   Ex(EBase.lunge, "forward lunge", []),
@@ -153,6 +163,8 @@ final List<Ex> exes = [
       [Equipment.hipAdductionAbductionMachine]),
   Ex(EBase.hipAbductionHipExtended, "standing cable hip abduction",
       [Equipment.cableTower]),
+  Ex(EBase.hipAbductionHipExtended, "lying cable hip abduction",
+      [Equipment.cableTower]),
 
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
       [Equipment.smithMachineVertical]),
@@ -171,8 +183,9 @@ final List<Ex> exes = [
   Ex(EBase.pullup, "pullup", []), // just outside shoulder width
   // Ex(EBase.?, "pullup close grip pronated", []),
 
-  Ex(EBase.pullupNeutral, "pullup gymnastic rings",
-      [Equipment.gymnasticRings]), // TODO see if recruitment should be adjusted
+  Ex(EBase.pullupNeutral, "pullup gymnastic rings", [
+    Equipment.gymnasticRings
+  ]), // TODO see if recruitment should be adjusted
   Ex(EBase.pullupNeutral, "pullup neutral grip", []),
   Ex(EBase.pullupSupinated, "pullup supinated grip", []), // chin-up
   Ex(EBase.pullupWidePronated, "pullup wide pronated grip", []),
@@ -186,10 +199,21 @@ final List<Ex> exes = [
       [Equipment.latPullDownMachine]),
 
   Ex(EBase.diagonalRow, "kneeling diagonal cable row", [Equipment.cableTower]),
-  Ex(EBase.cableRowWithForwardLean, "seated cable row with forward lean", [
-    Equipment.cableRowMachine
-  ]), // TODO many different grips. those should affect recruitment similar to pullup types
-  Ex(EBase.bentOverRow, "standing bent over barbell row", [Equipment.barbell]),
+  Ex(EBase.rowWithSpine, "seated cable row with forward lean",
+      [Equipment.cableRowMachine]),
+  Ex(EBase.rowWithSpine, "seated cable row with forward lean, wide grip",
+      [Equipment.cableRowMachine]),
+
+  // TODO many different grips. those should affect recruitment similar to pullup types
+  Ex(EBase.rowWithSpineIso, "standing bent over barbell row",
+      [Equipment.barbell]),
+  Ex(EBase.rowWithSpineIso, "seated cable row (without forward lean)",
+      [Equipment.cableRowMachine]),
+  Ex(EBase.rowWithoutSpine, "bench supported single arm dumbbell rows",
+      [Equipment.dumbbell]),
+  Ex(EBase.rowWithoutSpine, "chest supported machine rows",
+      [Equipment.rowMachine]),
+
   Ex(EBase.pullOver, "pull over", [Equipment.cableTower]),
   Ex(EBase.latPrayer, "lat prayer", [Equipment.cableTower]),
   Ex(EBase.highRow, "seated cable high row", [Equipment.cableRowMachine]),
@@ -247,6 +271,11 @@ final List<Ex> exes = [
   Ex(EBase.lateralRaise, "standing cable lateral raise",
       [Equipment.cableTower]),
 
+  Ex(EBase.lateralRaisePinkieUp, "standing dumbbell lateral raise, pinkie up",
+      [Equipment.dumbbell]),
+  Ex(EBase.lateralRaisePinkieUp, "standing cable lateral raise, pinkie up",
+      [Equipment.cableTower]),
+
   Ex(EBase.shrug, "barbell shrug", [Equipment.barbell]),
   Ex(EBase.shrug, "wide grip barbell shrug", [Equipment.barbell]),
   Ex(EBase.shrug, "dumbbell shrug", [Equipment.dumbbell]),
@@ -279,7 +308,7 @@ final List<Ex> exes = [
   Ex(EBase.abCrunch, "laying ab crunch", []),
   Ex(EBase.abIsometric, "plank", []),
   Ex(EBase.wristFlexion, "dumbbell wrist curls", [Equipment.dumbbell]),
-  Ex(EBase.wristExtension, "dumbbell wrist extensions", [Equipment.cableTower]),
+  Ex(EBase.wristExtension, "dumbbell wrist extensions", [Equipment.dumbbell]),
 ];
 
 /// Returns a filtered list of exercises based on various criteria:

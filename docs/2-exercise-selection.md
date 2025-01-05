@@ -180,39 +180,49 @@ multiple exercises: stress different fibers or at different lengths
 pec major:
 a single flat press / fly, other functions will work with vertical presses and pulls
 
-Trapezius Make sure each head (lower/middle/upper) is targeted. The middle and lower heads often get worked well with vertical pulls already. Deadlifts and overhead presses stimulate the upper head, but for maximum growth, adding a wide or overhead shrug is advisable
+### Trapezius
+* middle and lower heads often get worked well with vertical pulls already.
+* upper head -> deadlift, overhead press, but for maximum growth, adding a wide or overhead shrug is advisable
 
-Deltoids Make sure each head (anterior/lateral/posterior) is targeted. The front head rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it’s more likely to be overworked than understimulated. The lateral head needs a lateral raise or overhead press variant to emphasize shoulder abduction rather than flexion. During overhead pressing, you should keep your elbows out to the sides to emphasize the lateral delt instead of the front delt. A relatively wide grip makes this easier. Even better arguably, dumbbells activate the lateral delts more effectively than a barbell for most people. Standing also activates the sides of the shoulders better than sitting, as with sitting you often end up with a high-incline press. Plus, the bench restricts your natural scapular movement. The posterior head is effectively trained with most pulling movements, but many of these don’t achieve full ROM, so an added reverse fly or high row variant is advisable
+### Delts
+* front head rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it’s more likely to be overworked than understimulated.
+* lateral head needs a lateral raise or overhead press variant to emphasize shoulder abduction rather than flexion. wide grip, even better arguably, dumbbells activate the lateral delts more effectively than a barbell for most people. Standing also activates the sides of the shoulders better than sitting, as with sitting you often end up with a high-incline press. Plus, the bench restricts your natural scapular movement.
+* posterior head is effectively trained with most pulling movements, but many of these don’t achieve full ROM, so an added reverse fly or high row variant is advisable
 
-Latissimus dorsi
-Due to the wide variation in muscle fiber angles, at least two different angle pulling
-exercises are recommended for the lats for non-novice trainees: one emphasizing
+### Latissimus dorsi
+at least two different angle pulling exercises are recommended for the lats for non-novice trainees: one emphasizing
 shoulder extension and one emphasizing adduction, such as close-grip chin-ups and
 wide-grip pull-ups.
-Biceps brachii
+
+### Biceps brachii
 A single isolation exercise with the elbow kept at the side should suffice, assuming the
 program already has other pulling movements involving the biceps.
-Triceps brachii
-An isolation exercise for the long head is generally desirable. The lateral and medial
-head get sufficient stimulation from (horizontal) presses.
-Quadriceps
+
+### Triceps brachii
+* The lateral and medial head get sufficient stimulation from (horizontal) presses.
+* long head -> isolation exercise
+
+
+### Quadriceps
 While having little functional differentiation, a leg extension exercise is recommended in
 addition to a squatting movement to overload the quadriceps in full contraction and
 stimulate the rectus femoris.
-Hamstrings
+
+### Hamstrings
 You need at least a knee flexion exercise, like a leg curl, and a hip extension exercise,
 like a Romanian deadlift, to stimulate all hamstring heads well along their full length.
-Gluteus maximus (and medius)
-Due to its large amount of muscle fibers with slight differences in angle, at least one
-bent-knee and one straight-leg hip extension exercise are recommended, such as hip
-thrusts and Romanian deadlifts. A hip abduction exercise is also advisable for maximum growth of the gluteus medius, though anti-adduction force during squats, especially
-unilateral squats, may suffice
 
-Calves
+
+### Gluteus maximus (and medius)
+needs a bent-knee and a straight-leg hip extension exercise such as hip
+thrusts and Romanian deadlifts. // Dieter note: BSQ is probably a good bent knee hip extension too!
+glute med -> anti-adduction force during squats, especially unilateral squats, may suffice. otherwise hip abduction
+
+### Calves
 You need at least one straight-leg plantarflexion (calf raise) exercise in addition to one
 bent-knee plantarflexion (seated calf raise) exercise for the soleus.
 
-Erector spinae
+### Erector spinae
 Squats and deadlifts often suffice in practice, but if injury risk is low and maximum
 growth is desired, a dedicated high-rep back extension exercise can be added
 

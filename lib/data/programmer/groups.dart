@@ -65,8 +65,10 @@ class VolumeAssignment {
   final Map<ProgramGroup, double> assign;
   // assign volume based on equipment used in the exercise
   final Map<Equipment, Map<ProgramGroup, double>> assignEquip;
+  final Map<ProgramGroup, String>
+      assignDesc; // human friendly description of how the exercises work the target muscle. work in progress!
   const VolumeAssignment(this.match, this.assign,
-      {this.assignEquip = const {}});
+      {this.assignEquip = const {}, this.assignDesc = const {}});
 }
 
 List<VolumeAssignment> volumeAssignments = [
@@ -85,19 +87,21 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristFlexors: 0.3,
     },
   ),
-  const VolumeAssignment(
-    [EBase.deadliftRDL],
-    {
-      ProgramGroup.upperTraps: 1,
-      ProgramGroup.lats: 0.25,
-      ProgramGroup.spinalErectors: 1,
-      ProgramGroup.hams: 1, // at long length
-      ProgramGroup.gluteMax: 1,
-      ProgramGroup.abs: 0.25,
-      ProgramGroup.wristExtensors: 0.3,
-      ProgramGroup.wristFlexors: 0.3,
-    },
-  ),
+  const VolumeAssignment([
+    EBase.deadliftRDL
+  ], {
+    ProgramGroup.upperTraps: 1,
+    ProgramGroup.lats: 0.25,
+    ProgramGroup.spinalErectors: 1,
+    ProgramGroup.hams: 1,
+    ProgramGroup.gluteMax: 1,
+    ProgramGroup.abs: 0.25,
+    ProgramGroup.wristExtensors: 0.3,
+    ProgramGroup.wristFlexors: 0.3,
+  }, assignDesc: {
+    ProgramGroup.hams: 'long length',
+    ProgramGroup.gluteMax: 'long length',
+  }),
   const VolumeAssignment(
     [EBase.goodMorning],
     {
@@ -144,11 +148,24 @@ List<VolumeAssignment> volumeAssignments = [
     },
   ),
   const VolumeAssignment([
-    EBase.legCurl
+    EBase.legCurlHipFlexed
   ], {
     ProgramGroup.hamsShortHead: 1,
     ProgramGroup.hams: 1,
     ProgramGroup.gastroc: 1 // assuming full dorsiflexion
+  }, assignDesc: {
+    ProgramGroup.hamsShortHead: 'full length',
+    ProgramGroup.hams: 'medium to long length',
+  }),
+  const VolumeAssignment([
+    EBase.legCurlHipExtended
+  ], {
+    ProgramGroup.hamsShortHead: 1,
+    ProgramGroup.hams: 1,
+    ProgramGroup.gastroc: 1 // assuming full dorsiflexion
+  }, assignDesc: {
+    ProgramGroup.hamsShortHead: 'full length',
+    ProgramGroup.hams: 'short to medium length',
   }),
   const VolumeAssignment(
     [
@@ -328,8 +345,7 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.wristFlexors: 0.5,
   }),
   const VolumeAssignment([
-    EBase.cableRowWithForwardLean,
-    EBase.bentOverRow,
+    EBase.rowWithSpine,
   ], {
     ProgramGroup.rearDelts: 1,
     ProgramGroup.lowerTraps: 1,
@@ -342,8 +358,38 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.gluteMax: 0.25,
     ProgramGroup.wristExtensors: 0.5,
     ProgramGroup.wristFlexors: 0.5,
+  }, assignDesc: {
+    ProgramGroup.spinalErectors: 'flexion & extension cycles'
   }),
-  // TODO where are the normal rows?
+  const VolumeAssignment([
+    EBase.rowWithSpineIso,
+  ], {
+    ProgramGroup.rearDelts: 1,
+    ProgramGroup.lowerTraps: 1,
+    ProgramGroup.middleTraps: 1,
+    ProgramGroup.lats: 1,
+    ProgramGroup.biceps: 0.5,
+    ProgramGroup.tricepsLongHead: 0.25,
+    ProgramGroup.spinalErectors: 0.5,
+    ProgramGroup.hams: 0.25,
+    ProgramGroup.gluteMax: 0.25,
+    ProgramGroup.wristExtensors: 0.5,
+    ProgramGroup.wristFlexors: 0.5,
+  }, assignDesc: {
+    ProgramGroup.spinalErectors: 'isometric'
+  }),
+  const VolumeAssignment([
+    EBase.rowWithoutSpine,
+  ], {
+    ProgramGroup.rearDelts: 1,
+    ProgramGroup.lowerTraps: 1,
+    ProgramGroup.middleTraps: 1,
+    ProgramGroup.lats: 1,
+    ProgramGroup.biceps: 0.5,
+    ProgramGroup.tricepsLongHead: 0.25,
+    ProgramGroup.wristExtensors: 0.5,
+    ProgramGroup.wristFlexors: 0.5,
+  }),
   const VolumeAssignment([
     EBase.pullOver,
     EBase.latPrayer
@@ -371,7 +417,6 @@ this explains why pull up goes together with wide grip pull down
   const VolumeAssignment([
     EBase.benchPressBB,
     EBase.chestPressMachine,
-    EBase.pushUp,
   ], {
     ProgramGroup.lowerPecs: 1,
     ProgramGroup.upperPecs: 1,
@@ -381,6 +426,22 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.wristExtensors: 0.25,
     ProgramGroup.wristFlexors: 0.25,
   }),
+  const VolumeAssignment(
+    [
+      EBase.pushUp,
+    ],
+    {
+      ProgramGroup.lowerPecs: 1,
+      ProgramGroup.upperPecs: 1,
+      ProgramGroup.frontDelts: 1,
+      ProgramGroup.tricepsMedLatH: 1,
+      ProgramGroup.tricepsLongHead: 0.25,
+      ProgramGroup.wristExtensors: 0.25,
+      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.abs: 1,
+    },
+    assignDesc: {ProgramGroup.abs: 'isometric'},
+  ),
   const VolumeAssignment([
     EBase.benchPressDB,
     EBase.chestPressCable,
@@ -400,7 +461,7 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.lowerPecs: 1,
     ProgramGroup.upperPecs: 1,
     ProgramGroup.frontDelts: 1,
-    ProgramGroup.wristFlexors: 1,
+    ProgramGroup.wristFlexors: 0.5,
   }),
   const VolumeAssignment([
     EBase.pecDeckElbowPad
@@ -419,7 +480,8 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.lowerTraps: 0.25,
     ProgramGroup.middleTraps: 0.25,
     ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.tricepsMedLatH: 1,
+    ProgramGroup.tricepsMedLatH:
+        0.75, // TODO: normally should be 1 but i think i read somewhere they don't activate well for most people
     ProgramGroup.tricepsLongHead: 0.25,
     ProgramGroup.abs: 0.25,
     ProgramGroup.wristExtensors: 0.25,
@@ -451,11 +513,25 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.wristExtensors: 0.3,
   }),
   const VolumeAssignment([
+    EBase.lateralRaisePinkieUp
+  ], {
+    ProgramGroup.upperPecs: 0.25,
+    ProgramGroup.frontDelts: 0.25,
+    ProgramGroup.sideDelts: 1,
+    ProgramGroup.rearDelts: 0.25,
+    ProgramGroup.lowerTraps: 0.25,
+    ProgramGroup.middleTraps: 0.25,
+    ProgramGroup.upperTraps: 0.25,
+    ProgramGroup.wristExtensors: 0.3,
+  }),
+  const VolumeAssignment([
     EBase.shrug
   ], {
     ProgramGroup.upperTraps: 1,
     ProgramGroup.wristExtensors: 0.25,
     ProgramGroup.wristFlexors: 0.25,
+  }, assignDesc: {
+    ProgramGroup.upperTraps: 'scapular elevation',
   }),
   const VolumeAssignment([
     EBase.tricepExtension

@@ -38,6 +38,8 @@ enum Equipment {
   latPullDownMachine(
       "Lat Pulldown Machine", EquipmentCategory.upperBodyMachines),
   cableRowMachine("Cable Row Machine", EquipmentCategory.upperBodyMachines),
+  rowMachine(
+      "Row Machine (chest supported)", EquipmentCategory.upperBodyMachines),
   preacherCurlBench("Preacher Curl Bench", EquipmentCategory.upperBodyMachines),
   preacherCurlMachine(
       "Preacher Curl Machine", EquipmentCategory.upperBodyMachines),
