@@ -86,6 +86,10 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristExtensors: 0.3,
       ProgramGroup.wristFlexors: 0.3,
     },
+    assignDesc: {
+      ProgramGroup.wristExtensors: 'isometric',
+      ProgramGroup.wristFlexors: 'isometric',
+    },
   ),
   const VolumeAssignment([
     EBase.deadliftRDL
@@ -101,6 +105,8 @@ List<VolumeAssignment> volumeAssignments = [
   }, assignDesc: {
     ProgramGroup.hams: 'long length',
     ProgramGroup.gluteMax: 'long length',
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   const VolumeAssignment(
     [EBase.goodMorning],
@@ -111,6 +117,10 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.abs: 0.25,
       ProgramGroup.wristExtensors: 0.25,
       ProgramGroup.wristFlexors: 0.25,
+    },
+    assignDesc: {
+      ProgramGroup.wristExtensors: 'isometric',
+      ProgramGroup.wristFlexors: 'isometric',
     },
   ),
   const VolumeAssignment(
@@ -359,7 +369,9 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.wristExtensors: 0.5,
     ProgramGroup.wristFlexors: 0.5,
   }, assignDesc: {
-    ProgramGroup.spinalErectors: 'flexion & extension cycles'
+    ProgramGroup.spinalErectors: 'flexion & extension cycles',
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   const VolumeAssignment([
     EBase.rowWithSpineIso,
@@ -376,7 +388,9 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.wristExtensors: 0.5,
     ProgramGroup.wristFlexors: 0.5,
   }, assignDesc: {
-    ProgramGroup.spinalErectors: 'isometric'
+    ProgramGroup.spinalErectors: 'isometric',
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   const VolumeAssignment([
     EBase.rowWithoutSpine,
@@ -389,6 +403,9 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.tricepsLongHead: 0.25,
     ProgramGroup.wristExtensors: 0.5,
     ProgramGroup.wristFlexors: 0.5,
+  }, assignDesc: {
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   const VolumeAssignment([
     EBase.pullOver,
@@ -425,23 +442,22 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.tricepsLongHead: 0.25,
     ProgramGroup.wristExtensors: 0.25,
     ProgramGroup.wristFlexors: 0.25,
+  }, assignDesc: {
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
-  const VolumeAssignment(
-    [
-      EBase.pushUp,
-    ],
-    {
-      ProgramGroup.lowerPecs: 1,
-      ProgramGroup.upperPecs: 1,
-      ProgramGroup.frontDelts: 1,
-      ProgramGroup.tricepsMedLatH: 1,
-      ProgramGroup.tricepsLongHead: 0.25,
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
-      ProgramGroup.abs: 1,
-    },
-    assignDesc: {ProgramGroup.abs: 'isometric'},
-  ),
+  const VolumeAssignment([
+    EBase.pushUp,
+  ], {
+    ProgramGroup.lowerPecs: 1,
+    ProgramGroup.upperPecs: 1,
+    ProgramGroup.frontDelts: 1,
+    ProgramGroup.tricepsMedLatH: 1,
+    ProgramGroup.tricepsLongHead: 0.25,
+    ProgramGroup.abs: 1,
+  }, assignDesc: {
+    ProgramGroup.abs: 'isometric',
+  }),
   const VolumeAssignment([
     EBase.benchPressDB,
     EBase.chestPressCable,
@@ -452,6 +468,9 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.tricepsMedLatH: 0.5,
     ProgramGroup.wristExtensors: 0.25,
     ProgramGroup.wristFlexors: 0.25,
+  }, assignDesc: {
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   // TODO: differentiate lower and upper pecs
   const VolumeAssignment([
@@ -486,6 +505,9 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.abs: 0.25,
     ProgramGroup.wristExtensors: 0.25,
     ProgramGroup.wristFlexors: 0.25,
+  }, assignDesc: {
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   const VolumeAssignment([
     EBase.overheadPressDB,
@@ -500,6 +522,9 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.abs: 0.25,
     ProgramGroup.wristExtensors: 0.25,
     ProgramGroup.wristFlexors: 0.25,
+  }, assignDesc: {
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   const VolumeAssignment([
     EBase.lateralRaise
@@ -528,10 +553,12 @@ this explains why pull up goes together with wide grip pull down
     EBase.shrug
   ], {
     ProgramGroup.upperTraps: 1,
-    ProgramGroup.wristExtensors: 0.25,
-    ProgramGroup.wristFlexors: 0.25,
+    ProgramGroup.wristExtensors: 0.5,
+    ProgramGroup.wristFlexors: 0.5,
   }, assignDesc: {
     ProgramGroup.upperTraps: 'scapular elevation',
+    ProgramGroup.wristExtensors: 'isometric',
+    ProgramGroup.wristFlexors: 'isometric',
   }),
   const VolumeAssignment([
     EBase.tricepExtension
