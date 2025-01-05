@@ -191,6 +191,7 @@ class ProgramHeader extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
+                        /*
                         ElevatedButton(
                           onPressed: () async {
                             // Create map of target recruitments from setup parameters
@@ -222,6 +223,7 @@ class ProgramHeader extends ConsumerWidget {
                             ],
                           ),
                         ),
+                        */
                       ],
                     ),
                   ],
