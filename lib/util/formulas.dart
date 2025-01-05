@@ -2,6 +2,7 @@
 // weight in kg
 import 'dart:math';
 
+import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programmer/level.dart';
 import 'package:ptc/model/programmer/sex.dart';
 
@@ -62,3 +63,20 @@ bmrTenHaaf(double weight, double height, double age, Sex sex) =>
 // Deurenberg et al. (1991)
 bfDeurenberg(double bmi, double age, Sex sex) =>
     1.2 * bmi + 0.23 * age - (sex == Sex.male ? 10.8 : 0) - 5.4;
+
+// normally, costs are as follows:
+// 0.0 = perfect match
+// 0.5 = off by 50%
+// 1.0 = off by 100%
+// 2.0 = off by 200%
+// but there are exceptions...
+calcCostForGroup(ProgramGroup group, double target, double recruitment) {
+  final deficit = target - recruitment;
+
+  // special case: overshooting front delts is less bad than
+  // its alternatives (undershooting pecs or lateral delts)
+  if (group == ProgramGroup.frontDelts && deficit < 0) {
+    return (-deficit * 0.5) / target;
+  }
+  return deficit.abs() / target;
+}

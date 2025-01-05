@@ -1,6 +1,7 @@
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/model/programgen_v1/rank.dart';
 import 'package:ptc/model/programmer/set_group.dart';
+import 'package:ptc/util/formulas.dart';
 
 /// Represents a node in the solution search tree, containing a partial solution
 /// to the workout generation problem.
@@ -56,28 +57,22 @@ class SolutionNode implements Comparable<SolutionNode> {
     final newSets = List<int>.from(sets);
     newSets[i]++;
 
+    return SolutionNode(
+        newSets, targets, _calcCost(newSets), recruitments, exercises);
+  }
+
+  double _calcCost(List<int> sets) {
     // Calculate new cost based on deficits
     var cost = 0.0;
     for (final group in ProgramGroup.values) {
       // Calculate new recruitment and deficit
-      var newRecruitment = 0.0;
+      var recruitment = 0.0;
       for (var i = 0; i < recruitments.length; i++) {
-        newRecruitment += recruitments[i][group]! * newSets[i];
+        recruitment += recruitments[i][group]! * sets[i];
       }
-      final deficit = (targets[group] ?? 0) - newRecruitment;
-
-      // Add to cost - penalize overshoot 2x
-      /*
-      if (deficit < 0) {
-        cost += -deficit * 2; // overshoot
-      } else {
-        cost += deficit; // undershoot
-      }
-      */
-      cost += deficit.abs();
+      cost += calcCostForGroup(group, targets[group] ?? 0, recruitment);
     }
-
-    return SolutionNode(newSets, targets, cost, recruitments, exercises);
+    return cost;
   }
 
   /// Returns list of program groups with significant deficits, ordered by deficit size

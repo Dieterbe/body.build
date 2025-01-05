@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ptc/model/programmer/set_group.dart';
 import 'package:ptc/data/programmer/groups.dart';
 import 'package:ptc/ui/programmer/util_groups.dart';
+import 'package:ptc/util/formulas.dart';
 
 import '../../../model/programmer/settings.dart';
 
@@ -15,7 +16,7 @@ class BuilderTotalsWidget extends StatelessWidget {
   const BuilderTotalsWidget(this.setGroups,
       {this.multiplier = 1, this.setup, super.key});
 
-// return a map with for each program group, the volume, summed from all the exercises found in our sets
+// return a map with for each program group, the recruitment volume, summed from all the exercises found in our sets
 // volumes < cutoff are counted as 0
   (double, Map<ProgramGroup, double>) _compute(double cutoff) {
     var totals = setGroups.fold<Map<ProgramGroup, double>>(
@@ -37,31 +38,22 @@ class BuilderTotalsWidget extends StatelessWidget {
     return (maxVal, totals);
   }
 
-  // Calculate the average score by comparing recruitment totals to desired volumes
+  // Calculate the average score by comparing recruitment totals (filtered against a cutoff)
+  // to desired volumes
   double _calculateScore(Map<ProgramGroup, double> totals) {
     if (setup == null) return 0.0;
 
     var costs = <double>[];
     for (var group in ProgramGroup.values) {
-      final desired = setup!.paramFinal.getSetsPerWeekPerMuscleGroupFor(group);
-      final actual = totals[group] ?? 0.0;
-      final diff = actual - desired;
-
-      // For overshooting, double the excess before calculating relative error
-      //final effectiveDiff = (diff > 0) ? diff * 2 : diff;
-      //final cost = effectiveDiff.abs() / desired;
-
-      final cost = diff.abs() / desired;
-      // Cost is now a relative error:
-      // 0.0 = perfect match
-      // 1.0 = off by 100% (undershoot)
-      // 2.0 = off by 100% (overshoot, due to 2x punishment)
-      costs.add(cost);
+      final target = setup!.paramFinal.getSetsPerWeekPerMuscleGroupFor(group);
+      final recruitment = totals[group] ?? 0.0;
+      costs.add(calcCostForGroup(group, target * 1.0, recruitment));
     }
 
     final avgCost = costs.reduce((a, b) => a + b) / costs.length;
     // Convert cost to score (0-100%):
     // cost 0.0 -> score 100%
+    // cost 0.5 -> score 50%
     // cost 1.0 -> score 0%
     // cost 2.0 -> score 0%
     return max(0.0, 1.0 - avgCost);
