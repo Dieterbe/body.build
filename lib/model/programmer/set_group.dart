@@ -23,7 +23,7 @@ class Sets with _$Sets {
 
   double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;
-    return ex!.recruitmentFiltered(pg, cutoff) * n;
+    return ex!.recruitmentFiltered(pg, cutoff).volume * n;
   }
 }
 

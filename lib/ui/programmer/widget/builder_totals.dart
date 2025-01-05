@@ -87,7 +87,8 @@ class BuilderTotalsWidget extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Score', style: TextStyle(fontSize: 12)),
+                    const Text('Program Volume Score',
+                        style: TextStyle(fontSize: 12)),
                     Text(
                       '${(score * 100).toStringAsFixed(1)}%',
                       style: const TextStyle(

@@ -48,12 +48,12 @@ List<List<RankedExercise>> findExerciseComponents(
     // Sum recruitment for lower body groups
     final lowerBodyRecruitment = lowerBodyGroups
         .map((pg) => ex.recruitment(pg))
-        .fold(0.0, (sum, val) => sum + val);
+        .fold(0.0, (sum, val) => sum + val.volume);
 
     // Sum recruitment for all groups
     final totalRecruitment = ProgramGroup.values
         .map((pg) => ex.recruitment(pg))
-        .fold(0.0, (sum, val) => sum + val);
+        .fold(0.0, (sum, val) => sum + val.volume);
 
     // Consider it lower body if >50% of total recruitment is lower body
     return lowerBodyRecruitment / totalRecruitment > 0.5;
@@ -72,7 +72,7 @@ List<List<RankedExercise>> findExerciseComponents(
     exerciseGroups[ex] = ProgramGroup.values
         .where((pg) =>
             !ignoredGroups.contains(pg) &&
-            ex.ex.recruitment(pg) > 0 &&
+            ex.ex.recruitment(pg).volume > 0 &&
             targets[pg]! > 0)
         .toSet();
   }

@@ -48,7 +48,7 @@ SetGroup generateLowestCostSetGroup(Iterable<RankedExercise> compounds,
     final componentTargets = Map.of(targetRecruitment);
     // Zero out targets for program groups not affected by this component
     final componentProgramGroups = ProgramGroup.values
-        .where((pg) => component.any((ex) => ex.ex.recruitment(pg) > 0));
+        .where((pg) => component.any((ex) => ex.ex.recruitment(pg).volume > 0));
 
     // Zero out targets for program groups not affected by this component
     for (final pg in ProgramGroup.values) {

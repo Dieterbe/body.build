@@ -23,14 +23,14 @@ enum Articulation {
       nick: ['shoulder horizontal extension'],
       constraint: "shoulder internally rotated"),
   shoulderTransverseAbduction(
-      nick: [], constraint: "shoulder externally rotated"),
+      nick: [], constraint: "shoulder externally rotated (thumbs up)"),
   shoulderInternalRotation(nick: ['arm internal rotation'], constraint: null),
   shoulderExternalRotation(nick: ['arm external rotation'], constraint: null),
   shoulderFlexion(nick: [], constraint: null),
   shoulderExtension(nick: [], constraint: null),
   shoulderHyperextension(nick: [], constraint: null),
-  shoulderAdduction(nick: [], constraint: null),
-  shoulderAbduction(nick: [], constraint: null),
+  shoulderAdduction(nick: [], constraint: null), // down along the side
+  shoulderAbduction(nick: [], constraint: null), // up along the side
   spinalExtension(nick: [], constraint: null),
   spinalHyperextension(nick: [], constraint: null),
   spineFlexion(nick: [], constraint: null),

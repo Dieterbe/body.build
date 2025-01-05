@@ -34,7 +34,7 @@ class Ex {
         'no matching volume assignment found for exercise with id $id');
   }
 
-  double recruitment(ProgramGroup pg) {
+  Assign recruitment(ProgramGroup pg) {
     // first see if there's an equipment specific rule that describes our pg.
     for (final entry in va.assignEquip.entries) {
       if (equipment.contains(entry.key) && entry.value.containsKey(pg)) {
@@ -42,19 +42,19 @@ class Ex {
       }
     }
     // if not, let's see if we have a general rule
-    return va.assign[pg] ?? 0.0;
+    return va.assign[pg] ?? const Assign(0);
   }
 
-  double recruitmentFiltered(ProgramGroup pg, double cutoff) {
+  Assign recruitmentFiltered(ProgramGroup pg, double cutoff) {
     final raw = recruitment(pg);
-    return raw >= cutoff ? raw : 0.0;
+    return raw.volume >= cutoff ? raw : Assign(0);
   }
 
-  double totalRecruitment() =>
-      ProgramGroup.values.fold(0.0, (sum, group) => sum + recruitment(group));
+  double totalRecruitment() => ProgramGroup.values
+      .fold(0.0, (sum, group) => sum + recruitment(group).volume);
 
-  double totalRecruitmentFiltered(double cutoff) => ProgramGroup.values
-      .fold(0.0, (sum, group) => sum + recruitmentFiltered(group, cutoff));
+  double totalRecruitmentFiltered(double cutoff) => ProgramGroup.values.fold(
+      0.0, (sum, group) => sum + recruitmentFiltered(group, cutoff).volume);
 }
 
 // TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
@@ -183,9 +183,8 @@ final List<Ex> exes = [
   Ex(EBase.pullup, "pullup", []), // just outside shoulder width
   // Ex(EBase.?, "pullup close grip pronated", []),
 
-  Ex(EBase.pullupNeutral, "pullup gymnastic rings", [
-    Equipment.gymnasticRings
-  ]), // TODO see if recruitment should be adjusted
+  Ex(EBase.pullupNeutral, "pullup gymnastic rings",
+      [Equipment.gymnasticRings]), // TODO see if recruitment should be adjusted
   Ex(EBase.pullupNeutral, "pullup neutral grip", []),
   Ex(EBase.pullupSupinated, "pullup supinated grip", []), // chin-up
   Ex(EBase.pullupWidePronated, "pullup wide pronated grip", []),
@@ -201,7 +200,9 @@ final List<Ex> exes = [
   Ex(EBase.diagonalRow, "kneeling diagonal cable row", [Equipment.cableTower]),
   Ex(EBase.rowWithSpine, "seated cable row with forward lean",
       [Equipment.cableRowMachine]),
-  Ex(EBase.rowWithSpine, "seated cable row with forward lean, wide grip",
+  Ex(
+      EBase.rowWithSpineWideGrip,
+      "seated cable row with forward lean, wide grip",
       [Equipment.cableRowMachine]),
 
   // TODO many different grips. those should affect recruitment similar to pullup types
@@ -254,6 +255,9 @@ final List<Ex> exes = [
 
   Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell]),
   Ex(EBase.fly, "chest fly machine", [Equipment.chestFlyMachine]),
+  Ex(EBase.flyShoulderExt, "chest fly machine (thumbs up)",
+      [Equipment.chestFlyMachine]),
+
   Ex(EBase.fly, "bayesian fly", [
     Equipment.cableTower
   ]), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
@@ -280,9 +284,9 @@ final List<Ex> exes = [
   Ex(EBase.shrug, "wide grip barbell shrug", [Equipment.barbell]),
   Ex(EBase.shrug, "dumbbell shrug", [Equipment.dumbbell]),
 
-  Ex(EBase.tricepExtension, "cable overhead tricep extension",
+  Ex(EBase.tricepExtensionOverhead, "cable overhead tricep extension",
       [Equipment.cableTower]),
-  Ex(EBase.tricepExtension, "dumbbell overhead tricep extension",
+  Ex(EBase.tricepExtensionOverhead, "dumbbell overhead tricep extension",
       [Equipment.dumbbell]),
   Ex(EBase.tricepExtension, "dumbbell skull-over", [Equipment.dumbbell]),
   Ex(EBase.tricepExtension, "barbell skull-over", [Equipment.barbell]),

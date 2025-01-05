@@ -126,12 +126,12 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                               displayStringForOption: (e) => e.id,
                               optionsBuilder: (textEditingValue) {
                                 final opts = setup.availableExercises
-                                    .where((e) => e.recruitment(g) > 0)
+                                    .where((e) => e.recruitment(g).volume > 0)
                                     .where((e) => e.id.toLowerCase().contains(
                                         textEditingValue.text.toLowerCase()))
                                     .toList();
-                                opts.sort((a, b) => (b.recruitment(g))
-                                    .compareTo(a.recruitment(g)));
+                                opts.sort((a, b) => (b.recruitment(g).volume)
+                                    .compareTo(a.recruitment(g).volume));
                                 return opts;
                               },
                               onSelected: (Ex e) {

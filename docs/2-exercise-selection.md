@@ -13,7 +13,7 @@
 * passive and active insufficiences when short or long
 * during squats and leg presses, to bring back knees, you need plantar flexion, but this comes with knee flexion moment, so gastros mostly inactive
 * gastros is active however during deadlifts and good mornings
--> rule of thumb, count half of DL volume towards gastrocs
+-> rule of thumb, count half of DL volume towards gastrocs (not so in volume doc!) - speaking of volume doc google sheet, lat prayer for traps? don't think so, but a case study says 100%
 ##### triceps
 * long head is weak shoulder extensor
 * during pulling exercises like chin-ups, pulldowns, not very active due to its elbow extension moment
@@ -35,7 +35,7 @@
 * split squats and back squats similar activation in vastus lateralis, biceps femoris, glute max and erector spinae (it's stable enough)
 
 #### dumbell vs barbell
-mostly equivalent, but consider ROM
+mostly equivalent, but consider ROM, comfort and injury risk
 ##### triceps
 - using a bar (barbell press and overhead press) triceps can contribute more (pushing the bar apart), but need narrow grip (hands within elbows)
 - triceps don't really contribute to dumbell presses (you don't extend your elbows)

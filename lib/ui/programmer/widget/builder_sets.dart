@@ -238,7 +238,8 @@ class BuilderSets extends ConsumerWidget {
             ),
             child: Center(
                 child: muscleMark(
-                    sets.ex == null ? 0 : sets.ex!.recruitment(g), context)),
+                    sets.ex == null ? 0 : sets.ex!.recruitment(g).volume,
+                    context)),
           ),
         ),
       ]),

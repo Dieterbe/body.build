@@ -12,6 +12,13 @@ import 'package:ptc/data/programmer/exercise_base.dart';
 //   or muscles from the same anatomical group are not trained together; and likewise
 //   training a certain group may involve specific heads or muscles belonging to different groups or categories
 // can contain heads and/or muscles, in which case they should be "expanded" to mean to include all their heads
+
+class Assign {
+  final double volume;
+  final String? modality; // work in progress
+  const Assign(this.volume, [this.modality]);
+}
+
 enum ProgramGroup {
   wristFlexors("Wrist Flexors", [MuscleId.wristFlexors]),
   wristExtensors('Wrist Extensors', [MuscleId.wristExtensors]),
@@ -62,65 +69,52 @@ enum ProgramGroup {
 
 class VolumeAssignment {
   final List<EBase> match; // OR (any)
-  final Map<ProgramGroup, double> assign;
+  final Map<ProgramGroup, Assign> assign;
   // assign volume based on equipment used in the exercise
-  final Map<Equipment, Map<ProgramGroup, double>> assignEquip;
-  final Map<ProgramGroup, String>
-      assignDesc; // human friendly description of how the exercises work the target muscle. work in progress!
+  final Map<Equipment, Map<ProgramGroup, Assign>> assignEquip;
   const VolumeAssignment(this.match, this.assign,
-      {this.assignEquip = const {}, this.assignDesc = const {}});
+      {this.assignEquip = const {}});
 }
 
 List<VolumeAssignment> volumeAssignments = [
   const VolumeAssignment(
     [EBase.deadlift],
     {
-      ProgramGroup.upperTraps: 1,
-      ProgramGroup.lats: 0.25,
-      ProgramGroup.spinalErectors: 1,
-      ProgramGroup.quadsVasti: 0.5, // depends on technique and build
-      ProgramGroup.hams: 0.75,
-      ProgramGroup.gluteMax: 1,
-      ProgramGroup.abs: 0.25,
-      ProgramGroup.soleus: 0.5,
-      ProgramGroup.wristExtensors: 0.3,
-      ProgramGroup.wristFlexors: 0.3,
-    },
-    assignDesc: {
-      ProgramGroup.wristExtensors: 'isometric',
-      ProgramGroup.wristFlexors: 'isometric',
+      ProgramGroup.upperTraps: Assign(1),
+      ProgramGroup.lats: Assign(0.25),
+      ProgramGroup.spinalErectors: Assign(1, 'isometric'),
+      ProgramGroup.quadsVasti:
+          Assign(0.5, 'knee extension (depends on technique and build)'),
+      ProgramGroup.hams: Assign(0.75),
+      ProgramGroup.gluteMax: Assign(1),
+      ProgramGroup.abs: Assign(0.25),
+      ProgramGroup.soleus: Assign(0.5),
+      ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
     },
   ),
   const VolumeAssignment([
     EBase.deadliftRDL
   ], {
-    ProgramGroup.upperTraps: 1,
-    ProgramGroup.lats: 0.25,
-    ProgramGroup.spinalErectors: 1,
-    ProgramGroup.hams: 1,
-    ProgramGroup.gluteMax: 1,
-    ProgramGroup.abs: 0.25,
-    ProgramGroup.wristExtensors: 0.3,
-    ProgramGroup.wristFlexors: 0.3,
-  }, assignDesc: {
-    ProgramGroup.hams: 'long length',
-    ProgramGroup.gluteMax: 'long length',
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.upperTraps: Assign(1, 'isometric'),
+    ProgramGroup.lats: Assign(0.25),
+    ProgramGroup.spinalErectors: Assign(1, 'isometric'),
+    ProgramGroup.hams: Assign(1, 'long length hip extension'),
+    ProgramGroup.gluteMax:
+        Assign(1, 'full ROM hip extension, less load when short & strongest'),
+    ProgramGroup.abs: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
   }),
   const VolumeAssignment(
     [EBase.goodMorning],
     {
-      ProgramGroup.spinalErectors: 1,
-      ProgramGroup.hams: 1,
-      ProgramGroup.gluteMax: 1,
-      ProgramGroup.abs: 0.25,
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
-    },
-    assignDesc: {
-      ProgramGroup.wristExtensors: 'isometric',
-      ProgramGroup.wristFlexors: 'isometric',
+      ProgramGroup.spinalErectors: Assign(1, 'isometric'),
+      ProgramGroup.hams: Assign(1, 'long length hip extension'),
+      ProgramGroup.gluteMax: Assign(1),
+      ProgramGroup.abs: Assign(0.25),
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
   ),
   const VolumeAssignment(
@@ -128,11 +122,11 @@ List<VolumeAssignment> volumeAssignments = [
       EBase.hipExtension,
     ],
     {
-      ProgramGroup.spinalErectors: 0.25,
-      ProgramGroup.hams: 1,
-      ProgramGroup.gluteMax: 1,
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.spinalErectors: Assign(0.25),
+      ProgramGroup.hams: Assign(1),
+      ProgramGroup.gluteMax: Assign(1),
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
   ),
   const VolumeAssignment(
@@ -140,110 +134,112 @@ List<VolumeAssignment> volumeAssignments = [
       EBase.pullThrough,
     ],
     {
-      ProgramGroup.spinalErectors: 0.25,
-      ProgramGroup.hams: 1,
-      ProgramGroup.gluteMax: 1,
-      ProgramGroup.wristExtensors: 0.3,
-      ProgramGroup.wristFlexors: 0.3,
+      ProgramGroup.spinalErectors: Assign(0.25),
+      ProgramGroup.hams: Assign(1),
+      ProgramGroup.gluteMax: Assign(1),
+      ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
     },
   ),
   const VolumeAssignment(
     [EBase.backExtension],
     {
-      ProgramGroup.spinalErectors: 1,
-      ProgramGroup.hams: 1,
-      ProgramGroup.gluteMax: 1,
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.spinalErectors:
+          Assign(1, 'isometric or dynamic based on technique'),
+      ProgramGroup.hams: Assign(1),
+      ProgramGroup.gluteMax: Assign(1),
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
   ),
-  const VolumeAssignment([
-    EBase.legCurlHipFlexed
-  ], {
-    ProgramGroup.hamsShortHead: 1,
-    ProgramGroup.hams: 1,
-    ProgramGroup.gastroc: 1 // assuming full dorsiflexion
-  }, assignDesc: {
-    ProgramGroup.hamsShortHead: 'full length',
-    ProgramGroup.hams: 'medium to long length',
-  }),
-  const VolumeAssignment([
-    EBase.legCurlHipExtended
-  ], {
-    ProgramGroup.hamsShortHead: 1,
-    ProgramGroup.hams: 1,
-    ProgramGroup.gastroc: 1 // assuming full dorsiflexion
-  }, assignDesc: {
-    ProgramGroup.hamsShortHead: 'full length',
-    ProgramGroup.hams: 'short to medium length',
-  }),
+  const VolumeAssignment(
+    [EBase.legCurlHipFlexed],
+    {
+      ProgramGroup.hamsShortHead: Assign(1, 'full length'),
+      ProgramGroup.hams: Assign(1, 'medium to long length knee flexion'),
+      ProgramGroup.gastroc: Assign(
+          1, 'medium to long length knee flexion (assuming full dorsiflexion)')
+    },
+  ),
+  const VolumeAssignment(
+    [EBase.legCurlHipExtended],
+    {
+      ProgramGroup.hamsShortHead: Assign(1, 'full length'),
+      ProgramGroup.hams: Assign(1, 'knee flexion (short to medium length)'),
+      ProgramGroup.gastroc: Assign(1,
+          'medium to long length knee flexion (assuming full dorsiflexion, stretched at ankle)'),
+    },
+  ),
   const VolumeAssignment(
     [
       EBase.squatBB,
       EBase.squatGoblet,
     ],
     {
-      ProgramGroup.spinalErectors: 1,
-      ProgramGroup.quadsVasti: 1,
-      ProgramGroup.gluteMax: 1,
+      ProgramGroup.spinalErectors: Assign(1, 'isometric'),
+      ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+      ProgramGroup.gluteMax: Assign(1),
       ProgramGroup.soleus:
-          0.5, // 0.25 for low bar squats if shins stay vertical
-      ProgramGroup.abs: 0.25,
-      ProgramGroup.wristExtensors: 0.3,
-      ProgramGroup.wristFlexors: 0.3,
+          Assign(0.5), // 0.25 for low bar squats if shins stay vertical
+      ProgramGroup.abs: Assign(0.25),
+      ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
     },
   ),
   const VolumeAssignment(
     [EBase.legPress, EBase.squatHack, EBase.squatBelt],
     {
-      ProgramGroup.spinalErectors: 0.25,
-      ProgramGroup.quadsVasti: 1,
-      ProgramGroup.gluteMax: 1,
-      ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
+      ProgramGroup.spinalErectors: Assign(0.25),
+      ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+      ProgramGroup.gluteMax: Assign(1),
+      ProgramGroup.soleus: Assign(0.5), // 0.25 if shins stay vertical
     },
   ),
   const VolumeAssignment([
     EBase.squatBSQ,
   ], {
-    ProgramGroup.spinalErectors: 0.5,
-    ProgramGroup.quadsVasti: 1,
-    ProgramGroup.quadsRF: 1, // contribution rear leg
-    ProgramGroup.gluteMax: 1,
-    ProgramGroup.gluteMed: 0.5,
-    ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
-    ProgramGroup.abs: 0.25,
+    ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
+    ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+    ProgramGroup.quadsRF:
+        Assign(1, 'knee extension while stretched (rear leg)'),
+    ProgramGroup.gluteMax: Assign(1,
+        'hip extension (from long to somewhat flexed still), less load when short & strongest'),
+    ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
+    ProgramGroup.soleus: Assign(0.5,
+        'ankle plantarflexion (limited ROM, depends on technique)'), // 0.25 if shins stay vertical
+    ProgramGroup.abs: Assign(0.25),
   }, assignEquip: {
     Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: 0.3,
-      ProgramGroup.wristFlexors: 0.3,
+      ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
     },
     Equipment.barbell: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
     Equipment.smithMachineVertical: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
     Equipment.smithMachineAngled: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
   }),
   const VolumeAssignment([
     EBase.lunge,
     EBase.stepUp,
   ], {
-    ProgramGroup.spinalErectors: 0.5,
-    ProgramGroup.quadsVasti: 1,
-    ProgramGroup.gluteMax: 1,
-    ProgramGroup.gluteMed: 0.5,
-    ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
-    ProgramGroup.abs: 0.25,
+    ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
+    ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+    ProgramGroup.gluteMax: Assign(1),
+    ProgramGroup.gluteMed: Assign(0.5),
+    ProgramGroup.soleus: Assign(0.5), // 0.25 if shins stay vertical
+    ProgramGroup.abs: Assign(0.25),
   }, assignEquip: {
     Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: 0.3,
-      ProgramGroup.wristFlexors: 0.3,
+      ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
     }
   }),
   const VolumeAssignment([
@@ -251,70 +247,72 @@ List<VolumeAssignment> volumeAssignments = [
     EBase.squatSissyAssisted,
     EBase.squatSpanish,
   ], {
-    ProgramGroup.spinalErectors: 0.5,
-    ProgramGroup.quadsVasti: 1,
-    ProgramGroup.gluteMax: 1,
-    ProgramGroup.gluteMed: 0.5,
-    ProgramGroup.soleus: 0.5, // 0.25 if shins stay vertical
-    ProgramGroup.abs: 0.25,
+    ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
+    ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+    ProgramGroup.gluteMax: Assign(1),
+    ProgramGroup.gluteMed: Assign(0.5),
+    ProgramGroup.soleus: Assign(0.5), // 0.25 if shins stay vertical
+    ProgramGroup.abs: Assign(0.25),
   }),
   const VolumeAssignment([
     EBase.legExtension,
     EBase.reverseNordicHamCurl,
     EBase.squatSissy
   ], {
-    ProgramGroup.quadsVasti: 1,
-    ProgramGroup.quadsRF: 1,
+    ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+    ProgramGroup.quadsRF:
+        Assign(1, 'knee extension (more lean back = more stretch)'),
   }),
   const VolumeAssignment([
     EBase.hipThrust,
     EBase.gluteKickback
   ], {
     ProgramGroup.quadsVasti:
-        0.5, // depends.. more knee flexion -> more vasti involved
-    ProgramGroup.gluteMax: 1,
+        Assign(0.5, 'knee extension if knees are more flexed'),
+    ProgramGroup.gluteMax: Assign(1),
   }, assignEquip: {
     Equipment.barbell: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     }
   }),
   const VolumeAssignment([
     EBase.hipAbductionHipFlexed,
   ], {
-    ProgramGroup.gluteMax: 0.5, // upper fibers only
-    ProgramGroup.gluteMed: 0.25,
+    ProgramGroup.gluteMax: Assign(0.5), // upper fibers only
+    ProgramGroup.gluteMed: Assign(0.25),
   }),
   const VolumeAssignment([
     EBase.hipAbductionHipExtended,
   ], {
-    ProgramGroup.gluteMed: 1,
+    ProgramGroup.gluteMed: Assign(1, 'hip abduction'),
   }),
   const VolumeAssignment([
     EBase.standingCalfRaise,
     EBase.calfJump,
   ], {
-    ProgramGroup.gastroc: 1,
-    ProgramGroup.soleus: 1,
+    ProgramGroup.gastroc: Assign(
+        1, 'ankle plantarflexion (medium to long length, stretched at knee)'),
+    ProgramGroup.soleus: Assign(1, 'ankle plantarflexion (full ROM)'),
   }, assignEquip: {
     Equipment.barbell: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
     Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: 0.5,
-      ProgramGroup.wristFlexors: 0.5,
+      ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
     },
     Equipment.smithMachineVertical: {
-      ProgramGroup.wristExtensors: 0.25,
-      ProgramGroup.wristFlexors: 0.25,
+      ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+      ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
   }),
   const VolumeAssignment([
     EBase.seatedCalfRaise
   ], {
-    ProgramGroup.gastroc: 0.25,
-    ProgramGroup.soleus: 1,
+    ProgramGroup.gastroc: Assign(0.25),
+    ProgramGroup.soleus: Assign(1),
   }),
 /* Note, in the PTC course exercise library:
 pull up -> grip just outside shoulder width
@@ -330,14 +328,14 @@ this explains why pull up goes together with wide grip pull down
     EBase.pullupNeutral,
     EBase.diagonalRow,
   ], {
-    ProgramGroup.lowerPecs: 0.25,
-    ProgramGroup.rearDelts: 1,
-    ProgramGroup.lowerTraps: 1,
-    ProgramGroup.middleTraps: 0.75,
-    ProgramGroup.lats: 1,
-    ProgramGroup.biceps: 1,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.lowerPecs: Assign(0.25),
+    ProgramGroup.rearDelts: Assign(1),
+    ProgramGroup.lowerTraps: Assign(1),
+    ProgramGroup.middleTraps: Assign(0.75, 'scapular retraction'),
+    ProgramGroup.lats: Assign(1),
+    ProgramGroup.biceps: Assign(1),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   // TODO: add hanging leg raises? wrist stuff 0.5
   const VolumeAssignment([
@@ -345,78 +343,86 @@ this explains why pull up goes together with wide grip pull down
     EBase.pulldownWidePronated,
     EBase.pullupWidePronated // TODO: confirm with menno. wasn't part
   ], {
-    ProgramGroup.lowerPecs: 0.5,
-    ProgramGroup.rearDelts: 0.25,
-    ProgramGroup.lowerTraps: 1,
-    ProgramGroup.middleTraps: 0.25,
-    ProgramGroup.lats: 1,
-    ProgramGroup.biceps: 1,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.lowerPecs: Assign(0.5),
+    ProgramGroup.rearDelts: Assign(0.25),
+    ProgramGroup.lowerTraps: Assign(1),
+    ProgramGroup.middleTraps: Assign(0.25, 'scapular retraction'),
+    ProgramGroup.lats: Assign(1),
+    ProgramGroup.biceps: Assign(1, 'elbow flexion while weakened'),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.rowWithSpine,
   ], {
-    ProgramGroup.rearDelts: 1,
-    ProgramGroup.lowerTraps: 1,
-    ProgramGroup.middleTraps: 1,
-    ProgramGroup.lats: 1,
-    ProgramGroup.biceps: 0.5,
-    ProgramGroup.tricepsLongHead: 0.25,
-    ProgramGroup.spinalErectors: 0.5,
-    ProgramGroup.hams: 0.25,
-    ProgramGroup.gluteMax: 0.25,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
-  }, assignDesc: {
-    ProgramGroup.spinalErectors: 'flexion & extension cycles',
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.rearDelts: Assign(1),
+    ProgramGroup.lowerTraps: Assign(1),
+    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
+    ProgramGroup.lats: Assign(1),
+    ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
+    ProgramGroup.hams: Assign(0.25),
+    ProgramGroup.gluteMax: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
+  }),
+  const VolumeAssignment([
+    EBase.rowWithSpineWideGrip,
+  ], {
+    ProgramGroup.rearDelts:
+        Assign(1, 'shoulder horizontal extension + shoulder extension'),
+    ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
+    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
+    ProgramGroup.lats:
+        Assign(1, 'shoulder extension + shoulder adduction (full ROM)'),
+    ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
+    ProgramGroup.hams: Assign(0.25),
+    ProgramGroup.gluteMax: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.rowWithSpineIso,
   ], {
-    ProgramGroup.rearDelts: 1,
-    ProgramGroup.lowerTraps: 1,
-    ProgramGroup.middleTraps: 1,
-    ProgramGroup.lats: 1,
-    ProgramGroup.biceps: 0.5,
-    ProgramGroup.tricepsLongHead: 0.25,
-    ProgramGroup.spinalErectors: 0.5,
-    ProgramGroup.hams: 0.25,
-    ProgramGroup.gluteMax: 0.25,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
-  }, assignDesc: {
-    ProgramGroup.spinalErectors: 'isometric',
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.rearDelts: Assign(1),
+    ProgramGroup.lowerTraps: Assign(1),
+    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
+    ProgramGroup.lats: Assign(1),
+    ProgramGroup.biceps: Assign(0.5),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
+    ProgramGroup.hams: Assign(0.25),
+    ProgramGroup.gluteMax: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.rowWithoutSpine,
   ], {
-    ProgramGroup.rearDelts: 1,
-    ProgramGroup.lowerTraps: 1,
-    ProgramGroup.middleTraps: 1,
-    ProgramGroup.lats: 1,
-    ProgramGroup.biceps: 0.5,
-    ProgramGroup.tricepsLongHead: 0.25,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
-  }, assignDesc: {
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.rearDelts: Assign(1),
+    ProgramGroup.lowerTraps: Assign(1),
+    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
+    ProgramGroup.lats: Assign(1),
+    ProgramGroup.biceps: Assign(0.5),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.pullOver,
     EBase.latPrayer
   ], {
-    ProgramGroup.lowerPecs: 0.5,
-    ProgramGroup.rearDelts: 1,
-    ProgramGroup.lats: 1,
-    ProgramGroup.tricepsLongHead: 1,
-    ProgramGroup.wristExtensors: 0.3,
-    ProgramGroup.wristFlexors: 0.3,
+    ProgramGroup.lowerPecs:
+        Assign(0.5, 'full ROM shoulder extension (sometimes)'),
+    ProgramGroup.rearDelts: Assign(1, 'full ROM shoulder extension'),
+    ProgramGroup.lats: Assign(1, 'full ROM shoulder extension'),
+    ProgramGroup.tricepsLongHead:
+        Assign(1, 'full ROM shoulder extension (short to medium length)'),
+    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.highRow,
@@ -425,148 +431,153 @@ this explains why pull up goes together with wide grip pull down
     EBase.shoulderPull,
     EBase.facePull,
   ], {
-    ProgramGroup.rearDelts: 1,
-    ProgramGroup.lowerTraps: 1,
-    ProgramGroup.middleTraps: 1,
-    ProgramGroup.wristExtensors: 0.3,
-    ProgramGroup.wristFlexors: 0.3,
+    ProgramGroup.rearDelts: Assign(1,
+        'full ROM shoulder transverse abduction'), // TODO: while true for rearDeltFly, didn't check the others
+    ProgramGroup.lowerTraps: Assign(1,
+        'scapular retraction (maybe: isometric scapular depression depending on technique)'),
+    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
+    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.benchPressBB,
     EBase.chestPressMachine,
   ], {
-    ProgramGroup.lowerPecs: 1,
-    ProgramGroup.upperPecs: 1,
-    ProgramGroup.frontDelts: 1,
-    ProgramGroup.tricepsMedLatH: 1,
-    ProgramGroup.tricepsLongHead: 0.25,
-    ProgramGroup.wristExtensors: 0.25,
-    ProgramGroup.wristFlexors: 0.25,
-  }, assignDesc: {
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.lowerPecs: Assign(1),
+    ProgramGroup.upperPecs: Assign(1),
+    ProgramGroup.frontDelts: Assign(1),
+    ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.pushUp,
   ], {
-    ProgramGroup.lowerPecs: 1,
-    ProgramGroup.upperPecs: 1,
-    ProgramGroup.frontDelts: 1,
-    ProgramGroup.tricepsMedLatH: 1,
-    ProgramGroup.tricepsLongHead: 0.25,
-    ProgramGroup.abs: 1,
-  }, assignDesc: {
-    ProgramGroup.abs: 'isometric',
+    ProgramGroup.lowerPecs: Assign(1, 'horizontal shoulder adduction/flexion'),
+    ProgramGroup.upperPecs:
+        Assign(1, 'horizontal shoulder adduction/flexion + shoulder flexion'),
+    ProgramGroup.frontDelts: Assign(1, 'horizontal shoulder flexion'),
+    ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.abs: Assign(1, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.benchPressDB,
     EBase.chestPressCable,
   ], {
-    ProgramGroup.lowerPecs: 1,
-    ProgramGroup.upperPecs: 1,
-    ProgramGroup.frontDelts: 1,
-    ProgramGroup.tricepsMedLatH: 0.5,
-    ProgramGroup.wristExtensors: 0.25,
-    ProgramGroup.wristFlexors: 0.25,
-  }, assignDesc: {
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.lowerPecs: Assign(1),
+    ProgramGroup.upperPecs: Assign(1),
+    ProgramGroup.frontDelts: Assign(1),
+    ProgramGroup.tricepsMedLatH: Assign(0.5, 'elbow extension'),
+    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
   }),
   // TODO: differentiate lower and upper pecs
   const VolumeAssignment([
     EBase.fly,
     EBase.pecDeckHandGrip,
   ], {
-    ProgramGroup.lowerPecs: 1,
-    ProgramGroup.upperPecs: 1,
-    ProgramGroup.frontDelts: 1,
-    ProgramGroup.wristFlexors: 0.5,
+    ProgramGroup.lowerPecs: Assign(1),
+    ProgramGroup.upperPecs: Assign(1),
+    ProgramGroup.frontDelts: Assign(1, 'full ROM horizontal shoulder flexion'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
+  }),
+  const VolumeAssignment([
+    EBase.flyShoulderExt,
+  ], {
+    ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
+    ProgramGroup.upperPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
+    ProgramGroup.frontDelts:
+        Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.pecDeckElbowPad
   ], {
-    ProgramGroup.lowerPecs: 1,
-    ProgramGroup.upperPecs: 1,
-    ProgramGroup.frontDelts: 1,
+    ProgramGroup.lowerPecs: Assign(1),
+    ProgramGroup.upperPecs: Assign(1),
+    ProgramGroup.frontDelts: Assign(1),
   }),
 
   const VolumeAssignment([
     EBase.overheadPressBB
   ], {
-    ProgramGroup.upperPecs: 0.25,
-    ProgramGroup.frontDelts: 1,
-    ProgramGroup.sideDelts: 1,
-    ProgramGroup.lowerTraps: 0.25,
-    ProgramGroup.middleTraps: 0.25,
-    ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.tricepsMedLatH:
-        0.75, // TODO: normally should be 1 but i think i read somewhere they don't activate well for most people
-    ProgramGroup.tricepsLongHead: 0.25,
-    ProgramGroup.abs: 0.25,
-    ProgramGroup.wristExtensors: 0.25,
-    ProgramGroup.wristFlexors: 0.25,
-  }, assignDesc: {
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.upperPecs: Assign(0.25),
+    ProgramGroup.frontDelts:
+        Assign(0.8, 'some shoulder flexion/abduction, based on grip width'),
+    ProgramGroup.sideDelts: Assign(1, 'full ROM shoulder abduction'),
+    ProgramGroup.lowerTraps: Assign(0.25),
+    ProgramGroup.middleTraps: Assign(0.25),
+    ProgramGroup.upperTraps: Assign(0.25),
+    ProgramGroup.tricepsMedLatH: Assign(0.75,
+        'elbow extension'), // TODO: normally should be 1 but i think i read somewhere they don't activate well for most people
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.abs: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.overheadPressDB,
   ], {
-    ProgramGroup.upperPecs: 0.25,
-    ProgramGroup.frontDelts: 1,
-    ProgramGroup.sideDelts: 1,
-    ProgramGroup.lowerTraps: 0.25,
-    ProgramGroup.middleTraps: 0.25,
-    ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.tricepsMedLatH: 0.5,
-    ProgramGroup.abs: 0.25,
-    ProgramGroup.wristExtensors: 0.25,
-    ProgramGroup.wristFlexors: 0.25,
-  }, assignDesc: {
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.upperPecs: Assign(0.25),
+    ProgramGroup.frontDelts: Assign(1, 'shoulder flexion/abduction'),
+    ProgramGroup.sideDelts: Assign(1, 'full ROM shoulder abduction'),
+    ProgramGroup.lowerTraps: Assign(0.25),
+    ProgramGroup.middleTraps: Assign(0.25),
+    ProgramGroup.upperTraps: Assign(0.25),
+    ProgramGroup.tricepsMedLatH: Assign(0.5, 'elbow extension'),
+    ProgramGroup.abs: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.lateralRaise
   ], {
-    ProgramGroup.upperPecs: 0.25,
-    ProgramGroup.frontDelts: 1,
-    ProgramGroup.sideDelts: 1,
-    ProgramGroup.lowerTraps: 0.25,
-    ProgramGroup.middleTraps: 0.25,
-    ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.wristExtensors: 0.3,
+    ProgramGroup.upperPecs: Assign(0.25),
+    ProgramGroup.frontDelts: Assign(1),
+    ProgramGroup.sideDelts: Assign(1),
+    ProgramGroup.lowerTraps: Assign(0.25),
+    ProgramGroup.middleTraps: Assign(0.25),
+    ProgramGroup.upperTraps: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.lateralRaisePinkieUp
   ], {
-    ProgramGroup.upperPecs: 0.25,
-    ProgramGroup.frontDelts: 0.25,
-    ProgramGroup.sideDelts: 1,
-    ProgramGroup.rearDelts: 0.25,
-    ProgramGroup.lowerTraps: 0.25,
-    ProgramGroup.middleTraps: 0.25,
-    ProgramGroup.upperTraps: 0.25,
-    ProgramGroup.wristExtensors: 0.3,
+    ProgramGroup.upperPecs: Assign(0.25),
+    ProgramGroup.frontDelts: Assign(0.25),
+    ProgramGroup.sideDelts:
+        Assign(1, 'full ROM shoulder abduction with full loaded stretch'),
+    ProgramGroup.rearDelts: Assign(0.25),
+    ProgramGroup.lowerTraps: Assign(0.25),
+    ProgramGroup.middleTraps: Assign(0.25),
+    ProgramGroup.upperTraps: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
   }),
   const VolumeAssignment([
     EBase.shrug
   ], {
-    ProgramGroup.upperTraps: 1,
-    ProgramGroup.wristExtensors: 0.5,
-    ProgramGroup.wristFlexors: 0.5,
-  }, assignDesc: {
-    ProgramGroup.upperTraps: 'scapular elevation',
-    ProgramGroup.wristExtensors: 'isometric',
-    ProgramGroup.wristFlexors: 'isometric',
+    ProgramGroup.upperTraps: Assign(1, 'scapular elevation'),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   const VolumeAssignment([
-    EBase.tricepExtension
+    EBase.tricepExtension // TODO: classify based on shoulder position?
   ], {
-    ProgramGroup.tricepsMedLatH: 1,
-    ProgramGroup.tricepsLongHead: 1,
-    ProgramGroup.wristFlexors: 0.25,
-    ProgramGroup.wristExtensors: 0.25,
+    ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
+    ProgramGroup.tricepsLongHead: Assign(1, 'elbow extension'),
+    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
+    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+  }),
+  const VolumeAssignment([
+    EBase.tricepExtensionOverhead
+  ], {
+    ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
+    ProgramGroup.tricepsLongHead:
+        Assign(1, 'elbow extension (medium to long length)'),
+    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
+    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
   }),
   /* overhead 40% more growth than pushdown: https://pubmed.ncbi.nlm.nih.gov/35819335/
   50% for long head
@@ -579,16 +590,27 @@ this explains why pull up goes together with wide grip pull down
   const VolumeAssignment([
     EBase.bicepCurl
   ], {
-    ProgramGroup.biceps: 1,
-    ProgramGroup.wristFlexors: 0.25,
+    ProgramGroup.biceps: Assign(1,
+        'elbow flexion @ anatomic position (strongest)'), // TODO: not true for all curls! but good enough for exam
+    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
   }),
-  const VolumeAssignment([EBase.abCrunch], {ProgramGroup.abs: 1}),
-  const VolumeAssignment([EBase.abIsometric], {ProgramGroup.abs: 1}),
   const VolumeAssignment(
-      [EBase.wristExtension], {ProgramGroup.wristExtensors: 1}),
-  const VolumeAssignment([EBase.wristFlexion], {ProgramGroup.wristFlexors: 1}),
+    [EBase.abCrunch],
+    {ProgramGroup.abs: Assign(1, 'full ROM')},
+  ),
+  const VolumeAssignment(
+    [EBase.abIsometric],
+    {ProgramGroup.abs: Assign(1, 'isometric')},
+  ),
+  const VolumeAssignment(
+    [EBase.wristExtension],
+    {ProgramGroup.wristExtensors: Assign(1, 'active ROM')},
+  ),
+  const VolumeAssignment(
+    [EBase.wristFlexion],
+    {ProgramGroup.wristFlexors: Assign(1, 'active ROM')},
+  ),
 ];
-
 
 // why no seperation in lats activation for rows vs prayers. various triceps extensions
 

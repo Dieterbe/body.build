@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ptc/data/programmer/exercises.dart';
 import 'package:ptc/data/programmer/groups.dart';
@@ -23,7 +24,7 @@ class ProgramBreakdown extends StatelessWidget {
         for (final sets in setGroup.sets) {
           if (sets.ex != null) {
             for (final group in ProgramGroup.values) {
-              if (sets.ex!.recruitment(group) >= 0.5) {
+              if (sets.ex!.recruitment(group).volume >= 0.5) {
                 groupExercises[group]!.update(
                   sets.ex!,
                   (value) => value + sets.n,
@@ -36,56 +37,126 @@ class ProgramBreakdown extends StatelessWidget {
       }
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Program breakdown",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Program breakdown: muscle modalities",
+            style: Theme.of(context).textTheme.titleLarge,
           ),
-        ),
-        const SizedBox(height: 8),
-        ...ProgramGroup.values.map((group) {
-          final exercises = groupExercises[group]!;
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Row(
-              children: [
-                Text(
-                  group.displayName,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
-                ),
-                Column(
+          const SizedBox(height: 4),
+          Text(
+              'Note: the purpose is understanding the different ways in which the muscle is stimulated'),
+          Text(
+              'for a given muscle, only the relevant articulations of used exercises are shown'),
+          const SizedBox(height: 16),
+          ...ProgramGroup.values.map((group) {
+            final exercises = groupExercises[group]!;
+            if (exercises.isEmpty) {
+              return Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (exercises.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: exercises.entries.map((e) {
-                            var assignDesc = e.key.va.assignDesc[group];
-                            assignDesc =
-                                (assignDesc != null) ? ' ($assignDesc)' : '';
-                            return Text(
-                                '${e.value} sets of ${e.key.id} $assignDesc');
-                          }).toList(),
-                        ),
-                      )
-                    else
-                      const Padding(
-                        padding: EdgeInsets.only(left: 16),
-                        child: Text('No exercises with recruitment ≥ 0.5'),
+                    Text(
+                      group.displayName,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w500,
                       ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16, top: 8),
+                      child: Text('No exercises with recruitment ≥ 0.5'),
+                    ),
                   ],
                 ),
-              ],
-            ),
-          );
-        }).toList(),
-      ],
+              );
+            }
+
+            final exByModality = <String?, List<MapEntry<Ex, int>>>{};
+            for (final entry in exercises.entries) {
+              final modality = entry.key.recruitment(group).modality;
+              exByModality.putIfAbsent(modality, () => []).add(entry);
+            }
+
+            return Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    group.displayName,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  ...exByModality.entries.map((modalityGroup) {
+                    final description = modalityGroup.key ?? 'UNKNOWN';
+                    final exerciseList = modalityGroup.value;
+                    final exerciseText = exerciseList
+                        .map((e) => '${e.value}x ${e.key.id}')
+                        .join(', ');
+
+                    return Container(
+                      margin: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 16),
+                      child: IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 300,
+                              padding: const EdgeInsets.only(right: 16),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  right: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .outlineVariant,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                description,
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Text(
+                                  exerciseText,
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
     );
   }
 }
