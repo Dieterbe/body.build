@@ -12,7 +12,8 @@ Trained individuals generally have an anabolic window that peaks within 24 hours
  PSMF, specifically for overweight individuals. (too aggressive for leaner individuals)
  kcal min 9.7*protein per day
 
-
+elsewhere in the course it says:
+> Alternate day fasting has a surprisingly good track record in research, but it is not recommended for lean or strength training individuals. Instead, when alternate day fasting is desired, PSMF periods are advisable to create a large but short-term energy deficit without impairing muscle growth. // TODO, touch back on facebook about this
 
  // dieter notes on 12 dec
  last meal of the day coud use a bit more protein, but typically already done

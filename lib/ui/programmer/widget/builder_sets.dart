@@ -136,7 +136,10 @@ class BuilderSets extends ConsumerWidget {
                     child: Text(
                       sets.ex!.id,
                       style: TextStyle(
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
+                        letterSpacing: 0.3,
+                        height: 0.9,
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),

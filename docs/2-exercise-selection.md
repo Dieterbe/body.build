@@ -256,3 +256,6 @@ exceprt from a q&a session:
 				- more variance in how you do it. e.g. angles for lateral raise
 		- therefore, tip:
 			- do it for last set or all sets after the first. use the first ones for measurements
+
+
+			ecc overloading -> more fatigue, reduce volume accordingly
