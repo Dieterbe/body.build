@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
                 name: ProgrammerScreen.routeName,
                 path: ProgrammerScreen.routeName,
                 builder: (context, state) => const DefaultTabController(
-                    length: 3, child: ProgrammerScreen()),
+                    length: 2, child: ProgrammerScreen()),
               ),
               GoRoute(
                 name: MealPlanScreen.routeName,

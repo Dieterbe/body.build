@@ -23,7 +23,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           tabs: [
             Tab(text: "Set up"),
             Tab(text: "Workout planner"),
-            Tab(text: "Nutrition planner"),
+            //    Tab(text: "Nutrition planner"), // WIP
           ],
         ),
       ),
@@ -39,9 +39,9 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
               child: ProgrammerBuilder(),
             ),
           ),
-          SingleChildScrollView(
-            child: MealPlanScreen(),
-          ),
+          //  SingleChildScrollView(
+          //   child: MealPlanScreen(),
+          // ),
         ],
       ),
     );
