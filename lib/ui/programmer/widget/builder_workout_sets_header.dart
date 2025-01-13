@@ -114,6 +114,8 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                         children: [
                           const Text(
                               'below are recommended exercises in order of recruitment'),
+                          const Text(
+                              'exercises are only shown if the needed equipment is selected in the set-up'),
                           /*
                                  // ideally, user wants to preview the possible exercises within the program volume stats, so we could plonk them there
                         // in a special "WIP" section (e.g. hatched background)

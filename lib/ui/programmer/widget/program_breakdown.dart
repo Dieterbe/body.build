@@ -55,6 +55,8 @@ class ProgramBreakdown extends StatelessWidget {
               'Note: the purpose is understanding the different ways in which the muscle is stimulated'),
           Text(
               'for a given muscle, only the relevant articulations of used exercises are shown'),
+          Text(
+              'this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc'),
           const SizedBox(height: 16),
           ...ProgramGroup.values.map((group) {
             final exercises = groupExercises[group]!;

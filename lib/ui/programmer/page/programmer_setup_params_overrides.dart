@@ -76,7 +76,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
             ]),
             const SizedBox(height: 10),
             // Muscle group overrides section
-            const Text('Muscle Group specific Overrides:'),
+            titleMedium('Muscle Group specific Overrides:', context),
 
             if (availableGroups.isNotEmpty) ...[
               const SizedBox(height: 20),
