@@ -24,10 +24,29 @@ also, all advice/calculations remain the same for both exrx untrained and novice
 */
 
 const String helpEnergyBalance = '''
-examples:
-* 70  for cut with 30% deficit
-* 100 for maintenance
-* 110 for bulk with 10% surplus
+Energy Balance describes the kcal intake (with deficit or surplus) as percentage of maintenance.
+
+## Bulking recommendations
+
+For lean bulking (with zero to minimal fat gain)
+
+| Training Status | Energy Balance | Planned weekly weight gain as bodyweight % |
+|----------------|----------------|----------------------|
+| Beginner       | 105-115%       | 0.5 - 1              |
+| Intermediate   | 102-107%       | 0.2 - 0.5            |
+| Advanced       | 101-103%       | whatever you can get |
+
+## Cutting recommendations
+
+For fast cutting (with zero muscle loss)
+
+| Category     | Fat % (male) | Fat % (female) | Energy Balance | Max weekly weight loss as bodyweight % |
+|--------------|--------------|----------------|----------------|---------------------------------------|
+| Contest prep | <8           | <14            | 92.5- 97.5     | 0.5 |
+| Athletic     | 8-15         | 14-24          | 75 - 95        | 0.7 |
+| Average      | 15-21        | 24-33          | 65 - 80        | 1 |
+| Overweight   | 21-26        | 33-39          | 50-70          | 1.5 |
+| Obese        | 26+          | 39+            | PSMF           | N.A. |
 ''';
 
 String helpBodyFat(double bfDeurenberg) => '''
