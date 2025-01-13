@@ -40,33 +40,39 @@ class ProgramHeader extends ConsumerWidget {
     onCreate(String id, String name) async {
       final service = await ref.read(programPersistenceProvider.future);
 
-      // Get existing programs to determine the new name
+      // Get existing programs to check for name conflicts
       final programs = await service.loadPrograms();
-      final newProgramNames = programs.values
-          .map((p) => p.name)
-          .where((name) => name.startsWith('New Program'))
-          .toList();
+      
+      // If name is empty or already exists, generate a new unique name
+      if (name.isEmpty || programs.values.any((p) => p.name == name)) {
+        final newProgramNames = programs.values
+            .map((p) => p.name)
+            .where((name) => name.startsWith('New Program'))
+            .toList();
 
-      // Determine the new program name
-      String newName = 'New Program';
-      if (newProgramNames.isNotEmpty) {
-        // Find the highest number used
-        int maxNumber = 1;
-        for (final name in newProgramNames) {
-          if (name == 'New Program') continue;
-          final match = RegExp(r'New Program (\d+)').firstMatch(name);
-          if (match != null) {
-            final number = int.parse(match.group(1)!);
-            maxNumber = number > maxNumber ? number : maxNumber;
+        // Determine the new program name
+        String newName = 'New Program';
+        if (newProgramNames.isNotEmpty) {
+          // Find the highest number used
+          int maxNumber = 1;
+          for (final name in newProgramNames) {
+            if (name == 'New Program') continue;
+            final match = RegExp(r'New Program (\d+)').firstMatch(name);
+            if (match != null) {
+              final number = int.parse(match.group(1)!);
+              maxNumber = number > maxNumber ? number : maxNumber;
+            }
           }
+          name = 'New Program ${maxNumber + 1}';
+        } else {
+          name = newName;
         }
-        newName = 'New Program ${maxNumber + 1}';
       }
 
       final newId = DateTime.now().millisecondsSinceEpoch.toString();
       await service.saveProgram(
         newId,
-        ProgramState(name: newName),
+        ProgramState(name: name),
       );
       ref.invalidate(programListProvider);
       ref.read(currentProgramProvider.notifier).select(newId);
