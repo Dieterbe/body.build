@@ -1,5 +1,5 @@
-import 'package:ptc/model/programgen_v1/rank.dart';
-import 'package:ptc/model/programgen_v1/util.dart';
+import 'package:bodybuild/model/programgen_v1/rank.dart';
+import 'package:bodybuild/model/programgen_v1/util.dart';
 
 combinator(List<RankedExercise> exercises, int minExercises, int maxExercises,
     Function(List<RankedExercise>) callback) {

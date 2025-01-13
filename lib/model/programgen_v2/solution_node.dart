@@ -1,7 +1,7 @@
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programgen_v1/rank.dart';
-import 'package:ptc/model/programmer/set_group.dart';
-import 'package:ptc/util/formulas.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programgen_v1/rank.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/util/formulas.dart';
 
 /// Represents a node in the solution search tree, containing a partial solution
 /// to the workout generation problem.

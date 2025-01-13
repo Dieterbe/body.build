@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/ui/anatomy/colors.dart';
+import 'package:bodybuild/ui/anatomy/colors.dart';
 
 class ChartWidget extends StatefulWidget {
   const ChartWidget({

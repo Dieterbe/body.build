@@ -1,6 +1,6 @@
-import 'package:ptc/data/programmer/exercises.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programgen_v1/rank.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programgen_v1/rank.dart';
 
 // Find connected components of exercises based on shared program groups
 // Unfortunately, since some lower body exercises also recruit some upper body muscles,

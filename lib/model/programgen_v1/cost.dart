@@ -1,5 +1,5 @@
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programmer/set_group.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
 
 /// Calculates the cost of a SetGroup based on how well it matches the target recruitment values.
 /// Cost is the sum of absolute differences between target and actual recruitment.

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:ptc/model/mealplanner/meal_plan.dart';
+import 'package:bodybuild/model/mealplanner/meal_plan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MealplanPersistenceService {

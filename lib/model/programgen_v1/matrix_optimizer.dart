@@ -1,7 +1,7 @@
 import 'package:ml_linalg/linalg.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programgen_v1/rank.dart';
-import 'package:ptc/model/programmer/set_group.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programgen_v1/rank.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
 
 class MatrixOptimizer {
   final Matrix recruitmentMatrix; // [exercises × program_groups]

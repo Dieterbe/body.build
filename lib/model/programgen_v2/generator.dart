@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:isolate';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programgen_v1/rank.dart';
-import 'package:ptc/model/programmer/set_group.dart';
-import 'package:ptc/model/programgen_v2/solution_node.dart';
-import 'package:ptc/model/programmer/settings.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programgen_v1/rank.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programgen_v2/solution_node.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
 
 /// Parameters for workout generation
 class WorkoutGenerationParams {

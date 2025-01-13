@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/programmer/exercises.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programmer/set_group.dart';
-import 'package:ptc/model/programmer/settings.dart';
-import 'package:ptc/ui/programmer/util_groups.dart';
-import 'package:ptc/ui/programmer/widget/equip_label.dart';
-import 'package:ptc/ui/programmer/widget/widgets.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
+import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 
 class BuilderSets extends ConsumerWidget {
   final Sets sets;

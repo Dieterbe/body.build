@@ -1,7 +1,7 @@
 /*
-import 'package:ptc/articulations.dart';
-import 'package:ptc/movements.dart';
-import 'package:ptc/muscles.dart';
+import 'package:bodybuild/articulations.dart';
+import 'package:bodybuild/movements.dart';
+import 'package:bodybuild/muscles.dart';
 class Exercise {
   final String name;
   final List<String> nick;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/programmer/current_setup_profile_provider.dart';
-import 'package:ptc/data/programmer/setup_persistence_provider.dart';
-import 'package:ptc/data/programmer/setup_profile_list_provider.dart';
-import 'package:ptc/model/programmer/settings.dart';
-import 'package:ptc/ui/core/widget/data_manager.dart';
+import 'package:bodybuild/data/programmer/current_setup_profile_provider.dart';
+import 'package:bodybuild/data/programmer/setup_persistence_provider.dart';
+import 'package:bodybuild/data/programmer/setup_profile_list_provider.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/ui/core/widget/data_manager.dart';
 
 class SetupProfileHeader extends ConsumerWidget {
   const SetupProfileHeader({super.key});

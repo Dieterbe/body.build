@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/model/programmer/set_group.dart';
-import 'package:ptc/model/programmer/workout.dart';
-import 'package:ptc/ui/programmer/state/drag_state.dart';
-import 'package:ptc/ui/programmer/widget/drag_target.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
+import 'package:bodybuild/ui/programmer/state/drag_state.dart';
+import 'package:bodybuild/ui/programmer/widget/drag_target.dart';
 
 class DropBar extends StatelessWidget {
   final Workout Function(Sets) onDrop;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/mealplan/current_mealplan_provider.dart';
-import 'package:ptc/data/mealplan/mealplan_list_provider.dart';
-import 'package:ptc/data/mealplan/mealplan_persistence_provider.dart';
-import 'package:ptc/model/mealplanner/meal_plan.dart';
-import 'package:ptc/ui/core/widget/data_manager.dart';
+import 'package:bodybuild/data/mealplan/current_mealplan_provider.dart';
+import 'package:bodybuild/data/mealplan/mealplan_list_provider.dart';
+import 'package:bodybuild/data/mealplan/mealplan_persistence_provider.dart';
+import 'package:bodybuild/model/mealplanner/meal_plan.dart';
+import 'package:bodybuild/ui/core/widget/data_manager.dart';
 
 class MealPlanHeader extends ConsumerWidget {
   const MealPlanHeader({super.key});

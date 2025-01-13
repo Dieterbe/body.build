@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/ui/mealplanner/page/mealplanner_builder.dart';
+import 'package:bodybuild/ui/mealplanner/page/mealplanner_builder.dart';
 import 'mealplanner_wizard.dart';
 
 class MealPlanScreen extends ConsumerStatefulWidget {

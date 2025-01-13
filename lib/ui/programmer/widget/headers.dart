@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/ui/programmer/util_groups.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/ui/programmer/util_groups.dart';
 
 Widget headers() {
   // when column headers are horizontal, they take too much space

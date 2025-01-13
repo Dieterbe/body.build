@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
 
 Color bgColorForProgramGroup(ProgramGroup g) {
   switch (g) {

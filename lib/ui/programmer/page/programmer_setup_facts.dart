@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/model/programmer/bmr_method.dart';
-import 'package:ptc/ui/core/info_button.dart';
-import 'package:ptc/ui/programmer/widget/label_bar.dart';
-import 'package:ptc/ui/programmer/widget/widgets.dart';
-import 'package:ptc/util/formulas.dart';
-import 'package:ptc/data/programmer/setup.dart';
+import 'package:bodybuild/model/programmer/bmr_method.dart';
+import 'package:bodybuild/ui/core/info_button.dart';
+import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
+import 'package:bodybuild/ui/programmer/widget/widgets.dart';
+import 'package:bodybuild/util/formulas.dart';
+import 'package:bodybuild/data/programmer/setup.dart';
 
 const String helpBMR = '''
 Three different formulas for calculating Basal Metabolic Rate (BMR):

@@ -1,15 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:ptc/model/programmer/set_group.dart';
-import 'package:ptc/model/programmer/settings.dart';
-import 'package:ptc/model/programmer/workout.dart';
-import 'package:ptc/ui/programmer/state/drag_state.dart';
-import 'package:ptc/ui/programmer/widget/builder_totals.dart';
-import 'package:ptc/ui/programmer/widget/builder_workout_sets_header.dart';
-import 'package:ptc/ui/programmer/widget/drag_target.dart';
-import 'package:ptc/ui/programmer/widget/draggable_setgroup.dart';
-import 'package:ptc/ui/programmer/widget/drop_bar.dart';
-import 'package:ptc/util.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
+import 'package:bodybuild/ui/programmer/state/drag_state.dart';
+import 'package:bodybuild/ui/programmer/widget/builder_totals.dart';
+import 'package:bodybuild/ui/programmer/widget/builder_workout_sets_header.dart';
+import 'package:bodybuild/ui/programmer/widget/drag_target.dart';
+import 'package:bodybuild/ui/programmer/widget/draggable_setgroup.dart';
+import 'package:bodybuild/ui/programmer/widget/drop_bar.dart';
+import 'package:bodybuild/util.dart';
 
 class BuilderWorkoutWidget extends StatelessWidget {
   final Workout workout;

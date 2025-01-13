@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/ui/programmer/page/programmer_setup_facts.dart';
-import 'package:ptc/ui/programmer/page/programmer_setup_filters.dart';
-import 'package:ptc/ui/programmer/page/programmer_setup_inputs.dart';
-import 'package:ptc/ui/programmer/page/programmer_setup_params.dart';
-import 'package:ptc/ui/programmer/page/programmer_setup_params_overrides.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_setup_facts.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_setup_filters.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_setup_inputs.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_setup_params.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_setup_params_overrides.dart';
 
 class ProgrammerSetup extends StatelessWidget {
   const ProgrammerSetup({super.key});

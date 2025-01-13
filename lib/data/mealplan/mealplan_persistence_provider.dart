@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ptc/service/mealplan_persistence_service.dart';
+import 'package:bodybuild/service/mealplan_persistence_service.dart';
 
 part 'mealplan_persistence_provider.g.dart';
 

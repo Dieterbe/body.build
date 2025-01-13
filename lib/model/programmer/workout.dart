@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ptc/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
 
 part 'workout.freezed.dart';
 part 'workout.g.dart';
@@ -11,5 +11,6 @@ class Workout with _$Workout {
     @Default([]) List<SetGroup> setGroups,
   }) = _Workout;
 
-  factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
+  factory Workout.fromJson(Map<String, dynamic> json) =>
+      _$WorkoutFromJson(json);
 }

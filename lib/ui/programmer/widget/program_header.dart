@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/programmer/current_program_provider.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/data/programmer/program.dart';
-import 'package:ptc/data/programmer/program_list_provider.dart';
-import 'package:ptc/data/programmer/program_persistence_provider.dart';
-import 'package:ptc/data/programmer/setup.dart';
-import 'package:ptc/model/programgen_v2/generator.dart';
-import 'package:ptc/model/programmer/program_state.dart';
-import 'package:ptc/model/programmer/workout.dart';
-import 'package:ptc/ui/core/widget/data_manager.dart';
+import 'package:bodybuild/data/programmer/current_program_provider.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/program.dart';
+import 'package:bodybuild/data/programmer/program_list_provider.dart';
+import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
+import 'package:bodybuild/data/programmer/setup.dart';
+import 'package:bodybuild/model/programgen_v2/generator.dart';
+import 'package:bodybuild/model/programmer/program_state.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
+import 'package:bodybuild/ui/core/widget/data_manager.dart';
 
 class ProgramHeader extends ConsumerWidget {
   const ProgramHeader({super.key});
@@ -42,7 +42,7 @@ class ProgramHeader extends ConsumerWidget {
 
       // Get existing programs to check for name conflicts
       final programs = await service.loadPrograms();
-      
+
       // If name is empty or already exists, generate a new unique name
       if (name.isEmpty || programs.values.any((p) => p.name == name)) {
         final newProgramNames = programs.values

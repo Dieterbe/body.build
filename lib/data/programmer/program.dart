@@ -1,8 +1,8 @@
-import 'package:ptc/model/programmer/program_state.dart';
-import 'package:ptc/model/programmer/workout.dart';
+import 'package:bodybuild/model/programmer/program_state.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:ptc/data/programmer/program_persistence_provider.dart';
-import 'package:ptc/data/programmer/current_program_provider.dart';
+import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
+import 'package:bodybuild/data/programmer/current_program_provider.dart';
 
 part 'program.g.dart';
 

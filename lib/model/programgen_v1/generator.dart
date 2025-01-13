@@ -1,11 +1,11 @@
-import 'package:ptc/data/programmer/exercises.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programgen_v1/combinator.dart';
-import 'package:ptc/model/programgen_v1/components.dart';
-import 'package:ptc/model/programgen_v1/cost.dart';
-import 'package:ptc/model/programgen_v1/matrix_optimizer.dart';
-import 'package:ptc/model/programgen_v1/rank.dart';
-import 'package:ptc/model/programmer/set_group.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programgen_v1/combinator.dart';
+import 'package:bodybuild/model/programgen_v1/components.dart';
+import 'package:bodybuild/model/programgen_v1/cost.dart';
+import 'package:bodybuild/model/programgen_v1/matrix_optimizer.dart';
+import 'package:bodybuild/model/programgen_v1/rank.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
 
 /// Generates an optimized SetGroup that matches the desired recruitment targets
 /// for each ProgramGroup as closely as possible while minimizing overshoot.

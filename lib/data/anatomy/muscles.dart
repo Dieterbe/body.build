@@ -1,21 +1,21 @@
-import 'package:ptc/data/anatomy/articulations.dart';
-import 'package:ptc/data/anatomy/bones.dart';
-import 'package:ptc/model/anatomy/movements.dart';
-import 'package:ptc/data/anatomy/muscle_abs.dart';
-import 'package:ptc/data/anatomy/muscle_calves.dart';
-import 'package:ptc/data/anatomy/muscle_delts.dart';
-import 'package:ptc/data/anatomy/muscle_elbow_flexors.dart';
-import 'package:ptc/data/anatomy/muscle_forearm.dart';
-import 'package:ptc/data/anatomy/muscle_glutes.dart';
-import 'package:ptc/data/anatomy/muscle_hams.dart';
-import 'package:ptc/data/anatomy/muscle_lats.dart';
-import 'package:ptc/data/anatomy/muscle_neck.dart';
-import 'package:ptc/data/anatomy/muscle_pecs.dart';
-import 'package:ptc/data/anatomy/muscle_quads.dart';
-import 'package:ptc/data/anatomy/muscle_spinal_erectors.dart';
-import 'package:ptc/data/anatomy/muscle_traps.dart';
-import 'package:ptc/data/anatomy/muscle_triceps.dart';
-import 'package:ptc/util.dart';
+import 'package:bodybuild/data/anatomy/articulations.dart';
+import 'package:bodybuild/data/anatomy/bones.dart';
+import 'package:bodybuild/model/anatomy/movements.dart';
+import 'package:bodybuild/data/anatomy/muscle_abs.dart';
+import 'package:bodybuild/data/anatomy/muscle_calves.dart';
+import 'package:bodybuild/data/anatomy/muscle_delts.dart';
+import 'package:bodybuild/data/anatomy/muscle_elbow_flexors.dart';
+import 'package:bodybuild/data/anatomy/muscle_forearm.dart';
+import 'package:bodybuild/data/anatomy/muscle_glutes.dart';
+import 'package:bodybuild/data/anatomy/muscle_hams.dart';
+import 'package:bodybuild/data/anatomy/muscle_lats.dart';
+import 'package:bodybuild/data/anatomy/muscle_neck.dart';
+import 'package:bodybuild/data/anatomy/muscle_pecs.dart';
+import 'package:bodybuild/data/anatomy/muscle_quads.dart';
+import 'package:bodybuild/data/anatomy/muscle_spinal_erectors.dart';
+import 'package:bodybuild/data/anatomy/muscle_traps.dart';
+import 'package:bodybuild/data/anatomy/muscle_triceps.dart';
+import 'package:bodybuild/util.dart';
 
 // contains Id's for muscles, muscle heads, and areas within muscles or heads
 // primary purpose here is anatomical correctness and using correct scientific terminology

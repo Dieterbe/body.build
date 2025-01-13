@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/ui/anatomy/page/articulation.dart';
-import 'package:ptc/ui/anatomy/page/articulations.dart';
-import 'package:ptc/ui/anatomy/colors.dart';
-import 'package:ptc/ui/core/page/home.dart';
-import 'package:ptc/ui/anatomy/page/muscle.dart';
-import 'package:ptc/ui/anatomy/page/muscles.dart';
+import 'package:bodybuild/ui/anatomy/page/articulation.dart';
+import 'package:bodybuild/ui/anatomy/page/articulations.dart';
+import 'package:bodybuild/ui/anatomy/colors.dart';
+import 'package:bodybuild/ui/core/page/home.dart';
+import 'package:bodybuild/ui/anatomy/page/muscle.dart';
+import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/ui/programmer/page/programmer.dart';
-import 'package:ptc/ui/mealplanner/page/mealplanner.dart';
+import 'package:bodybuild/ui/programmer/page/programmer.dart';
+import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
 
 void main() async {
   // disabled for now. not all that useful actually..
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'PTC Pro',
+      title: 'Body.build',
       darkTheme: ThemeData.dark(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: colorSeed),

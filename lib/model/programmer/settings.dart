@@ -1,13 +1,13 @@
-import 'package:ptc/data/programmer/equipment.dart';
-import 'package:ptc/data/programmer/exercises.dart';
-import 'package:ptc/model/programmer/activity_level.dart';
-import 'package:ptc/model/programmer/bmr_method.dart';
-import 'package:ptc/model/programmer/level.dart';
-import 'package:ptc/model/programmer/parameter_overrides.dart';
-import 'package:ptc/model/programmer/parameters.dart';
-import 'package:ptc/model/programmer/sex.dart';
+import 'package:bodybuild/data/programmer/equipment.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/model/programmer/activity_level.dart';
+import 'package:bodybuild/model/programmer/bmr_method.dart';
+import 'package:bodybuild/model/programmer/level.dart';
+import 'package:bodybuild/model/programmer/parameter_overrides.dart';
+import 'package:bodybuild/model/programmer/parameters.dart';
+import 'package:bodybuild/model/programmer/sex.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ptc/util/formulas.dart';
+import 'package:bodybuild/util/formulas.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';

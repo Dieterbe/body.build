@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/model/programmer/set_group.dart';
-import 'package:ptc/model/programmer/workout.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
 
 class DragTargetWidget extends StatelessWidget {
   final Workout workout;

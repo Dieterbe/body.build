@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/ui/programmer/widget/widgets.dart';
+import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 
 /* 
 // this is unused for now (in the program builder)

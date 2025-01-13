@@ -1,6 +1,6 @@
-import 'package:ptc/data/programmer/exercise_base.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/exercise_base.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'parameter_overrides.freezed.dart';

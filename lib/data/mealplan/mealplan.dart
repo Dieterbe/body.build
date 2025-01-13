@@ -1,7 +1,7 @@
-import 'package:ptc/model/mealplanner/meal_plan.dart';
+import 'package:bodybuild/model/mealplanner/meal_plan.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:ptc/data/mealplan/mealplan_persistence_provider.dart';
-import 'package:ptc/data/mealplan/current_mealplan_provider.dart';
+import 'package:bodybuild/data/mealplan/mealplan_persistence_provider.dart';
+import 'package:bodybuild/data/mealplan/current_mealplan_provider.dart';
 
 part 'mealplan.g.dart';
 

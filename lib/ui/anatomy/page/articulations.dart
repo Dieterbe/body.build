@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/data/anatomy/articulations.dart';
-import 'package:ptc/model/anatomy/movements.dart';
-import 'package:ptc/ui/anatomy/page/articulation.dart';
-import 'package:ptc/util.dart';
+import 'package:bodybuild/data/anatomy/articulations.dart';
+import 'package:bodybuild/model/anatomy/movements.dart';
+import 'package:bodybuild/ui/anatomy/page/articulation.dart';
+import 'package:bodybuild/util.dart';
 
 class ArticulationsScreen extends StatefulWidget {
   static const routeName = 'articulations';
@@ -23,7 +23,7 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('PTC Pro - $varTitle'),
+        title: Text('Body.build - $varTitle'),
       ),
       body: Column(
         children: [

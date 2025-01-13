@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/data/anatomy/articulations.dart';
-import 'package:ptc/data/anatomy/muscles.dart';
-import 'package:ptc/ui/anatomy/widget/articulation_button.dart';
+import 'package:bodybuild/data/anatomy/articulations.dart';
+import 'package:bodybuild/data/anatomy/muscles.dart';
+import 'package:bodybuild/ui/anatomy/widget/articulation_button.dart';
 
 class InsufficiencyWidget extends StatelessWidget {
   const InsufficiencyWidget(

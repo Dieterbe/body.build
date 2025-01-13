@@ -1,5 +1,5 @@
-import 'package:ptc/data/programmer/exercises.dart';
-import 'package:ptc/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
 
 class RankedExercise {
   final Ex ex;

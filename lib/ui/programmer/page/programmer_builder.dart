@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/programmer/program.dart';
-import 'package:ptc/data/programmer/setup.dart';
-import 'package:ptc/model/programmer/program_state.dart';
+import 'package:bodybuild/data/programmer/program.dart';
+import 'package:bodybuild/data/programmer/setup.dart';
+import 'package:bodybuild/model/programmer/program_state.dart';
 
-import 'package:ptc/model/programmer/workout.dart';
-import 'package:ptc/ui/programmer/widget/builder_workout.dart';
-import 'package:ptc/ui/programmer/widget/headers.dart';
-import 'package:ptc/ui/programmer/widget/builder_totals.dart';
-import 'package:ptc/ui/programmer/widget/program_breakdown.dart';
-import 'package:ptc/ui/programmer/widget/program_header.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
+import 'package:bodybuild/ui/programmer/widget/builder_workout.dart';
+import 'package:bodybuild/ui/programmer/widget/headers.dart';
+import 'package:bodybuild/ui/programmer/widget/builder_totals.dart';
+import 'package:bodybuild/ui/programmer/widget/program_breakdown.dart';
+import 'package:bodybuild/ui/programmer/widget/program_header.dart';
 
 class ProgrammerBuilder extends ConsumerWidget {
   const ProgrammerBuilder({super.key});

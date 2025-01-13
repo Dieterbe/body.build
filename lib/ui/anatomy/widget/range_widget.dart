@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/model/anatomy/movements.dart';
-import 'package:ptc/ui/anatomy/widget/chart_widget.dart';
-import 'package:ptc/ui/anatomy/colors.dart';
-import 'package:ptc/ui/anatomy/widget/muscle_button.dart';
+import 'package:bodybuild/model/anatomy/movements.dart';
+import 'package:bodybuild/ui/anatomy/widget/chart_widget.dart';
+import 'package:bodybuild/ui/anatomy/colors.dart';
+import 'package:bodybuild/ui/anatomy/widget/muscle_button.dart';
 
 class RangeWidget extends StatelessWidget {
   final ArticulationMovements am;

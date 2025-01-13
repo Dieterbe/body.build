@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/mealplan/mealplan.dart';
-import 'package:ptc/data/programmer/program.dart';
-import 'package:ptc/data/programmer/setup.dart';
-import 'package:ptc/model/mealplanner/meal_plan.dart';
-import 'package:ptc/model/programmer/settings.dart';
-import 'package:ptc/model/programmer/workout.dart';
-import 'package:ptc/ui/core/widget/editable_header.dart';
+import 'package:bodybuild/data/mealplan/mealplan.dart';
+import 'package:bodybuild/data/programmer/program.dart';
+import 'package:bodybuild/data/programmer/setup.dart';
+import 'package:bodybuild/model/mealplanner/meal_plan.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
+import 'package:bodybuild/ui/core/widget/editable_header.dart';
 
 class DayColumn extends ConsumerWidget {
   final MealPlan plan;

@@ -1,7 +1,7 @@
-import 'package:ptc/data/anatomy/articulations.dart';
-import 'package:ptc/data/anatomy/bones.dart';
-import 'package:ptc/model/anatomy/movements.dart';
-import 'package:ptc/data/anatomy/muscles.dart';
+import 'package:bodybuild/data/anatomy/articulations.dart';
+import 'package:bodybuild/data/anatomy/bones.dart';
+import 'package:bodybuild/model/anatomy/movements.dart';
+import 'package:bodybuild/data/anatomy/muscles.dart';
 
 final latissimusDorsi = SingleHeadMuscle(
     id: MuscleId.latissimusDorsi,

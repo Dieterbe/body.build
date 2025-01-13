@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ptc/ui/mealplanner/page/mealplanner.dart';
-import 'package:ptc/ui/programmer/page/programmer_builder.dart';
-import 'package:ptc/ui/programmer/page/programmer_setup.dart';
+import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
 
 class ProgrammerScreen extends StatefulWidget {
   const ProgrammerScreen({super.key});

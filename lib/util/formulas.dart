@@ -2,9 +2,9 @@
 // weight in kg
 import 'dart:math';
 
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programmer/level.dart';
-import 'package:ptc/model/programmer/sex.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programmer/level.dart';
+import 'package:bodybuild/model/programmer/sex.dart';
 
 const double kJToKcal = 0.239006;
 

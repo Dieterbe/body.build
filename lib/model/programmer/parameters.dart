@@ -1,8 +1,8 @@
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programmer/level.dart';
-import 'package:ptc/model/programmer/parameter_overrides.dart';
-import 'package:ptc/model/programmer/settings.dart';
-import 'package:ptc/util/formulas.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programmer/level.dart';
+import 'package:bodybuild/model/programmer/parameter_overrides.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/util/formulas.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'parameters.freezed.dart';

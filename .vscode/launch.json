@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ptc",
+            "name": "bodybuild",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "ptc (profile mode)",
+            "name": "bodybuild (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "ptc (release mode)",
+            "name": "bodybuild (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

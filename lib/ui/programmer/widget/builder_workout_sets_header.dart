@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/data/programmer/exercises.dart';
-import 'package:ptc/data/programmer/groups.dart';
-import 'package:ptc/model/programmer/set_group.dart';
-import 'package:ptc/model/programmer/settings.dart';
-import 'package:ptc/model/programmer/workout.dart';
-import 'package:ptc/ui/programmer/util_groups.dart';
-import 'package:ptc/ui/programmer/widget/add_set_button.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
+import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/ui/programmer/widget/add_set_button.dart';
 
 class BuilderWorkoutSetsHeader extends StatelessWidget {
   final Workout workout;

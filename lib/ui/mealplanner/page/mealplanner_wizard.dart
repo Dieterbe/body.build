@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ptc/data/mealplan/mealplan.dart';
-import 'package:ptc/data/programmer/setup.dart';
-import 'package:ptc/ui/mealplanner/widget/meal_plan_header.dart';
+import 'package:bodybuild/data/mealplan/mealplan.dart';
+import 'package:bodybuild/data/programmer/setup.dart';
+import 'package:bodybuild/ui/mealplanner/widget/meal_plan_header.dart';
 import '../../../model/mealplanner/meal_plan.dart';
 
 class MealPlannerWizard extends ConsumerWidget {

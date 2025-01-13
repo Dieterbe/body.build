@@ -1,6 +1,6 @@
-import 'package:ptc/data/programmer/equipment.dart';
-import 'package:ptc/data/programmer/exercise_base.dart';
-import 'package:ptc/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/equipment.dart';
+import 'package:bodybuild/data/programmer/exercise_base.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)

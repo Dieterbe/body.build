@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ptc/model/programmer/workout.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
 
 part 'program_state.freezed.dart';
 part 'program_state.g.dart';

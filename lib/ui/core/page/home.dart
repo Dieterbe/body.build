@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ptc/ui/anatomy/page/articulations.dart';
-import 'package:ptc/ui/anatomy/page/muscles.dart';
-import 'package:ptc/ui/programmer/page/programmer.dart';
+import 'package:bodybuild/ui/anatomy/page/articulations.dart';
+import 'package:bodybuild/ui/anatomy/page/muscles.dart';
+import 'package:bodybuild/ui/programmer/page/programmer.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';
@@ -35,7 +35,7 @@ To see it, hit the "articulations" button, and then click on "shoulder flexion".
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PTC Pro: Home'),
+        title: const Text('Body.build: Home'),
       ),
       body: SingleChildScrollView(
         child: Center(

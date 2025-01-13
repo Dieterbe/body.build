@@ -1,12 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:ptc/data/anatomy/articulations.dart';
-import 'package:ptc/model/anatomy/movements.dart';
-import 'package:ptc/data/anatomy/muscles.dart';
-import 'package:ptc/ui/anatomy/widget/articulation_button.dart';
-import 'package:ptc/ui/anatomy/colors.dart';
-import 'package:ptc/ui/anatomy/widget/insufficiency_widget.dart';
-import 'package:ptc/util.dart';
+import 'package:bodybuild/data/anatomy/articulations.dart';
+import 'package:bodybuild/model/anatomy/movements.dart';
+import 'package:bodybuild/data/anatomy/muscles.dart';
+import 'package:bodybuild/ui/anatomy/widget/articulation_button.dart';
+import 'package:bodybuild/ui/anatomy/colors.dart';
+import 'package:bodybuild/ui/anatomy/widget/insufficiency_widget.dart';
+import 'package:bodybuild/util.dart';
 
 const double chartHeight = 100;
 

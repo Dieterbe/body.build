@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ptc/model/programmer/settings.dart';
+import 'package:bodybuild/model/programmer/settings.dart';
 
 class SetupPersistenceService {
   final SharedPreferences _prefs;
