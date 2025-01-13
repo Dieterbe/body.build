@@ -110,6 +110,9 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                   trainingDayEE * setup.workoutsPerWeek) /
               7;
           final targetIntake = averageDayEE * setup.energyBalance / 100;
+          final targetIntakeTraining =
+              trainingDayEE * setup.energyBalance / 100;
+          final targetIntakeResting = restingDayEE * setup.energyBalance / 100;
           return Column(
             children: [
               const LabelBar('Resulting Facts'),
@@ -184,33 +187,40 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                         Text(adjusted ? '(accounted for)' : '(ignored)'),
                       ]),
                       const SizedBox(height: 20),
-                      Row(children: [
-                        titleText('Resting Day EE', context),
-                        const SizedBox(width: 25),
-                        Text(restingDayEE.round().toString()),
-                      ]),
-                      const SizedBox(height: 20),
-                      Row(
+                      const SizedBox(height: 10),
+                      Table(
+                        defaultColumnWidth: const IntrinsicColumnWidth(),
                         children: [
-                          titleText('Training Day EE', context),
-                          const SizedBox(width: 25),
-                          Text(trainingDayEE.round().toString()),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          titleText('Average Day EE', context),
-                          const SizedBox(width: 25),
-                          Text(averageDayEE.round().toString()),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          titleText('Target Intake', context),
-                          const SizedBox(width: 25),
-                          Text(targetIntake.round().toString()),
+                          TableRow(
+                            children: [
+                              const SizedBox(), // Empty cell for row headers
+                              pad8(titleMedium('EE', context)),
+                              pad8(titleMedium('Target Intake', context)),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              pad8(titleMedium('Rest Day', context)),
+                              pad8(Text(restingDayEE.round().toString())),
+                              pad8(
+                                  Text(targetIntakeResting.round().toString())),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              pad8(titleMedium('Training Day', context)),
+                              pad8(Text(trainingDayEE.round().toString())),
+                              pad8(Text(
+                                  targetIntakeTraining.round().toString())),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              pad8(titleMedium('Average', context)),
+                              pad8(Text(averageDayEE.round().toString())),
+                              pad8(Text(targetIntake.round().toString())),
+                            ],
+                          ),
                         ],
                       ),
                     ],

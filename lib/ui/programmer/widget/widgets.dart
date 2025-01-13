@@ -19,9 +19,18 @@ Widget muscleMark(double recruitment, BuildContext context) {
   );
 }
 
+Widget pad8(Widget child) => Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: child,
+    );
+
+Widget titleMedium(String title, BuildContext context) =>
+    Text(title, style: Theme.of(context).textTheme.titleMedium);
+
+// TODO: rename these to convey the align & width capping: prefixFoo maybe?
 // fixed with, for use in rows
-Widget titleText(String title, BuildContext context) => titleWidget(
-    Text(title, style: Theme.of(context).textTheme.titleMedium), context);
+Widget titleText(String title, BuildContext context) =>
+    titleWidget(titleMedium(title, context), context);
 
 Widget titleTextLarge(String title, BuildContext context) => titleWidget(
     Text(title, style: Theme.of(context).textTheme.titleLarge), context);

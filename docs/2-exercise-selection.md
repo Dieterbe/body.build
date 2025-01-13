@@ -258,4 +258,4 @@ exceprt from a q&a session:
 			- do it for last set or all sets after the first. use the first ones for measurements
 
 
-			ecc overloading -> more fatigue, reduce volume accordingly
+			also, per course : ecc overloading -> more fatigue, reduce volume accordingly
