@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/programmer/widget/add_set_button.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
@@ -38,7 +39,8 @@ class BuilderWorkoutWidget extends StatelessWidget {
         ],
       ),
       // looks like "around" the container
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      margin: const EdgeInsets.symmetric(
+          vertical: 8, horizontal: 4), // affects alignment
       child: Column(children: [
         Container(
           decoration: BoxDecoration(
@@ -135,10 +137,14 @@ class BuilderWorkoutWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              if (workout.setGroups.isEmpty)
-                Text(
-                    "No sets yet - add sets using the 'Add Set' button or the muscle specific '+' buttons below",
-                    style: Theme.of(context).textTheme.titleSmall),
+              AddSetButton(
+                () {
+                  onChange(workout.copyWith(setGroups: [
+                    ...workout.setGroups,
+                    SetGroup([Sets(setup.paramFinal.intensities.first)])
+                  ]));
+                },
+              ),
               Expanded(child: Container()),
             ],
           ),

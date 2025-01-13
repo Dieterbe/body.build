@@ -56,7 +56,7 @@ class DraggableSets extends StatelessWidget {
       feedback: Material(
         elevation: 4,
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.5,
+          width: MediaQuery.of(context).size.width * 0.9,
           color: Theme.of(context).colorScheme.surface,
           child: builderSets,
         ),

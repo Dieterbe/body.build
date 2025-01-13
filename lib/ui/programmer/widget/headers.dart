@@ -38,22 +38,24 @@ Widget headers() {
         0, -10), // because we pivot around bottom center, raise text up a bit
     child: Row(
         children: ProgramGroup.values
-            .map((e) => Transform.rotate(
-                alignment: Alignment.bottomCenter,
-                angle: pi / 4,
-                child: RotatedBox(
-                  quarterTurns: 3,
-                  child: Container(
-                    color: bgColorForProgramGroup(e),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: Stack(children: [
-                        HeaderLabel(e.displayName),
-                        dummy,
-                      ]),
-                    ),
-                  ),
-                )))
+            .map((e) => Expanded(
+                  child: Transform.rotate(
+                      alignment: Alignment.bottomCenter,
+                      angle: pi / 4,
+                      child: RotatedBox(
+                        quarterTurns: 3,
+                        child: Container(
+                          color: bgColorForProgramGroup(e),
+                          child: Padding(
+                            padding: EdgeInsets.all(2),
+                            child: Stack(children: [
+                              HeaderLabel(e.displayName),
+                              dummy,
+                            ]),
+                          ),
+                        ),
+                      )),
+                ))
             .toList()),
   );
 }
@@ -64,15 +66,12 @@ class HeaderLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 36,
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.3,
-        ),
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: MediaQuery.sizeOf(context).width / 100,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0.3,
       ),
     );
   }

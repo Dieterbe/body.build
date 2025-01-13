@@ -69,88 +69,122 @@ class BuilderTotalsWidget extends StatelessWidget {
     return Column(
       children: [
         Row(children: [
-          Expanded(child: Container()),
+          SizedBox(width: 20),
+          Flexible(flex: 43, child: Container()),
           // "bottom line"
-          SizedBox(
-              width: 40.0 * ProgramGroup.values.length + 36,
-              child: const Divider(
-                thickness: 2,
-              )),
+          const Flexible(
+            flex: 57,
+            child: Divider(
+              thickness: 2,
+            ),
+          ),
+          SizedBox(width: 20),
         ]),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: Container()),
-            if (setup != null)
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Program Volume Score',
-                        style: TextStyle(fontSize: 12)),
-                    Text(
-                      '${(score * 100).toStringAsFixed(1)}%',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+            SizedBox(width: 20),
+            Flexible(
+              flex: 45,
+              child: Row(
+                children: [
+                  if (setup != null)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Program Volume Score',
+                              style: TextStyle(fontSize: 12)),
+                          Text(
+                            '${(score * 100).toStringAsFixed(1)}%',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  Expanded(child: Container()),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Icon(Icons.add,
+                        size: MediaQuery.sizeOf(context).width / 60,
+                        color: Theme.of(context).colorScheme.outline),
+                  ),
+                  const SizedBox(width: 10),
+                ],
               ),
-            if (setup != null) const SizedBox(width: 100),
-            Icon(Icons.add,
-                size: 24, color: Theme.of(context).colorScheme.outline),
-            const SizedBox(width: 10),
-            ...ProgramGroup.values
-                .map((g) => Stack(alignment: Alignment.bottomCenter, children: [
-                      Container(
-                        width: 40,
-                        // "background" height.
-                        // if maxVal < 1 -> should be 40
-                        // if 1 < maxVal < limit: should be 40 * maxVal
-                        // if maxVal > limit: should be 40 * limit
-//                        height: max(40 * maxVal / limit, 40),
-                        height: 40 * max(1, min(maxVal, limit)),
-                        color: bgColorForProgramGroup(g),
-                      ),
-                      Container(
-                        width: 40,
-                        height: 40 *
-                            (maxVal > limit
-                                ? totals[g]! / maxVal * limit
-                                : totals[g]!),
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
-                    ]))
+            ),
+            Flexible(
+              flex: 55,
+              child: Row(
+                  children: ProgramGroup.values
+                      .map((g) => Expanded(
+                            child: Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Container(
+                                    // width: 40,
+                                    // "background" height.
+                                    // if maxVal < 1 -> should be 40
+                                    // if 1 < maxVal < limit: should be 40 * maxVal
+                                    // if maxVal > limit: should be 40 * limit
+                                    //                        height: max(40 * maxVal / limit, 40),
+                                    height: 40 * max(1, min(maxVal, limit)),
+                                    color: bgColorForProgramGroup(g),
+                                  ),
+                                  Container(
+                                    //width: 40,
+                                    height: 40 *
+                                        (maxVal > limit
+                                            ? totals[g]! / maxVal * limit
+                                            : totals[g]!),
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                ]),
+                          ))
+                      .toList()),
+            ),
           ],
         ),
         Row(
           children: [
-            Expanded(child: Container()),
-            ...ProgramGroup.values.map((g) => Container(
-                  width: 40,
-                  height: 40,
-                  color: bgColorForProgramGroup(g),
-                  child: Center(
-                      child: Text(
-                    totals[g]!.toStringAsFixed(1),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: (setup == null)
-                          ? Colors.black
-                          : (totals[g]! >=
-                                  setup!.paramFinal
-                                      .getSetsPerWeekPerMuscleGroupFor(g)
-                              ? Colors.green
-                              : Colors.red),
-                    ),
-                  )),
-                ))
+            SizedBox(width: 20),
+            Flexible(flex: 45, child: Container()),
+            Flexible(
+              flex: 55,
+              child: Row(
+                children: ProgramGroup.values
+                    .map((g) => Expanded(
+                          child: Container(
+                            height: 40,
+                            color: bgColorForProgramGroup(g),
+                            child: Center(
+                                child: Text(
+                              totals[g]!.toStringAsFixed(1),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.sizeOf(context).width / 100,
+                                color: (setup == null)
+                                    ? Colors.black
+                                    : (totals[g]! >=
+                                            setup!.paramFinal
+                                                .getSetsPerWeekPerMuscleGroupFor(
+                                                    g)
+                                        ? Colors.green
+                                        : Colors.red),
+                              ),
+                            )),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }

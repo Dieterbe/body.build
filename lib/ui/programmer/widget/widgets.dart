@@ -13,9 +13,15 @@ Widget rotatedText(String text) {
 Widget muscleMark(double recruitment, BuildContext context) {
   return Container(
     // padding: const EdgeInsets.all(2.0),
+    decoration: BoxDecoration(
+      color:
+          Theme.of(context).colorScheme.primary.withValues(alpha: recruitment),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(3),
+      ),
+    ),
     width: 30,
     height: 30,
-    color: Theme.of(context).colorScheme.primary.withValues(alpha: recruitment),
   );
 }
 

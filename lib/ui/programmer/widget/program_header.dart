@@ -162,10 +162,7 @@ class ProgramHeader extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (setup) => ref.watch(programListProvider).when(
-            loading: () => const SizedBox(
-              width: 200,
-              child: LinearProgressIndicator(),
-            ),
+            loading: () => LinearProgressIndicator(),
             error: (error, stack) => Text('Error: $error'),
             data: (programs) => currentProgramId.when(
               loading: () => const CircularProgressIndicator(),
@@ -174,16 +171,13 @@ class ProgramHeader extends ConsumerWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 600,
-                      child: DataManager(
-                        opts: getOpts(currentId, programs),
-                        onSelect: (name) => onSelect(name, programs),
-                        onCreate: onCreate,
-                        onRename: onRename,
-                        onDuplicate: onDuplicate,
-                        onDelete: onDelete,
-                      ),
+                    DataManager(
+                      opts: getOpts(currentId, programs),
+                      onSelect: (name) => onSelect(name, programs),
+                      onCreate: onCreate,
+                      onRename: onRename,
+                      onDuplicate: onDuplicate,
+                      onDelete: onDelete,
                     ),
                     const SizedBox(height: 20),
                     Row(

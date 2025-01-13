@@ -1,3 +1,5 @@
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/program.dart';
@@ -19,6 +21,21 @@ class ProgrammerBuilder extends ConsumerWidget {
     final program = ref.watch(programProvider);
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(programProvider.notifier);
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    if (screenWidth < 1000) {
+      return Text(
+          'sorry, your screen is too small use this function. We need at least 1000 pixels wide');
+    }
+
+    /*
+      To make sure the programGroup indicators are all aligned, between the top
+      headers, 'add set' buttons, and actual sets (which may be combosets), which
+      are inside of workout containers, we need to apply a consistent padding on left and right.
+      at a high level, the divisions are like so:
+      | <20px>< 45% left section >< 55% right section > <20px>
+      and within the left section we use these flex factors:
+      <15 sets><15 intensity><10 edit><10 delete><70 exercise name><35 equipment>
+*/
 
     return setup.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -30,17 +47,45 @@ class ProgrammerBuilder extends ConsumerWidget {
             Center(child: Text('Error loading program: $error')),
         data: (program) {
           //   dumpProgram(program);
+
           return Column(children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const ProgramHeader(),
-                Expanded(child: Container()),
-                const SizedBox(width: 30),
-                if (program.workouts.isNotEmpty) headers(),
+                const SizedBox(width: 20),
+                const Flexible(flex: 45, child: ProgramHeader()),
+                Flexible(
+                    flex: 55,
+                    child: program.workouts.isEmpty ? Container() : headers()),
                 const SizedBox(width: 20),
               ],
             ),
+            // visual aid for debugging
+            /*    Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(width: 20),
+                Flexible(
+                  flex: 45,
+                  child: Container(color: Colors.blueGrey, height: 20),
+                ),
+                Flexible(
+                  flex: 55,
+                  child: Row(children: [
+                    ...ProgramGroup.values.map(
+                      (g) => Expanded(
+                        // Expanded is IMPORTANT to take up the whole width
+                        child: Container(
+                            color: bgColorForProgramGroup(g), height: 20),
+                      ),
+                    ),
+                  ]),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+            */
+
             if (program.workouts.isEmpty)
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -63,14 +108,10 @@ class ProgrammerBuilder extends ConsumerWidget {
                   }),
                 )),
             if (program.workouts.isNotEmpty)
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                child: BuilderTotalsWidget(
-                  //   multiplier: 2,
-                  program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
-                  setup: setup,
-                ),
+              BuilderTotalsWidget(
+                //   multiplier: 2,
+                program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
+                setup: setup,
               ),
             if (program.workouts.isNotEmpty) const SizedBox(height: 20),
             if (program.workouts.isNotEmpty)
