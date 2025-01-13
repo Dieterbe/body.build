@@ -75,7 +75,6 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
               ]));
             },
           ),
-          /*
           const SizedBox(width: 16),
           Text(
             'Add set for muscle',
@@ -89,7 +88,6 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                   .withValues(alpha: 0.8),
             ),
           ),
-          */
           const SizedBox(width: 8),
           Icon(
             Icons.arrow_forward,
