@@ -31,8 +31,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      themeMode: ThemeMode.dark,
       title: 'Body.build',
-      darkTheme: ThemeData.dark(),
+      //     darkTheme: ThemeData.dark(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: colorSeed),
         useMaterial3: true,
