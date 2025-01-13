@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routerConfig: GoRouter(
-        initialLocation: '/',
+        initialLocation: '/${ProgrammerScreen.routeName}',
         routes: [
           GoRoute(
             path: '/',

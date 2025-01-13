@@ -17,12 +17,13 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Programmer'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         bottom: const TabBar(
           tabs: [
             Tab(text: "Set up"),
-            Tab(text: "Workout planner"),
+            Tab(text: "Workout programmer"),
             //    Tab(text: "Nutrition planner"), // WIP
           ],
         ),
