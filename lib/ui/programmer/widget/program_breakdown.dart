@@ -47,7 +47,7 @@ class ProgramBreakdown extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Program breakdown: muscle modalities",
+            "Muscle modalities",
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 4),
@@ -57,6 +57,8 @@ class ProgramBreakdown extends StatelessWidget {
               'for a given muscle, only the relevant articulations of used exercises are shown'),
           Text(
               'this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc'),
+          Text(
+              'For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis'),
           const SizedBox(height: 16),
           ...ProgramGroup.values.map((group) {
             final exercises = groupExercises[group]!;

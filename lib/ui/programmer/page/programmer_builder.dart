@@ -80,10 +80,59 @@ class ProgrammerBuilder extends ConsumerWidget {
                   const Text("Note: total only counts volumes >=0.5"),
                 ],
               ),
-            if (program.workouts.isNotEmpty) ProgramBreakdown(program),
+            if (program.workouts.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () => _showBreakdownDialog(context, program),
+                      icon: const Icon(Icons.analytics),
+                      label: const Text('View Program Breakdown'),
+                    ),
+                  ],
+                ),
+              ),
           ]);
         },
       ),
+    );
+  }
+
+  void _showBreakdownDialog(BuildContext context, ProgramState program) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Program Breakdown',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  ProgramBreakdown(program),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
