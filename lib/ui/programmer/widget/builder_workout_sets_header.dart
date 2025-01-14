@@ -6,6 +6,7 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 
 class BuilderWorkoutSetsHeader extends StatelessWidget {
   final Workout workout;
@@ -103,67 +104,174 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                     color: bgColorForProgramGroup(g),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return SimpleDialog(
-                            title: Text('Add an exercise which recruits $g'),
-                            children: [
-                              const Text(
-                                  'below are recommended exercises in order of recruitment'),
-                              const Text(
-                                  'exercises are only shown if the needed equipment is selected in the set-up'),
-                              /*
-                                     // ideally, user wants to preview the possible exercises within the program volume stats, so we could plonk them there
-                            // in a special "WIP" section (e.g. hatched background)
-                          // on the other hand, they also probably want to do a search to narrow it down to specific exercises, so they would
-                            // need a text filter, and in the future maybe future filters
-                            // putting all of that in the main UI seems a bit too much. let's just use a simple selection for now    
-                                    */
-
-                              Autocomplete<Ex>(
-                                  displayStringForOption: (e) => e.id,
-                                  optionsBuilder: (textEditingValue) {
-                                    final opts = setup.availableExercises
-                                        .where(
-                                            (e) => e.recruitment(g).volume > 0)
-                                        .where((e) => e.id
-                                            .toLowerCase()
-                                            .contains(textEditingValue.text
-                                                .toLowerCase()))
-                                        .toList();
-                                    opts.sort((a, b) => (b
-                                            .recruitment(g)
-                                            .volume)
-                                        .compareTo(a.recruitment(g).volume));
-                                    return opts;
-                                  },
-                                  onSelected: (Ex e) {
-                                    onChange(workout.copyWith(setGroups: [
-                                      ...workout.setGroups,
-                                      SetGroup([
-                                        Sets(setup.paramFinal.intensities.first,
-                                            ex: e)
-                                      ])
-                                    ]));
-                                    context.pop();
-                                  }),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Icon(
-                      Icons.add_circle_outline,
-                      size: 18,
-                      color: Theme.of(context).colorScheme.primary,
+                  child: PulseWidget(
+                    pulse: workout.setGroups.isEmpty,
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return addSetDialog(
+                              context,
+                              setup,
+                              g,
+                            );
+                          },
+                        );
+                      },
+                      child: Icon(
+                        Icons.add_circle_outline,
+                        size: 18,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ),
                 ),
               ),
             )
             .toList(),
+      );
+
+  Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) =>
+      SimpleDialog(
+        contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Add ${g.displayName} Exercise',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Choose from exercises sorted by recruitment level',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.7),
+                  ),
+            ),
+            const Divider(height: 24),
+          ],
+        ),
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Autocomplete<Ex>(
+                optionsBuilder: (textEditingValue) {
+                  final opts = setup.availableExercises
+                      .where((e) => e.recruitment(g).volume > 0)
+                      .where((e) => e.id
+                          .toLowerCase()
+                          .contains(textEditingValue.text.toLowerCase()))
+                      .toList();
+                  opts.sort((a, b) => (b.recruitment(g).volume)
+                      .compareTo(a.recruitment(g).volume));
+                  return opts;
+                },
+                displayStringForOption: (e) => e.id,
+                fieldViewBuilder:
+                    (context, controller, focusNode, onSubmitted) {
+                  return TextField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    onSubmitted: (value) => onSubmitted(),
+                    decoration: InputDecoration(
+                      hintText: 'Search exercises...',
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  );
+                },
+                optionsViewBuilder: (context, onSelected, options) {
+                  return Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      elevation: 4,
+                      borderRadius: BorderRadius.circular(8),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxHeight: 200,
+                          maxWidth: 400,
+                        ),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          itemCount: options.length,
+                          itemBuilder: (context, index) {
+                            final option = options.elementAt(index);
+                            final volume = option.recruitment(g).volume;
+                            return ListTile(
+                              dense: true,
+                              title: Text(option.id),
+                              trailing: SizedBox(
+                                width: 100,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: LinearProgressIndicator(
+                                        value: volume,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withOpacity(0.1),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      '${(volume * 100).toStringAsFixed(0)}%',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                onSelected(option);
+                                onChange(workout.copyWith(setGroups: [
+                                  ...workout.setGroups,
+                                  SetGroup([
+                                    Sets(setup.paramFinal.intensities.first,
+                                        ex: option)
+                                  ])
+                                ]));
+                                context.pop();
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                'Note: Only showing exercises available with your currently selected equipment',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.5),
+                      fontStyle: FontStyle.italic,
+                    ),
+              ),
+            ),
+          ),
+        ],
       );
 }

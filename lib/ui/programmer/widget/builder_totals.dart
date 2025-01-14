@@ -108,9 +108,12 @@ class BuilderTotalsWidget extends StatelessWidget {
                   Expanded(child: Container()),
                   Align(
                     alignment: Alignment.topRight,
-                    child: Icon(Icons.add,
-                        size: MediaQuery.sizeOf(context).width / 60,
-                        color: Theme.of(context).colorScheme.outline),
+                    child:
+                        Text(setup == null ? 'Workout total' : 'Program total',
+                            style: TextStyle(
+                              fontSize: MediaQuery.sizeOf(context).width / 100,
+                              fontWeight: FontWeight.bold,
+                            )),
                   ),
                   const SizedBox(width: 10),
                 ],

@@ -31,7 +31,7 @@ class ProgrammerSetupParamOverrides extends ConsumerWidget {
 
         return Column(
           children: [
-            const LabelBar('Parameter Overrides'),
+            const LabelBar('Overrides (optional)'),
 
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               titleText('Intensity', context),

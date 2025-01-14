@@ -25,7 +25,7 @@ class ProgrammerSetupFilters extends ConsumerWidget {
           Row(
             children: [
               Flexible(
-                flex: 2,
+                flex: 28,
                 child: LabelBar(
                   'Available equipment',
                   children: <Widget>[
@@ -57,56 +57,62 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                   ].insertBetween(const SizedBox(width: 8)).toList(),
                 ),
               ),
-              const Flexible(flex: 1, child: LabelBar('Exercise exclusion')),
+              const Flexible(flex: 10, child: LabelBar('Exercise exclusion')),
             ],
           ),
           Row(
             children: [
               Flexible(
-                flex: 2,
+                flex: 28,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     for (final category in EquipmentCategory.values) ...[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            category.displayName,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8),
-                          ...Equipment.values
-                              .where(
-                                  (equipment) => equipment.category == category)
-                              .map((equipment) {
-                            return Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                titleWidget(EquipmentLabel(equipment), context),
-                                Checkbox(
-                                  value:
-                                      setup.availEquipment.contains(equipment),
-                                  onChanged: (selected) {
-                                    if (selected == true) {
-                                      notifier.addEquipment(equipment);
-                                      return;
-                                    }
-                                    notifier.removeEquipment(equipment);
-                                  },
-                                ),
-                              ],
-                            );
-                          }),
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              category.displayName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.sizeOf(context).width / 100,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            ...Equipment.values
+                                .where((equipment) =>
+                                    equipment.category == category)
+                                .map((equipment) {
+                              return Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Checkbox(
+                                    value: setup.availEquipment
+                                        .contains(equipment),
+                                    onChanged: (selected) {
+                                      if (selected == true) {
+                                        notifier.addEquipment(equipment);
+                                        return;
+                                      }
+                                      notifier.removeEquipment(equipment);
+                                    },
+                                  ),
+                                  EquipmentLabel(equipment),
+                                ],
+                              );
+                            }),
+                          ],
+                        ),
                       ),
                     ],
                   ],
                 ),
               ),
               Flexible(
-                flex: 1,
+                flex: 10,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

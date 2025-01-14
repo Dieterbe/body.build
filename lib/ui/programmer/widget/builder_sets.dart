@@ -166,28 +166,25 @@ class BuilderSets extends ConsumerWidget {
             : Autocomplete<Ex>(
                 displayStringForOption: (e) => e.id,
                 optionsBuilder: (textEditingValue) {
-                  return setup.availableExercises
+                  final filtered = setup.availableExercises
                       .where((e) => e.id
                           .toLowerCase()
                           .contains(textEditingValue.text.toLowerCase()))
                       .toList();
+                  filtered.sort((a, b) => a.id.compareTo(b.id));
+                  return filtered;
                 },
-                fieldViewBuilder: (context, textEditingController, focusNode,
-                    onFieldSubmitted) {
+                fieldViewBuilder:
+                    (context, controller, focusNode, onSubmitted) {
                   return TextField(
-                    controller: textEditingController,
+                    controller: controller,
                     focusNode: focusNode,
-                    onEditingComplete: onFieldSubmitted,
+                    onEditingComplete: onSubmitted,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 8),
                       hintText: 'Search exercise...',
-                      hintStyle: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withValues(alpha: 0.5),
-                      ),
+                      prefixIcon: const Icon(Icons.search),
                       filled: true,
                       fillColor: Theme.of(context)
                           .colorScheme
@@ -209,6 +206,39 @@ class BuilderSets extends ConsumerWidget {
                               .primary
                               .withValues(alpha: 0.2),
                           width: 2,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                optionsViewBuilder: (context, onSelected, options) {
+                  return Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      elevation: 4,
+                      borderRadius: BorderRadius.circular(8),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxHeight: 200,
+                          maxWidth: 400,
+                        ),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          itemCount: options.length,
+                          itemBuilder: (context, index) {
+                            final option = options.elementAt(index);
+
+                            return ListTile(
+                              dense: true,
+                              title: Text(option.id),
+                              onTap: () {
+                                onSelected(option);
+                                onChange(
+                                    sets.copyWith(ex: option, changeEx: false));
+                              },
+                            );
+                          },
                         ),
                       ),
                     ),

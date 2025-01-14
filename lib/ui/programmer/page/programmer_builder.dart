@@ -21,11 +21,6 @@ class ProgrammerBuilder extends ConsumerWidget {
     final program = ref.watch(programProvider);
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(programProvider.notifier);
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    if (screenWidth < 1000) {
-      return Text(
-          'sorry, your screen is too small use this function. We need at least 1000 pixels wide');
-    }
 
     /*
       To make sure the programGroup indicators are all aligned, between the top
@@ -86,21 +81,6 @@ class ProgrammerBuilder extends ConsumerWidget {
             ),
             */
 
-            if (program.workouts.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Center(
-                  child: Text(
-                    'No workouts yet in this program. Add one!',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.6),
-                        ),
-                  ),
-                ),
-              ),
             ...program.workouts.map((w) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: BuilderWorkoutWidget(setup, w, (Workout? wNew) {

@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/current_program_provider.dart';
@@ -182,14 +183,24 @@ class ProgramHeader extends ConsumerWidget {
                     const SizedBox(height: 20),
                     Row(
                       children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            notifier.add(const Workout());
-                          },
-                          child: const Row(
-                            children: [Icon(Icons.add), Text('add workout')],
-                          ),
-                        ),
+                        PulseMessageWidget(
+                            pulse: ref.watch(programProvider).when(
+                                  data: (program) => program.workouts.isEmpty,
+                                  loading: () => false,
+                                  error: (_, __) => false,
+                                ),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                notifier.add(const Workout());
+                              },
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.add),
+                                  Text('add workout')
+                                ],
+                              ),
+                            ),
+                            msg: 'No workouts yet. Add one!'),
                         const SizedBox(width: 10),
                         /*
                         ElevatedButton(

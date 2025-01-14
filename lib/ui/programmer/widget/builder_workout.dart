@@ -144,6 +144,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                     SetGroup([Sets(setup.paramFinal.intensities.first)])
                   ]));
                 },
+                isEmpty: workout.setGroups.isEmpty,
               ),
               Expanded(child: Container()),
             ],
