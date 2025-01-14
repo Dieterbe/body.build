@@ -1,13 +1,13 @@
+import 'package:bodybuild/ui/core/text_style.dart';
+import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
+import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/level.dart';
 import 'package:bodybuild/model/programmer/sex.dart';
 import 'package:bodybuild/model/programmer/activity_level.dart';
-import 'package:bodybuild/ui/core/info_button.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
 import 'package:bodybuild/ui/programmer/widget/setup_profile_header.dart';
-import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/util/formulas.dart';
 
 import '../../../data/programmer/setup.dart';
@@ -180,281 +180,211 @@ class ProgrammerSetupInputs extends ConsumerWidget {
 
         return Column(
           children: [
-            Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SetupProfileHeader(),
-                ),
-                Expanded(child: Container()),
-              ],
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: SetupProfileHeader(),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   flex: 10,
-                  child: Column(children: [
-                    const LabelBar('Personal information'),
-                    Row(
-                      children: [
-                        titleText('Sex', context),
-                        const SizedBox(width: 25),
-                        SizedBox(
-                          width: 200,
-                          child: DropdownButton<Sex>(
-                            value: setup.sex,
-                            isExpanded: true,
-                            onChanged: notifier.setSex,
-                            items: Sex.values
-                                .map<DropdownMenuItem<Sex>>((Sex value) {
-                              return DropdownMenuItem<Sex>(
-                                value: value,
-                                child: Text(value.name),
-                              );
-                            }).toList(),
-                          ),
+                  child: Column(
+                    children: [
+                      const LabelBar('Personal information'),
+                      KVRow(
+                        titleTextMedium('Sex', context),
+                        DropdownButton<Sex>(
+                          value: setup.sex,
+                          isExpanded: true,
+                          onChanged: notifier.setSex,
+                          items: Sex.values
+                              .map<DropdownMenuItem<Sex>>((Sex value) {
+                            return DropdownMenuItem<Sex>(
+                              value: value,
+                              child: Text(value.name, style: ts100(context)),
+                            );
+                          }).toList(),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        titleText('Age', context),
-                        const SizedBox(width: 25),
+                      ),
+                      const SizedBox(height: 12),
+                      KVRow(
+                        titleTextMedium('Age', context),
                         numInput(
                           keyAge,
                           'years',
                           setup.age.toString(),
+                          context,
                           validator: notifier.ageValidator,
                           onChanged: notifier.setAgeMaybe,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        titleText('Weight', context),
-                        const SizedBox(width: 25),
+                      ),
+                      const SizedBox(height: 12),
+                      KVRow(
+                        titleTextMedium('Weight', context),
                         numInput(
                           keyWeight,
                           'kg',
                           setup.weight.toString(),
+                          context,
                           validator: notifier.weightValidator,
                           onChanged: notifier.setWeightMaybe,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        titleText('Height', context),
-                        const SizedBox(width: 25),
+                      ),
+                      const SizedBox(height: 12),
+                      KVRow(
+                        titleTextMedium('Height', context),
                         numInput(
                           keyHeight,
                           'cm',
                           setup.height.toString(),
+                          context,
                           validator: notifier.heightValidator,
                           onChanged: notifier.setHeightMaybe,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        titleText('Body Fat', context),
-                        const SizedBox(width: 25),
+                      ),
+                      const SizedBox(height: 12),
+                      KVRow(
+                        titleTextMedium('Body Fat', context),
                         numInput(
                           keyBodyFat,
                           '%',
                           setup.bodyFat?.toStringAsFixed(1) ?? '',
+                          context,
                           validator: notifier.bodyFatValidator,
                           onChanged: notifier.setBodyFatMaybe,
                         ),
-                        const SizedBox(width: 12),
-                        InfoButton(
-                          title: 'Body Fat',
-                          child: MarkdownBody(data: helpBodyFat(bfDeur)),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        titleText('Activity Level', context),
-                        const SizedBox(width: 25),
-                        SizedBox(
-                          width: 200,
-                          child: DropdownButton<ActivityLevel>(
-                            value: setup.activityLevel,
-                            isExpanded: true,
-                            onChanged: (ActivityLevel? level) {
-                              if (level != null) {
-                                notifier.setActivityLevel(level);
-                              }
-                            },
-                            items: ActivityLevel.values
-                                .map((level) => DropdownMenuItem(
-                                      value: level,
-                                      child: Text(level.displayName),
-                                    ))
-                                .toList(),
-                          ),
+                        help: helpBodyFat(bfDeur),
+                        helpTitle: 'Body Fat',
+                      ),
+                      const SizedBox(height: 12),
+                      KVRow(
+                        titleTextMedium('Activity Level', context),
+                        DropdownButton<ActivityLevel>(
+                          value: setup.activityLevel,
+                          isExpanded: true,
+                          onChanged: (ActivityLevel? level) {
+                            if (level != null) {
+                              notifier.setActivityLevel(level);
+                            }
+                          },
+                          items: ActivityLevel.values
+                              .map((level) => DropdownMenuItem(
+                                    value: level,
+                                    child: Text(level.displayName,
+                                        style: ts100(context)),
+                                  ))
+                              .toList(),
                         ),
-                        const SizedBox(width: 12),
-                        const InfoButton(
-                          title: 'Activity Level',
-                          child: MarkdownBody(data: helpActivityLevel),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        titleText(
-                          'Recovery Factor',
-                          context,
-                        ),
-                        const SizedBox(width: 25),
+                        help: helpActivityLevel,
+                        helpTitle: 'Activity Level',
+                      ),
+                      const SizedBox(height: 12),
+                      KVRow(
+                        titleTextMedium('Recovery Factor', context),
                         numInput(
                           keyRecoveryFactor,
                           '',
                           setup.recoveryFactor.toStringAsFixed(1),
+                          context,
                           validator: notifier.recoveryFactorValidator,
                           onChanged: notifier.setRecoveryFactorMaybe,
                         ),
-                        const SizedBox(width: 12),
-                        const InfoButton(
-                          title: 'Recovery Factor',
-                          child: MarkdownBody(data: helpRecoveryFactor),
-                        ),
-                      ],
-                    ),
-                  ]),
+                        help: helpRecoveryFactor,
+                        helpTitle: 'Recovery Factor',
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   flex: 10,
                   child: Column(
                     children: [
                       const LabelBar('Training & Nutrition'),
-                      Row(
-                        children: [
-                          titleText('Trainee level', context),
-                          const SizedBox(width: 25),
-                          SizedBox(
-                            width: 200,
-                            child: DropdownButton<Level>(
-                              value: setup.level,
-                              isExpanded: true,
-                              onChanged: notifier.setLevel,
-                              items: Level.values
-                                  .map<DropdownMenuItem<Level>>((Level value) {
-                                return DropdownMenuItem<Level>(
-                                  value: value,
-                                  child: Text(value.name),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          const InfoButton(
-                            title: 'Trainee Level',
-                            child: MarkdownBody(data: helpTraineeLevel),
-                          )
-                        ],
+                      KVRow(
+                        titleTextMedium('Trainee level', context),
+                        DropdownButton<Level>(
+                          value: setup.level,
+                          isExpanded: true,
+                          onChanged: notifier.setLevel,
+                          items: Level.values
+                              .map<DropdownMenuItem<Level>>((Level value) {
+                            return DropdownMenuItem<Level>(
+                              value: value,
+                              child: Text(value.name, style: ts100(context)),
+                            );
+                          }).toList(),
+                        ),
+                        help: helpTraineeLevel,
+                        helpTitle: 'Trainee level',
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          titleText('Workouts', context),
-                          const SizedBox(width: 25),
-                          numInput(
-                            keyWorkoutsPerWeek,
-                            'per week',
-                            setup.workoutsPerWeek.toString(),
-                            validator: notifier.workoutsPerWeekValidator,
-                            onChanged: notifier.setWorkoutsPerWeekMaybe,
-                          ),
-                        ],
+                      KVRow(
+                        titleTextMedium('Workouts', context),
+                        numInput(
+                          keyWorkoutsPerWeek,
+                          'per week',
+                          setup.workoutsPerWeek.toString(),
+                          context,
+                          validator: notifier.workoutsPerWeekValidator,
+                          onChanged: notifier.setWorkoutsPerWeekMaybe,
+                        ),
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          titleText(
-                            'Workout Duration',
-                            context,
-                          ),
-                          const SizedBox(width: 25),
-                          numInput(
-                            _durationKey,
-                            'min',
-                            setup.workoutDuration.toString(),
-                            validator: notifier.workoutDurationValidator,
-                            onChanged: notifier.setWorkoutDurationMaybe,
-                          ),
-                          const SizedBox(width: 12),
-                          const InfoButton(
-                            title: 'Workout Duration',
-                            child: MarkdownBody(data: helpWorkoutDuration),
-                          ),
-                        ],
+                      KVRow(
+                        titleTextMedium('Workout Duration', context),
+                        numInput(
+                          _durationKey,
+                          'min',
+                          setup.workoutDuration.toString(),
+                          context,
+                          validator: notifier.workoutDurationValidator,
+                          onChanged: notifier.setWorkoutDurationMaybe,
+                        ),
+                        help: helpWorkoutDuration,
+                        helpTitle: 'Workout Duration',
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          titleText('Energy balance', context),
-                          const SizedBox(width: 25),
-                          numInput(
-                            keyEnergyBalance,
-                            '%',
-                            setup.energyBalance.toString(),
-                            validator: notifier.energyBalanceValidator,
-                            onChanged: notifier.setEnergyBalanceMaybe,
-                          ),
-                          const SizedBox(width: 12),
-                          const InfoButton(
-                            title: 'Energy Balance %',
-                            child: MarkdownBody(data: helpEnergyBalance),
-                          ),
-                        ],
+                      KVRow(
+                        titleTextMedium('Energy balance', context),
+                        numInput(
+                          keyEnergyBalance,
+                          '%',
+                          setup.energyBalance.toString(),
+                          context,
+                          validator: notifier.energyBalanceValidator,
+                          onChanged: notifier.setEnergyBalanceMaybe,
+                        ),
+                        help: helpEnergyBalance,
+                        helpTitle: 'Energy balance',
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          titleText('TEF multiplier', context),
-                          const SizedBox(width: 25),
-                          numInput(
-                            keyTefFactor,
-                            '',
-                            setup.tefFactor.toStringAsFixed(2),
-                            validator: notifier.tefFactorValidator,
-                            onChanged: notifier.setTefFactorMaybe,
-                          ),
-                          const SizedBox(width: 12),
-                          const InfoButton(
-                            title: 'Thermic Effect of Food',
-                            child: MarkdownBody(data: helpTefFactor),
-                          ),
-                        ],
+                      KVRow(
+                        titleTextMedium('TEF multiplier', context),
+                        numInput(
+                          keyTefFactor,
+                          '',
+                          setup.tefFactor.toStringAsFixed(2),
+                          context,
+                          validator: notifier.tefFactorValidator,
+                          onChanged: notifier.setTefFactorMaybe,
+                        ),
+                        help: helpTefFactor,
+                        helpTitle: 'TEF multiplier',
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          titleText('AT multiplier', context),
-                          const SizedBox(width: 25),
-                          numInput(
-                            keyAtFactor,
-                            '',
-                            setup.atFactor.toStringAsFixed(2),
-                            validator: notifier.atFactorValidator,
-                            onChanged: notifier.setAtFactorMaybe,
-                          ),
-                          const SizedBox(width: 12),
-                          const InfoButton(
-                            title: 'Adaptive Thermogenesis',
-                            child: MarkdownBody(data: helpAtFactor),
-                          ),
-                        ],
+                      KVRow(
+                        titleTextMedium('AT multiplier', context),
+                        numInput(
+                          keyAtFactor,
+                          '',
+                          setup.atFactor.toStringAsFixed(2),
+                          context,
+                          validator: notifier.atFactorValidator,
+                          onChanged: notifier.setAtFactorMaybe,
+                        ),
+                        help: helpAtFactor,
+                        helpTitle: 'AT multiplier',
                       ),
                     ],
                   ),
@@ -473,24 +403,22 @@ class ProgrammerSetupInputs extends ConsumerWidget {
 Widget numInput(
   GlobalKey key,
   String suffix,
-  String value, {
+  String value,
+  BuildContext context, {
   required String? Function(String?)? validator,
   required void Function(String)? onChanged,
 }) =>
-    SizedBox(
-      width: 200,
-      child: TextFormField(
-        key: key,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          isDense: true,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          suffixText: suffix,
-        ),
-        initialValue: value,
-        autovalidateMode: AutovalidateMode.always,
-        validator: validator,
-        onChanged: onChanged,
+    TextFormField(
+      style: ts100(context),
+      key: key,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        suffixText: suffix,
       ),
+      initialValue: value,
+      autovalidateMode: AutovalidateMode.always,
+      validator: validator,
+      onChanged: onChanged,
     );

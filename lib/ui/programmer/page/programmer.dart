@@ -69,7 +69,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Programmer'),
+        title: const Text('Body.build'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         bottom: const TabBar(
           tabs: [

@@ -118,16 +118,13 @@ class SetupProfileHeader extends ConsumerWidget {
         data: (profiles) => currentSetupId.when(
               loading: () => const CircularProgressIndicator(),
               error: (error, stack) => Text('Error: $error'),
-              data: (currentId) => SizedBox(
-                width: 600,
-                child: DataManager(
-                  opts: getOpts(currentId, profiles),
-                  onSelect: (name) => onSelect(name, profiles),
-                  onCreate: onCreate,
-                  onRename: onRename,
-                  onDuplicate: onDuplicate,
-                  onDelete: onDelete,
-                ),
+              data: (currentId) => DataManager(
+                opts: getOpts(currentId, profiles),
+                onSelect: (name) => onSelect(name, profiles),
+                onCreate: onCreate,
+                onRename: onRename,
+                onDuplicate: onDuplicate,
+                onDelete: onDelete,
               ),
             ));
   }

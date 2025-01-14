@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:flutter/material.dart';
 
 Widget rotatedText(String text) {
@@ -30,17 +31,17 @@ Widget pad8(Widget child) => Padding(
       child: child,
     );
 
-Widget titleMedium(String title, BuildContext context) =>
-    Text(title, style: Theme.of(context).textTheme.titleMedium);
-
 // TODO: rename these to convey the align & width capping: prefixFoo maybe?
 // fixed with, for use in rows
-Widget titleText(String title, BuildContext context) =>
-    titleWidget(titleMedium(title, context), context);
+// TODO: no actually, this should be deprecated as we auto-manage our layouts now
+Widget titleTextMedium(String title, BuildContext context) =>
+    titleWidget(Text(title, style: ts100(context)), context);
 
 Widget titleTextLarge(String title, BuildContext context) => titleWidget(
     Text(title, style: Theme.of(context).textTheme.titleLarge), context);
 
 // fixed with, for use in rows
-Widget titleWidget(Widget child, BuildContext context) =>
-    Container(alignment: Alignment.centerRight, width: 140, child: child);
+Widget titleWidget(Widget child, BuildContext context) => Expanded(
+      flex: 10,
+      child: Container(alignment: Alignment.centerRight, child: child),
+    );

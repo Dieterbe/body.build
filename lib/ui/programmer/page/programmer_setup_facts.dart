@@ -1,7 +1,10 @@
+import 'package:bodybuild/ui/core/text_style.dart';
+import 'package:bodybuild/ui/programmer/widget/k_string_row.dart';
+import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
+import 'package:bodybuild/ui/programmer/widget/kv_strings_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/bmr_method.dart';
-import 'package:bodybuild/ui/core/info_button.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/util/formulas.dart';
@@ -23,6 +26,24 @@ Ten Haaf (2014):
 Well-suited for athletes when body fat percentage is unknown. Uses weight, height, age, and sex.
 ''';
 
+const String helpTrainingEE = '''
+Training Energy Expenditure (TEE) is the amount of energy used for weight lifting training.
+It is based on:
+* your training intensiveness (which we assume is high enough, therefore there is no configuration for it)
+* duration of your session.
+* your bodyweight
+
+Note that it also includes the basal metabolic rate (BMR) of the body, Which can
+become substantial if you are physically active, and will them automatically be adjuset for.
+See "displaced EE" below.
+''';
+
+const String helpDisplacedEE = '''
+The "displaced" Energy Expenditure (EE) is the amount of energy used for training that is already
+included in the BMR.  If this amount is substantial, it will automatically be subtracted from the
+training EE to avoid double counting. In this case, EPOC is added in.
+''';
+
 class ProgrammerSetupFacts extends ConsumerWidget {
   const ProgrammerSetupFacts({super.key});
 
@@ -35,21 +56,28 @@ class ProgrammerSetupFacts extends ConsumerWidget {
     String? errorMessage,
   }) {
     return Column(
+      //  crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Radio<bool>(
-              value: true,
-              groupValue: isSelected,
-              onChanged: (_) => onSelect(),
+        KVRow(
+          Flexible(
+            flex: 10,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Radio<bool>(
+                value: true,
+                groupValue: isSelected,
+                onChanged: (_) => onSelect(),
+              ),
             ),
-            Text(
-                '${value == null ? 'N/A' : value.round().toString()} (${method.displayName})',
-                style: TextStyle(
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                )),
-          ],
+          ),
+          Text(
+              '${value == null ? 'N/A' : value.round().toString()} (${method.displayName})',
+              style: TextStyle(
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                fontSize: MediaQuery.sizeOf(context).width / 100,
+              )),
         ),
         if (isSelected && errorMessage != null)
           Padding(
@@ -118,112 +146,91 @@ class ProgrammerSetupFacts extends ConsumerWidget {
               const LabelBar('Resulting Facts'),
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                  Flexible(
+                    flex: 100,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        KVStringsRow('BMI', bmi.toStringAsFixed(2)),
+                        SizedBox(height: 20),
+                        KStringRow('BMR', help: helpBMR),
+                        for (final (method, value, error) in bmrMethods) ...[
+                          Center(
+                            child: _buildBMRRow(
+                              context,
+                              method,
+                              value,
+                              setup.bmrMethod == method,
+                              () => notifier.setBMRMethod(method),
+                              errorMessage: error,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                        ],
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    flex: 100,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        KVStringsRow(
+                            'Training EE', trainingEE.round().toString(),
+                            help: helpTrainingEE),
+                        const SizedBox(height: 20),
+                        KVStringsRow(
+                          'Displaced EE',
+                          displacedEE.round().toString() +
+                              (adjusted ? ' (accounted for)' : ' (ignored)'),
+                          help: helpDisplacedEE,
+                        ),
+                        const SizedBox(height: 20),
+                        Table(
+                          defaultColumnWidth: const IntrinsicColumnWidth(),
                           children: [
-                            titleText('BMI', context),
-                            const SizedBox(width: 25),
-                            Text(bmi.toStringAsFixed(2)),
-                          ]),
-                      const SizedBox(height: 20),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          titleWidget(
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
+                            TableRow(
                               children: [
-                                const InfoButton(
-                                  title: 'Basal Metabolic Rate (BMR)',
-                                  child: Text(helpBMR),
-                                ),
-                                Text('BMR',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium),
+                                const SizedBox(), // Empty cell for row headers
+                                pad8(Text('EE', style: ts100(context))),
+                                pad8(Text('Target Intake',
+                                    style: ts100(context))),
                               ],
                             ),
-                            context,
-                          ),
-                          const SizedBox(width: 25),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              for (final (method, value, error)
-                                  in bmrMethods) ...[
-                                _buildBMRRow(
-                                  context,
-                                  method,
-                                  value,
-                                  setup.bmrMethod == method,
-                                  () => notifier.setBMRMethod(method),
-                                  errorMessage: error,
-                                ),
-                                const SizedBox(height: 8),
+                            TableRow(
+                              children: [
+                                pad8(Text('Rest Day', style: ts100(context))),
+                                pad8(Text(restingDayEE.round().toString(),
+                                    style: ts100(context))),
+                                pad8(Text(
+                                    targetIntakeResting.round().toString(),
+                                    style: ts100(context))),
                               ],
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        titleText('Training EE', context),
-                        const SizedBox(width: 25),
-                        Text(trainingEE.round().toString()),
-                      ]),
-                      const SizedBox(height: 20),
-                      Row(children: [
-                        titleText('Displaced EE', context),
-                        const SizedBox(width: 25),
-                        Text(displacedEE.round().toString()),
-                        const SizedBox(width: 25),
-                        Text(adjusted ? '(accounted for)' : '(ignored)'),
-                      ]),
-                      const SizedBox(height: 20),
-                      const SizedBox(height: 10),
-                      Table(
-                        defaultColumnWidth: const IntrinsicColumnWidth(),
-                        children: [
-                          TableRow(
-                            children: [
-                              const SizedBox(), // Empty cell for row headers
-                              pad8(titleMedium('EE', context)),
-                              pad8(titleMedium('Target Intake', context)),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              pad8(titleMedium('Rest Day', context)),
-                              pad8(Text(restingDayEE.round().toString())),
-                              pad8(
-                                  Text(targetIntakeResting.round().toString())),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              pad8(titleMedium('Training Day', context)),
-                              pad8(Text(trainingDayEE.round().toString())),
-                              pad8(Text(
-                                  targetIntakeTraining.round().toString())),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              pad8(titleMedium('Average', context)),
-                              pad8(Text(averageDayEE.round().toString())),
-                              pad8(Text(targetIntake.round().toString())),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                            ),
+                            TableRow(
+                              children: [
+                                pad8(Text('Training Day',
+                                    style: ts100(context))),
+                                pad8(Text(trainingDayEE.round().toString(),
+                                    style: ts100(context))),
+                                pad8(Text(
+                                    targetIntakeTraining.round().toString(),
+                                    style: ts100(context))),
+                              ],
+                            ),
+                            TableRow(
+                              children: [
+                                pad8(Text('Average', style: ts100(context))),
+                                pad8(Text(averageDayEE.round().toString(),
+                                    style: ts100(context))),
+                                pad8(Text(targetIntake.round().toString(),
+                                    style: ts100(context))),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   )
                 ],
               )

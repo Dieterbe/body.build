@@ -1,12 +1,18 @@
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/ui/core/text_style.dart';
+import 'package:bodybuild/ui/programmer/widget/k_string_row.dart';
+import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
+import 'package:bodybuild/ui/programmer/widget/kv_strings_row.dart';
+import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/ui/core/info_button.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
-import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 
 const String helpSetsPerWeekPerMuscleGroup = '''
+Number of sets per week per muscle group
 Based on Menno's calculator.
 
 Does not consider age, menopause, hormone replacement, diet, rest intervals, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.
@@ -18,37 +24,163 @@ Practical tips:
 ''';
 
 class ProgrammerSetupParams extends ConsumerWidget {
-  const ProgrammerSetupParams({super.key});
+  ProgrammerSetupParams({super.key});
+  // keys for TextFormField's that don't use Form. see TextFormField docs
+  final keyIntensities = GlobalKey<FormFieldState>();
+  final keyWeeklyVolume = GlobalKey<FormFieldState>();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
+    final notifier = ref.read(setupProvider.notifier);
 
     return setup.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
-      data: (setup) => Column(
-        children: [
-          const LabelBar('Resulting parameters'),
-          Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            titleText('Intensity', context),
-            const SizedBox(width: 25),
-            Text(setup.paramSuggest.intensities
-                .map((i) => i.toString())
-                .join(',')),
-          ]),
-          const SizedBox(height: 20),
-          Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            titleText('Sets Per week per muscle group', context),
-            const SizedBox(width: 25),
-            Text(setup.paramSuggest.setsPerweekPerMuscleGroup
-                .toStringAsFixed(0)),
-            const SizedBox(width: 12),
-            const InfoButton(
-                title: 'Sets per week per muscle group',
-                child: MarkdownBody(data: helpSetsPerWeekPerMuscleGroup)),
-          ]),
-        ],
-      ),
+      data: (setup) {
+        // Get the list of available program groups (those not already overridden)
+        final availableGroups =
+            setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual == null
+                ? ProgramGroup.values
+                : ProgramGroup.values.where((group) => !setup
+                    .paramOverrides.setsPerWeekPerMuscleGroupIndividual!
+                    .any((override) => override.group == group));
+
+        return Column(
+          children: [
+            const LabelBar('Resulting Parameters'),
+            Text(
+                'these params are derived from your inputs. You may optionally override them',
+                style: ts100(context)),
+            Row(children: [
+              Expanded(
+                flex: 10,
+                child: Column(children: [
+                  KVRow(
+                    titleTextMedium(
+                        'Intensity: ${setup.paramSuggest.intensities.map((i) => i.toString()).join(',')}',
+                        context),
+                    TextFormField(
+                      key: keyIntensities,
+                      initialValue: (setup.paramOverrides.intensities == null)
+                          ? ''
+                          : setup.paramOverrides.intensities!
+                              .map((i) => i.toString())
+                              .join(','),
+                      keyboardType: TextInputType.number,
+                      autovalidateMode: AutovalidateMode.always,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        isDense: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      ),
+                      validator: notifier.intensitiesValidator,
+                      onChanged: notifier.setIntensitiesMaybe,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  KVRow(
+                    titleTextMedium(
+                        'Sets /week/muscle: ${setup.paramSuggest.setsPerweekPerMuscleGroup.toStringAsFixed(0)}',
+                        context),
+                    TextFormField(
+                      key: keyWeeklyVolume,
+                      initialValue: setup
+                              .paramOverrides.setsPerWeekPerMuscleGroup
+                              ?.toString() ??
+                          '',
+                      keyboardType: TextInputType.number,
+                      autovalidateMode: AutovalidateMode.always,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        isDense: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                      ),
+                      validator: notifier.setsPerWeekPerMuscleGroupValidator,
+                      onChanged: notifier.setSetsPerWeekPerMuscleGroupMaybe,
+                    ),
+                    help: helpSetsPerWeekPerMuscleGroup,
+                    helpTitle: 'Sets per week per muscle group',
+                  ),
+                ]),
+              ),
+              Expanded(
+                flex: 10,
+                child: Column(children: [
+                  KStringRow('Muscle specific overrides'),
+                  if (availableGroups.isNotEmpty) ...[
+                    const SizedBox(height: 20),
+                    KVRow(
+                      titleTextMedium('Add for: ', context),
+                      DropdownButton<ProgramGroup>(
+                        value: null,
+                        hint: Text('Select muscle', style: ts100(context)),
+                        items: availableGroups
+                            .map((group) => DropdownMenuItem(
+                                  value: group,
+                                  child: Text(group.displayName,
+                                      style: ts100(context)),
+                                ))
+                            .toList(),
+                        onChanged: (group) {
+                          if (group != null) {
+                            notifier.addMuscleGroupOverride(group);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                  if (setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual
+                          ?.isNotEmpty ==
+                      true) ...[
+                    const SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    ...setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual!
+                        .map(
+                      (override) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: KVRow(
+                                titleTextMedium(
+                                    override.group.displayName, context),
+                                TextFormField(
+                                  initialValue: override.sets.toString(),
+                                  keyboardType: TextInputType.number,
+                                  autovalidateMode: AutovalidateMode.always,
+                                  decoration: const InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 8),
+                                  ),
+                                  validator: notifier
+                                      .setsPerWeekPerMuscleGroupValidator,
+                                  onChanged: (value) =>
+                                      notifier.updateMuscleGroupOverride(
+                                          override.group, value),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => notifier
+                                  .removeMuscleGroupOverride(override.group),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ]),
+              )
+            ]),
+          ],
+        );
+      },
     );
   }
 }

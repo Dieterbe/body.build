@@ -1,5 +1,3 @@
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/program.dart';
