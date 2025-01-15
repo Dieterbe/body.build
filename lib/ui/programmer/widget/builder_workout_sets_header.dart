@@ -139,14 +139,14 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Add ${g.displayName} Exercise',
+              'Add set for: ${g.displayName}',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Choose from exercises sorted by recruitment level',
+              'Exercises matching your equipment filter are shown in order of recruitment of the ${g.displayName}.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context)
                         .colorScheme
@@ -252,23 +252,6 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                     ),
                   );
                 },
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                'Note: Only showing exercises available with your currently selected equipment',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.5),
-                      fontStyle: FontStyle.italic,
-                    ),
               ),
             ),
           ),
