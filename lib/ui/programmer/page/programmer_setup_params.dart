@@ -2,13 +2,10 @@ import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:bodybuild/ui/programmer/widget/k_string_row.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
-import 'package:bodybuild/ui/programmer/widget/kv_strings_row.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
-import 'package:bodybuild/ui/core/info_button.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
 
 const String helpSetsPerWeekPerMuscleGroup = '''
@@ -109,7 +106,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
               Expanded(
                 flex: 10,
                 child: Column(children: [
-                  KStringRow('Muscle specific overrides'),
+                  const KStringRow('Muscle specific overrides'),
                   if (availableGroups.isNotEmpty) ...[
                     const SizedBox(height: 20),
                     KVRow(

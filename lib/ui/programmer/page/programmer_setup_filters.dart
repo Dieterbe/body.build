@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
-import 'package:bodybuild/data/programmer/exercise_base.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
-import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/util.dart';
 
 class ProgrammerSetupFilters extends ConsumerWidget {

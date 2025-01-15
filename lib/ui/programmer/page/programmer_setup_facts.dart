@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/bmr_method.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
-import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/util/formulas.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 
@@ -152,8 +151,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         KVStringsRow('BMI', bmi.toStringAsFixed(2)),
-                        SizedBox(height: 20),
-                        KStringRow('BMR', help: helpBMR),
+                        const SizedBox(height: 20),
+                        const KStringRow('BMR', help: helpBMR),
                         for (final (method, value, error) in bmrMethods) ...[
                           Center(
                             child: _buildBMRRow(
@@ -212,7 +211,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .surfaceVariant
+                                        .surfaceContainerHighest
                                         .withOpacity(0.5),
                                   ),
                                   children: [

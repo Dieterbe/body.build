@@ -69,7 +69,7 @@ class BuilderTotalsWidget extends StatelessWidget {
     return Column(
       children: [
         Row(children: [
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Flexible(flex: 43, child: Container()),
           // "bottom line"
           const Flexible(
@@ -78,11 +78,11 @@ class BuilderTotalsWidget extends StatelessWidget {
               thickness: 2,
             ),
           ),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
         ]),
         Row(
           children: [
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Flexible(
               flex: 45,
               child: Row(
@@ -154,7 +154,7 @@ class BuilderTotalsWidget extends StatelessWidget {
         ),
         Row(
           children: [
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Flexible(flex: 45, child: Container()),
             Flexible(
               flex: 55,

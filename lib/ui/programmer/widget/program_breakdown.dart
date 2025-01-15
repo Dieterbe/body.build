@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
@@ -51,13 +50,13 @@ class ProgramBreakdown extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 4),
-          Text(
+          const Text(
               'Note: the purpose is understanding the different ways in which the muscle is stimulated'),
-          Text(
+          const Text(
               'for a given muscle, only the relevant articulations of used exercises are shown'),
-          Text(
+          const Text(
               'this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc'),
-          Text(
+          const Text(
               'For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis'),
           const SizedBox(height: 16),
           ...ProgramGroup.values.map((group) {

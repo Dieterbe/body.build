@@ -2,12 +2,10 @@ import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/current_program_provider.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/program.dart';
 import 'package:bodybuild/data/programmer/program_list_provider.dart';
 import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
-import 'package:bodybuild/model/programgen_v2/generator.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/core/widget/data_manager.dart';
@@ -163,7 +161,7 @@ class ProgramHeader extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (setup) => ref.watch(programListProvider).when(
-            loading: () => LinearProgressIndicator(),
+            loading: () => const LinearProgressIndicator(),
             error: (error, stack) => Text('Error: $error'),
             data: (programs) => currentProgramId.when(
               loading: () => const CircularProgressIndicator(),
@@ -189,6 +187,7 @@ class ProgramHeader extends ConsumerWidget {
                                   loading: () => false,
                                   error: (_, __) => false,
                                 ),
+                            msg: 'No workouts yet. Add one!',
                             child: ElevatedButton(
                               onPressed: () {
                                 notifier.add(const Workout());
@@ -199,8 +198,7 @@ class ProgramHeader extends ConsumerWidget {
                                   Text('add workout')
                                 ],
                               ),
-                            ),
-                            msg: 'No workouts yet. Add one!'),
+                            )),
                         const SizedBox(width: 10),
                         /*
                         ElevatedButton(

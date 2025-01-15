@@ -82,7 +82,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context)
                             .colorScheme
-                            .onBackground
+                            .onSurface
                             .withOpacity(0.5),
                       ),
                 ),
@@ -122,7 +122,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                           ],
                         ),
                         const SizedBox(height: 16),
-                        Flexible(
+                        const Flexible(
                           child: SingleChildScrollView(
                             child: MarkdownBody(data: helpProgrammer),
                           ),
@@ -151,9 +151,9 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           labelColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor:
               Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-          overlayColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.hovered)) {
+          overlayColor: WidgetStateProperty.resolveWith<Color?>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.hovered)) {
                 return Theme.of(context).colorScheme.surface.withOpacity(0.1);
               }
               return null;

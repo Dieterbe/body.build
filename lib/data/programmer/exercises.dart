@@ -47,7 +47,7 @@ class Ex {
 
   Assign recruitmentFiltered(ProgramGroup pg, double cutoff) {
     final raw = recruitment(pg);
-    return raw.volume >= cutoff ? raw : Assign(0);
+    return raw.volume >= cutoff ? raw : const Assign(0);
   }
 
   double totalRecruitment() => ProgramGroup.values
