@@ -322,6 +322,40 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                     ),
                                   ],
                                 ),
+                                TableRow(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      child: Text('Average',
+                                          style: ts100(context).copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.8),
+                                          ),
+                                          textAlign: TextAlign.left),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        averageDayEE.round().toString(),
+                                        style: ts100(context),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        targetIntake.round().toString(),
+                                        style: ts100(context),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
