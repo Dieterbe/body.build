@@ -171,67 +171,162 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                     ),
                   ),
                   Flexible(
-                    flex: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        KVStringsRow(
-                            'Training EE', trainingEE.round().toString(),
-                            help: helpTrainingEE),
-                        const SizedBox(height: 20),
-                        KVStringsRow(
-                          'Displaced EE',
-                          displacedEE.round().toString() +
-                              (adjusted ? ' (accounted for)' : ' (ignored)'),
-                          help: helpDisplacedEE,
-                        ),
-                        const SizedBox(height: 20),
-                        Table(
-                          defaultColumnWidth: const IntrinsicColumnWidth(),
-                          children: [
-                            TableRow(
+                      flex: 100,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          KVStringsRow(
+                              'Training EE', trainingEE.round().toString(),
+                              help: helpTrainingEE),
+                          const SizedBox(height: 20),
+                          KVStringsRow(
+                            'Displaced EE',
+                            displacedEE.round().toString() +
+                                (adjusted ? ' (accounted for)' : ' (ignored)'),
+                            help: helpDisplacedEE,
+                          ),
+                          const SizedBox(height: 20),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: Theme.of(context)
+                                    .dividerColor
+                                    .withOpacity(0.3),
+                                width: 1,
+                              ),
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            child: Table(
+                              defaultColumnWidth: const IntrinsicColumnWidth(),
+                              border: TableBorder(
+                                horizontalInside: BorderSide(
+                                  color: Theme.of(context)
+                                      .dividerColor
+                                      .withOpacity(0.2),
+                                  width: 1,
+                                ),
+                              ),
                               children: [
-                                const SizedBox(), // Empty cell for row headers
-                                pad8(Text('EE', style: ts100(context))),
-                                pad8(Text('Target kcal intake',
-                                    style: ts100(context))),
+                                TableRow(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surfaceVariant
+                                        .withOpacity(0.5),
+                                  ),
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text('Day',
+                                          style: ts100(context).copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurfaceVariant,
+                                          )),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text('EE',
+                                          style: ts100(context).copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurfaceVariant,
+                                          )),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text('Target kcal intake',
+                                          style: ts100(context).copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurfaceVariant,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      child: Text('Resting',
+                                          style: ts100(context).copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.8),
+                                          ),
+                                          textAlign: TextAlign.left),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        restingDayEE.round().toString(),
+                                        style: ts100(context),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        targetIntakeResting.round().toString(),
+                                        style: ts100(context),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      child: Text('Training',
+                                          style: ts100(context).copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.8),
+                                          ),
+                                          textAlign: TextAlign.left),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        trainingDayEE.round().toString(),
+                                        style: ts100(context),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        targetIntakeTraining.round().toString(),
+                                        style: ts100(context),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                            TableRow(
-                              children: [
-                                pad8(Text('Rest Day', style: ts100(context))),
-                                pad8(Text(restingDayEE.round().toString(),
-                                    style: ts100(context))),
-                                pad8(Text(
-                                    targetIntakeResting.round().toString(),
-                                    style: ts100(context))),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                pad8(Text('Training Day',
-                                    style: ts100(context))),
-                                pad8(Text(trainingDayEE.round().toString(),
-                                    style: ts100(context))),
-                                pad8(Text(
-                                    targetIntakeTraining.round().toString(),
-                                    style: ts100(context))),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                pad8(Text('Average', style: ts100(context))),
-                                pad8(Text(averageDayEE.round().toString(),
-                                    style: ts100(context))),
-                                pad8(Text(targetIntake.round().toString(),
-                                    style: ts100(context))),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
+                          ),
+                        ],
+                      ))
                 ],
               )
             ],
