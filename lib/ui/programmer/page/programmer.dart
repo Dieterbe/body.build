@@ -3,6 +3,7 @@ import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:bodybuild/ui/core/logo.dart';
 
 const String helpProgrammer = '''
 The Body.build web application helps creating optimized, science-backed diet and training plans.
@@ -94,47 +95,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.fitness_center,
-              size: 24,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(width: 8),
-            RichText(
-              text: TextSpan(
-                style: ts100(context),
-                children: [
-                  TextSpan(
-                    text: 'BODY',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 1.2,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ),
-                  TextSpan(
-                    text: '.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  TextSpan(
-                    text: 'BUILD',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 0.8,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        title: const Logo(height: 100),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
