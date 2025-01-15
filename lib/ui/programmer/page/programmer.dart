@@ -134,11 +134,61 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
             },
           ),
         ],
-        bottom: const TabBar(
+        bottom: TabBar(
+          dividerColor: Colors.transparent,
+          indicator: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              width: 2,
+            ),
+          ),
+          labelStyle: ts100(context).copyWith(fontWeight: FontWeight.w500),
+          unselectedLabelStyle: ts100(context),
+          labelColor: Theme.of(context).colorScheme.primary,
+          unselectedLabelColor:
+              Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.hovered)) {
+                return Theme.of(context).colorScheme.surface.withOpacity(0.1);
+              }
+              return null;
+            },
+          ),
           tabs: [
-            Tab(text: "Set up"),
-            Tab(text: "Workout programmer"),
-            //    Tab(text: "Nutrition planner"), // WIP
+            Tab(
+              height: 44,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.settings,
+                        size: MediaQuery.of(context).size.width / 70),
+                    const SizedBox(width: 8),
+                    const Text("Set up"),
+                  ],
+                ),
+              ),
+            ),
+            Tab(
+              height: 44,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.fitness_center,
+                        size: MediaQuery.of(context).size.width / 70),
+                    const SizedBox(width: 8),
+                    const Text("Workout programmer"),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -162,8 +212,6 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
     );
   }
 }
-
-
 
 /*
 volume distribution?
