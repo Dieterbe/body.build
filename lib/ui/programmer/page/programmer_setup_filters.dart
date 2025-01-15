@@ -57,7 +57,7 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                   ].insertBetween(const SizedBox(width: 8)).toList(),
                 ),
               ),
-              const Flexible(flex: 10, child: LabelBar('Exercise exclusion')),
+              // const Flexible(flex: 10, child: LabelBar('Exercise exclusion')),
             ],
           ),
           Row(
@@ -111,6 +111,14 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                   ],
                 ),
               ),
+              /*
+              "exclusion" is a weird word.
+              nobody knows what an "exercise base" is
+              the design is a bit weird with the widgets floating in either
+              + bug that text is not removed after submitting
+              + hint text too long
+              + exercises not ordered well - i think - and needed uppercasing
+              this is only used for auto-generating really, so better just hide this for now
               Flexible(
                 flex: 10,
                 child: Column(
@@ -216,6 +224,7 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                   ],
                 ),
               ),
+              */
             ],
           ),
         ],
