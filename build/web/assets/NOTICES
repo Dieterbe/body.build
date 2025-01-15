@@ -6360,6 +6360,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------
 dart_style
 glob
+http
 http_parser
 matcher
 path
@@ -8176,6 +8177,9 @@ shared_preferences_linux
 shared_preferences_platform_interface
 shared_preferences_web
 shared_preferences_windows
+vector_graphics
+vector_graphics_codec
+vector_graphics_compiler
 xdg_directories
 
 Copyright 2013 The Flutter Authors. All rights reserved.
@@ -32265,7 +32269,6 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------
-path_drawing
 path_parsing
 
 Copyright (c) 2018 Dan Field
