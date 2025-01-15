@@ -1,7 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
+import 'package:bodybuild/ui/core/text_style.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+
+const String helpProgrammer = '''
+The Body.build web application helps creating optimized, science-backed diet and training plans.
+
+There are 2 main steps: filling in the **set-up**, and **making the training program**.
+
+## Complete the **set up tab**.
+* Enter personal details, training & nutritional information.
+* Then, facts and parameters will be generated for you.  Choose which BMR formula you prefer.
+* Optionally, override parameters such as intensity, or muscle set volume.
+* Fill in the equipment you have. there are shortcut buttons which help to select many pieces of equipment. (this is **important** as it affects which exercises will be available in the programmer)
+* Optionally, exclude exercises and exercises types. These will be hidden in the UI. (this is not very important. you can also just skip this)
+
+You can create multiple profiles, and give them different names.
+
+## Then proceed to the **workout programmer tab**.
+
+Here you define a program by defining one or more workouts. Each workout has one or more sets, and sets may be combined into combo sets.
+You can add sets with the "add set" button, or any of the muscle-specific "⊕" buttons, these let you add exercises that recruit that muscle well.
+You can also drag and drop sets to re-order them. Dragging a set onto another creates a combo set.
+
+### Need more help?
+Look for the info buttons (ⓘ) next to parameters for detailed explanations
+''';
 
 class ProgrammerScreen extends StatefulWidget {
   const ProgrammerScreen({super.key});
@@ -71,6 +96,44 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
         automaticallyImplyLeading: false,
         title: const Text('Body.build'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Body.Build Help Guide', style: ts50(context)),
+                            IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Flexible(
+                          child: SingleChildScrollView(
+                            child: MarkdownBody(data: helpProgrammer),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
         bottom: const TabBar(
           tabs: [
             Tab(text: "Set up"),

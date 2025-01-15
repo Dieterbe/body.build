@@ -193,7 +193,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                               children: [
                                 const SizedBox(), // Empty cell for row headers
                                 pad8(Text('EE', style: ts100(context))),
-                                pad8(Text('Target Intake',
+                                pad8(Text('Target kcal intake',
                                     style: ts100(context))),
                               ],
                             ),
