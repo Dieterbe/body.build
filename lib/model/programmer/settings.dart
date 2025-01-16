@@ -65,7 +65,6 @@ class Settings with _$Settings {
     ActivityLevel activityLevel = ActivityLevel.sedentary,
 
     // other
-    Set<Equipment> availEquipment = const {},
     BMRMethod bmrMethod = BMRMethod.tenHaaf,
     ParameterOverrides paramOverrides = const ParameterOverrides(),
   }) {
@@ -88,7 +87,7 @@ class Settings with _$Settings {
       // other
       paramSuggest: Parameters(),
       paramOverrides: paramOverrides,
-      availEquipment: availEquipment,
+      availEquipment: Equipment.values.toSet(),
       bmrMethod: bmrMethod,
     );
 
