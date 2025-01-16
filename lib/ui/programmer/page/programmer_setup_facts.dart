@@ -152,7 +152,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                       children: [
                         KVStringsRow('BMI', bmi.toStringAsFixed(2)),
                         const SizedBox(height: 20),
-                        const KStringRow('BMR', help: helpBMR),
+                        const KVStringsRow('BMR', 'Choose formula',
+                            help: helpBMR),
                         for (final (method, value, error) in bmrMethods) ...[
                           Center(
                             child: _buildBMRRow(
