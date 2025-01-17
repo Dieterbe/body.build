@@ -25,6 +25,11 @@ Here you define a program by defining one or more workouts. Each workout has one
 You can add sets with the "add set" button, or any of the muscle-specific "⊕" buttons, these let you add exercises that recruit that muscle well.
 You can also drag and drop sets to re-order them. Dragging a set onto another creates a combo set.
 
+Not all muscles are included here (e.g. rhomboids, psoas, etc) for two reasons:
+- some muscles are trained automatically along with others: e.g. the teres major 
+contributos to shoulder extension, adduction and internal rotation along with the lats, so training lats also trains the teres major
+- some muscles are a bit less relevant for body building, such as hip adductors.  Most body builders grow them sufficiently from hip extension already.
+
 ### Need more help?
 Look for the info buttons (ⓘ) next to parameters for detailed explanations
 ''';

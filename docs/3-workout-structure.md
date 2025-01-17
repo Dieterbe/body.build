@@ -39,6 +39,3 @@ ordering:
     - allows to give focus to many muscle groups
     - more rest before hitting same muscle group again
     - bit more cardio intense too
-
-
-    FUTURE: more on interference effect? in cardio module?

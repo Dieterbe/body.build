@@ -1,19 +1,19 @@
 ## principles
+basically, the code algorithm shall be refined to incorporate all these considerations.
+
 ### iso & compound equally effective. but compound burns more cals, saves time, cardio, and more carry-over strength. iso more for filling in gaps and reaching volume
 ### 1) limit factor
 #### grip
 #### bi-articulate may reduce involvement
-##### hams
-* during squats, hams grow 20% as quads. due to knee flexion moment
-  squats only target quads and glutes
-##### rectus femoris
-* little activation during squat due to hip flexion moment
-* but leg extensions work well (lean back 45 degrees otherwise active insuficiency)
+examples:
+* squats only target quads and glutes. due to knee flexion moment hams only grow around 20% of quads.
+* for rectus femoris there is little activation during squat due to hip flexion moment. but leg extensions work well (lean back 45 degrees otherwise active insuficiency)
 ##### gastroc
 * passive and active insufficiences when short or long
 * during squats and leg presses, to bring back knees, you need plantar flexion, but this comes with knee flexion moment, so gastros mostly inactive
-* gastros is active however during deadlifts and good mornings
+* gastroc is active however during deadlifts and good mornings
 -> rule of thumb, count half of DL volume towards gastrocs (not so in volume doc!) - speaking of volume doc google sheet, lat prayer for traps? don't think so, but a case study says 100%
+
 ##### triceps
 * long head is weak shoulder extensor
 * during pulling exercises like chin-ups, pulldowns, not very active due to its elbow extension moment
@@ -22,8 +22,7 @@
 * during pushing, long head shoulder extension moment may interfere
   - if limited by elbow extension, triceps long head helps
   - if limited by shoulder flexion, not so much
-  rule of thumb, count barbell presses as 50% and add isolation work
-  lat prayers (straight arm pull-over) counts as long head volume
+
 ##### biceps
 * weak shoulder flexion moment up to 60degr (stops when elbow at shoulder height)
 * count overhead pulls with full ROM as volume for bicep, but add an isolation with arm at the side, because bicep weakens when shortened
@@ -78,92 +77,11 @@ no active/passive insufficency
 
 ## exercises that generally score well on the principles
 
-
-
 * customize exercise selection and the specific execution of each exercise to the trainee’s anthropometry, injury risk, available equipment and goals
-* When you perform multiple exercises for a muscle group, as should often be the case (discussed in the next section), make sure the total program’s exercise selection has synergy rather than excessive overlap.
+* When you perform multiple exercises for a muscle group, as should often be the case look for synergy and non-overlap
 * The exercises are categorized roughly in terms of target musculature from a practical programming perspective. Later in this module we’ll go into detail on how to count exercise volume per muscle group.
 
-(from exercise selection, page 82)
-
-Pectoralis major
-• Deficit or suspended push-ups
-• Flys (with cables, DBs or rings)
-• Dumbbell bench presses (flat or 15° incline)
-• Convergent chest press machines
-
-Lateral deltoids
-• Military press (elbows out; wide grip)
-• Dumbbell overhead presses
-• Cable lateral raises
-• Side lying lateral raises
-• Lean-in lateral raises
-• Butterfly lateral raises
-Upper trapezius
-• Overhead shrugs
-• Wide shrugs
-Rear deltoids & lower/middle trapezius
-• Reverse Bayesian fly
-• Side lying reverse flys
-• Shoulder-pulls
-• Face-pulls
-• High rows
-Latissimus dorsi & teres major
-• Lat prayers
-• Chin/pull-ups
-• Lat pulldowns
-• Pull-overs
-Biceps brachii
-• Bayesian (hammer) curls
-• Preacher/Scott curls•
-* Incline curls
-
-Triceps brachii
-• Overhead triceps extensions
-• Skull-overs
-• Forward leaning triceps pushdowns
-
-Quadriceps
-• Squatting movements, incl. hack and sissy squats
-• Reverse lunges
-• Leg extensions
-• Reverse Nordic ham curls
-
-Erector spinae
-• Back extensions
-• Squats
-• Deadlifts
-
-Hamstrings
-• Glute-ham raise
-• Romanian deadlifts
-• 45° Hip extension
-• Suspended/gliding leg curls (mostly if you have no machines)
-• Leg curl machines (seated preferable)
-• Goodmornings
-* Pull-throughs
-
-Gluteus maximus
-• Squatting movements
-• Lunges
-• Leg presses
-• 45° Hip extension
-• Deficit hip thrusts
-• Pull-throughs
-• RDLs
-• Goodmornings
-• Reverse hyperextensions
-• Glute kickbacks
-Gluteus medius
-• Full-stretch hip abductions
-Calves
-• Calf jumps
-• Standing calf raises
-• Seated/bent-knee calf raises (for soleus)
-
-Rectus abdominis
-• Ball crunches
-• Reverse crunches
+for specific exercises, see PTC course on exercise selection,page 82.
 
 ## exercise variety
 
@@ -177,7 +95,7 @@ beyond that, switch up over time, not in same workouts
 
 multiple exercises: stress different fibers or at different lengths
 
-pec major:
+### pec major:
 a single flat press / fly, other functions will work with vertical presses and pulls
 
 ### Trapezius
@@ -185,14 +103,14 @@ a single flat press / fly, other functions will work with vertical presses and p
 * upper head -> deadlift, overhead press, but for maximum growth, adding a wide or overhead shrug is advisable
 
 ### Delts
-* front head rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it’s more likely to be overworked than understimulated.
-* lateral head needs a lateral raise or overhead press variant to emphasize shoulder abduction rather than flexion. wide grip, even better arguably, dumbbells activate the lateral delts more effectively than a barbell for most people. Standing also activates the sides of the shoulders better than sitting, as with sitting you often end up with a high-incline press. Plus, the bench restricts your natural scapular movement.
+* front head: rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it’s more likely to be overworked than understimulated.
+* lateral head: needs a lateral raise or overhead press variant to emphasize shoulder abduction rather than flexion. wide grip, even better arguably, dumbbells activate the lateral delts more effectively than a barbell for most people (in menno's experience, i believe). Standing also activates the sides of the shoulders better than sitting, as with sitting you often end up with a high-incline press. Plus, the bench restricts your natural scapular movement.
 * posterior head is effectively trained with most pulling movements, but many of these don’t achieve full ROM, so an added reverse fly or high row variant is advisable
 
 ### Latissimus dorsi
-at least two different angle pulling exercises are recommended for the lats for non-novice trainees: one emphasizing
-shoulder extension and one emphasizing adduction, such as close-grip chin-ups and
-wide-grip pull-ups.
+for non-novice trainees, >=2 different angle pulling exercises:
+* shoulder extension (e.g. chin-up)
+* shoulder adduction (e.g. wide-grip pull-up)
 
 ### Biceps brachii
 A single isolation exercise with the elbow kept at the side should suffice, assuming the
@@ -219,12 +137,14 @@ thrusts and Romanian deadlifts. // Dieter note: BSQ is probably a good bent knee
 glute med -> anti-adduction force during squats, especially unilateral squats, may suffice. otherwise hip abduction
 
 ### Calves
-You need at least one straight-leg plantarflexion (calf raise) exercise in addition to one
+Menno says you need at least one straight-leg plantarflexion (calf raise) exercise in addition to one
 bent-knee plantarflexion (seated calf raise) exercise for the soleus.
+However, according to https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2023.1272106/full a standing calf raise gives nearly the same stimulus to the soleus as the seated one does, while also stimulating the gastrocs well. While the study is only on untrained people, I (Dieter) find it a compelling argument to not program seated calf raises, in addition to standing ones, especially for a muscle that’s hidden under the gastroc. Dr. Mike also made a youtube video about this saying basically the same.
 
 ### Erector spinae
 Squats and deadlifts often suffice in practice, but if injury risk is low and maximum
 growth is desired, a dedicated high-rep back extension exercise can be added
+
 
 ## assigning volume
 
@@ -237,25 +157,7 @@ rows 50% to biceps
 deadlifts 100% erector spinae even if only stabilizer
 quads 50% in deadlifts
 
-depends on form. maybe just do 50-75-100 and ignore everything <40-60
-
+depends on form.
+volume assignments <40-60% can typically be ignored, so we do
 
 do you see any value in training spine lateral flexion (e.g. side bends on hyper extension) -> not really, just for waist thickening
-
-
-### advanced techniques
-
-exceprt from a q&a session:
-
-- advanced techniques
-	- combo sets, unilateral, eccentric overloading: do all of it as much as possible?
-		- in principle yes. in practice it's hard because:
-			- e.g. eccentric overloading bench press needs spotter
-			- ecc overloading is hard to measure progress
-				- with concentric: did you get it up or not, for eccentric, speed is very relevant and not tightly controlled
-				- more variance in how you do it. e.g. angles for lateral raise
-		- therefore, tip:
-			- do it for last set or all sets after the first. use the first ones for measurements
-
-
-			also, per course : ecc overloading -> more fatigue, reduce volume accordingly
