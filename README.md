@@ -9,4 +9,6 @@ a workout program and macros.  In the future, I'ld like to add a nutrition/meal 
 
 To this end, I (Dieter) have concluded the [Menno Henselmans Personal Training Course](https://mennohenselmans.com/online-pt-course/), which is probably the top course in the industry, taught by one of the best, most evidence-driven body builders in the world.
 
+This project is Open Source software, distributed under the [AGPL-3.0 license](LICENSE).  It is written in Flutter (dart), even if Github thinks it's javascript (that's just the compiled build for web)
+
 There is also another related project with similar goals, [wger](https://wger.de), to which I contribute. I think it is a good tool for nutrition/diet tracking, but the workout component is held back by legacy code and concepts.  However we are collaborating to see how well we can align.  For now, I mainly recommend wger for its nutrition module.
