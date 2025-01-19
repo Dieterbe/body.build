@@ -1,7 +1,9 @@
 # Body.build
 
 Hello there! This is the source code for https://body.build
-The goal is to put the world's cutting edge knowledge around nutrition, health and weight lifting wisdom in one app, as a free, public service to anyone.
+
+
+The goal is to put the world's cutting edge knowledge around nutrition, health and weight lifting wisdom in one app, as a free, public service to anyone.  
 We have to start small, however, so for now it is simply a tool that helps coaches and advanced trainees with defining
 a workout program and macros.  In the future, I'ld like to add a nutrition/meal planner, as well as an app that helps people in the gym to track their progress, analyze their performance, adjust the program over time, etc.
 
