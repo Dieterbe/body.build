@@ -95,57 +95,6 @@ beyond that, switch up over time, not in same workouts
 
 multiple exercises: stress different fibers or at different lengths
 
-### pec major:
-a single flat press / fly, other functions will work with vertical presses and pulls
-
-### Trapezius
-* middle and lower heads often get worked well with vertical pulls already.
-* upper head -> deadlift, overhead press, but for maximum growth, adding a wide or overhead shrug is advisable
-
-### Delts
-* front head: rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it’s more likely to be overworked than understimulated.
-* lateral head: needs a lateral raise or overhead press variant to emphasize shoulder abduction rather than flexion. wide grip, even better arguably, dumbbells activate the lateral delts more effectively than a barbell for most people (in menno's experience, i believe). Standing also activates the sides of the shoulders better than sitting, as with sitting you often end up with a high-incline press. Plus, the bench restricts your natural scapular movement.
-* posterior head is effectively trained with most pulling movements, but many of these don’t achieve full ROM, so an added reverse fly or high row variant is advisable
-
-### Latissimus dorsi
-for non-novice trainees, >=2 different angle pulling exercises:
-* shoulder extension (e.g. chin-up)
-* shoulder adduction (e.g. wide-grip pull-up)
-
-### Biceps brachii
-A single isolation exercise with the elbow kept at the side should suffice, assuming the
-program already has other pulling movements involving the biceps.
-
-### Triceps brachii
-* The lateral and medial head get sufficient stimulation from (horizontal) presses.
-* long head -> isolation exercise
-
-
-### Quadriceps
-While having little functional differentiation, a leg extension exercise is recommended in
-addition to a squatting movement to overload the quadriceps in full contraction and
-stimulate the rectus femoris.
-
-### Hamstrings
-You need at least a knee flexion exercise, like a leg curl, and a hip extension exercise,
-like a Romanian deadlift, to stimulate all hamstring heads well along their full length.
-
-
-### Gluteus maximus (and medius)
-needs a bent-knee and a straight-leg hip extension exercise such as hip
-thrusts and Romanian deadlifts. // Dieter note: BSQ is probably a good bent knee hip extension too!
-glute med -> anti-adduction force during squats, especially unilateral squats, may suffice. otherwise hip abduction
-
-### Calves
-Menno says you need at least one straight-leg plantarflexion (calf raise) exercise in addition to one
-bent-knee plantarflexion (seated calf raise) exercise for the soleus.
-However, according to https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2023.1272106/full a standing calf raise gives nearly the same stimulus to the soleus as the seated one does, while also stimulating the gastrocs well. While the study is only on untrained people, I (Dieter) find it a compelling argument to not program seated calf raises, in addition to standing ones, especially for a muscle that’s hidden under the gastroc. Dr. Mike also made a youtube video about this saying basically the same.
-
-### Erector spinae
-Squats and deadlifts often suffice in practice, but if injury risk is low and maximum
-growth is desired, a dedicated high-rep back extension exercise can be added
-
-
 ## assigning volume
 
 - ignore warm-up sets.
