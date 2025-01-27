@@ -97,8 +97,8 @@ Duration of strength training sessions.
 Be conservative and use the time you could perform the workout in if pushing
 through it efficiently and intensely, with shorter, cardio-conditioned rest periods.
 
-Rule of thumb: count 2.5 minutes per work set.
-For most people, this duration ends up considerably shorter than their actual workout duration.
+Rule of thumb: count 2.5 minutes per work set.  
+**For most people, this duration ends up considerably shorter than their actual workout duration**.
 ''';
 
 const String helpTefFactor = '''
@@ -332,7 +332,8 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       ),
                       const SizedBox(height: 12),
                       KVRow(
-                        titleTextMedium('Workout Duration', context),
+                        titleTextMedium(
+                            'Normalized\nWorkout Duration', context),
                         v: numInput(
                           _durationKey,
                           'min',
@@ -342,7 +343,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                           onChanged: notifier.setWorkoutDurationMaybe,
                         ),
                         help: helpWorkoutDuration,
-                        helpTitle: 'Workout Duration',
+                        helpTitle: 'Normalized Workout Duration',
                       ),
                       const SizedBox(height: 12),
                       KVRow(
