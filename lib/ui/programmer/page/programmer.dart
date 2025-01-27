@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/const.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
@@ -47,7 +48,60 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
-    if (screenWidth < 1000) {
+    final screenHeight = MediaQuery.sizeOf(context).height;
+
+    if (screenWidth < minScreenWidth) {
+      if (screenHeight >= minScreenWidth) {
+        // in this case, ask user to rotate their screen. it'll be enough
+        return Scaffold(
+          body: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 600),
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.screen_rotation,
+                    size: 64,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Rotate screen',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'This application requires a wide screen.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.7),
+                        ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Please rotate the screen or use another screen of at least 1000 pixels wide.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.5),
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
       return Scaffold(
         body: Center(
           child: Container(
