@@ -194,7 +194,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const LabelBar('Personal information'),
                       KVRow(
                         titleTextMedium('Sex', context),
-                        DropdownButton<Sex>(
+                        v: DropdownButton<Sex>(
                           value: setup.sex,
                           isExpanded: true,
                           onChanged: notifier.setSex,
@@ -210,7 +210,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Age', context),
-                        numInput(
+                        v: numInput(
                           keyAge,
                           'years',
                           setup.age.toString(),
@@ -222,7 +222,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Weight', context),
-                        numInput(
+                        v: numInput(
                           keyWeight,
                           'kg',
                           setup.weight.toString(),
@@ -234,7 +234,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Height', context),
-                        numInput(
+                        v: numInput(
                           keyHeight,
                           'cm',
                           setup.height.toString(),
@@ -246,7 +246,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Body Fat', context),
-                        numInput(
+                        v: numInput(
                           keyBodyFat,
                           '%',
                           setup.bodyFat?.toStringAsFixed(1) ?? '',
@@ -260,7 +260,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Activity Level', context),
-                        DropdownButton<ActivityLevel>(
+                        v: DropdownButton<ActivityLevel>(
                           value: setup.activityLevel,
                           isExpanded: true,
                           onChanged: (ActivityLevel? level) {
@@ -282,7 +282,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Recovery Factor', context),
-                        numInput(
+                        v: numInput(
                           keyRecoveryFactor,
                           '',
                           setup.recoveryFactor.toStringAsFixed(1),
@@ -303,7 +303,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const LabelBar('Training & Nutrition'),
                       KVRow(
                         titleTextMedium('Trainee level', context),
-                        DropdownButton<Level>(
+                        v: DropdownButton<Level>(
                           value: setup.level,
                           isExpanded: true,
                           onChanged: notifier.setLevel,
@@ -321,7 +321,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Workouts', context),
-                        numInput(
+                        v: numInput(
                           keyWorkoutsPerWeek,
                           'per week',
                           setup.workoutsPerWeek.toString(),
@@ -333,7 +333,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Workout Duration', context),
-                        numInput(
+                        v: numInput(
                           _durationKey,
                           'min',
                           setup.workoutDuration.toString(),
@@ -347,7 +347,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Energy balance', context),
-                        numInput(
+                        v: numInput(
                           keyEnergyBalance,
                           '%',
                           setup.energyBalance.toString(),
@@ -361,7 +361,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('TEF multiplier', context),
-                        numInput(
+                        v: numInput(
                           keyTefFactor,
                           '',
                           setup.tefFactor.toStringAsFixed(2),
@@ -375,7 +375,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('AT multiplier', context),
-                        numInput(
+                        v: numInput(
                           keyAtFactor,
                           '',
                           setup.atFactor.toStringAsFixed(2),

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
@@ -7,6 +8,21 @@ import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/util/formulas.dart';
 
 import '../../../model/programmer/settings.dart';
+
+const helpMsg = '''
+## Fractional volume counting
+
+In line with research, we may count fractional (partial) recruitment towards the total, at least if it meets a minimum value of around 40%.
+Therefore, we count volumes >= 50% and ignore those under 50%.  
+Example: since a row recruits the bicep for around 50%, and a pull-up or bicep curl recruits for 100%,
+then 2 sets of rows are counted as 1 set of bicep recruitment.
+
+## Workout & Program totals
+
+the workout total is the sum of all recruitments of all sets within a workout.
+The program is the sum of all workout totals in the program.
+This currently assumes that each workout is done once per week.  In the future, this will be adjusted to allow recurring workouts, cycling across weeks, etc.
+''';
 
 class BuilderTotalsWidget extends StatelessWidget {
   final List<SetGroup> setGroups;
@@ -65,6 +81,7 @@ class BuilderTotalsWidget extends StatelessWidget {
     final score = _calculateScore(totals);
     // to normalize the values, reducing the amount of vertical space needed if (some of) the volumes become high
     const limit = 2.0;
+    var title = setup == null ? 'Workout total' : 'Program total';
 
     return Column(
       children: [
@@ -108,14 +125,15 @@ class BuilderTotalsWidget extends StatelessWidget {
                   Expanded(child: Container()),
                   Align(
                     alignment: Alignment.topRight,
-                    child:
-                        Text(setup == null ? 'Workout total' : 'Program total',
+                    child: KVRow(
+                        Text(title,
                             style: TextStyle(
                               fontSize: MediaQuery.sizeOf(context).width / 100,
                               fontWeight: FontWeight.bold,
                             )),
+                        helpTitle: title,
+                        help: helpMsg),
                   ),
-                  const SizedBox(width: 10),
                 ],
               ),
             ),

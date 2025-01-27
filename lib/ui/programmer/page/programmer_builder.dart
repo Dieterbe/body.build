@@ -91,14 +91,6 @@ class ProgrammerBuilder extends ConsumerWidget {
                 program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
                 setup: setup,
               ),
-            if (program.workouts.isNotEmpty) const SizedBox(height: 20),
-            if (program.workouts.isNotEmpty)
-              Row(
-                children: [
-                  Expanded(child: Container()),
-                  const Text("Note: total only counts volumes >=0.5"),
-                ],
-              ),
             if (program.workouts.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),

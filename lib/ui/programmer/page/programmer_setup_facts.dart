@@ -80,7 +80,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
               ),
             ),
           ),
-          Text(
+          v: Text(
               '${value == null ? 'N/A' : value.round().toString()} (${method.displayName})',
               style: TextStyle(
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,

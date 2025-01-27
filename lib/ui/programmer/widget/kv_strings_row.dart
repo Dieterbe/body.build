@@ -16,7 +16,7 @@ class KVStringsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return KVRow(
       titleTextMedium(title, context),
-      Text(val, style: ts100(context)),
+      v: Text(val, style: ts100(context)),
       help: help,
       helpTitle: title,
       helpWidget: helpWidget,

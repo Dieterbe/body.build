@@ -9,8 +9,9 @@ import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
 
 const String helpSetsPerWeekPerMuscleGroup = '''
-Number of sets per week per muscle group
+Number of sets per week per muscle group.  
 Based on Menno's calculator.
+(this includes both direct and fractional or indirect recruitment - e.g. biceps in rows)
 
 Does not consider age, menopause, hormone replacement, diet, rest intervals, genetics, intensiveness, AAS/PED (indirectly via energy balance), etc.
 Adjust as needed.
@@ -57,7 +58,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                     titleTextMedium(
                         'Intensity: ${setup.paramSuggest.intensities.map((i) => i.toString()).join(',')}',
                         context),
-                    TextFormField(
+                    v: TextFormField(
                       key: keyIntensities,
                       initialValue: (setup.paramOverrides.intensities == null)
                           ? ''
@@ -81,7 +82,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                     titleTextMedium(
                         'Sets /week/muscle: ${setup.paramSuggest.setsPerweekPerMuscleGroup.toStringAsFixed(0)}',
                         context),
-                    TextFormField(
+                    v: TextFormField(
                       key: keyWeeklyVolume,
                       initialValue: setup
                               .paramOverrides.setsPerWeekPerMuscleGroup
@@ -111,7 +112,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                     const SizedBox(height: 20),
                     KVRow(
                       titleTextMedium('Add for: ', context),
-                      DropdownButton<ProgramGroup>(
+                      v: DropdownButton<ProgramGroup>(
                         value: null,
                         hint: Text('Select muscle', style: ts100(context)),
                         items: availableGroups
@@ -144,7 +145,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                               child: KVRow(
                                 titleTextMedium(
                                     override.group.displayName, context),
-                                TextFormField(
+                                v: TextFormField(
                                   initialValue: override.sets.toString(),
                                   keyboardType: TextInputType.number,
                                   autovalidateMode: AutovalidateMode.always,
