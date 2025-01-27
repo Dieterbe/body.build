@@ -130,17 +130,24 @@ class Settings with _$Settings {
     return (getBMR() * getPAL() * atFactor) / (24 * 60) * duration;
   }
 
-  (double trainingEE, bool adjusted) getTrainingEE(int duration) {
+// In the PTC course, we learned that for most people, not counting the EPOC is
+// okay because we count the basal expenditure
+// during workouts twice.  Whereas for highly physically active people,
+// the displaced resting EE is rather significant, so we could account for it.
+// However, here in code, we can always do the more accurate thing
+  (double gross, double displaced, double epoc, double net) getTrainingEE(
+      int duration) {
+    final grossTrainingEE = 0.1 * weight * duration;
     final displacedEE = getDisplacedEE(duration);
-    const epoc = 50; // roughly true for most workouts
+    // we know that "most workouts (pobably around 30sets)" have epoc of 50
+    // and workouts of 50-60 sets have an epoc up to 115
+    // therefore this seems reasonable:
+    final sets = duration /
+        2.5; // conditioned athletes actually will get more work done however, still
+    final epoc = sets * 2;
+    final netTrainingEE = grossTrainingEE - displacedEE + epoc;
 
-    final baseRT = 0.1 * weight * duration;
-    final (trainingEE, adjusted) = (activityLevel == ActivityLevel.veryActive)
-        ? (baseRT - displacedEE + epoc, true)
-        : (baseRT, false);
-    print(
-        'RT EE $baseRT adjusted $adjusted (displaced $displacedEE epoc $epoc)');
-    return (trainingEE, adjusted);
+    return (grossTrainingEE, displacedEE, epoc, netTrainingEE);
   }
 
   getDailyEE(double trainingEE) {

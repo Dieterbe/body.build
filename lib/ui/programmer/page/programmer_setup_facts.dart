@@ -2,7 +2,9 @@ import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:bodybuild/ui/programmer/widget/k_string_row.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_strings_row.dart';
+import 'package:bodybuild/ui/programmer/widget/training_ee_table.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/bmr_method.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
@@ -25,22 +27,29 @@ Ten Haaf (2014):
 Well-suited for athletes when body fat percentage is unknown. Uses weight, height, age, and sex.
 ''';
 
+Widget helpTrainingEEWidget(
+    double grossTrainingEE, displacedEE, epoc, netTrainingEE) {
+  return SizedBox(
+    width: 950,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Markdown(
+          data: helpTrainingEE,
+          shrinkWrap: true,
+        ),
+        const SizedBox(height: 16),
+        TrainingEETable(grossTrainingEE, displacedEE, epoc, netTrainingEE),
+      ],
+    ),
+  );
+}
+
 const String helpTrainingEE = '''
 Training Energy Expenditure (TEE) is the amount of energy used for weight lifting training.
-It is based on:
-* your training intensiveness (which we assume is high enough, therefore there is no configuration for it)
-* duration of your session.
-* your bodyweight
 
-Note that it also includes the basal metabolic rate (BMR) of the body, Which can
-become substantial if you are physically active, and will them automatically be adjuset for.
-See "displaced EE" below.
-''';
-
-const String helpDisplacedEE = '''
-The "displaced" Energy Expenditure (EE) is the amount of energy used for training that is already
-included in the BMR.  If this amount is substantial, it will automatically be subtracted from the
-training EE to avoid double counting. In this case, EPOC is added in.
+It is calculated as per the table below.
 ''';
 
 class ProgrammerSetupFacts extends ConsumerWidget {
@@ -123,15 +132,11 @@ class ProgrammerSetupFacts extends ConsumerWidget {
             (BMRMethod.tenHaaf, bmrTH, null),
           ];
 
-// for most people, not counting the EPOC is okay because we count the basal expenditure
-// during workouts twice.  However for highly physically active people,
-// the displaced resting EE is rather significant, so account for it.
-          final displacedEE = setup.getDisplacedEE(setup.workoutDuration);
-          final (trainingEE, adjusted) =
+          final (grossTrainingEE, displacedEE, epoc, netTrainingEE) =
               setup.getTrainingEE(setup.workoutDuration);
 
           final restingDayEE = setup.getDailyEE(0);
-          final trainingDayEE = setup.getDailyEE(trainingEE);
+          final trainingDayEE = setup.getDailyEE(netTrainingEE);
 
           final averageDayEE = (restingDayEE * (7 - setup.workoutsPerWeek) +
                   trainingDayEE * setup.workoutsPerWeek) /
@@ -176,15 +181,9 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           KVStringsRow(
-                              'Training EE', trainingEE.round().toString(),
-                              help: helpTrainingEE),
-                          const SizedBox(height: 20),
-                          KVStringsRow(
-                            'Displaced EE',
-                            displacedEE.round().toString() +
-                                (adjusted ? ' (accounted for)' : ' (ignored)'),
-                            help: helpDisplacedEE,
-                          ),
+                              'Training EE', '${netTrainingEE.round()} kcal',
+                              helpWidget: helpTrainingEEWidget(grossTrainingEE,
+                                  displacedEE, epoc, netTrainingEE)),
                           const SizedBox(height: 20),
                           Container(
                             decoration: BoxDecoration(

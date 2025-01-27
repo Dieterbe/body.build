@@ -347,10 +347,10 @@ class DayColumn extends ConsumerWidget {
                                   final min = (totalSets * 2.5).round();
                                   final setup =
                                       await ref.read(setupProvider.future);
-                                  final (trainingEE, adjusted) =
+                                  final (gross, displaced, epoc, net) =
                                       setup.getTrainingEE(min);
                                   setState(() {
-                                    kcal = trainingEE;
+                                    kcal = net;
                                   });
                                 }
                               },
