@@ -1,5 +1,4 @@
 import 'package:bodybuild/ui/core/text_style.dart';
-import 'package:bodybuild/ui/programmer/widget/k_string_row.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_strings_row.dart';
 import 'package:bodybuild/ui/programmer/widget/training_ee_table.dart';
@@ -191,7 +190,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                               border: Border.all(
                                 color: Theme.of(context)
                                     .dividerColor
-                                    .withOpacity(0.3),
+                                    .withValues(alpha: 0.3),
                                 width: 1,
                               ),
                             ),
@@ -202,7 +201,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                 horizontalInside: BorderSide(
                                   color: Theme.of(context)
                                       .dividerColor
-                                      .withOpacity(0.2),
+                                      .withValues(alpha: 0.2),
                                   width: 1,
                                 ),
                               ),
@@ -212,7 +211,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .surfaceContainerHighest
-                                        .withOpacity(0.5),
+                                        .withValues(alpha: 0.5),
                                   ),
                                   children: [
                                     Container(
@@ -263,7 +262,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface
-                                                .withOpacity(0.8),
+                                                .withValues(alpha: 0.8),
                                           ),
                                           textAlign: TextAlign.left),
                                     ),
@@ -297,7 +296,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface
-                                                .withOpacity(0.8),
+                                                .withValues(alpha: 0.8),
                                           ),
                                           textAlign: TextAlign.left),
                                     ),
@@ -331,7 +330,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface
-                                                .withOpacity(0.8),
+                                                .withValues(alpha: 0.8),
                                           ),
                                           textAlign: TextAlign.left),
                                     ),

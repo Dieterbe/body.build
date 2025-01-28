@@ -15,7 +15,7 @@ class TrainingEETable extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: Theme.of(context).dividerColor.withOpacity(0.3),
+          color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
           width: 1,
         ),
       ),
@@ -28,7 +28,7 @@ class TrainingEETable extends StatelessWidget {
         },
         border: TableBorder(
           horizontalInside: BorderSide(
-            color: Theme.of(context).dividerColor.withOpacity(0.2),
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -38,7 +38,7 @@ class TrainingEETable extends StatelessWidget {
               color: Theme.of(context)
                   .colorScheme
                   .surfaceContainerHighest
-                  .withOpacity(0.5),
+                  .withValues(alpha: 0.5),
             ),
             children: [
               Container(
@@ -83,7 +83,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),
@@ -105,7 +105,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),
@@ -121,7 +121,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),
@@ -143,7 +143,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),
@@ -159,7 +159,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),
@@ -181,7 +181,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),
@@ -197,7 +197,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),
@@ -219,7 +219,7 @@ class TrainingEETable extends StatelessWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.left),
               ),

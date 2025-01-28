@@ -54,8 +54,8 @@ void _generateInIsolate(WorkoutGenerationParams params) {
 
   print('Available exercises: ${exercises.length}');
   // caches to save CPU at runtime..
-  final totalRecruitments =
-      exercises.map((e) => e.ex.totalRecruitmentFiltered(0.5)).toList();
+  // final totalRecruitments =
+  //    exercises.map((e) => e.ex.totalRecruitmentFiltered(0.5)).toList();
   // recruitment[i] = for exercise[i], its filtered recruitments for all PG's
   final recruitments = List.generate(
     exercises.length,

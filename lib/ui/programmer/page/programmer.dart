@@ -82,7 +82,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                              .withOpacity(0.7),
+                              .withValues(alpha: 0.7),
                         ),
                   ),
                   const SizedBox(height: 8),
@@ -93,7 +93,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                              .withOpacity(0.5),
+                              .withValues(alpha: 0.5),
                         ),
                   ),
                 ],
@@ -131,7 +131,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(0.7),
+                            .withValues(alpha: 0.7),
                       ),
                 ),
                 const SizedBox(height: 8),
@@ -142,7 +142,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(0.5),
+                            .withValues(alpha: 0.5),
                       ),
                 ),
               ],
@@ -209,11 +209,11 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           unselectedLabelStyle: ts100(context),
           labelColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor:
-              Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
           overlayColor: WidgetStateProperty.resolveWith<Color?>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.hovered)) {
-                return Theme.of(context).colorScheme.surface.withOpacity(0.1);
+                return Theme.of(context).colorScheme.surface.withValues(alpha: 0.1);
               }
               return null;
             },
