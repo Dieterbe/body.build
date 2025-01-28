@@ -1,3 +1,5 @@
+import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/model/programgen_v2/generator.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +11,7 @@ import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/core/widget/data_manager.dart';
+import 'package:bodybuild/data/developer_mode_provider.dart';
 
 class ProgramHeader extends ConsumerWidget {
   const ProgramHeader({super.key});
@@ -200,39 +203,44 @@ class ProgramHeader extends ConsumerWidget {
                               ),
                             )),
                         const SizedBox(width: 10),
-                        /*
-                        ElevatedButton(
-                          onPressed: () async {
-                            // Create map of target recruitments from setup parameters
-                            final target = <ProgramGroup, double>{};
-                            for (final group in ProgramGroup.values) {
-                              target[group] = setup.paramFinal
-                                      .getSetsPerWeekPerMuscleGroupFor(group) *
-                                  1.0;
-                            }
+                        Consumer(
+                          builder: (context, ref, child) {
+                            final isDevMode = ref.watch(developerModeProvider);
+                            if (!isDevMode) return const SizedBox.shrink();
+                            
+                            return ElevatedButton(
+                              onPressed: () async {
+                                // Create map of target recruitments from setup parameters
+                                final target = <ProgramGroup, double>{};
+                                for (final group in ProgramGroup.values) {
+                                  target[group] = setup.paramFinal
+                                          .getSetsPerWeekPerMuscleGroupFor(group) *
+                                      1.0;
+                                }
 
-                            // Create a workout to hold our evolving solution
-                            var oldWorkout = const Workout();
-                            notifier.add(oldWorkout);
+                                // Create a workout to hold our evolving solution
+                                var oldWorkout = const Workout();
+                                notifier.add(oldWorkout);
 
-                            // Listen to stream of solutions and update the workout
-                            await for (final setGroup
-                                in generateOptimalSetGroup(target, setup)) {
-                              final newWorkout = Workout(setGroups: [setGroup]);
-                              notifier.updateWorkout(oldWorkout, newWorkout);
-                              await Future.delayed(
-                                  const Duration(milliseconds: 100));
-                              oldWorkout = newWorkout;
-                            }
+                                // Listen to stream of solutions and update the workout
+                                await for (final setGroup
+                                    in generateOptimalSetGroup(target, setup)) {
+                                  final newWorkout = Workout(setGroups: [setGroup]);
+                                  notifier.updateWorkout(oldWorkout, newWorkout);
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 100));
+                                  oldWorkout = newWorkout;
+                                }
+                              },
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.auto_awesome),
+                                  Text('generate workout')
+                                ],
+                              ),
+                            );
                           },
-                          child: const Row(
-                            children: [
-                              Icon(Icons.auto_awesome),
-                              Text('generate workout')
-                            ],
-                          ),
                         ),
-                        */
                       ],
                     ),
                   ],

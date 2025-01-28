@@ -123,6 +123,8 @@ void _generateInIsolate(WorkoutGenerationParams params) {
           // Try adding one set for this exercise
           var newSolution = current.addSetFor(i);
 
+// -- the whole comment below is from before we changed cost calculation to be relative to target --
+// -- i don't remember/understand where the 0.7 came from --
           // All children that sufficiently improve upon their parent, are worth exploring.
           // even if e.g. the 2nd child does not improve upon the first child
           // if an exercise has total recruitment of, say 5, to be considered a good addition,
@@ -132,7 +134,8 @@ void _generateInIsolate(WorkoutGenerationParams params) {
           // therefore, to have a score of at least 4 -2 = 2. for now we have a higher bar: to at least increase the score by 3.5
           // if not, too much of the recruitment goes towards overshooting sets
 
-          if (newSolution.cost <= current.cost - (totalRecruitments[i] * 0.7)) {
+          //  if (newSolution.cost <= current.cost - (totalRecruitments[i] * 0.7)) {
+          if (newSolution.cost < current.cost) {
             //   print(
             //     '${indent}Next target: ${targetGroup.name} ($targetValue) -> Trying ${exercise.ex.id} -> cost: ${newSolution.cost}, diff ${current.cost - newSolution.cost} -> exploring it...');
             improvedForTarget = true;

@@ -19,3 +19,4 @@ TODO: exit when cost is 0?
 - if we plot score over time, perhaps we'll realize we can stop searching earlier
 
 TODO: cost for overshooting front delt is not so high, more important to get your side delt and pec volume in
+TODO: support "ranges" e.g. for ham short head, we want to target ideal range to ideal range minus 3 or something, it's fairly unimportant. this also requires UI work

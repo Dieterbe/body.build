@@ -18,8 +18,10 @@ List<RankedExercise> rankExercises(List<Ex> input) {
   for (final ex in input) {
     // Create a string key representing the recruitment profile
     // Format: "group1:value1,group2:value2,..."
+    // when we hash out Assign "modalities" further, we need to consider whether
+    // it should be part of the profile
     final profile = ProgramGroup.values
-        .map((pg) => '${pg.name}:${ex.recruitment(pg)}')
+        .map((pg) => '${pg.name}:${ex.recruitment(pg).volume}')
         .join(',');
 
     final rank = ex.totalRecruitment();

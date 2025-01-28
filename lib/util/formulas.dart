@@ -67,7 +67,7 @@ bfDeurenberg(double bmi, double age, Sex sex) =>
 // normally, costs are as follows:
 // 0.0 = perfect match
 // 0.5 = off by 50%
-// 1.0 = off by 100%
+// 1.0 = off by 100% (e.g. no recruitment at all)
 // 2.0 = off by 200%
 // but there are exceptions...
 calcCostForGroup(ProgramGroup group, double target, double recruitment) {

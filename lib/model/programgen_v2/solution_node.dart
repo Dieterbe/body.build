@@ -28,13 +28,10 @@ class SolutionNode implements Comparable<SolutionNode> {
       List<RankedExercise> exercises,
       List<Map<ProgramGroup, double>> recruitments,
       Map<ProgramGroup, double> targets) {
-    // Calculate initial cost based on all targets being unmet
-    var initialCost = 0.0;
-    for (final entry in targets.entries) {
-      initialCost += entry.value; // Cost is just the sum of unfulfilled targets
-    }
-    return SolutionNode(List.filled(exercises.length, 0), targets, initialCost,
-        recruitments, exercises);
+    print('targets.entries: ${targets.entries}');
+    // initial cost is 1.0 for each muscle group as there is 0 recruitment
+    return SolutionNode(List.filled(exercises.length, 0), targets,
+        targets.length * 1.0, recruitments, exercises);
   }
 
   /// Get current recruitment for a program group
