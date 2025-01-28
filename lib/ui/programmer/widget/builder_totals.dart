@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/util/formulas.dart';
+import 'package:bodybuild/data/developer_mode_provider.dart';
 
 import '../../../model/programmer/settings.dart';
 
@@ -24,7 +26,7 @@ The program is the sum of all workout totals in the program.
 This currently assumes that each workout is done once per week.  In the future, this will be adjusted to allow recurring workouts, cycling across weeks, etc.
 ''';
 
-class BuilderTotalsWidget extends StatelessWidget {
+class BuilderTotalsWidget extends ConsumerWidget {
   final List<SetGroup> setGroups;
   final int multiplier;
   final Settings? setup; // to validate the totals against desired volumes
@@ -76,12 +78,14 @@ class BuilderTotalsWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final (maxVal, totals) = _compute(0.5);
     final score = _calculateScore(totals);
     // to normalize the values, reducing the amount of vertical space needed if (some of) the volumes become high
     const limit = 2.0;
     var title = setup == null ? 'Workout total' : 'Program total';
+
+    final devMode = ref.watch(developerModeProvider);
 
     return Column(
       children: [
@@ -104,7 +108,7 @@ class BuilderTotalsWidget extends StatelessWidget {
               flex: 45,
               child: Row(
                 children: [
-                  if (setup != null)
+                  if (setup != null && devMode)
                     Padding(
                       padding: const EdgeInsets.only(right: 16.0),
                       child: Column(
