@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Text with weight plate dot -->
-  <g transform="translate(10, 26)">
+<svg width="138" height="20" viewBox="0 0 138 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <!-- BODY text -->
-    <text font-family="Inter, -apple-system, sans-serif" font-size="20">
+    <text y="17" font-family="Inter, -apple-system, sans-serif" font-size="20">
       <tspan font-weight="600" letter-spacing="0.5" fill="currentColor">BODY</tspan>
     </text>
     
     <!-- Weight plate centered between words -->
-    <!-- first number is x position -->
-    <g transform="translate(58, -16) scale(1.2)">
-      <circle cx="6" cy="8" r="6" fill="currentColor" opacity="0.2"/>
-      <circle cx="6" cy="8" r="4" fill="currentColor" opacity="0.6"/>
-      <circle cx="6" cy="8" r="2" fill="currentColor"/>
-    </g>
+      <circle cx="65" cy="11" r="3.75" fill="none" stroke="currentColor" stroke-width="1.25" opacity="0.6"/>
+      <circle cx="65" cy="11" r="2.5" fill="none" stroke="currentColor" stroke-width="3" opacity="0.7"/>
     
     <!-- BUILD text -->
-    <text x="76" font-family="Inter, -apple-system, sans-serif" font-size="20">
+    <text y="17" x="76" font-family="Inter, -apple-system, sans-serif" font-size="20">
       <tspan font-weight="300" letter-spacing="0.5" fill="currentColor">BUILD</tspan>
     </text>
-  </g>
 </svg>
