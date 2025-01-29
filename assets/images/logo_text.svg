@@ -7,9 +7,8 @@
     
     <!-- Weight plate centered between words -->
     <!-- first number is x position -->
-      <circle cx="65" cy="10" r="7.5" fill="currentColor" opacity="0.2"/>
-      <circle cx="65" cy="10" r="5" fill="currentColor" opacity="0.6"/>
-      <circle cx="65" cy="10" r="2.5" fill="currentColor"/>
+      <circle cx="65" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"/>
+      <circle cx="65" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="6" opacity="0.7"/>
     
     <!-- BUILD text -->
     <text y="17" x="76" font-family="Inter, -apple-system, sans-serif" font-size="20">
