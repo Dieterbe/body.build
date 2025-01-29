@@ -154,13 +154,13 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        toolbarHeight: 86,
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
+        toolbarHeight: 72,
+        title: const Padding(
+          padding: EdgeInsets.symmetric(vertical: 6),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Logo(height: 70),
+              Logo(height: 60),
               Text('beta'),
             ],
           ),
