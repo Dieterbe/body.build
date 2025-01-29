@@ -11,6 +11,9 @@ import 'package:bodybuild/data/programmer/groups.dart';
 // though i'm not sure if i want to keep execution details (e.g. unilateral)
 // as separate exercises, those should perhaps be "modifiers"
 // this class is built-in, and doesn't need to be persisted
+// other variants/modifiers: With without straps, or only for the heaviest set
+// with extra grip squeeze
+// see that video about "sience is under attack" by nippard to get more inspiration for modifiers
 class Ex {
   EBase base;
   List<Equipment> equipment;

@@ -1,4 +1,5 @@
 import 'package:bodybuild/ui/const.dart';
+import 'package:bodybuild/ui/programmer/page/programmer_small_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
@@ -53,102 +54,22 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
     if (screenWidth < minScreenWidth) {
       if (screenHeight >= minScreenWidth) {
         // in this case, ask user to rotate their screen. it'll be enough
-        return Scaffold(
-          body: Center(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 600),
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.screen_rotation,
-                    size: 64,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    'Rotate screen',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'This application requires a wide screen.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.7),
-                        ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Please rotate the screen or use another screen of at least 1000 pixels wide.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.5),
-                        ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+        return const SmallScreen(
+          icon: Icons.screen_rotation,
+          title: 'Rotate screen',
+          description:
+              'This application requires a large screen in landscape mode (e.g. a desktop, desktop or tablet)',
+          instructions:
+              'Please rotate the screen or use another screen of at least 1000 pixels wide.',
         );
       }
-      return Scaffold(
-        body: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 600),
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.fit_screen,
-                  size: 64,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'Screen Too Small',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'This application requires a bigger screen.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withValues(alpha: 0.7),
-                      ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Please use a device with a screen width of at least 1000 pixels.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withValues(alpha: 0.5),
-                      ),
-                ),
-              ],
-            ),
-          ),
-        ),
+      return const SmallScreen(
+        icon: Icons.fit_screen,
+        title: 'Screen Too Small',
+        description:
+            'This is an advanced application that requires a bigger screen (e.g. a laptop, desktop or tablet). It does not work on small screens such as smart phones',
+        instructions:
+            'Please use a device with a screen width of at least 1000 pixels.',
       );
     }
     return Scaffold(

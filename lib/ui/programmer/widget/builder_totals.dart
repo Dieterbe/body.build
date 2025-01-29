@@ -21,9 +21,11 @@ then 2 sets of rows are counted as 1 set of bicep recruitment.
 
 ## Workout & Program totals
 
-the workout total is the sum of all recruitments of all sets within a workout.
-The program is the sum of all workout totals in the program.
-This currently assumes that each workout is done once per week.  In the future, this will be adjusted to allow recurring workouts, cycling across weeks, etc.
+* Workout total: the sum of all recruitments of all sets within a workout (session).
+* Program total: the sum of all workout totals in the program, and is compared to the volume goals from the set-up tab.
+
+This currently assumes that each workout in the program is done once per week.
+In the future, this will be adjusted to allow recurring workouts, cycling across weeks, etc.
 ''';
 
 class BuilderTotalsWidget extends ConsumerWidget {
