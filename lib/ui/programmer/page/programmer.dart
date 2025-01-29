@@ -154,7 +154,17 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Logo(height: 100),
+        toolbarHeight: 86,
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Logo(height: 70),
+              Text('beta'),
+            ],
+          ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
@@ -213,7 +223,10 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           overlayColor: WidgetStateProperty.resolveWith<Color?>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.hovered)) {
-                return Theme.of(context).colorScheme.surface.withValues(alpha: 0.1);
+                return Theme.of(context)
+                    .colorScheme
+                    .surface
+                    .withValues(alpha: 0.1);
               }
               return null;
             },

@@ -10,7 +10,7 @@ class Logo extends StatelessWidget {
   const Logo({
     super.key,
     this.style = LogoStyle.text,
-    this.height = 32,
+    this.height = 16,
   });
 
   @override
