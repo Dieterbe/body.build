@@ -11,19 +11,23 @@ import 'package:bodybuild/util/formulas.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 
 const String helpBMR = '''
-Three different formulas for calculating Basal Metabolic Rate (BMR):
 
-Cunningham (1991):
-Validated in a wide range of populations from untrained individuals to athletes.
-Uses fat-free mass for better accuracy, but requires a good estimate of body fat percentage.
-Aka Katch-McArdle formula.
+Choosing a good BMR formula is important as the calorie calculations depend on it.
 
-Tinsley (2018):
-Particularly accurate for physique athletes, high-level athletes, and bodybuilders on AAS.
-Purely weight based.
+There are three different formulas for calculating Basal Metabolic Rate (BMR):
 
-Ten Haaf (2014):
-Well-suited for athletes when body fat percentage is unknown. Uses weight, height, age, and sex.
+### Cunningham (1991) (aka Katch-McArdle)
+* Based on: weight and body fat percentage (fat-free mass).
+* Works for: validated in a wide range of populations from untrained individuals to athletes. Highly accurate if you have a good estimate of body fat percentage.
+
+### Tinsley (2018):
+* Based on: weight only.
+* Works for: Particularly accurate for physique athletes, high-level athletes, and bodybuilders on AAS.
+
+### Ten Haaf (2014):
+
+* Based on: weight, height, age, and sex.
+* Works for: lean athletes.
 ''';
 
 Widget helpTrainingEEWidget(
