@@ -8,12 +8,9 @@ import 'package:bodybuild/data/programmer/groups.dart';
 // although not all information is used
 // base is already a quite specific movement
 // but the ex is an exact, specific, detailed exercise
-// though i'm not sure if i want to keep execution details (e.g. unilateral)
-// as separate exercises, those should perhaps be "modifiers"
 // this class is built-in, and doesn't need to be persisted
-// other variants/modifiers: With without straps, or only for the heaviest set
-// with extra grip squeeze
-// see that video about "sience is under attack" by nippard to get more inspiration for modifiers
+
+// TODO: revisit menno's principles for exercise selection
 class Ex {
   EBase base;
   List<Equipment> equipment;
@@ -69,7 +66,6 @@ class Ex {
 // for advanced, prefer barbell DL's over deadlifts maybe? and things like back extensions will use more than bodyweidht, bodyweight exercises like push-ups, squats don't make sense anymore
 // generally machines/cables should come out better compared to body weight (e.g. nordic curls is less comfortable at least)
 // todo give exercises properties to sort their quality by. e.g. range, train at long length, and also setup time
-// TODO: do i have good boyweight exercises for most stuff?
 final List<Ex> exes = [
   Ex(EBase.goodMorning, "standing barbell good morning", [Equipment.barbell]),
   Ex(EBase.goodMorning, "standing dumbbell good morning", [Equipment.dumbbell]),

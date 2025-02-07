@@ -1,7 +1,7 @@
 import 'package:bodybuild/ui/core/info_button.dart';
+import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 
 class KStringRow extends StatelessWidget {
   final String title;
@@ -21,9 +21,7 @@ class KStringRow extends StatelessWidget {
             ? SizedBox(width: 40 + spacer)
             : InfoButton(
                 title: title,
-                child: MarkdownBody(
-                  data: help!,
-                ),
+                child: markdown(help!),
               ),
         Flexible(flex: 8, child: Container()),
       ],

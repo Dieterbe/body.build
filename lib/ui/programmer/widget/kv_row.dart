@@ -1,6 +1,6 @@
 import 'package:bodybuild/ui/core/info_button.dart';
+import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 
 class KVRow extends StatelessWidget {
   final Widget k;
@@ -25,9 +25,7 @@ class KVRow extends StatelessWidget {
         title: helpTitle!,
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 800),
-          child: MarkdownBody(
-            data: help!,
-          ),
+          child: markdown(help!),
         ),
       );
     }

@@ -1,10 +1,10 @@
 import 'package:bodybuild/ui/const.dart';
+import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_small_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:bodybuild/ui/core/logo.dart';
 
 const String helpProgrammer = '''
@@ -14,13 +14,13 @@ body.build is a web application for:
 * building state of the art science-based weight lifting and body building plans.
 * setting corresponding kcal & macro goals.
 
-The main strength right now is the fractional volume counting workout programmer
+The main strength right now is the fractional volume counting workout programmer.  
 The application is:
 * technical. Works best if you have coaching level knowledge.
 * free of charge
 * a work-in-progress
 
-It is based on the latest scientific principles, as tought in the Menno Henselmans Personal Training Course (year 2024-2025) - probably the most comprehensive evidence based personal traininc course program on the planet - from which I graduated magna cum laude.
+It is based on the latest scientific principles, as tought in the [Menno Henselmans Personal Training Course](https://mennohenselmans.com/online-pt-course/) - probably the most comprehensive evidence based personal training course program on the planet - from which I graduated magna cum laude in 2025.
 I'm looking for your feedback.  Please reach out on the following email: info@body.build 
 
 # How to use?
@@ -126,9 +126,9 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                           ],
                         ),
                         const SizedBox(height: 16),
-                        const Flexible(
+                        Flexible(
                           child: SingleChildScrollView(
-                            child: MarkdownBody(data: helpProgrammer),
+                            child: markdown(helpProgrammer),
                           ),
                         ),
                       ],

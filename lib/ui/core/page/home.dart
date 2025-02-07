@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/anatomy/page/articulations.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
+import 'package:bodybuild/ui/core/markdown.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';
@@ -42,7 +42,7 @@ To see it, hit the "articulations" button, and then click on "shoulder flexion".
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const MarkdownBody(data: markdownSource),
+            markdown(markdownSource),
             const SizedBox(height: 32),
             TextButton(
               onPressed: () {
