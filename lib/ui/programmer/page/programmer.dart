@@ -8,7 +8,22 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:bodybuild/ui/core/logo.dart';
 
 const String helpProgrammer = '''
-The Body.build web application helps creating optimized, science-backed diet and training plans.
+# What is this?
+
+body.build is a web application for:
+* building state of the art science-based weight lifting and body building plans.
+* setting corresponding kcal & macro goals.
+
+The main strength right now is the fractional volume counting workout programmer
+The application is:
+* technical. Works best if you have coaching level knowledge.
+* free of charge
+* a work-in-progress
+
+It is based on the latest scientific principles, as tought in the Menno Henselmans Personal Training Course (year 2024-2025) - probably the most comprehensive evidence based personal traininc course program on the planet - from which I graduated magna cum laude.
+I'm looking for your feedback.  Please reach out on the following email: info@body.build 
+
+# How to use?
 
 There are 2 main steps: filling in the **set-up**, and **making the training program**.
 
@@ -17,7 +32,6 @@ There are 2 main steps: filling in the **set-up**, and **making the training pro
 * Then, facts and parameters will be generated for you.  Choose which BMR formula you prefer.
 * Optionally, override parameters such as intensity, or muscle set volume.
 * Fill in the equipment you have. there are shortcut buttons which help to select many pieces of equipment. (this is **important** as it affects which exercises will be available in the programmer)
-* Optionally, exclude exercises and exercises types. These will be hidden in the UI. (this is not very important. you can also just skip this)
 
 You can create multiple profiles, and give them different names.
 
