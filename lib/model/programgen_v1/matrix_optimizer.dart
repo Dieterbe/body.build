@@ -20,7 +20,8 @@ class MatrixOptimizer {
             exs.length,
             (i) => List.generate(
               targets.length,
-              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j)).volume,
+              (j) =>
+                  exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
             ),
           ),
         ),
@@ -31,7 +32,8 @@ class MatrixOptimizer {
             exs.length,
             (i) => List.generate(
               targets.length,
-              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j)).volume,
+              (j) =>
+                  exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
             ),
           ),
         ).toList().map((row) => row.toList()).toList(),

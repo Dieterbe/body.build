@@ -1,6 +1,7 @@
 # Program Generator V1 - Notes and Learnings
 
 Note: not aware of filters and exclusions
+does not support modifiers
 
 ## Current Approach
 1. Exercise Selection

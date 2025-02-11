@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/exercise_base.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/modifier.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
@@ -14,6 +15,7 @@ import 'package:bodybuild/data/programmer/groups.dart';
 class Ex {
   EBase base;
   List<Equipment> equipment;
+  List<Modifier> modifiers;
   String
       id; // identifier to match to kaos exercise. does not need to be human friendly
   // TODO: in fact, should be super specific here? to account for future additions of other
@@ -21,7 +23,7 @@ class Ex {
   //Exercise? exercise;
   late VolumeAssignment va;
 
-  Ex(this.base, this.id, this.equipment) {
+  Ex(this.base, this.id, this.equipment, [this.modifiers = const []]) {
     // for now, rely on the idea that we have 1 rule for each type of exercise
     // perhaps in the future we can do something more fancy with rules overriding each other etc
     for (var v in volumeAssignments) {
@@ -33,9 +35,20 @@ class Ex {
     throw Exception(
         'no matching volume assignment found for exercise with id $id');
   }
+// Note: for now, we only support modifiers and equipment-rules that don't talk about the same pg
+  Assign recruitment(ProgramGroup pg, Map<String, String?> modifierOptions) {
+    // Apply modifiers. choose the first one that applies
+    for (final modifier in modifiers) {
+      final selectedOption =
+          modifierOptions[modifier.name] ?? modifier.defaultValue;
+      final optEffects = modifier.opts[selectedOption];
+      if (optEffects != null && optEffects.containsKey(pg)) {
+        return optEffects[pg]!;
+      }
+    }
 
-  Assign recruitment(ProgramGroup pg) {
     // first see if there's an equipment specific rule that describes our pg.
+    // TODO: what if we have a modifier? we can have multiple. can they disagree with one another or with equipment?
     for (final entry in va.assignEquip.entries) {
       if (equipment.contains(entry.key) && entry.value.containsKey(pg)) {
         return entry.value[pg]!;
@@ -45,16 +58,22 @@ class Ex {
     return va.assign[pg] ?? const Assign(0);
   }
 
-  Assign recruitmentFiltered(ProgramGroup pg, double cutoff) {
-    final raw = recruitment(pg);
+  Assign recruitmentFiltered(
+      ProgramGroup pg, Map<String, String?> modifierOptions, double cutoff) {
+    final raw = recruitment(pg, modifierOptions);
     return raw.volume >= cutoff ? raw : const Assign(0);
   }
 
-  double totalRecruitment() => ProgramGroup.values
-      .fold(0.0, (sum, group) => sum + recruitment(group).volume);
+  double totalRecruitment(Map<String, String> modifierOptions) =>
+      ProgramGroup.values.fold(0.0,
+          (sum, group) => sum + recruitment(group, modifierOptions).volume);
 
-  double totalRecruitmentFiltered(double cutoff) => ProgramGroup.values.fold(
-      0.0, (sum, group) => sum + recruitmentFiltered(group, cutoff).volume);
+  double totalRecruitmentFiltered(
+          double cutoff, Map<String, String> modifierOptions) =>
+      ProgramGroup.values.fold(
+          0.0,
+          (sum, group) =>
+              sum + recruitmentFiltered(group, modifierOptions, cutoff).volume);
 }
 
 // TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
@@ -85,16 +104,17 @@ final List<Ex> exes = [
   Ex(EBase.pullThrough, "cable pull-through", [Equipment.cableTower]),
 
   Ex(EBase.legCurlHipFlexed, "seated leg curl machine",
-      [Equipment.hamCurlMachineSeated]),
+      [Equipment.hamCurlMachineSeated], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "standing unilateral leg curl machine",
-      [Equipment.hamCurlMachineStanding]),
+      [Equipment.hamCurlMachineStanding], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "lying leg curl machine",
-      [Equipment.hamCurlMachineLying]),
+      [Equipment.hamCurlMachineLying], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "bodyweight leg curl with trx (hip extended)",
-      [Equipment.trx]),
+      [Equipment.trx], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "bodyweight leg curl with rings (hip extended)",
-      [Equipment.gymnasticRings]),
-  Ex(EBase.legCurlHipExtended, "nordic curl (hip extended)", []),
+      [Equipment.gymnasticRings], [legCurlAnkleDorsiflexed]),
+  Ex(EBase.legCurlHipExtended, "nordic curl (hip extended)", [],
+      [legCurlAnkleDorsiflexed]),
 
   Ex(EBase.squatBB, "high bar back squat", [Equipment.squatRack]),
   Ex(EBase.squatBB, "low bar back squat", [Equipment.squatRack]),
@@ -158,12 +178,18 @@ final List<Ex> exes = [
   Ex(EBase.gluteKickback, "pendulum glute kickback",
       [Equipment.pendulumGluteKickback]),
 
-  Ex(EBase.hipAbductionHipFlexed, "hip abduction machine - seated upright",
-      [Equipment.hipAdductionAbductionMachine]),
-  Ex(EBase.hipAbductionHipExtended, "standing cable hip abduction",
-      [Equipment.cableTower]),
-  Ex(EBase.hipAbductionHipExtended, "lying cable hip abduction",
-      [Equipment.cableTower]),
+  Ex(
+      EBase.hipAbduction,
+      "hip abduction machine",
+      [Equipment.hipAdductionAbductionMachine],
+      [hipAbductionHipFlexion('90°')]),
+  Ex(EBase.hipAbduction, "standing cable hip abduction", [Equipment.cableTower],
+      [hipAbductionHipFlexion('0°')]),
+  Ex(
+    EBase.hipAbduction,
+    "lying cable hip abduction",
+    [Equipment.cableTower],
+  ),
 
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
       [Equipment.smithMachineVertical]),

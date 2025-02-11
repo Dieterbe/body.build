@@ -165,13 +165,20 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
               child: Autocomplete<Ex>(
                 optionsBuilder: (textEditingValue) {
                   final opts = setup.availableExercises
-                      .where((e) => e.recruitment(g).volume > 0)
+                      .where((e) =>
+                          e.recruitment(
+                            g,
+                            {
+                              // TODO: add form modifiers
+                            },
+                          ).volume >
+                          0)
                       .where((e) => e.id
                           .toLowerCase()
                           .contains(textEditingValue.text.toLowerCase()))
                       .toList();
-                  opts.sort((a, b) => (b.recruitment(g).volume)
-                      .compareTo(a.recruitment(g).volume));
+                  opts.sort((a, b) => (b.recruitment(g, {}).volume)
+                      .compareTo(a.recruitment(g, {}).volume));
                   return opts;
                 },
                 displayStringForOption: (e) => e.id,
@@ -207,7 +214,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                           itemCount: options.length,
                           itemBuilder: (context, index) {
                             final option = options.elementAt(index);
-                            final volume = option.recruitment(g).volume;
+                            final volume = option.recruitment(g, {}).volume;
                             return ListTile(
                               dense: true,
                               title: Text(option.id),

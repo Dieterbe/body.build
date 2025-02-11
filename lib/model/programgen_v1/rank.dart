@@ -21,10 +21,10 @@ List<RankedExercise> rankExercises(List<Ex> input) {
     // when we hash out Assign "modalities" further, we need to consider whether
     // it should be part of the profile
     final profile = ProgramGroup.values
-        .map((pg) => '${pg.name}:${ex.recruitment(pg).volume}')
+        .map((pg) => '${pg.name}:${ex.recruitment(pg, {}).volume}')
         .join(',');
 
-    final rank = ex.totalRecruitment();
+    final rank = ex.totalRecruitment({});
     profileMap[profile] = RankedExercise(ex, rank);
   }
 

@@ -6,7 +6,7 @@ part of 'setup_persistence_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$setupPersistenceHash() => r'f61e38ba5164e633a4b85049be5b0e81f54f77cc';
+String _$setupPersistenceHash() => r'4ce12784964cf69d3f1f74e2d5df86a54f8e3ca9';
 
 /// See also [setupPersistence].
 @ProviderFor(setupPersistence)

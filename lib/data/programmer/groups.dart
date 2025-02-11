@@ -4,6 +4,7 @@
 import 'package:bodybuild/data/anatomy/muscles.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/exercise_base.dart';
+import 'package:bodybuild/data/programmer/modifier.dart';
 
 // muscle groups for the purpose of training
 // * uses a bit more "common language" (e.g. biceps to mean elbow flexors)
@@ -135,7 +136,8 @@ class VolumeAssignment {
   final List<EBase> match; // OR (any)
   final Map<ProgramGroup, Assign> assign;
   // assign volume based on equipment used in the exercise
-  final Map<Equipment, Map<ProgramGroup, Assign>> assignEquip;
+  final Map<Equipment, Map<ProgramGroup, Assign>>
+      assignEquip; // TODO: should this move to the exercise?
   const VolumeAssignment(this.match, this.assign,
       {this.assignEquip = const {}});
 }
@@ -221,8 +223,6 @@ List<VolumeAssignment> volumeAssignments = [
     {
       ProgramGroup.hamsShortHead: Assign(1, 'full length'),
       ProgramGroup.hams: Assign(1, 'medium to long length knee flexion'),
-      ProgramGroup.gastroc: Assign(
-          1, 'medium to long length knee flexion (assuming full dorsiflexion)')
     },
   ),
   const VolumeAssignment(
@@ -230,8 +230,6 @@ List<VolumeAssignment> volumeAssignments = [
     {
       ProgramGroup.hamsShortHead: Assign(1, 'full length'),
       ProgramGroup.hams: Assign(1, 'knee flexion (short to medium length)'),
-      ProgramGroup.gastroc: Assign(1,
-          'medium to long length knee flexion (assuming full dorsiflexion, stretched at ankle)'),
     },
   ),
   const VolumeAssignment(
@@ -340,17 +338,11 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     }
   }),
-  const VolumeAssignment([
-    EBase.hipAbductionHipFlexed,
-  ], {
-    ProgramGroup.gluteMax: Assign(0.5), // upper fibers only
-    ProgramGroup.gluteMed: Assign(0.25),
-  }),
-  const VolumeAssignment([
-    EBase.hipAbductionHipExtended,
-  ], {
-    ProgramGroup.gluteMed: Assign(1, 'hip abduction'),
-  }),
+  VolumeAssignment(
+    [EBase.hipAbduction],
+    // for exercises that use this EBase but don't use the modifier, we assume straight hip
+    hipAbductionHipFlexion('0°').opts['0°']!,
+  ),
   const VolumeAssignment([
     EBase.standingCalfRaise,
     EBase.calfJump,
