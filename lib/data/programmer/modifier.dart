@@ -20,22 +20,41 @@ final legCurlAnkleDorsiflexed = Modifier(
     'no': {},
   },
 );
+/*
+NOTE: for now, we don't have different programgroups for upper/lower back, that would be a good use case here
+*/
+final squatBarPlacement = Modifier('bar placement', 'high back', {
+  'front': {},
+  'safety bar': {},
+  'high back': {},
+  'mid back': {},
+  'low back': {},
+}, desc: '''Bar placement options for squats:
 
-final legExtensionLean = Modifier(
-    'lean',
-    'upright',
-    {
-      'upright': {
-        ProgramGroup.quadsRF: const Assign(
-            0.25, 'knee extension, short length to active insufficency'),
-      },
-      'back': {
-        ProgramGroup.quadsRF:
-            const Assign(1.0, 'knee extension, medium to long length'),
-      },
-    },
+* Front: bar rests on front deltoids and clavicles
+* Safety bar: [special bar that shifts load up & forward](https://www.instagram.com/menno.henselmans/p/C8hUNGhuZ3C/?img_index=10)
+* High back: bar rests on upper traps, shoulders
+* Mid back: bar rests on middle traps
+* Low back: bar rests on rear deltoids below spine of scapula
+
+Most people are stronger, the lower the bar placement. Therefore the low back bar placement is often used in powerlifting.
+The higher the bar placement, the less weight you need and the more you can target the back, in particular the upper back.
+''');
+
+final legExtensionLean = Modifier('lean', 'upright', {
+  'upright': {
+    ProgramGroup.quadsRF: const Assign(
+        0.25, 'knee extension, short length to active insufficency'),
+  },
+  'back': {
+    ProgramGroup.quadsRF:
+        const Assign(1.0, 'knee extension, medium to long length'),
+  },
+},
     desc:
-        'see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study');
+        '''see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
+or [this one](https://www.instagram.com/menno.henselmans/p/C7O6ydlR7qV/?img_index=1)
+''');
 
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
