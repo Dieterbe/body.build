@@ -56,6 +56,21 @@ final bsqRearLeg = Modifier('rear leg', 'for balance', {
   this style is less common, but Menno Henselmans recommends it. I (Dieter) do too.
 ''');
 
+final hipExtensionKneeFlexion = Modifier('knee flexion', 'no', {
+  'yes': {
+    ProgramGroup.quadsVasti:
+        const Assign(0.5, 'knee extension during hip extension'),
+  },
+  'no': {
+    ProgramGroup.quadsVasti:
+        const Assign(0.15, 'knee extension during hip extension'),
+  },
+}, desc: '''Whether the movement involves knee flexion (and extension):
+
+* Yes: adds 0.5 quadriceps recruitment
+* No: very minor quadriceps recruitment
+''');
+
 final legExtensionLean = Modifier('lean', 'upright', {
   'upright': {
     ProgramGroup.quadsRF: const Assign(

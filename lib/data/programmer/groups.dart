@@ -325,8 +325,6 @@ List<VolumeAssignment> volumeAssignments = [
     EBase.hipThrust,
     EBase.gluteKickback
   ], {
-    ProgramGroup.quadsVasti:
-        Assign(0.5, 'knee extension if knees are more flexed'),
     ProgramGroup.gluteMax: Assign(1),
   }, assignEquip: {
     Equipment.barbell: {

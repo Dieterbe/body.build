@@ -123,8 +123,10 @@ final List<Ex> exes = [
   Ex(EBase.squatHack, "smith machine hack squat",
       [Equipment.smithMachineVertical]),
   Ex(EBase.squatBelt, "belt squat", [Equipment.beltSquatMachine]),
-  Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell], [bsqRearLeg]),
-  Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell], [bsqRearLeg]),
+  Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell],
+      [bsqRearLeg]),
+  Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell],
+      [bsqRearLeg]),
   Ex(EBase.squatBSQ, "smith machine (vertical) bulgarian split squat",
       [Equipment.smithMachineVertical], [bsqRearLeg]),
   Ex(EBase.squatBSQ, "smith machine (angled) bulgarian split squat",
@@ -136,11 +138,13 @@ final List<Ex> exes = [
   Ex(
       EBase.squatBSQ,
       "smith machine (vertical) bulgarian split squat from deficit",
-      [Equipment.smithMachineVertical], [bsqRearLeg]),
+      [Equipment.smithMachineVertical],
+      [bsqRearLeg]),
   Ex(
       EBase.squatBSQ,
       "smith machine (angled) bulgarian split squat from deficit",
-      [Equipment.smithMachineAngled], [bsqRearLeg]),
+      [Equipment.smithMachineAngled],
+      [bsqRearLeg]),
 
   Ex(EBase.legPress, "machine leg press", [Equipment.legPressMachine]),
   Ex(EBase.lunge, "forward lunge", []),
@@ -165,15 +169,17 @@ final List<Ex> exes = [
 
   Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl", []),
 
-  Ex(EBase.hipThrust, "barbell hip thrust", [Equipment.barbell]),
+  Ex(EBase.hipThrust, "barbell hip thrust", [Equipment.barbell],
+      [hipExtensionKneeFlexion]),
   Ex(EBase.hipThrust, "smith machine hip thrust",
-      [Equipment.smithMachineVertical]),
-  Ex(EBase.hipThrust, "machine hip thrust", [Equipment.hipThrustMachine]),
+      [Equipment.smithMachineVertical], [hipExtensionKneeFlexion]),
+  Ex(EBase.hipThrust, "machine hip thrust", [Equipment.hipThrustMachine],
+      [hipExtensionKneeFlexion]),
 
   Ex(EBase.gluteKickback, "glute kickback machine",
-      [Equipment.gluteKickbackMachine]),
+      [Equipment.gluteKickbackMachine], [hipExtensionKneeFlexion]),
   Ex(EBase.gluteKickback, "pendulum glute kickback",
-      [Equipment.pendulumGluteKickback]),
+      [Equipment.pendulumGluteKickback], [hipExtensionKneeFlexion]),
 
   Ex(
       EBase.hipAbduction,
