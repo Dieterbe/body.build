@@ -27,97 +27,161 @@ class ModifierCount extends StatelessWidget {
             title: Text(
               'Exercise Modifiers',
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width / 100,
+                fontSize: MediaQuery.of(context).size.width / 80,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: modifiers.map((modifier) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          modifier.name,
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 110,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '(default: ${modifier.defaultVal})',
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 110,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      children: modifier.opts.keys.map((option) {
-                        final isSelected = option ==
-                            (selectedOptions[modifier.name] ??
-                                modifier.defaultVal);
-                        return TextButton(
-                          onPressed: () {
-                            onOptionSelected(modifier.name, option);
-                            Navigator.pop(context);
-                          },
-                          style: TextButton.styleFrom(
-                            backgroundColor: isSelected
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withValues(alpha: 0.1)
-                                : null,
-                            side: BorderSide(
-                              color: isSelected
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.transparent,
+            titlePadding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
+            contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: modifiers
+                    .map((modifier) => Container(
+                          margin: const EdgeInsets.only(bottom: 24),
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Theme.of(context)
+                                  .dividerColor
+                                  .withValues(alpha: 0.5),
                             ),
                           ),
-                          child: Text(
-                            option,
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width / 110,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    modifier.name,
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              100,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    '(default: ${modifier.defaultVal})',
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width /
+                                              110,
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                              Wrap(
+                                spacing: 12,
+                                runSpacing: 8,
+                                children: modifier.opts.keys.map((option) {
+                                  final isSelected = option ==
+                                      (selectedOptions[modifier.name] ??
+                                          modifier.defaultVal);
+                                  return TextButton(
+                                    onPressed: () {
+                                      onOptionSelected(modifier.name, option);
+                                      Navigator.pop(context);
+                                    },
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: isSelected
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                              .withValues(alpha: 0.1)
+                                          : null,
+                                      side: BorderSide(
+                                        color: isSelected
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                            : Colors.transparent,
+                                        width: 1.5,
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 8,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      option,
+                                      style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width /
+                                                110,
+                                        fontWeight: isSelected
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                        color: isSelected
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              if (modifier.desc != null) ...[
+                                const SizedBox(height: 16),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 2),
+                                  child: MarkdownBody(
+                                    data: modifier.desc!,
+                                    styleSheet: MarkdownStyleSheet(
+                                      p: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width /
+                                                110,
+                                        color: Theme.of(context).hintColor,
+                                        height: 1.4,
+                                      ),
+                                      a: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width /
+                                                110,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        decoration: TextDecoration.none,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      listBullet: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width /
+                                                110,
+                                        color: Theme.of(context).hintColor,
+                                      ),
+                                      listBulletPadding:
+                                          const EdgeInsets.only(right: 6),
+                                      listIndent: 12,
+                                      blockSpacing: 8,
+                                    ),
+                                    onTapLink: (text, href, title) {
+                                      if (href != null) {
+                                        launchUrl(Uri.parse(href));
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ],
                           ),
-                        );
-                      }).toList(),
-                    ),
-                    if (modifier.desc != null) ...[
-                      const SizedBox(height: 8),
-                      MarkdownBody(
-                        data: modifier.desc!,
-                        onTapLink: (text, href, title) {
-                          if (href != null) {
-                            launchUrl(Uri.parse(href));
-                          }
-                        },
-                        styleSheet: MarkdownStyleSheet(
-                          p: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 110,
-                            color: Theme.of(context).hintColor,
-                          ),
-                          a: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 110,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: 16),
-                  ],
-                );
-              }).toList(),
+                        ))
+                    .toList(),
+              ),
             ),
           ),
         );
