@@ -164,7 +164,7 @@ final List<Ex> exes = [
   Ex(EBase.squatSpanish, "spanish squat", [Equipment.elastic]),
 
   Ex(EBase.legExtension, "seated leg extension machine",
-      [Equipment.legExtensionMachine]), // TODO modifier for amount of lean
+      [Equipment.legExtensionMachine], [legExtensionLean]),
 
   Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl", []),
 

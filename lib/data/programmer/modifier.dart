@@ -20,6 +20,21 @@ final legCurlAnkleDorsiflexed = Modifier(
   defaultValue: 'no',
 );
 
+final legExtensionLean = Modifier(
+  'lean',
+  {
+    'upright': {
+      ProgramGroup.quadsRF: const Assign(
+          0.25, 'knee extension, short length to active insufficency'),
+    },
+    'back': {
+      ProgramGroup.quadsRF:
+          const Assign(1.0, 'knee extension, medium to long length'),
+    },
+  },
+  defaultValue: 'upright',
+);
+
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
       {

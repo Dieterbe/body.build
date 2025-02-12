@@ -58,7 +58,9 @@ class ModifierCount extends StatelessWidget {
                     Wrap(
                       spacing: 8,
                       children: modifier.opts.keys.map((option) {
-                        final isSelected = option == (selectedOptions[modifier.name] ?? modifier.defaultValue);
+                        final isSelected = option ==
+                            (selectedOptions[modifier.name] ??
+                                modifier.defaultValue);
                         return TextButton(
                           onPressed: () {
                             onOptionSelected(modifier.name, option);
@@ -66,7 +68,10 @@ class ModifierCount extends StatelessWidget {
                           },
                           style: TextButton.styleFrom(
                             backgroundColor: isSelected
-                                ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withValues(alpha: 0.1)
                                 : null,
                             side: BorderSide(
                               color: isSelected
@@ -78,7 +83,9 @@ class ModifierCount extends StatelessWidget {
                             option,
                             style: TextStyle(
                               fontSize: MediaQuery.of(context).size.width / 110,
-                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
                             ),
                           ),
                         );
@@ -95,10 +102,10 @@ class ModifierCount extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
           ),
         ),
         child: Row(

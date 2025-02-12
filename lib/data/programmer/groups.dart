@@ -322,8 +322,6 @@ List<VolumeAssignment> volumeAssignments = [
     EBase.squatSissy
   ], {
     ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
-    ProgramGroup.quadsRF:
-        Assign(1, 'knee extension (more lean back = more stretch)'),
   }),
   const VolumeAssignment([
     EBase.hipThrust,
