@@ -86,6 +86,22 @@ final legExtensionLean = Modifier('lean', 'upright', {
 or [this one](https://www.instagram.com/menno.henselmans/p/C7O6ydlR7qV/?img_index=1)
 ''');
 
+final squatLowerLegMovement = Modifier('lower leg movement', 'still', {
+  'still': {
+    // assume no soleus contribution
+    // Note: in menno's sheet, he still counts soleus 0.25 - not sure why -
+    // but such a low value is below threshold anyway
+  },
+  'back & forth': {
+    ProgramGroup.soleus:
+        const Assign(0.5, 'ankle plantarflexion in limited ROM'),
+  },
+}, desc: '''Whether the lower leg moves during the exercise:
+
+* Still: leg does not move: soleus inactive
+* Back & forth: leg moves back and forth: soleus contributes to the movement
+''');
+
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
       defaultValue,

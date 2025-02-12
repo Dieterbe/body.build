@@ -241,8 +241,6 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.spinalErectors: Assign(1, 'isometric'),
       ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
       ProgramGroup.gluteMax: Assign(1),
-      ProgramGroup.soleus:
-          Assign(0.5), // 0.25 for low bar squats if shins stay vertical
       ProgramGroup.abs: Assign(0.25),
       ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
       ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
@@ -254,7 +252,6 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.spinalErectors: Assign(0.25),
       ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
       ProgramGroup.gluteMax: Assign(1),
-      ProgramGroup.soleus: Assign(0.5), // 0.25 if shins stay vertical
     },
   ),
   const VolumeAssignment([
@@ -265,8 +262,6 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.gluteMax: Assign(1,
         'hip extension (from long to somewhat flexed still), less load when short & strongest'),
     ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
-    ProgramGroup.soleus: Assign(0.5,
-        'ankle plantarflexion (limited ROM, depends on technique)'), // 0.25 if shins stay vertical
     ProgramGroup.abs: Assign(0.25),
   }, assignEquip: {
     Equipment.dumbbell: {
@@ -286,22 +281,25 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     },
   }),
-  const VolumeAssignment([
-    EBase.lunge,
-    EBase.stepUp,
-  ], {
-    ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
-    ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
-    ProgramGroup.gluteMax: Assign(1),
-    ProgramGroup.gluteMed: Assign(0.5),
-    ProgramGroup.soleus: Assign(0.5), // 0.25 if shins stay vertical
-    ProgramGroup.abs: Assign(0.25),
-  }, assignEquip: {
-    Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
-      ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
-    }
-  }),
+  const VolumeAssignment(
+    [
+      EBase.lunge,
+      EBase.stepUp,
+    ],
+    {
+      ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
+      ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+      ProgramGroup.gluteMax: Assign(1),
+      ProgramGroup.gluteMed: Assign(0.5),
+      ProgramGroup.abs: Assign(0.25),
+    },
+    assignEquip: {
+      Equipment.dumbbell: {
+        ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+        ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
+      }
+    },
+  ),
   const VolumeAssignment([
     EBase.squatPistol,
     EBase.squatSissyAssisted,
@@ -311,7 +309,6 @@ List<VolumeAssignment> volumeAssignments = [
     ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
     ProgramGroup.gluteMax: Assign(1),
     ProgramGroup.gluteMed: Assign(0.5),
-    ProgramGroup.soleus: Assign(0.5), // 0.25 if shins stay vertical
     ProgramGroup.abs: Assign(0.25),
   }),
   const VolumeAssignment([
