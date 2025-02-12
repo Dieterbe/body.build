@@ -2,14 +2,15 @@ import 'package:bodybuild/data/programmer/groups.dart';
 
 class Modifier {
   final String name;
+  final String defaultVal;
   final Map<String, Map<ProgramGroup, Assign>> opts;
-  final String defaultValue;
 
-  Modifier(this.name, this.opts, {required this.defaultValue});
+  Modifier(this.name, this.defaultVal, this.opts);
 }
 
 final legCurlAnkleDorsiflexed = Modifier(
   'ankle dorsiflexed',
+  'no',
   {
     'yes': {
       ProgramGroup.gastroc:
@@ -17,11 +18,11 @@ final legCurlAnkleDorsiflexed = Modifier(
     },
     'no': {},
   },
-  defaultValue: 'no',
 );
 
 final legExtensionLean = Modifier(
   'lean',
+  'upright',
   {
     'upright': {
       ProgramGroup.quadsRF: const Assign(
@@ -32,11 +33,11 @@ final legExtensionLean = Modifier(
           const Assign(1.0, 'knee extension, medium to long length'),
     },
   },
-  defaultValue: 'upright',
 );
 
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
+      defaultValue,
       {
         '0°': {
           ProgramGroup.gluteMax: const Assign(
@@ -81,5 +82,4 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
               const Assign(0.5, 'hip abduction at 90° hip flexion'),
         },
       },
-      defaultValue: defaultValue,
     );

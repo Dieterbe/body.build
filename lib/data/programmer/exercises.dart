@@ -40,7 +40,7 @@ class Ex {
     // Apply modifiers. choose the first one that applies
     for (final modifier in modifiers) {
       final selectedOption =
-          modifierOptions[modifier.name] ?? modifier.defaultValue;
+          modifierOptions[modifier.name] ?? modifier.defaultVal;
       final optEffects = modifier.opts[selectedOption];
       if (optEffects != null && optEffects.containsKey(pg)) {
         return optEffects[pg]!;

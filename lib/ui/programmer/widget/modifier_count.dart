@@ -46,7 +46,7 @@ class ModifierCount extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '(default: ${modifier.defaultValue})',
+                          '(default: ${modifier.defaultVal})',
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width / 110,
                             color: Theme.of(context).hintColor,
@@ -60,7 +60,7 @@ class ModifierCount extends StatelessWidget {
                       children: modifier.opts.keys.map((option) {
                         final isSelected = option ==
                             (selectedOptions[modifier.name] ??
-                                modifier.defaultValue);
+                                modifier.defaultVal);
                         return TextButton(
                           onPressed: () {
                             onOptionSelected(modifier.name, option);
