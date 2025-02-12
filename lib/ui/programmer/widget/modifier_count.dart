@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ModifierCount extends StatelessWidget {
   final List<Modifier> modifiers;
@@ -91,6 +93,27 @@ class ModifierCount extends StatelessWidget {
                         );
                       }).toList(),
                     ),
+                    if (modifier.desc != null) ...[
+                      const SizedBox(height: 8),
+                      MarkdownBody(
+                        data: modifier.desc!,
+                        onTapLink: (text, href, title) {
+                          if (href != null) {
+                            launchUrl(Uri.parse(href));
+                          }
+                        },
+                        styleSheet: MarkdownStyleSheet(
+                          p: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 110,
+                            color: Theme.of(context).hintColor,
+                          ),
+                          a: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 110,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ],
                     const SizedBox(height: 16),
                   ],
                 );

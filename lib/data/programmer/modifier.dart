@@ -4,8 +4,9 @@ class Modifier {
   final String name;
   final String defaultVal;
   final Map<String, Map<ProgramGroup, Assign>> opts;
+  final String? desc;
 
-  Modifier(this.name, this.defaultVal, this.opts);
+  Modifier(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
 final legCurlAnkleDorsiflexed = Modifier(
@@ -21,19 +22,20 @@ final legCurlAnkleDorsiflexed = Modifier(
 );
 
 final legExtensionLean = Modifier(
-  'lean',
-  'upright',
-  {
-    'upright': {
-      ProgramGroup.quadsRF: const Assign(
-          0.25, 'knee extension, short length to active insufficency'),
+    'lean',
+    'upright',
+    {
+      'upright': {
+        ProgramGroup.quadsRF: const Assign(
+            0.25, 'knee extension, short length to active insufficency'),
+      },
+      'back': {
+        ProgramGroup.quadsRF:
+            const Assign(1.0, 'knee extension, medium to long length'),
+      },
     },
-    'back': {
-      ProgramGroup.quadsRF:
-          const Assign(1.0, 'knee extension, medium to long length'),
-    },
-  },
-);
+    desc:
+        'see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study');
 
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
@@ -82,4 +84,8 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
               const Assign(0.5, 'hip abduction at 90° hip flexion'),
         },
       },
+      desc: '''Relevant:
+* 2014 study: [Hip Muscle Activity during Isometric Contraction of Hip Abduction](https://pmc.ncbi.nlm.nih.gov/articles/PMC3944285/)
+* [Menno Henselmans breakdown of a 2024 study](https://www.instagram.com/menno.henselmans/p/DFxp8jezDfj/?img_index=1)
+''',
     );
