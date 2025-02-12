@@ -102,6 +102,15 @@ final squatLowerLegMovement = Modifier('lower leg movement', 'still', {
 * Back & forth: leg moves back and forth: soleus contributes to the movement
 ''');
 
+final deficit = Modifier('deficit', 'no', {
+  'max': {},
+  'small': {},
+  'no': {},
+},
+    desc:
+        '''Whether the exercise is performed without a deficit, with a small or large/max deficit.  
+Does not affect recruitment, but increases ROM and probably gains''');
+
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
       defaultValue,

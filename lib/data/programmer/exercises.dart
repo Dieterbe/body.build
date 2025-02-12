@@ -78,7 +78,6 @@ class Ex {
 
 // TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
 // form modifiers like unilateral concentrics, unilateral, e.g. for leg ext, leg curls, calf raises
-// form modifiers like deficit for BSQ, push ups
 // important: id's should not change! perhaps we should introduce seperate human friendly naming
 // TODO: annotate which exercises are 'preferred' by way of menno's recommendations, also those that are deficit or have larger ROM
 // and also which are complimentary (e.g. bicep curls and rows to train at different lengths)
@@ -128,43 +127,29 @@ final List<Ex> exes = [
   Ex(EBase.squatBelt, "belt squat", [Equipment.beltSquatMachine],
       [squatLowerLegMovement]),
   Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell],
-      [bsqRearLeg, squatLowerLegMovement]),
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
   Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell],
-      [bsqRearLeg, squatLowerLegMovement]),
-  Ex(EBase.squatBSQ, "smith machine (vertical) bulgarian split squat",
-      [Equipment.smithMachineVertical], [bsqRearLeg, squatLowerLegMovement]),
-  Ex(EBase.squatBSQ, "smith machine (angled) bulgarian split squat",
-      [Equipment.smithMachineAngled], [bsqRearLeg, squatLowerLegMovement]),
-  Ex(EBase.squatBSQ, "dumbbell bulgarian split squat from deficit",
-      [Equipment.dumbbell], [bsqRearLeg, squatLowerLegMovement]),
-  Ex(EBase.squatBSQ, "barbell bulgarian split squat from deficit",
-      [Equipment.barbell], [bsqRearLeg, squatLowerLegMovement]),
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
   Ex(
       EBase.squatBSQ,
-      "smith machine (vertical) bulgarian split squat from deficit",
+      "smith machine (vertical) bulgarian split squat",
       [Equipment.smithMachineVertical],
-      [bsqRearLeg, squatLowerLegMovement]),
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
   Ex(
       EBase.squatBSQ,
-      "smith machine (angled) bulgarian split squat from deficit",
+      "smith machine (angled) bulgarian split squat",
       [Equipment.smithMachineAngled],
-      [bsqRearLeg, squatLowerLegMovement]),
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
 
   Ex(EBase.legPress, "machine leg press", [Equipment.legPressMachine],
       [squatLowerLegMovement]),
-  Ex(EBase.lunge, "forward lunge", [], [squatLowerLegMovement]),
-  Ex(EBase.lunge, "backward lunge", [], [squatLowerLegMovement]),
-  Ex(EBase.lunge, "backward deficit lunge", [], [squatLowerLegMovement]),
-  Ex(EBase.lunge, "forward deficit lunge", [], [squatLowerLegMovement]),
+  Ex(EBase.lunge, "forward lunge", [], [squatLowerLegMovement, deficit]),
+  Ex(EBase.lunge, "backward lunge", [], [squatLowerLegMovement, deficit]),
   Ex(EBase.lunge, "walking lunge", [], [squatLowerLegMovement]),
   Ex(EBase.lunge, "dumbbell forward lunge", [Equipment.dumbbell],
-      [squatLowerLegMovement]),
+      [squatLowerLegMovement, deficit]),
   Ex(EBase.lunge, "dumbbell backward lunge", [Equipment.dumbbell],
-      [squatLowerLegMovement]),
-  Ex(EBase.lunge, "dumbbell backward deficit lunge", [Equipment.dumbbell],
-      [squatLowerLegMovement]),
-  Ex(EBase.lunge, "dumbbell forward deficit lunge", [Equipment.dumbbell],
-      [squatLowerLegMovement]),
+      [squatLowerLegMovement, deficit]),
   Ex(EBase.lunge, "dumbbell walking lunge", [Equipment.dumbbell],
       [squatLowerLegMovement]),
   Ex(EBase.stepUp, "step up", [], [squatLowerLegMovement]),
@@ -287,8 +272,7 @@ final List<Ex> exes = [
   Ex(EBase.chestPressMachine, "chest press machine",
       [Equipment.chestPressMachine]),
 
-  Ex(EBase.pushUp, "push-up", []),
-  Ex(EBase.pushUp, "push-up from deficit", []),
+  Ex(EBase.pushUp, "push-up", [], [deficit]),
   Ex(EBase.benchPressDB, "flat dumbbell bench press", [Equipment.dumbbell]),
   Ex(EBase.benchPressDB, "15° dumbbell bench press", [Equipment.dumbbell]),
   Ex(EBase.chestPressCable, "cable chest press", [Equipment.cableTowerDual]),
