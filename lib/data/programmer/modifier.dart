@@ -10,16 +10,17 @@ class Modifier {
 }
 
 final legCurlAnkleDorsiflexed = Modifier(
-  'ankle dorsiflexed',
-  'no',
-  {
-    'yes': {
-      ProgramGroup.gastroc:
-          const Assign(1, 'medium to long length knee flexion')
+    'ankle dorsiflexed',
+    'no',
+    {
+      'yes': {
+        ProgramGroup.gastroc:
+            const Assign(1, 'medium to long length knee flexion')
+      },
+      'no': {},
     },
-    'no': {},
-  },
-);
+    desc:
+        '[for the instagram lovers](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)');
 /*
 NOTE: for now, we don't have different programgroups for upper/lower back, that would be a good use case here
 */
@@ -39,6 +40,20 @@ final squatBarPlacement = Modifier('bar placement', 'high back', {
 
 Most people are stronger, the lower the bar placement. Therefore the low back bar placement is often used in powerlifting.
 The higher the bar placement, the less weight you need and the more you can target the back, in particular the upper back.
+''');
+
+final bsqRearLeg = Modifier('rear leg', 'for balance', {
+  'for balance': {},
+  'contributes': {
+    ProgramGroup.quadsRF:
+        const Assign(1, 'knee extension while stretched (rear leg)'),
+  },
+}, desc: '''How the rear leg is used in the Bulgarian split squat:
+
+* For balance: rear leg only used for balance/stability
+* Contributes: rear leg actively pushes and contributes to the movement.  
+  A Great way to train the Rectus Femoris quadricep. (which is typically neglected in squats).  
+  this style is less common, but Menno Henselmans recommends it. I (Dieter) do too.
 ''');
 
 final legExtensionLean = Modifier('lean', 'upright', {

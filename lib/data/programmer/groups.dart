@@ -262,8 +262,6 @@ List<VolumeAssignment> volumeAssignments = [
   ], {
     ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
     ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
-    ProgramGroup.quadsRF:
-        Assign(1, 'knee extension while stretched (rear leg)'),
     ProgramGroup.gluteMax: Assign(1,
         'hip extension (from long to somewhat flexed still), less load when short & strongest'),
     ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
