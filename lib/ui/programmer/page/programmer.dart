@@ -6,6 +6,7 @@ import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:bodybuild/ui/core/logo.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 const String helpProgrammer = '''
 # What is this?
@@ -217,6 +218,14 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           // ),
         ],
       ),
+    );
+  }
+
+  @override
+  Future<void> initState() async {
+    super.initState();
+    await Posthog().screen(
+      screenName: 'Example Screen dietertest',
     );
   }
 }

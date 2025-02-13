@@ -46,6 +46,7 @@ dependencies:
   shared_preferences: ^2.3.3
   uuid: ^4.2.2
   url_launcher: ^6.3.1
+  posthog_flutter: ^4.10.2
 
 dev_dependencies:
   flutter_test:
