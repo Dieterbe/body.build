@@ -96,7 +96,8 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Logo(height: 60),
-              Text('beta'),
+              Text('beta', // managed via script
+                  style: TextStyle(fontWeight: FontWeight.w300)),
             ],
           ),
         ),
