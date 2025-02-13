@@ -9,6 +9,7 @@ import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 void main() async {
   // disabled for now. not all that useful actually..
@@ -21,6 +22,16 @@ void main() async {
   // with this flag, we get proper URL's and proper stack
   // this was noticebale e.g. on /muscles when trying to navigate to /muscles/biceps
   GoRouter.optionURLReflectsImperativeAPIs = true;
+
+  WidgetsFlutterBinding.ensureInitialized();
+  // Note: making this key public is not an issue. it's write-only
+  final config =
+      PostHogConfig('phc_WC0LK9tiHgH0rMWV8KKYTUOnWJt9PRMny3Vw8dGG8bJ');
+  config.debug = true;
+  config.captureApplicationLifecycleEvents = true;
+  config.host = 'https://eu.i.posthog.com';
+  await Posthog().setup(config);
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
