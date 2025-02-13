@@ -1,4 +1,12 @@
 #!/bin/bash
+
+function die_error() {
+  echo "$@"
+  exit 2
+}
+
+[ -z "$1" ] || [ "$1" == "-f" ] || die_error "$0 [-f]"
+
 version=$(./scripts/git-version.sh)
 
 echo "## injecting version $version into sources..."
@@ -9,7 +17,7 @@ echo "## build web..."
 flutter build web
 
 echo "## git add build/web, deploy and git push..."
-git add -f build/web && git commit -m 'build' && git push origin HEAD
+git add -f build/web && git commit -m 'build' && git push $1 origin HEAD
 
 echo "## removing the $version strings again..."
 sed -i "s#</body><!-- $version -->#</body>#" web/index.html
