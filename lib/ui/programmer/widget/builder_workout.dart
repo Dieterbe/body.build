@@ -11,6 +11,7 @@ import 'package:bodybuild/ui/programmer/widget/drag_target.dart';
 import 'package:bodybuild/ui/programmer/widget/draggable_setgroup.dart';
 import 'package:bodybuild/ui/programmer/widget/drop_bar.dart';
 import 'package:bodybuild/util.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 class BuilderWorkoutWidget extends StatelessWidget {
   final Workout workout;
@@ -138,11 +139,18 @@ class BuilderWorkoutWidget extends StatelessWidget {
                 ),
               ),
               AddSetButton(
-                () {
+                () async {
                   onChange(workout.copyWith(setGroups: [
                     ...workout.setGroups,
                     SetGroup([Sets(setup.paramFinal.intensities.first)])
                   ]));
+                  await Posthog().capture(
+                    eventName: 'AddSetButtonClicked',
+                    properties: {
+                      'muscle': 'any',
+                      'setgroups': workout.setGroups.length,
+                    },
+                  );
                 },
                 isEmpty: workout.setGroups.isEmpty,
               ),
