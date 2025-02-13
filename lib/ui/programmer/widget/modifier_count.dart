@@ -24,13 +24,68 @@ class ModifierCount extends StatelessWidget {
         showDialog<void>(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(
-              'Exercise Modifiers',
-              style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width / 80,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+            title: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Exercise Modifiers',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width / 80,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  visualDensity: VisualDensity.compact,
+                  icon: Icon(
+                    Icons.info_outline,
+                    size: MediaQuery.of(context).size.width / 100,
+                    color: Theme.of(context).hintColor,
+                  ),
+                  onPressed: () {
+                    showDialog<void>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        content: MarkdownBody(
+                          data: '''# Exercise modifiers
+Exercise modifiers let you customize how an exercise is performed.
+These modifiers may affect:
+
+* muscle recruitment level (reflected in volume counts)
+* muscle activation & growth stimulus
+* equipment used
+* technique
+* development of secondary goals such as mobility, grip, core stability, etc
+''',
+                          styleSheet: MarkdownStyleSheet(
+                            p: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width / 110,
+                              color: Theme.of(context).colorScheme.onSurface,
+                              height: 1.4,
+                            ),
+                            listBullet: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width / 110,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            listBulletPadding: const EdgeInsets.only(right: 6),
+                            listIndent: 12,
+                            blockSpacing: 8,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
             titlePadding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
             contentPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
