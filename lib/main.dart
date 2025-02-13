@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       themeMode: ThemeMode.dark,
-      title: 'Body.build',
+      title: 'Body.build: advanced workout planner for coaches and lifters',
       //     darkTheme: ThemeData.dark(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: colorSeed),

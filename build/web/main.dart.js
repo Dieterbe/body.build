@@ -46179,7 +46179,7 @@ $S:9}
 A.SZ.prototype={
 I(a){var s=null,r="articulations",q="programmer",p="meal-planner",o=A.zI(s,A.aSe(B.aH,s,s,B.P4),!0),n=t.yo
 n=A.a([A.tV(new A.ans(),s,"/",A.a([A.tV(new A.ant(),r,r,B.e9),A.tV(new A.anu(),"articulation","articulation/:id",B.e9),A.tV(new A.anv(),"muscles","muscles",B.e9),A.tV(new A.anw(),"muscle","muscle/:id",B.e9),A.tV(new A.anx(),q,q,B.e9),A.tV(new A.any(),p,p,B.e9)],n))],n)
-return new A.y9(A.b6a(!1,s,s,s,s,"/programmer",s,s,s,!1,s,!0,s,!1,new A.YA(new A.at3(n,A.bhi(),5))),"Body.build",o,B.Gu,s)}}
+return new A.y9(A.b6a(!1,s,s,s,s,"/programmer",s,s,s,!1,s,!0,s,!1,new A.YA(new A.at3(n,A.bhi(),5))),"Body.build: advanced workout planner for coaches and lifters",o,B.Gu,s)}}
 A.ans.prototype={
 $2(a,b){return B.S5},
 $S:782}
