@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/core/widget/version.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup_facts.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup_filters.dart';
@@ -40,6 +41,7 @@ class ProgrammerSetup extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           child: ProgrammerSetupFilters(),
         ),
+        const VersionWidget(),
       ],
     );
   }

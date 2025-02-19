@@ -13,4 +13,4 @@ else
   dirty=""
 fi
 
-echo "version ${branch}-${hash}${dirty}"
+echo "${branch}-${hash}${dirty}"

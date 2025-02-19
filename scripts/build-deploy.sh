@@ -10,8 +10,8 @@ function die_error() {
 version=$(./scripts/git-version.sh)
 
 echo "## injecting version $version into sources..."
-sed -i "s#Text('beta', // managed via script#Text('beta $version', // managed via script#" lib/ui/programmer/page/programmer.dart
-sed -i "s#</body>#</body><!-- $version -->#" web/index.html
+sed -i "s/^const version = 'git';/const version = '$version';/" lib/ui/const.dart
+sed -i "s#</body>#</body><!-- version $version -->#" web/index.html
 
 echo "## build web..."
 flutter build web
@@ -20,5 +20,5 @@ echo "## git add build/web, deploy and git push..."
 git add -f build/web && git commit -m 'build' && git push $1 origin HEAD
 
 echo "## removing the $version strings again..."
-sed -i "s#</body><!-- $version -->#</body>#" web/index.html
-sed -i "s#Text('beta.*// managed via script#Text('beta', // managed via script#" lib/ui/programmer/page/programmer.dart
+sed -i "s#</body><!-- version $version -->#</body>#" web/index.html
+sed -i "s/^const version = '$version';/const version = 'git';/" lib/ui/const.dart

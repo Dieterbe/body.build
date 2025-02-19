@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/core/widget/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/program.dart';
@@ -105,6 +106,7 @@ class ProgrammerBuilder extends ConsumerWidget {
                   ],
                 ),
               ),
+            const VersionWidget(),
           ]);
         },
       ),
