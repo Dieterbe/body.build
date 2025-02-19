@@ -44,14 +44,14 @@ The higher the bar placement, the less weight you need and the more you can targ
 
 final bsqRearLeg = Modifier('rear leg', 'for balance', {
   'for balance': {},
-  'contributes': {
+  'active': {
     ProgramGroup.quadsRF:
         const Assign(1, 'knee extension while stretched (rear leg)'),
   },
 }, desc: '''How the rear leg is used in the Bulgarian split squat:
 
 * For balance: rear leg only used for balance/stability
-* Contributes: rear leg actively pushes and contributes to the movement.  
+* Active: rear leg actively pushes and contributes to the movement.  
   A Great way to train the Rectus Femoris quadricep. (which is typically neglected in squats).  
   this style is less common, but Menno Henselmans recommends it. I (Dieter) do too.
 ''');

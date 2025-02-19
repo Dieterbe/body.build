@@ -1,3 +1,4 @@
+import 'package:bodybuild/model/programmer/parameters.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
@@ -132,6 +133,56 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
             .toList(),
       );
 
+  Iterable<Sets> toSetsFor(Ex ex, Parameters params, ProgramGroup g) {
+    // For each modifier that affects this program group, collect all its options
+    Map<String, List<String>> modifierOptions = {};
+
+    // First pass: identify modifiers that has values that cause variations in recruitment for this program group
+    // note that if you have 3 options, the first sets a recruitment value and the other two don't, we include all 3.
+    // this level of completeness seems like a good thing
+    for (final modifier in ex.modifiers) {
+      var hasAnyRelevantOptions = false;
+
+      for (var entry in modifier.opts.entries) {
+        if (entry.value.containsKey(g)) {
+          hasAnyRelevantOptions = true;
+        }
+      }
+
+      if (hasAnyRelevantOptions) {
+        modifierOptions[modifier.name] = modifier.opts.keys.toList();
+      }
+    }
+
+    // If no modifiers affect this group, return a single Sets with default values
+    if (modifierOptions.isEmpty) {
+      return [
+        Sets(
+          params.intensities.first,
+          ex: ex,
+          modifierOptions: {},
+        )
+      ];
+    }
+
+    // Generate all possible combinations of modifier options
+    var allCombinations = [
+      {for (var entry in modifierOptions.entries) entry.key: entry.value.first}
+    ];
+    modifierOptions.forEach((name, options) {
+      allCombinations = allCombinations
+          .expand((combo) => options.map((opt) => {...combo, name: opt}))
+          .toList();
+    });
+
+    // Create a Sets object for each unique combination
+    return allCombinations.map((modifiers) => Sets(
+          params.intensities.first,
+          ex: ex,
+          modifierOptions: modifiers,
+        ));
+  }
+
   Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) =>
       SimpleDialog(
         contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
@@ -159,29 +210,22 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
         ),
         children: [
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 400),
+            constraints: const BoxConstraints(maxWidth: 600),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Autocomplete<Ex>(
+              child: Autocomplete<Sets>(
                 optionsBuilder: (textEditingValue) {
                   final opts = setup.availableExercises
-                      .where((e) =>
-                          e.recruitment(
-                            g,
-                            {
-                              // TODO: add form modifiers
-                            },
-                          ).volume >
-                          0)
-                      .where((e) => e.id
-                          .toLowerCase()
-                          .contains(textEditingValue.text.toLowerCase()))
+                      .where((e) => e.id.toLowerCase().contains(
+                          textEditingValue.text.toLowerCase().toLowerCase()))
+                      .expand((e) => toSetsFor(e, setup.paramFinal, g))
+                      .where((e) => e.recruitmentFiltered(g, 0) > 0)
                       .toList();
-                  opts.sort((a, b) => (b.recruitment(g, {}).volume)
-                      .compareTo(a.recruitment(g, {}).volume));
+                  opts.sort((a, b) => (b.recruitmentFiltered(g, 0))
+                      .compareTo(a.recruitmentFiltered(g, 0)));
                   return opts;
                 },
-                displayStringForOption: (e) => e.id,
+                displayStringForOption: (e) => e.ex!.id,
                 fieldViewBuilder:
                     (context, controller, focusNode, onSubmitted) {
                   return TextField(
@@ -206,7 +250,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
                           maxHeight: 200,
-                          maxWidth: 400,
+                          maxWidth: 600,
                         ),
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
@@ -214,10 +258,71 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                           itemCount: options.length,
                           itemBuilder: (context, index) {
                             final option = options.elementAt(index);
-                            final volume = option.recruitment(g, {}).volume;
+                            final volume = option.recruitmentFiltered(g, 0);
                             return ListTile(
                               dense: true,
-                              title: Text(option.id),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              title: Row(
+                                children: [
+                                  Text(option.ex!.id),
+                                  if (option.modifierOptions.isNotEmpty) ...[  
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Wrap(
+                                        spacing: 8,
+                                        runSpacing: 4,
+                                        children: option.modifierOptions.entries.map((entry) {
+                                          return Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8,
+                                              vertical: 4,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                                  .withValues(alpha: 0.1),
+                                              borderRadius: BorderRadius.circular(4),
+                                              border: Border.all(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary
+                                                    .withValues(alpha: 0.5),
+                                                width: 1,
+                                              ),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  entry.key,
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  entry.value,
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              ),
                               trailing: SizedBox(
                                 width: 100,
                                 child: Row(
@@ -245,10 +350,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                 onSelected(option);
                                 onChange(workout.copyWith(setGroups: [
                                   ...workout.setGroups,
-                                  SetGroup([
-                                    Sets(setup.paramFinal.intensities.first,
-                                        ex: option)
-                                  ])
+                                  SetGroup([option])
                                 ]));
                                 context.pop();
                               },
