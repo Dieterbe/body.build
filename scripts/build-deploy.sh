@@ -1,7 +1,11 @@
 #!/bin/bash
 
+function log() {
+  echo "## $(date "+%F %T") $@"
+}
+
 function die_error() {
-  echo "$@"
+  log "$@"
   exit 2
 }
 
@@ -9,16 +13,16 @@ function die_error() {
 
 version=$(./scripts/git-version.sh)
 
-echo "## injecting version $version into sources..."
+log "injecting version $version into sources..."
 sed -i "s/^const version = 'git';/const version = '$version';/" lib/ui/const.dart
 sed -i "s#</body>#</body><!-- version $version -->#" web/index.html
 
-echo "## build web..."
+log "build web"
 flutter build web
 
-echo "## git add build/web, deploy and git push..."
+log "git add build/web, deploy and git push"
 git add -f build/web && git commit -m 'build' && git push $1 origin HEAD
 
-echo "## removing the $version strings again..."
+log "removing the $version strings again..."
 sed -i "s#</body><!-- version $version -->#</body>#" web/index.html
 sed -i "s/^const version = '$version';/const version = 'git';/" lib/ui/const.dart
