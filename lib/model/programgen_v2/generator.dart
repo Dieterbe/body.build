@@ -62,7 +62,15 @@ void _generateInIsolate(WorkoutGenerationParams params) {
     (i) => Map.fromEntries(
       ProgramGroup.values.map(
         (group) => MapEntry(
-            group, exercises[i].ex.recruitmentFiltered(group, 0.5).volume),
+            group,
+            exercises[i]
+                .ex
+                .recruitmentFiltered(
+                  group,
+                  {},
+                  0.5, // TODO: we don't support modifiers yet
+                )
+                .volume),
       ),
     ),
   );

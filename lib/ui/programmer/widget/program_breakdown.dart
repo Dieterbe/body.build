@@ -10,7 +10,8 @@ class ProgramBreakdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Create a map to store exercises that hit each program group with recruitment >= 0.5
-    final Map<ProgramGroup, Map<Ex, int>> groupExercises = {};
+    final Map<ProgramGroup, Map<Ex, int>> groupExercises =
+        {}; // TODO: support modifier opts
 
     // Initialize empty maps for each program group
     for (final group in ProgramGroup.values) {
@@ -23,7 +24,8 @@ class ProgramBreakdown extends StatelessWidget {
         for (final sets in setGroup.sets) {
           if (sets.ex != null) {
             for (final group in ProgramGroup.values) {
-              if (sets.ex!.recruitment(group).volume >= 0.5) {
+              if (sets.ex!.recruitment(group, sets.modifierOptions).volume >=
+                  0.5) {
                 groupExercises[group]!.update(
                   sets.ex!,
                   (value) => value + sets.n,
@@ -85,7 +87,7 @@ class ProgramBreakdown extends StatelessWidget {
 
             final exByModality = <String?, List<MapEntry<Ex, int>>>{};
             for (final entry in exercises.entries) {
-              final modality = entry.key.recruitment(group).modality;
+              final modality = entry.key.recruitment(group, {}).modality;
               exByModality.putIfAbsent(modality, () => []).add(entry);
             }
 

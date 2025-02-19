@@ -7,6 +7,7 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
+import 'package:bodybuild/ui/programmer/widget/modifier_count.dart';
 
 class BuilderSets extends ConsumerWidget {
   final Sets sets;
@@ -251,12 +252,26 @@ class BuilderSets extends ConsumerWidget {
 
   Widget _equipment(BuildContext context) => Row(
         children: [
-          if (sets.ex != null)
+          if (sets.ex != null) ...[
             ...sets.ex!.equipment.map((e) => Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child:
                       EquipmentLabel(e, err: !setup.availEquipment.contains(e)),
                 )),
+            if (sets.ex!.modifiers.isNotEmpty)
+              ModifierCount(
+                modifiers: sets.ex!.modifiers,
+                selectedOptions: sets.modifierOptions,
+                onOptionSelected: (modifierName, option) {
+                  onChange(sets.copyWith(
+                    modifierOptions: {
+                      ...sets.modifierOptions,
+                      modifierName: option,
+                    },
+                  ));
+                },
+              ),
+          ],
           if (hasNewComboButton)
             Padding(
               padding: const EdgeInsets.only(right: 8),
@@ -298,7 +313,9 @@ class BuilderSets extends ConsumerWidget {
                           child: muscleMark(
                               sets.ex == null
                                   ? 0
-                                  : sets.ex!.recruitment(g).volume,
+                                  : sets.ex!
+                                      .recruitment(g, sets.modifierOptions)
+                                      .volume,
                               context)),
                     ),
                   ),

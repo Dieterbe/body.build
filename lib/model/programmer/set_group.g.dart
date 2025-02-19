@@ -11,6 +11,10 @@ _$SetsImpl _$$SetsImplFromJson(Map<String, dynamic> json) => _$SetsImpl(
       ex: _exFromJson(json['ex'] as String?),
       n: (json['n'] as num?)?.toInt() ?? 1,
       changeEx: json['changeEx'] as bool? ?? false,
+      modifierOptions: (json['modifierOptions'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
     );
 
 Map<String, dynamic> _$$SetsImplToJson(_$SetsImpl instance) =>
@@ -18,6 +22,7 @@ Map<String, dynamic> _$$SetsImplToJson(_$SetsImpl instance) =>
       'intensity': instance.intensity,
       'ex': _exToJson(instance.ex),
       'n': instance.n,
+      'modifierOptions': instance.modifierOptions,
     };
 
 _$SetGroupImpl _$$SetGroupImplFromJson(Map<String, dynamic> json) =>

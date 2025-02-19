@@ -17,13 +17,16 @@ class Sets with _$Sets {
     Ex? ex,
     @Default(1) int n,
     @JsonKey(includeToJson: false) @Default(false) bool changeEx,
+    @Default({})
+    Map<String, String>
+        modifierOptions, // Map of modifier name to selected option
   }) = _Sets;
 
   factory Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json);
 
   double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;
-    return ex!.recruitmentFiltered(pg, cutoff).volume * n;
+    return ex!.recruitmentFiltered(pg, modifierOptions, cutoff).volume * n;
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/exercise_base.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/modifier.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
@@ -14,6 +15,7 @@ import 'package:bodybuild/data/programmer/groups.dart';
 class Ex {
   EBase base;
   List<Equipment> equipment;
+  List<Modifier> modifiers;
   String
       id; // identifier to match to kaos exercise. does not need to be human friendly
   // TODO: in fact, should be super specific here? to account for future additions of other
@@ -21,7 +23,7 @@ class Ex {
   //Exercise? exercise;
   late VolumeAssignment va;
 
-  Ex(this.base, this.id, this.equipment) {
+  Ex(this.base, this.id, this.equipment, [this.modifiers = const []]) {
     // for now, rely on the idea that we have 1 rule for each type of exercise
     // perhaps in the future we can do something more fancy with rules overriding each other etc
     for (var v in volumeAssignments) {
@@ -33,9 +35,20 @@ class Ex {
     throw Exception(
         'no matching volume assignment found for exercise with id $id');
   }
+// Note: for now, we only support modifiers and equipment-rules that don't talk about the same pg
+  Assign recruitment(ProgramGroup pg, Map<String, String?> modifierOptions) {
+    // Apply modifiers. choose the first one that applies
+    for (final modifier in modifiers) {
+      final selectedOption =
+          modifierOptions[modifier.name] ?? modifier.defaultVal;
+      final optEffects = modifier.opts[selectedOption];
+      if (optEffects != null && optEffects.containsKey(pg)) {
+        return optEffects[pg]!;
+      }
+    }
 
-  Assign recruitment(ProgramGroup pg) {
     // first see if there's an equipment specific rule that describes our pg.
+    // TODO: what if we have a modifier? we can have multiple. can they disagree with one another or with equipment?
     for (final entry in va.assignEquip.entries) {
       if (equipment.contains(entry.key) && entry.value.containsKey(pg)) {
         return entry.value[pg]!;
@@ -45,21 +58,26 @@ class Ex {
     return va.assign[pg] ?? const Assign(0);
   }
 
-  Assign recruitmentFiltered(ProgramGroup pg, double cutoff) {
-    final raw = recruitment(pg);
+  Assign recruitmentFiltered(
+      ProgramGroup pg, Map<String, String?> modifierOptions, double cutoff) {
+    final raw = recruitment(pg, modifierOptions);
     return raw.volume >= cutoff ? raw : const Assign(0);
   }
 
-  double totalRecruitment() => ProgramGroup.values
-      .fold(0.0, (sum, group) => sum + recruitment(group).volume);
+  double totalRecruitment(Map<String, String> modifierOptions) =>
+      ProgramGroup.values.fold(0.0,
+          (sum, group) => sum + recruitment(group, modifierOptions).volume);
 
-  double totalRecruitmentFiltered(double cutoff) => ProgramGroup.values.fold(
-      0.0, (sum, group) => sum + recruitmentFiltered(group, cutoff).volume);
+  double totalRecruitmentFiltered(
+          double cutoff, Map<String, String> modifierOptions) =>
+      ProgramGroup.values.fold(
+          0.0,
+          (sum, group) =>
+              sum + recruitmentFiltered(group, modifierOptions, cutoff).volume);
 }
 
 // TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
 // form modifiers like unilateral concentrics, unilateral, e.g. for leg ext, leg curls, calf raises
-// form modifiers like deficit for BSQ, push ups
 // important: id's should not change! perhaps we should introduce seperate human friendly naming
 // TODO: annotate which exercises are 'preferred' by way of menno's recommendations, also those that are deficit or have larger ROM
 // and also which are complimentary (e.g. bicep curls and rows to train at different lengths)
@@ -85,85 +103,93 @@ final List<Ex> exes = [
   Ex(EBase.pullThrough, "cable pull-through", [Equipment.cableTower]),
 
   Ex(EBase.legCurlHipFlexed, "seated leg curl machine",
-      [Equipment.hamCurlMachineSeated]),
+      [Equipment.hamCurlMachineSeated], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "standing unilateral leg curl machine",
-      [Equipment.hamCurlMachineStanding]),
+      [Equipment.hamCurlMachineStanding], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "lying leg curl machine",
-      [Equipment.hamCurlMachineLying]),
+      [Equipment.hamCurlMachineLying], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "bodyweight leg curl with trx (hip extended)",
-      [Equipment.trx]),
+      [Equipment.trx], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "bodyweight leg curl with rings (hip extended)",
-      [Equipment.gymnasticRings]),
-  Ex(EBase.legCurlHipExtended, "nordic curl (hip extended)", []),
+      [Equipment.gymnasticRings], [legCurlAnkleDorsiflexed]),
+  Ex(EBase.legCurlHipExtended, "nordic curl (hip extended)", [],
+      [legCurlAnkleDorsiflexed]),
 
-  Ex(EBase.squatBB, "high bar back squat", [Equipment.squatRack]),
-  Ex(EBase.squatBB, "low bar back squat", [Equipment.squatRack]),
-  Ex(EBase.squatBB, "high bar back squat (powerlift)", [Equipment.squatRack]),
-  Ex(EBase.squatBB, "low bar back squat (powerlift)", [Equipment.squatRack]),
-  Ex(EBase.squatBB, "front squat", [Equipment.squatRack]),
-  Ex(EBase.squatGoblet, "goblet squat", []),
-  Ex(EBase.squatHack, "machine hack squat", [Equipment.hackSquatMachine]),
+  Ex(EBase.squatBB, "barbell squat", [Equipment.squatRack],
+      [squatBarPlacement, squatLowerLegMovement]),
+  Ex(EBase.squatGoblet, "goblet squat", [], [
+    squatLowerLegMovement
+  ]), // for this one, the lower leg probably *always* moves
+  Ex(EBase.squatHack, "machine hack squat", [Equipment.hackSquatMachine],
+      [squatLowerLegMovement]),
   Ex(EBase.squatHack, "smith machine hack squat",
-      [Equipment.smithMachineVertical]),
-  Ex(EBase.squatBelt, "belt squat", [Equipment.beltSquatMachine]),
-  Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell]),
-  Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell]),
-  Ex(EBase.squatBSQ, "smith machine (vertical) bulgarian split squat",
-      [Equipment.smithMachineVertical]),
-  Ex(EBase.squatBSQ, "smith machine (angled) bulgarian split squat",
-      [Equipment.smithMachineAngled]),
-  Ex(EBase.squatBSQ, "dumbbell bulgarian split squat from deficit",
-      [Equipment.dumbbell]),
-  Ex(EBase.squatBSQ, "barbell bulgarian split squat from deficit",
-      [Equipment.barbell]),
+      [Equipment.smithMachineVertical], [squatLowerLegMovement]),
+  Ex(EBase.squatBelt, "belt squat", [Equipment.beltSquatMachine],
+      [squatLowerLegMovement]),
+  Ex(EBase.squatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell],
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
+  Ex(EBase.squatBSQ, "barbell bulgarian split squat", [Equipment.barbell],
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
   Ex(
       EBase.squatBSQ,
-      "smith machine (vertical) bulgarian split squat from deficit",
-      [Equipment.smithMachineVertical]),
+      "smith machine (vertical) bulgarian split squat",
+      [Equipment.smithMachineVertical],
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
   Ex(
       EBase.squatBSQ,
-      "smith machine (angled) bulgarian split squat from deficit",
-      [Equipment.smithMachineAngled]),
+      "smith machine (angled) bulgarian split squat",
+      [Equipment.smithMachineAngled],
+      [bsqRearLeg, squatLowerLegMovement, deficit]),
 
-  Ex(EBase.legPress, "machine leg press", [Equipment.legPressMachine]),
-  Ex(EBase.lunge, "forward lunge", []),
-  Ex(EBase.lunge, "backward lunge", []),
-  Ex(EBase.lunge, "backward deficit lunge", []),
-  Ex(EBase.lunge, "forward deficit lunge", []),
-  Ex(EBase.lunge, "walking lunge", []),
-  Ex(EBase.lunge, "dumbbell forward lunge", [Equipment.dumbbell]),
-  Ex(EBase.lunge, "dumbbell backward lunge", [Equipment.dumbbell]),
-  Ex(EBase.lunge, "dumbbell backward deficit lunge", [Equipment.dumbbell]),
-  Ex(EBase.lunge, "dumbbell forward deficit lunge", [Equipment.dumbbell]),
-  Ex(EBase.lunge, "dumbbell walking lunge", [Equipment.dumbbell]),
-  Ex(EBase.stepUp, "step up", []),
+  Ex(EBase.legPress, "machine leg press", [Equipment.legPressMachine],
+      [squatLowerLegMovement]),
+  Ex(EBase.lunge, "forward lunge", [], [squatLowerLegMovement, deficit]),
+  Ex(EBase.lunge, "backward lunge", [], [squatLowerLegMovement, deficit]),
+  Ex(EBase.lunge, "walking lunge", [], [squatLowerLegMovement]),
+  Ex(EBase.lunge, "dumbbell forward lunge", [Equipment.dumbbell],
+      [squatLowerLegMovement, deficit]),
+  Ex(EBase.lunge, "dumbbell backward lunge", [Equipment.dumbbell],
+      [squatLowerLegMovement, deficit]),
+  Ex(EBase.lunge, "dumbbell walking lunge", [Equipment.dumbbell],
+      [squatLowerLegMovement]),
+  Ex(EBase.stepUp, "step up", [], [squatLowerLegMovement]),
 
-  Ex(EBase.squatPistol, "pistol squat", []),
-  Ex(EBase.squatSissy, "sissy squat", []),
-  Ex(EBase.squatSissyAssisted, "assisted sissy squat", []),
-  Ex(EBase.squatSpanish, "spanish squat", [Equipment.elastic]),
+  Ex(EBase.squatPistol, "pistol squat", [], [squatLowerLegMovement]),
+  Ex(EBase.squatSissy, "sissy squat", [], [squatLowerLegMovement]),
+  Ex(EBase.squatSissyAssisted, "assisted sissy squat", [],
+      [squatLowerLegMovement]),
+  Ex(EBase.squatSpanish, "spanish squat", [Equipment.elastic],
+      [squatLowerLegMovement]),
 
   Ex(EBase.legExtension, "seated leg extension machine",
-      [Equipment.legExtensionMachine]), // TODO modifier for amount of lean
+      [Equipment.legExtensionMachine], [legExtensionLean]),
 
   Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl", []),
 
-  Ex(EBase.hipThrust, "barbell hip thrust", [Equipment.barbell]),
+  Ex(EBase.hipThrust, "barbell hip thrust", [Equipment.barbell],
+      [hipExtensionKneeFlexion]),
   Ex(EBase.hipThrust, "smith machine hip thrust",
-      [Equipment.smithMachineVertical]),
-  Ex(EBase.hipThrust, "machine hip thrust", [Equipment.hipThrustMachine]),
+      [Equipment.smithMachineVertical], [hipExtensionKneeFlexion]),
+  Ex(EBase.hipThrust, "machine hip thrust", [Equipment.hipThrustMachine],
+      [hipExtensionKneeFlexion]),
 
   Ex(EBase.gluteKickback, "glute kickback machine",
-      [Equipment.gluteKickbackMachine]),
+      [Equipment.gluteKickbackMachine], [hipExtensionKneeFlexion]),
   Ex(EBase.gluteKickback, "pendulum glute kickback",
-      [Equipment.pendulumGluteKickback]),
+      [Equipment.pendulumGluteKickback], [hipExtensionKneeFlexion]),
 
-  Ex(EBase.hipAbductionHipFlexed, "hip abduction machine - seated upright",
-      [Equipment.hipAdductionAbductionMachine]),
-  Ex(EBase.hipAbductionHipExtended, "standing cable hip abduction",
-      [Equipment.cableTower]),
-  Ex(EBase.hipAbductionHipExtended, "lying cable hip abduction",
-      [Equipment.cableTower]),
+  Ex(
+      EBase.hipAbduction,
+      "hip abduction machine",
+      [Equipment.hipAdductionAbductionMachine],
+      [hipAbductionHipFlexion('90°')]),
+  Ex(EBase.hipAbduction, "standing cable hip abduction", [Equipment.cableTower],
+      [hipAbductionHipFlexion('0°')]),
+  Ex(
+    EBase.hipAbduction,
+    "lying cable hip abduction",
+    [Equipment.cableTower],
+  ),
 
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
       [Equipment.smithMachineVertical]),
@@ -246,8 +272,7 @@ final List<Ex> exes = [
   Ex(EBase.chestPressMachine, "chest press machine",
       [Equipment.chestPressMachine]),
 
-  Ex(EBase.pushUp, "push-up", []),
-  Ex(EBase.pushUp, "push-up from deficit", []),
+  Ex(EBase.pushUp, "push-up", [], [deficit]),
   Ex(EBase.benchPressDB, "flat dumbbell bench press", [Equipment.dumbbell]),
   Ex(EBase.benchPressDB, "15° dumbbell bench press", [Equipment.dumbbell]),
   Ex(EBase.chestPressCable, "cable chest press", [Equipment.cableTowerDual]),
