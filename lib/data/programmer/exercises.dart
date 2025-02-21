@@ -192,13 +192,17 @@ final List<Ex> exes = [
     [Equipment.cableTower],
   ),
 
-  Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
-      [Equipment.smithMachineVertical]),
-  Ex(EBase.standingCalfRaise, "smith machine standing calf raise (unilateral)",
-      [Equipment.smithMachineVertical]),
+// TODO: unilateral modifiers and other forms
   Ex(EBase.standingCalfRaise, "standing calf raise machine",
       [Equipment.calfRaiseMachineStanding]),
-  // TODO add more standing ones: unilateral, dummbell, barbell, on leg press
+  Ex(EBase.standingCalfRaise, "barbell standing calf raise",
+      [Equipment.barbell]),
+  Ex(EBase.standingCalfRaise, "dumbbell standing calf raise",
+      [Equipment.dumbbell]),
+  Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
+      [Equipment.smithMachineVertical]),
+  Ex(EBase.standingCalfRaise, "leg press straight leg calf raise",
+      [Equipment.legPressMachine]),
   Ex(EBase.seatedCalfRaise, "seated calf raise machine",
       [Equipment.calfRaiseMachineSeated]),
 
