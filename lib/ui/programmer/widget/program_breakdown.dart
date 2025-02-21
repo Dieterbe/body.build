@@ -9,24 +9,21 @@ class ProgramBreakdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Create a map to store exercises that hit each program group with recruitment >= 0.5
-    final Map<ProgramGroup, Map<Ex, int>> groupExercises =
-        {}; // TODO: support modifier opts
+    // pg -> modality -> Ex (hitting pg with recruitment >= 0.5) -> number of sets of that ex
+    final Map<ProgramGroup, Map<String, Map<Ex, int>>> tree = Map.fromEntries(
+        ProgramGroup.values.map((group) => MapEntry(group, {})));
 
-    // Initialize empty maps for each program group
-    for (final group in ProgramGroup.values) {
-      groupExercises[group] = {};
-    }
-
-    // Go through all workouts and their sets to find exercises that hit each group
+    // Go through the program and build the structure
     for (final workout in program.workouts) {
       for (final setGroup in workout.setGroups) {
         for (final sets in setGroup.sets) {
           if (sets.ex != null) {
             for (final group in ProgramGroup.values) {
-              if (sets.ex!.recruitment(group, sets.modifierOptions).volume >=
-                  0.5) {
-                groupExercises[group]!.update(
+              final r = sets.ex!.recruitment(group, sets.modifierOptions);
+              final modality = r.modality ?? 'UNKNOWN';
+              if (r.volume >= 0.5) {
+                tree[group]![modality] ??= {};
+                tree[group]![modality]!.update(
                   sets.ex!,
                   (value) => value + sets.n,
                   ifAbsent: () => sets.n,
@@ -62,8 +59,8 @@ class ProgramBreakdown extends StatelessWidget {
               'For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis'),
           const SizedBox(height: 16),
           ...ProgramGroup.values.map((group) {
-            final exercises = groupExercises[group]!;
-            if (exercises.isEmpty) {
+            final modalities = tree[group]!;
+            if (modalities.isEmpty) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 16),
                 child: Column(
@@ -85,12 +82,6 @@ class ProgramBreakdown extends StatelessWidget {
               );
             }
 
-            final exByModality = <String?, List<MapEntry<Ex, int>>>{};
-            for (final entry in exercises.entries) {
-              final modality = entry.key.recruitment(group, {}).modality;
-              exByModality.putIfAbsent(modality, () => []).add(entry);
-            }
-
             return Container(
               margin: const EdgeInsets.only(bottom: 12),
               child: Column(
@@ -103,10 +94,10 @@ class ProgramBreakdown extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  ...exByModality.entries.map((modalityGroup) {
-                    final description = modalityGroup.key ?? 'UNKNOWN';
+                  ...modalities.entries.map((modalityGroup) {
+                    final description = modalityGroup.key;
                     final exerciseList = modalityGroup.value;
-                    final exerciseText = exerciseList
+                    final exerciseText = exerciseList.entries
                         .map((e) => '${e.value}x ${e.key.id}')
                         .join(', ');
 
