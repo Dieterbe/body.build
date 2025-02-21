@@ -156,16 +156,16 @@ final List<Ex> exes = [
   Ex(EBase.stepUp, "step up", [], [squatLowerLegMovement]),
 
   Ex(EBase.squatPistol, "pistol squat", [], [squatLowerLegMovement]),
-  Ex(EBase.squatSissy, "sissy squat", [], [squatLowerLegMovement]),
-  Ex(EBase.squatSissyAssisted, "assisted sissy squat", [],
-      [squatLowerLegMovement]),
+  Ex(EBase.squatSissy, "sissy squat", [], [legExtensionLean]),
+  Ex(EBase.squatSissyAssisted, "assisted sissy squat", [], [legExtensionLean]),
   Ex(EBase.squatSpanish, "spanish squat", [Equipment.elastic],
       [squatLowerLegMovement]),
 
   Ex(EBase.legExtension, "seated leg extension machine",
       [Equipment.legExtensionMachine], [legExtensionLean]),
 
-  Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl", []),
+  Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl", [],
+      [legExtensionLean]),
 
   Ex(EBase.hipThrust, "barbell hip thrust", [Equipment.barbell],
       [hipExtensionKneeFlexion]),
