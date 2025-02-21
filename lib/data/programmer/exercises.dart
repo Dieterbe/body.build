@@ -35,27 +35,28 @@ class Ex {
     throw Exception(
         'no matching volume assignment found for exercise with id $id');
   }
-// Note: for now, we only support modifiers and equipment-rules that don't talk about the same pg
+
   Assign recruitment(ProgramGroup pg, Map<String, String?> modifierOptions) {
-    // Apply modifiers. choose the first one that applies
+    // establish base recruitment:
+    var r = va.assign[pg] ?? const Assign(0);
+
+    // Apply any equipment rules that apply
+    for (final entry in va.assignEquip.entries) {
+      if (equipment.contains(entry.key) && entry.value.containsKey(pg)) {
+        r = r.merge(entry.value[pg]!);
+      }
+    }
+    // Apply any modifiers that apply
     for (final modifier in modifiers) {
       final selectedOption =
           modifierOptions[modifier.name] ?? modifier.defaultVal;
       final optEffects = modifier.opts[selectedOption];
       if (optEffects != null && optEffects.containsKey(pg)) {
-        return optEffects[pg]!;
+        r = r.merge(optEffects[pg]!);
       }
     }
 
-    // first see if there's an equipment specific rule that describes our pg.
-    // TODO: what if we have a modifier? we can have multiple. can they disagree with one another or with equipment?
-    for (final entry in va.assignEquip.entries) {
-      if (equipment.contains(entry.key) && entry.value.containsKey(pg)) {
-        return entry.value[pg]!;
-      }
-    }
-    // if not, let's see if we have a general rule
-    return va.assign[pg] ?? const Assign(0);
+    return r;
   }
 
   Assign recruitmentFiltered(
@@ -295,15 +296,9 @@ final List<Ex> exes = [
       [Equipment.shoulderPressMachine]),
 
   Ex(EBase.lateralRaise, "standing dumbbell lateral raise",
-      [Equipment.dumbbell]),
-  Ex(EBase.lateralRaise, "standing cable lateral raise",
-      [Equipment.cableTower]),
-
-  Ex(EBase.lateralRaisePinkieUp, "standing dumbbell lateral raise, pinkie up",
-      [Equipment.dumbbell]),
-  Ex(EBase.lateralRaisePinkieUp, "standing cable lateral raise, pinkie up",
-      [Equipment.cableTower]),
-
+      [Equipment.dumbbell], [lateralRaiseShoulderRotation]),
+  Ex(EBase.lateralRaise, "standing cable lateral raise", [Equipment.cableTower],
+      [lateralRaiseShoulderRotation, lateralRaiseCablePath]),
   Ex(EBase.shrug, "barbell shrug", [Equipment.barbell]),
   Ex(EBase.shrug, "wide grip barbell shrug", [Equipment.barbell]),
   Ex(EBase.shrug, "dumbbell shrug", [Equipment.dumbbell]),

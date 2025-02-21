@@ -18,6 +18,16 @@ class Assign {
   final double volume;
   final String? modality; // work in progress
   const Assign(this.volume, [this.modality]);
+
+  Assign merge(Assign other) {
+    final mergedModality = switch ((modality, other.modality)) {
+      (null, null) => null,
+      (String value, null) => value,
+      (null, String value) => value,
+      (String a, String b) => '$a, $b'
+    };
+    return Assign(volume + other.volume, mergedModality);
+  }
 }
 
 enum ProgramGroup {
@@ -582,18 +592,6 @@ this explains why pull up goes together with wide grip pull down
     EBase.lateralRaise
   ], {
     ProgramGroup.upperPecs: Assign(0.25),
-    ProgramGroup.frontDelts: Assign(1),
-    ProgramGroup.sideDelts: Assign(1),
-    ProgramGroup.lowerTraps: Assign(0.25),
-    ProgramGroup.middleTraps: Assign(0.25),
-    ProgramGroup.upperTraps: Assign(0.25),
-    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
-  }),
-  const VolumeAssignment([
-    EBase.lateralRaisePinkieUp
-  ], {
-    ProgramGroup.upperPecs: Assign(0.25),
-    ProgramGroup.frontDelts: Assign(0.25),
     ProgramGroup.sideDelts:
         Assign(1, 'full ROM shoulder abduction with full loaded stretch'),
     ProgramGroup.rearDelts: Assign(0.25),

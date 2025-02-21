@@ -111,6 +111,37 @@ final deficit = Modifier('deficit', 'no', {
         '''Whether the exercise is performed without a deficit, with a small or large/max deficit.  
 Does not affect recruitment, but increases ROM and probably gains''');
 
+Modifier lateralRaiseShoulderRotation = Modifier(
+    'wrist position',
+    'pinkie up',
+    {
+      'pinkie up': {
+        ProgramGroup.frontDelts: const Assign(0,
+            'deactivation from shoulder abduction (due to internal rotation)'),
+      },
+      'horizontal': {
+        ProgramGroup.frontDelts: const Assign(0.5, 'shoulder abduction'),
+      },
+      'pinkie down': {
+        ProgramGroup.frontDelts:
+            const Assign(0.75, 'shoulder abduction (externally rotated)'),
+      },
+    },
+    desc:
+        'The more you internally rotate the shoulder (raise the pinkie), the less you activate the front delts.');
+
+Modifier lateralRaiseCablePath = Modifier('cable path', 'in front', {
+  'in front': {
+    ProgramGroup.rearDelts: const Assign(0.25, 'transverse extension'),
+  },
+  'behind': {
+    ProgramGroup.frontDelts: const Assign(0.25, 'shoulder flexion'),
+  }
+},
+    desc:
+        '''Holding the cable in front biases more towards the rear delts, whereas the cable behind the body biases more towards the front delts
+See [this youtube short](https://www.youtube.com/shorts/jc900Wb-bCY)''');
+
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
       defaultValue,

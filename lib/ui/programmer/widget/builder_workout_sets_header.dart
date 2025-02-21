@@ -141,15 +141,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
     // note that if you have 3 options, the first sets a recruitment value and the other two don't, we include all 3.
     // this level of completeness seems like a good thing
     for (final modifier in ex.modifiers) {
-      var hasAnyRelevantOptions = false;
-
-      for (var entry in modifier.opts.entries) {
-        if (entry.value.containsKey(g)) {
-          hasAnyRelevantOptions = true;
-        }
-      }
-
-      if (hasAnyRelevantOptions) {
+      if (modifier.opts.entries.any((entry) => entry.value.containsKey(g))) {
         modifierOptions[modifier.name] = modifier.opts.keys.toList();
       }
     }
@@ -261,17 +253,19 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                             final volume = option.recruitmentFiltered(g, 0);
                             return ListTile(
                               dense: true,
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
                               title: Row(
                                 children: [
                                   Text(option.ex!.id),
-                                  if (option.modifierOptions.isNotEmpty) ...[  
+                                  if (option.modifierOptions.isNotEmpty) ...[
                                     const SizedBox(width: 12),
                                     Expanded(
                                       child: Wrap(
                                         spacing: 8,
                                         runSpacing: 4,
-                                        children: option.modifierOptions.entries.map((entry) {
+                                        children: option.modifierOptions.entries
+                                            .map((entry) {
                                           return Container(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 8,
@@ -282,7 +276,8 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                                   .colorScheme
                                                   .primary
                                                   .withValues(alpha: 0.1),
-                                              borderRadius: BorderRadius.circular(4),
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
                                               border: Border.all(
                                                 color: Theme.of(context)
                                                     .colorScheme

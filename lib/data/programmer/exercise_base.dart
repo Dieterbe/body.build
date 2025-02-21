@@ -61,7 +61,6 @@ enum EBase {
   overheadPressBB,
   overheadPressDB,
   lateralRaise,
-  lateralRaisePinkieUp,
   shrug,
   tricepExtension,
   tricepExtensionOverhead,
