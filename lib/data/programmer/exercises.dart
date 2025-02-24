@@ -165,7 +165,7 @@ final List<Ex> exes = [
       [squatLowerLegMovement]),
 
   Ex(EBase.legExtension, "seated leg extension machine",
-      [Equipment.legExtensionMachine], [legExtensionLean]),
+      [Equipment.legExtensionMachine], [legExtensionLean], legExtensionCues),
 
   Ex(EBase.reverseNordicHamCurl, "reverse nordic ham curl", [],
       [legExtensionLean]),

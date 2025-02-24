@@ -51,7 +51,7 @@ class BuilderSets extends ConsumerWidget {
                               name: opt
                             },
                           )),
-                          cues: sets.ex!.cues.opts,
+                          cues: sets.ex!.cues,
                           cueOptions: sets.cueOptions,
                           onCueToggled: (name, enabled) =>
                               onChange(sets.copyWith(
