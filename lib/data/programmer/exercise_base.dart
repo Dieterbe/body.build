@@ -54,6 +54,7 @@ enum EBase {
   pushUp,
   benchPressDB,
   chestPressCable,
+  dip,
   fly,
   flyShoulderExt,
   pecDeckHandGrip,

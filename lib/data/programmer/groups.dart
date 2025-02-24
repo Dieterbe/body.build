@@ -499,6 +499,7 @@ this explains why pull up goes together with wide grip pull down
   const VolumeAssignment([
     EBase.benchPressBB,
     EBase.chestPressMachine,
+    EBase.dip,
   ], {
     ProgramGroup.lowerPecs: Assign(1),
     ProgramGroup.upperPecs: Assign(1),

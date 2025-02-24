@@ -282,6 +282,8 @@ final List<Ex> exes = [
   Ex(EBase.benchPressDB, "15° dumbbell bench press", [Equipment.dumbbell]),
   Ex(EBase.chestPressCable, "cable chest press", [Equipment.cableTowerDual]),
 
+  Ex(EBase.dip, "dip", []),
+  Ex(EBase.dip, "assisted dip machine", [Equipment.assistedDipMachine]),
   Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell]),
   Ex(EBase.fly, "chest fly machine", [Equipment.chestFlyMachine]),
   Ex(EBase.flyShoulderExt, "chest fly machine (thumbs up)",
