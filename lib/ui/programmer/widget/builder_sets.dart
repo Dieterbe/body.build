@@ -22,6 +22,7 @@ class BuilderSets extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // this layout matches BuilderWorkoutSetsHeader
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16), // affects align
       decoration: BoxDecoration(
@@ -36,6 +37,27 @@ class BuilderSets extends ConsumerWidget {
               Flexible(flex: 15, child: _numSetsButton(context)),
               Flexible(flex: 15, child: _intensityButton(context)),
               Flexible(flex: 10, child: _editButton(context)),
+              Flexible(
+                  flex: 15,
+                  child: (sets.ex == null)
+                      ? Container()
+                      : ModifierCount(
+                          modifiers: sets.ex!.modifiers,
+                          selectedOptions: sets.modifierOptions,
+                          onOptionSelected: (name, opt) =>
+                              onChange(sets.copyWith(
+                            modifierOptions: {
+                              ...sets.modifierOptions,
+                              name: opt
+                            },
+                          )),
+                          cues: sets.ex!.cues.opts,
+                          cueOptions: sets.cueOptions,
+                          onCueToggled: (name, enabled) =>
+                              onChange(sets.copyWith(
+                            cueOptions: {...sets.cueOptions, name: enabled},
+                          )),
+                        )),
               Flexible(flex: 10, child: _deleteButton(context)),
               Flexible(flex: 70, child: _exerciseName(context)),
               // we squeeze the combo set button in with the equipment
@@ -258,26 +280,6 @@ class BuilderSets extends ConsumerWidget {
                   child:
                       EquipmentLabel(e, err: !setup.availEquipment.contains(e)),
                 )),
-            if (sets.ex!.modifiers.isNotEmpty || sets.ex!.cues.opts.isNotEmpty)
-              ModifierCount(
-                modifiers: sets.ex!.modifiers,
-                selectedOptions: sets.modifierOptions,
-                onOptionSelected: (modifierName, option) {
-                  onChange(sets.copyWith(
-                    modifierOptions: {
-                      ...sets.modifierOptions,
-                      modifierName: option,
-                    },
-                  ));
-                },
-                cues: sets.ex!.cues.opts,
-                cueOptions: sets.cueOptions,
-                onCueToggled: (cueName, enabled) {
-                  final newCueOptions = Map<String, bool>.from(sets.cueOptions);
-                  newCueOptions[cueName] = enabled;
-                  onChange(sets.copyWith(cueOptions: newCueOptions));
-                },
-              ),
           ],
           if (hasNewComboButton)
             Padding(

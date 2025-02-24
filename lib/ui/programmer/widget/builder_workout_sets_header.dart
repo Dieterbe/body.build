@@ -22,6 +22,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   // this layout matches BuilderSets
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16), // affects alignment
       child: Row(
@@ -32,7 +33,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                 children: [
                   Flexible(flex: 15, child: _setsLabel(context)),
                   Flexible(flex: 15, child: _intensityLabel(context)),
-                  Flexible(flex: 20, child: Container()),
+                  Flexible(flex: 35, child: Container()),
                   Flexible(flex: 70, child: _exerciseLabel(context)),
                   Flexible(flex: 35, child: _equipmentLabel(context)),
                 ],
