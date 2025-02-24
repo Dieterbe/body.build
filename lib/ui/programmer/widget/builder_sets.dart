@@ -258,7 +258,7 @@ class BuilderSets extends ConsumerWidget {
                   child:
                       EquipmentLabel(e, err: !setup.availEquipment.contains(e)),
                 )),
-            if (sets.ex!.modifiers.isNotEmpty)
+            if (sets.ex!.modifiers.isNotEmpty || sets.ex!.cues.opts.isNotEmpty)
               ModifierCount(
                 modifiers: sets.ex!.modifiers,
                 selectedOptions: sets.modifierOptions,
@@ -269,6 +269,13 @@ class BuilderSets extends ConsumerWidget {
                       modifierName: option,
                     },
                   ));
+                },
+                cues: sets.ex!.cues.opts,
+                cueOptions: sets.cueOptions,
+                onCueToggled: (cueName, enabled) {
+                  final newCueOptions = Map<String, bool>.from(sets.cueOptions);
+                  newCueOptions[cueName] = enabled;
+                  onChange(sets.copyWith(cueOptions: newCueOptions));
                 },
               ),
           ],

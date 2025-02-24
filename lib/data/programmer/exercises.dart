@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/programmer/cues.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/exercise_base.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
@@ -16,6 +17,7 @@ class Ex {
   EBase base;
   List<Equipment> equipment;
   List<Modifier> modifiers;
+  Cues cues;
   String
       id; // identifier to match to kaos exercise. does not need to be human friendly
   // TODO: in fact, should be super specific here? to account for future additions of other
@@ -23,7 +25,8 @@ class Ex {
   //Exercise? exercise;
   late VolumeAssignment va;
 
-  Ex(this.base, this.id, this.equipment, [this.modifiers = const []]) {
+  Ex(this.base, this.id, this.equipment,
+      [this.modifiers = const [], this.cues = defaultCues]) {
     // for now, rely on the idea that we have 1 rule for each type of exercise
     // perhaps in the future we can do something more fancy with rules overriding each other etc
     for (var v in volumeAssignments) {
@@ -194,15 +197,15 @@ final List<Ex> exes = [
 
 // TODO: unilateral modifiers and other forms
   Ex(EBase.standingCalfRaise, "standing calf raise machine",
-      [Equipment.calfRaiseMachineStanding]),
+      [Equipment.calfRaiseMachineStanding], [], standingCalfRaiseCues),
   Ex(EBase.standingCalfRaise, "barbell standing calf raise",
-      [Equipment.barbell]),
+      [Equipment.barbell], [], standingCalfRaiseCues),
   Ex(EBase.standingCalfRaise, "dumbbell standing calf raise",
-      [Equipment.dumbbell]),
+      [Equipment.dumbbell], [], standingCalfRaiseCues),
   Ex(EBase.standingCalfRaise, "smith machine standing calf raise",
-      [Equipment.smithMachineVertical]),
+      [Equipment.smithMachineVertical], [], standingCalfRaiseCues),
   Ex(EBase.standingCalfRaise, "leg press straight leg calf raise",
-      [Equipment.legPressMachine]),
+      [Equipment.legPressMachine], [], standingCalfRaiseCues),
   Ex(EBase.seatedCalfRaise, "seated calf raise machine",
       [Equipment.calfRaiseMachineSeated]),
 

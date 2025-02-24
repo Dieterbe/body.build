@@ -26,7 +26,9 @@ mixin _$Sets {
   int get n => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false)
   bool get changeEx => throw _privateConstructorUsedError;
-  Map<String, String> get modifierOptions => throw _privateConstructorUsedError;
+  Map<String, String> get modifierOptions =>
+      throw _privateConstructorUsedError; // Map of modifier name to selected option
+  Map<String, bool> get cueOptions => throw _privateConstructorUsedError;
 
   /// Serializes this Sets to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +49,8 @@ abstract class $SetsCopyWith<$Res> {
       @JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex,
       int n,
       @JsonKey(includeToJson: false) bool changeEx,
-      Map<String, String> modifierOptions});
+      Map<String, String> modifierOptions,
+      Map<String, bool> cueOptions});
 }
 
 /// @nodoc
@@ -70,6 +73,7 @@ class _$SetsCopyWithImpl<$Res, $Val extends Sets>
     Object? n = null,
     Object? changeEx = null,
     Object? modifierOptions = null,
+    Object? cueOptions = null,
   }) {
     return _then(_value.copyWith(
       intensity: null == intensity
@@ -92,6 +96,10 @@ class _$SetsCopyWithImpl<$Res, $Val extends Sets>
           ? _value.modifierOptions
           : modifierOptions // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
+      cueOptions: null == cueOptions
+          ? _value.cueOptions
+          : cueOptions // ignore: cast_nullable_to_non_nullable
+              as Map<String, bool>,
     ) as $Val);
   }
 }
@@ -108,7 +116,8 @@ abstract class _$$SetsImplCopyWith<$Res> implements $SetsCopyWith<$Res> {
       @JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex,
       int n,
       @JsonKey(includeToJson: false) bool changeEx,
-      Map<String, String> modifierOptions});
+      Map<String, String> modifierOptions,
+      Map<String, bool> cueOptions});
 }
 
 /// @nodoc
@@ -128,6 +137,7 @@ class __$$SetsImplCopyWithImpl<$Res>
     Object? n = null,
     Object? changeEx = null,
     Object? modifierOptions = null,
+    Object? cueOptions = null,
   }) {
     return _then(_$SetsImpl(
       null == intensity
@@ -150,6 +160,10 @@ class __$$SetsImplCopyWithImpl<$Res>
           ? _value._modifierOptions
           : modifierOptions // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
+      cueOptions: null == cueOptions
+          ? _value._cueOptions
+          : cueOptions // ignore: cast_nullable_to_non_nullable
+              as Map<String, bool>,
     ));
   }
 }
@@ -161,8 +175,10 @@ class _$SetsImpl extends _Sets {
       {@JsonKey(toJson: _exToJson, fromJson: _exFromJson) this.ex,
       this.n = 1,
       @JsonKey(includeToJson: false) this.changeEx = false,
-      final Map<String, String> modifierOptions = const {}})
+      final Map<String, String> modifierOptions = const {},
+      final Map<String, bool> cueOptions = const {}})
       : _modifierOptions = modifierOptions,
+        _cueOptions = cueOptions,
         super._();
 
   factory _$SetsImpl.fromJson(Map<String, dynamic> json) =>
@@ -188,9 +204,20 @@ class _$SetsImpl extends _Sets {
     return EqualUnmodifiableMapView(_modifierOptions);
   }
 
+// Map of modifier name to selected option
+  final Map<String, bool> _cueOptions;
+// Map of modifier name to selected option
+  @override
+  @JsonKey()
+  Map<String, bool> get cueOptions {
+    if (_cueOptions is EqualUnmodifiableMapView) return _cueOptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_cueOptions);
+  }
+
   @override
   String toString() {
-    return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, modifierOptions: $modifierOptions)';
+    return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, modifierOptions: $modifierOptions, cueOptions: $cueOptions)';
   }
 
   /// Create a copy of Sets
@@ -214,7 +241,8 @@ abstract class _Sets extends Sets {
       {@JsonKey(toJson: _exToJson, fromJson: _exFromJson) final Ex? ex,
       final int n,
       @JsonKey(includeToJson: false) final bool changeEx,
-      final Map<String, String> modifierOptions}) = _$SetsImpl;
+      final Map<String, String> modifierOptions,
+      final Map<String, bool> cueOptions}) = _$SetsImpl;
   const _Sets._() : super._();
 
   factory _Sets.fromJson(Map<String, dynamic> json) = _$SetsImpl.fromJson;
@@ -230,7 +258,10 @@ abstract class _Sets extends Sets {
   @JsonKey(includeToJson: false)
   bool get changeEx;
   @override
-  Map<String, String> get modifierOptions;
+  Map<String, String>
+      get modifierOptions; // Map of modifier name to selected option
+  @override
+  Map<String, bool> get cueOptions;
 
   /// Create a copy of Sets
   /// with the given fields replaced by the non-null parameter values.

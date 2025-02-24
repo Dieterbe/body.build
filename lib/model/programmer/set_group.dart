@@ -20,6 +20,9 @@ class Sets with _$Sets {
     @Default({})
     Map<String, String>
         modifierOptions, // Map of modifier name to selected option
+    @Default({})
+    Map<String, bool>
+        cueOptions, // Map of cue name to enabled state
   }) = _Sets;
 
   factory Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json);
