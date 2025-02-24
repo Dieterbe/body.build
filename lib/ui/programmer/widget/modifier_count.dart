@@ -47,10 +47,18 @@ class _ModifierCountState extends State<ModifierCount> {
     if (widget.modifiers.isEmpty && widget.cues.isEmpty)
       return const SizedBox.shrink();
 
-    final totalCount = widget.modifiers.length +
-        widget.cues.entries
-            .where((e) => _localCueOptions[e.key] ?? e.value.$1)
-            .length;
+    final totalCount = widget.modifiers.length + widget.cues.length;
+    
+    final nonDefaultCount = widget.modifiers
+        .where((m) =>
+            widget.selectedOptions[m.name] != null &&
+            widget.selectedOptions[m.name] != m.defaultVal)
+        .length +
+    widget.cues.entries
+        .where((entry) =>
+            widget.cueOptions[entry.key] != null &&
+            widget.cueOptions[entry.key] != entry.value.$1)
+        .length;
 
     return InkWell(
       onTap: () async {
@@ -393,12 +401,17 @@ In the future, you'll be able to add any cues you can come up with.
         );
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+          color: nonDefaultCount > 0
+              ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+            color: nonDefaultCount > 0
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).dividerColor,
+            width: 1,
           ),
         ),
         child: Row(
@@ -406,15 +419,20 @@ In the future, you'll be able to add any cues you can come up with.
           children: [
             Icon(
               Icons.tune,
-              size: MediaQuery.of(context).size.width / 110,
-              color: Theme.of(context).colorScheme.primary,
+              size: MediaQuery.of(context).size.width / 100,
+              color: nonDefaultCount > 0
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).hintColor,
             ),
-            const SizedBox(width: 2),
+            const SizedBox(width: 4),
             Text(
-              '${widget.modifiers.length}',
+              '$nonDefaultCount / $totalCount',
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width / 110,
-                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.w500,
+                color: nonDefaultCount > 0
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).hintColor,
               ),
             ),
           ],
