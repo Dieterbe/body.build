@@ -312,8 +312,14 @@ final List<Ex> exes = [
   Ex(EBase.shrug, "wide grip barbell shrug", [Equipment.barbell]),
   Ex(EBase.shrug, "dumbbell shrug", [Equipment.dumbbell]),
 
-  Ex(EBase.tricepExtensionOverhead, "cable overhead tricep extension",
-      [Equipment.cableTower]),
+  Ex(EBase.tricepExtensionOverhead, "cable overhead tricep extension", [
+    Equipment.cableTower
+  ], [], {
+    "RP style": (
+      false,
+      "use small bar. elbows in - up & back to down & forward. see [this instagram reel](https://www.instagram.com/reel/DEUw9COM-K8)"
+    )
+  }),
   Ex(EBase.tricepExtensionOverhead, "dumbbell overhead tricep extension",
       [Equipment.dumbbell]),
   Ex(EBase.tricepExtension, "dumbbell skull-over", [Equipment.dumbbell]),

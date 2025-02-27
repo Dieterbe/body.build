@@ -1,5 +1,10 @@
 import 'package:bodybuild/data/programmer/groups.dart';
 
+/*
+- If it's a different machine , it's a different exercise, is a valid way. Other way would be valid too. Comes down to preference I guess
+- Sometimes the type of machine / equipment affects the modifiers (although i don't remember the exercise for which this was the case). Doing everything as modifiers would complicate things
+- I guess it make sense that main equipment constitutes different exercise, modifiers are more for small tweaks
+*/
 class Modifier {
   final String name;
   final String defaultVal;
