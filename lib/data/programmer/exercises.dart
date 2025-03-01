@@ -231,22 +231,44 @@ final List<Ex> exes = [
       [Equipment.latPullDownMachine]),
 
   Ex(EBase.diagonalRow, "kneeling diagonal cable row", [Equipment.cableTower]),
-  Ex(EBase.rowWithSpine, "seated cable row with forward lean",
-      [Equipment.cableRowMachine]),
-  Ex(
-      EBase.rowWithSpineWideGrip,
-      "seated cable row with forward lean, wide grip",
-      [Equipment.cableRowMachine]),
+  Ex(EBase.row, "seated cable row", [
+    Equipment.cableRowMachine
+  ], [
+    Modifier(
+        'spine',
+        'still',
+        {
+          'still': {
+            ProgramGroup.spinalErectors: const Assign(0.25, 'isometric'),
+          },
+          'dynamic': {
+            ProgramGroup.lats: const Assign(1, 'near full stretch'),
+            ProgramGroup.spinalErectors:
+                const Assign(0.5, 'flexion & extension cycles'),
+          }
+        },
+        desc:
+            'whether you keep the spine still and upright, or flex/extend it as part of the movement which allows achieving a greater lat stretch and erector spinae workout'),
+    Modifier('grip width', 'shoulder', {
+      'shoulder': {},
+      'wide': {
+        ProgramGroup.rearDelts: const Assign(
+            1, 'shoulder horizontal extension + shoulder extension'),
+        ProgramGroup.lowerTraps:
+            const Assign(1, 'scapular retraction + depression'),
+        ProgramGroup.lats: const Assign(
+            1, 'shoulder extension + shoulder adduction (near full stretch)'),
+      }
+    })
+  ]),
 
   // TODO many different grips. those should affect recruitment similar to pullup types
   Ex(EBase.rowWithSpineIso, "standing bent over barbell row",
       [Equipment.barbell]),
-  Ex(EBase.rowWithSpineIso, "seated cable row (without forward lean)",
-      [Equipment.cableRowMachine]),
-  Ex(EBase.rowWithoutSpine, "bench supported single arm dumbbell rows",
+
+  Ex(EBase.row, "bench supported single arm dumbbell rows",
       [Equipment.dumbbell]),
-  Ex(EBase.rowWithoutSpine, "chest supported machine rows",
-      [Equipment.rowMachine]),
+  Ex(EBase.row, "chest supported machine rows", [Equipment.rowMachine]),
 
   Ex(EBase.pullOver, "pull over", [Equipment.cableTower]),
   Ex(EBase.latPrayer, "lat prayer", [Equipment.cableTower]),

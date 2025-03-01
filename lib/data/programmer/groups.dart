@@ -410,64 +410,37 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
   const VolumeAssignment([
-    EBase.rowWithSpine,
-  ], {
-    ProgramGroup.rearDelts: Assign(1),
-    ProgramGroup.lowerTraps: Assign(1),
-    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
-    ProgramGroup.lats: Assign(1, 'full stretch'),
-    ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
-    ProgramGroup.tricepsLongHead: Assign(0.25),
-    ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
-    ProgramGroup.hams: Assign(0.25),
-    ProgramGroup.gluteMax: Assign(0.25),
-    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
-  }),
-  const VolumeAssignment([
-    EBase.rowWithSpineWideGrip,
-  ], {
-    ProgramGroup.rearDelts:
-        Assign(1, 'shoulder horizontal extension + shoulder extension'),
-    ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
-    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
-    ProgramGroup.lats:
-        Assign(1, 'shoulder extension + shoulder adduction (full ROM)'),
-    ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
-    ProgramGroup.tricepsLongHead: Assign(0.25),
-    ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
-    ProgramGroup.hams: Assign(0.25),
-    ProgramGroup.gluteMax: Assign(0.25),
-    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
-  }),
-  const VolumeAssignment([
-    EBase.rowWithSpineIso,
+    EBase.row,
   ], {
     ProgramGroup.rearDelts: Assign(1),
     ProgramGroup.lowerTraps: Assign(1),
     ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
     ProgramGroup.lats: Assign(1, 'not full stretch'),
-    ProgramGroup.biceps: Assign(0.5),
+    ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
     ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
+  }),
+  const VolumeAssignment([
+    EBase
+        .rowWithSpineIso, // specifically, this is for standing rows where you hip hinge forward
+  ], {
+    // same as normal row
+    ProgramGroup.rearDelts: Assign(1),
+    ProgramGroup.lowerTraps: Assign(1),
+    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
+    ProgramGroup.lats: Assign(1, 'not full stretch'),
+    ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
+
+    // unique to this variant
     ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
     ProgramGroup.hams: Assign(0.25),
     ProgramGroup.gluteMax: Assign(0.25),
-    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
-  const VolumeAssignment([
-    EBase.rowWithoutSpine,
-  ], {
-    ProgramGroup.rearDelts: Assign(1),
-    ProgramGroup.lowerTraps: Assign(1),
-    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
-    ProgramGroup.lats: Assign(1, 'not full stretch'),
-    ProgramGroup.biceps: Assign(0.5),
-    ProgramGroup.tricepsLongHead: Assign(0.25),
-    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
-  }),
+
   const VolumeAssignment([
     EBase.pullOver,
     EBase.latPrayer
