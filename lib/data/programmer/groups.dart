@@ -342,7 +342,7 @@ List<VolumeAssignment> volumeAssignments = [
   VolumeAssignment(
     [EBase.hipAbduction],
     // for exercises that use this EBase but don't use the modifier, we assume straight hip
-    hipAbductionHipFlexion('0°').opts['0°']!,
+    hipAbductionHipFlexion('0°').opts['0°']!.$1,
   ),
   const VolumeAssignment([
     EBase.standingCalfRaise,

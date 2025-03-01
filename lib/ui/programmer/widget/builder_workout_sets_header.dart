@@ -22,7 +22,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // this layout matches BuilderSets
+    // this layout matches BuilderSets
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16), // affects alignment
       child: Row(
@@ -142,7 +142,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
     // note that if you have 3 options, the first sets a recruitment value and the other two don't, we include all 3.
     // this level of completeness seems like a good thing
     for (final modifier in ex.modifiers) {
-      if (modifier.opts.entries.any((entry) => entry.value.containsKey(g))) {
+      if (modifier.opts.entries.any((entry) => entry.value.$1.containsKey(g))) {
         modifierOptions[modifier.name] = modifier.opts.keys.toList();
       }
     }

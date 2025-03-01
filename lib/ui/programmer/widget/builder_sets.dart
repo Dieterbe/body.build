@@ -7,7 +7,7 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
-import 'package:bodybuild/ui/programmer/widget/modifier_count.dart';
+import 'package:bodybuild/ui/programmer/widget/ex_modifiers_cues_widget.dart';
 
 class BuilderSets extends ConsumerWidget {
   final Sets sets;
@@ -41,7 +41,7 @@ class BuilderSets extends ConsumerWidget {
                   flex: 15,
                   child: (sets.ex == null)
                       ? Container()
-                      : ModifierCount(
+                      : ExModifiersCuesWidget(
                           modifiers: sets.ex!.modifiers,
                           selectedOptions: sets.modifierOptions,
                           onOptionSelected: (name, opt) =>

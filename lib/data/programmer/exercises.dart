@@ -53,8 +53,8 @@ class Ex {
     for (final modifier in modifiers) {
       final selectedOption =
           modifierOptions[modifier.name] ?? modifier.defaultVal;
-      final optEffects = modifier.opts[selectedOption];
-      if (optEffects != null && optEffects.containsKey(pg)) {
+      final optEffects = modifier.opts[selectedOption]!.$1;
+      if (optEffects.containsKey(pg)) {
         r = r.merge(optEffects[pg]!);
       }
     }
@@ -234,31 +234,35 @@ final List<Ex> exes = [
   Ex(EBase.row, "seated cable row", [
     Equipment.cableRowMachine
   ], [
-    Modifier(
-        'spine',
-        'still',
+    Modifier('spine', 'still', {
+      'still': (
         {
-          'still': {
-            ProgramGroup.spinalErectors: const Assign(0.25, 'isometric'),
-          },
-          'dynamic': {
-            ProgramGroup.lats: const Assign(1, 'near full stretch'),
-            ProgramGroup.spinalErectors:
-                const Assign(0.5, 'flexion & extension cycles'),
-          }
+          ProgramGroup.spinalErectors: const Assign(0.25, 'isometric'),
         },
-        desc:
-            'whether you keep the spine still and upright, or flex/extend it as part of the movement which allows achieving a greater lat stretch and erector spinae workout'),
+        'keep the spine upright'
+      ),
+      'dynamic': (
+        {
+          ProgramGroup.lats: const Assign(1, 'near full stretch'),
+          ProgramGroup.spinalErectors:
+              const Assign(0.5, 'flexion & extension cycles'),
+        },
+        'flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout'
+      )
+    }),
     Modifier('grip width', 'shoulder', {
-      'shoulder': {},
-      'wide': {
-        ProgramGroup.rearDelts: const Assign(
-            1, 'shoulder horizontal extension + shoulder extension'),
-        ProgramGroup.lowerTraps:
-            const Assign(1, 'scapular retraction + depression'),
-        ProgramGroup.lats: const Assign(
-            1, 'shoulder extension + shoulder adduction (near full stretch)'),
-      }
+      'shoulder': ({}, ''),
+      'wide': (
+        {
+          ProgramGroup.rearDelts: const Assign(
+              1, 'shoulder horizontal extension + shoulder extension'),
+          ProgramGroup.lowerTraps:
+              const Assign(1, 'scapular retraction + depression'),
+          ProgramGroup.lats: const Assign(
+              1, 'shoulder extension + shoulder adduction (near full stretch)'),
+        },
+        ''
+      )
     })
   ]),
 
