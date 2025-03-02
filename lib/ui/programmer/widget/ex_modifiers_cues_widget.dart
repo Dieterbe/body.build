@@ -45,8 +45,9 @@ class _ExModifiersCuesWidgetState extends State<ExModifiersCuesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.modifiers.isEmpty && widget.cues.isEmpty)
+    if (widget.modifiers.isEmpty && widget.cues.isEmpty) {
       return const SizedBox.shrink();
+    }
 
     final totalCount = widget.modifiers.length + widget.cues.length;
 
@@ -382,7 +383,7 @@ In the future, you'll be able to add any cues you can come up with.
                                                     ],
                                                   ),
                                                 )));
-                                      }).toList(),
+                                      }),
                                       if (modifier.desc != null) ...[
                                         const SizedBox(height: 16),
                                         Padding(
