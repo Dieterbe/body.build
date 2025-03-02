@@ -88,8 +88,7 @@ class ProgrammerBuilder extends ConsumerWidget {
                 )),
             if (program.workouts.isNotEmpty)
               BuilderTotalsWidget(
-                //   multiplier: 2,
-                program.workouts.fold([], (e, w) => [...e, ...w.setGroups]),
+                program.workouts,
                 setup: setup,
               ),
             if (program.workouts.isNotEmpty)

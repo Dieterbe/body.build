@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/util/formulas.dart';
@@ -16,44 +16,50 @@ const helpMsg = '''
 
 In line with research, we may count fractional (partial) recruitment towards the total, at least if it meets a minimum value of around 40%.
 Therefore, we count volumes >= 50% and ignore those under 50%.  
+
 Example: since a row recruits the bicep for around 50%, and a pull-up or bicep curl recruits for 100%,
-then 2 sets of rows are counted as 1 set of bicep recruitment.
+* 2 sets of rows are counted as 1 set of bicep recruitment.
+* a single set of pull-ups or bicep curls counts as 1 set of bicep recruitment.
 
 ## Workout & Program totals
 
-* Workout total: the sum of all recruitments of all sets within a workout (session).
-* Program total: the sum of all workout totals in the program, and is compared to the volume goals from the set-up tab.
+* Workout total: the sum of all recruitments of all sets within a single workout (session).
+* Program total: the sum of all workout totals in the program, adjusted for each workout's frequency (times per period in weeks), and compared to the volume goals from the set-up tab.
 
-This currently assumes that each workout in the program is done once per week.
-In the future, this will be adjusted to allow recurring workouts, cycling across weeks, etc.
+Example: a workout with 4 sets of bicep curls will have a workout total volume of 4 for biceps.  
+If that workout repeats 3 times in 2 weeks, it will contribute `4 * (3/2) = 6` to the program total.  
+The program total considers all workouts this way.  If the number of sets for biceps is equal or more than what is configured via the set-up tab,
+it will be shown in green. Otherwise, in red.
+
 ''';
 
 class BuilderTotalsWidget extends ConsumerWidget {
-  final List<SetGroup> setGroups;
-  final int multiplier;
+  final List<Workout> workouts;
   final Settings? setup; // to validate the totals against desired volumes
 
-  const BuilderTotalsWidget(this.setGroups,
-      {this.multiplier = 1, this.setup, super.key});
+  const BuilderTotalsWidget(this.workouts, {this.setup, super.key});
 
 // return a map with for each program group, the recruitment volume, summed from all the exercises found in our sets
 // volumes < cutoff are counted as 0
   (double, Map<ProgramGroup, double>) _compute(double cutoff) {
-    var totals = setGroups.fold<Map<ProgramGroup, double>>(
-        {for (var group in ProgramGroup.values) group: 0.0}, (totals, sg) {
-      // Process each set in the SetGroup
-      for (var set in sg.sets) {
-        if (set.ex != null) {
-          for (var group in ProgramGroup.values) {
-            totals[group] =
-                totals[group]! + set.recruitmentFiltered(group, cutoff);
+    var totals = workouts.fold<Map<ProgramGroup, double>>(
+        {for (var group in ProgramGroup.values) group: 0.0}, (totals, workout) {
+      final weeklyFreq = workout.timesPerPeriod / workout.periodWeeks;
+      // Process each set in all SetGroups
+      for (final sg in workout.setGroups) {
+        for (final set in sg.sets) {
+          if (set.ex != null) {
+            for (var group in ProgramGroup.values) {
+              totals[group] = totals[group]! +
+                  set.recruitmentFiltered(group, cutoff) * weeklyFreq;
+            }
           }
         }
       }
       return totals;
     });
 
-    totals = totals.map((group, value) => MapEntry(group, value * multiplier));
+    totals = totals.map((group, value) => MapEntry(group, value));
     final maxVal = totals.values.reduce(max);
     return (maxVal, totals);
   }

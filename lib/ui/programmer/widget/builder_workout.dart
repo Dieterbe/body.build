@@ -288,7 +288,8 @@ class BuilderWorkoutWidget extends StatelessWidget {
         // const SizedBox(height: 3),
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
-          child: BuilderTotalsWidget(workout.setGroups),
+          child: BuilderTotalsWidget(
+              [workout.copyWith(periodWeeks: 1, timesPerPeriod: 1)]),
         ),
       ]),
     );
