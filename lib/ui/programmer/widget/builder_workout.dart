@@ -19,6 +19,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
 
   const BuilderWorkoutWidget(this.setup, this.workout, this.onChange,
       {super.key});
+
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController(text: workout.name);
@@ -57,96 +58,197 @@ class BuilderWorkoutWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           child: Row(
             children: [
-              Expanded(child: Container()),
-              SizedBox(
-                width: 200,
-                child: Focus(
-                  child: TextField(
-                    controller: nameController,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: Theme.of(context).colorScheme.onSurface,
+              // Left side: Name and frequency
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Name field
+                  SizedBox(
+                    width: 200,
+                    child: Focus(
+                      child: TextField(
+                        controller: nameController,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                          hintText: 'Workout name',
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.5),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withValues(alpha: 0.05),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withValues(alpha: 0.2),
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        onSubmitted: (value) {
+                          onChange(workout.copyWith(name: value));
+                        },
+                      ),
+                      onFocusChange: (focus) {
+                        if (focus) return;
+                        onChange(workout.copyWith(name: nameController.text));
+                      },
                     ),
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      hintText: 'Workout name',
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18,
+                  ),
+                  const SizedBox(width: 16),
+                  // Frequency settings
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: DropdownButton<int>(
+                      value: workout.timesPerPeriod,
+                      underline: Container(),
+                      items: List.generate(7, (i) => i + 1)
+                          .map((i) => DropdownMenuItem(
+                                value: i,
+                                child: Text(i.toString(),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                    )),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          onChange(workout.copyWith(timesPerPeriod: value));
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text('per',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.7),
+                      )),
+                  const SizedBox(width: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: DropdownButton<int>(
+                      value: workout.periodWeeks,
+                      underline: Container(),
+                      items: List.generate(4, (i) => i + 1)
+                          .map((i) => DropdownMenuItem(
+                                value: i,
+                                child: Text(i == 1 ? 'week' : '$i weeks',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                    )),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          onChange(workout.copyWith(periodWeeks: value));
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Tooltip(
+                    message:
+                        'This frequency will be used to correctly calculate the total sets for the program per week',
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.info_outline,
+                        size: 16,
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
                             .withValues(alpha: 0.5),
                       ),
-                      filled: true,
-                      fillColor: Theme.of(context)
+                      constraints:
+                          const BoxConstraints(minWidth: 20, minHeight: 20),
+                      padding: EdgeInsets.zero,
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              // Right side: Action buttons
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AddSetButton(
+                    () {
+                      onChange(workout.copyWith(setGroups: [
+                        ...workout.setGroups,
+                        SetGroup([Sets(setup.paramFinal.intensities.first)])
+                      ]));
+                    },
+                    isEmpty: workout.setGroups.isEmpty,
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    onPressed: () {
+                      onChange(null);
+                    },
+                    icon: Icon(
+                      Icons.delete_outline,
+                      size: 20,
+                      color: Theme.of(context)
                           .colorScheme
-                          .primary
-                          .withValues(alpha: 0.05),
-                      border: OutlineInputBorder(
+                          .error
+                          .withValues(alpha: 0.8),
+                    ),
+                    style: IconButton.styleFrom(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.2),
-                          width: 2,
-                        ),
                       ),
                     ),
-                    onSubmitted: (value) {
-                      onChange(workout.copyWith(name: value));
-                    },
                   ),
-                  onFocusChange: (focus) {
-                    if (focus) {
-                      return;
-                    }
-                    // when you leave the textfield, update the state
-                    // if we update the state in the textFiled itself, the whole tree
-                    // constantly refreshes and the editing experience is subbar
-                    onChange(workout.copyWith(name: nameController.text));
-                  },
-                ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  onChange(null);
-                },
-                icon: Icon(
-                  Icons.delete_outline,
-                  size: 20,
-                  color: Theme.of(context)
-                      .colorScheme
-                      .error
-                      .withValues(alpha: 0.8),
-                ),
-                style: IconButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              AddSetButton(
-                () {
-                  onChange(workout.copyWith(setGroups: [
-                    ...workout.setGroups,
-                    SetGroup([Sets(setup.paramFinal.intensities.first)])
-                  ]));
-                },
-                isEmpty: workout.setGroups.isEmpty,
-              ),
-              Expanded(child: Container()),
             ],
           ),
         ),
@@ -186,7 +288,8 @@ class BuilderWorkoutWidget extends StatelessWidget {
         // const SizedBox(height: 3),
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
-          child: BuilderTotalsWidget(workout.setGroups),
+          child: BuilderTotalsWidget(
+              [workout.copyWith(periodWeeks: 1, timesPerPeriod: 1)]),
         ),
       ]),
     );
