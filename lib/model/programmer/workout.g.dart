@@ -13,10 +13,14 @@ _$WorkoutImpl _$$WorkoutImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => SetGroup.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      timesPerPeriod: (json['timesPerPeriod'] as num?)?.toInt() ?? 1,
+      periodWeeks: (json['periodWeeks'] as num?)?.toInt() ?? 1,
     );
 
 Map<String, dynamic> _$$WorkoutImplToJson(_$WorkoutImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'setGroups': instance.setGroups,
+      'timesPerPeriod': instance.timesPerPeriod,
+      'periodWeeks': instance.periodWeeks,
     };

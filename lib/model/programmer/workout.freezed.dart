@@ -22,6 +22,8 @@ Workout _$WorkoutFromJson(Map<String, dynamic> json) {
 mixin _$Workout {
   String get name => throw _privateConstructorUsedError;
   List<SetGroup> get setGroups => throw _privateConstructorUsedError;
+  int get timesPerPeriod => throw _privateConstructorUsedError;
+  int get periodWeeks => throw _privateConstructorUsedError;
 
   /// Serializes this Workout to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +39,11 @@ abstract class $WorkoutCopyWith<$Res> {
   factory $WorkoutCopyWith(Workout value, $Res Function(Workout) then) =
       _$WorkoutCopyWithImpl<$Res, Workout>;
   @useResult
-  $Res call({String name, List<SetGroup> setGroups});
+  $Res call(
+      {String name,
+      List<SetGroup> setGroups,
+      int timesPerPeriod,
+      int periodWeeks});
 }
 
 /// @nodoc
@@ -57,6 +63,8 @@ class _$WorkoutCopyWithImpl<$Res, $Val extends Workout>
   $Res call({
     Object? name = null,
     Object? setGroups = null,
+    Object? timesPerPeriod = null,
+    Object? periodWeeks = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -67,6 +75,14 @@ class _$WorkoutCopyWithImpl<$Res, $Val extends Workout>
           ? _value.setGroups
           : setGroups // ignore: cast_nullable_to_non_nullable
               as List<SetGroup>,
+      timesPerPeriod: null == timesPerPeriod
+          ? _value.timesPerPeriod
+          : timesPerPeriod // ignore: cast_nullable_to_non_nullable
+              as int,
+      periodWeeks: null == periodWeeks
+          ? _value.periodWeeks
+          : periodWeeks // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -78,7 +94,11 @@ abstract class _$$WorkoutImplCopyWith<$Res> implements $WorkoutCopyWith<$Res> {
       __$$WorkoutImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<SetGroup> setGroups});
+  $Res call(
+      {String name,
+      List<SetGroup> setGroups,
+      int timesPerPeriod,
+      int periodWeeks});
 }
 
 /// @nodoc
@@ -96,6 +116,8 @@ class __$$WorkoutImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? setGroups = null,
+    Object? timesPerPeriod = null,
+    Object? periodWeeks = null,
   }) {
     return _then(_$WorkoutImpl(
       name: null == name
@@ -106,6 +128,14 @@ class __$$WorkoutImplCopyWithImpl<$Res>
           ? _value._setGroups
           : setGroups // ignore: cast_nullable_to_non_nullable
               as List<SetGroup>,
+      timesPerPeriod: null == timesPerPeriod
+          ? _value.timesPerPeriod
+          : timesPerPeriod // ignore: cast_nullable_to_non_nullable
+              as int,
+      periodWeeks: null == periodWeeks
+          ? _value.periodWeeks
+          : periodWeeks // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -115,7 +145,9 @@ class __$$WorkoutImplCopyWithImpl<$Res>
 class _$WorkoutImpl implements _Workout {
   const _$WorkoutImpl(
       {this.name = 'unnamed workout',
-      final List<SetGroup> setGroups = const []})
+      final List<SetGroup> setGroups = const [],
+      this.timesPerPeriod = 1,
+      this.periodWeeks = 1})
       : _setGroups = setGroups;
 
   factory _$WorkoutImpl.fromJson(Map<String, dynamic> json) =>
@@ -134,8 +166,15 @@ class _$WorkoutImpl implements _Workout {
   }
 
   @override
+  @JsonKey()
+  final int timesPerPeriod;
+  @override
+  @JsonKey()
+  final int periodWeeks;
+
+  @override
   String toString() {
-    return 'Workout(name: $name, setGroups: $setGroups)';
+    return 'Workout(name: $name, setGroups: $setGroups, timesPerPeriod: $timesPerPeriod, periodWeeks: $periodWeeks)';
   }
 
   /// Create a copy of Workout
@@ -155,8 +194,11 @@ class _$WorkoutImpl implements _Workout {
 }
 
 abstract class _Workout implements Workout {
-  const factory _Workout({final String name, final List<SetGroup> setGroups}) =
-      _$WorkoutImpl;
+  const factory _Workout(
+      {final String name,
+      final List<SetGroup> setGroups,
+      final int timesPerPeriod,
+      final int periodWeeks}) = _$WorkoutImpl;
 
   factory _Workout.fromJson(Map<String, dynamic> json) = _$WorkoutImpl.fromJson;
 
@@ -164,6 +206,10 @@ abstract class _Workout implements Workout {
   String get name;
   @override
   List<SetGroup> get setGroups;
+  @override
+  int get timesPerPeriod;
+  @override
+  int get periodWeeks;
 
   /// Create a copy of Workout
   /// with the given fields replaced by the non-null parameter values.

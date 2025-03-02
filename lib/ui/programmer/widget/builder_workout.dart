@@ -19,6 +19,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
 
   const BuilderWorkoutWidget(this.setup, this.workout, this.onChange,
       {super.key});
+
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController(text: workout.name);
@@ -58,6 +59,86 @@ class BuilderWorkoutWidget extends StatelessWidget {
           child: Row(
             children: [
               Expanded(child: Container()),
+              SizedBox(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButton<int>(
+                        value: workout.timesPerPeriod,
+                        underline: Container(),
+                        items: List.generate(14, (i) => i + 1)
+                            .map((i) => DropdownMenuItem(
+                                  value: i,
+                                  child: Text(i.toString(),
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                      )),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            onChange(workout.copyWith(timesPerPeriod: value));
+                          }
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text('per',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.7),
+                        )),
+                    const SizedBox(width: 8),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButton<int>(
+                        value: workout.periodWeeks,
+                        underline: Container(),
+                        items: List.generate(4, (i) => i + 1)
+                            .map((i) => DropdownMenuItem(
+                                  value: i,
+                                  child: Text('${i}w',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                      )),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) {
+                            onChange(workout.copyWith(periodWeeks: value));
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
               SizedBox(
                 width: 200,
                 child: Focus(

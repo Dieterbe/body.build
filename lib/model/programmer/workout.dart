@@ -9,6 +9,8 @@ class Workout with _$Workout {
   const factory Workout({
     @Default('unnamed workout') String name,
     @Default([]) List<SetGroup> setGroups,
+    @Default(1) int timesPerPeriod,
+    @Default(1) int periodWeeks,
   }) = _Workout;
 
   factory Workout.fromJson(Map<String, dynamic> json) =>
