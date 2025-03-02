@@ -74,15 +74,22 @@ class BuilderWorkoutWidget extends StatelessWidget {
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                           hintText: 'Workout name',
                           hintStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
-                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withValues(alpha: 0.5),
                           ),
                           filled: true,
-                          fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+                          fillColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withValues(alpha: 0.05),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -94,7 +101,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withValues(alpha: 0.2),
                               width: 2,
                             ),
                           ),
@@ -113,20 +123,25 @@ class BuilderWorkoutWidget extends StatelessWidget {
                   // Frequency settings
                   Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: DropdownButton<int>(
                       value: workout.timesPerPeriod,
                       underline: Container(),
-                      items: List.generate(14, (i) => i + 1)
+                      items: List.generate(7, (i) => i + 1)
                           .map((i) => DropdownMenuItem(
                                 value: i,
                                 child: Text(i.toString(),
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
                                     )),
                               ))
                           .toList(),
@@ -141,12 +156,18 @@ class BuilderWorkoutWidget extends StatelessWidget {
                   Text('per',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.7),
                       )),
                   const SizedBox(width: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -156,10 +177,12 @@ class BuilderWorkoutWidget extends StatelessWidget {
                       items: List.generate(4, (i) => i + 1)
                           .map((i) => DropdownMenuItem(
                                 value: i,
-                                child: Text('${i}w',
+                                child: Text(i == 1 ? 'week' : '$i weeks',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
                                     )),
                               ))
                           .toList(),
@@ -168,6 +191,25 @@ class BuilderWorkoutWidget extends StatelessWidget {
                           onChange(workout.copyWith(periodWeeks: value));
                         }
                       },
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Tooltip(
+                    message:
+                        'This frequency will be used to correctly calculate the total sets for the program per week',
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.info_outline,
+                        size: 16,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.5),
+                      ),
+                      constraints:
+                          const BoxConstraints(minWidth: 20, minHeight: 20),
+                      padding: EdgeInsets.zero,
+                      onPressed: () {},
                     ),
                   ),
                 ],
@@ -194,7 +236,10 @@ class BuilderWorkoutWidget extends StatelessWidget {
                     icon: Icon(
                       Icons.delete_outline,
                       size: 20,
-                      color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .error
+                          .withValues(alpha: 0.8),
                     ),
                     style: IconButton.styleFrom(
                       shape: RoundedRectangleBorder(
