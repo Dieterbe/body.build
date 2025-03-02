@@ -6,6 +6,6 @@ class VersionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text("version $version");
+    return const Text("version $buildVersion ($buildTime)");
   }
 }
