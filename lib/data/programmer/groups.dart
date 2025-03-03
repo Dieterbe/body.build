@@ -229,6 +229,10 @@ List<VolumeAssignment> volumeAssignments = [
     },
   ),
   const VolumeAssignment(
+    [EBase.legCurl],
+    {},
+  ),
+  const VolumeAssignment(
     [EBase.legCurlHipFlexed],
     {
       ProgramGroup.hamsShortHead: Assign(1, 'full length'),

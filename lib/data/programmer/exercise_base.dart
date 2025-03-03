@@ -7,6 +7,7 @@ enum EBase {
   backExtension,
   hipExtension,
   pullThrough,
+  legCurl,
   legCurlHipFlexed,
   legCurlHipExtended,
   squatBB,
