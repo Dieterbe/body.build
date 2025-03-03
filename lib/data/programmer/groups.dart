@@ -504,7 +504,6 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
     ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
   }),
-  // TODO: differentiate lower and upper pecs
   const VolumeAssignment([
     EBase.fly,
     EBase.pecDeckHandGrip,
