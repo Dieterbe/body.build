@@ -2,7 +2,7 @@ import 'package:bodybuild/data/programmer/groups.dart';
 
 /*
 - If it's a different machine , it's a different exercise, is a valid way. Other way would be valid too. Comes down to preference I guess
-- Sometimes the type of machine / equipment affects the modifiers (although i don't remember the exercise for which this was the case). Doing everything as modifiers would complicate things
+- Sometimes the type of machine / equipment affects the modifiers (e.g. for BSQ with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not). Doing everything as modifiers would complicate things
 - I guess it make sense that main equipment constitutes different exercise, modifiers are more for small tweaks
 */
 typedef Effects = Map<ProgramGroup, Assign>;
@@ -16,6 +16,31 @@ class Modifier {
 
   Modifier(this.name, this.defaultVal, this.opts, {this.desc});
 }
+
+final flyThumbs = Modifier('thumbs', 'up', {
+  'up': (
+    {
+      ProgramGroup.lowerPecs:
+          const Assign(1, 'full ROM horizontal shoulder adduction'),
+      ProgramGroup.upperPecs:
+          const Assign(1, 'full ROM horizontal shoulder adduction'),
+      ProgramGroup.frontDelts:
+          const Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
+    },
+    'shoulder externally rotated, recruits front delts less'
+  ),
+  'forward': (
+    {
+      ProgramGroup.lowerPecs:
+          const Assign(1, 'full ROM horizontal shoulder flexion'),
+      ProgramGroup.upperPecs:
+          const Assign(1, 'full ROM horizontal shoulder flexion'),
+      ProgramGroup.frontDelts:
+          const Assign(1, 'full ROM horizontal shoulder flexion'),
+    },
+    'shoulders internally rotated, recruits front delts more'
+  ),
+});
 
 final legCurlAnkleDorsiflexed = Modifier('ankle dorsiflexed', 'no', {
   'yes': (

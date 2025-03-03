@@ -513,20 +513,10 @@ this explains why pull up goes together with wide grip pull down
     EBase.fly,
     EBase.pecDeckHandGrip,
   ], {
-    ProgramGroup.lowerPecs: Assign(1),
-    ProgramGroup.upperPecs: Assign(1),
-    ProgramGroup.frontDelts: Assign(1, 'full ROM horizontal shoulder flexion'),
+    // most real muscle recruitments are set via the `flyThumbs` modifier
     ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
   }),
-  const VolumeAssignment([
-    EBase.flyShoulderExt,
-  ], {
-    ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
-    ProgramGroup.upperPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
-    ProgramGroup.frontDelts:
-        Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
-    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
-  }),
+
   const VolumeAssignment([
     EBase.pecDeckElbowPad
   ], {

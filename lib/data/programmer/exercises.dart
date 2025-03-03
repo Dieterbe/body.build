@@ -313,17 +313,17 @@ final List<Ex> exes = [
 
   Ex(EBase.dip, "dip", []),
   Ex(EBase.dip, "assisted dip machine", [Equipment.assistedDipMachine]),
-  Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell]),
-  Ex(EBase.fly, "chest fly machine", [Equipment.chestFlyMachine]),
-  Ex(EBase.flyShoulderExt, "chest fly machine (thumbs up)",
-      [Equipment.chestFlyMachine]),
+  Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell], [flyThumbs]),
+  Ex(EBase.fly, "chest fly machine", [Equipment.chestFlyMachine], [flyThumbs]),
 
   Ex(EBase.fly, "bayesian fly", [
     Equipment.cableTower
+  ], [
+    flyThumbs
   ]), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
   Ex(EBase.pecDeckElbowPad, "pec deck (elbow pad)", [Equipment.pecDeckMachine]),
   Ex(EBase.pecDeckHandGrip, "chest machine fly (pec deck with hand grip)",
-      [Equipment.chestFlyMachine]),
+      [Equipment.chestFlyMachine], [flyThumbs]),
 
   Ex(EBase.overheadPressDB, "dumbbell overhead press", [Equipment.dumbbell]),
   Ex(EBase.overheadPressBB, "barbell overhead press", [Equipment.barbell]),
