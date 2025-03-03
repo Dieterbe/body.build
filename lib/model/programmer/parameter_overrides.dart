@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/programmer/exercise_base.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'parameter_overrides.freezed.dart';
@@ -35,11 +36,28 @@ class ParameterOverrides with _$ParameterOverrides {
 
 List<String>? _exSetToJson(Set<Ex>? exSet) => exSet?.map((e) => e.id).toList();
 
-Set<Ex>? _exSetFromJson(List<dynamic>? json) =>
-    json?.map((e) => exes.firstWhere((ex) => ex.id == e)).toSet();
+Set<Ex>? _exSetFromJson(List<dynamic>? json) => json
+    ?.map((e) {
+      final match = exes.firstWhereOrNull((ex) => ex.id == e);
+      if (match == null) {
+        print(
+            'Warning: Could not match exercise ID "$e" - forgetting about it');
+      }
+      return match;
+    })
+    .nonNulls
+    .toSet();
 
 List<String>? _ebaseSetToJson(Set<EBase>? ebaseSet) =>
     ebaseSet?.map((e) => e.name).toList();
 
-Set<EBase>? _ebaseSetFromJson(List<dynamic>? json) =>
-    json?.map((e) => EBase.values.firstWhere((eb) => eb.name == e)).toSet();
+Set<EBase>? _ebaseSetFromJson(List<dynamic>? json) => json
+    ?.map((e) {
+      final match = EBase.values.firstWhereOrNull((eb) => eb.name == e);
+      if (match == null) {
+        print('Warning: Could not match EBase name "$e" - forgetting about it');
+      }
+      return match;
+    })
+    .nonNulls
+    .toSet();
