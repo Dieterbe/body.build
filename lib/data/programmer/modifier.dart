@@ -17,21 +17,42 @@ class Modifier {
   Modifier(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
-final legCurlAnkleDorsiflexed = Modifier(
-    'ankle dorsiflexed',
-    'no',
+final legCurlAnkleDorsiflexed = Modifier('ankle dorsiflexed', 'no', {
+  'yes': (
     {
-      'yes': (
-        {
-          ProgramGroup.gastroc:
-              const Assign(1, 'medium to long length knee flexion')
-        },
-        '',
-      ),
-      'no': ({}, ''),
+      ProgramGroup.gastroc:
+          const Assign(1, 'medium to long length knee flexion')
     },
+    '',
+  ),
+  'no': ({}, ''),
+}, desc: '''
+* Study: [Different Knee and Ankle Positions Affect Force and Muscle Activation During Prone Leg Curl in Trained Subjects](https://pubmed.ncbi.nlm.nih.gov/31469769/)
+* Study: [Differential effects of ankle position on isokinetic knee extensor and flexor strength gains during strength training](https://journals.sagepub.com/doi/10.3233/IES-160617)
+* [for the instagram lovers](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)''');
+
+final legCurlHipFlexion = Modifier('hip flexion', 'yes', {
+  'yes': (
+    {
+      ProgramGroup.hamsShortHead: const Assign(1, 'full length'),
+      ProgramGroup.hams: const Assign(1, 'medium to long length knee flexion'),
+    },
+    ''
+  ),
+  'no': (
+    {
+      ProgramGroup.hamsShortHead: const Assign(1, 'full length'),
+      ProgramGroup.hams:
+          const Assign(1, 'knee flexion (short to medium length)'),
+    },
+    ''
+  ),
+},
     desc:
-        '[for the instagram lovers](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)');
+        '''Flexing the hip stretches the hamstrings and results in higher growth stimulus.  
+        Study: [Greater Hamstrings Muscle Hypertrophy but Similar Damage Protection after Training at Long versus Short Muscle Lengths](https://pubmed.ncbi.nlm.nih.gov/33009197/)
+''');
+
 /*
 NOTE: for now, we don't have different programgroups for upper/lower back, that would be a good use case here
 */

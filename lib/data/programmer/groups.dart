@@ -233,6 +233,7 @@ List<VolumeAssignment> volumeAssignments = [
     {
       ProgramGroup.hamsShortHead: Assign(1, 'full length'),
       ProgramGroup.hams: Assign(1, 'medium to long length knee flexion'),
+      // according to https://pubmed.ncbi.nlm.nih.gov/33009197/ this is a much better growth stimulus than hip extended
     },
   ),
   const VolumeAssignment(
