@@ -237,6 +237,7 @@ final List<Ex> exes = [
     Modifier('spine', 'still', {
       'still': (
         {
+          ProgramGroup.lats: const Assign(1, 'not full stretch'),
           ProgramGroup.spinalErectors: const Assign(0.25, 'isometric'),
         },
         'keep the spine upright'
@@ -258,8 +259,8 @@ final List<Ex> exes = [
               1, 'shoulder horizontal extension + shoulder extension'),
           ProgramGroup.lowerTraps:
               const Assign(1, 'scapular retraction + depression'),
-          ProgramGroup.lats: const Assign(
-              1, 'shoulder extension + shoulder adduction (near full stretch)'),
+          ProgramGroup.lats:
+              const Assign(1, 'shoulder extension + shoulder adduction'),
         },
         ''
       )
@@ -270,9 +271,10 @@ final List<Ex> exes = [
   Ex(EBase.rowWithSpineIso, "standing bent over barbell row",
       [Equipment.barbell]),
 
-  Ex(EBase.row, "bench supported single arm dumbbell rows",
+  Ex(EBase.rowWithoutSpine, "bench supported single arm dumbbell rows",
       [Equipment.dumbbell]),
-  Ex(EBase.row, "chest supported machine rows", [Equipment.rowMachine]),
+  Ex(EBase.rowWithoutSpine, "chest supported machine rows",
+      [Equipment.rowMachine]),
 
   Ex(EBase.pullOver, "pull over", [Equipment.cableTower]),
   Ex(EBase.latPrayer, "lat prayer", [Equipment.cableTower]),

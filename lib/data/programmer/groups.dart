@@ -16,8 +16,10 @@ import 'package:bodybuild/data/programmer/modifier.dart';
 
 class Assign {
   final double volume;
+  final bool multiplied;
   final String? modality; // work in progress
-  const Assign(this.volume, [this.modality]);
+  const Assign(this.volume, [this.modality]) : multiplied = false;
+  const Assign.merged(this.volume, this.multiplied, [this.modality]);
 
   Assign merge(Assign other) {
     final mergedModality = switch ((modality, other.modality)) {
@@ -26,7 +28,24 @@ class Assign {
       (null, String value) => value,
       (String a, String b) => '$a, $b'
     };
-    return Assign(volume + other.volume, mergedModality);
+    double newVolume;
+    bool newMultiplied;
+    if (volume == 0) {
+      // if we didn't have a volume assignment yet, just use the new one
+      newVolume = other.volume;
+      newMultiplied = false;
+    } else {
+      // if we did, they are "multipliers" to one another.
+      newVolume = volume * other.volume;
+      newMultiplied = true;
+    }
+
+    if (newVolume > 1) {
+      // in march 2025 this should never happen
+      // in the future, we may want to allow it (to support extra-ordinary activation, e.g. eccentric overloading i think was an example. maybe also for leg curl with flexed hip)
+      print('WARNING: Assign.merge -> volume > 1: $newVolume');
+    }
+    return Assign.merged(newVolume, newMultiplied, mergedModality);
   }
 }
 
@@ -344,8 +363,12 @@ List<VolumeAssignment> volumeAssignments = [
       ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
     }
   }),
+  const VolumeAssignment(
+    [EBase.hipAbduction], {},
+    // all recruitments set via modifier
+  ),
   VolumeAssignment(
-    [EBase.hipAbduction],
+    [EBase.hipAbductionStraightHip],
     // for exercises that use this EBase but don't use the modifier, we assume straight hip
     hipAbductionHipFlexion('0°').opts['0°']!.$1,
   ),
@@ -420,7 +443,18 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.rearDelts: Assign(1),
     ProgramGroup.lowerTraps: Assign(1),
     ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
+    ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
+    ProgramGroup.tricepsLongHead: Assign(0.25),
+    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
+  }),
+  const VolumeAssignment([
+    EBase.rowWithoutSpine,
+  ], {
     ProgramGroup.lats: Assign(1, 'not full stretch'),
+    ProgramGroup.rearDelts: Assign(1),
+    ProgramGroup.lowerTraps: Assign(1),
+    ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
     ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
     ProgramGroup.tricepsLongHead: Assign(0.25),
     ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
@@ -562,7 +596,6 @@ this explains why pull up goes together with wide grip pull down
     ProgramGroup.upperPecs: Assign(0.25),
     ProgramGroup.sideDelts:
         Assign(1, 'full ROM shoulder abduction with full loaded stretch'),
-    ProgramGroup.rearDelts: Assign(0.25),
     ProgramGroup.lowerTraps: Assign(0.25),
     ProgramGroup.middleTraps: Assign(0.25),
     ProgramGroup.upperTraps: Assign(0.25),

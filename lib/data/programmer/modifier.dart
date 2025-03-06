@@ -183,21 +183,21 @@ Modifier lateralRaiseShoulderRotation = Modifier(
     {
       'pinkie up': (
         {
-          ProgramGroup.frontDelts: const Assign(0,
+          ProgramGroup.frontDelts: const Assign(0.25,
               'deactivation from shoulder abduction (due to internal rotation)'),
         },
         ''
       ),
       'horizontal': (
         {
-          ProgramGroup.frontDelts: const Assign(0.5, 'shoulder abduction'),
+          ProgramGroup.frontDelts: const Assign(0.75, 'shoulder abduction'),
         },
         ''
       ),
       'pinkie down': (
         {
           ProgramGroup.frontDelts:
-              const Assign(0.75, 'shoulder abduction (externally rotated)'),
+              const Assign(1, 'shoulder abduction (externally rotated)'),
         },
         ''
       ),
@@ -211,13 +211,15 @@ Modifier lateralRaiseCablePath = Modifier(
     {
       'in front': (
         {
-          ProgramGroup.rearDelts: const Assign(0.25, 'transverse extension'),
+          ProgramGroup.rearDelts: const Assign(1, 'transverse extension'),
+          ProgramGroup.frontDelts: const Assign(0.5, 'shoulder flexion'),
         },
         'biases more towards rear delts'
       ),
       'behind': (
         {
-          ProgramGroup.frontDelts: const Assign(0.25, 'shoulder flexion'),
+          ProgramGroup.frontDelts: const Assign(1, 'shoulder flexion'),
+          ProgramGroup.rearDelts: const Assign(0.5, 'transverse extension'),
         },
         'biases more towards front delts'
       )
