@@ -2,7 +2,7 @@ import 'package:bodybuild/data/programmer/groups.dart';
 
 /*
 - If it's a different machine , it's a different exercise, is a valid way. Other way would be valid too. Comes down to preference I guess
-- Sometimes the type of machine / equipment affects the modifiers (although i don't remember the exercise for which this was the case). Doing everything as modifiers would complicate things
+- Sometimes the type of machine / equipment affects the modifiers (e.g. for BSQ with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not). Doing everything as modifiers would complicate things
 - I guess it make sense that main equipment constitutes different exercise, modifiers are more for small tweaks
 */
 typedef Effects = Map<ProgramGroup, Assign>;
@@ -17,21 +17,67 @@ class Modifier {
   Modifier(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
-final legCurlAnkleDorsiflexed = Modifier(
-    'ankle dorsiflexed',
-    'no',
+final flyThumbs = Modifier('thumbs', 'up', {
+  'up': (
     {
-      'yes': (
-        {
-          ProgramGroup.gastroc:
-              const Assign(1, 'medium to long length knee flexion')
-        },
-        '',
-      ),
-      'no': ({}, ''),
+      ProgramGroup.lowerPecs:
+          const Assign(1, 'full ROM horizontal shoulder adduction'),
+      ProgramGroup.upperPecs:
+          const Assign(1, 'full ROM horizontal shoulder adduction'),
+      ProgramGroup.frontDelts:
+          const Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
     },
+    'shoulder externally rotated, recruits front delts less'
+  ),
+  'forward': (
+    {
+      ProgramGroup.lowerPecs:
+          const Assign(1, 'full ROM horizontal shoulder flexion'),
+      ProgramGroup.upperPecs:
+          const Assign(1, 'full ROM horizontal shoulder flexion'),
+      ProgramGroup.frontDelts:
+          const Assign(1, 'full ROM horizontal shoulder flexion'),
+    },
+    'shoulders internally rotated, recruits front delts more'
+  ),
+});
+
+final legCurlAnkleDorsiflexed = Modifier('ankle dorsiflexed', 'no', {
+  'yes': (
+    {
+      ProgramGroup.gastroc:
+          const Assign(1, 'medium to long length knee flexion')
+    },
+    '',
+  ),
+  'no': ({}, ''),
+}, desc: '''
+* Study: [Different Knee and Ankle Positions Affect Force and Muscle Activation During Prone Leg Curl in Trained Subjects](https://pubmed.ncbi.nlm.nih.gov/31469769/)
+* Study: [Differential effects of ankle position on isokinetic knee extensor and flexor strength gains during strength training](https://journals.sagepub.com/doi/10.3233/IES-160617)
+* [for the instagram lovers](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)''');
+
+final legCurlHipFlexion = Modifier('hip flexion', 'yes', {
+  'yes': (
+    {
+      ProgramGroup.hamsShortHead: const Assign(1, 'full length'),
+      ProgramGroup.hams: const Assign(1, 'medium to long length knee flexion'),
+    },
+    ''
+  ),
+  'no': (
+    {
+      ProgramGroup.hamsShortHead: const Assign(1, 'full length'),
+      ProgramGroup.hams:
+          const Assign(1, 'knee flexion (short to medium length)'),
+    },
+    ''
+  ),
+},
     desc:
-        '[for the instagram lovers](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)');
+        '''Flexing the hip stretches the hamstrings and results in higher growth stimulus.  
+        Study: [Greater Hamstrings Muscle Hypertrophy but Similar Damage Protection after Training at Long versus Short Muscle Lengths](https://pubmed.ncbi.nlm.nih.gov/33009197/)
+''');
+
 /*
 NOTE: for now, we don't have different programgroups for upper/lower back, that would be a good use case here
 */
@@ -137,21 +183,21 @@ Modifier lateralRaiseShoulderRotation = Modifier(
     {
       'pinkie up': (
         {
-          ProgramGroup.frontDelts: const Assign(0,
+          ProgramGroup.frontDelts: const Assign(0.25,
               'deactivation from shoulder abduction (due to internal rotation)'),
         },
         ''
       ),
       'horizontal': (
         {
-          ProgramGroup.frontDelts: const Assign(0.5, 'shoulder abduction'),
+          ProgramGroup.frontDelts: const Assign(0.75, 'shoulder abduction'),
         },
         ''
       ),
       'pinkie down': (
         {
           ProgramGroup.frontDelts:
-              const Assign(0.75, 'shoulder abduction (externally rotated)'),
+              const Assign(1, 'shoulder abduction (externally rotated)'),
         },
         ''
       ),
@@ -165,13 +211,15 @@ Modifier lateralRaiseCablePath = Modifier(
     {
       'in front': (
         {
-          ProgramGroup.rearDelts: const Assign(0.25, 'transverse extension'),
+          ProgramGroup.rearDelts: const Assign(1, 'transverse extension'),
+          ProgramGroup.frontDelts: const Assign(0.5, 'shoulder flexion'),
         },
         'biases more towards rear delts'
       ),
       'behind': (
         {
-          ProgramGroup.frontDelts: const Assign(0.25, 'shoulder flexion'),
+          ProgramGroup.frontDelts: const Assign(1, 'shoulder flexion'),
+          ProgramGroup.rearDelts: const Assign(0.5, 'transverse extension'),
         },
         'biases more towards front delts'
       )

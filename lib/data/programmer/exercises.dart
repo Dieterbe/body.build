@@ -112,12 +112,12 @@ final List<Ex> exes = [
       [Equipment.hamCurlMachineStanding], [legCurlAnkleDorsiflexed]),
   Ex(EBase.legCurlHipExtended, "lying leg curl machine",
       [Equipment.hamCurlMachineLying], [legCurlAnkleDorsiflexed]),
-  Ex(EBase.legCurlHipExtended, "bodyweight leg curl with trx (hip extended)",
-      [Equipment.trx], [legCurlAnkleDorsiflexed]),
-  Ex(EBase.legCurlHipExtended, "bodyweight leg curl with rings (hip extended)",
-      [Equipment.gymnasticRings], [legCurlAnkleDorsiflexed]),
-  Ex(EBase.legCurlHipExtended, "nordic curl (hip extended)", [],
-      [legCurlAnkleDorsiflexed]),
+  Ex(EBase.legCurl, "bodyweight leg curl with trx", [Equipment.trx],
+      [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
+  Ex(EBase.legCurl, "bodyweight leg curl with rings",
+      [Equipment.gymnasticRings], [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
+  Ex(EBase.legCurl, "nordic curl", [],
+      [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
 
   Ex(EBase.squatBB, "barbell squat", [Equipment.squatRack],
       [squatBarPlacement, squatLowerLegMovement]),
@@ -237,6 +237,7 @@ final List<Ex> exes = [
     Modifier('spine', 'still', {
       'still': (
         {
+          ProgramGroup.lats: const Assign(1, 'not full stretch'),
           ProgramGroup.spinalErectors: const Assign(0.25, 'isometric'),
         },
         'keep the spine upright'
@@ -258,8 +259,8 @@ final List<Ex> exes = [
               1, 'shoulder horizontal extension + shoulder extension'),
           ProgramGroup.lowerTraps:
               const Assign(1, 'scapular retraction + depression'),
-          ProgramGroup.lats: const Assign(
-              1, 'shoulder extension + shoulder adduction (near full stretch)'),
+          ProgramGroup.lats:
+              const Assign(1, 'shoulder extension + shoulder adduction'),
         },
         ''
       )
@@ -270,9 +271,10 @@ final List<Ex> exes = [
   Ex(EBase.rowWithSpineIso, "standing bent over barbell row",
       [Equipment.barbell]),
 
-  Ex(EBase.row, "bench supported single arm dumbbell rows",
+  Ex(EBase.rowWithoutSpine, "bench supported single arm dumbbell rows",
       [Equipment.dumbbell]),
-  Ex(EBase.row, "chest supported machine rows", [Equipment.rowMachine]),
+  Ex(EBase.rowWithoutSpine, "chest supported machine rows",
+      [Equipment.rowMachine]),
 
   Ex(EBase.pullOver, "pull over", [Equipment.cableTower]),
   Ex(EBase.latPrayer, "lat prayer", [Equipment.cableTower]),
@@ -313,17 +315,17 @@ final List<Ex> exes = [
 
   Ex(EBase.dip, "dip", []),
   Ex(EBase.dip, "assisted dip machine", [Equipment.assistedDipMachine]),
-  Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell]),
-  Ex(EBase.fly, "chest fly machine", [Equipment.chestFlyMachine]),
-  Ex(EBase.flyShoulderExt, "chest fly machine (thumbs up)",
-      [Equipment.chestFlyMachine]),
+  Ex(EBase.fly, "laying dumbbell fly", [Equipment.dumbbell], [flyThumbs]),
+  Ex(EBase.fly, "chest fly machine", [Equipment.chestFlyMachine], [flyThumbs]),
 
   Ex(EBase.fly, "bayesian fly", [
     Equipment.cableTower
+  ], [
+    flyThumbs
   ]), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
   Ex(EBase.pecDeckElbowPad, "pec deck (elbow pad)", [Equipment.pecDeckMachine]),
   Ex(EBase.pecDeckHandGrip, "chest machine fly (pec deck with hand grip)",
-      [Equipment.chestFlyMachine]),
+      [Equipment.chestFlyMachine], [flyThumbs]),
 
   Ex(EBase.overheadPressDB, "dumbbell overhead press", [Equipment.dumbbell]),
   Ex(EBase.overheadPressBB, "barbell overhead press", [Equipment.barbell]),
