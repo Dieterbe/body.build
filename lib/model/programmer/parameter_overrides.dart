@@ -1,4 +1,3 @@
-import 'package:bodybuild/data/programmer/exercise_base.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:collection/collection.dart';
@@ -26,8 +25,6 @@ class ParameterOverrides with _$ParameterOverrides {
     final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
     @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
     final Set<Ex>? excludedExercises,
-    @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-    final Set<EBase>? excludedBases,
   }) = _ParameterOverrides;
 
   factory ParameterOverrides.fromJson(Map<String, dynamic> json) =>
@@ -42,20 +39,6 @@ Set<Ex>? _exSetFromJson(List<dynamic>? json) => json
       if (match == null) {
         print(
             'Warning: Could not match exercise ID "$e" - forgetting about it');
-      }
-      return match;
-    })
-    .nonNulls
-    .toSet();
-
-List<String>? _ebaseSetToJson(Set<EBase>? ebaseSet) =>
-    ebaseSet?.map((e) => e.name).toList();
-
-Set<EBase>? _ebaseSetFromJson(List<dynamic>? json) => json
-    ?.map((e) {
-      final match = EBase.values.firstWhereOrNull((eb) => eb.name == e);
-      if (match == null) {
-        print('Warning: Could not match EBase name "$e" - forgetting about it');
       }
       return match;
     })

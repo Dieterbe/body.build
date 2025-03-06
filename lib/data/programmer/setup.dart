@@ -1,5 +1,4 @@
 import 'package:bodybuild/data/programmer/equipment.dart';
-import 'package:bodybuild/data/programmer/exercise_base.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/model/programmer/activity_level.dart';
@@ -463,30 +462,6 @@ class Setup extends _$Setup {
         );
       }
       return s;
-    });
-  }
-
-  Future<void> addExcludedBase(EBase base) async {
-    _updateState((s) {
-      final excl = Set<EBase>.from(s.paramOverrides.excludedBases ?? {});
-      excl.add(base);
-      return s.copyWith(
-        paramOverrides: s.paramOverrides.copyWith(
-          excludedBases: excl,
-        ),
-      );
-    });
-  }
-
-  Future<void> removeExcludedBase(EBase base) async {
-    _updateState((s) {
-      final excl = Set<EBase>.from(s.paramOverrides.excludedBases ?? {});
-      excl.remove(base);
-      return s.copyWith(
-        paramOverrides: s.paramOverrides.copyWith(
-          excludedBases: excl,
-        ),
-      );
     });
   }
 }
