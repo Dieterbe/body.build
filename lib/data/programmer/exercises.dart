@@ -25,7 +25,7 @@ class Ex {
 
   Assign recruitment(ProgramGroup pg, Map<String, String?> modifierOptions) {
     // establish base recruitment:
-    var r = volumeAssignment.assign[pg] ?? const Assign(0);
+    var r = volumeAssignment[pg] ?? const Assign(0);
 
     // Apply any modifiers that apply
     for (final modifier in modifiers) {
