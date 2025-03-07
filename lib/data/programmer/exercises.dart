@@ -167,12 +167,9 @@ final List<Ex> exes = [
   Ex(vaHipThrustGluteKickback, "pendulum glute kickback",
       [Equipment.pendulumGluteKickback], [hipExtensionKneeFlexion]),
 
-  Ex(
-      vaHipAbduction,
-      "hip abduction machine",
-      [Equipment.hipAdductionAbductionMachine],
+  Ex({}, "hip abduction machine", [Equipment.hipAdductionAbductionMachine],
       [hipAbductionHipFlexion('90°')]),
-  Ex(vaHipAbduction, "standing cable hip abduction", [Equipment.cableTower],
+  Ex({}, "standing cable hip abduction", [Equipment.cableTower],
       [hipAbductionHipFlexion('0°')]),
   Ex(
     vaHipAbductionStraightHip,

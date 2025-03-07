@@ -237,7 +237,6 @@ const vaBackExtension = {
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 
-);
 const vaLegCurlHipFlexed = {
   ProgramGroup.hamsShortHead: Assign(1, 'full length'),
   ProgramGroup.hams: Assign(1, 'medium to long length knee flexion'),
@@ -273,11 +272,11 @@ const vaSquatBSQ = {
   ProgramGroup.abs: Assign(0.25),
 };
 const vaLungeStepUp = {
-    ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
-    ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
-    ProgramGroup.gluteMax: Assign(1),
-    ProgramGroup.gluteMed: Assign(0.5),
-    ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
+  ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
+  ProgramGroup.gluteMax: Assign(1),
+  ProgramGroup.gluteMed: Assign(0.5),
+  ProgramGroup.abs: Assign(0.25),
 };
 const vaSquatPistolSissyAssistedSpanish = {
   ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
@@ -292,12 +291,10 @@ const vaLegExtensionReverseNordicHamCurlSquatSissy = {
 const vaHipThrustGluteKickback = {
   ProgramGroup.gluteMax: Assign(1),
 };
-const vaHipAbduction = {
-  // all recruitments set via modifier
-};
+
 final vaHipAbductionStraightHip = {
   // for exercises that use this EBase but don't use the modifier, we assume straight hip
-  hipAbductionHipFlexion('0°').opts['0°']!.$1,
+  ...hipAbductionHipFlexion('0°').opts['0°']!.$1,
 };
 const vaStandingCalfRaiseCalfJump = {
   ProgramGroup.gastroc: Assign(

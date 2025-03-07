@@ -5,8 +5,7 @@ import 'package:bodybuild/data/programmer/groups.dart';
 - Sometimes the type of machine / equipment affects the modifiers (e.g. for BSQ with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not). Doing everything as modifiers would complicate things
 - I guess it make sense that main equipment constitutes different exercise, modifiers are more for small tweaks
 */
-typedef Effects = Map<ProgramGroup, Assign>;
-typedef Option = (Effects effects, String desc);
+typedef Option = (VolumeAssignment va, String desc);
 
 class Modifier {
   final String name;
