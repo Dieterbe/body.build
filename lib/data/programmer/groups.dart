@@ -2,7 +2,6 @@
 // https://www.scielo.br/j/motriz/a/jbfGfJrRsXbfc9BrfXgVSPy/?lang=en
 
 import 'package:bodybuild/data/anatomy/muscles.dart';
-import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
 
 // muscle groups for the purpose of training
@@ -163,10 +162,23 @@ However, according to https://www.frontiersin.org/journals/physiology/articles/1
 class VolumeAssignment {
   final Map<ProgramGroup, Assign> assign;
   // assign volume based on equipment used in the exercise
-  final Map<Equipment, Map<ProgramGroup, Assign>>
-      assignEquip; // TODO: should this move to the exercise?
-  const VolumeAssignment(this.assign, {this.assignEquip = const {}});
+  const VolumeAssignment(this.assign);
 }
+
+const wrist025 = {
+  ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
+  ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
+};
+
+const wrist03 = {
+  ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+  ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
+};
+
+const wrist05 = {
+  ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
+  ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
+};
 
 // Volume assignments for each exercise type
 const vaDeadlift = VolumeAssignment(
@@ -235,8 +247,7 @@ const vaBackExtension = VolumeAssignment(
     ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
   },
 );
-const vaLegCurl = VolumeAssignment(
-  {},
+
 );
 const vaLegCurlHipFlexed = VolumeAssignment(
   {
@@ -275,23 +286,6 @@ const vaSquatBSQ = VolumeAssignment({
       'hip extension (from long to somewhat flexed still), less load when short & strongest'),
   ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
   ProgramGroup.abs: Assign(0.25),
-}, assignEquip: {
-  Equipment.dumbbell: {
-    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
-  },
-  Equipment.barbell: {
-    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
-  },
-  Equipment.smithMachineVertical: {
-    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
-  },
-  Equipment.smithMachineAngled: {
-    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
-  },
 });
 const vaLungeStepUp = VolumeAssignment(
   {
@@ -300,13 +294,7 @@ const vaLungeStepUp = VolumeAssignment(
     ProgramGroup.gluteMax: Assign(1),
     ProgramGroup.gluteMed: Assign(0.5),
     ProgramGroup.abs: Assign(0.25),
-  },
-  assignEquip: {
-    Equipment.dumbbell: {
-      ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
-      ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
-    }
-  },
+  }
 );
 const vaSquatPistolSissyAssistedSpanish = VolumeAssignment({
   ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
@@ -320,11 +308,6 @@ const vaLegExtensionReverseNordicHamCurlSquatSissy = VolumeAssignment({
 });
 const vaHipThrustGluteKickback = VolumeAssignment({
   ProgramGroup.gluteMax: Assign(1),
-}, assignEquip: {
-  Equipment.barbell: {
-    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
-  }
 });
 const vaHipAbduction = VolumeAssignment(
   {},
@@ -338,19 +321,6 @@ const vaStandingCalfRaiseCalfJump = VolumeAssignment({
   ProgramGroup.gastroc: Assign(
       1, 'ankle plantarflexion (medium to long length, stretched at knee)'),
   ProgramGroup.soleus: Assign(1, 'ankle plantarflexion (full ROM)'),
-}, assignEquip: {
-  Equipment.barbell: {
-    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
-  },
-  Equipment.dumbbell: {
-    ProgramGroup.wristExtensors: Assign(0.5, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
-  },
-  Equipment.smithMachineVertical: {
-    ProgramGroup.wristExtensors: Assign(0.25, 'isometric'),
-    ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
-  },
 });
 const vaSeatedCalfRaise = VolumeAssignment({
   ProgramGroup.gastroc: Assign(0.25),

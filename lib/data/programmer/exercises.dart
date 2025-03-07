@@ -27,12 +27,6 @@ class Ex {
     // establish base recruitment:
     var r = volumeAssignment.assign[pg] ?? const Assign(0);
 
-    // Apply any equipment rules that apply
-    for (final entry in volumeAssignment.assignEquip.entries) {
-      if (equipment.contains(entry.key) && entry.value.containsKey(pg)) {
-        r = r.merge(entry.value[pg]!);
-      }
-    }
     // Apply any modifiers that apply
     for (final modifier in modifiers) {
       final selectedOption =
@@ -97,12 +91,11 @@ final List<Ex> exes = [
       [Equipment.hamCurlMachineStanding], [legCurlAnkleDorsiflexed]),
   Ex(vaLegCurlHipExtended, "lying leg curl machine",
       [Equipment.hamCurlMachineLying], [legCurlAnkleDorsiflexed]),
-  Ex(vaLegCurl, "bodyweight leg curl with trx", [Equipment.trx],
+  Ex({}, "bodyweight leg curl with trx", [Equipment.trx],
       [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
-  Ex(vaLegCurl, "bodyweight leg curl with rings", [Equipment.gymnasticRings],
+  Ex({}, "bodyweight leg curl with rings", [Equipment.gymnasticRings],
       [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
-  Ex(vaLegCurl, "nordic curl", [],
-      [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
+  Ex({}, "nordic curl", [], [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
 
   Ex(vaSquatBBAndGoblet, "barbell squat", [Equipment.squatRack],
       [squatBarPlacement, squatLowerLegMovement]),
@@ -115,17 +108,17 @@ final List<Ex> exes = [
       [Equipment.smithMachineVertical], [squatLowerLegMovement]),
   Ex(vaLegPressSquatHackSquatBelt, "belt squat", [Equipment.beltSquatMachine],
       [squatLowerLegMovement]),
-  Ex(vaSquatBSQ, "dumbbell bulgarian split squat", [Equipment.dumbbell],
-      [bsqRearLeg, squatLowerLegMovement, deficit]),
-  Ex(vaSquatBSQ, "barbell bulgarian split squat", [Equipment.barbell],
-      [bsqRearLeg, squatLowerLegMovement, deficit]),
+  Ex({...vaSquatBSQ, ...wrist03}, "dumbbell bulgarian split squat",
+      [Equipment.dumbbell], [bsqRearLeg, squatLowerLegMovement, deficit]),
+  Ex({...vaSquatBSQ, ...wrist025}, "barbell bulgarian split squat",
+      [Equipment.barbell], [bsqRearLeg, squatLowerLegMovement, deficit]),
   Ex(
-      vaSquatBSQ,
+      {...vaSquatBSQ, ...wrist025},
       "smith machine (vertical) bulgarian split squat",
       [Equipment.smithMachineVertical],
       [bsqRearLeg, squatLowerLegMovement, deficit]),
   Ex(
-      vaSquatBSQ,
+      {...vaSquatBSQ, ...wrist025},
       "smith machine (angled) bulgarian split squat",
       [Equipment.smithMachineAngled],
       [bsqRearLeg, squatLowerLegMovement, deficit]),
@@ -135,12 +128,12 @@ final List<Ex> exes = [
   Ex(vaLungeStepUp, "forward lunge", [], [squatLowerLegMovement, deficit]),
   Ex(vaLungeStepUp, "backward lunge", [], [squatLowerLegMovement, deficit]),
   Ex(vaLungeStepUp, "walking lunge", [], [squatLowerLegMovement]),
-  Ex(vaLungeStepUp, "dumbbell forward lunge", [Equipment.dumbbell],
-      [squatLowerLegMovement, deficit]),
-  Ex(vaLungeStepUp, "dumbbell backward lunge", [Equipment.dumbbell],
-      [squatLowerLegMovement, deficit]),
-  Ex(vaLungeStepUp, "dumbbell walking lunge", [Equipment.dumbbell],
-      [squatLowerLegMovement]),
+  Ex({...vaLungeStepUp, ...wrist03}, "dumbbell forward lunge",
+      [Equipment.dumbbell], [squatLowerLegMovement, deficit]),
+  Ex({...vaLungeStepUp, ...wrist03}, "dumbbell backward lunge",
+      [Equipment.dumbbell], [squatLowerLegMovement, deficit]),
+  Ex({...vaLungeStepUp, ...wrist03}, "dumbbell walking lunge",
+      [Equipment.dumbbell], [squatLowerLegMovement]),
   Ex(vaLungeStepUp, "step up", [], [squatLowerLegMovement]),
 
   Ex(vaSquatPistolSissyAssistedSpanish, "pistol squat", [],
@@ -162,8 +155,8 @@ final List<Ex> exes = [
   Ex(vaLegExtensionReverseNordicHamCurlSquatSissy, "reverse nordic ham curl",
       [], [legExtensionLean]),
 
-  Ex(vaHipThrustGluteKickback, "barbell hip thrust", [Equipment.barbell],
-      [hipExtensionKneeFlexion]),
+  Ex({...vaHipThrustGluteKickback, ...wrist03}, "barbell hip thrust",
+      [Equipment.barbell], [hipExtensionKneeFlexion]),
   Ex(vaHipThrustGluteKickback, "smith machine hip thrust",
       [Equipment.smithMachineVertical], [hipExtensionKneeFlexion]),
   Ex(vaHipThrustGluteKickback, "machine hip thrust",
@@ -190,10 +183,18 @@ final List<Ex> exes = [
 // TODO: unilateral modifiers and other forms
   const Ex(vaStandingCalfRaiseCalfJump, "standing calf raise machine",
       [Equipment.calfRaiseMachineStanding], [], standingCalfRaiseCues),
-  const Ex(vaStandingCalfRaiseCalfJump, "barbell standing calf raise",
-      [Equipment.barbell], [], standingCalfRaiseCues),
-  const Ex(vaStandingCalfRaiseCalfJump, "dumbbell standing calf raise",
-      [Equipment.dumbbell], [], standingCalfRaiseCues),
+  const Ex(
+      {...vaStandingCalfRaiseCalfJump, ...wrist025},
+      "barbell standing calf raise",
+      [Equipment.barbell],
+      [],
+      standingCalfRaiseCues),
+  const Ex(
+      {...vaStandingCalfRaiseCalfJump, ...wrist05},
+      "dumbbell standing calf raise",
+      [Equipment.dumbbell],
+      [],
+      standingCalfRaiseCues),
   const Ex(vaStandingCalfRaiseCalfJump, "smith machine standing calf raise",
       [Equipment.smithMachineVertical], [], standingCalfRaiseCues),
   const Ex(vaStandingCalfRaiseCalfJump, "leg press straight leg calf raise",
@@ -202,8 +203,8 @@ final List<Ex> exes = [
       [Equipment.calfRaiseMachineSeated]),
 
   const Ex(vaStandingCalfRaiseCalfJump, "bodyweight calf jumps", []),
-  const Ex(
-      vaStandingCalfRaiseCalfJump, "dumbbell calf jumps", [Equipment.dumbbell]),
+  const Ex({...vaStandingCalfRaiseCalfJump, ...wrist05}, "dumbbell calf jumps",
+      [Equipment.dumbbell]),
   const Ex(vaStandingCalfRaiseCalfJump, "leg press calf jumps",
       [Equipment.legPressMachine]),
 
