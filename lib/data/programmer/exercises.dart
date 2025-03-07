@@ -74,11 +74,11 @@ final List<Ex> exes = [
   const Ex(vaGoodMorning, "seated barbell good morning", [Equipment.barbell]),
   const Ex(vaGoodMorning, "seated dumbbell good morning", [Equipment.dumbbell]),
 
-  const Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell]),
-  const Ex(vaDeadlift, "deadlift", [Equipment.barbell]),
-  const Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell]),
-  const Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell]),
-  const Ex(vaDeadliftRDL, "dummbbell romanian deadlift", [Equipment.dumbbell]),
+  Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell]),
+  Ex(vaDeadlift, "deadlift", [Equipment.barbell]),
+  Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell]),
+  Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell]),
+  Ex(vaDeadliftRDL, "dummbbell romanian deadlift", [Equipment.dumbbell]),
 
   const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45]),
   const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45]),

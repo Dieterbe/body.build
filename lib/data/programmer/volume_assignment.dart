@@ -19,36 +19,30 @@ const wrist05 = {
 };
 
 // Volume assignments for each exercise type
-const vaDeadlift = {
-  ProgramGroup.upperTraps: Assign(1),
-  ProgramGroup.lats: Assign(0.25),
-  ProgramGroup.spinalErectors: Assign(1, 'isometric'),
-  ProgramGroup.quadsVasti:
-      Assign(0.5, 'knee extension (depends on technique and build)'),
-  ProgramGroup.hams: Assign(0.75),
-  ProgramGroup.gluteMax: Assign(1),
-  ProgramGroup.abs: Assign(0.25),
-  ProgramGroup.soleus: Assign(0.5),
-  ...wrist03,
-};
-
-const vaDeadliftRDL = {
-  ProgramGroup.upperTraps: Assign(1, 'isometric'),
-  ProgramGroup.lats: Assign(0.25),
+const vaGoodMorning = {
   ProgramGroup.spinalErectors: Assign(1, 'isometric'),
   ProgramGroup.hams: Assign(1, 'long length hip extension'),
   ProgramGroup.gluteMax:
       Assign(1, 'full ROM hip extension, less load when short & strongest'),
   ProgramGroup.abs: Assign(0.25),
+  ...wrist025,
+};
+
+final vaDeadliftRDL = {
+  ...vaGoodMorning,
+  ProgramGroup.upperTraps: const Assign(1, 'isometric'),
+  ProgramGroup.lats: const Assign(0.25),
   ...wrist03,
 };
 
-const vaGoodMorning = {
-  ProgramGroup.spinalErectors: Assign(1, 'isometric'),
-  ProgramGroup.hams: Assign(1, 'long length hip extension'),
-  ProgramGroup.gluteMax: Assign(1),
-  ProgramGroup.abs: Assign(0.25),
-  ...wrist025,
+final vaDeadlift = {
+  ...vaDeadliftRDL,
+  ProgramGroup.quadsVasti:
+      const Assign(0.5, 'knee extension (depends on technique and build)'),
+  ProgramGroup.hams: const Assign(0.75, 'hip extension'),
+  ProgramGroup.gluteMax:
+      const Assign(1, 'hip extension, less load when short & strongest'),
+  ProgramGroup.soleus: const Assign(0.5),
 };
 
 const vaHipExtension = {
@@ -168,6 +162,7 @@ const vaPullupPulldownWidePronatedPullupWidePronated = {
   ...wrist05,
 };
 const vaRow = {
+  // lats and spinal erectors are added via modifier!
   ProgramGroup.rearDelts: Assign(1),
   ProgramGroup.lowerTraps: Assign(1),
   ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
@@ -176,26 +171,12 @@ const vaRow = {
   ...wrist05,
 };
 const vaRowWithoutSpine = {
+  ...vaRow,
   ProgramGroup.lats: Assign(1, 'not full stretch'),
-  ProgramGroup.rearDelts: Assign(1),
-  ProgramGroup.lowerTraps: Assign(1),
-  ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
-  ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
-  ProgramGroup.tricepsLongHead: Assign(0.25),
-  ...wrist05,
 };
 // specifically, this is for standing rows where you hip hinge forward
 const vaRowWithSpineIso = {
-  // same as normal row
-  ProgramGroup.rearDelts: Assign(1),
-  ProgramGroup.lowerTraps: Assign(1),
-  ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
-  ProgramGroup.lats: Assign(1, 'not full stretch'),
-  ProgramGroup.biceps: Assign(0.5, 'elbow flexion while weakened'),
-  ProgramGroup.tricepsLongHead: Assign(0.25),
-  ...wrist05,
-
-  // unique to this variant
+  ...vaRowWithoutSpine,
   ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
   ProgramGroup.hams: Assign(0.25),
   ProgramGroup.gluteMax: Assign(0.25),
