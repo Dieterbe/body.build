@@ -2,6 +2,7 @@ import 'package:bodybuild/data/programmer/cues.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:bodybuild/data/programmer/volume_assignment.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)

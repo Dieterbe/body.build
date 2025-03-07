@@ -1,4 +1,5 @@
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/volume_assignment.dart';
 
 /*
 - If it's a different machine , it's a different exercise, is a valid way. Other way would be valid too. Comes down to preference I guess
