@@ -1,12 +1,12 @@
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/volume_assignment.dart';
 
 /*
 - If it's a different machine , it's a different exercise, is a valid way. Other way would be valid too. Comes down to preference I guess
 - Sometimes the type of machine / equipment affects the modifiers (e.g. for BSQ with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not). Doing everything as modifiers would complicate things
 - I guess it make sense that main equipment constitutes different exercise, modifiers are more for small tweaks
 */
-typedef Effects = Map<ProgramGroup, Assign>;
-typedef Option = (Effects effects, String desc);
+typedef Option = (VolumeAssignment va, String desc);
 
 class Modifier {
   final String name;

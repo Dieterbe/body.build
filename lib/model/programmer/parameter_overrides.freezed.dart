@@ -180,8 +180,6 @@ mixin _$ParameterOverrides {
       throw _privateConstructorUsedError;
   @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
   Set<Ex>? get excludedExercises => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-  Set<EBase>? get excludedBases => throw _privateConstructorUsedError;
 
   /// Serializes this ParameterOverrides to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -204,9 +202,7 @@ abstract class $ParameterOverridesCopyWith<$Res> {
       int? setsPerWeekPerMuscleGroup,
       List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
       @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
-      Set<Ex>? excludedExercises,
-      @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-      Set<EBase>? excludedBases});
+      Set<Ex>? excludedExercises});
 }
 
 /// @nodoc
@@ -228,7 +224,6 @@ class _$ParameterOverridesCopyWithImpl<$Res, $Val extends ParameterOverrides>
     Object? setsPerWeekPerMuscleGroup = freezed,
     Object? setsPerWeekPerMuscleGroupIndividual = freezed,
     Object? excludedExercises = freezed,
-    Object? excludedBases = freezed,
   }) {
     return _then(_value.copyWith(
       intensities: freezed == intensities
@@ -248,10 +243,6 @@ class _$ParameterOverridesCopyWithImpl<$Res, $Val extends ParameterOverrides>
           ? _value.excludedExercises
           : excludedExercises // ignore: cast_nullable_to_non_nullable
               as Set<Ex>?,
-      excludedBases: freezed == excludedBases
-          ? _value.excludedBases
-          : excludedBases // ignore: cast_nullable_to_non_nullable
-              as Set<EBase>?,
     ) as $Val);
   }
 }
@@ -269,9 +260,7 @@ abstract class _$$ParameterOverridesImplCopyWith<$Res>
       int? setsPerWeekPerMuscleGroup,
       List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
       @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
-      Set<Ex>? excludedExercises,
-      @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-      Set<EBase>? excludedBases});
+      Set<Ex>? excludedExercises});
 }
 
 /// @nodoc
@@ -291,7 +280,6 @@ class __$$ParameterOverridesImplCopyWithImpl<$Res>
     Object? setsPerWeekPerMuscleGroup = freezed,
     Object? setsPerWeekPerMuscleGroupIndividual = freezed,
     Object? excludedExercises = freezed,
-    Object? excludedBases = freezed,
   }) {
     return _then(_$ParameterOverridesImpl(
       intensities: freezed == intensities
@@ -311,10 +299,6 @@ class __$$ParameterOverridesImplCopyWithImpl<$Res>
           ? _value._excludedExercises
           : excludedExercises // ignore: cast_nullable_to_non_nullable
               as Set<Ex>?,
-      excludedBases: freezed == excludedBases
-          ? _value._excludedBases
-          : excludedBases // ignore: cast_nullable_to_non_nullable
-              as Set<EBase>?,
     ));
   }
 }
@@ -327,14 +311,11 @@ class _$ParameterOverridesImpl implements _ParameterOverrides {
       this.setsPerWeekPerMuscleGroup,
       final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
       @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
-      final Set<Ex>? excludedExercises,
-      @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-      final Set<EBase>? excludedBases})
+      final Set<Ex>? excludedExercises})
       : _intensities = intensities,
         _setsPerWeekPerMuscleGroupIndividual =
             setsPerWeekPerMuscleGroupIndividual,
-        _excludedExercises = excludedExercises,
-        _excludedBases = excludedBases;
+        _excludedExercises = excludedExercises;
 
   factory _$ParameterOverridesImpl.fromJson(Map<String, dynamic> json) =>
       _$$ParameterOverridesImplFromJson(json);
@@ -374,20 +355,9 @@ class _$ParameterOverridesImpl implements _ParameterOverrides {
     return EqualUnmodifiableSetView(value);
   }
 
-  final Set<EBase>? _excludedBases;
-  @override
-  @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-  Set<EBase>? get excludedBases {
-    final value = _excludedBases;
-    if (value == null) return null;
-    if (_excludedBases is EqualUnmodifiableSetView) return _excludedBases;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(value);
-  }
-
   @override
   String toString() {
-    return 'ParameterOverrides(intensities: $intensities, setsPerWeekPerMuscleGroup: $setsPerWeekPerMuscleGroup, setsPerWeekPerMuscleGroupIndividual: $setsPerWeekPerMuscleGroupIndividual, excludedExercises: $excludedExercises, excludedBases: $excludedBases)';
+    return 'ParameterOverrides(intensities: $intensities, setsPerWeekPerMuscleGroup: $setsPerWeekPerMuscleGroup, setsPerWeekPerMuscleGroupIndividual: $setsPerWeekPerMuscleGroupIndividual, excludedExercises: $excludedExercises)';
   }
 
   /// Create a copy of ParameterOverrides
@@ -413,9 +383,7 @@ abstract class _ParameterOverrides implements ParameterOverrides {
       final int? setsPerWeekPerMuscleGroup,
       final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
       @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
-      final Set<Ex>? excludedExercises,
-      @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-      final Set<EBase>? excludedBases}) = _$ParameterOverridesImpl;
+      final Set<Ex>? excludedExercises}) = _$ParameterOverridesImpl;
 
   factory _ParameterOverrides.fromJson(Map<String, dynamic> json) =
       _$ParameterOverridesImpl.fromJson;
@@ -429,9 +397,6 @@ abstract class _ParameterOverrides implements ParameterOverrides {
   @override
   @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
   Set<Ex>? get excludedExercises;
-  @override
-  @JsonKey(toJson: _ebaseSetToJson, fromJson: _ebaseSetFromJson)
-  Set<EBase>? get excludedBases;
 
   /// Create a copy of ParameterOverrides
   /// with the given fields replaced by the non-null parameter values.

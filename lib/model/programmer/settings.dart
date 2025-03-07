@@ -98,7 +98,6 @@ class Settings with _$Settings {
   Parameters get paramFinal => paramSuggest.apply(paramOverrides);
   List<Ex> get availableExercises => getAvailableExercises(
         excludedExercises: paramOverrides.excludedExercises,
-        excludedBases: paramOverrides.excludedBases,
         availEquipment: availEquipment,
       );
 

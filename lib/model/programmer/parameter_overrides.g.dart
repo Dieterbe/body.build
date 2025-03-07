@@ -60,7 +60,6 @@ _$ParameterOverridesImpl _$$ParameterOverridesImplFromJson(
           ?.map((e) => MuscleGroupOverride.fromJson(e as Map<String, dynamic>))
           .toList(),
       excludedExercises: _exSetFromJson(json['excludedExercises'] as List?),
-      excludedBases: _ebaseSetFromJson(json['excludedBases'] as List?),
     );
 
 Map<String, dynamic> _$$ParameterOverridesImplToJson(
@@ -71,5 +70,4 @@ Map<String, dynamic> _$$ParameterOverridesImplToJson(
       'setsPerWeekPerMuscleGroupIndividual':
           instance.setsPerWeekPerMuscleGroupIndividual,
       'excludedExercises': _exSetToJson(instance.excludedExercises),
-      'excludedBases': _ebaseSetToJson(instance.excludedBases),
     };
