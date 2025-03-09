@@ -68,23 +68,32 @@ class Ex {
 // generally machines/cables should come out better compared to body weight (e.g. nordic curls is less comfortable at least)
 // todo give exercises properties to sort their quality by. e.g. range, train at long length, and also setup time
 final List<Ex> exes = [
-  const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell]),
-  const Ex(
-      vaGoodMorning, "standing dumbbell good morning", [Equipment.dumbbell]),
-  const Ex(vaGoodMorning, "seated barbell good morning", [Equipment.barbell]),
-  const Ex(vaGoodMorning, "seated dumbbell good morning", [Equipment.dumbbell]),
+  const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell],
+      [], handSqueeze),
+  const Ex(vaGoodMorning, "standing dumbbell good morning",
+      [Equipment.dumbbell], [], handSqueeze),
+  const Ex(vaGoodMorning, "seated barbell good morning", [Equipment.barbell],
+      [], handSqueeze),
+  const Ex(vaGoodMorning, "seated dumbbell good morning", [Equipment.dumbbell],
+      [], handSqueeze),
 
-  Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell]),
-  Ex(vaDeadlift, "deadlift", [Equipment.barbell]),
-  Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell]),
-  Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell]),
-  Ex(vaDeadliftRDL, "dummbbell romanian deadlift", [Equipment.dumbbell]),
+  Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell], [], handSqueeze),
+  Ex(vaDeadlift, "deadlift", [Equipment.barbell], [], handSqueeze),
+  Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell], [], handSqueeze),
+  Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell], [], handSqueeze),
+  Ex(vaDeadliftRDL, "dummbbell romanian deadlift", [Equipment.dumbbell], [],
+      handSqueeze),
 
-  const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45]),
-  const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45]),
-  const Ex(vaHipExtension, "90° hip extension", [Equipment.hyper90]),
-  const Ex(vaHipExtension, "reverse hyperextension", [Equipment.hyperReverse]),
-  const Ex(vaPullThrough, "cable pull-through", [Equipment.cableTower]),
+  const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45], [],
+      handSqueeze),
+  const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45], [],
+      handSqueeze),
+  const Ex(vaHipExtension, "90° hip extension", [Equipment.hyper90], [],
+      handSqueeze),
+  const Ex(vaHipExtension, "reverse hyperextension", [Equipment.hyperReverse],
+      [], handSqueeze),
+  const Ex(vaPullThrough, "cable pull-through", [Equipment.cableTower], [],
+      handSqueeze),
 
   Ex(vaLegCurlHipFlexed, "seated leg curl machine",
       [Equipment.hamCurlMachineSeated], [legCurlAnkleDorsiflexed]),
@@ -99,30 +108,39 @@ final List<Ex> exes = [
   Ex({}, "nordic curl", [], [legCurlAnkleDorsiflexed, legCurlHipFlexion]),
 
   Ex(vaSquatBBAndGoblet, "barbell squat", [Equipment.squatRack],
-      [squatBarPlacement, squatLowerLegMovement]),
-  Ex(vaSquatBBAndGoblet, "goblet squat", [], [
-    squatLowerLegMovement
-  ]), // for this one, the lower leg probably *always* moves
+      [squatBarPlacement, squatLowerLegMovement], handSqueeze),
+  Ex(vaSquatBBAndGoblet, "goblet squat", [], [squatLowerLegMovement],
+      handSqueeze), // for this one, the lower leg probably *always* moves
   Ex(vaLegPressSquatHackSquatBelt, "machine hack squat",
       [Equipment.hackSquatMachine], [squatLowerLegMovement]),
   Ex(vaLegPressSquatHackSquatBelt, "smith machine hack squat",
       [Equipment.smithMachineVertical], [squatLowerLegMovement]),
   Ex(vaLegPressSquatHackSquatBelt, "belt squat", [Equipment.beltSquatMachine],
       [squatLowerLegMovement]),
-  Ex({...vaSquatBSQ, ...wrist03}, "dumbbell bulgarian split squat",
-      [Equipment.dumbbell], [bsqRearLeg, squatLowerLegMovement, deficit]),
-  Ex({...vaSquatBSQ, ...wrist025}, "barbell bulgarian split squat",
-      [Equipment.barbell], [bsqRearLeg, squatLowerLegMovement, deficit]),
+  Ex(
+      {...vaSquatBSQ, ...wrist03},
+      "dumbbell bulgarian split squat",
+      [Equipment.dumbbell],
+      [bsqRearLeg, squatLowerLegMovement, deficit],
+      handSqueeze),
+  Ex(
+      {...vaSquatBSQ, ...wrist025},
+      "barbell bulgarian split squat",
+      [Equipment.barbell],
+      [bsqRearLeg, squatLowerLegMovement, deficit],
+      handSqueeze),
   Ex(
       {...vaSquatBSQ, ...wrist025},
       "smith machine (vertical) bulgarian split squat",
       [Equipment.smithMachineVertical],
-      [bsqRearLeg, squatLowerLegMovement, deficit]),
+      [bsqRearLeg, squatLowerLegMovement, deficit],
+      handSqueeze),
   Ex(
       {...vaSquatBSQ, ...wrist025},
       "smith machine (angled) bulgarian split squat",
       [Equipment.smithMachineAngled],
-      [bsqRearLeg, squatLowerLegMovement, deficit]),
+      [bsqRearLeg, squatLowerLegMovement, deficit],
+      handSqueeze),
 
   Ex(vaLegPressSquatHackSquatBelt, "machine leg press",
       [Equipment.legPressMachine], [squatLowerLegMovement]),
@@ -130,11 +148,11 @@ final List<Ex> exes = [
   Ex(vaLungeStepUp, "backward lunge", [], [squatLowerLegMovement, deficit]),
   Ex(vaLungeStepUp, "walking lunge", [], [squatLowerLegMovement]),
   Ex({...vaLungeStepUp, ...wrist03}, "dumbbell forward lunge",
-      [Equipment.dumbbell], [squatLowerLegMovement, deficit]),
+      [Equipment.dumbbell], [squatLowerLegMovement, deficit], handSqueeze),
   Ex({...vaLungeStepUp, ...wrist03}, "dumbbell backward lunge",
-      [Equipment.dumbbell], [squatLowerLegMovement, deficit]),
+      [Equipment.dumbbell], [squatLowerLegMovement, deficit], handSqueeze),
   Ex({...vaLungeStepUp, ...wrist03}, "dumbbell walking lunge",
-      [Equipment.dumbbell], [squatLowerLegMovement]),
+      [Equipment.dumbbell], [squatLowerLegMovement], handSqueeze),
   Ex(vaLungeStepUp, "step up", [], [squatLowerLegMovement]),
 
   Ex(vaSquatPistolSissyAssistedSpanish, "pistol squat", [],
@@ -157,9 +175,9 @@ final List<Ex> exes = [
       [], [legExtensionLean]),
 
   Ex({...vaHipThrustGluteKickback, ...wrist03}, "barbell hip thrust",
-      [Equipment.barbell], [hipExtensionKneeFlexion]),
+      [Equipment.barbell], [hipExtensionKneeFlexion], handSqueeze),
   Ex(vaHipThrustGluteKickback, "smith machine hip thrust",
-      [Equipment.smithMachineVertical], [hipExtensionKneeFlexion]),
+      [Equipment.smithMachineVertical], [hipExtensionKneeFlexion], handSqueeze),
   Ex(vaHipThrustGluteKickback, "machine hip thrust",
       [Equipment.hipThrustMachine], [hipExtensionKneeFlexion]),
 
@@ -177,22 +195,21 @@ final List<Ex> exes = [
     "lying cable hip abduction",
     [Equipment.cableTower],
   ),
-
 // TODO: unilateral modifiers and other forms
   const Ex(vaStandingCalfRaiseCalfJump, "standing calf raise machine",
       [Equipment.calfRaiseMachineStanding], [], standingCalfRaiseCues),
-  const Ex(
+  Ex(
       {...vaStandingCalfRaiseCalfJump, ...wrist025},
       "barbell standing calf raise",
       [Equipment.barbell],
       [],
-      standingCalfRaiseCues),
-  const Ex(
+      {...handSqueeze, ...standingCalfRaiseCues}),
+  Ex(
       {...vaStandingCalfRaiseCalfJump, ...wrist05},
       "dumbbell standing calf raise",
       [Equipment.dumbbell],
       [],
-      standingCalfRaiseCues),
+      {...handSqueeze, ...standingCalfRaiseCues}),
   const Ex(vaStandingCalfRaiseCalfJump, "smith machine standing calf raise",
       [Equipment.smithMachineVertical], [], standingCalfRaiseCues),
   const Ex(vaStandingCalfRaiseCalfJump, "leg press straight leg calf raise",
@@ -202,203 +219,259 @@ final List<Ex> exes = [
 
   const Ex(vaStandingCalfRaiseCalfJump, "bodyweight calf jumps", []),
   const Ex({...vaStandingCalfRaiseCalfJump, ...wrist05}, "dumbbell calf jumps",
-      [Equipment.dumbbell]),
+      [Equipment.dumbbell], [], handSqueeze),
   const Ex(vaStandingCalfRaiseCalfJump, "leg press calf jumps",
       [Equipment.legPressMachine]),
 
-  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup",
-      []), // just outside shoulder width
+  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup", [], [],
+      handSqueeze), // just outside shoulder width
   // Ex(EBase.?, "pullup close grip pronated", []),
 
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
       "pullup gymnastic rings",
-      [Equipment.gymnasticRings]), // TODO see if recruitment should be adjusted
+      [Equipment.gymnasticRings],
+      [],
+      handSqueeze), // TODO see if recruitment should be adjusted
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-      "pullup neutral grip", []),
+      "pullup neutral grip",
+      [],
+      [],
+      handSqueeze),
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-      "pullup supinated grip", []), // chin-up
+      "pullup supinated grip",
+      [],
+      [],
+      handSqueeze), // chin-up
   const Ex(vaPullupPulldownWidePronatedPullupWidePronated,
-      "pullup wide pronated grip", []),
+      "pullup wide pronated grip", [], [], handSqueeze),
 
   const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "lat pulldown",
-      [Equipment.latPullDownMachine]),
+      [Equipment.latPullDownMachine], [], handSqueeze),
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
       "lat pulldown neutral grip",
-      [Equipment.latPullDownMachine]),
+      [Equipment.latPullDownMachine],
+      [],
+      handSqueeze),
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
       "lat pulldown supinated grip",
-      [Equipment.latPullDownMachine]),
-  const Ex(vaPullupPulldownWidePronatedPullupWidePronated,
-      "lat pulldown wide pronated grip", [Equipment.latPullDownMachine]),
+      [Equipment.latPullDownMachine],
+      [],
+      handSqueeze),
+  const Ex(
+      vaPullupPulldownWidePronatedPullupWidePronated,
+      "lat pulldown wide pronated grip",
+      [Equipment.latPullDownMachine],
+      [],
+      handSqueeze),
 
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
       "kneeling diagonal cable row",
-      [Equipment.cableTower]),
-  Ex(vaRow, "seated cable row", [
-    Equipment.cableRowMachine
-  ], [
-    Modifier('spine', 'still', {
-      'still': (
-        {
-          ProgramGroup.lats: const Assign(1, 'not full stretch'),
-          ProgramGroup.spinalErectors: const Assign(0.25, 'isometric'),
-        },
-        'keep the spine upright'
-      ),
-      'dynamic': (
-        {
-          ProgramGroup.lats: const Assign(1, 'near full stretch'),
-          ProgramGroup.spinalErectors:
-              const Assign(0.5, 'flexion & extension cycles'),
-        },
-        'flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout'
-      )
-    }),
-    Modifier('grip width', 'shoulder', {
-      'shoulder': ({}, ''),
-      'wide': (
-        {
-          ProgramGroup.rearDelts: const Assign(
-              1, 'shoulder horizontal extension + shoulder extension'),
-          ProgramGroup.lowerTraps:
-              const Assign(1, 'scapular retraction + depression'),
-          ProgramGroup.lats:
-              const Assign(1, 'shoulder extension + shoulder adduction'),
-        },
-        ''
-      )
-    })
-  ]),
+      [Equipment.cableTower],
+      [],
+      handSqueeze),
+  Ex(
+      vaRow,
+      "seated cable row",
+      [Equipment.cableRowMachine],
+      [
+        Modifier('spine', 'still', {
+          'still': (
+            {
+              ProgramGroup.lats: const Assign(1, 'not full stretch'),
+              ProgramGroup.spinalErectors: const Assign(0.25, 'isometric'),
+            },
+            'keep the spine upright'
+          ),
+          'dynamic': (
+            {
+              ProgramGroup.lats: const Assign(1, 'near full stretch'),
+              ProgramGroup.spinalErectors:
+                  const Assign(0.5, 'flexion & extension cycles'),
+            },
+            'flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout'
+          )
+        }),
+        Modifier('grip width', 'shoulder', {
+          'shoulder': ({}, ''),
+          'wide': (
+            {
+              ProgramGroup.rearDelts: const Assign(
+                  1, 'shoulder horizontal extension + shoulder extension'),
+              ProgramGroup.lowerTraps:
+                  const Assign(1, 'scapular retraction + depression'),
+              ProgramGroup.lats:
+                  const Assign(1, 'shoulder extension + shoulder adduction'),
+            },
+            ''
+          )
+        })
+      ],
+      handSqueeze),
 
   // TODO many different grips. those should affect recruitment similar to pullup types
-  const Ex(
-      vaRowWithSpineIso, "standing bent over barbell row", [Equipment.barbell]),
+  const Ex(vaRowWithSpineIso, "standing bent over barbell row",
+      [Equipment.barbell], [], handSqueeze),
 
   const Ex(vaRowWithoutSpine, "bench supported single arm dumbbell rows",
-      [Equipment.dumbbell]),
+      [Equipment.dumbbell], [], handSqueeze),
   const Ex(vaRowWithoutSpine, "chest supported machine rows",
-      [Equipment.rowMachine]),
+      [Equipment.rowMachine], [], handSqueeze),
 
-  const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower]),
-  const Ex(vaPullOverLatPrayer, "lat prayer", [Equipment.cableTower]),
+  const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [],
+      handSqueeze),
+  const Ex(vaPullOverLatPrayer, "lat prayer", [Equipment.cableTower], [],
+      handSqueeze),
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "seated cable high row", [Equipment.cableRowMachine]),
+      "seated cable high row", [Equipment.cableRowMachine], [], handSqueeze),
 
   const Ex(
       vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
       "rear delt fly machine",
-      [Equipment.rearDeltFlyMachine]), // TODO unilateral has more ROM
-  const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "standing unilateral cable rear delt fly", [Equipment.cableTower]),
+      [Equipment.rearDeltFlyMachine],
+      [],
+      handSqueeze), // TODO unilateral has more ROM
+  const Ex(
+      vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
+      "standing unilateral cable rear delt fly",
+      [Equipment.cableTower],
+      [],
+      handSqueeze),
 
-  const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "side lying rear delt dumbbell raise", [Equipment.dumbbell]),
+  const Ex(
+      vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
+      "side lying rear delt dumbbell raise",
+      [Equipment.dumbbell],
+      [],
+      handSqueeze),
 
 // TODO: what's the diff again with face pulls? can we do this on trx?
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "standing cable shoulder pull", [Equipment.cableTower]),
-  const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "seated cable shoulder pull", [Equipment.cableRowMachine]),
+      "standing cable shoulder pull", [Equipment.cableTower], [], handSqueeze),
+  const Ex(
+      vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
+      "seated cable shoulder pull",
+      [Equipment.cableRowMachine],
+      [],
+      handSqueeze),
 
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "standing cable face pull", [Equipment.cableTower]),
+      "standing cable face pull", [Equipment.cableTower], [], handSqueeze),
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "seated cable face pull", [Equipment.cableRowMachine]),
+      "seated cable face pull", [Equipment.cableRowMachine], [], handSqueeze),
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
-      "TRX face pull", [Equipment.trx]),
+      "TRX face pull", [Equipment.trx], [], handSqueeze),
 
-  const Ex(vaBenchPressBBChestPressMachineDip,
-      "flat barbell bench press (powerlift)", [Equipment.barbell]),
+  const Ex(
+      vaBenchPressBBChestPressMachineDip,
+      "flat barbell bench press (powerlift)",
+      [Equipment.barbell],
+      [],
+      handSqueeze),
   const Ex(vaBenchPressBBChestPressMachineDip, "flat barbell bench press",
-      [Equipment.barbell]),
+      [Equipment.barbell], [], handSqueeze),
   const Ex(vaBenchPressBBChestPressMachineDip, "15° barbell bench press",
-      [Equipment.barbell]),
+      [Equipment.barbell], [], handSqueeze),
   const Ex(vaBenchPressBBChestPressMachineDip, "flat bench press smith machine",
-      [Equipment.smithMachineAngled]),
+      [Equipment.smithMachineAngled], [], handSqueeze),
 
   const Ex(vaBenchPressBBChestPressMachineDip, "chest press machine",
-      [Equipment.chestPressMachine]),
+      [Equipment.chestPressMachine], [], handSqueeze),
 
   Ex(vaPushUp, "push-up", [], [deficit]),
   const Ex(vaBenchPressDBChestPressCable, "flat dumbbell bench press",
-      [Equipment.dumbbell]),
+      [Equipment.dumbbell], [], handSqueeze),
   const Ex(vaBenchPressDBChestPressCable, "15° dumbbell bench press",
-      [Equipment.dumbbell]),
+      [Equipment.dumbbell], [], handSqueeze),
   const Ex(vaBenchPressDBChestPressCable, "cable chest press",
-      [Equipment.cableTowerDual]),
+      [Equipment.cableTowerDual], [], handSqueeze),
 
-  const Ex(vaBenchPressBBChestPressMachineDip, "dip", []),
+  const Ex(vaBenchPressBBChestPressMachineDip, "dip", [], [], handSqueeze),
   const Ex(vaBenchPressBBChestPressMachineDip, "assisted dip machine",
-      [Equipment.assistedDipMachine]),
+      [Equipment.assistedDipMachine], [], handSqueeze),
   Ex(vaFlyPecDeckHandGrip, "laying dumbbell fly", [Equipment.dumbbell],
-      [flyThumbs]),
+      [flyThumbs], handSqueeze),
   Ex(vaFlyPecDeckHandGrip, "chest fly machine", [Equipment.chestFlyMachine],
-      [flyThumbs]),
+      [flyThumbs], handSqueeze),
 
-  Ex(vaFlyPecDeckHandGrip, "bayesian fly", [
-    Equipment.cableTower
-  ], [
-    flyThumbs
-  ]), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
+  Ex(vaFlyPecDeckHandGrip, "bayesian fly", [Equipment.cableTower], [flyThumbs],
+      handSqueeze), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
   const Ex(
       vaPecDeckElbowPad, "pec deck (elbow pad)", [Equipment.pecDeckMachine]),
   Ex(vaFlyPecDeckHandGrip, "chest machine fly (pec deck with hand grip)",
-      [Equipment.chestFlyMachine], [flyThumbs]),
+      [Equipment.chestFlyMachine], [flyThumbs], handSqueeze),
 
-  const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell]),
-  const Ex(vaOverheadPressBB, "barbell overhead press", [Equipment.barbell]),
+  const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell],
+      [], handSqueeze),
+  const Ex(vaOverheadPressBB, "barbell overhead press", [Equipment.barbell], [],
+      handSqueeze),
   const Ex(vaOverheadPressBB, "shoulder press machine",
-      [Equipment.shoulderPressMachine]),
+      [Equipment.shoulderPressMachine], [], handSqueeze),
 
   Ex(vaLateralRaise, "standing dumbbell lateral raise", [Equipment.dumbbell],
-      [lateralRaiseShoulderRotation]),
+      [lateralRaiseShoulderRotation], handSqueeze),
   Ex(vaLateralRaise, "standing cable lateral raise", [Equipment.cableTower],
-      [lateralRaiseShoulderRotation, lateralRaiseCablePath]),
-  const Ex(vaShrug, "barbell shrug", [Equipment.barbell]),
-  const Ex(vaShrug, "wide grip barbell shrug", [Equipment.barbell]),
-  const Ex(vaShrug, "dumbbell shrug", [Equipment.dumbbell]),
+      [lateralRaiseShoulderRotation, lateralRaiseCablePath], handSqueeze),
+  const Ex(vaShrug, "barbell shrug", [Equipment.barbell], [], handSqueeze),
+  const Ex(
+      vaShrug, "wide grip barbell shrug", [Equipment.barbell], [], handSqueeze),
+  const Ex(vaShrug, "dumbbell shrug", [Equipment.dumbbell], [], handSqueeze),
 
   const Ex(vaTricepExtensionOverhead, "cable overhead tricep extension", [
     Equipment.cableTower
   ], [], {
+    ...handSqueeze,
     "RP style": (
       false,
       "use small bar. elbows in - up & back to down & forward. see [this instagram reel](https://www.instagram.com/reel/DEUw9COM-K8)"
     )
   }),
   const Ex(vaTricepExtensionOverhead, "dumbbell overhead tricep extension",
-      [Equipment.dumbbell]),
-  const Ex(vaTricepExtension, "dumbbell skull-over", [Equipment.dumbbell]),
-  const Ex(vaTricepExtension, "barbell skull-over", [Equipment.barbell]),
-  const Ex(vaTricepExtension, "elastic skull-over", [Equipment.elastic]),
-  const Ex(vaTricepExtension, "tricep kickback", [Equipment.dumbbell]),
-  const Ex(vaTricepExtension, "tricep cable pushdown", [Equipment.cableTower]),
+      [Equipment.dumbbell], [], handSqueeze),
+  const Ex(vaTricepExtension, "dumbbell skull-over", [Equipment.dumbbell], [],
+      handSqueeze),
+  const Ex(vaTricepExtension, "barbell skull-over", [Equipment.barbell], [],
+      handSqueeze),
+  const Ex(vaTricepExtension, "elastic skull-over", [Equipment.elastic], [],
+      handSqueeze),
+  const Ex(vaTricepExtension, "tricep kickback", [Equipment.dumbbell], [],
+      handSqueeze),
+  const Ex(vaTricepExtension, "tricep cable pushdown", [Equipment.cableTower],
+      [], handSqueeze),
 
-  const Ex(vaBicepCurl, "barbell bicep curl", [Equipment.barbell]),
-  const Ex(vaBicepCurl, "cable bicep curl", [Equipment.cableTower]),
-  const Ex(vaBicepCurl, "dumbbell bicep curl", [Equipment.dumbbell]),
-  const Ex(vaBicepCurl, "dumbbell hammer bicep curl", [Equipment.dumbbell]),
-  const Ex(vaBicepCurl, "kettlebell bicep curl", [Equipment.kettlebell]),
-  const Ex(vaBicepCurl, "preacher bicep curl machine",
-      [Equipment.preacherCurlMachine]),
-  const Ex(vaBicepCurl, "preacher bicep curl bench/barbell",
-      [Equipment.preacherCurlBench]),
-  const Ex(vaBicepCurl, "bicep curl machine", [Equipment.bicepCurlMachine]),
-  const Ex(vaBicepCurl, "bayesian curl", [Equipment.cableTower]),
   const Ex(
-      vaBicepCurl, "concentration curl", [Equipment.dumbbell]), // unilateral
+      vaBicepCurl, "barbell bicep curl", [Equipment.barbell], [], handSqueeze),
+  const Ex(
+      vaBicepCurl, "cable bicep curl", [Equipment.cableTower], [], handSqueeze),
+  const Ex(vaBicepCurl, "dumbbell bicep curl", [Equipment.dumbbell], [],
+      handSqueeze),
+  const Ex(vaBicepCurl, "dumbbell hammer bicep curl", [Equipment.dumbbell], [],
+      handSqueeze),
+  const Ex(vaBicepCurl, "kettlebell bicep curl", [Equipment.kettlebell], [],
+      handSqueeze),
+  const Ex(vaBicepCurl, "preacher bicep curl machine",
+      [Equipment.preacherCurlMachine], [], handSqueeze),
+  const Ex(vaBicepCurl, "preacher bicep curl bench/barbell",
+      [Equipment.preacherCurlBench], [], handSqueeze),
+  const Ex(vaBicepCurl, "bicep curl machine", [Equipment.bicepCurlMachine], [],
+      handSqueeze),
+  const Ex(
+      vaBicepCurl, "bayesian curl", [Equipment.cableTower], [], handSqueeze),
+  const Ex(vaBicepCurl, "concentration curl", [Equipment.dumbbell], [],
+      handSqueeze), // unilateral
 
   const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine]),
-  const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower]),
+  const Ex(
+      vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [], handSqueeze),
   const Ex(vaAbCrunch, "laying ab crunch", []),
   const Ex(vaAbIsometric, "plank", []),
-  const Ex(vaWristFlexion, "dumbbell wrist curls", [Equipment.dumbbell]),
+  const Ex(vaWristFlexion, "dumbbell wrist curls", [Equipment.dumbbell], [],
+      handSqueeze),
   const Ex(vaWristExtension, "dumbbell wrist extensions", [Equipment.dumbbell]),
 ];
 
