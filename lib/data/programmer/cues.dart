@@ -5,6 +5,13 @@ const defaultCues = {
   "lengthened partials": (false, 'only the long muscle length half of the ROM'),
 };
 
+const handSqueeze = {
+  ...defaultCues,
+  "grip tight": (
+    false,
+    'squeezing hands tight might stimulate more arm growth'
+  ),
+};
 const standingCalfRaiseCues = {
   ...defaultCues,
   ...{
