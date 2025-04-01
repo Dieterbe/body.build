@@ -8,6 +8,7 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 class BuilderWorkoutSetsHeader extends StatelessWidget {
   final Workout workout;
@@ -109,7 +110,14 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                   child: PulseWidget(
                     pulse: workout.setGroups.isEmpty,
                     child: GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        await Posthog().capture(
+                          eventName: 'AddSetButtonClicked',
+                          properties: {
+                            'muscle': g.name,
+                            'setgroups': workout.setGroups.length,
+                          },
+                        );
                         showDialog(
                           context: context,
                           builder: (context) {
