@@ -289,9 +289,36 @@ const vaTricepExtensionOverhead = {
 
   kickbacks, pushdowns not so great
   */
-const vaBicepCurl = {
+/* moment arm for elbow flexion
+  for all elbow flexors -> optimal when elbow 90°. 
+  bicep improves moment arm via supination
+  for brachioradialis it's in neutral (hammer) grip
+  muscles are strongest near anatomical, and get much weaker when shortened
+  bicep short head is insufficient @ max stretch and full contraction
+  */
+const vaBicepCurlAnatomic = {
   ProgramGroup.biceps: Assign(1,
-      'elbow flexion @ anatomic position (strongest)'), // TODO: not true for all curls! but good enough for exam
+      'elbow flexion with loading at mid-point, in anatomic position (strongest)'),
+  ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
+};
+const vaBicepCurlBayesian = {
+  ProgramGroup.biceps: Assign(1,
+      'elbow flexion with loading on all lengths, in anatomic position (strongest)'),
+  ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
+};
+const vaBicepCurlPreacher = {
+  ProgramGroup.biceps: Assign(1,
+      'elbow flexion with loading at longer length, but shortened (weakened)'),
+  ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
+};
+const vaBicepCurlConcentration = {
+  ProgramGroup.biceps: Assign(
+      1, 'elbow flexion with loading at mid-point, shortened (weakened)'),
+  ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
+};
+const vaBicepCurlLying = {
+  ProgramGroup.biceps:
+      Assign(1, 'elbow flexion with loading at longer length, while stretched'),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaAbCrunch = {

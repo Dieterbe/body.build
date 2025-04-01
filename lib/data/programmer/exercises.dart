@@ -452,27 +452,27 @@ final List<Ex> exes = [
   const Ex(vaTricepExtension, "tricep cable pushdown", [Equipment.cableTower],
       [], handSqueeze),
 
-  const Ex(
-      vaBicepCurl, "barbell bicep curl", [Equipment.barbell], [], handSqueeze),
-  const Ex(
-      vaBicepCurl, "cable bicep curl", [Equipment.cableTower], [], handSqueeze),
-  const Ex(vaBicepCurl, "dumbbell bicep curl", [Equipment.dumbbell], [],
+  const Ex(vaBicepCurlAnatomic, "barbell bicep curl", [Equipment.barbell], [],
       handSqueeze),
-  const Ex(vaBicepCurl, "dumbbell hammer bicep curl", [Equipment.dumbbell], [],
+  const Ex(vaBicepCurlAnatomic, "cable bicep curl", [Equipment.cableTower], [],
       handSqueeze),
-  const Ex(vaBicepCurl, "kettlebell bicep curl", [Equipment.kettlebell], [],
+  const Ex(vaBicepCurlAnatomic, "dumbbell bicep curl", [Equipment.dumbbell], [],
       handSqueeze),
-  const Ex(vaBicepCurl, "preacher bicep curl machine",
+  const Ex(vaBicepCurlAnatomic, "dumbbell hammer bicep curl",
+      [Equipment.dumbbell], [], handSqueeze),
+  const Ex(vaBicepCurlAnatomic, "kettlebell bicep curl", [Equipment.kettlebell],
+      [], handSqueeze),
+  const Ex(vaBicepCurlPreacher, "preacher bicep curl machine",
       [Equipment.preacherCurlMachine], [], handSqueeze),
-  const Ex(vaBicepCurl, "preacher bicep curl bench/barbell",
+  const Ex(vaBicepCurlPreacher, "preacher bicep curl bench/barbell",
       [Equipment.preacherCurlBench], [], handSqueeze),
-  const Ex(vaBicepCurl, "bicep curl machine", [Equipment.bicepCurlMachine], [],
+  const Ex(vaBicepCurlAnatomic, "bicep curl machine",
+      [Equipment.bicepCurlMachine], [], handSqueeze),
+  const Ex(vaBicepCurlBayesian, "bayesian curl", [Equipment.cableTower], [],
       handSqueeze),
-  const Ex(
-      vaBicepCurl, "bayesian curl", [Equipment.cableTower], [], handSqueeze),
-  const Ex(vaBicepCurl, "concentration curl", [Equipment.dumbbell], [],
-      handSqueeze), // unilateral
-  const Ex(vaBicepCurl, "lying bicep curl", [Equipment.dumbbell], [],
+  const Ex(vaBicepCurlConcentration, "concentration curl", [Equipment.dumbbell],
+      [], handSqueeze), // unilateral
+  const Ex(vaBicepCurlLying, "lying bicep curl", [Equipment.dumbbell], [],
       handSqueeze), // see https://www.youtube.com/watch?v=okwUqL1kbEA , https://www.youtube.com/watch?v=zlkq4hDSKZo
   const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine]),
   const Ex(
