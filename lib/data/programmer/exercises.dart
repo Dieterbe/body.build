@@ -289,6 +289,7 @@ final List<Ex> exes = [
             'keep the spine upright'
           ),
           'dynamic': (
+            // aka cable flexion row
             {
               ProgramGroup.lats: const Assign(1, 'near full stretch'),
               ProgramGroup.spinalErectors:
@@ -439,6 +440,13 @@ final List<Ex> exes = [
       handSqueeze),
   const Ex(vaTricepExtension, "elastic skull-over", [Equipment.elastic], [],
       handSqueeze),
+  // these should probably get a hole number for progression, not a weight
+  const Ex(
+      vaTricepExtension,
+      "smitch machine inverted skull crusher",
+      [Equipment.smithMachineVertical],
+      [],
+      handSqueeze), // see https://www.youtube.com/watch?v=1lrjpLuXH4w , https://www.instagram.com/drmikeisraetel/reel/CmosT4EBmDi/?igshid=ZmMyNmFmZTc%3D
   const Ex(vaTricepExtension, "tricep kickback", [Equipment.dumbbell], [],
       handSqueeze),
   const Ex(vaTricepExtension, "tricep cable pushdown", [Equipment.cableTower],
@@ -464,7 +472,8 @@ final List<Ex> exes = [
       vaBicepCurl, "bayesian curl", [Equipment.cableTower], [], handSqueeze),
   const Ex(vaBicepCurl, "concentration curl", [Equipment.dumbbell], [],
       handSqueeze), // unilateral
-
+  const Ex(vaBicepCurl, "lying bicep curl", [Equipment.dumbbell], [],
+      handSqueeze), // see https://www.youtube.com/watch?v=okwUqL1kbEA , https://www.youtube.com/watch?v=zlkq4hDSKZo
   const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine]),
   const Ex(
       vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [], handSqueeze),
