@@ -12,6 +12,7 @@ import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/core/widget/data_manager.dart';
 import 'package:bodybuild/data/developer_mode_provider.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 class ProgramHeader extends ConsumerWidget {
   const ProgramHeader({super.key});
@@ -192,8 +193,14 @@ class ProgramHeader extends ConsumerWidget {
                                 ),
                             msg: 'No workouts yet. Add one!',
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 notifier.add(const Workout());
+                                await Posthog().capture(
+                                  eventName: 'AddWorkoutButtonClicked',
+                                  properties: {
+                                    'workouts': (ref.read(programProvider).value?.workouts.length ?? 0) + 1,
+                                  },
+                                );
                               },
                               child: const Row(
                                 children: [
@@ -207,14 +214,15 @@ class ProgramHeader extends ConsumerWidget {
                           builder: (context, ref, child) {
                             final isDevMode = ref.watch(developerModeProvider);
                             if (!isDevMode) return const SizedBox.shrink();
-                            
+
                             return ElevatedButton(
                               onPressed: () async {
                                 // Create map of target recruitments from setup parameters
                                 final target = <ProgramGroup, double>{};
                                 for (final group in ProgramGroup.values) {
                                   target[group] = setup.paramFinal
-                                          .getSetsPerWeekPerMuscleGroupFor(group) *
+                                          .getSetsPerWeekPerMuscleGroupFor(
+                                              group) *
                                       1.0;
                                 }
 
@@ -225,8 +233,10 @@ class ProgramHeader extends ConsumerWidget {
                                 // Listen to stream of solutions and update the workout
                                 await for (final setGroup
                                     in generateOptimalSetGroup(target, setup)) {
-                                  final newWorkout = Workout(setGroups: [setGroup]);
-                                  notifier.updateWorkout(oldWorkout, newWorkout);
+                                  final newWorkout =
+                                      Workout(setGroups: [setGroup]);
+                                  notifier.updateWorkout(
+                                      oldWorkout, newWorkout);
                                   await Future.delayed(
                                       const Duration(milliseconds: 100));
                                   oldWorkout = newWorkout;
