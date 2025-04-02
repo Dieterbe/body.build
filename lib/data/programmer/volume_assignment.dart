@@ -77,11 +77,17 @@ const vaLegCurlHipExtended = {
   ProgramGroup.hamsShortHead: Assign(1, 'full length'),
   ProgramGroup.hams: Assign(1, 'knee flexion (short to medium length)'),
 };
+/*
+squats and hamstrings -> https://pubmed.ncbi.nlm.nih.gov/9107637/
+https://pubmed.ncbi.nlm.nih.gov/31230110/
+you'll feel em bit, but they won't grow much..
+*/
 
 const vaSquatBBAndGoblet = {
   ProgramGroup.spinalErectors: Assign(1, 'isometric'),
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
   ProgramGroup.gluteMax: Assign(1),
+  ProgramGroup.hams: Assign(0.3, 'hip extension'),
   ProgramGroup.abs: Assign(0.25),
   ...wrist03,
 };
@@ -90,6 +96,7 @@ const vaLegPressSquatHackSquatBelt = {
   ProgramGroup.spinalErectors: Assign(0.25),
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
   ProgramGroup.gluteMax: Assign(1),
+  ProgramGroup.hams: Assign(0.3, 'hip extension'),
 };
 
 const vaSquatBSQ = {
@@ -98,6 +105,7 @@ const vaSquatBSQ = {
   ProgramGroup.gluteMax: Assign(1,
       'hip extension (from long to somewhat flexed still), less load when short & strongest'),
   ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
+  ProgramGroup.hams: Assign(0.3, 'hip extension'),
   ProgramGroup.abs: Assign(0.25),
 };
 const vaLungeStepUp = {
@@ -105,6 +113,7 @@ const vaLungeStepUp = {
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
   ProgramGroup.gluteMax: Assign(1),
   ProgramGroup.gluteMed: Assign(0.5),
+  ProgramGroup.hams: Assign(0.3, 'hip extension'),
   ProgramGroup.abs: Assign(0.25),
 };
 const vaSquatPistolSissyAssistedSpanish = {
@@ -112,6 +121,7 @@ const vaSquatPistolSissyAssistedSpanish = {
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
   ProgramGroup.gluteMax: Assign(1),
   ProgramGroup.gluteMed: Assign(0.5),
+  ProgramGroup.hams: Assign(0.3, 'hip extension'),
   ProgramGroup.abs: Assign(0.25),
 };
 const vaLegExtensionReverseNordicHamCurlSquatSissy = {
