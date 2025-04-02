@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/model/programgen_v2/generator.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/current_program_provider.dart';
@@ -195,12 +196,14 @@ class ProgramHeader extends ConsumerWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 notifier.add(const Workout());
-                                await Posthog().capture(
-                                  eventName: 'AddWorkoutButtonClicked',
-                                  properties: {
-                                    'workouts': (ref.read(programProvider).value?.workouts.length ?? 0) + 1,
-                                  },
-                                );
+                                if (kIsWeb) {
+                                  await Posthog().capture(
+                                    eventName: 'AddWorkoutButtonClicked',
+                                    properties: {
+                                      'workouts': (ref.read(programProvider).value?.workouts.length ?? 0) + 1,
+                                    },
+                                  );
+                                }
                               },
                               child: const Row(
                                 children: [

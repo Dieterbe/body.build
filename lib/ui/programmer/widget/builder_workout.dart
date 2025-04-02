@@ -1,5 +1,6 @@
 import 'package:bodybuild/ui/programmer/widget/add_set_button.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
@@ -226,13 +227,15 @@ class BuilderWorkoutWidget extends StatelessWidget {
                         ...workout.setGroups,
                         SetGroup([Sets(setup.paramFinal.intensities.first)])
                       ]));
-                      await Posthog().capture(
-                        eventName: 'AddSetButtonClicked',
-                        properties: {
-                          'muscle': 'any',
-                          'setgroups': workout.setGroups.length,
-                        },
-                      );
+                      if (kIsWeb) {
+                        await Posthog().capture(
+                          eventName: 'AddSetButtonClicked',
+                          properties: {
+                            'muscle': 'any',
+                            'setgroups': workout.setGroups.length,
+                          },
+                        );
+                      }
                     },
                     isEmpty: workout.setGroups.isEmpty,
                   ),

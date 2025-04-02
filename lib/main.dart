@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/ui/anatomy/page/articulation.dart';
@@ -30,8 +31,9 @@ void main() async {
   config.debug = true;
   config.captureApplicationLifecycleEvents = true;
   config.host = 'https://eu.i.posthog.com';
-  await Posthog().setup(config);
-
+  if (kIsWeb) {
+    await Posthog().setup(config);
+  }
   runApp(const ProviderScope(child: MyApp()));
 }
 
