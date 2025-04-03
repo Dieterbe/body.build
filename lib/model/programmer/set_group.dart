@@ -21,8 +21,7 @@ class Sets with _$Sets {
     Map<String, String>
         modifierOptions, // Map of modifier name to selected option
     @Default({})
-    Map<String, bool>
-        cueOptions, // Map of cue name to enabled state
+    Map<String, bool> cueOptions, // Map of cue name to enabled state
   }) = _Sets;
 
   factory Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json);
@@ -30,6 +29,28 @@ class Sets with _$Sets {
   double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;
     return ex!.recruitmentFiltered(pg, modifierOptions, cutoff).volume * n;
+  }
+
+// note: this isn't quite the same as programgroups.
+// e.g. lower pecs, upper pecs are counted as one, gastroc and soleus are counted as one, etc
+  int? involvedMuscleGroups() {
+    if (ex == null) return null;
+
+    // Get all unique non-null isolationKeys from ProgramGroups with significant recruitment
+    final img = ProgramGroup.values
+        .where((pg) =>
+            ex!.recruitmentFiltered(pg, modifierOptions, 0.5).volume > 0)
+        .map((pg) => pg.isolationKey)
+        .toSet();
+
+    // this is a bit of a hack.  see the docs for [pg.isolationKey]
+    if (img.length == 1 && img.first == 'forearm') {
+      return 1;
+    }
+    if (img.contains('forearm')) {
+      return img.length - 1;
+    }
+    return img.length;
   }
 }
 
