@@ -62,6 +62,30 @@ class ExerciseRatingsDialog extends StatelessWidget {
                             'Score: ${(rating.score * 100).toStringAsFixed(1)}%'),
                         if (rating.comment.isNotEmpty)
                           _buildCommentWithVideo(context, rating.comment),
+                        if (rating.modifiers.isNotEmpty) ...[
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Assuming you uset hese exercise modifiers:',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 4),
+                          ...rating.modifiers.entries.map((e) => Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Text('${e.key}: ${e.value}'),
+                              )),
+                        ],
+                        if (rating.cues.isNotEmpty) ...[
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Assuming you use these exercise cues:',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 4),
+                          ...rating.cues.map((cue) => Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Text(cue),
+                              )),
+                        ],
                         if (rating.pg.isNotEmpty) ...[
                           const SizedBox(height: 4),
                           Wrap(
