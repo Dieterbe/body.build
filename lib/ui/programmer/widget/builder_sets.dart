@@ -12,16 +12,12 @@ import 'package:bodybuild/ui/programmer/widget/ex_modifiers_cues_widget.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
 
 class BuilderSets extends ConsumerWidget {
-  void _showRatingsDialog(BuildContext context) {
-    if (sets.ex == null) return;
-    final compatibleRatings = _getCompatibleRatings(sets.ex!.ratings);
-    if (compatibleRatings.isEmpty) return;
-
+  void _showRatingsDialog(List<Rating> ratings, BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => ExerciseRatingsDialog(
         exerciseId: sets.ex!.id,
-        ratings: compatibleRatings,
+        ratings: ratings,
       ),
     );
   }
@@ -48,28 +44,6 @@ class BuilderSets extends ConsumerWidget {
     return Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5);
   }
 
-  // Helper method to filter ratings that are compatible with current set configuration
-  List<Rating> _getCompatibleRatings(List<Rating> ratings) {
-    return ratings.where((rating) {
-      // Check if all required modifiers are configured correctly
-      for (final entry in rating.modifiers.entries) {
-        final selectedOption = sets.modifierOptions[entry.key] ??
-            sets.ex!.modifiers
-                .firstWhere((m) => m.name == entry.key)
-                .defaultVal;
-        if (selectedOption != entry.value) return false;
-      }
-
-      // Check if all required cues are enabled
-      for (final cue in rating.cues) {
-        final isEnabled = sets.cueOptions[cue] ?? sets.ex!.cues[cue]!.$1;
-        if (!isEnabled) return false;
-      }
-
-      return true;
-    }).toList();
-  }
-
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
@@ -82,6 +56,7 @@ class BuilderSets extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final setRatings = sets.getApplicableRatings().toList();
     // this layout matches BuilderWorkoutSetsHeader
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16), // affects align
@@ -119,7 +94,7 @@ class BuilderSets extends ConsumerWidget {
                           )),
                         )),
               Flexible(flex: 10, child: _deleteButton(context)),
-              Flexible(flex: 70, child: _exerciseName(context)),
+              Flexible(flex: 70, child: _exerciseName(setRatings, context)),
               // we squeeze the combo set button in with the equipment
               // not the most semantically correct, but it works for now
               Flexible(flex: 35, child: _equipment(context)),
@@ -231,7 +206,7 @@ class BuilderSets extends ConsumerWidget {
         ),
       );
 
-  Widget _exerciseName(BuildContext context) => Align(
+  Widget _exerciseName(List<Rating> setRatings, BuildContext context) => Align(
         alignment: Alignment.centerLeft,
         child: (sets.ex != null && !sets.changeEx)
             ? Padding(
@@ -247,16 +222,15 @@ class BuilderSets extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
-                    if (_getCompatibleRatings(sets.ex!.ratings).isNotEmpty) ...[
+                    if (setRatings.isNotEmpty) ...[
                       const SizedBox(width: 8),
                       IconButton(
-                        onPressed: () => _showRatingsDialog(context),
+                        onPressed: () =>
+                            _showRatingsDialog(setRatings, context),
                         icon: Icon(
-                          _getRatingIcon(
-                              _getCompatibleRatings(sets.ex!.ratings)),
+                          _getRatingIcon(setRatings),
                           size: MediaQuery.sizeOf(context).width / 110,
-                          color: _getRatingColor(
-                              _getCompatibleRatings(sets.ex!.ratings), context),
+                          color: _getRatingColor(setRatings, context),
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
