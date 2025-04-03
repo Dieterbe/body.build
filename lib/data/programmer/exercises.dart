@@ -4,6 +4,8 @@ import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
 
+import 'rating.dart';
+
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
 // and wraps kaos.Exercise (when available) for more information,
@@ -18,11 +20,14 @@ class Ex {
   final List<Equipment> equipment;
   final List<Modifier> modifiers;
   final Cues cues;
+  final List<Rating> ratings;
   final String
       id; // identifier to match to kaos exercise. does not need to be human friendly
 
   const Ex(this.volumeAssignment, this.id, this.equipment,
-      [this.modifiers = const [], this.cues = defaultCues]);
+      [this.modifiers = const [],
+      this.cues = defaultCues,
+      this.ratings = const []]);
 
   Assign recruitment(ProgramGroup pg, Map<String, String?> modifierOptions) {
     // establish base recruitment:
@@ -226,7 +231,33 @@ final List<Ex> exes = [
   const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup", [], [],
       handSqueeze), // just outside shoulder width
   // Ex(EBase.?, "pullup close grip pronated", []),
-
+/* jeff rankings from https://www.youtube.com/watch?v=jLvqKgW-_G8&list=PLp4G6oBUcv8w8ujRtP5BtvJe8PXBwiTdl&index=6
+0:49 - Renegade Rows -> 1/8 , understimulating, not enough stretch
+1:40 - Deadlift -> 3/8 for lats/traps
+2:31 - Above-The-Knee Rack Pull -> 2/8 just a DL with even less ROM
+2:46 - Wide-Grip Pull-Up -> 6/8
+3:16 - Neutral-Grip Pull-Up -> 6/8
+3:23 - Chin-Up 5/8
+3:38 - Wide-Grip Lat Pulldown 7/8
+3:59 - Neutral-Grip Lat Pulldown 7/8
+4:08 - Half-Kneeling 1-Arm Lat Pulldown 7/8
+4:38 - Cross-Body Lat Pull-Around: same as above,but 90 degree rotated , more stretch but a bit awkward 6/8
+4:59 - Barbell Row 5/8 , instable
+5:26 - Yates Row, like barbell row, but bit more upright and looser form 4/8
+5:51 - Pendlay Row, like barbell row but more horizontal back 5.5/8
+6:18 - Deficit Pendlay Row 6/8
+6:28 - Meadows Row 7/8
+6:52 - Inverted Row 4/8
+7:26 - 1-Arm Dumbbell Row 6/8
+7:57 - Kroc Row: same but looser form 6/8
+8:25 - Free-Standing T-bar Row 5/8
+8:53 - Chest-Supported Row -> 8/8 for lats and traps (on incline bench, machine, lean on bench)
+9:22 - Cable Row 7/8 (prefer with flexion)
+9:37 - Wide-Grip Cable Row  7/8 (prefer with flexion)
+9:50 - Rope Face-Pull 5/8 , but seated or lying down 6/8 because more stable
+10:37 - Cable Lat Pull-Over 6/8
+11:14 - DB Lat Pull-Over 6/8
+*/
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
       "pullup gymnastic rings",
@@ -319,10 +350,32 @@ final List<Ex> exes = [
   const Ex(vaRowWithSpineIso, "standing bent over barbell row",
       [Equipment.barbell], [], handSqueeze),
 
-  const Ex(vaRowWithoutSpine, "bench supported single arm dumbbell rows",
-      [Equipment.dumbbell], [], handSqueeze),
-  const Ex(vaRowWithoutSpine, "chest supported machine rows",
-      [Equipment.rowMachine], [], handSqueeze),
+  const Ex(
+      vaRowWithoutSpine,
+      "standing bench supported single arm dumbbell rows",
+      [Equipment.dumbbell],
+      [],
+      handSqueeze),
+  const Ex(
+      vaRowWithoutSpine,
+      "chest supported machine rows",
+      [Equipment.rowMachine],
+      [],
+      handSqueeze,
+      [
+// TODO: also (on incline bench, machine, lean on bench)
+
+        Rating(
+            source: Source.jeffNippard,
+            score: 8 / 8,
+            pg: [
+              ProgramGroup.lats,
+              ProgramGroup.middleTraps,
+            ],
+            comment: "see https://www.youtube.com/watch?v=jLvqKgW-_G8&t=8m53s",
+            modifiers: {},
+            cues: {})
+      ]),
 
   const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [],
       handSqueeze),
