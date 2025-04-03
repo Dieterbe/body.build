@@ -23,7 +23,7 @@ class Rating {
 
 const ratingRowChestSupported = Rating(
   source: Source.jeffNippard,
-  score: 8 / 8,
+  score: 7 / 7,
   pg: [
     ProgramGroup.lats,
     ProgramGroup.middleTraps,
@@ -36,7 +36,7 @@ and then upgrades it [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=11m33s
 );
 const ratingRowCable = Rating(
   source: Source.jeffNippard,
-  score: 7 / 8,
+  score: 6 / 7,
   pg: [
     ProgramGroup.lats,
     ProgramGroup.middleTraps,
