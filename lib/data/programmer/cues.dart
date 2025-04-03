@@ -1,3 +1,4 @@
+// Map<name, (default, help)
 typedef Cues = Map<String, (bool, String)>;
 
 const defaultCues = {

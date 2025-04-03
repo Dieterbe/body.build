@@ -344,7 +344,8 @@ final List<Ex> exes = [
           )
         })
       ],
-      handSqueeze),
+      handSqueeze,
+      [ratingRowCable]),
 
   // TODO many different grips. those should affect recruitment similar to pullup types
   const Ex(vaRowWithSpineIso, "standing bent over barbell row",
@@ -358,25 +359,15 @@ final List<Ex> exes = [
       handSqueeze),
   const Ex(
       vaRowWithoutSpine,
-      "chest supported machine rows",
-      [Equipment.rowMachine],
+      "helms row", // https://www.youtube.com/shorts/XdZSJD41l68
+      [Equipment.dumbbell],
       [],
       handSqueeze,
-      [
-// TODO: also (on incline bench, machine, lean on bench)
-
-        Rating(
-            source: Source.jeffNippard,
-            score: 8 / 8,
-            pg: [
-              ProgramGroup.lats,
-              ProgramGroup.middleTraps,
-            ],
-            comment: "see https://www.youtube.com/watch?v=jLvqKgW-_G8&t=8m53s",
-            modifiers: {},
-            cues: {})
-      ]),
-
+      [ratingRowChestSupported]),
+  const Ex(vaRowWithoutSpine, "chest supported incline bench row",
+      [Equipment.rowMachine], [], handSqueeze, [ratingRowChestSupported]),
+  const Ex(vaRowWithoutSpine, "chest supported machine rows",
+      [Equipment.rowMachine], [], handSqueeze, [ratingRowChestSupported]),
   const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [],
       handSqueeze),
   const Ex(vaPullOverLatPrayer, "lat prayer", [Equipment.cableTower], [],

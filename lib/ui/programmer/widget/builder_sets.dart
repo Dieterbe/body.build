@@ -13,16 +13,19 @@ import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
 
 class BuilderSets extends ConsumerWidget {
   void _showRatingsDialog(BuildContext context) {
-    if (sets.ex == null || sets.ex!.ratings.isEmpty) return;
+    if (sets.ex == null) return;
+    final compatibleRatings = _getCompatibleRatings(sets.ex!.ratings);
+    if (compatibleRatings.isEmpty) return;
 
     showDialog(
       context: context,
       builder: (context) => ExerciseRatingsDialog(
         exerciseId: sets.ex!.id,
-        ratings: sets.ex!.ratings,
+        ratings: compatibleRatings,
       ),
     );
   }
+
   // Helper method to calculate average rating. ratings.length must be > 0, when calling this
   double _calculateAverageRating(List<Rating> ratings) {
     return ratings.fold<double>(0, (sum, rating) => sum + rating.score) /
@@ -43,6 +46,28 @@ class BuilderSets extends ConsumerWidget {
     if (avgRating >= 0.9) return Colors.amber;
     if (avgRating >= 0.5) return Colors.amber.withValues(alpha: 0.7);
     return Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5);
+  }
+
+  // Helper method to filter ratings that are compatible with current set configuration
+  List<Rating> _getCompatibleRatings(List<Rating> ratings) {
+    return ratings.where((rating) {
+      // Check if all required modifiers are configured correctly
+      for (final entry in rating.modifiers.entries) {
+        final selectedOption = sets.modifierOptions[entry.key] ??
+            sets.ex!.modifiers
+                .firstWhere((m) => m.name == entry.key)
+                .defaultVal;
+        if (selectedOption != entry.value) return false;
+      }
+
+      // Check if all required cues are enabled
+      for (final cue in rating.cues) {
+        final isEnabled = sets.cueOptions[cue] ?? sets.ex!.cues[cue]!.$1;
+        if (!isEnabled) return false;
+      }
+
+      return true;
+    }).toList();
   }
 
   final Sets sets;
@@ -222,14 +247,16 @@ class BuilderSets extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
-                    if (sets.ex!.ratings.isNotEmpty) ...[
+                    if (_getCompatibleRatings(sets.ex!.ratings).isNotEmpty) ...[
                       const SizedBox(width: 8),
                       IconButton(
                         onPressed: () => _showRatingsDialog(context),
                         icon: Icon(
-                          _getRatingIcon(sets.ex!.ratings),
+                          _getRatingIcon(
+                              _getCompatibleRatings(sets.ex!.ratings)),
                           size: MediaQuery.sizeOf(context).width / 110,
-                          color: _getRatingColor(sets.ex!.ratings, context),
+                          color: _getRatingColor(
+                              _getCompatibleRatings(sets.ex!.ratings), context),
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),

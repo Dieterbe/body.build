@@ -157,7 +157,7 @@ In the future, you'll be able to add any cues you can come up with.
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  modifier.name.capitalize(),
+                                  modifier.name.capitalizeFirstOnly(),
                                   style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.width / 90,

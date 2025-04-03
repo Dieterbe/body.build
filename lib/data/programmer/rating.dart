@@ -20,3 +20,29 @@ class Rating {
     required this.cues,
   });
 }
+
+const ratingRowChestSupported = Rating(
+  source: Source.jeffNippard,
+  score: 8 / 8,
+  pg: [
+    ProgramGroup.lats,
+    ProgramGroup.middleTraps,
+  ],
+  comment: '''
+Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=8m53s)
+and then upgrades it [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=11m33s) to special+ ranking''',
+  modifiers: {},
+  cues: {},
+);
+const ratingRowCable = Rating(
+  source: Source.jeffNippard,
+  score: 7 / 8,
+  pg: [
+    ProgramGroup.lats,
+    ProgramGroup.middleTraps,
+  ],
+  comment: '''
+Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=9m22s)''',
+  modifiers: {'spine': 'dynamic'},
+  cues: {},
+);
