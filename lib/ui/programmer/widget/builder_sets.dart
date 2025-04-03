@@ -23,8 +23,6 @@ class BuilderSets extends ConsumerWidget {
     );
   }
 
-
-
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
@@ -70,7 +68,8 @@ class BuilderSets extends ConsumerWidget {
                           )),
                           cues: sets.ex!.cues,
                           cueOptions: sets.cueOptions,
-                          onShowRatings: (ratings) => _showRatingsDialog(ratings, context),
+                          onShowRatings: (ratings) =>
+                              _showRatingsDialog(ratings, context),
                           onCueToggled: (name, enabled) =>
                               onChange(sets.copyWith(
                             cueOptions: {...sets.cueOptions, name: enabled},
@@ -212,7 +211,8 @@ class BuilderSets extends ConsumerWidget {
                             _showRatingsDialog(setRatings, context),
                         icon: RatingIcon(
                           ratings: setRatings,
-                          size: MediaQuery.sizeOf(context).width / 110,
+                          size: MediaQuery.sizeOf(context).width /
+                              60, // made up number, should probably find something more elegant
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
