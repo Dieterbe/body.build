@@ -13,19 +13,21 @@ import 'package:bodybuild/data/developer_mode_provider.dart';
 import '../../../model/programmer/settings.dart';
 
 const helpMsg = '''
-## Fractional volume counting
+## Musclegroup Set Counts
 
-In line with research, we may count fractional (partial) recruitment towards the total, at least if it meets a minimum value of around 40%.
-Therefore, we count volumes >= 50% and ignore those under 50%.  
+In line with scientific research:
+* we use fractional (partial) volume counting
+* we count recruitment only if it meets a minimum value of roughly 40% (we use 50% as a threshold).
 
-Example: since a row recruits the bicep for around 50%, and a pull-up or bicep curl recruits for 100%,
-* 2 sets of rows are counted as 1 set of bicep recruitment.
-* a single set of pull-ups or bicep curls counts as 1 set of bicep recruitment.
+Examples:
+* 2 sets of rows are counted as 1 set of bicep recruitment (because a row recruits the bicep for about 50%)
+* a single set of pull-ups or bicep curls counts as 1 set of bicep recruitment. (because it recruits 100%)
+* a set of squats counts as 0% volume for hamstrings (because squats recruit hamstrings less than 40%)
 
-## Workout & Program totals
+## Musclegroup Set Counts in Workout analysis vs Program analysis
 
-* Workout total: the sum of all recruitments of all sets within a single workout (session).
-* Program total: the sum of all workout totals in the program, adjusted for each workout's frequency (times per period in weeks), and compared to the volume goals from the set-up tab.
+* Workout analysis set counts: the sum of all recruitments of all sets within a single workout (session).
+* Program analysis set counts: the sum of all workout totals in the program, adjusted for each workout's frequency (times per period in weeks), and compared to the volume goals from the set-up tab.
 
 Example: a workout with 4 sets of bicep curls will have a workout total volume of 4 for biceps.  
 If that workout repeats 3 times in 2 weeks, it will contribute `4 * (3/2) = 6` to the program total.  
@@ -54,16 +56,17 @@ class BuilderTotalsWidget extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: KVRow(
-            Text(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
               title,
               style: TextStyle(
-                fontSize: MediaQuery.sizeOf(context).width / 100,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
+                fontSize: MediaQuery.sizeOf(context).width / 80,
+                letterSpacing: 0.3,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            helpTitle: title,
-            help: helpMsg,
           ),
         ),
         const Divider(thickness: 2),
@@ -118,10 +121,16 @@ This enables you to see and optimize the balance between isolation and compound 
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
-                    HistogramWidget(
-                      data: ws.setsHisto,
-                      maxWidth: 80,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right:
+                              8), // a bit of a hack, to create some space against the viz on the right
+                      child: SizedBox(
+                        height: 40 + 40 * max(1, min(ws.maxVal, limit)),
+                        child: HistogramWidget(
+                          data: ws.setsHisto,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -131,6 +140,17 @@ This enables you to see and optimize the balance between isolation and compound 
                 flex: 55,
                 child: Column(
                   children: [
+                    KVRow(
+                      Text(
+                        'Musclegroup set counts',
+                        style: TextStyle(
+                          fontSize: MediaQuery.sizeOf(context).width / 100,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      helpTitle: title,
+                      help: helpMsg,
+                    ),
                     SizedBox(
                       // width: 40,
                       // "background" height.

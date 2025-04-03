@@ -1,21 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class HistogramWidget extends StatelessWidget {
   final Map<int, int> data;
-  final String? title;
-  final String? xAxisLabel;
-  final double barHeight;
-  final double maxWidth;
-  final EdgeInsets padding;
+  final EdgeInsets rowPadding;
+  final EdgeInsets containerPadding;
 
   const HistogramWidget({
     super.key,
     required this.data,
-    this.title,
-    this.xAxisLabel,
-    this.barHeight = 24,
-    this.maxWidth = 200,
-    this.padding = const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+    this.rowPadding = const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+    this.containerPadding = const EdgeInsets.all(8),
   });
 
   @override
@@ -23,85 +19,76 @@ class HistogramWidget extends StatelessWidget {
     if (data.isEmpty) return const SizedBox.shrink();
 
     final maxValue = data.values.reduce((a, b) => a > b ? a : b).toDouble();
-    final sortedEntries = data.entries.toList()..sort((a, b) => a.key.compareTo(b.key));
+    final sortedEntries = data.entries.toList()
+      ..sort((a, b) => a.key.compareTo(b.key));
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (title != null) ...[
-          Text(
-            title!,
-            style: const TextStyle(fontWeight: FontWeight.w500),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final availableHeight =
+            constraints.maxHeight - containerPadding.vertical;
+
+// if there's only 1 bar, we wouldn't want it to take up all vertical space, so for
+// height calculation purpose, pretend there's at least 2.5 bars
+        final assumeNum = max(sortedEntries.length, 2.5);
+        final barHeight =
+            (availableHeight - (assumeNum) * rowPadding.vertical) / assumeNum;
+
+        // make sure text widget is not taller than the bar. this is a bit rough but seems to work
+        final fontSize = 2 * barHeight / 3;
+        // make sure we have consistent width for all text widgets above each other
+        // also a bit rough but seems to work
+        final textWidth = fontSize * 6;
+
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
           ),
-          const SizedBox(height: 8),
-        ],
-        ...sortedEntries.map((e) {
-          return Padding(
-            padding: padding,
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 24,
-                  child: Text(
-                    '${e.key}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Stack(
+          padding: containerPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...sortedEntries.map((e) {
+                return Padding(
+                  padding: rowPadding,
+                  child: Row(
                     children: [
-                      Container(
-                        height: barHeight,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      Container(
-                        height: barHeight,
-                        width: maxWidth * (e.value / maxValue),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      Positioned(
-                        right: 8,
-                        top: 0,
-                        bottom: 0,
-                        child: Center(
+                      SizedBox(
+                        width: textWidth,
+                        child: Align(
+                          // e.g. "12 sets of 3" and "2 sets of 5" should correspond visually
+                          // it's more likely that num sets > 10 than the num of muscle groups
+                          alignment: Alignment.centerRight,
                           child: Text(
-                            e.value.toString(),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                            '${e.value} sets of ${e.key}',
+                            style: TextStyle(
+                              fontSize: fontSize,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
                       ),
+                      const SizedBox(width: 8),
+                      Container(
+                        height: barHeight,
+                        width: (constraints.maxWidth - textWidth - 40) *
+                            (e.value / maxValue),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
-        }),
-        if (xAxisLabel != null) ...[
-          const SizedBox(height: 8),
-          Text(
-            xAxisLabel!,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.grey,
-            ),
+                );
+              }),
+            ],
           ),
-        ],
-      ],
+        );
+      },
     );
   }
 }
