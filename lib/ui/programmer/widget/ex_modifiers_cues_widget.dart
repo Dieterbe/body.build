@@ -1,25 +1,32 @@
 import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:bodybuild/data/programmer/rating.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 
 class ExModifiersCuesWidget extends StatefulWidget {
+  final Sets sets;
   final List<Modifier> modifiers;
   final Map<String, String> selectedOptions;
   final Function(String modifierName, String option) onOptionSelected;
   final Map<String, (bool, String)> cues;
   final Map<String, bool> cueOptions;
   final Function(String cueName, bool enabled) onCueToggled;
+  final Function(List<Rating> ratings) onShowRatings;
 
   const ExModifiersCuesWidget({
     super.key,
+    required this.sets,
     required this.modifiers,
     required this.selectedOptions,
     required this.onOptionSelected,
     required this.cues,
     required this.cueOptions,
     required this.onCueToggled,
+    required this.onShowRatings,
   });
 
   @override
@@ -33,6 +40,61 @@ class _ExModifiersCuesWidgetState extends State<ExModifiersCuesWidget> {
   void initState() {
     super.initState();
     _localCueOptions = Map<String, bool>.from(widget.cueOptions);
+  }
+
+  Widget _buildRatingIcon({
+    String? modifierName,
+    String? modifierValue,
+    String? cueName,
+    bool? cueEnabled,
+    required BuildContext context,
+  }) {
+    if (widget.sets.ex == null) return const SizedBox.shrink();
+
+    // Get ratings for current configuration
+    final currentRatings = widget.sets
+        .getApplicableRatingsForConfig(
+          widget.selectedOptions,
+          widget.cueOptions,
+        )
+        .toList();
+
+    // Create a copy of current configuration
+    final modifierConfig = Map<String, String>.from(widget.selectedOptions);
+    final cueConfig = Map<String, bool>.from(widget.cueOptions);
+
+    // Apply the specific option we're showing the rating for
+    if (modifierName != null && modifierValue != null) {
+      modifierConfig[modifierName] = modifierValue;
+    }
+    if (cueName != null && cueEnabled != null) {
+      cueConfig[cueName] = cueEnabled;
+    }
+
+    // Get ratings for this configuration
+    final ratings = widget.sets
+        .getApplicableRatingsForConfig(
+          modifierConfig,
+          cueConfig,
+        )
+        .toList();
+
+    // Only show rating icon if this option changes the ratings
+    if (ratings.length == currentRatings.length) {
+      bool sameRatings = true;
+      for (int i = 0; i < ratings.length; i++) {
+        if (ratings[i].score != currentRatings[i].score) {
+          sameRatings = false;
+          break;
+        }
+      }
+      if (sameRatings) return const SizedBox.shrink();
+    }
+
+    return RatingIcon(
+      ratings: ratings,
+      onTap: ratings.isEmpty ? null : () => widget.onShowRatings(ratings),
+    );
   }
 
   @override
@@ -286,6 +348,17 @@ In the future, you'll be able to add any cues you can come up with.
                                                                       .onSurface,
                                                                 ),
                                                               ),
+                                                              const SizedBox(
+                                                                  width: 8),
+                                                              _buildRatingIcon(
+                                                                modifierName:
+                                                                    modifier
+                                                                        .name,
+                                                                modifierValue:
+                                                                    opt.key,
+                                                                context:
+                                                                    context,
+                                                              ),
                                                               if (opt.key ==
                                                                   modifier
                                                                       .defaultVal) ...[
@@ -470,15 +543,27 @@ In the future, you'll be able to add any cues you can come up with.
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: Text(
-                                        entry.key,
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              100,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            entry.key,
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  100,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          _buildRatingIcon(
+                                            cueName: entry.key,
+                                            cueEnabled:
+                                                _localCueOptions[entry.key] ??
+                                                    entry.value.$1,
+                                            context: context,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                     Switch(

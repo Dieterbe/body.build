@@ -146,7 +146,8 @@ final legExtensionLean = Modifier('lean', 'upright', {
   ),
 },
     desc:
-        '''see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
+        '''leaning back stretches the Rectus Femoris and triggers more growth.  
+see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
 or [this one](https://www.instagram.com/menno.henselmans/p/C7O6ydlR7qV/?img_index=1)
 ''');
 

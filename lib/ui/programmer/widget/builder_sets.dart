@@ -10,6 +10,7 @@ import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/ui/programmer/widget/ex_modifiers_cues_widget.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 
 class BuilderSets extends ConsumerWidget {
   void _showRatingsDialog(List<Rating> ratings, BuildContext context) {
@@ -22,27 +23,7 @@ class BuilderSets extends ConsumerWidget {
     );
   }
 
-  // Helper method to calculate average rating. ratings.length must be > 0, when calling this
-  double _calculateAverageRating(List<Rating> ratings) {
-    return ratings.fold<double>(0, (sum, rating) => sum + rating.score) /
-        ratings.length;
-  }
 
-  // Helper method to get appropriate icon based on rating
-  IconData _getRatingIcon(List<Rating> ratings) {
-    final avgRating = _calculateAverageRating(ratings);
-    if (avgRating >= 0.9) return Icons.star;
-    if (avgRating >= 0.5) return Icons.star_half;
-    return Icons.star_border;
-  }
-
-  // Helper method to get appropriate color based on rating
-  Color _getRatingColor(List<Rating> ratings, BuildContext context) {
-    final avgRating = _calculateAverageRating(ratings);
-    if (avgRating >= 0.9) return Colors.amber;
-    if (avgRating >= 0.5) return Colors.amber.withValues(alpha: 0.7);
-    return Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5);
-  }
 
   final Sets sets;
   final Settings setup;
@@ -77,6 +58,7 @@ class BuilderSets extends ConsumerWidget {
                   child: (sets.ex == null)
                       ? Container()
                       : ExModifiersCuesWidget(
+                          sets: sets,
                           modifiers: sets.ex!.modifiers,
                           selectedOptions: sets.modifierOptions,
                           onOptionSelected: (name, opt) =>
@@ -88,6 +70,7 @@ class BuilderSets extends ConsumerWidget {
                           )),
                           cues: sets.ex!.cues,
                           cueOptions: sets.cueOptions,
+                          onShowRatings: (ratings) => _showRatingsDialog(ratings, context),
                           onCueToggled: (name, enabled) =>
                               onChange(sets.copyWith(
                             cueOptions: {...sets.cueOptions, name: enabled},
@@ -227,10 +210,9 @@ class BuilderSets extends ConsumerWidget {
                       IconButton(
                         onPressed: () =>
                             _showRatingsDialog(setRatings, context),
-                        icon: Icon(
-                          _getRatingIcon(setRatings),
+                        icon: RatingIcon(
+                          ratings: setRatings,
                           size: MediaQuery.sizeOf(context).width / 110,
-                          color: _getRatingColor(setRatings, context),
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),

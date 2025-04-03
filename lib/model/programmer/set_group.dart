@@ -54,21 +54,38 @@ class Sets with _$Sets {
     return img.length;
   }
 
-  // Filter rating that are compatible with current set configuration
+  // Filter ratings that are compatible with current set configuration
   Iterable<Rating> getApplicableRatings() {
     if (ex == null) return [];
+    return _getApplicableRatings(ex!.ratings, modifierOptions, cueOptions);
+  }
 
-    return ex!.ratings.where((rating) {
+  // Get applicable ratings for a specific configuration
+  Iterable<Rating> getApplicableRatingsForConfig(
+    Map<String, String> modifierConfig,
+    Map<String, bool> cueConfig,
+  ) {
+    if (ex == null) return [];
+    return _getApplicableRatings(ex!.ratings, modifierConfig, cueConfig);
+  }
+
+  // Helper method to filter ratings based on configuration
+  Iterable<Rating> _getApplicableRatings(
+    List<Rating> ratings,
+    Map<String, String> modifierConfig,
+    Map<String, bool> cueConfig,
+  ) {
+    return ratings.where((rating) {
       // Check if all required modifiers are configured correctly
       for (final entry in rating.modifiers.entries) {
-        final selectedOption = modifierOptions[entry.key] ??
+        final selectedOption = modifierConfig[entry.key] ??
             ex!.modifiers.firstWhere((m) => m.name == entry.key).defaultVal;
         if (selectedOption != entry.value) return false;
       }
 
       // Check if all required cues are enabled
       for (final cue in rating.cues) {
-        final isEnabled = cueOptions[cue] ?? ex!.cues[cue]!.$1;
+        final isEnabled = cueConfig[cue] ?? ex!.cues[cue]!.$1;
         if (!isEnabled) return false;
       }
 
