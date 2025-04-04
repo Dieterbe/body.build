@@ -2,6 +2,7 @@ import 'package:bodybuild/data/programmer/cues.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:bodybuild/data/programmer/rating_jn.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
 
 import 'rating.dart';
@@ -347,7 +348,7 @@ final List<Ex> exes = [
         })
       ],
       handSqueeze,
-      [ratingRowCable]),
+      [ratingJNRowCable]),
 
   // TODO many different grips. those should affect recruitment similar to pullup types
   const Ex(vaRowWithSpineIso, "standing bent over barbell row",
@@ -365,11 +366,11 @@ final List<Ex> exes = [
       [Equipment.dumbbell],
       [],
       handSqueeze,
-      [ratingRowChestSupported]),
+      [ratingJNRowChestSupported]),
   const Ex(vaRowWithoutSpine, "chest supported incline bench row",
-      [Equipment.rowMachine], [], handSqueeze, [ratingRowChestSupported]),
+      [Equipment.rowMachine], [], handSqueeze, [ratingJNRowChestSupported]),
   const Ex(vaRowWithoutSpine, "chest supported machine rows",
-      [Equipment.rowMachine], [], handSqueeze, [ratingRowChestSupported]),
+      [Equipment.rowMachine], [], handSqueeze, [ratingJNRowChestSupported]),
   const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [],
       handSqueeze),
   const Ex(vaPullOverLatPrayer, "lat prayer", [Equipment.cableTower], [],
@@ -415,60 +416,45 @@ final List<Ex> exes = [
       "TRX face pull", [Equipment.trx], [], handSqueeze),
 
 /* CHEST */
-/*
-https://www.youtube.com/watch?v=fGm-ef-4PVk
-0:00 - What makes an exercise S tier?
-0:46 - Hex Press 1/7
-1:09 - Plate Press 0/7
-1:17 - Dumbbell Pullover 2/7 (rating is for pecs!)
-1:47 - Bench Press
-2:33 - Incline Bench Press
-2:56 - Decline Bench Press
-3:35 - Flat Dumbbell Press
-4:16 - Incline Dumbbell Press
-4:25 - Decline Dumbbell Press
-4:36 - Machine Chest Press 7/7
-5:08 - Dips
-5:52 - Push-Ups
-6:30 - Banded Push-Ups
-6:45 - Deficit Push-Ups
-7:01 - Plyometric Push-Ups 2/7
-7:27 - Guillotine Press
-8:49 - Dumbbell Guillotine Press
-9:09 - 1-Arm Dumbbell Press
-9:28 - Smith Machine Flat Bench Press
-9:46 - Incline Smith Machine Press
-10:14 - Cable Crossovers
-10:49 - Seated Cable Pec Flye 6/7
-11:09 - Pec Deck
-11:32 - Dumbbell Flye
-12:13 - Cable Press-Around
-12:43 - Cross-Body Standing Dumbbell Flye
-13:09 - Floor Press
-*/
+/* CHEST */
+/* CHEST */
+/* CHEST */
   const Ex(
       vaBenchPressBBChestPressMachineDip,
       "flat barbell bench press (powerlift)",
       [Equipment.barbell],
       [],
       handSqueeze),
-  const Ex(vaBenchPressBBChestPressMachineDip, "flat barbell bench press",
-      [Equipment.barbell], [], handSqueeze),
-  const Ex(vaBenchPressBBChestPressMachineDip, "15° barbell bench press",
-      [Equipment.barbell], [], handSqueeze),
-  const Ex(vaBenchPressBBChestPressMachineDip, "flat bench press smith machine",
-      [Equipment.smithMachineAngled], [], handSqueeze),
+  Ex(
+      vaBenchPressBBChestPressMachineDip,
+      "barbell bench press",
+      [Equipment.barbell],
+      [benchPressBenchAngle],
+      handSqueeze,
+      ratingJNBBBenchPress.toList()),
+  Ex(
+      vaBenchPressDBChestPressCable,
+      "dumbbell bench press",
+      [Equipment.dumbbell],
+      [benchPressBenchAngle],
+      handSqueeze,
+      ratingJNDBBenchPress.toList()),
+  Ex(vaBenchPressBBChestPressMachineDip, "bench press smith machine",
+      [Equipment.smithMachineAngled], [benchPressBenchAngle], handSqueeze),
 
-  const Ex(vaBenchPressBBChestPressMachineDip, "chest press machine",
-      [Equipment.chestPressMachine], [], handSqueeze),
+  const Ex(
+      vaBenchPressBBChestPressMachineDip,
+      "chest press machine",
+      [Equipment.chestPressMachine],
+      [],
+      handSqueeze,
+      [ratingJNMachineChestPress]),
 
-  Ex(vaPushUp, "push-up", [], [deficit]),
-  const Ex(vaBenchPressDBChestPressCable, "flat dumbbell bench press",
-      [Equipment.dumbbell], [], handSqueeze),
-  const Ex(vaBenchPressDBChestPressCable, "15° dumbbell bench press",
-      [Equipment.dumbbell], [], handSqueeze),
-  const Ex(vaBenchPressDBChestPressCable, "cable chest press",
-      [Equipment.cableTowerDual], [], handSqueeze),
+  Ex(vaPushUp, "push-up", [], [deficit], defaultCues,
+      [ratingJNPushUp, ratingJNPushUpDeficit]),
+
+  Ex(vaBenchPressDBChestPressCable, "cable chest press",
+      [Equipment.cableTowerDual], [benchPressBenchAngle], handSqueeze),
 
   const Ex(vaBenchPressBBChestPressMachineDip, "dip", [], [], handSqueeze),
   const Ex(vaBenchPressBBChestPressMachineDip, "assisted dip machine",

@@ -6,7 +6,7 @@ enum Source {
 
 /* note that in jeff's videos, sometimes a rating is dependent on:
 - your weight lift status (beginner - intermediate - advanced)
-- what feels good to you - e.g. guillotine press vs bench press at the nipples
+- what feels good to you - e.g. guillotine press vs bench press with bar further back
 - type of exact machine (e.g. machine press)
 we don't support all that nuance yet. for now let's just use the metrics
 */
@@ -22,33 +22,7 @@ class Rating {
     required this.score,
     required this.pg,
     required this.comment,
-    required this.modifiers,
-    required this.cues,
+    this.modifiers = const {},
+    this.cues = const {},
   });
 }
-
-const ratingRowChestSupported = Rating(
-  source: Source.jeffNippard,
-  score: 7 / 7,
-  pg: [
-    ProgramGroup.lats,
-    ProgramGroup.middleTraps,
-  ],
-  comment: '''
-Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=8m53s)
-and then upgrades it [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=11m33s) to special+ ranking''',
-  modifiers: {},
-  cues: {},
-);
-const ratingRowCable = Rating(
-  source: Source.jeffNippard,
-  score: 6 / 7,
-  pg: [
-    ProgramGroup.lats,
-    ProgramGroup.middleTraps,
-  ],
-  comment: '''
-Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=9m22s)''',
-  modifiers: {'spine': 'dynamic'},
-  cues: {},
-);
