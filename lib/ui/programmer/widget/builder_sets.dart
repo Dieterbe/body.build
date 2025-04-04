@@ -2,14 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/ui/programmer/widget/ex_modifiers_cues_widget.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 
 class BuilderSets extends ConsumerWidget {
+  void _showRatingsDialog(List<Rating> ratings, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => ExerciseRatingsDialog(
+        exerciseId: sets.ex!.id,
+        ratings: ratings,
+      ),
+    );
+  }
+
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
@@ -22,6 +35,7 @@ class BuilderSets extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final setRatings = sets.getApplicableRatings().toList();
     // this layout matches BuilderWorkoutSetsHeader
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16), // affects align
@@ -42,6 +56,7 @@ class BuilderSets extends ConsumerWidget {
                   child: (sets.ex == null)
                       ? Container()
                       : ExModifiersCuesWidget(
+                          sets: sets,
                           modifiers: sets.ex!.modifiers,
                           selectedOptions: sets.modifierOptions,
                           onOptionSelected: (name, opt) =>
@@ -53,13 +68,15 @@ class BuilderSets extends ConsumerWidget {
                           )),
                           cues: sets.ex!.cues,
                           cueOptions: sets.cueOptions,
+                          onShowRatings: (ratings) =>
+                              _showRatingsDialog(ratings, context),
                           onCueToggled: (name, enabled) =>
                               onChange(sets.copyWith(
                             cueOptions: {...sets.cueOptions, name: enabled},
                           )),
                         )),
               Flexible(flex: 10, child: _deleteButton(context)),
-              Flexible(flex: 70, child: _exerciseName(context)),
+              Flexible(flex: 70, child: _exerciseName(setRatings, context)),
               // we squeeze the combo set button in with the equipment
               // not the most semantically correct, but it works for now
               Flexible(flex: 35, child: _equipment(context)),
@@ -171,20 +188,38 @@ class BuilderSets extends ConsumerWidget {
         ),
       );
 
-  Widget _exerciseName(BuildContext context) => Align(
+  Widget _exerciseName(List<Rating> setRatings, BuildContext context) => Align(
         alignment: Alignment.centerLeft,
         child: (sets.ex != null && !sets.changeEx)
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text(
-                  sets.ex!.id,
-                  style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).width / 110,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0.3,
-                    //height: 0.9,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+                child: Row(
+                  children: [
+                    Text(
+                      sets.ex!.id,
+                      style: TextStyle(
+                        fontSize: MediaQuery.sizeOf(context).width / 110,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.3,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    if (setRatings.isNotEmpty) ...[
+                      const SizedBox(width: 8),
+                      IconButton(
+                        onPressed: () =>
+                            _showRatingsDialog(setRatings, context),
+                        icon: RatingIcon(
+                          ratings: setRatings,
+                          size: MediaQuery.sizeOf(context).width /
+                              60, // made up number, should probably find something more elegant
+                        ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        splashRadius: 20,
+                      ),
+                    ],
+                  ],
                 ))
             : Autocomplete<Ex>(
                 displayStringForOption: (e) => e.id,

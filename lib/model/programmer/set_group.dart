@@ -1,5 +1,6 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'set_group.freezed.dart';
@@ -51,6 +52,45 @@ class Sets with _$Sets {
       return img.length - 1;
     }
     return img.length;
+  }
+
+  // Filter ratings that are compatible with current set configuration
+  Iterable<Rating> getApplicableRatings() {
+    if (ex == null) return [];
+    return _getApplicableRatings(ex!.ratings, modifierOptions, cueOptions);
+  }
+
+  // Get applicable ratings for a specific configuration
+  Iterable<Rating> getApplicableRatingsForConfig(
+    Map<String, String> modifierConfig,
+    Map<String, bool> cueConfig,
+  ) {
+    if (ex == null) return [];
+    return _getApplicableRatings(ex!.ratings, modifierConfig, cueConfig);
+  }
+
+  // Helper method to filter ratings based on configuration
+  Iterable<Rating> _getApplicableRatings(
+    List<Rating> ratings,
+    Map<String, String> modifierConfig,
+    Map<String, bool> cueConfig,
+  ) {
+    return ratings.where((rating) {
+      // Check if all required modifiers are configured correctly
+      for (final entry in rating.modifiers.entries) {
+        final selectedOption = modifierConfig[entry.key] ??
+            ex!.modifiers.firstWhere((m) => m.name == entry.key).defaultVal;
+        if (selectedOption != entry.value) return false;
+      }
+
+      // Check if all required cues are enabled
+      for (final cue in rating.cues) {
+        final isEnabled = cueConfig[cue] ?? ex!.cues[cue]!.$1;
+        if (!isEnabled) return false;
+      }
+
+      return true;
+    });
   }
 }
 

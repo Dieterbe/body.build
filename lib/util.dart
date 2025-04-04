@@ -1,6 +1,10 @@
 extension StringExtension on String {
-  String capitalize() {
+  String capitalizeFirstOnly() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+
+  String capitalizeFirst() {
+    return "${this[0].toUpperCase()}${substring(1)}";
   }
 
   String camelToSpace() {
@@ -9,7 +13,7 @@ extension StringExtension on String {
   }
 
   String camelToTitle() {
-    return camelToSpace().capitalize();
+    return camelToSpace().capitalizeFirstOnly();
   }
 }
 

@@ -187,7 +187,7 @@ class MuscleHeadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = head.name.capitalize();
+    final title = head.name.capitalizeFirstOnly();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

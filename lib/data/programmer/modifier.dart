@@ -17,6 +17,27 @@ class Modifier {
   Modifier(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
+final benchPressBenchAngle = Modifier('bench angle', '0', {
+  '-30': (
+    {},
+    '30° decline.',
+  ),
+  '-15': (
+    {},
+    '15° decline.',
+  ),
+  '0': ({}, 'flat bench'),
+  '15': ({}, '15° incline.'),
+  '30': ({}, '30° incline.'),
+  '45': ({}, '45° incline.'),
+}, desc: '''
+* Flat bench should stimulate lower & mid pecs well, and upper pecs relatively well.
+* Incline angles may recruit a bit more upper pecs without affecting lower/mid pec recruitment.
+* Decline angles are unlikely to be beneficial.
+
+Therefore, an incline is usually the best option for stimulating all pecs well, but the exact angle is up
+to personal anatomy and preference.
+''');
 final flyThumbs = Modifier('thumbs', 'up', {
   'up': (
     {
@@ -146,7 +167,8 @@ final legExtensionLean = Modifier('lean', 'upright', {
   ),
 },
     desc:
-        '''see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
+        '''leaning back stretches the Rectus Femoris and triggers more growth.  
+see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
 or [this one](https://www.instagram.com/menno.henselmans/p/C7O6ydlR7qV/?img_index=1)
 ''');
 

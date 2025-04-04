@@ -2,7 +2,10 @@ import 'package:bodybuild/data/programmer/cues.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:bodybuild/data/programmer/rating_jn.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
+
+import 'rating.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
@@ -18,11 +21,14 @@ class Ex {
   final List<Equipment> equipment;
   final List<Modifier> modifiers;
   final Cues cues;
+  final List<Rating> ratings;
   final String
       id; // identifier to match to kaos exercise. does not need to be human friendly
 
   const Ex(this.volumeAssignment, this.id, this.equipment,
-      [this.modifiers = const [], this.cues = defaultCues]);
+      [this.modifiers = const [],
+      this.cues = defaultCues,
+      this.ratings = const []]);
 
   Assign recruitment(ProgramGroup pg, Map<String, String?> modifierOptions) {
     // establish base recruitment:
@@ -223,6 +229,34 @@ final List<Ex> exes = [
   const Ex(vaStandingCalfRaiseCalfJump, "leg press calf jumps",
       [Equipment.legPressMachine]),
 
+/* BACK / LATS / TRAPS */
+/* jeff rankings from https://www.youtube.com/watch?v=jLvqKgW-_G8&list=PLp4G6oBUcv8w8ujRtP5BtvJe8PXBwiTdl&index=6
+0:49 - Renegade Rows -> 0/7 , understimulating, not enough stretch
+1:40 - Deadlift -> 2/7 for lats/traps
+2:31 - Above-The-Knee Rack Pull -> 1/7 just a DL with even less ROM
+2:46 - Wide-Grip Pull-Up -> 5/7
+3:16 - Neutral-Grip Pull-Up -> 5/7
+3:23 - Chin-Up 4/7
+3:38 - Wide-Grip Lat Pulldown 6/7
+3:59 - Neutral-Grip Lat Pulldown 6/7
+4:08 - Half-Kneeling 1-Arm Lat Pulldown 6/7
+4:38 - Cross-Body Lat Pull-Around: same as above,but 90 degree rotated , more stretch but a bit awkward 5/7
+4:59 - Barbell Row 4/7 , instable
+5:26 - Yates Row, like barbell row, but bit more upright and looser form 3/7
+5:51 - Pendlay Row, like barbell row but more horizontal back 4.5/7
+6:18 - Deficit Pendlay Row 5/7
+6:28 - Meadows Row 67
+6:52 - Inverted Row 3/7
+7:26 - 1-Arm Dumbbell Row 5/7
+7:57 - Kroc Row: same but looser form 5/7
+8:25 - Free-Standing T-bar Row 4/7
+8:53 - Chest-Supported Row -> 7/7 for lats and traps (on incline bench, machine, lean on bench)
+9:22 - Cable Row 6/7 (prefer with flexion)
+9:37 - Wide-Grip Cable Row  6/7 (prefer with flexion)
+9:50 - Rope Face-Pull 4/7 , but seated or lying down 5/7 because more stable
+10:37 - Cable Lat Pull-Over 5/7
+11:14 - DB Lat Pull-Over 5/7
+*/
   const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup", [], [],
       handSqueeze), // just outside shoulder width
   // Ex(EBase.?, "pullup close grip pronated", []),
@@ -313,17 +347,30 @@ final List<Ex> exes = [
           )
         })
       ],
-      handSqueeze),
+      handSqueeze,
+      [ratingJNRowCable]),
 
   // TODO many different grips. those should affect recruitment similar to pullup types
   const Ex(vaRowWithSpineIso, "standing bent over barbell row",
       [Equipment.barbell], [], handSqueeze),
 
-  const Ex(vaRowWithoutSpine, "bench supported single arm dumbbell rows",
-      [Equipment.dumbbell], [], handSqueeze),
+  const Ex(
+      vaRowWithoutSpine,
+      "standing bench supported single arm dumbbell rows",
+      [Equipment.dumbbell],
+      [],
+      handSqueeze),
+  const Ex(
+      vaRowWithoutSpine,
+      "helms row", // https://www.youtube.com/shorts/XdZSJD41l68
+      [Equipment.dumbbell],
+      [],
+      handSqueeze,
+      [ratingJNRowChestSupported]),
+  const Ex(vaRowWithoutSpine, "chest supported incline bench row",
+      [Equipment.rowMachine], [], handSqueeze, [ratingJNRowChestSupported]),
   const Ex(vaRowWithoutSpine, "chest supported machine rows",
-      [Equipment.rowMachine], [], handSqueeze),
-
+      [Equipment.rowMachine], [], handSqueeze, [ratingJNRowChestSupported]),
   const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [],
       handSqueeze),
   const Ex(vaPullOverLatPrayer, "lat prayer", [Equipment.cableTower], [],
@@ -368,35 +415,60 @@ final List<Ex> exes = [
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
       "TRX face pull", [Equipment.trx], [], handSqueeze),
 
+/*
+ *     .d8888b.  888    888 8888888888  .d8888b. 88888888888            
+ *    d88P  Y88b 888    888 888        d88P  Y88b    888                
+ *    888    888 888    888 888        Y88b.         888                
+ *    888        8888888888 8888888     "Y888b.      888                
+ *    888        888    888 888            "Y88b.    888                
+ *    888    888 888    888 888              "888    888                
+ *    Y88b  d88P 888    888 888        Y88b  d88P    888                
+ *     "Y8888P"  888    888 8888888888  "Y8888P"     888    
+*/
+
   const Ex(
       vaBenchPressBBChestPressMachineDip,
       "flat barbell bench press (powerlift)",
       [Equipment.barbell],
       [],
       handSqueeze),
-  const Ex(vaBenchPressBBChestPressMachineDip, "flat barbell bench press",
-      [Equipment.barbell], [], handSqueeze),
-  const Ex(vaBenchPressBBChestPressMachineDip, "15° barbell bench press",
-      [Equipment.barbell], [], handSqueeze),
-  const Ex(vaBenchPressBBChestPressMachineDip, "flat bench press smith machine",
-      [Equipment.smithMachineAngled], [], handSqueeze),
+  Ex(
+      vaBenchPressBBChestPressMachineDip,
+      "barbell bench press",
+      [Equipment.barbell],
+      [benchPressBenchAngle],
+      handSqueeze,
+      ratingJNBBBenchPress.toList()),
+  Ex(
+      vaBenchPressDBChestPressCable,
+      "dumbbell bench press",
+      [Equipment.dumbbell],
+      [benchPressBenchAngle],
+      handSqueeze,
+      ratingJNDBBenchPress.toList()),
+  Ex(vaBenchPressBBChestPressMachineDip, "bench press smith machine",
+      [Equipment.smithMachineAngled], [benchPressBenchAngle], handSqueeze),
 
-  const Ex(vaBenchPressBBChestPressMachineDip, "chest press machine",
-      [Equipment.chestPressMachine], [], handSqueeze),
+  const Ex(
+      vaBenchPressBBChestPressMachineDip,
+      "chest press machine",
+      [Equipment.chestPressMachine],
+      [],
+      handSqueeze,
+      [ratingJNMachineChestPress]),
 
-  Ex(vaPushUp, "push-up", [], [deficit]),
-  const Ex(vaBenchPressDBChestPressCable, "flat dumbbell bench press",
-      [Equipment.dumbbell], [], handSqueeze),
-  const Ex(vaBenchPressDBChestPressCable, "15° dumbbell bench press",
-      [Equipment.dumbbell], [], handSqueeze),
-  const Ex(vaBenchPressDBChestPressCable, "cable chest press",
-      [Equipment.cableTowerDual], [], handSqueeze),
+  Ex(vaPushUp, "push-up", [], [deficit], defaultCues,
+      [ratingJNPushUp, ratingJNPushUpDeficit]),
 
-  const Ex(vaBenchPressBBChestPressMachineDip, "dip", [], [], handSqueeze),
+  Ex(vaBenchPressDBChestPressCable, "cable chest press",
+      [Equipment.cableTowerDual], [benchPressBenchAngle], handSqueeze),
+
+  const Ex(vaBenchPressBBChestPressMachineDip, "dip", [], [], handSqueeze,
+      [ratingJNDips]),
   const Ex(vaBenchPressBBChestPressMachineDip, "assisted dip machine",
       [Equipment.assistedDipMachine], [], handSqueeze),
-  Ex(vaFlyPecDeckHandGrip, "laying dumbbell fly", [Equipment.dumbbell],
-      [flyThumbs], handSqueeze),
+  Ex(vaFlyPecDeckHandGrip, "dumbbell fly", [Equipment.dumbbell], [flyThumbs],
+      handSqueeze, [ratingJNDumbbellFly]),
   Ex(vaFlyPecDeckHandGrip, "chest fly machine", [Equipment.chestFlyMachine],
       [flyThumbs], handSqueeze),
 
@@ -404,8 +476,13 @@ final List<Ex> exes = [
       handSqueeze), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
   const Ex(
       vaPecDeckElbowPad, "pec deck (elbow pad)", [Equipment.pecDeckMachine]),
-  Ex(vaFlyPecDeckHandGrip, "chest machine fly (pec deck with hand grip)",
-      [Equipment.chestFlyMachine], [flyThumbs], handSqueeze),
+  Ex(
+      vaFlyPecDeckHandGrip,
+      "chest machine fly (pec deck with hand grip)",
+      [Equipment.chestFlyMachine],
+      [flyThumbs],
+      handSqueeze,
+      [ratingJNPecDeckHandGrip]),
 
   const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell],
       [], handSqueeze),
