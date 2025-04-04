@@ -228,9 +228,7 @@ final List<Ex> exes = [
   const Ex(vaStandingCalfRaiseCalfJump, "leg press calf jumps",
       [Equipment.legPressMachine]),
 
-  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup", [], [],
-      handSqueeze), // just outside shoulder width
-  // Ex(EBase.?, "pullup close grip pronated", []),
+/* BACK / LATS / TRAPS */
 /* jeff rankings from https://www.youtube.com/watch?v=jLvqKgW-_G8&list=PLp4G6oBUcv8w8ujRtP5BtvJe8PXBwiTdl&index=6
 0:49 - Renegade Rows -> 0/7 , understimulating, not enough stretch
 1:40 - Deadlift -> 2/7 for lats/traps
@@ -258,6 +256,10 @@ final List<Ex> exes = [
 10:37 - Cable Lat Pull-Over 5/7
 11:14 - DB Lat Pull-Over 5/7
 */
+  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup", [], [],
+      handSqueeze), // just outside shoulder width
+  // Ex(EBase.?, "pullup close grip pronated", []),
+
   const Ex(
       vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
       "pullup gymnastic rings",
@@ -412,6 +414,38 @@ final List<Ex> exes = [
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
       "TRX face pull", [Equipment.trx], [], handSqueeze),
 
+/* CHEST */
+/*
+https://www.youtube.com/watch?v=fGm-ef-4PVk
+0:00 - What makes an exercise S tier?
+0:46 - Hex Press 1/7
+1:09 - Plate Press 0/7
+1:17 - Dumbbell Pullover 2/7 (rating is for pecs!)
+1:47 - Bench Press
+2:33 - Incline Bench Press
+2:56 - Decline Bench Press
+3:35 - Flat Dumbbell Press
+4:16 - Incline Dumbbell Press
+4:25 - Decline Dumbbell Press
+4:36 - Machine Chest Press 7/7
+5:08 - Dips
+5:52 - Push-Ups
+6:30 - Banded Push-Ups
+6:45 - Deficit Push-Ups
+7:01 - Plyometric Push-Ups 2/7
+7:27 - Guillotine Press
+8:49 - Dumbbell Guillotine Press
+9:09 - 1-Arm Dumbbell Press
+9:28 - Smith Machine Flat Bench Press
+9:46 - Incline Smith Machine Press
+10:14 - Cable Crossovers
+10:49 - Seated Cable Pec Flye 6/7
+11:09 - Pec Deck
+11:32 - Dumbbell Flye
+12:13 - Cable Press-Around
+12:43 - Cross-Body Standing Dumbbell Flye
+13:09 - Floor Press
+*/
   const Ex(
       vaBenchPressBBChestPressMachineDip,
       "flat barbell bench press (powerlift)",
