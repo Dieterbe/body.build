@@ -415,10 +415,17 @@ final List<Ex> exes = [
   const Ex(vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
       "TRX face pull", [Equipment.trx], [], handSqueeze),
 
-/* CHEST */
-/* CHEST */
-/* CHEST */
-/* CHEST */
+/*
+ *     .d8888b.  888    888 8888888888  .d8888b. 88888888888            
+ *    d88P  Y88b 888    888 888        d88P  Y88b    888                
+ *    888    888 888    888 888        Y88b.         888                
+ *    888        8888888888 8888888     "Y888b.      888                
+ *    888        888    888 888            "Y88b.    888                
+ *    888    888 888    888 888              "888    888                
+ *    Y88b  d88P 888    888 888        Y88b  d88P    888                
+ *     "Y8888P"  888    888 8888888888  "Y8888P"     888    
+*/
+
   const Ex(
       vaBenchPressBBChestPressMachineDip,
       "flat barbell bench press (powerlift)",
@@ -456,11 +463,12 @@ final List<Ex> exes = [
   Ex(vaBenchPressDBChestPressCable, "cable chest press",
       [Equipment.cableTowerDual], [benchPressBenchAngle], handSqueeze),
 
-  const Ex(vaBenchPressBBChestPressMachineDip, "dip", [], [], handSqueeze),
+  const Ex(vaBenchPressBBChestPressMachineDip, "dip", [], [], handSqueeze,
+      [ratingJNDips]),
   const Ex(vaBenchPressBBChestPressMachineDip, "assisted dip machine",
       [Equipment.assistedDipMachine], [], handSqueeze),
-  Ex(vaFlyPecDeckHandGrip, "laying dumbbell fly", [Equipment.dumbbell],
-      [flyThumbs], handSqueeze),
+  Ex(vaFlyPecDeckHandGrip, "dumbbell fly", [Equipment.dumbbell], [flyThumbs],
+      handSqueeze, [ratingJNDumbbellFly]),
   Ex(vaFlyPecDeckHandGrip, "chest fly machine", [Equipment.chestFlyMachine],
       [flyThumbs], handSqueeze),
 
@@ -468,8 +476,13 @@ final List<Ex> exes = [
       handSqueeze), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
   const Ex(
       vaPecDeckElbowPad, "pec deck (elbow pad)", [Equipment.pecDeckMachine]),
-  Ex(vaFlyPecDeckHandGrip, "chest machine fly (pec deck with hand grip)",
-      [Equipment.chestFlyMachine], [flyThumbs], handSqueeze),
+  Ex(
+      vaFlyPecDeckHandGrip,
+      "chest machine fly (pec deck with hand grip)",
+      [Equipment.chestFlyMachine],
+      [flyThumbs],
+      handSqueeze,
+      [ratingJNPecDeckHandGrip]),
 
   const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell],
       [], handSqueeze),

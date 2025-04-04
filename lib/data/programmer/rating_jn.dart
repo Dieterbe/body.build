@@ -2,6 +2,20 @@ import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
 
+/*
+Below are ratings from jeff nippard.  not all of them are implemented yet in code,
+those that aren't are left as commented notes
+*/
+/*
+ *    888888b.          d8888  .d8888b.  888    d8P                     
+ *    888  "88b        d88888 d88P  Y88b 888   d8P                      
+ *    888  .88P       d88P888 888    888 888  d8P                       
+ *    8888888K.      d88P 888 888        888d88K                        
+ *    888  "Y88b    d88P  888 888        8888888b                       
+ *    888    888   d88P   888 888    888 888  Y88b                      
+ *    888   d88P  d8888888888 Y88b  d88P 888   Y88b                     
+ *    8888888P"  d88P     888  "Y8888P"  888    Y88b     
+ */
 const ratingJNRowChestSupported = Rating(
   source: Source.jeffNippard,
   score: 7 / 7,
@@ -25,6 +39,17 @@ Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=9m2
   modifiers: {'spine': 'dynamic'},
 );
 
+/*
+ *     .d8888b.  888    888 8888888888  .d8888b. 88888888888            
+ *    d88P  Y88b 888    888 888        d88P  Y88b    888                
+ *    888    888 888    888 888        Y88b.         888                
+ *    888        8888888888 8888888     "Y888b.      888                
+ *    888        888    888 888            "Y88b.    888                
+ *    888    888 888    888 888              "888    888                
+ *    Y88b  d88P 888    888 888        Y88b  d88P    888                
+ *     "Y8888P"  888    888 8888888888  "Y8888P"     888    
+*/
+
 /* Jeff Nippard: The Best And Worst Chest Exercises (Ranked By Science) 
 https://www.youtube.com/watch?v=fGm-ef-4PVk
 0:00 - What makes an exercise S tier?
@@ -32,8 +57,21 @@ https://www.youtube.com/watch?v=fGm-ef-4PVk
 0:46 - Hex Press 1/7 - no pec stretch, no tension. triceps take over. F
 1:09 - Plate Press - - no pec stretch, no tension. triceps take over, more awkward, not overloadable 0/7
 1:17 - Dumbbell Pullover 2/7 (rating is for pecs!), people don't seem to feel it. much better lat exercise
-
+6:30 - Banded Push-Ups - adds tesnion at top half only 3/7
+7:01 - Plyometric Push-Ups - not much tension or stretch 2/7
+7:27 - Guillotine Press - shrug shoulders out, flare elbows out. barbell to neck. more pec stretch (needs to feel comfortable!), potential danger 1/7
+8:49 - Dumbbell Guillotine Press - same, and safe! 5/7
+9:09 - 1-Arm Dumbbell Press - unstable, waste of time. disperses tension. 1/7
+9:28 - Smith Machine Flat Bench Press - same upsides as standard BB, can push a bit more. 5/7
+9:46 - Incline Smith Machine Press - same, but bit more upper pecs 5/7
+// ISOLATIONS
+10:14 - Cable Crossovers - big stretch, even tension across ROM. limited in weight when you're strong. cable pulls you back / less stable. .5/7
+10:49 - Seated Cable Pec Flye - same, but no stability issue. jeff's favorite chest isolation. 6/7
+12:13 - Cable Press-Around - full contraction (for occassional short length work) 5/7
+12:43 - Cross-Body Standing Dumbbell Flye - full contraction. basically front raise for front delt. 1/7
+13:09 - Floor Press - for max BP strength. great for tricep. no full stretch.  3/7
 */
+
 final ratingJNBBBenchPress = benchPressBenchAngle.opts.keys.map((e) => Rating(
       source: Source.jeffNippard,
       score: switch (e) {
@@ -115,21 +153,41 @@ more deep stretch. best type of pushup
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=6m45s)''',
   modifiers: {'deficit': 'max'},
 );
-/*
-5:08 - Dips - massive stretch, high tension. can overload. shoulder risk maybe. doesn't feel smooth. 5/7
-6:30 - Banded Push-Ups - adds tesnion at top half only 3/7
-7:01 - Plyometric Push-Ups - not much tension or stretch 2/7
-7:27 - Guillotine Press - shrug shoulders out, flare elbows out. barbell to neck. more pec stretch (needs to feel comfortable!), potential danger 1/7
-8:49 - Dumbbell Guillotine Press - same, and safe! 5/7
-9:09 - 1-Arm Dumbbell Press - unstable, waste of time. disperses tension. 1/7
-9:28 - Smith Machine Flat Bench Press - same upsides as standard BB, can push a bit more. 5/7
-9:46 - Incline Smith Machine Press - same, but bit more upper pecs 5/7
-// ISOLATIONS
-10:14 - Cable Crossovers - big stretch, even tension across ROM. limited in weight when you're strong. cable pulls you back / less stable. .5/7
-10:49 - Seated Cable Pec Flye - same, but no stability issue. jeff's favorite chest isolation. 6/7
-11:09 - Pec Deck - similar, but path is more restrictive. 5/7
-11:32 - Dumbbell Flye - tip: lengthened partials. not as smooth as cable flys. 5/7
-12:13 - Cable Press-Around - full contraction (for occassional short length work) 5/7
-12:43 - Cross-Body Standing Dumbbell Flye - full contraction. basically front raise for front delt. 1/7
-13:09 - Floor Press - for max BP strength. great for tricep. no full stretch.  3/7
-*/
+const ratingJNPecDeckHandGrip = Rating(
+  source: Source.jeffNippard,
+  score: 5 / 7,
+  pg: [
+    ProgramGroup.lowerPecs,
+    ProgramGroup.upperPecs,
+  ],
+  comment:
+      '''big stretch, good tension across ROM. but path can can be restrictive
+  Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=11m09s)
+''',
+);
+const ratingJNDumbbellFly = Rating(
+  source: Source.jeffNippard,
+  score: 5 / 7,
+  pg: [
+    ProgramGroup.lowerPecs,
+    ProgramGroup.upperPecs,
+  ],
+  comment: '''
+big stretch, not as smooth as cable fly's. because you lose tension at the top (contraction), jeff
+suggests doing lengthened partial reps.
+  Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=11m32s)
+''',
+);
+
+const ratingJNDips = Rating(
+  source: Source.jeffNippard,
+  score: 5 / 7,
+  pg: [
+    ProgramGroup.lowerPecs,
+    ProgramGroup.upperPecs,
+  ],
+  comment:
+      '''massive stretch, high tension. can overload. shoulder risk maybe. doesn't feel smooth.
+  Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m08s)
+''',
+);
