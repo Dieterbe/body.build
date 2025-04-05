@@ -73,6 +73,12 @@ class Ex {
 // for advanced, prefer barbell DL's over deadlifts maybe? and things like back extensions will use more than bodyweidht, bodyweight exercises like push-ups, squats don't make sense anymore
 // generally machines/cables should come out better compared to body weight (e.g. nordic curls is less comfortable at least)
 // todo give exercises properties to sort their quality by. e.g. range, train at long length, and also setup time
+
+/*
+The exercises are grouped by their "category". this isn't an exact science, since several exercises work multiple muscle (groups), in these cases
+we try to add the exercise to the group which represent the larger muscles (e.g. pull-ups go in back exercises, not biceps)
+This categorization is only meant to make code navigation easier here and elsewhere (e.g. ratings files), it's not a concept within the app.
+*/
 final List<Ex> exes = [
   const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell],
       [], handSqueeze),
@@ -511,15 +517,26 @@ final List<Ex> exes = [
       handSqueeze),
   const Ex(vaTricepExtension, "tricep cable pushdown", [Equipment.cableTower],
       [], handSqueeze),
-
+/***
+ *    888888b.  8888888  .d8888b.  8888888888 8888888b.   .d8888b.  
+ *    888  "88b   888   d88P  Y88b 888        888   Y88b d88P  Y88b 
+ *    888  .88P   888   888    888 888        888    888 Y88b.      
+ *    8888888K.   888   888        8888888    888   d88P  "Y888b.   
+ *    888  "Y88b  888   888        888        8888888P"      "Y88b. 
+ *    888    888  888   888    888 888        888              "888 
+ *    888   d88P  888   Y88b  d88P 888        888        Y88b  d88P 
+ *    8888888P" 8888888  "Y8888P"  8888888888 888         "Y8888P" 
+ */
   const Ex(vaBicepCurlAnatomic, "barbell bicep curl", [Equipment.barbell], [],
-      handSqueeze),
+      handSqueeze, [ratingJNBBCurl]),
+  const Ex(vaBicepCurlAnatomic, "ez bar bicep curl", [Equipment.ezbar], [],
+      handSqueeze, [ratingJNEZBarCurl]),
   const Ex(vaBicepCurlAnatomic, "cable bicep curl", [Equipment.cableTower], [],
-      handSqueeze),
+      handSqueeze, []),
   const Ex(vaBicepCurlAnatomic, "dumbbell bicep curl", [Equipment.dumbbell], [],
-      handSqueeze),
+      handSqueeze, [ratingJNDBCurl]),
   const Ex(vaBicepCurlAnatomic, "dumbbell hammer bicep curl",
-      [Equipment.dumbbell], [], handSqueeze),
+      [Equipment.dumbbell], [], handSqueeze, [ratingJNDBHammerCurl]),
   const Ex(vaBicepCurlAnatomic, "kettlebell bicep curl", [Equipment.kettlebell],
       [], handSqueeze),
   const Ex(vaBicepCurlPreacher, "preacher bicep curl machine",

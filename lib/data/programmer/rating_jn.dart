@@ -218,3 +218,70 @@ const ratingJNDips = Rating(
   Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m08s)
 ''',
 );
+
+/***
+ *    888888b.  8888888  .d8888b.  8888888888 8888888b.   .d8888b.  
+ *    888  "88b   888   d88P  Y88b 888        888   Y88b d88P  Y88b 
+ *    888  .88P   888   888    888 888        888    888 Y88b.      
+ *    8888888K.   888   888        8888888    888   d88P  "Y888b.   
+ *    888  "Y88b  888   888        888        8888888P"      "Y88b. 
+ *    888    888  888   888    888 888        888              "888 
+ *    888   d88P  888   Y88b  d88P 888        888        Y88b  d88P 
+ *    8888888P" 8888888  "Y8888P"  8888888888 888         "Y8888P" 
+ */
+/*
+ The Best And Worst Biceps Exercises 
+ https://www.youtube.com/watch?v=GNO4OtYoCYk
+4:25 - DB Preacher Curl - more tension at stretched position. impossible to cheat. 6/7
+5:20 - Incline Curl - worse than preachers.  lot more stretch, but again tension mainly at mid point. fast to set up and easy to do .5/7
+5:34 - Lying DB Curl - huge stretch (especially near the shoulder), more tension at the bottom.  5/7
+6:08 - Scott Curl - preacher with vertical arm, no tension on stretched position. worse than preachers. 3/7
+6:30 - Flat Bench Curl - preacher curl but on a horizontal bench. highest tension at the stretched position 4/7
+7:01 - Machine Preacher Curl - locked in. jeff does lengthened partials (supinated grip) 6/7
+7:16 - Waiter Curl - gimmicky. cranks your wrists, feels awkward. overload limits. just use dumbbels instead 0/7
+7:35 - Drag Curl - simultaneous shortening at elbow and lengthening at shoulder. so overall not much change (similar to hams in squats which don't grow well). so likely not a good exercise. 3/7
+8:11 - Spider Curl - shortened position (not much stretch), can bump into bench. 3/7
+8:31 - Chin-Ups - back probably takes over. very accessible (only need your bodyweight) 4/7
+9:01 - old skool 21s - 3/7 , modified 21s 5/7
+10:12 - Standard Cable Curl - completely disagree with what he's saying here 5/7
+10:28 - Face Away Bayesian Cable Curl - with arms behind (and torso rigid): maximum stretch (also disagree with his tension point) 7/7
+11:11 - Bayesian Cable Curl Variation - arms behind and super high up - 5/7
+11:45 - Cheat Curl - momentum concentric, controlled eccentric 5/7
+12:30 - Strict Curl - suspect that it's a bit better than cheat curls, but we don't know for sure. 5/7
+13:06 - Hammer Curl - favors a bit more brachialis over bicep - tension mainly at the mid point 5/7
+14:15 - Preacher Hammer Curl 6/7
+14:25 - Inverse Zottman Curl 5/7
+*/
+const ratingJNBBCurl = Rating(
+  source: Source.jeffNippard,
+  score: 4 / 7,
+  pg: [ProgramGroup.biceps],
+  comment:
+      '''tension mainly at the mid point. overloading, may hurt wrists. wasteful use of a barbell
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=1m56s)''',
+);
+const ratingJNEZBarCurl = Rating(
+  source: Source.jeffNippard,
+  score: 5 / 7,
+  pg: [ProgramGroup.biceps],
+  comment:
+      '''tension mainly at the mid point. easier on the wrists than barbell. good for 6-8 rep range
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=2m45s)''',
+);
+const ratingJNDBCurl = Rating(
+  source: Source.jeffNippard,
+  score: 5 / 7,
+  pg: [ProgramGroup.biceps],
+  comment:
+      '''tension mainly at the mid point. convenient. good against assymetries.
+better not alternate (too much rest)
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=3m37s)''',
+);
+const ratingJNDBHammerCurl = Rating(
+  source: Source.jeffNippard,
+  score: 5 / 7,
+  pg: [ProgramGroup.biceps],
+  comment:
+      '''favors a bit more brachialis over bicep - tension mainly at the mid point
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=13m06s)''',
+);
