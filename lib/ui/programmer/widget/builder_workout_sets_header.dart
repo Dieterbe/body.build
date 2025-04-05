@@ -9,6 +9,7 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 class BuilderWorkoutSetsHeader extends StatelessWidget {
@@ -269,7 +270,14 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                   horizontal: 16, vertical: 8),
                               title: Row(
                                 children: [
-                                  Text(option.ex!.id),
+                                  Text(
+                                    option.ex!.id,
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.sizeOf(context).width /
+                                              110,
+                                    ),
+                                  ),
                                   if (option.modifierOptions.isNotEmpty) ...[
                                     const SizedBox(width: 12),
                                     Expanded(
@@ -330,29 +338,51 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                   ],
                                 ],
                               ),
-                              trailing: SizedBox(
-                                width: 100,
-                                child: Row(
+                              trailing: Builder(builder: (context) {
+                                final relevantRatings = option.ex!.ratings
+                                    .where((r) => r.pg.contains(g))
+                                    .toList();
+                                return Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Expanded(
-                                      child: LinearProgressIndicator(
-                                        value: volume,
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary
-                                            .withValues(alpha: 0.1),
+                                    if (relevantRatings.isNotEmpty) ...[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8),
+                                        child: RatingIcon(
+                                          ratings: relevantRatings,
+                                          size: MediaQuery.sizeOf(context).width / 60,
+                                        ),
+                                      ),
+                                    ],
+                                    SizedBox(
+                                      width: 100,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Expanded(
+                                            child: LinearProgressIndicator(
+                                              value: volume,
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                                  .withValues(alpha: 0.1),
+                                              minHeight: 8,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            '${(volume * 100).toStringAsFixed(0)}%',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      '${(volume * 100).toStringAsFixed(0)}%',
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
                                   ],
-                                ),
-                              ),
+                                );
+                              }),
                               onTap: () {
                                 onSelected(option);
                                 onChange(workout.copyWith(setGroups: [
