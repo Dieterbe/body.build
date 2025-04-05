@@ -150,16 +150,21 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
     // For each modifier that affects this program group, collect all its options
     Map<String, List<String>> modifierOptions = {};
 
-    // First pass: identify modifiers that has values that cause variations in recruitment for this program group
-    // note that if you have 3 options, the first sets a recruitment value and the other two don't, we include all 3.
-    // this level of completeness seems like a good thing
+    // First pass: identify modifiers that cause variations in recruitment or ratings for this program group
+    // Note: different modifiers may not actually result in different recruitment or ratings numbers, but them being included is
+    // a good clue that they probably do differ.
     for (final modifier in ex.modifiers) {
-      if (modifier.opts.entries.any((entry) => entry.value.$1.containsKey(g))) {
+      bool hasRecruitmentVariation =
+          modifier.opts.entries.any((entry) => entry.value.$1.containsKey(g));
+      bool hasRatingVariation = ex.ratings.any((rating) =>
+          rating.pg.contains(g) && rating.modifiers.containsKey(modifier.name));
+
+      if (hasRecruitmentVariation || hasRatingVariation) {
         modifierOptions[modifier.name] = modifier.opts.keys.toList();
       }
     }
 
-    // If no modifiers affect this group, return a single Sets with default values
+    // If no modifiers affect this group's recruitment or ratings, return a single Sets with default values
     if (modifierOptions.isEmpty) {
       return [
         Sets(
@@ -226,8 +231,40 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                       .expand((e) => toSetsFor(e, setup.paramFinal, g))
                       .where((e) => e.recruitmentFiltered(g, 0) > 0)
                       .toList();
-                  opts.sort((a, b) => (b.recruitmentFiltered(g, 0))
-                      .compareTo(a.recruitmentFiltered(g, 0)));
+                  opts.sort((a, b) {
+                    // First compare by recruitment value
+                    final recruitmentCompare = b
+                        .recruitmentFiltered(g, 0)
+                        .compareTo(a.recruitmentFiltered(g, 0));
+                    if (recruitmentCompare != 0) return recruitmentCompare;
+
+                    // If recruitment is equal, compare by average rating
+                    final aRatings = a
+                        .getApplicableRatings()
+                        .where((r) => r.pg.contains(g))
+                        .map((r) => r.score)
+                        .toList();
+                    final bRatings = b
+                        .getApplicableRatings()
+                        .where((r) => r.pg.contains(g))
+                        .map((r) => r.score)
+                        .toList();
+
+                    final aAvg = aRatings.isEmpty
+                        ? 0.0
+                        : aRatings.reduce((sum, score) => sum + score) /
+                            aRatings.length;
+                    final bAvg = bRatings.isEmpty
+                        ? 0.0
+                        : bRatings.reduce((sum, score) => sum + score) /
+                            bRatings.length;
+
+                    final ratingCompare = bAvg.compareTo(aAvg);
+                    if (ratingCompare != 0) return ratingCompare;
+
+                    // If both recruitment and rating are equal, sort by exercise ID
+                    return a.ex!.id.compareTo(b.ex!.id);
+                  });
                   return opts;
                 },
                 displayStringForOption: (e) => e.ex!.id,
@@ -339,7 +376,8 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                 ],
                               ),
                               trailing: Builder(builder: (context) {
-                                final relevantRatings = option.ex!.ratings
+                                final relevantRatings = option
+                                    .getApplicableRatings()
                                     .where((r) => r.pg.contains(g))
                                     .toList();
                                 return Row(
