@@ -215,7 +215,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
         ),
         children: [
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600),
+            constraints: const BoxConstraints(maxWidth: 800),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Autocomplete<Sets>(
@@ -255,7 +255,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
                           maxHeight: 200,
-                          maxWidth: 600,
+                          maxWidth: 800,
                         ),
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
@@ -351,7 +351,9 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                             const EdgeInsets.only(right: 8),
                                         child: RatingIcon(
                                           ratings: relevantRatings,
-                                          size: MediaQuery.sizeOf(context).width / 60,
+                                          size:
+                                              MediaQuery.sizeOf(context).width /
+                                                  60,
                                         ),
                                       ),
                                     ],
