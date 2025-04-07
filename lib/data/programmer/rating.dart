@@ -2,6 +2,7 @@ import 'package:bodybuild/data/programmer/groups.dart';
 
 enum Source {
   jeffNippard,
+  mennoHenselmans,
 }
 
 /* note that in jeff's videos, sometimes a rating is dependent on:

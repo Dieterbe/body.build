@@ -328,3 +328,19 @@ const Modifier dbCurlGrip = Modifier('grip', 'hammer to supinated', {
     'grip the dumbbell on the outside, or use a custom dumbbell with more weight on the inside. The loaded supination exercises the bicep better (Arnold does this!)'
   ),
 });
+
+const Modifier cableCurlStyle = Modifier('style', 'standard', {
+  'standard': ({}, 'bar grip, face the cable stack. arms to the side'),
+  'bayesian': (
+    {},
+    'original "bayesian" cable curl. face away from the cable stack. arms to the side, move upper body such that cable always provides max tension throughout ROM. [in-depth article by menno henselmans](https://mennohenselmans.com/bayesian-curls/). As a unilateral movement, it takes more time'
+  ),
+  'bayesian with arms behind': (
+    {},
+    'unlike the original bayesian curl, keep arms behind and torso rigid. Jeff Nippard uses this form. claims it keeps even tension throughout ROM, but it doesn\'t, actually. But can be done with both arms at the same time'
+  ),
+  'bayesian with arms behind and up': (
+    {},
+    'more extreme version of bayesian with arms behind. extreme tension at the longest length. can also be done with both arms'
+  )
+});

@@ -3,6 +3,7 @@ import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
 import 'package:bodybuild/data/programmer/rating_jn.dart';
+import 'package:bodybuild/data/programmer/rating_mh.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
 
 import 'rating.dart';
@@ -535,16 +536,27 @@ final List<Ex> exes = [
  *    888   d88P  888   Y88b  d88P 888        888        Y88b  d88P 
  *    8888888P" 8888888  "Y8888P"  8888888888 888         "Y8888P" 
  */
-  const Ex(vaBicepCurlAnatomic, "barbell bicep curl", [Equipment.barbell], [],
-      handSqueeze, [ratingJNBBCurl]),
-  const Ex(vaBicepCurlAnatomic, "ez bar bicep curl", [Equipment.ezbar], [],
-      handSqueeze, [ratingJNEZBarCurl]),
-  const Ex(vaBicepCurlAnatomic, "cable bicep curl", [Equipment.cableTower], [],
-      handSqueeze, []),
-  const Ex(vaBicepCurlAnatomic, "dumbbell bicep curl", [Equipment.dumbbell],
-      [dbCurlGrip], handSqueeze, ratingJNDBCurl),
-  const Ex(vaBicepCurlAnatomic, "kettlebell bicep curl", [Equipment.kettlebell],
-      [], handSqueeze),
+  const Ex(vaBicepCurlAnatomic, "standing barbell bicep curl",
+      [Equipment.barbell], [], handSqueeze, [ratingJNBBCurl]),
+  const Ex(vaBicepCurlAnatomic, "standing ez bar bicep curl", [Equipment.ezbar],
+      [], handSqueeze, [ratingJNEZBarCurl]),
+  const Ex(
+      vaBicepCurlAnatomic,
+      "standing cable bicep curl",
+      [Equipment.cableTower],
+      [cableCurlStyle],
+      handSqueeze,
+      [...ratingJNCableCurl, ratingMhCableCurl]),
+  const Ex(vaBicepCurlAnatomic, "standing dumbbell bicep curl",
+      [Equipment.dumbbell], [dbCurlGrip], handSqueeze, ratingJNDBCurl),
+  const Ex(
+      vaBicepCurlLying,
+      "lying dumbbell bicep curl",
+      [Equipment.dumbbell],
+      [],
+      handSqueeze), // see https://www.youtube.com/watch?v=okwUqL1kbEA , https://www.youtube.com/watch?v=zlkq4hDSKZo
+  const Ex(vaBicepCurlAnatomic, "standing kettlebell bicep curl",
+      [Equipment.kettlebell], [], handSqueeze),
   const Ex(vaBicepCurlPreacher, "preacher bicep curl machine",
       [Equipment.preacherCurlMachine], [], handSqueeze),
   const Ex(vaBicepCurlPreacher, "preacher bicep curl bench/barbell",
@@ -555,8 +567,7 @@ final List<Ex> exes = [
       handSqueeze),
   const Ex(vaBicepCurlConcentration, "concentration curl", [Equipment.dumbbell],
       [], handSqueeze), // unilateral
-  const Ex(vaBicepCurlLying, "lying bicep curl", [Equipment.dumbbell], [],
-      handSqueeze), // see https://www.youtube.com/watch?v=okwUqL1kbEA , https://www.youtube.com/watch?v=zlkq4hDSKZo
+
   const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine]),
   const Ex(
       vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [], handSqueeze),

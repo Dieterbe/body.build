@@ -242,9 +242,7 @@ const ratingJNDips = Rating(
 8:11 - Spider Curl - shortened position (not much stretch), can bump into bench. 3/7
 8:31 - Chin-Ups - back probably takes over. very accessible (only need your bodyweight) 4/7
 9:01 - old skool 21s - 3/7 , modified 21s 5/7
-10:12 - Standard Cable Curl - completely disagree with what he's saying here 5/7
-10:28 - Face Away Bayesian Cable Curl - with arms behind (and torso rigid): maximum stretch (also disagree with his tension point) 7/7
-11:11 - Bayesian Cable Curl Variation - arms behind and super high up - 5/7
+
 11:45 - Cheat Curl - momentum concentric, controlled eccentric 5/7
 12:30 - Strict Curl - suspect that it's a bit better than cheat curls, but we don't know for sure. 5/7
 14:15 - Preacher Hammer Curl 6/7
@@ -286,4 +284,27 @@ better not alternate (too much rest)
       Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=13m06s)''',
     modifiers: {'grip': 'hammer'},
   )
+];
+const ratingJNCableCurl = [
+  Rating(
+      source: Source.jeffNippard,
+      score: 5 / 7,
+      pg: [ProgramGroup.biceps],
+      comment:
+          '''jeff says "even tension throughout ROM". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m12s)''', // TODO: disagree
+      modifiers: {'style': 'standard'}),
+  Rating(
+      source: Source.jeffNippard,
+      score: 7 / 7,
+      pg: [ProgramGroup.biceps],
+      comment:
+          '''jeff says "even tension throughout ROM, but now with maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m28s)''', // TODO: disagree
+      modifiers: {'style': 'bayesian with arms behind'}),
+  Rating(
+      source: Source.jeffNippard,
+      score: 5 / 7,
+      pg: [ProgramGroup.biceps],
+      comment:
+          '''jeff says "max tension at maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=11m11s)''', // TODO: also not such a consistent tension curve
+      modifiers: {'style': 'bayesian with arms behind and up'})
 ];
