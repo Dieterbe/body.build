@@ -542,8 +542,7 @@ final List<Ex> exes = [
   const Ex(vaBicepCurlAnatomic, "cable bicep curl", [Equipment.cableTower], [],
       handSqueeze, []),
   const Ex(vaBicepCurlAnatomic, "dumbbell bicep curl", [Equipment.dumbbell],
-      [dbCurlGrip], handSqueeze, [ratingJNDBCurl]),
-
+      [dbCurlGrip], handSqueeze, ratingJNDBCurl),
   const Ex(vaBicepCurlAnatomic, "kettlebell bicep curl", [Equipment.kettlebell],
       [], handSqueeze),
   const Ex(vaBicepCurlPreacher, "preacher bicep curl machine",

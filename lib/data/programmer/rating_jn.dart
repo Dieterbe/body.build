@@ -219,16 +219,15 @@ const ratingJNDips = Rating(
 ''',
 );
 
-/***
- *    888888b.  8888888  .d8888b.  8888888888 8888888b.   .d8888b.  
- *    888  "88b   888   d88P  Y88b 888        888   Y88b d88P  Y88b 
- *    888  .88P   888   888    888 888        888    888 Y88b.      
- *    8888888K.   888   888        8888888    888   d88P  "Y888b.   
- *    888  "Y88b  888   888        888        8888888P"      "Y88b. 
- *    888    888  888   888    888 888        888              "888 
- *    888   d88P  888   Y88b  d88P 888        888        Y88b  d88P 
- *    8888888P" 8888888  "Y8888P"  8888888888 888         "Y8888P" 
- */
+///
+///    888888b.  8888888  .d8888b.  8888888888 8888888b.   .d8888b.
+///    888  "88b   888   d88P  Y88b 888        888   Y88b d88P  Y88b
+///    888  .88P   888   888    888 888        888    888 Y88b.
+///    8888888K.   888   888        8888888    888   d88P  "Y888b.
+///    888  "Y88b  888   888        888        8888888P"      "Y88b.
+///    888    888  888   888    888 888        888              "888
+///    888   d88P  888   Y88b  d88P 888        888        Y88b  d88P
+///    8888888P" 8888888  "Y8888P"  8888888888 888         "Y8888P"
 /*
  The Best And Worst Biceps Exercises 
  https://www.youtube.com/watch?v=GNO4OtYoCYk
@@ -248,7 +247,6 @@ const ratingJNDips = Rating(
 11:11 - Bayesian Cable Curl Variation - arms behind and super high up - 5/7
 11:45 - Cheat Curl - momentum concentric, controlled eccentric 5/7
 12:30 - Strict Curl - suspect that it's a bit better than cheat curls, but we don't know for sure. 5/7
-13:06 - Hammer Curl - favors a bit more brachialis over bicep - tension mainly at the mid point 5/7
 14:15 - Preacher Hammer Curl 6/7
 14:25 - Inverse Zottman Curl 5/7
 */
@@ -258,7 +256,7 @@ const ratingJNBBCurl = Rating(
   pg: [ProgramGroup.biceps],
   comment:
       '''tension mainly at the mid point. overloading, may hurt wrists. wasteful use of a barbell
-      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=1m56s)''',
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYkk&t=1m56s)''',
 );
 const ratingJNEZBarCurl = Rating(
   source: Source.jeffNippard,
@@ -266,22 +264,26 @@ const ratingJNEZBarCurl = Rating(
   pg: [ProgramGroup.biceps],
   comment:
       '''tension mainly at the mid point. easier on the wrists than barbell. good for 6-8 rep range
-      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=2m45s)''',
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=2m45s)''',
 );
-const ratingJNDBCurl = Rating(
-  source: Source.jeffNippard,
-  score: 5 / 7,
-  pg: [ProgramGroup.biceps],
-  comment:
-      '''tension mainly at the mid point. convenient. good against assymetries.
+const ratingJNDBCurl = [
+  Rating(
+    source: Source.jeffNippard,
+    score: 5 / 7,
+    pg: [ProgramGroup.biceps],
+    comment:
+        '''tension mainly at the mid point. convenient. good against assymetries.
 better not alternate (too much rest)
-      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=3m37s)''',
-);
-const ratingJNDBHammerCurl = Rating(
-  source: Source.jeffNippard,
-  score: 5 / 7,
-  pg: [ProgramGroup.biceps],
-  comment:
-      '''favors a bit more brachialis over bicep - tension mainly at the mid point
-      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=13m06s)''',
-);
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=3m37s)''',
+    modifiers: {'grip': 'hammer to supinated'},
+  ),
+  Rating(
+    source: Source.jeffNippard,
+    score: 5 / 7,
+    pg: [ProgramGroup.biceps],
+    comment:
+        '''favors a bit more brachialis over bicep - tension mainly at the mid point
+      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=13m06s)''',
+    modifiers: {'grip': 'hammer'},
+  )
+];

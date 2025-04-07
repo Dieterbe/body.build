@@ -315,3 +315,16 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
 * [Menno Henselmans breakdown of a 2024 study](https://www.instagram.com/menno.henselmans/p/DFxp8jezDfj/?img_index=1)
 ''',
     );
+
+const Modifier dbCurlGrip = Modifier('grip', 'hammer to supinated', {
+  'supinated': ({}, 'supinated grip throughout the entire movement'),
+  'hammer': ({}, 'neutral grip throughout the entire movement'),
+  'hammer to supinated': (
+    {},
+    'the bicep is a supinator. this adds a slightly higher demand on the bicep and is therefore the most commonly recommended form. see [form instruction](https://www.youtube.com/watch?v=ykJmrZ5v0Oo)'
+  ),
+  'hammer to supinated, inside heavier': (
+    {},
+    'grip the dumbbell on the outside, or use a custom dumbbell with more weight on the inside. The loaded supination exercises the bicep better (Arnold does this!)'
+  ),
+});
