@@ -10,6 +10,7 @@ enum Source {
 - what feels good to you - e.g. guillotine press vs bench press with bar further back
 - type of exact machine (e.g. machine press)
 we don't support all that nuance yet. for now let's just use the metrics
+glutes max upper/mid/lower
 */
 class Rating {
   final Source source;

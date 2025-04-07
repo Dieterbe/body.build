@@ -308,3 +308,75 @@ const ratingJNCableCurl = [
           '''jeff says "max tension at maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=11m11s)''', // TODO: also not such a consistent tension curve
       modifiers: {'style': 'bayesian with arms behind and up'})
 ];
+
+/// *
+///     .d88888b.  888     888        d8888 8888888b.   .d8888b.  
+///    d88P" "Y88b 888     888       d88888 888  "Y88b d88P  Y88b 
+///    888     888 888     888      d88P888 888    888 Y88b.      
+///    888     888 888     888     d88P 888 888    888  "Y888b.   
+///    888     888 888     888    d88P  888 888    888     "Y88b. 
+///    888 Y8b 888 888     888   d88P   888 888    888       "888 
+///    Y88b.Y8b88P Y88b. .d88P  d8888888888 888  .d88P Y88b  d88P 
+///     "Y888888"   "Y88888P"  d88P     888 8888888P"   "Y8888P"  
+///           Y8b                                                 
+///                                                                                                                        
+/*
+1:28 - Combo Squat Exercises 1/6 not limiting factor
+1:43 - Bosu Ball Squat - too unstable, no tension 0/7
+2:01 - Barbell Back Squat - high tension when deep. best for overload. uses spinal erectors. decent RF engagement, as long as you use 1 other exercise 7/7
+3:04 - Barbell Front Squat - even more tension on quads (more moment arm on knee), more strain on upper back. can be awkward for some. 5/7 (6/7 if comfortable)
+4:08 - Low-Bar Squat - more glutes, less quads. but still very productive 5/7
+4:36 - Hack Squat - like BB squat ,but faster and more stable 7/7
+5:07 - Pendulum Squat - similar to hack squat , more natural resistance path 7/7
+5:25 - Smith Machine Squat - just like bb squat, but more safe. 6/7
+5:50 - 45 Degree Leg Press - can't get as deep as a squat. 5/7
+6:17 -  Horizontal Leg Press - worse than 45 degree. less ROM. may max out the machine. 3/7
+6:39 - Lunge - more for glutes, though it does quads also. for quads 4/7, for glutes would be 5/7 or 6/7
+7:05 - Leg Extension - knee concerns debunked. can work RF, especially lean back. 5/7
+8:14 - Reverse Nordic - like leg extension but without machine. 5/7
+8:50 - Goblet Squat - similar to BB front squat. harder to overload 4/7
+9:21  - Jump Squat - for explosive, not muscle growth. 1/7
+9:34 - Bulgarian Split Squat - brutal, but work well. and prevents imbalances. 6/7
+10:03 - Deadlift - "quarter squat", more for glutes and overall strength. 3/7
+10:24 - Step Ups. - similarly not fun as BSQ, but less stretch and less stable. but good for glutes. 3/7
+10:40 - Pistol Squat - unstable and hard to overload. great for at home. 3/7
+10:56 - Sissy Squat - like reverse nordic. very challenging. but hard to load and more learning curve. might feel awkward. but super deep stretch. 4/7
+*/
+
+/***
+ *     .d8888b.  888      888     888 88888888888 8888888888  .d8888b.  
+ *    d88P  Y88b 888      888     888     888     888        d88P  Y88b 
+ *    888    888 888      888     888     888     888        Y88b.      
+ *    888        888      888     888     888     8888888     "Y888b.   
+ *    888  88888 888      888     888     888     888            "Y88b. 
+ *    888    888 888      888     888     888     888              "888 
+ *    Y88b  d88P 888      Y88b. .d88P     888     888        Y88b  d88P 
+ *     "Y8888P88 88888888  "Y88888P"      888     8888888888  "Y8888P"  
+ */   
+/*
+2:06 - Barbell Hip Thrust - very effective. for all of glute max. overloadable. can feel awkward. set up time. not a deep stretch.  4/7
+3:51 - Machine Hip Thrust - 5/7 , number one for middle glute.
+4:21 - Single-Leg Dumbbell Hip Thrust - more upper glute. 5/7
+4:43 - Glute Bridge - hip thrust but less ROM. 4/7
+5:01 - Frog Pumps - upper glute. hard to load. not a huge stretch 3/7
+5:25 - Barbell Back Squat - underrated.  can make it more glute focused with lower bar position, lean more forward and focus on hip drive. go deep. at least break pararrell. 5/7
+6:08 - Smith Machine Squat - feet more forward for more glute focus. balance not an issue. 5/7
+6:16 - Bulgarian Split Squat - deeper stretch. good for upper and middle. can focus moreon glute with foot more forward and forward lean and focus on hip drive. hard to overload. 5/7
+6:52 - Donkey Kicks - hard to overload. little tension. - 0/7
+7:11 - Fire Hydrants - low tension. more mobility focus. 0/7
+7:23 - Kickback - upper glute if you kick up/out diagonally. stable if you hold machine, or better yet, on bench. 5/7
+7:55 - Step Ups - upper glute due to stability. can get deep stretch with platform at knee level. 5/7
+8:20 - Machine Hip Abduction - fantastic for upper glutes. lean forward for deeper stretch - 30 degrees. 6/7
+9:03 - Cable Hip Abduction - not as stable, harder to overload. annoying to setup. 4/7
+9:11 - Lateral Banded Walk - zero tension when stretched. good warmup drill. 3/7
+9:25 - Walking Lunge - entire glute. deeper stretch with longer strides, lean 30 degree forward 7/7
+10:12 - Smith Machine Lunge - 5/7
+10:23 - Smith Machine Lunge (Front Foot Elevated) - more ROM. 6/7
+10:30 - Curtsy Lunge - upper glute / glute medius focus. hard to overload. 4/7
+10:51 - Deadlift - low stimulus to fatigue. good for strength, not so much hypertrophy. 4/7
+11:20 - Sumo Deadlift - probably more demand on glute med / upper glutes. 4/7
+11:41 - Romanian Deadlift - better for glute hypertrophy for low glute and hams. smashes glute max. very easy to overload. 5/7 top pick lower glute
+12:08 - 45-Degree Back Extension - love it. very active lengthened and shortened. 6/7
+12:33 - Cable Pull Through - okay. good for beginners. starts to feel awkward when you progress. 4/7
+12:45 - Kettlebell Swing - not a fan. more for cardio and explosive power. 2/7
+*/
