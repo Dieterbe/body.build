@@ -13,6 +13,7 @@ enum EquipmentCategory {
 enum Equipment {
   // Non-machine
   barbell("Barbell", EquipmentCategory.nonMachine),
+  ezbar("EZ bar", EquipmentCategory.nonMachine),
   dumbbell("Dumbbells", EquipmentCategory.nonMachine),
   kettlebell("Kettlebells", EquipmentCategory.nonMachine),
   trx("TRX (or similar)", EquipmentCategory.nonMachine),

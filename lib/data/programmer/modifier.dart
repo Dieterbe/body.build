@@ -14,40 +14,56 @@ class Modifier {
   final Map<String, Option> opts;
   final String? desc;
 
-  Modifier(this.name, this.defaultVal, this.opts, {this.desc});
+  const Modifier(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
-final flyThumbs = Modifier('thumbs', 'up', {
+const benchPressBenchAngle = Modifier('bench angle', '0', {
+  '-30': (
+    {},
+    '30° decline.',
+  ),
+  '-15': (
+    {},
+    '15° decline.',
+  ),
+  '0': ({}, 'flat bench'),
+  '15': ({}, '15° incline.'),
+  '30': ({}, '30° incline.'),
+  '45': ({}, '45° incline.'),
+}, desc: '''
+* Flat bench should stimulate lower & mid pecs well, and upper pecs relatively well.
+* Incline angles may recruit a bit more upper pecs without affecting lower/mid pec recruitment.
+* Decline angles are unlikely to be beneficial.
+
+Therefore, an incline is usually the best option for stimulating all pecs well, but the exact angle is up
+to personal anatomy and preference.
+''');
+const flyThumbs = Modifier('thumbs', 'up', {
   'up': (
     {
       ProgramGroup.lowerPecs:
-          const Assign(1, 'full ROM horizontal shoulder adduction'),
+          Assign(1, 'full ROM horizontal shoulder adduction'),
       ProgramGroup.upperPecs:
-          const Assign(1, 'full ROM horizontal shoulder adduction'),
+          Assign(1, 'full ROM horizontal shoulder adduction'),
       ProgramGroup.frontDelts:
-          const Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
+          Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
     },
     'shoulder externally rotated, recruits front delts less'
   ),
   'forward': (
     {
-      ProgramGroup.lowerPecs:
-          const Assign(1, 'full ROM horizontal shoulder flexion'),
-      ProgramGroup.upperPecs:
-          const Assign(1, 'full ROM horizontal shoulder flexion'),
+      ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder flexion'),
+      ProgramGroup.upperPecs: Assign(1, 'full ROM horizontal shoulder flexion'),
       ProgramGroup.frontDelts:
-          const Assign(1, 'full ROM horizontal shoulder flexion'),
+          Assign(1, 'full ROM horizontal shoulder flexion'),
     },
     'shoulders internally rotated, recruits front delts more'
   ),
 });
 
-final legCurlAnkleDorsiflexed = Modifier('ankle dorsiflexed', 'no', {
+const legCurlAnkleDorsiflexed = Modifier('ankle dorsiflexed', 'no', {
   'yes': (
-    {
-      ProgramGroup.gastroc:
-          const Assign(1, 'medium to long length knee flexion')
-    },
+    {ProgramGroup.gastroc: Assign(1, 'medium to long length knee flexion')},
     '',
   ),
   'no': ({}, ''),
@@ -56,19 +72,18 @@ final legCurlAnkleDorsiflexed = Modifier('ankle dorsiflexed', 'no', {
 * Study: [Differential effects of ankle position on isokinetic knee extensor and flexor strength gains during strength training](https://journals.sagepub.com/doi/10.3233/IES-160617)
 * [for the instagram lovers](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)''');
 
-final legCurlHipFlexion = Modifier('hip flexion', 'yes', {
+const legCurlHipFlexion = Modifier('hip flexion', 'yes', {
   'yes': (
     {
-      ProgramGroup.hamsShortHead: const Assign(1, 'full length'),
-      ProgramGroup.hams: const Assign(1, 'medium to long length knee flexion'),
+      ProgramGroup.hamsShortHead: Assign(1, 'full length'),
+      ProgramGroup.hams: Assign(1, 'medium to long length knee flexion'),
     },
     ''
   ),
   'no': (
     {
-      ProgramGroup.hamsShortHead: const Assign(1, 'full length'),
-      ProgramGroup.hams:
-          const Assign(1, 'knee flexion (short to medium length)'),
+      ProgramGroup.hamsShortHead: Assign(1, 'full length'),
+      ProgramGroup.hams: Assign(1, 'knee flexion (short to medium length)'),
     },
     ''
   ),
@@ -81,7 +96,7 @@ final legCurlHipFlexion = Modifier('hip flexion', 'yes', {
 /*
 NOTE: for now, we don't have different programgroups for upper/lower back, that would be a good use case here
 */
-final squatBarPlacement = Modifier('bar placement', 'high back', {
+const squatBarPlacement = Modifier('bar placement', 'high back', {
   'front': ({}, 'bar rests on front deltoids and clavicles'),
   'safety bar': (
     {},
@@ -95,12 +110,12 @@ Most people are stronger, the lower the bar placement. Therefore the low back ba
 The higher the bar placement, the less weight you need and the more you can target the back, in particular the upper back.
 ''');
 
-final bsqRearLeg = Modifier('rear leg', 'for balance', {
+const bsqRearLeg = Modifier('rear leg', 'for balance', {
   'for balance': ({}, 'for stability. no contraction'),
   'active': (
     {
       ProgramGroup.quadsRF:
-          const Assign(1, 'knee extension while stretched (rear leg)'),
+          Assign(1, 'knee extension while stretched (rear leg)'),
     },
     '''rear leg actively pushes and contributes to the movement.  
   A Great way to train the Rectus Femoris quadricep. (which is typically neglected in squats).  
@@ -108,49 +123,50 @@ final bsqRearLeg = Modifier('rear leg', 'for balance', {
   ),
 });
 
-final hipExtensionKneeFlexion = Modifier(
+const hipExtensionKneeFlexion = Modifier(
     'knee flexion',
     'no',
     {
       'yes': (
         {
           ProgramGroup.quadsVasti:
-              const Assign(0.5, 'knee extension during hip extension'),
+              Assign(0.5, 'knee extension during hip extension'),
         },
         'adds 0.5 quadriceps recruitment'
       ),
       'no': (
         {
           ProgramGroup.quadsVasti:
-              const Assign(0.15, 'knee extension during hip extension'),
+              Assign(0.15, 'knee extension during hip extension'),
         },
         'very minor quadriceps recruitment'
       ),
     },
     desc: 'Whether the movement involves knee flexion (and extension)');
 
-final legExtensionLean = Modifier('lean', 'upright', {
+const legExtensionLean = Modifier('lean', 'upright', {
   'upright': (
     {
-      ProgramGroup.quadsRF: const Assign(
-          0.25, 'knee extension, short length to active insufficency'),
+      ProgramGroup.quadsRF:
+          Assign(0.25, 'knee extension, short length to active insufficency'),
     },
     ''
   ),
   'back': (
     {
       ProgramGroup.quadsRF:
-          const Assign(1.0, 'knee extension, medium to long length'),
+          Assign(1.0, 'knee extension, medium to long length'),
     },
     ''
   ),
 },
     desc:
-        '''see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
+        '''leaning back stretches the Rectus Femoris and triggers more growth.  
+see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
 or [this one](https://www.instagram.com/menno.henselmans/p/C7O6ydlR7qV/?img_index=1)
 ''');
 
-final squatLowerLegMovement = Modifier('lower leg movement', 'still', {
+const squatLowerLegMovement = Modifier('lower leg movement', 'still', {
   'still': (
     {
       // assume no soleus contribution
@@ -161,14 +177,13 @@ final squatLowerLegMovement = Modifier('lower leg movement', 'still', {
   ),
   'back & forth': (
     {
-      ProgramGroup.soleus:
-          const Assign(0.5, 'ankle plantarflexion in limited ROM'),
+      ProgramGroup.soleus: Assign(0.5, 'ankle plantarflexion in limited ROM'),
     },
     'soleus contributes to the movement (0.5 recruitment)'
   ),
 });
 
-final deficit = Modifier('deficit', 'no', {
+const deficit = Modifier('deficit', 'no', {
   'max': ({}, ''),
   'small': ({}, ''),
   'no': ({}, ''),
@@ -177,27 +192,27 @@ final deficit = Modifier('deficit', 'no', {
         '''Whether the exercise is performed without a deficit, with a small or large/max deficit.  
 Does not affect recruitment, but increases ROM and probably gains''');
 
-Modifier lateralRaiseShoulderRotation = Modifier(
+Modifier lateralRaiseShoulderRotation = const Modifier(
     'wrist position',
     'pinkie up',
     {
       'pinkie up': (
         {
-          ProgramGroup.frontDelts: const Assign(0.25,
+          ProgramGroup.frontDelts: Assign(0.25,
               'deactivation from shoulder abduction (due to internal rotation)'),
         },
         ''
       ),
       'horizontal': (
         {
-          ProgramGroup.frontDelts: const Assign(0.75, 'shoulder abduction'),
+          ProgramGroup.frontDelts: Assign(0.75, 'shoulder abduction'),
         },
         ''
       ),
       'pinkie down': (
         {
           ProgramGroup.frontDelts:
-              const Assign(1, 'shoulder abduction (externally rotated)'),
+              Assign(1, 'shoulder abduction (externally rotated)'),
         },
         ''
       ),
@@ -205,21 +220,21 @@ Modifier lateralRaiseShoulderRotation = Modifier(
     desc:
         'The more you internally rotate the shoulder (raise the pinkie), the less you activate the front delts.');
 
-Modifier lateralRaiseCablePath = Modifier(
+Modifier lateralRaiseCablePath = const Modifier(
     'cable path',
     'in front',
     {
       'in front': (
         {
-          ProgramGroup.rearDelts: const Assign(1, 'transverse extension'),
-          ProgramGroup.frontDelts: const Assign(0.5, 'shoulder flexion'),
+          ProgramGroup.rearDelts: Assign(1, 'transverse extension'),
+          ProgramGroup.frontDelts: Assign(0.5, 'shoulder flexion'),
         },
         'biases more towards rear delts'
       ),
       'behind': (
         {
-          ProgramGroup.frontDelts: const Assign(1, 'shoulder flexion'),
-          ProgramGroup.rearDelts: const Assign(0.5, 'transverse extension'),
+          ProgramGroup.frontDelts: Assign(1, 'shoulder flexion'),
+          ProgramGroup.rearDelts: Assign(0.5, 'transverse extension'),
         },
         'biases more towards front delts'
       )
@@ -300,3 +315,32 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
 * [Menno Henselmans breakdown of a 2024 study](https://www.instagram.com/menno.henselmans/p/DFxp8jezDfj/?img_index=1)
 ''',
     );
+
+const Modifier dbCurlGrip = Modifier('grip', 'hammer to supinated', {
+  'supinated': ({}, 'supinated grip throughout the entire movement'),
+  'hammer': ({}, 'neutral grip throughout the entire movement'),
+  'hammer to supinated': (
+    {},
+    'the bicep is a supinator. this adds a slightly higher demand on the bicep and is therefore the most commonly recommended form. see [form instruction](https://www.youtube.com/watch?v=ykJmrZ5v0Oo)'
+  ),
+  'hammer to supinated, inside heavier': (
+    {},
+    'grip the dumbbell on the outside, or use a custom dumbbell with more weight on the inside. The loaded supination exercises the bicep better (Arnold does this!)'
+  ),
+});
+
+const Modifier cableCurlStyle = Modifier('style', 'standard', {
+  'standard': ({}, 'bar grip, face the cable stack. arms to the side'),
+  'bayesian': (
+    {},
+    'original "bayesian" cable curl. face away from the cable stack. arms to the side, move upper body such that cable always provides max tension throughout ROM. [in-depth article by menno henselmans](https://mennohenselmans.com/bayesian-curls/). As a unilateral movement, it takes more time'
+  ),
+  'bayesian with arms behind': (
+    {},
+    'unlike the original bayesian curl, keep arms behind and torso rigid. Jeff Nippard uses this form. claims it keeps even tension throughout ROM, but it doesn\'t, actually. But can be done with both arms at the same time'
+  ),
+  'bayesian with arms behind and up': (
+    {},
+    'more extreme version of bayesian with arms behind. extreme tension at the longest length. can also be done with both arms'
+  )
+});

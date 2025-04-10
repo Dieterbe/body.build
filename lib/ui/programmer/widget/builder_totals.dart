@@ -13,7 +13,7 @@ import 'package:bodybuild/data/developer_mode_provider.dart';
 import '../../../model/programmer/settings.dart';
 
 const helpMsg = '''
-## Musclegroup Set Counts
+## Set Counts per musclegroup
 
 In line with scientific research:
 * we use fractional (partial) volume counting
@@ -24,7 +24,7 @@ Examples:
 * a single set of pull-ups or bicep curls counts as 1 set of bicep recruitment. (because it recruits 100%)
 * a set of squats counts as 0% volume for hamstrings (because squats recruit hamstrings less than 40%)
 
-## Musclegroup Set Counts in Workout analysis vs Program analysis
+## Set Counts per musclegroup in Workout analysis vs Program analysis
 
 * Workout analysis set counts: the sum of all recruitments of all sets within a single workout (session).
 * Program analysis set counts: the sum of all workout totals in the program, adjusted for each workout's frequency (times per period in weeks), and compared to the volume goals from the set-up tab.
@@ -104,7 +104,7 @@ class BuilderTotalsWidget extends ConsumerWidget {
                         Expanded(
                           child: KVRow(
                             Text(
-                              'Number of sets per involved muscle groups',
+                              'Number of sets per number of involved muscle groups',
                               style: TextStyle(
                                 fontSize:
                                     MediaQuery.sizeOf(context).width / 100,
@@ -112,7 +112,7 @@ class BuilderTotalsWidget extends ConsumerWidget {
                               ),
                             ),
                             helpTitle:
-                                'Number of sets per involved muscle groups',
+                                'Number of sets per number of involved muscle groups',
                             help: '''
 Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  
 This enables you to see and optimize the balance between isolation and compound exercises.
@@ -142,7 +142,7 @@ This enables you to see and optimize the balance between isolation and compound 
                   children: [
                     KVRow(
                       Text(
-                        'Musclegroup set counts',
+                        'Set counts per musclegroup',
                         style: TextStyle(
                           fontSize: MediaQuery.sizeOf(context).width / 100,
                           fontWeight: FontWeight.bold,

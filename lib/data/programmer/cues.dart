@@ -1,3 +1,4 @@
+// Map<name, (default, help)
 typedef Cues = Map<String, (bool, String)>;
 
 const defaultCues = {
@@ -14,17 +15,15 @@ const handSqueeze = {
 };
 const standingCalfRaiseCues = {
   ...defaultCues,
-  ...{
-    'after failure -> lengthened partial reps': (
-      false,
-      "go until you can't move the weight. should stimulate more gastroc growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)"
-    ),
-    // he also says point toes out -> more inner growth, and vice versa, that's more of a potential future recruitment finetuning
-    'alternate toes in and toes out between sets': (
-      false,
-      "might stimulate more growth [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)"
-    ),
-  }
+  'after failure -> lengthened partial reps': (
+    false,
+    "go until you can't move the weight. should stimulate more gastroc growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)"
+  ),
+  // he also says point toes out -> more inner growth, and vice versa, that's more of a potential future recruitment finetuning
+  'alternate toes in and toes out between sets': (
+    false,
+    "might stimulate more growth [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)"
+  ),
 };
 
 const legExtensionCues = {
