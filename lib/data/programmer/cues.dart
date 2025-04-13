@@ -31,7 +31,7 @@ const legExtensionCues = {
   ...{
     'pull on handles': (
       false,
-      'pull on the handles to maybe get more tension on the quads'
+      "pull on the handles to maybe get more tension on the quads.  [It's also Jeff Nippard's number 1 leg extension tip](https://www.instagram.com/jeffnippard/reel/CvUz7JyIMtQ/i-meant-to-say-pull-yourself-down-by-pulling-up-on-the-handles-my-badmy-number-1/)"
     ),
   }
 };

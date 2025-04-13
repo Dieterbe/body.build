@@ -118,7 +118,7 @@ const bsqRearLeg = Modifier('rear leg', 'for balance', {
           Assign(1, 'knee extension while stretched (rear leg)'),
     },
     '''rear leg actively pushes and contributes to the movement.  
-  A Great way to train the Rectus Femoris quadricep. (which is typically neglected in squats).  
+  Great way to train the Rectus Femoris quadricep. (which is typically neglected in squats).  
   this style is less common, but Menno Henselmans recommends it. I (Dieter) do too.'''
   ),
 });
@@ -162,8 +162,11 @@ const legExtensionLean = Modifier('lean', 'upright', {
 },
     desc:
         '''leaning back stretches the Rectus Femoris and triggers more growth.  
-see [this instagram post by Menno Henselmans](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1) which explains the study.
-or [this one](https://www.instagram.com/menno.henselmans/p/C7O6ydlR7qV/?img_index=1)
+See this RCT: [The effects of hip flexion angle on quadriceps femoris muscle hypertrophy in the leg extension exercise](https://pubmed.ncbi.nlm.nih.gov/39699974/)
+
+Menno Henselmans clarifies this study:
+* [in this instagram post](https://www.instagram.com/menno.henselmans/p/DF2zq9sTWdo/?img_index=1)
+* [and in this one](https://www.instagram.com/menno.henselmans/p/C7O6ydlR7qV/?img_index=1)
 ''');
 
 const squatLowerLegMovement = Modifier('lower leg movement', 'still', {
@@ -240,7 +243,7 @@ Modifier lateralRaiseCablePath = const Modifier(
       )
     },
     desc:
-        'See [this youtube short](https://www.youtube.com/shorts/jc900Wb-bCY)');
+        'See [this youtube short by The Modern Meathead](https://www.youtube.com/shorts/jc900Wb-bCY)');
 
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
