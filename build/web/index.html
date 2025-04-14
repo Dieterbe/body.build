@@ -104,9 +104,31 @@
     }
     .footer {
       text-align: center;
-      padding: 2rem 0;
-      font-size: 0.9rem;
-      color: #666;
+      padding: 3rem 0;
+      background: #2c3e50;
+      color: white;
+    }
+    .footer p {
+      font-size: 1.1rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+    .footer strong {
+      color: #fff;
+      opacity: 1;
+    }
+    .footer a {
+      color: #2ecc71 !important;
+      font-weight: 500;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .footer a:hover {
+      border-color: currentColor;
+      background-color: transparent !important;
     }
     .lightbox {
       display: none;
@@ -226,6 +248,8 @@
           <li>No payment, no ads, no sign-up</li>
           <li>No personal data collection, no credit card details</li>
         </ul>
+        </div>      <div class="section-content">
+
         <blockquote class="personal-quote">
           <p>I took the <a href="https://mennohenselmans.com/online-pt-course/">Menno Henselmans Personal Training Course</a> — the most in-depth science-based personal trainer course in the world — and graduated <em>Magna cum laude</em> in 2025.  Now I just want to make an awesome service that anyone can freely use. Like Wikipedia, but for lifting.</p>
         </blockquote>
@@ -240,24 +264,16 @@
         </ul>
       </div>
     </section>
-    <section>
-      <div class="section-content">
-        <h2>Questions or comments?</h2>
-        <ul>
-          <li><strong>Email:</strong>  <a href="#" id="email-link" data-name="info" data-domain="body.build">info [at] body.build</a></li>
-<li><strong>Twitter/X</strong>  <a href="https://x.com/bodydotbuild">@bodydotbuild</a></li></ul>
-      </div>
-    </section>
   </div>
 
   <div class="lightbox" onclick="this.classList.remove('active')">
     <img src="" alt="Fullsize preview">
   </div>
-<!--
+
   <div class="footer">
-    <p>Just a project I'm passionate about — let's see how it evolves!</p>
+    <p>Get in touch! 👋 <strong>Email:</strong> <a href="#" id="email-link" data-name="info" data-domain="body.build">info [at] body.build</a> • <strong>Twitter/X</strong> <a href="https://x.com/bodydotbuild">@bodydotbuild</a></p>
   </div>
--->
+
   <script>
     // Email protection
     const emailLink = document.getElementById('email-link');

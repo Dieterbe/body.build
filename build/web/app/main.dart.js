@@ -50633,7 +50633,7 @@ I(a){var s=this,r=null,q=s.d,p=q.w,o=p!=null&&B.b.dI(p.a,new A.amF(s)),n=q.x,m=n
 q=A.a([A.dF(new A.vI(s.c,q.b,r),r,r)],t.p)
 if(o)q.push(B.ahS)
 if(o){p.toString
-q.push(new A.vb(p,s.e,r))}if(m)q.push(B.ahI)
+q.push(new A.vb(p,s.e,r))}if(m)q.push(B.ahJ)
 if(m){n.toString
 q.push(new A.vb(n,s.e,r))}return new A.aH(B.mP,A.adP(new A.aH(B.mP,A.b2(q,B.N,B.i,B.l,0),r),r),r)}}
 A.amF.prototype={
@@ -50862,7 +50862,7 @@ p===$&&A.b()
 p=A.T(new A.L(p,new A.avL(r,q,l+r,a),A.V(p).h("L<1,h>")),!0,t.l)
 p.push(B.aF)
 l=t.p
-p.push(A.bg(A.a([A.a0(A.m(m.d)+" \xb0",n,n,n,n,n,n,n),B.ahE,A.a0(A.m(m.e)+" \xb0",n,n,n,n,n,n,n)],l),B.n,B.fg,B.l,n,n))
+p.push(A.bg(A.a([A.a0(A.m(m.d)+" \xb0",n,n,n,n,n,n,n),B.ahF,A.a0(A.m(m.e)+" \xb0",n,n,n,n,n,n,n)],l),B.n,B.fg,B.l,n,n))
 p.push(B.aF)
 p.push(B.ahs)
 m=A.p(a).ax
@@ -51128,7 +51128,7 @@ A.ahE.prototype={
 $1(a){this.a.r.$1(a)},
 $S:80}
 A.ZU.prototype={
-I(a){return B.ahO}}
+I(a){return B.ahE}}
 A.vC.prototype={
 an(){return new A.a3i()}}
 A.a3i.prototype={
@@ -51339,7 +51339,7 @@ r.f=r.d=null},
 $S:0}
 A.afV.prototype={
 $1(a){var s,r,q
-if(J.dX(a.ghK()))return B.ahK
+if(J.dX(a.ghK()))return B.ahL
 s=this.a
 r=s.f
 q=J.ct(a.ghK(),new A.afP(),t.mz)
@@ -51633,7 +51633,7 @@ o=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.ac(a,B.u,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,
 n=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.ac(a,B.u,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,k)
 m=A.p(a)
 l=A.p(a).ax.k3.bn(0.7)
-return A.wj(A.xP(s,!1,i,new A.JD(A.a([A.b1w(A.aw(k,A.bg(A.a([A.er(B.VA,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahG],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44),A.b1w(A.aw(k,A.bg(A.a([A.er(B.Vu,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahY],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44)],h),new A.bK(r,k,p,q,k,k,B.O),B.L,m.ax.b,l,o,n,new A.b7(new A.aMe(a),t.b),k),B.a6k,72),B.ace)},
+return A.wj(A.xP(s,!1,i,new A.JD(A.a([A.b1w(A.aw(k,A.bg(A.a([A.er(B.VA,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahH],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44),A.b1w(A.aw(k,A.bg(A.a([A.er(B.Vu,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahY],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44)],h),new A.bK(r,k,p,q,k,k,B.O),B.L,m.ax.b,l,o,n,new A.b7(new A.aMe(a),t.b),k),B.a6k,72),B.ace)},
 aG(){this.aV()
 A.aTh("Example Screen dietertest")}}
 A.aMd.prototype={
@@ -51780,7 +51780,7 @@ $2(a,b){var s=null
 return A.dF(A.a0("Error: "+A.m(a),s,s,s,s,s,s,s),s,s)},
 $S:45}
 A.auQ.prototype={
-$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b_t(A.a([A.uK(!1,B.ahM,k,k,k,k,k,k,new A.auL(j),k,k),A.uK(!1,B.ahm,k,k,k,k,k,k,new A.auM(j),k,k),A.uK(!1,B.ahb,k,k,k,k,k,k,new A.auN(j),k,k)],i),B.aW,t.l)
+$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b_t(A.a([A.uK(!1,B.ahN,k,k,k,k,k,k,new A.auL(j),k,k),A.uK(!1,B.ahm,k,k,k,k,k,k,new A.auM(j),k,k),A.uK(!1,B.ahb,k,k,k,k,k,k,new A.auN(j),k,k)],i),B.aW,t.l)
 h=A.bg(A.a([new A.cS(28,B.ae,new A.r0("Available equipment",A.T(h,!0,A.l(h).h("n.E")),k),k)],i),B.n,B.i,B.l,k,k)
 s=A.a([],i)
 for(r=t.HL,q=t.k6,p=this.b,o=t.w,n=0;n<5;++n){m=B.ZC[n]
@@ -103634,7 +103634,7 @@ A.a63.prototype={}
 A.yJ.prototype={
 I(a){var s=null,r=this.c
 r=r==null?s:"GoException: "+r.a
-return A.ayc(!0,A.dF(A.b2(A.a([B.ahP,B.aF,A.a0(r==null?"page not found":r,s,s,s,s,s,s,s),B.aF,new A.KZ(new A.aj1(a),B.ahL,s)],t.p),B.n,B.dl,B.l,0),s,s),B.Z,!0)}}
+return A.ayc(!0,A.dF(A.b2(A.a([B.ahP,B.aF,A.a0(r==null?"page not found":r,s,s,s,s,s,s,s),B.aF,new A.KZ(new A.aj1(a),B.ahM,s)],t.p),B.n,B.dl,B.l,0),s,s),B.Z,!0)}}
 A.aj1.prototype={
 $0(){return A.TQ(this.a).Hg(0,"/",null)},
 $S:0}
@@ -114816,8 +114816,8 @@ B.f0=new A.ui(null,null,null,null,null,null,null)
 B.cv=new A.hy(B.R,null,null,B.f0,null)
 B.Xg=new A.UK(null)
 B.N7=new A.hy(B.R,null,null,B.Xg,null)
-B.ahH=new A.bd("No events yet",null,null,null,null,null,null,null,null,null,null)
-B.N8=new A.hy(B.R,null,null,B.ahH,null)
+B.ahI=new A.bd("No events yet",null,null,null,null,null,null,null,null,null,null)
+B.N8=new A.hy(B.R,null,null,B.ahI,null)
 B.Na=new A.y1(null,null,null,null,null,null,null,null,null)
 B.Nb=new A.Eb(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.rB=new A.fo(0,B.p)
@@ -116435,8 +116435,8 @@ B.GV=new A.AU(2,"square")
 B.a_D=A.a(s([B.pr,B.kZ,B.GV]),A.a6("t<AU>"))
 B.ahA=new A.bd("Meal",null,null,null,null,null,null,null,null,null,null)
 B.Ln=new A.hV("meal",B.ahA,t.Zx)
-B.ahJ=new A.bd("Workout",null,null,null,null,null,null,null,null,null,null)
-B.Ll=new A.hV("workout",B.ahJ,t.Zx)
+B.ahK=new A.bd("Workout",null,null,null,null,null,null,null,null,null,null)
+B.Ll=new A.hV("workout",B.ahK,t.Zx)
 B.a_G=A.a(s([B.Ln,B.Ll]),t.CK)
 B.fl=new A.k5(0,"controlModifier")
 B.fm=new A.k5(1,"shiftModifier")
@@ -117960,8 +117960,8 @@ B.bV=new A.Ah(3,"layout")
 B.a94=new A.Xq(0,"raster")
 B.a95=new A.Xq(1,"picture")
 B.ad4=new A.z(!0,null,null,null,null,null,12,B.b9,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ahN=new A.bd("COMBO",null,B.ad4,null,null,null,null,null,null,null,null)
-B.a96=new A.Ir(1,B.ahN,null)
+B.ahO=new A.bd("COMBO",null,B.ad4,null,null,null,null,null,null,null,null)
+B.a96=new A.Ir(1,B.ahO,null)
 B.FJ=new A.axL(null)
 B.kH=new A.b5(28,28)
 B.Kn=new A.dE(B.kH,B.kH,B.kH,B.kH)
@@ -118006,8 +118006,8 @@ B.Vw=new A.da(58335,"MaterialIcons",null,!1)
 B.VG=new A.hd(B.Vw,16,B.dK,null,null)
 B.il=new A.bE(4,null,null,null)
 B.Hl=new A.z(!0,B.dK,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ahF=new A.bd("New ComboSet",null,B.Hl,null,null,null,null,null,null,null,null)
-B.Ye=A.a(s([B.VG,B.il,B.ahF]),t.p)
+B.ahG=new A.bd("New ComboSet",null,B.Hl,null,null,null,null,null,null,null,null)
+B.Ye=A.a(s([B.VG,B.il,B.ahG]),t.p)
 B.a9g=new A.hM(B.ad,B.i,B.Y,B.n,null,B.bA,null,0,B.Ye,null)
 B.a9h=new A.It(1333)
 B.oR=new A.It(2222)
@@ -118676,14 +118676,14 @@ B.ahv=new A.bd("Assuming you use these exercise cues:",null,B.pL,null,null,null,
 B.ahw=new A.bd("Create",null,null,null,null,null,null,null,null,null,null)
 B.ahB=new A.bd("Conditions:",null,B.cM,null,null,null,null,null,null,null,null)
 B.ahD=new A.bd("Page Not Found",null,null,null,null,null,null,null,null,null,null)
-B.ahE=new A.bd("overall range",null,null,null,null,null,null,null,null,null,null)
-B.ahG=new A.bd("Set up",null,null,null,null,null,null,null,null,null,null)
-B.ahI=new A.bd("Passive insufficiency",null,B.cM,null,null,null,null,null,null,null,null)
-B.ahK=new A.bd("No workouts available. Create workouts in the Program Builder first.",null,null,null,null,null,null,null,null,null,null)
+B.ahE=new A.bd("version main-2acafdb (Mon Apr 14 18:42:10 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.ahF=new A.bd("overall range",null,null,null,null,null,null,null,null,null,null)
+B.ahH=new A.bd("Set up",null,null,null,null,null,null,null,null,null,null)
+B.ahJ=new A.bd("Passive insufficiency",null,B.cM,null,null,null,null,null,null,null,null)
+B.ahL=new A.bd("No workouts available. Create workouts in the Program Builder first.",null,null,null,null,null,null,null,null,null,null)
 B.ae4=new A.z(!0,B.r,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ahL=new A.bd("Go to home page",null,B.ae4,null,null,null,null,null,null,null,null)
-B.ahM=new A.bd("None",null,null,null,null,null,null,null,null,null,null)
-B.ahO=new A.bd("version main-a9bcccc (Mon Apr 14 14:35:32 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.ahM=new A.bd("Go to home page",null,B.ae4,null,null,null,null,null,null,null,null)
+B.ahN=new A.bd("None",null,null,null,null,null,null,null,null,null,null)
 B.ahP=new A.bd("Page Not Found",null,B.cM,null,null,null,null,null,null,null,null)
 B.ahQ=new A.bd("Create New",null,null,null,null,null,null,null,null,null,null)
 B.Hq=new A.bd("Duplicate",null,null,null,null,null,null,null,null,null,null)
