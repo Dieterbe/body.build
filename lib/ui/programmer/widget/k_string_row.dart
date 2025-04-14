@@ -21,7 +21,7 @@ class KStringRow extends StatelessWidget {
             ? SizedBox(width: 40 + spacer)
             : InfoButton(
                 title: title,
-                child: markdown(help!),
+                child: markdown(help!, context),
               ),
         Flexible(flex: 8, child: Container()),
       ],

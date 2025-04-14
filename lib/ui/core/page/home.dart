@@ -42,7 +42,7 @@ To see it, hit the "articulations" button, and then click on "shoulder flexion".
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            markdown(markdownSource),
+            markdown(markdownSource, context),
             const SizedBox(height: 32),
             TextButton(
               onPressed: () {

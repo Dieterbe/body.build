@@ -1,10 +1,9 @@
+import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/data/programmer/modifier.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 
 class ExModifiersCuesWidget extends StatefulWidget {
@@ -155,8 +154,7 @@ class _ExModifiersCuesWidgetState extends State<ExModifiersCuesWidget> {
                       showDialog<void>(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: MarkdownBody(
-                            data: '''# Exercise modifiers
+                          content: markdown('''# Exercise modifiers
 Exercise modifiers and cues let you customize how an exercise is performed.
 
 Modifiers may affect:
@@ -173,25 +171,7 @@ They are in this application such that:
 
 
 In the future, you'll be able to add any cues you can come up with.
-''',
-                            styleSheet: MarkdownStyleSheet(
-                              p: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.width / 110,
-                                color: Theme.of(context).colorScheme.onSurface,
-                                height: 1.4,
-                              ),
-                              listBullet: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.width / 110,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              listBulletPadding:
-                                  const EdgeInsets.only(right: 6),
-                              listIndent: 12,
-                              blockSpacing: 8,
-                            ),
-                          ),
+''', context),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
@@ -392,66 +372,9 @@ In the future, you'll be able to add any cues you can come up with.
                                                                   .only(
                                                                   left: 32,
                                                                   top: 6),
-                                                          child: MarkdownBody(
-                                                            data: optionDesc,
-                                                            styleSheet:
-                                                                MarkdownStyleSheet(
-                                                              p: TextStyle(
-                                                                fontSize: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    120,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .hintColor,
-                                                                height: 1.4,
-                                                              ),
-                                                              a: TextStyle(
-                                                                fontSize: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    120,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .primary,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                              listBullet:
-                                                                  TextStyle(
-                                                                fontSize: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    120,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .hintColor,
-                                                              ),
-                                                              listBulletPadding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      right: 6),
-                                                              listIndent: 12,
-                                                              blockSpacing: 8,
-                                                            ),
-                                                            onTapLink: (text,
-                                                                href, title) {
-                                                              if (href !=
-                                                                  null) {
-                                                                launchUrl(
-                                                                    Uri.parse(
-                                                                        href));
-                                                              }
-                                                            },
-                                                          ),
+                                                          child: markdown(
+                                                              optionDesc,
+                                                              context),
                                                         ),
                                                     ],
                                                   ),
@@ -460,52 +383,10 @@ In the future, you'll be able to add any cues you can come up with.
                                       if (modifier.desc != null) ...[
                                         const SizedBox(height: 16),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 2),
-                                          child: MarkdownBody(
-                                            data: modifier.desc!,
-                                            styleSheet: MarkdownStyleSheet(
-                                              p: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    110,
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                                height: 1.4,
-                                              ),
-                                              a: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    110,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                decoration: TextDecoration.none,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              listBullet: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    110,
-                                                color:
-                                                    Theme.of(context).hintColor,
-                                              ),
-                                              listBulletPadding:
-                                                  const EdgeInsets.only(
-                                                      right: 6),
-                                              listIndent: 12,
-                                              blockSpacing: 8,
-                                            ),
-                                            onTapLink: (text, href, title) {
-                                              if (href != null) {
-                                                launchUrl(Uri.parse(href));
-                                              }
-                                            },
-                                          ),
-                                        ),
+                                            padding:
+                                                const EdgeInsets.only(left: 2),
+                                            child: markdown(
+                                                modifier.desc!, context)),
                                       ],
                                     ],
                                   ),
@@ -582,25 +463,9 @@ In the future, you'll be able to add any cues you can come up with.
                                 ),
                                 if (entry.value.$2.isNotEmpty) ...[
                                   const SizedBox(height: 8),
-                                  MarkdownBody(
-                                    data: entry.value.$2,
-                                    onTapLink: (text, href, title) async {
-                                      if (href != null) {
-                                        final uri = Uri.parse(href);
-                                        if (await canLaunchUrl(uri)) {
-                                          await launchUrl(uri);
-                                        }
-                                      }
-                                    },
-                                    styleSheet: MarkdownStyleSheet(
-                                      p: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width /
-                                                110,
-                                        color: Theme.of(context).hintColor,
-                                        height: 1.4,
-                                      ),
-                                    ),
+                                  markdown(
+                                    entry.value.$2,
+                                    context,
                                   ),
                                 ],
                               ],
