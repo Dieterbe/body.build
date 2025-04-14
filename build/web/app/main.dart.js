@@ -383,7 +383,7 @@ bjS(){var s,r=A.hr().b
 if(r==null)s=null
 else{r=r.canvasKitVariant
 if(r==null)r=null
-s=r}r=A.bnp(A.bcx(B.Zp,s==null?"auto":s))
+s=r}r=A.bnp(A.bcx(B.Zq,s==null?"auto":s))
 return new A.L(r,new A.aQK(),A.V(r).h("L<1,c>"))},
 bmo(a,b){return b+a},
 aar(){var s=0,r=A.K(t.e),q,p,o,n,m
@@ -8372,7 +8372,7 @@ aFR:function aFR(a){this.a=a},
 aFN:function aFN(a){this.a=a},
 aFO:function aFO(a,b){this.a=a
 this.b=b},
-b5z(a){return A.aZ3(16,B.Z3,1/0,16,5e-324,0,0,a)},
+b5z(a){return A.aZ3(16,B.Z4,1/0,16,5e-324,0,0,a)},
 blk(a,b,c){var s=A.aUS(B.b.fC(a.gyR(),new A.aRu(b)).r,new A.aRv(c))
 if(s!=null)return s
 if(a instanceof A.zC)return A.aUS(a.f,new A.aRw(c))
@@ -22288,7 +22288,7 @@ r.toString
 A.e6(r)
 q=a.i(0,"swipeEdge")
 q.toString
-return new A.Wl(s,r,B.Zc[A.bS(q)])},
+return new A.Wl(s,r,B.Zd[A.bS(q)])},
 JA:function JA(a,b){this.a=a
 this.b=b},
 Wl:function Wl(a,b,c){this.a=a
@@ -24557,7 +24557,7 @@ q=b.as
 if(a.as!==q)return q?-1:1
 return 0},
 bcl(a,b){var s=A.V(b).h("L<1,eQ>")
-return A.bbD(!0,A.T(new A.L(b,new A.ais(),s),!0,s.h("ag.E")),a,B.ZR,!0,B.Rf,null)},
+return A.bbD(!0,A.T(new A.L(b,new A.ais(),s),!0,s.h("ag.E")),a,B.ZS,!0,B.Rf,null)},
 bcj(a){a.bU()
 a.br(A.b4N())},
 Fl(a){var s=a.a,r=s instanceof A.uT?s:null
@@ -25117,7 +25117,7 @@ _.as=!0
 _.at=!1
 _.$ti=d},
 G1(a,b){var s
-if(a.j(0,b))return new A.Rs(B.a__)
+if(a.j(0,b))return new A.Rs(B.a_0)
 s=A.a([],t.fJ)
 A.cf("debugDidFindAncestor")
 a.mx(new A.amq(b,A.aP(t.u),s))
@@ -31058,7 +31058,7 @@ W_(a,b){var s=A.a([],t.H9)
 B.b.E(s,a)
 return new A.hI(s,b)},
 b5g(a,b){var s,r,q,p
-if(a==="")return A.W_(B.ZO,b==null?B.cC:b)
+if(a==="")return A.W_(B.ZP,b==null?B.cC:b)
 s=new A.aCp(a,B.eF,a.length)
 s.xh()
 r=A.a([],t.H9)
@@ -35681,7 +35681,7 @@ a7U(){var s=this.Q
 s===$&&A.b()
 return s},
 R0(a,b,c,d){var s,r,q,p
-if(a<0||b<0)return B.ZZ
+if(a<0||b<0)return B.a__
 s=this.a
 s===$&&A.b()
 s=s.a
@@ -35700,7 +35700,7 @@ l.push(new A.i9(n[0],n[1],n[2],n[3],B.ns[m]))}return l},
 ef(a){var s,r=this.a
 r===$&&A.b()
 r=r.a.getGlyphPositionAtCoordinate(a.a,a.b)
-s=B.Ze[B.d.aw(r.affinity.value)]
+s=B.Zf[B.d.aw(r.affinity.value)]
 return new A.aN(B.d.aw(r.pos),s)},
 a7X(a){var s=this.a
 s===$&&A.b()
@@ -37256,7 +37256,7 @@ if(g.b){q=t.f
 f=q.a(J.bj(q.a(B.dA.iw(a0)),"data"))
 e=A.cI(J.bj(f,"message"))
 if(e!=null&&e.length!==0){d=A.Uw(f,"assertiveness")
-g.a.a1d(e,B.Ys[d==null?0:d])}}c.hm(a1,B.dA.cQ(!0))
+g.a.a1d(e,B.Yt[d==null?0:d])}}c.hm(a1,B.dA.cQ(!0))
 return
 case"flutter/navigation":q=t.e8
 if(q.a(c.gdR().b.i(0,0))!=null)q.a(c.gdR().b.i(0,0)).Oa(a0).bR(new A.aiP(c,a1),t.P)
@@ -39024,14 +39024,14 @@ ako(){var s=this,r=s.r
 if(r==null){r=s.r=new A.Dt(s.c)
 r.d=new A.aiZ(s)}return r},
 a5U(a){var s,r=this
-if(B.b.m(B.Zt,a.type)){s=r.ako()
+if(B.b.m(B.Zu,a.type)){s=r.ako()
 s.toString
 s.sNd(r.c.$0().I6(5e5))
 if(r.f!==B.uI){r.f=B.uI
 r.XS()}}return r.d.a.a9Z(a)},
 XS(){var s,r
 for(s=this.w,r=0;r<s.length;++r)s[r].$1(this.f)},
-a9Y(a){if(B.b.m(B.ZF,a))return this.f===B.jM
+a9Y(a){if(B.b.m(B.ZG,a))return this.f===B.jM
 return!1}}
 A.aj_.prototype={
 $0(){return new A.iq(Date.now(),0,!1)},
@@ -50592,7 +50592,7 @@ q=A.Ky(B.a8,A.T(new A.L(i,new A.abH(),q),!0,q.h("ag.E")),B.fJ,8,8)
 p=A.a0("Involved muscles",n,n,n,n,A.p(a).p1.r,n,n)
 o=l.b
 o===$&&A.b()
-o=o.length!==0?new A.WF(l,n):B.ahk
+o=o.length!==0?new A.WF(l,n):B.ahl
 o=A.a([s,B.jp,B.aw,r,B.aw,q,p,B.jp,B.aw,new A.eg(B.KF,o,n),A.a0("Insufficient muscles/heads",n,n,n,n,A.p(a).p1.r,n,n)],t.p)
 if(!f.gaa(0).t())o.push(B.ai2)
 if(!f.ga4(0)){g=g.h("cB<n.E,vc>")
@@ -50689,7 +50689,7 @@ $1(a){var s=null
 return new A.aH(B.b_,A.adP(new A.aH(B.b_,new A.Vp(a,s),s),s),s)},
 $S:533}
 A.UK.prototype={
-I(a){var s=A.amm(B.Yt,0,t.N)
+I(a){var s=A.amm(B.Yu,0,t.N)
 s=A.rb(s,new A.anp(),A.l(s).h("n.E"),t.r8)
 return A.Ky(B.a8,A.T(s,!0,A.l(s).h("n.E")),B.fJ,0,4)}}
 A.anp.prototype={
@@ -50704,7 +50704,7 @@ if(n!=null)o.push(A.uw(A.a([B.QV,A.qs(A.a0(A.m4(A.m3(n.b)),r,r,r,r,r,r,r))],t.sa
 if(q instanceof A.J4){n=q.f
 n===$&&A.b()
 B.b.E(o,A.b4S(n))}p=A.a([p,A.b5z(o)],t.p)
-if(q.c)p.push(B.ahn)
+if(q.c)p.push(B.aho)
 p.push(B.aF)
 o=q instanceof A.zC
 if(o)p.push(A.a0("Heads",r,r,r,r,A.p(a).p1.w,r,r))
@@ -50813,7 +50813,7 @@ s.sav(0,this.c)
 a.eS(this.b,s)},
 eL(a){return!0}}
 A.vb.prototype={
-I(a){var s=null,r=A.a([B.ahA],t.p),q=this.c,p=q.a
+I(a){var s=null,r=A.a([B.ahB],t.p),q=this.c,p=q.a
 B.b.E(r,new A.L(p,new A.amE(this),A.V(p).h("L<1,h>")))
 q=q.b
 p=q!=null
@@ -50862,12 +50862,12 @@ p===$&&A.b()
 p=A.T(new A.L(p,new A.avL(r,q,l+r,a),A.V(p).h("L<1,h>")),!0,t.l)
 p.push(B.aF)
 l=t.p
-p.push(A.bg(A.a([A.a0(A.m(m.d)+" \xb0",n,n,n,n,n,n,n),B.ahD,A.a0(A.m(m.e)+" \xb0",n,n,n,n,n,n,n)],l),B.n,B.fg,B.l,n,n))
+p.push(A.bg(A.a([A.a0(A.m(m.d)+" \xb0",n,n,n,n,n,n,n),B.ahE,A.a0(A.m(m.e)+" \xb0",n,n,n,n,n,n,n)],l),B.n,B.fg,B.l,n,n))
 p.push(B.aF)
-p.push(B.ahr)
+p.push(B.ahs)
 m=A.p(a).ax
 o=m.ch
-p.push(A.b2(A.a([A.bg(A.a([A.aw(n,n,B.j,o==null?m.z:o,n,n,16,n,n,16),B.aW,B.ahc],l),B.n,B.i,B.Y,n,n),A.bg(A.a([A.aw(n,n,B.j,B.mu,n,n,16,n,n,16),B.aW,B.ah7],l),B.n,B.i,B.Y,n,n),B.a9d,B.a9b],l),B.N,B.i,B.l,0))
+p.push(A.b2(A.a([A.bg(A.a([A.aw(n,n,B.j,o==null?m.z:o,n,n,16,n,n,16),B.aW,B.ahc],l),B.n,B.i,B.Y,n,n),A.bg(A.a([A.aw(n,n,B.j,B.mu,n,n,16,n,n,16),B.aW,B.ah7],l),B.n,B.i,B.Y,n,n),B.a9d,B.a9c],l),B.N,B.i,B.l,0))
 return A.aw(n,new A.aH(B.bN,A.b2(p,B.n,B.i,B.l,0),n),B.j,s,n,n,n,n,n,n)},
 $S:196}
 A.avL.prototype={
@@ -51041,7 +51041,7 @@ s.CR(this.b,B.b.gR(r))},
 $S:0}
 A.afc.prototype={
 $1(a){var s=null,r=this.b,q=this.c,p=A.t_(!0,B.iS,r,B.Wm,s,s,q,s,s,s,s,new A.af9(this.a))
-return A.q1(A.a([A.iA(!1,B.ir,s,s,s,s,s,s,new A.afa(a),s,s),A.aji(B.ahv,new A.afb(q,a,r))],t.p),p,s,B.ahP,s)},
+return A.q1(A.a([A.iA(!1,B.ir,s,s,s,s,s,s,new A.afa(a),s,s),A.aji(B.ahw,new A.afb(q,a,r))],t.p),p,s,B.ahQ,s)},
 $S:64}
 A.af9.prototype={
 $1(a){if(a==null||a.length===0)return"Name cannot be empty"
@@ -51128,7 +51128,7 @@ A.ahE.prototype={
 $1(a){this.a.r.$1(a)},
 $S:80}
 A.ZU.prototype={
-I(a){return B.ahG}}
+I(a){return B.ahM}}
 A.vC.prototype={
 an(){return new A.a3i()}}
 A.a3i.prototype={
@@ -51315,7 +51315,7 @@ return A.q1(A.a([A.iA(!1,B.ir,s,s,s,s,s,s,new A.ag7(a),s,s),A.iA(!1,B.ai4,s,s,s,
 $S:64}
 A.ag9.prototype={
 $2(a,b){var s=null,r="\u2022",q=this.b,p=q.ds($.Ql(),t.Df),o=this.a,n=t.N,m=t.p,l=A.a([A.aVt(new A.afT(o,b),B.a_G,A.cw([o.a],n),n),B.aF],m)
-if(o.a==="workout"){n=A.a([A.aVt(new A.afU(o,b),B.YW,A.cw([o.e],n),n),B.aF],m)
+if(o.a==="workout"){n=A.a([A.aVt(new A.afU(o,b),B.YX,A.cw([o.e],n),n),B.aF],m)
 if(o.e==="existing")B.b.E(n,A.a([A.h5(p,new A.afV(o,q,b),new A.ag_(),new A.ag0(),t.oM,t.l)],m))
 else B.b.E(n,A.a([A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wq,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,s,s,s,s,1,s,s,!1,r,s,new A.ag1(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),B.aF,A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wg,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.ag2(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s)],m))
 B.b.E(l,n)}else B.b.E(l,A.a([A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wi,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,s,s,s,s,1,s,s,!1,r,s,new A.ag3(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),B.aF,A.bg(A.a([A.c0(A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wo,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.ag4(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),1),B.aW,A.c0(A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wk,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.ag5(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),1)],m),B.n,B.i,B.l,s,s),B.aw,A.bg(A.a([A.c0(A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wl,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.ag6(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),1),B.aW,A.c0(A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wn,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.afW(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),1)],m),B.n,B.i,B.l,s,s),B.aw,A.bg(A.a([A.c0(A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wh,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.afX(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),1),B.aW,A.c0(A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wp,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.afY(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s),1)],m),B.n,B.i,B.l,s,s),B.aw,A.ia(!0,B.H,!1,s,!0,B.J,s,A.iT(),s,s,s,s,s,s,2,B.Wd,B.I,!0,s,!0,s,!1,s,B.aM,s,s,s,B.ca,s,s,s,1,s,s,!1,r,s,new A.afZ(o),s,s,s,!1,s,s,!1,s,!0,s,B.bi,s,s,B.aU,B.aN,s,s,s,s,s,s,s,!0,B.a6,s,B.bk,s,s,s,s)],m))
@@ -51633,7 +51633,7 @@ o=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.ac(a,B.u,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,
 n=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.ac(a,B.u,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,k)
 m=A.p(a)
 l=A.p(a).ax.k3.bn(0.7)
-return A.wj(A.xP(s,!1,i,new A.JD(A.a([A.b1w(A.aw(k,A.bg(A.a([A.er(B.VA,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahF],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44),A.b1w(A.aw(k,A.bg(A.a([A.er(B.Vu,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahY],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44)],h),new A.bK(r,k,p,q,k,k,B.O),B.L,m.ax.b,l,o,n,new A.b7(new A.aMe(a),t.b),k),B.a6n,72),B.ace)},
+return A.wj(A.xP(s,!1,i,new A.JD(A.a([A.b1w(A.aw(k,A.bg(A.a([A.er(B.VA,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahG],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44),A.b1w(A.aw(k,A.bg(A.a([A.er(B.Vu,k,k,A.ac(a,k,j).w.a.a/70),B.aW,B.ahY],h),B.n,B.dl,B.l,k,k),B.j,k,k,k,k,k,B.ju,k),44)],h),new A.bK(r,k,p,q,k,k,B.O),B.L,m.ax.b,l,o,n,new A.b7(new A.aMe(a),t.b),k),B.a6k,72),B.ace)},
 aG(){this.aV()
 A.aTh("Example Screen dietertest")}}
 A.aMd.prototype={
@@ -51678,7 +51678,7 @@ p=A.a([A.bg(A.a([B.GO,B.UE,new A.cS(55,B.ae,p,q),B.GO],o),B.e8,B.i,B.l,q,q)],o)
 s=r.b
 B.b.E(p,J.ct(a.ghK(),new A.aux(s,r.c),t.l))
 if(J.f0(a.ghK()))p.push(A.aYx(a.ghK(),s))
-if(J.f0(a.ghK()))p.push(new A.aH(B.S4,A.bg(A.a([A.bco(B.VN,B.ahq,new A.auy(r.a,r.d,a))],o),B.n,B.dl,B.l,q,q),q))
+if(J.f0(a.ghK()))p.push(new A.aH(B.S4,A.bg(A.a([A.bco(B.VN,B.ahr,new A.auy(r.a,r.d,a))],o),B.n,B.dl,B.l,q,q),q))
 p.push(B.HH)
 return A.b2(p,B.n,B.i,B.l,0)},
 $S:423}
@@ -51780,10 +51780,10 @@ $2(a,b){var s=null
 return A.dF(A.a0("Error: "+A.m(a),s,s,s,s,s,s,s),s,s)},
 $S:45}
 A.auQ.prototype={
-$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b_t(A.a([A.uK(!1,B.ahM,k,k,k,k,k,k,new A.auL(j),k,k),A.uK(!1,B.ahl,k,k,k,k,k,k,new A.auM(j),k,k),A.uK(!1,B.ahb,k,k,k,k,k,k,new A.auN(j),k,k)],i),B.aW,t.l)
+$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b_t(A.a([A.uK(!1,B.ahN,k,k,k,k,k,k,new A.auL(j),k,k),A.uK(!1,B.ahm,k,k,k,k,k,k,new A.auM(j),k,k),A.uK(!1,B.ahb,k,k,k,k,k,k,new A.auN(j),k,k)],i),B.aW,t.l)
 h=A.bg(A.a([new A.cS(28,B.ae,new A.r0("Available equipment",A.T(h,!0,A.l(h).h("n.E")),k),k)],i),B.n,B.i,B.l,k,k)
 s=A.a([],i)
-for(r=t.HL,q=t.k6,p=this.b,o=t.w,n=0;n<5;++n){m=B.ZB[n]
+for(r=t.HL,q=t.k6,p=this.b,o=t.w,n=0;n<5;++n){m=B.ZC[n]
 l=A.ac(p,B.u,o).w
 l=A.a([A.a0(m.c,k,k,k,k,new A.z(!0,k,k,k,k,k,l.a.a/100,B.b9,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k),k,k),B.aw],i)
 B.b.E(l,new A.cB(new A.at(B.k_,new A.auO(m),r),new A.auP(a,j),q))
@@ -51813,7 +51813,7 @@ A.Ww.prototype={
 fe(a,b){return A.h5(b.ds($.nW(),t.BW),new A.auX(this,b,a),new A.auY(),new A.auZ(),t.m8,t.l)}}
 A.auX.prototype={
 $1(a8){var s,r,q,p,o,n,m,l,k,j=null,i="Body Fat",h="Activity Level",g="Recovery Factor",f="Trainee level",e="Energy balance",d="TEF multiplier",c="AT multiplier",b=this.b.bg(0,$.nW().geq(),t.lf),a=a8.glG(a8),a0=a8.gaS(a8),a1=a8.gxG(),a2=a8.gmI()===B.dr?10.8:0,a3=this.c,a4=t.w,a5=A.c0(A.aw(B.aI,A.a0("Sex",j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),a6=a8.gmI(),a7=t.zQ
-a6=A.qA(j,j,!0,A.T(new A.L(B.Zb,new A.auT(a3),a7),!0,a7.h("ag.E")),b.ga9z(),j,a6,t.lE)
+a6=A.qA(j,j,!0,A.T(new A.L(B.Zc,new A.auT(a3),a7),!0,a7.h("ag.E")),b.ga9z(),j,a6,t.lE)
 a7=A.c0(A.aw(B.aI,A.a0("Age",j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10)
 s=this.a
 r=A.pR(s.e,"years",B.d.k(a8.gxG()),a3,b.ga8V(),b.gaxe())
@@ -51831,11 +51831,11 @@ a1=A.c0(A.aw(B.aI,A.a0(h,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.
 a0=a8.gLM()
 a=t.yG
 k=t.p
-a0=A.c0(A.b2(A.a([B.Xc,new A.es(a5,a6,j,j,j,j),B.c9,new A.es(a7,r,j,j,j,j),B.c9,new A.es(q,p,j,j,j,j),B.c9,new A.es(o,n,j,j,j,j),B.c9,new A.es(m,l,"## Men\n~3% essential body fat\n\n## Women\n~12% essential body fat\n\n## Estimate via BMI\n"+a2+"  \nComputed based on BMI, age, and sex, according to Deurenberg et al. (1991)  \nNot accurate for trained individuals with a good amount of lean body mass.  \nBut useful ballpark for untrained individuals. I would not rely on this to calculate BMR, however.\n",j,i,j),B.c9,new A.es(a1,A.qA(j,j,!0,A.T(new A.L(B.ZC,new A.auU(a3),a),!0,a.h("ag.E")),new A.auV(b),j,a0,t.W8),"Physical Activity Level (PAL) describes your daily activity level **outside of workouts**:\n\n### Sedentary:\n- Office job with standard life chores\n- Mostly sitting throughout the day\n- Limited physical activity outside of workouts (walking the dog, groceries, etc)\n\n### Somewhat active:\n- Part-time physical job (e.g. part time personal trainer)\n- Long daily bicycle commute\n- Regular standing or walking throughout the day\n\n### Active:\n- Full-time physical job (e.g. full-time personal trainer)\n- On your feet most of the day\n- Regular physical tasks or movement\n\n### Very active:\n- Full day of manual labor\n- Constant physical activity\n",j,h,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(g,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.y,"",B.d.ao(a8.gPW(),1),a3,b.ga9s(),b.gaHu()),"Recovery quality: 0.5 - 1.2  \nPrimarily based on lifestyle factors such as stress level and sleep quality\n",j,g,j)],k),B.n,B.i,B.l,0),10)
+a0=A.c0(A.b2(A.a([B.Xc,new A.es(a5,a6,j,j,j,j),B.c9,new A.es(a7,r,j,j,j,j),B.c9,new A.es(q,p,j,j,j,j),B.c9,new A.es(o,n,j,j,j,j),B.c9,new A.es(m,l,"## Men\n~3% essential body fat\n\n## Women\n~12% essential body fat\n\n## Estimate via BMI\n"+a2+"  \nComputed based on BMI, age, and sex, according to Deurenberg et al. (1991)  \nNot accurate for trained individuals with a good amount of lean body mass.  \nBut useful ballpark for untrained individuals. I would not rely on this to calculate BMR, however.\n",j,i,j),B.c9,new A.es(a1,A.qA(j,j,!0,A.T(new A.L(B.ZD,new A.auU(a3),a),!0,a.h("ag.E")),new A.auV(b),j,a0,t.W8),"Physical Activity Level (PAL) describes your daily activity level **outside of workouts**:\n\n### Sedentary:\n- Office job with standard life chores\n- Mostly sitting throughout the day\n- Limited physical activity outside of workouts (walking the dog, groceries, etc)\n\n### Somewhat active:\n- Part-time physical job (e.g. part time personal trainer)\n- Long daily bicycle commute\n- Regular standing or walking throughout the day\n\n### Active:\n- Full-time physical job (e.g. full-time personal trainer)\n- On your feet most of the day\n- Regular physical tasks or movement\n\n### Very active:\n- Full day of manual labor\n- Constant physical activity\n",j,h,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(g,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.y,"",B.d.ao(a8.gPW(),1),a3,b.ga9s(),b.gaHu()),"Recovery quality: 0.5 - 1.2  \nPrimarily based on lifestyle factors such as stress level and sleep quality\n",j,g,j)],k),B.n,B.i,B.l,0),10)
 a=A.c0(A.aw(B.aI,A.a0(f,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10)
 a1=a8.gFe(a8)
 a2=t.nj
-return A.b2(A.a([B.a6l,A.bg(A.a([a0,A.c0(A.b2(A.a([B.Xe,new A.es(a,A.qA(j,j,!0,A.T(new A.L(B.Yc,new A.auW(a3),a2),!0,a2.h("ag.E")),b.ga9m(),j,a1,t.KM),"Use the strength-based Kilgore-Rippetoe-Pendlay strength standards.  \nOn https://exrx.net/Testing/WeightLifting/StrengthStandards look up how you classify  \nbased on your age, sex, weight and performance for common exercises. \n",j,f,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0("Workouts",j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.z,"per week",B.e.k(a8.gAf()),a3,b.ga9Q(),b.gaIU()),j,j,j,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0("Normalized\nWorkout Duration",j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.Q,"min",B.e.k(a8.gQS()),a3,b.ga9N(),b.gaIS()),"Duration of strength training sessions.\n\nBe conservative and use the time you could perform the workout in if pushing\nthrough it efficiently and intensely, with shorter, cardio-conditioned rest periods.\n\nRule of thumb: count 2.5 minutes per work set.  \n**For most people, this duration ends up considerably shorter than their actual workout duration**.\n",j,"Normalized Workout Duration",j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(e,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.x,"%",B.e.k(a8.guE()),a3,b.ga99(),b.gaBs()),"Energy Balance describes the kcal intake (with deficit or surplus) as percentage of maintenance.\n\n## Bulking recommendations\n\nFor lean bulking (with zero to minimal fat gain)\n\n| Training Status | Energy Balance | Planned weekly weight gain as bodyweight % |\n|----------------|----------------|----------------------|\n| Beginner       | 105-115%       | 0.5 - 1              |\n| Intermediate   | 102-107%       | 0.2 - 0.5            |\n| Advanced       | 101-103%       | whatever you can get |\n\n## Cutting recommendations\n\nFor fast cutting (with zero muscle loss)\n\n| Category     | Fat % (male) | Fat % (female) | Energy Balance | Max weekly weight loss as bodyweight % |\n|--------------|--------------|----------------|----------------|---------------------------------------|\n| Contest prep | <8           | <14            | 92.5- 97.5     | 0.5 |\n| Athletic     | 8-15         | 14-24          | 75 - 95        | 0.7 |\n| Average      | 15-21        | 24-33          | 65 - 80        | 1 |\n| Overweight   | 21-26        | 33-39          | 50-70          | 1.5 |\n| Obese        | 26+          | 39+            | PSMF           | N.A. |\n",j,e,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(d,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.as,"",B.d.ao(a8.gQa(),2),a3,b.ga9D(),b.gaI3()),"The Thermic Effect of Food (TEF) aka diet induced thermogenesis (DIT) is:  \nthe energy expended during metabolizing of food.  \nIt is a multiplier, typically between 1 and 1.25.\nA higher TEF can significantly increase energy expenditure, and thereby support fat loss.\n\n## In isolation (not very practically relevant):\n- dieteray fat: 1.15 for lean, 0 for overweight.\n- carbs: 1.15 for lean, less if insulin resistant, and possibly based on carb tolerance.\n- protein: always around 1.20\n\n## With real meals:\n- The TEF for high-fat and low-fat meals is often similar (when calorie and protein matched)\n- The amount of protein does not materially affect the TEF\n- mixed meals tend to have a relatively constant TEF, higher than the sum of its parts.\n- for lean individuals, the TEF of a regular mixed meal is around 1.25\n- Note that MCT's and omega3's, can considerably raise the TEF of a meal, and unsaturated fats have a higher TEF than saturated fats\n\n## Food processing\nfood processing causes reduction around 10% in TEF\n\n\n## In practice\n\nAssuming mixed meal compositions, TEF generally varies from 1.1 to 1.25.  \nThe low end is for overweight people eating an average diet.\nThe higher end is for lean strength trainees eating a diet from whole foods that is:\n* high in protein \n* plenty of unsaturated fats or MCTs\n* a high volume of food\n* lots of fiber\n\nNote that meal frequency is not relevant, and salt intake is insignificant.\n",j,d,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(c,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.at,"",B.d.ao(a8.gDD(),2),a3,b.ga8Y(),b.gaxy()),"Adaptive Thermogenesis (AT) represents how your metabolism adapts to your bodyfat levels.\n\n* When lean, your body can reduce your metabolic rate.\n* When overweight, your body can increase your metabolic rate.\n\nIt depends on:\n* your current body fat level (not your dieting or body composition history)\n* your genes.\n\nTherefore this multiplier is applied to adjust your BMR accordingly.\nThe effect of current inergy intake is minor.\n\n### Guidelines:\n- 0.9 to 1.1 is typical. I.o.w. a 10% change in BMR\n- For some bodybuilders, it varies between 0.8 (when very lean, e.g. contest prep) and 1.2 at the end of a long bulk.\n",j,c,j)],k),B.n,B.i,B.l,0),10)],k),B.N,B.i,B.l,j,j)],k),B.n,B.i,B.l,0)},
+return A.b2(A.a([B.a6m,A.bg(A.a([a0,A.c0(A.b2(A.a([B.Xe,new A.es(a,A.qA(j,j,!0,A.T(new A.L(B.Yc,new A.auW(a3),a2),!0,a2.h("ag.E")),b.ga9m(),j,a1,t.KM),"Use the strength-based Kilgore-Rippetoe-Pendlay strength standards.  \nOn https://exrx.net/Testing/WeightLifting/StrengthStandards look up how you classify  \nbased on your age, sex, weight and performance for common exercises. \n",j,f,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0("Workouts",j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.z,"per week",B.e.k(a8.gAf()),a3,b.ga9Q(),b.gaIU()),j,j,j,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0("Normalized\nWorkout Duration",j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.Q,"min",B.e.k(a8.gQS()),a3,b.ga9N(),b.gaIS()),"Duration of strength training sessions.\n\nBe conservative and use the time you could perform the workout in if pushing\nthrough it efficiently and intensely, with shorter, cardio-conditioned rest periods.\n\nRule of thumb: count 2.5 minutes per work set.  \n**For most people, this duration ends up considerably shorter than their actual workout duration**.\n",j,"Normalized Workout Duration",j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(e,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.x,"%",B.e.k(a8.guE()),a3,b.ga99(),b.gaBs()),"Energy Balance describes the kcal intake (with deficit or surplus) as percentage of maintenance.\n\n## Bulking recommendations\n\nFor lean bulking (with zero to minimal fat gain)\n\n| Training Status | Energy Balance | Planned weekly weight gain as bodyweight % |\n|----------------|----------------|----------------------|\n| Beginner       | 105-115%       | 0.5 - 1              |\n| Intermediate   | 102-107%       | 0.2 - 0.5            |\n| Advanced       | 101-103%       | whatever you can get |\n\n## Cutting recommendations\n\nFor fast cutting (with zero muscle loss)\n\n| Category     | Fat % (male) | Fat % (female) | Energy Balance | Max weekly weight loss as bodyweight % |\n|--------------|--------------|----------------|----------------|---------------------------------------|\n| Contest prep | <8           | <14            | 92.5- 97.5     | 0.5 |\n| Athletic     | 8-15         | 14-24          | 75 - 95        | 0.7 |\n| Average      | 15-21        | 24-33          | 65 - 80        | 1 |\n| Overweight   | 21-26        | 33-39          | 50-70          | 1.5 |\n| Obese        | 26+          | 39+            | PSMF           | N.A. |\n",j,e,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(d,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.as,"",B.d.ao(a8.gQa(),2),a3,b.ga9D(),b.gaI3()),"The Thermic Effect of Food (TEF) aka diet induced thermogenesis (DIT) is:  \nthe energy expended during metabolizing of food.  \nIt is a multiplier, typically between 1 and 1.25.\nA higher TEF can significantly increase energy expenditure, and thereby support fat loss.\n\n## In isolation (not very practically relevant):\n- dieteray fat: 1.15 for lean, 0 for overweight.\n- carbs: 1.15 for lean, less if insulin resistant, and possibly based on carb tolerance.\n- protein: always around 1.20\n\n## With real meals:\n- The TEF for high-fat and low-fat meals is often similar (when calorie and protein matched)\n- The amount of protein does not materially affect the TEF\n- mixed meals tend to have a relatively constant TEF, higher than the sum of its parts.\n- for lean individuals, the TEF of a regular mixed meal is around 1.25\n- Note that MCT's and omega3's, can considerably raise the TEF of a meal, and unsaturated fats have a higher TEF than saturated fats\n\n## Food processing\nfood processing causes reduction around 10% in TEF\n\n\n## In practice\n\nAssuming mixed meal compositions, TEF generally varies from 1.1 to 1.25.  \nThe low end is for overweight people eating an average diet.\nThe higher end is for lean strength trainees eating a diet from whole foods that is:\n* high in protein \n* plenty of unsaturated fats or MCTs\n* a high volume of food\n* lots of fiber\n\nNote that meal frequency is not relevant, and salt intake is insignificant.\n",j,d,j),B.c9,new A.es(A.c0(A.aw(B.aI,A.a0(c,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a3,B.u,a4).w.a.a/100,j,j,j,j,j,!0,j,j,j,j,j,j,j,j),j,j),B.j,j,j,j,j,j,j,j),10),A.pR(s.at,"",B.d.ao(a8.gDD(),2),a3,b.ga8Y(),b.gaxy()),"Adaptive Thermogenesis (AT) represents how your metabolism adapts to your bodyfat levels.\n\n* When lean, your body can reduce your metabolic rate.\n* When overweight, your body can increase your metabolic rate.\n\nIt depends on:\n* your current body fat level (not your dieting or body composition history)\n* your genes.\n\nTherefore this multiplier is applied to adjust your BMR accordingly.\nThe effect of current inergy intake is minor.\n\n### Guidelines:\n- 0.9 to 1.1 is typical. I.o.w. a 10% change in BMR\n- For some bodybuilders, it varies between 0.8 (when very lean, e.g. contest prep) and 1.2 at the end of a long bulk.\n",j,c,j)],k),B.n,B.i,B.l,0),10)],k),B.N,B.i,B.l,j,j)],k),B.n,B.i,B.l,0)},
 $S:120}
 A.auT.prototype={
 $1(a){var s=null
@@ -52078,7 +52078,7 @@ o=t.p
 n=A.a([],o)
 if(!h&&r){h=g.r
 h===$&&A.b()
-n.push(new A.aH(B.hs,A.b2(A.a([B.aht,A.a0(B.d.ao(h*100,1)+"%",j,j,j,j,B.adE,j,j)],o),B.n,B.dl,B.l,0),j))}n.push(A.c0(new A.es(A.a0(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a,B.u,q).w.a.a/100,j,j,B.b9,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
+n.push(new A.aH(B.hs,A.b2(A.a([B.ahu,A.a0(B.d.ao(h*100,1)+"%",j,j,j,j,B.adE,j,j)],o),B.n,B.dl,B.l,0),j))}n.push(A.c0(new A.es(A.a0(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ac(a,B.u,q).w.a.a/100,j,j,B.b9,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
 h=A.bg(n,B.n,B.i,B.l,j,j)
 n=g.e
 n===$&&A.b()
@@ -52708,7 +52708,7 @@ s=a.e
 if(s.gbQ(s)){r=A.a([B.eD,B.ai_,B.eD],o)
 s=s.gdL(s)
 B.b.E(r,s.e6(s,new A.aj5(),t.l))
-B.b.E(p,r)}if(B.fA.gbQ(B.fA)){s=A.a([B.eD,B.ahu,B.eD],o)
+B.b.E(p,r)}if(B.fA.gbQ(B.fA)){s=A.a([B.eD,B.ahv,B.eD],o)
 B.b.E(s,new A.jR(B.fA,new A.aj6(),A.l(B.fA).h("jR<1,h>")))
 B.b.E(p,s)}s=a.c
 if(s.length!==0){r=A.V(s).h("L<1,h9>")
@@ -52820,7 +52820,7 @@ h=n.gdw(n)
 h.toString
 J.aTM(k,h,new A.atS(n),new A.atT(n))}}}s=A.p(a)
 r=A.cd(8)
-q=A.a([A.a0("Muscle modalities",g,g,g,g,A.p(a).p1.r,g,g),B.eD,B.ahZ,B.ai3,B.ahW,B.aho,B.aF],t.p)
+q=A.a([A.a0("Muscle modalities",g,g,g,g,A.p(a).p1.r,g,g),B.eD,B.ahZ,B.ai3,B.ahW,B.ahp,B.aF],t.p)
 B.b.E(q,new A.L(B.bE,new A.atU(f,a),t.ZN))
 return A.aw(g,A.b2(q,B.N,B.i,B.l,0),B.j,g,g,new A.bK(s.ax.k2,g,g,r,g,g,B.O),g,g,B.bN,g)}}
 A.atR.prototype={
@@ -53083,7 +53083,7 @@ $S:23}
 A.au0.prototype={
 $3(a,b,c){var s=null
 if(!b.ds($.aXV(),t.y))return B.az
-return A.uK(!1,B.a9a,s,s,s,s,s,s,new A.atV(this.a,this.b),s,s)},
+return A.uK(!1,B.a9b,s,s,s,s,s,s,new A.atV(this.a,this.b),s,s)},
 $C:"$3",
 $R:3,
 $S:321}
@@ -54625,7 +54625,7 @@ r=A.kQ(B.a5y,B.f,r==null?1:r)
 r.toString
 q=p.ap(0,q.gu(q))
 if(q==null)q=1
-return A.aVJ(A.b0D(null,B.j,new A.zu(q,B.Z9,new A.dP(B.Kk,this.e)),s,1,B.abf),r)}}
+return A.aVJ(A.b0D(null,B.j,new A.zu(q,B.Za,new A.dP(B.Kk,this.e)),s,1,B.abf),r)}}
 A.Pb.prototype={
 l(){var s=this,r=s.cd$
 if(r!=null)r.M(0,s.gj0())
@@ -58250,7 +58250,7 @@ A.BP.prototype={
 K(){return"_CornerId."+this.b}}
 A.pt.prototype={}
 A.zz.prototype={
-mT(){var s,r,q=this,p=A.bli(B.Zz,new A.aqt(q,q.b.gbl().a3(0,q.a.gbl()))),o=q.a
+mT(){var s,r,q=this,p=A.bli(B.ZA,new A.aqt(q,q.b.gbl().a3(0,q.a.gbl()))),o=q.a
 o.toString
 s=p.a
 o=q.tf(o,s)
@@ -62389,7 +62389,7 @@ A.aMF.prototype={
 $2(a,b){return this.a.cB(a,b)},
 $S:16}
 A.a1e.prototype={
-gS4(){return B.YU},
+gS4(){return B.YV},
 a1O(a){var s,r=this
 switch(a.a){case 0:s=r.d.z
 break
@@ -63037,7 +63037,7 @@ return s.b}}
 A.mq.prototype={
 K(){return"_ListTileSlot."+this.b}}
 A.a35.prototype={
-gS4(){return B.Zr},
+gS4(){return B.Zs},
 a1O(a){var s,r=this
 switch(a.a){case 0:s=r.d
 break
@@ -63354,7 +63354,7 @@ r.e=s.a.a
 r.f=s.d},
 $S:0}
 A.V_.prototype={
-I(a){return A.b0D(new A.um(B.Qk,null,null),B.J,new A.zu(1,B.a_b,new A.dP(B.Ki,B.p)),this.c.a6(0,new A.j(0,40.95)),1.25,B.abh)}}
+I(a){return A.b0D(new A.um(B.Qk,null,null),B.J,new A.zu(1,B.a_c,new A.dP(B.Ki,B.p)),this.c.a6(0,new A.j(0,40.95)),1.25,B.abh)}}
 A.vy.prototype={
 K(){return"MaterialType."+this.b}}
 A.oL.prototype={
@@ -63726,7 +63726,7 @@ gl8(){return A.boJ()},
 a1F(a,b,c,d,e,f){return A.bbb(a,b,c,d,e,f)}}
 A.VU.prototype={
 ag0(a){var s=t.Tr
-return A.T(new A.L(B.Zw,new A.asX(a),s),!0,s.h("ag.E"))},
+return A.T(new A.L(B.Zx,new A.asX(a),s),!0,s.h("ag.E"))},
 j(a,b){if(b==null)return!1
 if(this===b)return!0
 if(J.a2(b)!==A.x(this))return!1
@@ -68335,7 +68335,7 @@ if(s!=null)s.l()
 r.aJ()},
 L7(){this.a.toString
 var s=t.LS
-this.f=A.bdF(A.T(new A.L(B.ZH,new A.aOU(),s),!0,s.h("ag.E")))},
+this.f=A.bdF(A.T(new A.L(B.ZI,new A.aOU(),s),!0,s.h("ag.E")))},
 JF(){var s,r=this
 if(r.x>0||r.d.f===0)return
 s=r.d.d
@@ -72394,7 +72394,7 @@ return new A.v1(r.a.d6(s.gjT()),r.b,r.c)},
 ef(a){var s=this.b
 return s.a.c.ef(a.a3(0,s.gjT()))},
 y3(){var s,r,q=this.b,p=q.gjT()
-if(!isFinite(p.a)||!isFinite(p.b))return B.ZQ
+if(!isFinite(p.a)||!isFinite(p.b))return B.ZR
 s=q.f
 if(s==null){s=q.a.c.y3()
 q.f=s}if(p.j(0,B.f))r=s
@@ -82359,7 +82359,7 @@ break
 case 1:return A.I(q,r)}})
 return A.J($async$JC,r)},
 ak3(a,b){var s,r,q,p
-if(a===b)return B.ZX
+if(a===b)return B.ZY
 s=A.a([],t.QP)
 if(a==null)s.push(b)
 else{r=B.b.en(B.hE,a)
@@ -84289,7 +84289,7 @@ A.p3.prototype={}
 A.Wp.prototype={
 nw(a,b,c){var s,r,q,p,o,n=$.an.aA$.d.c
 if(n==null||n.e==null)return!1
-for(s=t.vz,r=0;r<2;++r){q=B.ZG[r]
+for(s=t.vz,r=0;r<2;++r){q=B.ZH[r]
 p=n.e
 p.toString
 o=A.aTP(p,q,s)
@@ -84496,7 +84496,7 @@ r=j.gaoz()
 q=j.a
 q=q.ch
 q.toString
-h.a=A.bcM(!0,A.b06(B.j,r,s,q,A.b55(),j.gaqh(),i,j.gaqM(),B.ZU,!0,"nav",B.aii),"Navigator Scope",!0,i,i,i,i)}else{s=j.a.z
+h.a=A.bcM(!0,A.b06(B.j,r,s,q,A.b55(),j.gaqh(),i,j.gaqM(),B.ZV,!0,"nav",B.aii),"Navigator Scope",!0,i,i,i,i)}else{s=j.a.z
 if(s!=null){r=s.d
 r===$&&A.b()
 q=s.e
@@ -87073,7 +87073,7 @@ h.LA()
 r=h.gakZ()
 q=q.iz
 h.e!==$&&A.bD()
-h.e=new A.Y9(s,new A.co(B.a1m,l,t.kr),new A.vt(),p,B.dt,0,j,h.ganp(),h.ganr(),r,B.dt,0,i,h.ganj(),h.ganl(),r,k,B.a_0,f,g.CW,g.cx,g.cy,o,g,n,m,g.x,q,new A.S7(),new A.S7())
+h.e=new A.Y9(s,new A.co(B.a1m,l,t.kr),new A.vt(),p,B.dt,0,j,h.ganp(),h.ganr(),r,B.dt,0,i,h.ganj(),h.ganl(),r,k,B.a_1,f,g.CW,g.cx,g.cy,o,g,n,m,g.x,q,new A.S7(),new A.S7())
 return h},
 C8(a,b){var s,r,q,p=this,o=p.a.c,n=o.a.a.length
 if(n<a.b||n<a.a)return
@@ -90534,7 +90534,7 @@ if(b==null)return!1
 if(J.a2(b)!==A.x(s))return!1
 return b instanceof A.da&&b.a===s.a&&b.b===s.b&&b.c==s.c&&b.d===s.d&&A.dV(null,null)},
 gC(a){var s=this
-return A.W(s.a,s.b,s.c,s.d,A.bP(B.ZY),B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a)},
+return A.W(s.a,s.b,s.c,s.d,A.bP(B.ZZ),B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a,B.a)},
 k(a){return"IconData(U+"+B.c.nC(B.e.jj(this.a,16).toUpperCase(),5,"0")+")"}}
 A.v7.prototype={
 cU(a){return!this.w.j(0,a.w)},
@@ -91482,7 +91482,7 @@ g=s&&d
 b=s?d:b.ch
 if(b==null)b=B.fr
 s=s&&d
-f=new A.GN(a1,a,q,p,l,o,n,a0,g===!0,m,k,h,c,j,i,b,new A.yv(d),B.ZW,s===!0)
+f=new A.GN(a1,a,q,p,l,o,n,a0,g===!0,m,k,h,c,j,i,b,new A.yv(d),B.ZX,s===!0)
 if(!f.j(0,e.e))e.am(new A.aLp(e,f))},
 Nm(){this.xq()},
 a31(){if(this.d==null)this.xq()},
@@ -92273,7 +92273,7 @@ I(a){var s,r,q=this,p=null,o=q.gamQ(),n=A.qK(a),m=q.bW$,l=q.d
 l===$&&A.b()
 s=q.a.ax
 if(l.gO()==null){r=q.gTB()
-r=J.oC(r.slice(0),A.V(r).c)}else r=B.ZV
+r=J.oC(r.slice(0),A.V(r).c)}else r=B.ZW
 return new A.v4(p,new A.ek(new A.asv(q,a),A.vs(B.cy,new A.Qs(!1,A.aUz(A.lL(!0,p,A.Kk(m,new A.zK(r,s,l)),p,p,p,q.y,!1,p,p,p,p,p,!0),n),p),o,q.gapJ(),p,p,o),p,t.w3),p)}}
 A.asq.prototype={
 $1(a){var s=this.a.c
@@ -98574,7 +98574,7 @@ r.De()
 return s.bi()},
 l(){var s,r,q,p,o=this
 for(s=o.b,r=s.length,q=o.gJE(),p=0;p<s.length;s.length===r||(0,A.N)(s),++p)s[p].M(0,q)
-o.b=B.ZS
+o.b=B.ZT
 o.y=!1
 o.dT()},
 f7(a,b){return a.oJ(b)},
@@ -99592,7 +99592,7 @@ s=(r.length===0?s+"no children":s+A.m(r))+")"
 return s.charCodeAt(0)==0?s:s}}
 A.jC.prototype={}
 A.JG.prototype={
-c8(a){return new A.a7h(B.ZK,A.dw(t.h),this,B.at)},
+c8(a){return new A.a7h(B.ZL,A.dw(t.h),this,B.at)},
 aI(a){var s,r,q,p,o=this,n=null,m=o.c,l=m.length
 m=l!==0?m[0].c.length:0
 s=o.d
@@ -99600,7 +99600,7 @@ r=a.aj(t.I).w
 q=A.xz(a,n)
 p=A.a([],t.n)
 if(s==null)s=A.eC(n,n,n,t.S,t.PA)
-p=new A.rC(B.ZJ,m,l,s,o.e,r,o.r,q,o.w,n,p,new A.aS(),A.aj(t.T))
+p=new A.rC(B.ZK,m,l,s,o.e,r,o.r,q,o.w,n,p,new A.aS(),A.aj(t.T))
 p.aH()
 q=A.a([],t.iG)
 B.b.sB(q,p.J*p.N)
@@ -99659,7 +99659,7 @@ g=h==null
 if(!g&&r.ak(0,h)){g=r.i(0,h)
 g.toString
 j.D(0,g)
-f=g}else f=g&&l.t()?p.gL(0).b:B.ZL
+f=g}else f=g&&l.t()?p.gL(0).b:B.ZM
 g=n.c
 e=g.length
 d=A.a(new Array(e),m)
@@ -102615,7 +102615,7 @@ $1(a){return a instanceof A.dc?a.a:this.a.a3u(a)},
 $S:183}
 A.ao0.prototype={
 $1(a){var s=A.aJ("^ *",!0,!1,!1),r=A.aJ(" ?\\n *",!0,!1,!1)
-if(B.b.m(B.a_6,this.a.db))a=A.dW(a,s,"")
+if(B.b.m(B.a_7,this.a.db))a=A.dW(a,s,"")
 return A.dW(a,r," ")},
 $S:38}
 A.ao_.prototype={
@@ -103292,7 +103292,7 @@ VM(a){return new A.L(a,new A.axR(),A.V(a).h("L<1,c>")).bk(0," => ")},
 k(a){return"RouterConfiguration: "+A.m(this.a.a.a)},
 aA8(){var s,r,q,p=new A.db("")
 p.a=""+"Full paths for routes:\n"
-this.UV(this.a.a.a,"",B.ZT,p)
+this.UV(this.a.a.a,"",B.ZU,p)
 s=this.d
 if(s.a!==0){p.a+="known full paths for route names:\n"
 for(s=new A.f5(s,A.l(s).h("f5<1,2>")).gaa(0);s.t();){r=s.d
@@ -103634,7 +103634,7 @@ A.a63.prototype={}
 A.yJ.prototype={
 I(a){var s=null,r=this.c
 r=r==null?s:"GoException: "+r.a
-return A.ayc(!0,A.dF(A.b2(A.a([B.ahO,B.aF,A.a0(r==null?"page not found":r,s,s,s,s,s,s,s),B.aF,new A.KZ(new A.aj1(a),B.ahL,s)],t.p),B.n,B.dl,B.l,0),s,s),B.Z,!0)}}
+return A.ayc(!0,A.dF(A.b2(A.a([B.ahP,B.aF,A.a0(r==null?"page not found":r,s,s,s,s,s,s,s),B.aF,new A.KZ(new A.aj1(a),B.ahL,s)],t.p),B.n,B.dl,B.l,0),s,s),B.Z,!0)}}
 A.aj1.prototype={
 $0(){return A.TQ(this.a).Hg(0,"/",null)},
 $S:0}
@@ -103681,7 +103681,7 @@ return new A.bA(A.bX(s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s
 qg(a,b,c,d){return this.$ti.h("ip<1>").a(this.c).CW.$4(a,b,c,d)}}
 A.vO.prototype={}
 A.zy.prototype={
-I(a){var s=null,r=A.xP(s,!0,s,s,B.ahC,s),q=this.c
+I(a){var s=null,r=A.xP(s,!0,s,s,B.ahD,s),q=this.c
 q=q==null?s:"GoException: "+q.a
 if(q==null)q="page not found"
 return A.wj(r,A.dF(A.b2(A.a([new A.wq(q,s,s,s,s,s,s),A.iA(!1,B.ah8,s,s,s,s,s,s,new A.aqr(a),s,s)],t.p),B.n,B.dl,B.l,0),s,s))}}
@@ -104191,7 +104191,7 @@ a6=b8.asA(c5)
 for(c2=c5.length,o=t.N,j=c7.b,a7=!1,a8=!1,a9=0;a9<c5.length;c5.length===c2||(0,A.N)(c5),++a9){b0=c5[a9]
 i=b0.b
 if(i!=null){h=A.q(o,o)
-b1=new A.c_("input",B.ZN,h)
+b1=new A.c_("input",B.ZO,h)
 h.n(0,"type","checkbox")
 if(i===B.H3)h.n(0,"checked","true")
 a8=!0}else b1=b9
@@ -104636,7 +104636,7 @@ jR(a,b){var s=this,r=b.b[0].length,q=a.d,p=q+r,o=a.a,n=new A.dc(B.c.S(o,q,p))
 if(!s.c){a.f.push(new A.J0(n,o.charCodeAt(q),r,!0,!1,s,p))
 a.r.push(n)
 return!0}o=s.e
-if(o==null)o=B.ZM
+if(o==null)o=B.ZN
 a.f.push(A.bbB(a,q,p,s.d,n,s,o))
 a.r.push(n)
 return!0},
@@ -106288,7 +106288,7 @@ $ijW:1}
 A.aM.prototype={
 bJ(a,b){var s=this.bx(new A.yn(a,b))
 return s instanceof A.c4?-1:s.b},
-geA(a){return B.ZP},
+geA(a){return B.ZQ},
 kG(a,b,c){},
 k(a){var s=this.kQ(0)
 return B.c.aY(s,"Instance of '")?B.c.nJ(B.c.be(s,13),"'",""):s}}
@@ -108217,7 +108217,7 @@ q.r.eS(o,p)}return A.I(null,r)}})
 return A.J($async$Pj,r)},
 a5h(a,b,c,d,e,f,g,h,i){var s=$.af().aR()
 s.sav(0,A.bL(b))
-if(a!==0)s.su0(B.Yn[a])
+if(a!==0)s.su0(B.Yo[a])
 if(e!=null)s.sB7(this.z[e])
 if(d===1){s.scV(0,B.b1)
 if(f!=null&&f!==0)s.srX(B.a_D[f])
@@ -108766,7 +108766,7 @@ c4=A.a([],l)
 if((b9&1)!==0)c4.push(B.pI)
 if((b9&2)!==0)c4.push(B.acv)
 if((b9&4)!==0)c4.push(B.Hd)
-m.push(new A.a7t(c3,c2,d,e,B.nB[b8],A.bgR(c4),B.Zg[c0],A.bL(c)))
+m.push(new A.a7t(c3,c2,d,e,B.nB[b8],A.bgR(c4),B.Zh[c0],A.bL(c)))
 continue $label0$1
 case 44:e=r.getUint16(s.b,!0)
 g=s.b+=2
@@ -108882,7 +108882,7 @@ r=a.nU(s)
 q=a.He(0)
 p=c?this.aid(a.Rs(q)):a.Ai(q)
 o=$.af().cr()
-o.sa3B(B.Z5[f])
+o.sa3B(B.Z6[f])
 b.y.push(o)
 b.ch=o
 $label0$1:for(n=0,m=0;n<s;++n)switch(r[n]){case 0:l=p[m]
@@ -114501,8 +114501,8 @@ B.KH=new A.bK(null,null,null,null,null,null,B.O)
 B.Qa=new A.Q(0.23529411764705882,0,0,0,B.h)
 B.oE=new A.j(0,4)
 B.Lh=new A.bZ(0.5,B.a0,B.Qa,B.oE,10)
-B.ZE=A.a(s([B.Lh]),t.F)
-B.KI=new A.bK(null,null,null,B.r2,B.ZE,null,B.O)
+B.ZF=A.a(s([B.Lh]),t.F)
+B.KI=new A.bK(null,null,null,B.r2,B.ZF,null,B.O)
 B.KJ=new A.Re(1,"contain")
 B.r9=new A.Re(6,"scaleDown")
 B.aU=new A.E3(0,"tight")
@@ -114767,7 +114767,7 @@ B.a1=new A.ZP()
 B.db=new A.ZQ()
 B.eX=new A.aEa()
 B.fG=new A.ZZ(0,0,0,0)
-B.ZW=A.a(s([]),A.a6("t<agU>"))
+B.ZX=A.a(s([]),A.a6("t<agU>"))
 B.alx=new A.aEi()
 B.bb={}
 B.bo=new A.aR(B.bb,[],t.Q)
@@ -115029,16 +115029,16 @@ B.mB=new A.Sj(1,"elevated")
 B.QU=new A.af8(1,"latency")
 B.ahe=new A.bd("insertion",null,null,null,null,null,null,null,null,null,null)
 B.QV=new A.jN(B.ahe)
-B.ahw=new A.bd("active insufficiency",null,null,null,null,null,null,null,null,null,null)
-B.QW=new A.jN(B.ahw)
+B.ahx=new A.bd("active insufficiency",null,null,null,null,null,null,null,null,null,null)
+B.QW=new A.jN(B.ahx)
 B.ahT=new A.bd("articulation",null,null,null,null,null,null,null,null,null,null)
 B.QX=new A.jN(B.ahT)
 B.ahU=new A.bd("nicknames",null,null,null,null,null,null,null,null,null,null)
 B.tt=new A.jN(B.ahU)
 B.ah9=new A.bd("origins",null,null,null,null,null,null,null,null,null,null)
 B.QY=new A.jN(B.ah9)
-B.ahB=new A.bd("passive insufficiency",null,null,null,null,null,null,null,null,null,null)
-B.QZ=new A.jN(B.ahB)
+B.ahC=new A.bd("passive insufficiency",null,null,null,null,null,null,null,null,null,null)
+B.QZ=new A.jN(B.ahC)
 B.ai1=new A.bd("Articulation",null,null,null,null,null,null,null,null,null,null)
 B.R_=new A.oc(B.ai1)
 B.R0=new A.EJ(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
@@ -115210,9 +115210,9 @@ B.Sr=new A.Fg(0,"noOpinion")
 B.Ss=new A.Fg(1,"enabled")
 B.jx=new A.Fg(2,"disabled")
 B.St=new A.Ta(null)
-B.Zf=A.a(s([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2126,0.7152,0.0722,0,0]),t.n)
+B.Zg=A.a(s([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2126,0.7152,0.0722,0,0]),t.n)
 B.Ne=new A.RY(1,"matrix")
-B.Su=new A.Tc(null,null,B.Zf,B.Ne)
+B.Su=new A.Tc(null,null,B.Zg,B.Ne)
 B.tL=new A.hB(0,"incrementable")
 B.mU=new A.hB(1,"scrollable")
 B.mV=new A.hB(10,"header")
@@ -115336,8 +115336,8 @@ B.qA=new A.aL(1,"full ROM shoulder abduction")
 B.Ja=new A.aL(0.75,"elbow extension")
 B.AV=new A.ax([B.bT,B.a7,B.by,B.Jm,B.i2,B.qA,B.cn,B.a7,B.cl,B.a7,B.ex,B.a7,B.dq,B.Ja,B.cE,B.a7,B.c6,B.a7,B.an,B.au,B.a5,B.au],t.B)
 B.tX=new A.bF("Shoulder Press Machine",B.bO,11,"shoulderPressMachine")
-B.Zv=A.a(s([B.tX]),t.G)
-B.Sy=new A.a7(B.AV,B.Zv,B.w,B.q,B.m,"shoulder press machine")
+B.Zw=A.a(s([B.tX]),t.G)
+B.Sy=new A.a7(B.AV,B.Zw,B.w,B.q,B.m,"shoulder press machine")
 B.oo=new A.bN(26,"deltoidsPosteriorHead")
 B.am3=A.a(s([B.oo]),t.m)
 B.co=new A.bt("Rear Delts","delts",6,"rearDelts")
@@ -115425,11 +115425,11 @@ B.SF=new A.a7(B.kh,B.hC,B.hD,B.q,B.m,"smith machine hip thrust")
 B.IF=new A.aL(1,"elbow flexion with loading at mid-point, in anatomic position (strongest)")
 B.fh=new A.ax([B.c7,B.IF,B.a5,B.au],t.B)
 B.u_=new A.bF("EZ bar",B.dF,1,"ezbar")
-B.YJ=A.a(s([B.u_]),t.G)
+B.YK=A.a(s([B.u_]),t.G)
 B.dI=A.a(s([B.c7]),t.AQ)
 B.a7w=new A.d0(B.bp,0.7142857142857143,B.dI,"tension mainly at the mid point. easier on the wrists than barbell. good for 6-8 rep range\n      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=2m45s)",B.bo)
-B.YG=A.a(s([B.a7w]),t.to)
-B.SG=new A.a7(B.fh,B.YJ,B.w,B.q,B.YG,"standing ez bar bicep curl")
+B.YH=A.a(s([B.a7w]),t.to)
+B.SG=new A.a7(B.fh,B.YK,B.w,B.q,B.YH,"standing ez bar bicep curl")
 B.a1C=new A.ax([B.c6,B.fZ],t.B)
 B.SH=new A.a7(B.a1C,B.ba,B.w,B.aa,B.m,"plank")
 B.a4Y={max:0,small:1,no:2}
@@ -115466,8 +115466,8 @@ B.a_z=A.a(s([B.ua]),t.G)
 B.SM=new A.a7(B.kn,B.a_z,B.cY,B.aa,B.m,"belt squat")
 B.SN=new A.a7(B.fj,B.k6,B.w,B.q,B.m,"lat pulldown neutral grip")
 B.u0=new A.bF("Rear Delt Fly Machine",B.bO,15,"rearDeltFlyMachine")
-B.Zh=A.a(s([B.u0]),t.G)
-B.SO=new A.a7(B.dm,B.Zh,B.w,B.q,B.m,"rear delt fly machine")
+B.Zi=A.a(s([B.u0]),t.G)
+B.SO=new A.a7(B.dm,B.Zi,B.w,B.q,B.m,"rear delt fly machine")
 B.SP=new A.a7(B.fk,B.cz,B.w,B.q,B.m,"barbell skull-over")
 B.IA=new A.aL(1,"shoulder flexion/abduction")
 B.qB=new A.aL(0.5,"elbow extension")
@@ -115518,12 +115518,12 @@ B.a2f=new A.ax([B.co,B.Jc,B.cn,B.Jj,B.cm,B.Ji],t.B)
 B.a7I=new A.a_(B.a2f,"")
 B.a1D=new A.aR(B.a5h,[B.i4,B.a7I],t.rH)
 B.a3j=new A.et("grip width","shoulder",B.a1D,null)
-B.YV=A.a(s([B.a3a,B.a3j]),t.VL)
+B.YW=A.a(s([B.a3a,B.a3j]),t.VL)
 B.a5i={spine:0}
 B.a1x=new A.aR(B.a5i,["dynamic"],t.Q)
 B.a7D=new A.d0(B.bp,0.8571428571428571,B.vu,"Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=9m22s)",B.a1x)
-B.Zy=A.a(s([B.a7D]),t.to)
-B.SX=new A.a7(B.a2R,B.k1,B.YV,B.q,B.Zy,"seated cable row")
+B.Zz=A.a(s([B.a7D]),t.to)
+B.SX=new A.a7(B.a2R,B.k1,B.YW,B.q,B.Zz,"seated cable row")
 B.SY=new A.a7(B.o_,B.ba,B.k0,B.aa,B.m,"reverse nordic ham curl")
 B.SZ=new A.a7(B.fk,B.hC,B.w,B.q,B.m,"smitch machine inverted skull crusher")
 B.AD=new A.ax([B.bU,B.a9,B.bT,B.a9,B.by,B.a9,B.dq,B.qB,B.an,B.au,B.a5,B.au],t.B)
@@ -115551,8 +115551,8 @@ B.T2=new A.a7(B.nY,B.cz,B.w,B.q,B.m,"wide grip barbell shrug")
 B.u1=new A.bF("Chest Press Machine",B.bO,12,"chestPressMachine")
 B.Xp=A.a(s([B.u1]),t.G)
 B.a7s=new A.d0(B.bp,1,B.ff,"Deep stretch, high tension throughout ROM. locked in for more focus. safer than freeweights.  \n(but all depends on machine)\nJeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=4m36s)",B.bo)
-B.Zx=A.a(s([B.a7s]),t.to)
-B.T3=new A.a7(B.fi,B.Xp,B.w,B.q,B.Zx,"chest press machine")
+B.Zy=A.a(s([B.a7s]),t.to)
+B.T3=new A.a7(B.fi,B.Xp,B.w,B.q,B.Zy,"chest press machine")
 B.T4=new A.a7(B.hU,B.b0,B.w,B.q,B.m,"standing dumbbell good morning")
 B.a7E=new A.d0(B.bp,0.7142857142857143,B.ff,"massive stretch, high tension. can overload. shoulder risk maybe. doesn't feel smooth.\n  Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m08s)\n",B.bo)
 B.a_P=A.a(s([B.a7E]),t.to)
@@ -115571,8 +115571,8 @@ B.T8=new A.a7(B.a29,B.vp,B.w,B.q,B.m,"45\xb0 back extension")
 B.a28=new A.ax([B.bI,B.a7,B.bx,B.a9,B.aQ,B.a9,B.an,B.bm,B.a5,B.bm],t.B)
 B.T9=new A.a7(B.a28,B.c4,B.w,B.q,B.m,"cable pull-through")
 B.u6=new A.bF("Hip Thrust Machine",B.dh,28,"hipThrustMachine")
-B.Yu=A.a(s([B.u6]),t.G)
-B.Ta=new A.a7(B.kh,B.Yu,B.hD,B.aa,B.m,"machine hip thrust")
+B.Yv=A.a(s([B.u6]),t.G)
+B.Ta=new A.a7(B.kh,B.Yv,B.hD,B.aa,B.m,"machine hip thrust")
 B.Tb=new A.a7(B.nY,B.b0,B.w,B.q,B.m,"dumbbell shrug")
 B.Tc=new A.a7(B.dm,B.c4,B.w,B.q,B.m,"standing cable shoulder pull")
 B.Td=new A.a7(B.eq,B.ba,B.k8,B.aa,B.m,"backward lunge")
@@ -115591,8 +115591,8 @@ B.a22=new A.aR(B.BM,["hammer to supinated"],t.Q)
 B.a7r=new A.d0(B.bp,0.7142857142857143,B.dI,"tension mainly at the mid point. convenient. good against assymetries.\nbetter not alternate (too much rest)\n      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=3m37s)",B.a22)
 B.a23=new A.aR(B.BM,["hammer"],t.Q)
 B.a7A=new A.d0(B.bp,0.7142857142857143,B.dI,"favors a bit more brachialis over bicep - tension mainly at the mid point\n      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=13m06s)",B.a23)
-B.a_a=A.a(s([B.a7r,B.a7A]),t.to)
-B.Tg=new A.a7(B.fh,B.b0,B.Yb,B.q,B.a_a,"standing dumbbell bicep curl")
+B.a_b=A.a(s([B.a7r,B.a7A]),t.to)
+B.Tg=new A.a7(B.fh,B.b0,B.Yb,B.q,B.a_b,"standing dumbbell bicep curl")
 B.ov=new A.bN(37,"bicepsFemorisShortHead")
 B.am8=A.a(s([B.ov]),t.m)
 B.alM=A.a(s(["knee flexion"]),t.s)
@@ -115601,13 +115601,13 @@ B.qI=new A.aL(1,"full length")
 B.qC=new A.aL(1,"medium to long length knee flexion")
 B.AW=new A.ax([B.kE,B.qI,B.bx,B.qC],t.B)
 B.u2=new A.bF("Seated Leg Curl Machine",B.cx,36,"hamCurlMachineSeated")
-B.ZA=A.a(s([B.u2]),t.G)
+B.ZB=A.a(s([B.u2]),t.G)
 B.a2B=new A.ax([B.fy,B.qC],t.B)
 B.a83=new A.a_(B.a2B,"")
 B.a2k=new A.aR(B.oD,[B.a83,B.i4],t.rH)
 B.B5=new A.et("ankle dorsiflexed","no",B.a2k,"* Study: [Different Knee and Ankle Positions Affect Force and Muscle Activation During Prone Leg Curl in Trained Subjects](https://pubmed.ncbi.nlm.nih.gov/31469769/)\n* Study: [Differential effects of ankle position on isokinetic knee extensor and flexor strength gains during strength training](https://journals.sagepub.com/doi/10.3233/IES-160617)\n* [Menno Henselmans breaks it down on instagram](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)")
 B.nq=A.a(s([B.B5]),t.VL)
-B.Th=new A.a7(B.AW,B.ZA,B.nq,B.aa,B.m,"seated leg curl machine")
+B.Th=new A.a7(B.AW,B.ZB,B.nq,B.aa,B.m,"seated leg curl machine")
 B.Ti=new A.a7(B.dm,B.b0,B.w,B.q,B.m,"side lying rear delt dumbbell raise")
 B.IQ=new A.aL(1,"elbow flexion with loading at mid-point, shortened (weakened)")
 B.a1s=new A.ax([B.c7,B.IQ,B.a5,B.au],t.B)
@@ -115634,7 +115634,7 @@ B.a7V=new A.a_(B.aE,"unlike the original bayesian curl, keep arms behind and tor
 B.a8W=new A.a_(B.aE,"more extreme version of bayesian with arms behind. extreme tension at the longest length. can also be done with both arms")
 B.a1w=new A.aR(B.a58,[B.a8X,B.a84,B.a7V,B.a8W],t.rH)
 B.a3d=new A.et("style","standard",B.a1w,null)
-B.Zi=A.a(s([B.a3d]),t.VL)
+B.Zj=A.a(s([B.a3d]),t.VL)
 B.kv={style:0}
 B.a2I=new A.aR(B.kv,["standard"],t.Q)
 B.a7t=new A.d0(B.bp,0.7142857142857143,B.dI,'jeff says "even tension throughout ROM". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m12s)',B.a2I)
@@ -115646,12 +115646,12 @@ B.abx=new A.YJ(1,"mennoHenselmans")
 B.a2H=new A.aR(B.kv,["bayesian"],t.Q)
 B.a7C=new A.d0(B.abx,1,B.dI,'According to Menno, who named the exercise the "Bayesian bicep curl", it is the "perfect bicep exercise, because it allows to keep maximum tension on the bicep at all times.". [Menno\'s scientific arguments here](https://mennohenselmans.com/bayesian-curls/)',B.a2H)
 B.a_C=A.a(s([B.a7t,B.a7u,B.a7v,B.a7C]),t.to)
-B.To=new A.a7(B.fh,B.c4,B.Zi,B.q,B.a_C,"standing cable bicep curl")
+B.To=new A.a7(B.fh,B.c4,B.Zj,B.q,B.a_C,"standing cable bicep curl")
 B.Ir=new A.aL(1,"full ROM")
 B.nZ=new A.ax([B.c6,B.Ir],t.B)
 B.tU=new A.bF("Ab Crunch Machine",B.dh,24,"abCrunchMachine")
-B.YH=A.a(s([B.tU]),t.G)
-B.Tp=new A.a7(B.nZ,B.YH,B.w,B.aa,B.m,"ab crunch machine")
+B.YI=A.a(s([B.tU]),t.G)
+B.Tp=new A.a7(B.nZ,B.YI,B.w,B.aa,B.m,"ab crunch machine")
 B.a2S=new A.ax([B.co,B.a9,B.cn,B.a9,B.cl,B.iQ,B.c7,B.m_,B.cE,B.a7,B.an,B.aT,B.a5,B.aT,B.cm,B.lZ,B.bI,B.aT,B.bx,B.a7,B.aQ,B.a7],t.B)
 B.Tq=new A.a7(B.a2S,B.cz,B.w,B.q,B.m,"standing bent over barbell row")
 B.IV=new A.aL(1,"elbow extension (medium to long length)")
@@ -115660,8 +115660,8 @@ B.Tr=new A.a7(B.AY,B.b0,B.w,B.q,B.m,"dumbbell overhead tricep extension")
 B.uh=new A.bF("Chest Fly Machine (hand grips)",B.bO,14,"chestFlyMachine")
 B.vj=A.a(s([B.uh]),t.G)
 B.a7F=new A.d0(B.bp,0.7142857142857143,B.ff,"big stretch, good tension across ROM. but path can can be restrictive\n  Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=11m09s)\n",B.bo)
-B.YC=A.a(s([B.a7F]),t.to)
-B.Ts=new A.a7(B.km,B.vj,B.k2,B.q,B.YC,"chest machine fly (pec deck with hand grip)")
+B.YD=A.a(s([B.a7F]),t.to)
+B.Ts=new A.a7(B.km,B.vj,B.k2,B.q,B.YD,"chest machine fly (pec deck with hand grip)")
 B.tQ=new A.bF("Leg Press Machine",B.cx,39,"legPressMachine")
 B.nE=A.a(s([B.tQ]),t.G)
 B.Tt=new A.a7(B.kn,B.nE,B.cY,B.aa,B.m,"machine leg press")
@@ -115686,8 +115686,8 @@ B.TB=new A.a7(B.eq,B.ba,B.k0,B.aa,B.m,"assisted sissy squat")
 B.TC=new A.a7(B.nZ,B.ba,B.w,B.aa,B.m,"laying ab crunch")
 B.a2A=new A.ax([B.fy,B.a7,B.ew,B.a9],t.B)
 B.u8=new A.bF("Seated Calf Raise Machine",B.cx,40,"calfRaiseMachineSeated")
-B.YQ=A.a(s([B.u8]),t.G)
-B.TD=new A.a7(B.a2A,B.YQ,B.w,B.aa,B.m,"seated calf raise machine")
+B.YR=A.a(s([B.u8]),t.G)
+B.TD=new A.a7(B.a2A,B.YR,B.w,B.aa,B.m,"seated calf raise machine")
 B.TE=new A.a7(B.ki,B.vG,B.w,B.q,B.nC,"chest supported machine rows")
 B.AL=new A.ax([B.bI,B.fZ,B.cp,B.e0,B.aQ,B.a9,B.bx,B.eT,B.c6,B.a7,B.an,B.bm,B.a5,B.bm],t.B)
 B.a_k=A.a(s([B.n3]),t.G)
@@ -115699,47 +115699,47 @@ B.a7Y=new A.a_(B.aE,"bar rests on middle traps")
 B.a8F=new A.a_(B.aE,"bar rests on rear deltoids below spine of scapula")
 B.a1Z=new A.aR(B.a54,[B.a80,B.a7N,B.a8_,B.a7Y,B.a8F],t.rH)
 B.a3h=new A.et("bar placement","high back",B.a1Z,"Most people are stronger, the lower the bar placement. Therefore the low back bar placement is often used in powerlifting.\nThe higher the bar placement, the less weight you need and the more you can target the back, in particular the upper back.\n")
-B.YT=A.a(s([B.a3h,B.kp]),t.VL)
-B.TF=new A.a7(B.AL,B.a_k,B.YT,B.q,B.m,"barbell squat")
+B.YU=A.a(s([B.a3h,B.kp]),t.VL)
+B.TF=new A.a7(B.AL,B.a_k,B.YU,B.q,B.m,"barbell squat")
 B.TG=new A.a7(B.fj,B.c4,B.w,B.q,B.m,"kneeling diagonal cable row")
 B.TH=new A.a7(B.eq,B.ba,B.cY,B.aa,B.m,"step up")
 B.TI=new A.a7(B.AU,B.c4,B.w,B.q,B.m,"lat prayer")
 B.o0=new A.ax([B.bI,B.a7,B.bx,B.a9,B.aQ,B.a9,B.an,B.au,B.a5,B.au],t.B)
 B.tW=new A.bF("90\xb0 Back Extension",B.dh,26,"hyper90")
-B.Yr=A.a(s([B.tW]),t.G)
-B.TJ=new A.a7(B.o0,B.Yr,B.w,B.q,B.m,"90\xb0 hip extension")
+B.Ys=A.a(s([B.tW]),t.G)
+B.TJ=new A.a7(B.o0,B.Ys,B.w,B.q,B.m,"90\xb0 hip extension")
 B.TK=new A.a7(B.nW,B.b0,B.k8,B.q,B.m,"dumbbell forward lunge")
 B.TL=new A.a7(B.er,B.nE,B.w,B.aa,B.m,"leg press calf jumps")
 B.ue=new A.bF("TRX (or similar)",B.dF,4,"trx")
 B.vq=A.a(s([B.ue]),t.G)
 B.TM=new A.a7(B.dm,B.vq,B.w,B.q,B.m,"TRX face pull")
 B.u5=new A.bF("Hack Squat Machine",B.cx,33,"hackSquatMachine")
-B.Z4=A.a(s([B.u5]),t.G)
-B.TN=new A.a7(B.kn,B.Z4,B.cY,B.aa,B.m,"machine hack squat")
+B.Z5=A.a(s([B.u5]),t.G)
+B.TN=new A.a7(B.kn,B.Z5,B.cY,B.aa,B.m,"machine hack squat")
 B.TO=new A.a7(B.ko,B.k6,B.w,B.q,B.m,"lat pulldown wide pronated grip")
-B.Z7=A.a(s([B.n5]),t.G)
+B.Z8=A.a(s([B.n5]),t.G)
 B.a4Z={"full ROM":0,"lengthened partials":1,"pull on handles":2}
 B.a8f=new A.a_(!1,"pull on the handles to maybe get more tension on the quads.  [It's also Jeff Nippard's number 1 leg extension tip](https://www.instagram.com/jeffnippard/reel/CvUz7JyIMtQ/i-meant-to-say-pull-yourself-down-by-pulling-up-on-the-handles-my-badmy-number-1/)")
 B.a2_=new A.aR(B.a4Z,[B.i5,B.i6,B.a8f],t.Ql)
-B.TP=new A.a7(B.o_,B.Z7,B.k0,B.a2_,B.m,"seated leg extension machine")
+B.TP=new A.a7(B.o_,B.Z8,B.k0,B.a2_,B.m,"seated leg extension machine")
 B.tZ=new A.bF("Glute Kickback Machine",B.dh,29,"gluteKickbackMachine")
-B.Zo=A.a(s([B.tZ]),t.G)
-B.TQ=new A.a7(B.kh,B.Zo,B.hD,B.aa,B.m,"glute kickback machine")
+B.Zp=A.a(s([B.tZ]),t.G)
+B.TQ=new A.a7(B.kh,B.Zp,B.hD,B.aa,B.m,"glute kickback machine")
 B.TR=new A.a7(B.dm,B.k1,B.w,B.q,B.m,"seated cable face pull")
 B.ug=new A.bF("Resistance bands",B.dF,6,"elastic")
 B.vD=A.a(s([B.ug]),t.G)
 B.TS=new A.a7(B.fk,B.vD,B.w,B.q,B.m,"elastic skull-over")
 B.a2x=new A.ax([B.bU,B.a9,B.bT,B.a9,B.by,B.a9],t.B)
 B.uk=new A.bF("Pec Deck (elbow pad)",B.bO,13,"pecDeckMachine")
-B.YI=A.a(s([B.uk]),t.G)
-B.TT=new A.a7(B.a2x,B.YI,B.w,B.aa,B.m,"pec deck (elbow pad)")
+B.YJ=A.a(s([B.uk]),t.G)
+B.TT=new A.a7(B.a2x,B.YJ,B.w,B.aa,B.m,"pec deck (elbow pad)")
 B.ub=new A.bF("Lying Leg Curl Machine",B.cx,35,"hamCurlMachineLying")
 B.a_E=A.a(s([B.ub]),t.G)
 B.TU=new A.a7(B.o2,B.a_E,B.nq,B.aa,B.m,"lying leg curl machine")
 B.TV=new A.a7(B.fk,B.c4,B.w,B.q,B.m,"tricep cable pushdown")
 B.tY=new A.bF("Standing Calf Raise Machine",B.cx,41,"calfRaiseMachineStanding")
-B.YO=A.a(s([B.tY]),t.G)
-B.TW=new A.a7(B.er,B.YO,B.w,B.hR,B.m,"standing calf raise machine")
+B.YP=A.a(s([B.tY]),t.G)
+B.TW=new A.a7(B.er,B.YP,B.w,B.hR,B.m,"standing calf raise machine")
 B.TX=new A.a7(B.AL,B.ba,B.cY,B.q,B.m,"goblet squat")
 B.TY=new A.a7(B.er,B.ba,B.w,B.aa,B.m,"bodyweight calf jumps")
 B.vv=A.a(s([B.n4]),t.G)
@@ -115754,11 +115754,11 @@ B.IH=new A.aL(1,"elbow flexion with loading on all lengths, in anatomic position
 B.a1q=new A.ax([B.c7,B.IH,B.a5,B.au],t.B)
 B.U3=new A.a7(B.a1q,B.c4,B.w,B.q,B.m,"bayesian curl")
 B.a7x=new A.d0(B.bp,0.5714285714285714,B.dI,"tension mainly at the mid point. overloading, may hurt wrists. wasteful use of a barbell\n      Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYkk&t=1m56s)",B.bo)
-B.Zd=A.a(s([B.a7x]),t.to)
-B.U4=new A.a7(B.fh,B.cz,B.w,B.q,B.Zd,"standing barbell bicep curl")
+B.Ze=A.a(s([B.a7x]),t.to)
+B.U4=new A.a7(B.fh,B.cz,B.w,B.q,B.Ze,"standing barbell bicep curl")
 B.u3=new A.bF("Reverse Hyper",B.dh,27,"hyperReverse")
-B.YK=A.a(s([B.u3]),t.G)
-B.U5=new A.a7(B.o0,B.YK,B.w,B.q,B.m,"reverse hyperextension")
+B.YL=A.a(s([B.u3]),t.G)
+B.U5=new A.a7(B.o0,B.YL,B.w,B.q,B.m,"reverse hyperextension")
 B.U6=new A.a7(B.hU,B.b0,B.w,B.q,B.m,"seated dumbbell good morning")
 B.U7=new A.a7(B.aE,B.vq,B.nr,B.aa,B.m,"bodyweight leg curl with trx")
 B.U8=new A.a7(B.eq,B.ba,B.cY,B.aa,B.m,"walking lunge")
@@ -115772,8 +115772,8 @@ B.ui=new A.bF("Assisted Dip Machine",B.bO,23,"assistedDipMachine")
 B.XL=A.a(s([B.ui]),t.G)
 B.Ub=new A.a7(B.fi,B.XL,B.w,B.q,B.m,"assisted dip machine")
 B.ud=new A.bF("Preacher Curl Bench",B.bO,19,"preacherCurlBench")
-B.Yq=A.a(s([B.ud]),t.G)
-B.Uc=new A.a7(B.Az,B.Yq,B.w,B.q,B.m,"preacher bicep curl bench/barbell")
+B.Yr=A.a(s([B.ud]),t.G)
+B.Uc=new A.a7(B.Az,B.Yr,B.w,B.q,B.m,"preacher bicep curl bench/barbell")
 B.Ud=new A.a7(B.ko,B.ba,B.w,B.q,B.m,"pullup wide pronated grip")
 B.a1P=new A.ax([B.an,B.qF],t.B)
 B.Ue=new A.a7(B.a1P,B.b0,B.w,B.aa,B.m,"dumbbell wrist extensions")
@@ -115790,8 +115790,8 @@ B.a2b=new A.aR(B.BL,["no"],t.Q)
 B.a7B=new A.d0(B.bp,0.42857142857142855,B.ff,"no equipment needed. Can get too easy when you're strong. can't overload well. limited ROM.\nJeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m52s)",B.a2b)
 B.a2a=new A.aR(B.BL,["max"],t.Q)
 B.a7G=new A.d0(B.bp,0.7142857142857143,B.ff,"more deep stretch. best type of pushup \nJeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=6m45s)",B.a2a)
-B.YD=A.a(s([B.a7B,B.a7G]),t.to)
-B.Ui=new A.a7(B.a1V,B.ba,B.a_n,B.aa,B.YD,"push-up")
+B.YE=A.a(s([B.a7B,B.a7G]),t.to)
+B.Ui=new A.a7(B.a1V,B.ba,B.a_n,B.aa,B.YE,"push-up")
 B.a1y=new A.ax([B.bI,B.aT,B.cp,B.e0,B.aQ,B.qK,B.c8,B.qE,B.bx,B.eT,B.c6,B.a7,B.an,B.bm,B.a5,B.bm],t.B)
 B.Uj=new A.a7(B.a1y,B.b0,B.k7,B.q,B.m,"dumbbell bulgarian split squat")
 B.Uk=new A.a7(B.kn,B.hC,B.cY,B.aa,B.m,"smith machine hack squat")
@@ -115905,19 +115905,19 @@ B.UV=new A.c1("vastus lateralis",B.os,B.H,B.fd,1,B.dk,null,null)
 B.vn=A.a(s([B.e1]),t.v)
 B.v3=new A.fs(B.iI,0)
 B.Wr=new A.fs(B.d9,20)
-B.YL=A.a(s([B.v3,B.Wr]),t.Pz)
-B.WH=new A.oA(B.YL,"arm extended behind body")
+B.YM=A.a(s([B.v3,B.Wr]),t.Pz)
+B.WH=new A.oA(B.YM,"arm extended behind body")
 B.Wz=new A.fs(B.d9,160)
 B.Ws=new A.fs(B.eS,150)
 B.a_o=A.a(s([B.Wz,B.Ws]),t.Pz)
 B.WF=new A.oA(B.a_o,"arm bent overhead, but even during overhead extension you don't reach this")
 B.UW=new A.c1("medial head",B.oy,B.H,B.vn,1,B.dk,B.WH,B.WF)
-B.YA=A.a(s([B.h3]),t.v)
+B.YB=A.a(s([B.h3]),t.v)
 B.Ke=new A.dL(2,"clavicle")
 B.Bb=new A.aT(B.fY,0,40,null,6)
 B.a3W=new A.aT(B.fW,0,25,null,3)
-B.a_d=A.a(s([B.Bb,B.a3W]),t.A)
-B.UX=new A.c1("upper traps, lower fibers",B.oj,B.H,B.YA,2,B.a_d,null,null)
+B.a_e=A.a(s([B.Bb,B.a3W]),t.A)
+B.UX=new A.c1("upper traps, lower fibers",B.oj,B.H,B.YB,2,B.a_e,null,null)
 B.Kc=new A.dL(14,"hip")
 B.jZ=A.a(s([B.Kc]),t.v)
 B.Be=new A.aT(B.iN,120,-20,45,6)
@@ -115925,22 +115925,22 @@ B.a3n=new A.aT(B.lN,0,10,null,6)
 B.vm=A.a(s([B.Be,B.a3n]),t.A)
 B.UY=new A.c1("semimembranosus",B.ox,B.H,B.jZ,2,B.vm,null,null)
 B.Kb=new A.dL(11,"skull")
-B.Yy=A.a(s([B.Kb]),t.v)
+B.Yz=A.a(s([B.Kb]),t.v)
 B.a3P=new A.aT(B.iG,0,35,null,1)
 B.a3o=new A.aT(B.fT,65,0,null,1)
 B.a40=new A.aT(B.lQ,0,-40,null,1)
 B.a3z=new A.aT(B.iP,0,30,null,2)
-B.Zn=A.a(s([B.Bb,B.a3P,B.a3o,B.a40,B.a3z]),t.A)
+B.Zo=A.a(s([B.Bb,B.a3P,B.a3o,B.a40,B.a3z]),t.A)
 B.Ww=new A.fs(B.fT,361)
 B.WB=new A.fs(B.fY,361)
-B.YS=A.a(s([B.Ww,B.WB]),t.Pz)
-B.WE=new A.oA(B.YS,"contracted at both neck and shoulder (technically, also a bit lower fibers).\nkeep head forward during shrugs")
+B.YT=A.a(s([B.Ww,B.WB]),t.Pz)
+B.WE=new A.oA(B.YT,"contracted at both neck and shoulder (technically, also a bit lower fibers).\nkeep head forward during shrugs")
 B.WC=new A.fs(B.iA,361)
 B.Wx=new A.fs(B.fX,361)
 B.a_S=A.a(s([B.WC,B.Wx]),t.Pz)
 B.WJ=new A.oA(B.a_S,"stretched at both neck and shoulder (technically, also a bit lower fibers)")
-B.UZ=new A.c1("upper traps, upper fibers",B.oh,B.H,B.Yy,2,B.Zn,B.WE,B.WJ)
-B.a_2=A.a(s(["front"]),t.s)
+B.UZ=new A.c1("upper traps, upper fibers",B.oh,B.H,B.Yz,2,B.Zo,B.WE,B.WJ)
+B.a_3=A.a(s(["front"]),t.s)
 B.vo=A.a(s([B.Ke]),t.v)
 B.a3F=new A.aT(B.iB,0,90,null,2)
 B.a3t=new A.aT(B.iC,0,90,null,5)
@@ -115948,10 +115948,10 @@ B.a3u=new A.aT(B.d9,0,160,null,6)
 B.ob=new A.aT(B.lG,0,70,null,4)
 B.a3T=new A.aT(B.e_,null,null,null,4)
 B.Xu=A.a(s([B.a3F,B.a3t,B.a3u,B.ob,B.a3T]),t.A)
-B.V_=new A.c1("anterior head",B.om,B.a_2,B.vo,1,B.Xu,null,null)
+B.V_=new A.c1("anterior head",B.om,B.a_3,B.vo,1,B.Xu,null,null)
 B.B6=new A.aT(B.lO,0,30,null,6)
-B.Za=A.a(s([B.B6]),t.A)
-B.V0=new A.c1("biceps femoris, short head",B.ov,B.H,B.fd,1,B.Za,null,null)
+B.Zb=A.a(s([B.B6]),t.A)
+B.V0=new A.c1("biceps femoris, short head",B.ov,B.H,B.fd,1,B.Zb,null,null)
 B.Bv=new A.bN(42,"gastrocnemiusMedialHead")
 B.V1=new A.c1("medial head",B.Bv,B.H,B.fd,2,B.dk,null,null)
 B.a_R=A.a(s(["rear delts"]),t.s)
@@ -115962,57 +115962,57 @@ B.Bd=new A.aT(B.dZ,170,0,null,4)
 B.a3s=new A.aT(B.iF,0,-40,null,6)
 B.a3y=new A.aT(B.lH,0,90,null,4)
 B.a3Z=new A.aT(B.e_,0,170,null,2)
-B.a_3=A.a(s([B.a3A,B.a3l,B.Bd,B.a3s,B.a3y,B.a3Z]),t.A)
-B.V2=new A.c1("posterior head",B.oo,B.a_R,B.hB,1,B.a_3,null,null)
+B.a_4=A.a(s([B.a3A,B.a3l,B.Bd,B.a3s,B.a3y,B.a3Z]),t.A)
+B.V2=new A.c1("posterior head",B.oo,B.a_R,B.hB,1,B.a_4,null,null)
 B.Bu=new A.bN(41,"gastrocnemiusLateralHead")
 B.V3=new A.c1("lateral head",B.Bu,B.H,B.fd,2,B.dk,null,null)
 B.a_u=A.a(s(["outer"]),t.s)
 B.V4=new A.c1("long head",B.og,B.a_u,B.hB,3,B.dk,null,null)
-B.a_9=A.a(s(["inner"]),t.s)
+B.a_a=A.a(s(["inner"]),t.s)
 B.Wt=new A.fs(B.eS,180)
 B.Wy=new A.fs(B.dZ,180)
-B.a_1=A.a(s([B.Wt,B.Wy]),t.Pz)
-B.WI=new A.oA(B.a_1,null)
+B.a_2=A.a(s([B.Wt,B.Wy]),t.Pz)
+B.WI=new A.oA(B.a_2,null)
 B.WA=new A.fs(B.dZ,0)
 B.Xw=A.a(s([B.v3,B.WA]),t.Pz)
 B.WD=new A.oA(B.Xw,null)
-B.V5=new A.c1("short head",B.of,B.a_9,B.hB,3,B.dk,B.WI,B.WD)
+B.V5=new A.c1("short head",B.of,B.a_a,B.hB,3,B.dk,B.WI,B.WD)
 B.Y8=A.a(s([B.Be,B.B6]),t.A)
 B.V6=new A.c1("biceps femoris, long head",B.ou,B.H,B.jZ,2,B.Y8,null,null)
 B.Ka=new A.dL(10,"spineC7T1")
-B.Yx=A.a(s([B.Ka]),t.v)
+B.Yy=A.a(s([B.Ka]),t.v)
 B.B7=new A.aT(B.fW,0,25,null,4)
 B.a4e=new A.aT(B.fY,0,60,null,2)
 B.Ba=new A.aT(B.lF,0,60,null,4)
 B.a_w=A.a(s([B.B7,B.a4e,B.Ba]),t.A)
-B.V7=new A.c1("middle traps",B.ol,B.H,B.Yx,1,B.a_w,null,null)
+B.V7=new A.c1("middle traps",B.ol,B.H,B.Yy,1,B.a_w,null,null)
 B.a_M=A.a(s(["upper"]),t.s)
 B.a3p=new A.aT(B.d9,0,160,null,4)
 B.a3D=new A.aT(B.e_,0,180,0,4)
-B.Yo=A.a(s([B.a3p,B.a3D]),t.A)
-B.V8=new A.c1("clavicular head",B.oi,B.a_M,B.vo,1,B.Yo,null,null)
+B.Yp=A.a(s([B.a3p,B.a3D]),t.A)
+B.V8=new A.c1("clavicular head",B.oi,B.a_M,B.vo,1,B.Yp,null,null)
 B.V9=new A.c1("vastus medialis",B.or,B.H,B.fd,1,B.dk,null,null)
 B.Kh=new A.dL(8,"spineThoracic")
-B.Yz=A.a(s([B.Kh]),t.v)
+B.YA=A.a(s([B.Kh]),t.v)
 B.a47=new A.aT(B.fX,0,10,null,4)
-B.Z2=A.a(s([B.a47,B.B7,B.Ba]),t.A)
-B.Va=new A.c1("lower traps",B.ok,B.H,B.Yz,1,B.Z2,null,null)
+B.Z3=A.a(s([B.a47,B.B7,B.Ba]),t.A)
+B.Va=new A.c1("lower traps",B.ok,B.H,B.YA,1,B.Z3,null,null)
 B.a_m=A.a(s(["lower"]),t.s)
-B.Yw=A.a(s([B.qU]),t.v)
+B.Yx=A.a(s([B.qU]),t.v)
 B.a48=new A.aT(B.fS,170,0,null,4)
 B.a_A=A.a(s([B.Bd,B.a48]),t.A)
-B.Vb=new A.c1("sternal head",B.op,B.a_m,B.Yw,1,B.a_A,null,null)
-B.YB=A.a(s(["side delts"]),t.s)
+B.Vb=new A.c1("sternal head",B.op,B.a_m,B.Yx,1,B.a_A,null,null)
+B.YC=A.a(s(["side delts"]),t.s)
 B.a3K=new A.aT(B.e_,0,170,null,6)
 B.a3Q=new A.aT(B.d9,0,160,null,3)
 B.a4b=new A.aT(B.iE,-145,45,null,4)
-B.a_7=A.a(s([B.a3K,B.a3Q,B.a4b]),t.A)
-B.Vc=new A.c1("lateral head",B.on,B.YB,B.hB,1,B.a_7,null,null)
+B.a_8=A.a(s([B.a3K,B.a3Q,B.a4b]),t.A)
+B.Vc=new A.c1("lateral head",B.on,B.YC,B.hB,1,B.a_8,null,null)
 B.a3r=new A.aT(B.dZ,170,0,90,2)
 B.a45=new A.aT(B.iF,0,-40,null,4)
 B.a4i=new A.aT(B.fS,null,null,null,3)
-B.Yv=A.a(s([B.a3r,B.a45,B.a4i]),t.A)
-B.Vd=new A.c1("long head",B.oA,B.H,B.hB,2,B.Yv,null,null)
+B.Yw=A.a(s([B.a3r,B.a45,B.a4i]),t.A)
+B.Vd=new A.c1("long head",B.oA,B.H,B.hB,2,B.Yw,null,null)
 B.Ve=new A.c1("semitendinosus",B.ow,B.H,B.jZ,2,B.vm,null,null)
 B.a3E=new A.aT(B.iM,0,140,0,6)
 B.a_B=A.a(s([B.a3E]),t.A)
@@ -116186,8 +116186,8 @@ B.W6=new A.mU(B.VV,!1,0,"png")
 B.VT=new A.oy(B.a_s,B.W6,0,"png")
 B.a_v=A.a(s([71,73,70,56,55,97]),t.Z)
 B.VS=new A.oy(B.a_v,B.jQ,1,"gif87a")
-B.Zu=A.a(s([71,73,70,56,57,97]),t.Z)
-B.VR=new A.oy(B.Zu,B.jQ,2,"gif89a")
+B.Zv=A.a(s([71,73,70,56,57,97]),t.Z)
+B.VR=new A.oy(B.Zv,B.jQ,2,"gif89a")
 B.Xs=A.a(s([255,216,255]),t.Z)
 B.VW=new A.qO(2,"jpeg")
 B.Wa=new A.mU(B.VW,!1,3,"jpeg")
@@ -116208,14 +116208,14 @@ B.va=new A.hG(1,"intermediate")
 B.vb=new A.hG(2,"advanced")
 B.vc=new A.hG(3,"elite")
 B.Yc=A.a(s([B.jX,B.va,B.vb,B.vc]),A.a6("t<hG>"))
-B.ahx=new A.bd("Off",null,null,null,null,null,null,null,null,null,null)
-B.Lr=new A.hV(B.f_,B.ahx,t.vS)
+B.ahy=new A.bd("Off",null,null,null,null,null,null,null,null,null,null)
+B.Lr=new A.hV(B.f_,B.ahy,t.vS)
 B.rz=new A.lA(1,"on")
-B.ahs=new A.bd("On",null,null,null,null,null,null,null,null,null,null)
-B.Lm=new A.hV(B.rz,B.ahs,t.vS)
+B.aht=new A.bd("On",null,null,null,null,null,null,null,null,null,null)
+B.Lm=new A.hV(B.rz,B.aht,t.vS)
 B.rA=new A.lA(2,"psmf")
-B.ahy=new A.bd("PSMF Days",null,null,null,null,null,null,null,null,null,null)
-B.Lq=new A.hV(B.rA,B.ahy,t.vS)
+B.ahz=new A.bd("PSMF Days",null,null,null,null,null,null,null,null,null,null)
+B.Lq=new A.hV(B.rA,B.ahz,t.vS)
 B.Yd=A.a(s([B.Lr,B.Lm,B.Lq]),A.a6("t<hV<lA>>"))
 B.akv=new A.jy(0,1)
 B.akA=new A.jy(0.5,1)
@@ -116260,9 +116260,9 @@ B.JY=new A.dh(25,"hue")
 B.K_=new A.dh(26,"saturation")
 B.K1=new A.dh(27,"color")
 B.K3=new A.dh(28,"luminosity")
-B.Yn=A.a(s([B.Jx,B.Jy,B.JN,B.dz,B.K5,B.qS,B.qT,B.K6,B.K7,B.K8,B.Jz,B.JA,B.qQ,B.qR,B.JB,B.JD,B.JF,B.JH,B.JJ,B.JL,B.JO,B.JQ,B.JS,B.JU,B.JW,B.JY,B.K_,B.K1,B.K3]),A.a6("t<dh>"))
-B.Ys=A.a(s([B.lW,B.lX]),A.a6("t<DL>"))
-B.Yt=A.a(s(["trivial","very weak","weak","moderate/unknown","strong","strongest"]),t.s)
+B.Yo=A.a(s([B.Jx,B.Jy,B.JN,B.dz,B.K5,B.qS,B.qT,B.K6,B.K7,B.K8,B.Jz,B.JA,B.qQ,B.qR,B.JB,B.JD,B.JF,B.JH,B.JJ,B.JL,B.JO,B.JQ,B.JS,B.JU,B.JW,B.JY,B.K_,B.K1,B.K3]),A.a6("t<dh>"))
+B.Yt=A.a(s([B.lW,B.lX]),A.a6("t<DL>"))
+B.Yu=A.a(s(["trivial","very weak","weak","moderate/unknown","strong","strongest"]),t.s)
 B.Sv=new A.bF("Assisted Pull-up Machine",B.bO,22,"assistedPullUpMachine")
 B.k_=A.a(s([B.dG,B.u_,B.dH,B.u9,B.ue,B.uf,B.ug,B.n4,B.tP,B.f5,B.n2,B.tX,B.u1,B.uk,B.uh,B.u0,B.n6,B.tT,B.tS,B.ud,B.u4,B.uc,B.Sv,B.ui,B.tU,B.tR,B.tW,B.u3,B.u6,B.tZ,B.tV,B.u7,B.ua,B.u5,B.n3,B.ub,B.u2,B.uj,B.n5,B.tQ,B.u8,B.tY]),t.G)
 B.bE=A.a(s([B.a5,B.an,B.bU,B.bT,B.by,B.i2,B.co,B.cn,B.cl,B.ex,B.cm,B.c7,B.dq,B.cE,B.c6,B.bI,B.cp,B.i3,B.bx,B.kE,B.aQ,B.c8,B.fy,B.ew]),t.AQ)
@@ -116277,7 +116277,7 @@ B.bl=new A.ho(7,"suffixIcon")
 B.cN=new A.ho(8,"helperError")
 B.d6=new A.ho(9,"counter")
 B.dv=new A.ho(10,"container")
-B.YU=A.a(s([B.bf,B.br,B.aG,B.bB,B.bC,B.bD,B.aB,B.bl,B.cN,B.d6,B.dv]),A.a6("t<ho>"))
+B.YV=A.a(s([B.bf,B.br,B.aG,B.bB,B.bC,B.bD,B.aB,B.bl,B.cN,B.d6,B.dv]),A.a6("t<ho>"))
 B.dV=new A.wR(0,"clamp")
 B.l5=new A.wR(1,"repeated")
 B.l6=new A.wR(2,"mirror")
@@ -116294,28 +116294,28 @@ B.akl=new A.pv(12,0.14)
 B.vt=A.a(s([B.akk,B.akp,B.akn,B.ako,B.akm,B.akl]),A.a6("t<pv>"))
 B.ahg=new A.bd("Existing Workout",null,null,null,null,null,null,null,null,null,null)
 B.Lp=new A.hV("existing",B.ahg,t.Zx)
-B.ahp=new A.bd("Custom",null,null,null,null,null,null,null,null,null,null)
-B.Lo=new A.hV("custom",B.ahp,t.Zx)
-B.YW=A.a(s([B.Lp,B.Lo]),t.CK)
-B.ahQ=new A.bd("",null,null,null,null,null,null,null,null,null,null)
-B.tu=new A.oc(B.ahQ)
-B.Z3=A.a(s([B.tu,B.tu]),t.UR)
+B.ahq=new A.bd("Custom",null,null,null,null,null,null,null,null,null,null)
+B.Lo=new A.hV("custom",B.ahq,t.Zx)
+B.YX=A.a(s([B.Lp,B.Lo]),t.CK)
+B.ahR=new A.bd("",null,null,null,null,null,null,null,null,null,null)
+B.tu=new A.oc(B.ahR)
+B.Z4=A.a(s([B.tu,B.tu]),t.UR)
 B.kz=new A.Hn(0,"nonZero")
 B.C_=new A.Hn(1,"evenOdd")
-B.Z5=A.a(s([B.kz,B.C_]),A.a6("t<Hn>"))
-B.Z6=A.a(s([-1,0,0,1,0,0,-1,0,1,0,0,0,-1,1,0,1,1,1,1,0]),t.n)
+B.Z6=A.a(s([B.kz,B.C_]),A.a6("t<Hn>"))
+B.Z7=A.a(s([-1,0,0,1,0,0,-1,0,1,0,0,0,-1,1,0,1,1,1,1,0]),t.n)
 B.K9=new A.Rb(2,"outer")
 B.rY=new A.Q(0.09803921568627451,0,0,0,B.h)
 B.KZ=new A.bZ(0.2,B.K9,B.rY,B.f,11)
-B.Z9=A.a(s([B.KZ]),t.F)
+B.Za=A.a(s([B.KZ]),t.F)
 B.dr=new A.iy(0,"male")
 B.p8=new A.iy(1,"female")
-B.Zb=A.a(s([B.dr,B.p8]),A.a6("t<iy>"))
+B.Zc=A.a(s([B.dr,B.p8]),A.a6("t<iy>"))
 B.abW=new A.JA(0,"left")
 B.abX=new A.JA(1,"right")
-B.Zc=A.a(s([B.abW,B.abX]),A.a6("t<JA>"))
+B.Zd=A.a(s([B.abW,B.abX]),A.a6("t<JA>"))
 B.aY=new A.JN(0,"upstream")
-B.Ze=A.a(s([B.aY,B.o]),A.a6("t<JN>"))
+B.Zf=A.a(s([B.aY,B.o]),A.a6("t<JN>"))
 B.be=new A.wJ(0,"rtl")
 B.aA=new A.wJ(1,"ltr")
 B.ns=A.a(s([B.be,B.aA]),A.a6("t<wJ>"))
@@ -116324,21 +116324,21 @@ B.Hb=new A.rY(1,"double")
 B.acp=new A.rY(2,"dotted")
 B.acr=new A.rY(3,"dashed")
 B.act=new A.rY(4,"wavy")
-B.Zg=A.a(s([B.acm,B.Hb,B.acp,B.acr,B.act]),A.a6("t<rY>"))
+B.Zh=A.a(s([B.acm,B.Hb,B.acp,B.acr,B.act]),A.a6("t<rY>"))
 B.N3=new A.xZ(0,"auto")
 B.N4=new A.xZ(1,"full")
 B.N5=new A.xZ(2,"chromium")
-B.Zp=A.a(s([B.N3,B.N4,B.N5]),A.a6("t<xZ>"))
+B.Zq=A.a(s([B.N3,B.N4,B.N5]),A.a6("t<xZ>"))
 B.dx=new A.mq(0,"leading")
 B.cs=new A.mq(1,"title")
 B.dy=new A.mq(2,"subtitle")
 B.eP=new A.mq(3,"trailing")
-B.Zr=A.a(s([B.dx,B.cs,B.dy,B.eP]),A.a6("t<mq>"))
-B.Zt=A.a(s(["pointerdown","pointermove","pointerleave","pointerup","pointercancel","touchstart","touchend","touchmove","touchcancel","mousedown","mousemove","mouseleave","mouseup"]),t.s)
+B.Zs=A.a(s([B.dx,B.cs,B.dy,B.eP]),A.a6("t<mq>"))
+B.Zu=A.a(s(["pointerdown","pointermove","pointerleave","pointerup","pointercancel","touchstart","touchend","touchmove","touchcancel","mousedown","mousemove","mouseleave","mouseup"]),t.s)
 B.cH=new A.i8(1,"fuchsia")
 B.cI=new A.i8(3,"linux")
 B.cJ=new A.i8(5,"windows")
-B.Zw=A.a(s([B.aX,B.cH,B.ao,B.cI,B.bW,B.cJ]),A.a6("t<i8>"))
+B.Zx=A.a(s([B.aX,B.cH,B.ao,B.cI,B.bW,B.cJ]),A.a6("t<i8>"))
 B.HT=new A.BP(0,"topLeft")
 B.HW=new A.BP(3,"bottomRight")
 B.ake=new A.pt(B.HT,B.HW)
@@ -116347,7 +116347,7 @@ B.HU=new A.BP(1,"topRight")
 B.HV=new A.BP(2,"bottomLeft")
 B.akf=new A.pt(B.HU,B.HV)
 B.akg=new A.pt(B.HV,B.HU)
-B.Zz=A.a(s([B.ake,B.akh,B.akf,B.akg]),A.a6("t<pt>"))
+B.ZA=A.a(s([B.ake,B.akh,B.akf,B.akg]),A.a6("t<pt>"))
 B.hW=new A.fx(0,"abs")
 B.od=new A.fx(1,"calves")
 B.Bl=new A.fx(2,"delts")
@@ -116363,16 +116363,16 @@ B.kq=new A.fx(11,"spinalErectors")
 B.Bj=new A.fx(12,"traps")
 B.Bk=new A.fx(13,"triceps")
 B.nt=A.a(s([B.hW,B.od,B.Bl,B.kr,B.ks,B.kt,B.Bm,B.Bn,B.oe,B.Bo,B.Bi,B.kq,B.Bj,B.Bk]),t.V)
-B.ZB=A.a(s([B.dF,B.ht,B.bO,B.dh,B.cx]),A.a6("t<qD>"))
+B.ZC=A.a(s([B.dF,B.ht,B.bO,B.dh,B.cx]),A.a6("t<qD>"))
 B.qo=new A.ht("Somewhat active",1,"somewhatActive")
 B.qm=new A.ht("Active",2,"active")
 B.qn=new A.ht("Very active",3,"veryActive")
-B.ZC=A.a(s([B.ix,B.qo,B.qm,B.qn]),A.a6("t<ht>"))
-B.ZF=A.a(s(["click","scroll"]),t.s)
+B.ZD=A.a(s([B.ix,B.qo,B.qm,B.qn]),A.a6("t<ht>"))
+B.ZG=A.a(s(["click","scroll"]),t.s)
 B.LF=new A.q_()
 B.i9=new A.Y2(1,"page")
 B.kO=new A.fS(B.af,B.i9)
-B.ZG=A.a(s([B.LF,B.kO]),A.a6("t<bo>"))
+B.ZH=A.a(s([B.LF,B.kO]),A.a6("t<bo>"))
 B.a7k=new A.Wt(null)
 B.oX=new A.Y4(0,"manual")
 B.ab5=new A.nj(B.a4,null,null,null,B.a7k,B.I,null)
@@ -116380,61 +116380,61 @@ B.So=new A.aA(8,0,28,0)
 B.a7g=new A.Ws(null)
 B.a6o=new A.aH(B.So,B.a7g,null)
 B.ab6=new A.nj(B.a4,null,null,null,B.a6o,B.I,null)
-B.ZH=A.a(s([B.ab5,B.ab6]),t.p)
+B.ZI=A.a(s([B.ab5,B.ab6]),t.p)
 B.qt=new A.b9(25,"spineRotation")
 B.nu=A.a(s([B.iA,B.iG,B.fT,B.lQ,B.iP,B.fW,B.qx,B.fX,B.lV,B.fY,B.lF,B.iB,B.iC,B.iD,B.iE,B.lG,B.lH,B.d9,B.dZ,B.iF,B.fS,B.e_,B.lI,B.lJ,B.lK,B.qt,B.lL,B.iH,B.iI,B.eS,B.iJ,B.iK,B.fU,B.lM,B.lN,B.lO,B.lP,B.qu,B.iL,B.fV,B.qv,B.iM,B.iN,B.lR,B.lS,B.lT,B.iO,B.lU,B.qw]),t.oi)
-B.ZX=A.a(s([]),t.QP)
+B.ZY=A.a(s([]),t.QP)
 B.vz=A.a(s([]),t.F)
 B.vB=A.a(s([]),A.a6("t<bpR>"))
 B.nw=A.a(s([]),t.s5)
-B.ZM=A.a(s([]),t.IF)
-B.ZR=A.a(s([]),t.D)
-B.ZL=A.a(s([]),t.lX)
-B.a__=A.a(s([]),t.fJ)
-B.ZQ=A.a(s([]),t.ER)
+B.ZN=A.a(s([]),t.IF)
+B.ZS=A.a(s([]),t.D)
+B.ZM=A.a(s([]),t.lX)
+B.a_0=A.a(s([]),t.fJ)
+B.ZR=A.a(s([]),t.ER)
 B.vy=A.a(s([]),t.T2)
 B.amn=A.a(s([]),t.tc)
-B.ZN=A.a(s([]),t.c)
+B.ZO=A.a(s([]),t.c)
 B.k5=A.a(s([]),t.jl)
-B.ZV=A.a(s([]),t.wi)
+B.ZW=A.a(s([]),t.wi)
 B.vA=A.a(s([]),A.a6("t<oT>"))
-B.ZU=A.a(s([]),A.a6("t<i2<@>>"))
-B.ZP=A.a(s([]),t.Vz)
-B.ZO=A.a(s([]),t.H9)
+B.ZV=A.a(s([]),A.a6("t<i2<@>>"))
+B.ZQ=A.a(s([]),t.Vz)
+B.ZP=A.a(s([]),t.H9)
 B.nz=A.a(s([]),t.AO)
 B.eh=A.a(s([]),t.yo)
 B.k4=A.a(s([]),t.i3)
 B.nx=A.a(s([]),t.K1)
-B.ZS=A.a(s([]),t.D1)
+B.ZT=A.a(s([]),t.D1)
 B.nA=A.a(s([]),t.QF)
 B.vx=A.a(s([]),t.kD)
 B.amo=A.a(s([]),t.nk)
-B.ZZ=A.a(s([]),t.Lx)
-B.a_0=A.a(s([]),t.fm)
+B.a__=A.a(s([]),t.Lx)
+B.a_1=A.a(s([]),t.fm)
 B.k3=A.a(s([]),t.x1)
-B.ZT=A.a(s([]),A.a6("t<iI>"))
-B.ZK=A.a(s([]),t.lD)
+B.ZU=A.a(s([]),A.a6("t<iI>"))
+B.ZL=A.a(s([]),t.lD)
 B.ny=A.a(s([]),t.n)
 B.nv=A.a(s([]),t.t)
 B.E=A.a(s([]),t.ee)
-B.ZJ=A.a(s([]),t.iG)
-B.ZY=A.a(s([]),t.XS)
+B.ZK=A.a(s([]),t.iG)
+B.ZZ=A.a(s([]),t.XS)
 B.ne=new A.kE(0)
 B.UK=new A.kE(1)
 B.uF=new A.kE(2)
 B.UP=new A.kE(7)
 B.nB=A.a(s([B.ne,B.UK,B.uF,B.z,B.U,B.di,B.b9,B.UP,B.ng]),A.a6("t<kE>"))
-B.a_6=A.a(s(["ul","ol","li","p","br"]),t.s)
+B.a_7=A.a(s(["ul","ol","li","p","br"]),t.s)
 B.hX=new A.j(0,2)
 B.KX=new A.bZ(0.75,B.a0,B.rY,B.hX,1.5)
-B.a_b=A.a(s([B.KX]),t.F)
+B.a_c=A.a(s([B.KX]),t.F)
 B.hE=A.a(s([B.dY,B.d8,B.iy,B.iz,B.lE]),t.QP)
 B.pr=new A.AU(0,"butt")
 B.kZ=new A.AU(1,"round")
 B.GV=new A.AU(2,"square")
 B.a_D=A.a(s([B.pr,B.kZ,B.GV]),A.a6("t<AU>"))
-B.ahz=new A.bd("Meal",null,null,null,null,null,null,null,null,null,null)
-B.Ln=new A.hV("meal",B.ahz,t.Zx)
+B.ahA=new A.bd("Meal",null,null,null,null,null,null,null,null,null,null)
+B.Ln=new A.hV("meal",B.ahA,t.Zx)
 B.ahJ=new A.bd("Workout",null,null,null,null,null,null,null,null,null,null)
 B.Ll=new A.hV("workout",B.ahJ,t.Zx)
 B.a_G=A.a(s([B.Ln,B.Ll]),t.CK)
@@ -116535,11 +116535,11 @@ B.a_t=A.a(s([B.KW,B.KN,B.KV]),t.F)
 B.KU=new A.bZ(-2,B.a0,B.cS,B.dL,1)
 B.L6=new A.bZ(0,B.a0,B.cT,B.hX,2)
 B.KP=new A.bZ(0,B.a0,B.cw,B.d2,5)
-B.Ym=A.a(s([B.KU,B.L6,B.KP]),t.F)
+B.Yn=A.a(s([B.KU,B.L6,B.KP]),t.F)
 B.KO=new A.bZ(-2,B.a0,B.cS,B.dL,3)
 B.KR=new A.bZ(0,B.a0,B.cT,B.dL,4)
 B.Lg=new A.bZ(0,B.a0,B.cw,B.d2,8)
-B.a_c=A.a(s([B.KO,B.KR,B.Lg]),t.F)
+B.a_d=A.a(s([B.KO,B.KR,B.Lg]),t.F)
 B.KT=new A.bZ(-1,B.a0,B.cS,B.hX,4)
 B.L2=new A.bZ(0,B.a0,B.cT,B.oE,5)
 B.KY=new A.bZ(0,B.a0,B.cw,B.d2,10)
@@ -116548,7 +116548,7 @@ B.KL=new A.bZ(-1,B.a0,B.cS,B.dL,5)
 B.BO=new A.j(0,6)
 B.L7=new A.bZ(0,B.a0,B.cT,B.BO,10)
 B.Lf=new A.bZ(0,B.a0,B.cw,B.d2,18)
-B.YF=A.a(s([B.KL,B.L7,B.Lf]),t.F)
+B.YG=A.a(s([B.KL,B.L7,B.Lf]),t.F)
 B.oF=new A.j(0,5)
 B.KQ=new A.bZ(-3,B.a0,B.cS,B.oF,5)
 B.oG=new A.j(0,8)
@@ -116565,19 +116565,19 @@ B.L3=new A.bZ(-4,B.a0,B.cS,B.a5z,8)
 B.a5u=new A.j(0,12)
 B.L_=new A.bZ(2,B.a0,B.cT,B.a5u,17)
 B.Ld=new A.bZ(4,B.a0,B.cw,B.oF,22)
-B.YR=A.a(s([B.L3,B.L_,B.Ld]),t.F)
+B.YS=A.a(s([B.L3,B.L_,B.Ld]),t.F)
 B.Lc=new A.bZ(-5,B.a0,B.cS,B.oG,10)
 B.a5v=new A.j(0,16)
 B.L5=new A.bZ(2,B.a0,B.cT,B.a5v,24)
 B.Li=new A.bZ(5,B.a0,B.cw,B.BO,30)
-B.YP=A.a(s([B.Lc,B.L5,B.Li]),t.F)
+B.YQ=A.a(s([B.Lc,B.L5,B.Li]),t.F)
 B.a5t=new A.j(0,11)
 B.KS=new A.bZ(-7,B.a0,B.cS,B.a5t,15)
 B.a5x=new A.j(0,24)
 B.Lb=new A.bZ(3,B.a0,B.cT,B.a5x,38)
 B.L4=new A.bZ(8,B.a0,B.cw,B.BP,46)
-B.Z8=A.a(s([B.KS,B.Lb,B.L4]),t.F)
-B.a1A=new A.ax([0,B.vz,1,B.a_t,2,B.Ym,3,B.a_c,4,B.Xv,6,B.YF,8,B.XS,9,B.Y6,12,B.YR,16,B.YP,24,B.Z8],A.a6("ax<o,y<bZ>>"))
+B.Z9=A.a(s([B.KS,B.Lb,B.L4]),t.F)
+B.a1A=new A.ax([0,B.vz,1,B.a_t,2,B.Yn,3,B.a_d,4,B.Xv,6,B.YG,8,B.XS,9,B.Y6,12,B.YS,16,B.YQ,24,B.Z9],A.a6("ax<o,y<bZ>>"))
 B.cZ=new A.k(4294968065)
 B.pc=new A.aE(B.cZ,!1,!1,!0,!1,B.x)
 B.cA=new A.k(4294968066)
@@ -117259,28 +117259,28 @@ B.XZ=A.a(s([54,null,null,8589935158]),t.Z)
 B.Y_=A.a(s([55,null,null,8589935159]),t.Z)
 B.Y0=A.a(s([56,null,null,8589935160]),t.Z)
 B.Y2=A.a(s([57,null,null,8589935161]),t.Z)
-B.Zj=A.a(s([8589934852,8589934852,8589934853,null]),t.Z)
+B.Zk=A.a(s([8589934852,8589934852,8589934853,null]),t.Z)
 B.Xz=A.a(s([4294967555,null,4294967555,null]),t.Z)
 B.XA=A.a(s([4294968065,null,null,8589935154]),t.Z)
 B.XB=A.a(s([4294968066,null,null,8589935156]),t.Z)
 B.XC=A.a(s([4294968067,null,null,8589935158]),t.Z)
 B.XD=A.a(s([4294968068,null,null,8589935160]),t.Z)
 B.XI=A.a(s([4294968321,null,null,8589935157]),t.Z)
-B.Zk=A.a(s([8589934848,8589934848,8589934849,null]),t.Z)
+B.Zl=A.a(s([8589934848,8589934848,8589934849,null]),t.Z)
 B.Xy=A.a(s([4294967423,null,null,8589935150]),t.Z)
 B.XE=A.a(s([4294968069,null,null,8589935153]),t.Z)
 B.Xx=A.a(s([4294967309,null,null,8589935117]),t.Z)
 B.XF=A.a(s([4294968070,null,null,8589935159]),t.Z)
 B.XJ=A.a(s([4294968327,null,null,8589935152]),t.Z)
-B.Zl=A.a(s([8589934854,8589934854,8589934855,null]),t.Z)
+B.Zm=A.a(s([8589934854,8589934854,8589934855,null]),t.Z)
 B.XG=A.a(s([4294968071,null,null,8589935155]),t.Z)
 B.XH=A.a(s([4294968072,null,null,8589935161]),t.Z)
-B.Zm=A.a(s([8589934850,8589934850,8589934851,null]),t.Z)
-B.AT=new A.ax(["*",B.XK,"+",B.XM,"-",B.XN,".",B.XO,"/",B.XP,"0",B.XQ,"1",B.XR,"2",B.XU,"3",B.XW,"4",B.XX,"5",B.XY,"6",B.XZ,"7",B.Y_,"8",B.Y0,"9",B.Y2,"Alt",B.Zj,"AltGraph",B.Xz,"ArrowDown",B.XA,"ArrowLeft",B.XB,"ArrowRight",B.XC,"ArrowUp",B.XD,"Clear",B.XI,"Control",B.Zk,"Delete",B.Xy,"End",B.XE,"Enter",B.Xx,"Home",B.XF,"Insert",B.XJ,"Meta",B.Zl,"PageDown",B.XG,"PageUp",B.XH,"Shift",B.Zm],A.a6("ax<c,y<o?>>"))
+B.Zn=A.a(s([8589934850,8589934850,8589934851,null]),t.Z)
+B.AT=new A.ax(["*",B.XK,"+",B.XM,"-",B.XN,".",B.XO,"/",B.XP,"0",B.XQ,"1",B.XR,"2",B.XU,"3",B.XW,"4",B.XX,"5",B.XY,"6",B.XZ,"7",B.Y_,"8",B.Y0,"9",B.Y2,"Alt",B.Zk,"AltGraph",B.Xz,"ArrowDown",B.XA,"ArrowLeft",B.XB,"ArrowRight",B.XC,"ArrowUp",B.XD,"Clear",B.XI,"Control",B.Zl,"Delete",B.Xy,"End",B.XE,"Enter",B.Xx,"Home",B.XF,"Insert",B.XJ,"Meta",B.Zm,"PageDown",B.XG,"PageUp",B.XH,"Shift",B.Zn],A.a6("ax<c,y<o?>>"))
 B.Y1=A.a(s([B.vO,null,null,B.Au]),t.L)
-B.a_4=A.a(s([B.Ag,null,null,B.Av]),t.L)
-B.YN=A.a(s([B.Ah,null,null,B.Aw]),t.L)
-B.Zq=A.a(s([B.Ai,null,null,B.el]),t.L)
+B.a_5=A.a(s([B.Ag,null,null,B.Av]),t.L)
+B.YO=A.a(s([B.Ah,null,null,B.Aw]),t.L)
+B.Zr=A.a(s([B.Ai,null,null,B.el]),t.L)
 B.Xm=A.a(s([B.Aj,null,null,B.Ax]),t.L)
 B.a_x=A.a(s([B.Ak,null,null,B.nP]),t.L)
 B.a_j=A.a(s([B.Al,null,null,B.hN]),t.L)
@@ -117289,27 +117289,27 @@ B.a_I=A.a(s([B.An,null,null,B.hO]),t.L)
 B.a_i=A.a(s([B.Ao,null,null,B.en]),t.L)
 B.Y5=A.a(s([B.Ap,null,null,B.nQ]),t.L)
 B.Xt=A.a(s([B.Aq,null,null,B.eo]),t.L)
-B.Yp=A.a(s([B.Ar,null,null,B.hP]),t.L)
-B.a_5=A.a(s([B.As,null,null,B.ep]),t.L)
-B.a_8=A.a(s([B.At,null,null,B.hQ]),t.L)
+B.Yq=A.a(s([B.Ar,null,null,B.hP]),t.L)
+B.a_6=A.a(s([B.As,null,null,B.ep]),t.L)
+B.a_9=A.a(s([B.At,null,null,B.hQ]),t.L)
 B.Yf=A.a(s([B.hL,B.hL,B.kf,null]),t.L)
 B.a_y=A.a(s([B.kb,null,B.kb,null]),t.L)
-B.YX=A.a(s([B.cZ,null,null,B.em]),t.L)
-B.YY=A.a(s([B.cA,null,null,B.en]),t.L)
-B.YZ=A.a(s([B.cB,null,null,B.eo]),t.L)
+B.YY=A.a(s([B.cZ,null,null,B.em]),t.L)
+B.YZ=A.a(s([B.cA,null,null,B.en]),t.L)
+B.Z_=A.a(s([B.cB,null,null,B.eo]),t.L)
 B.a_F=A.a(s([B.d_,null,null,B.ep]),t.L)
 B.a_g=A.a(s([B.nI,null,null,B.nQ]),t.L)
 B.Yg=A.a(s([B.hK,B.hK,B.ke,null]),t.L)
-B.ZD=A.a(s([B.bn,null,null,B.el]),t.L)
-B.Z_=A.a(s([B.ei,null,null,B.hN]),t.L)
+B.ZE=A.a(s([B.bn,null,null,B.el]),t.L)
+B.Z0=A.a(s([B.ei,null,null,B.hN]),t.L)
 B.Y4=A.a(s([B.ka,null,null,B.nO]),t.L)
-B.Z0=A.a(s([B.ej,null,null,B.hP]),t.L)
+B.Z1=A.a(s([B.ej,null,null,B.hP]),t.L)
 B.a_h=A.a(s([B.nJ,null,null,B.nP]),t.L)
 B.Yh=A.a(s([B.hM,B.hM,B.kg,null]),t.L)
-B.Z1=A.a(s([B.hI,null,null,B.hO]),t.L)
-B.ZI=A.a(s([B.hJ,null,null,B.hQ]),t.L)
+B.Z2=A.a(s([B.hI,null,null,B.hO]),t.L)
+B.ZJ=A.a(s([B.hJ,null,null,B.hQ]),t.L)
 B.Yi=A.a(s([B.dJ,B.dJ,B.ek,null]),t.L)
-B.a2r=new A.ax(["*",B.Y1,"+",B.a_4,"-",B.YN,".",B.Zq,"/",B.Xm,"0",B.a_x,"1",B.a_j,"2",B.Ya,"3",B.a_I,"4",B.a_i,"5",B.Y5,"6",B.Xt,"7",B.Yp,"8",B.a_5,"9",B.a_8,"Alt",B.Yf,"AltGraph",B.a_y,"ArrowDown",B.YX,"ArrowLeft",B.YY,"ArrowRight",B.YZ,"ArrowUp",B.a_F,"Clear",B.a_g,"Control",B.Yg,"Delete",B.ZD,"End",B.Z_,"Enter",B.Y4,"Home",B.Z0,"Insert",B.a_h,"Meta",B.Yh,"PageDown",B.Z1,"PageUp",B.ZI,"Shift",B.Yi],A.a6("ax<c,y<k?>>"))
+B.a2r=new A.ax(["*",B.Y1,"+",B.a_5,"-",B.YO,".",B.Zr,"/",B.Xm,"0",B.a_x,"1",B.a_j,"2",B.Ya,"3",B.a_I,"4",B.a_i,"5",B.Y5,"6",B.Xt,"7",B.Yq,"8",B.a_6,"9",B.a_9,"Alt",B.Yf,"AltGraph",B.a_y,"ArrowDown",B.YY,"ArrowLeft",B.YZ,"ArrowRight",B.Z_,"ArrowUp",B.a_F,"Clear",B.a_g,"Control",B.Yg,"Delete",B.ZE,"End",B.Z0,"Enter",B.Y4,"Home",B.Z1,"Insert",B.a_h,"Meta",B.Yh,"PageDown",B.Z2,"PageUp",B.ZJ,"Shift",B.Yi],A.a6("ax<c,y<k?>>"))
 B.a4U={A:0,B:1,C:2,D:3,E:4,F:5,G:6,H:7,I:8,J:9,K:10,L:11,M:12,N:13,O:14,P:15,Q:16,R:17,S:18,T:19,U:20,V:21,W:22,X:23,Y:24,Z:25,"\xc0":26,"\xc1":27,"\xc2":28,"\xc3":29,"\xc4":30,"\xc5":31,"\xc6":32,"\xc7":33,"\xc8":34,"\xc9":35,"\xca":36,"\xcb":37,"\xcc":38,"\xcd":39,"\xce":40,"\xcf":41,"\xd0":42,"\xd1":43,"\xd2":44,"\xd3":45,"\xd4":46,"\xd5":47,"\xd6":48,"\xd8":49,"\xd9":50,"\xda":51,"\xdb":52,"\xdc":53,"\xdd":54,"\xde":55,"\u0100":56,"\u0102":57,"\u0104":58,"\u0106":59,"\u0108":60,"\u010a":61,"\u010c":62,"\u010e":63,"\u0110":64,"\u0112":65,"\u0114":66,"\u0116":67,"\u0118":68,"\u011a":69,"\u011c":70,"\u011e":71,"\u0120":72,"\u0122":73,"\u0124":74,"\u0126":75,"\u0128":76,"\u012a":77,"\u012c":78,"\u012e":79,"\u0130":80,"\u0134":81,"\u0136":82,"\u0139":83,"\u013b":84,"\u013d":85,"\u013f":86,"\u0141":87,"\u0143":88,"\u0145":89,"\u0147":90,"\u014a":91,"\u014c":92,"\u014e":93,"\u0150":94,"\u0154":95,"\u0156":96,"\u0158":97,"\u015a":98,"\u015c":99,"\u015e":100,"\u0160":101,"\u0162":102,"\u0164":103,"\u0166":104,"\u0168":105,"\u016a":106,"\u016c":107,"\u016e":108,"\u0170":109,"\u0172":110,"\u0174":111,"\u0176":112,"\u0178":113,"\u0179":114,"\u017b":115,"\u017d":116,"\u0181":117,"\u0182":118,"\u0184":119,"\u0186":120,"\u0187":121,"\u0189":122,"\u018a":123,"\u018b":124,"\u018e":125,"\u018f":126,"\u0190":127,"\u0191":128,"\u0193":129,"\u0194":130,"\u0196":131,"\u0197":132,"\u0198":133,"\u019c":134,"\u019d":135,"\u019f":136,"\u01a0":137,"\u01a2":138,"\u01a4":139,"\u01a7":140,"\u01a9":141,"\u01ac":142,"\u01ae":143,"\u01af":144,"\u01b1":145,"\u01b2":146,"\u01b3":147,"\u01b5":148,"\u01b7":149,"\u01b8":150,"\u01bc":151,"\u01c4":152,"\u01c5":153,"\u01c7":154,"\u01c8":155,"\u01ca":156,"\u01cb":157,"\u01cd":158,"\u01cf":159,"\u01d1":160,"\u01d3":161,"\u01d5":162,"\u01d7":163,"\u01d9":164,"\u01db":165,"\u01de":166,"\u01e0":167,"\u01e2":168,"\u01e4":169,"\u01e6":170,"\u01e8":171,"\u01ea":172,"\u01ec":173,"\u01ee":174,"\u01f1":175,"\u01f2":176,"\u01f4":177,"\u01f6":178,"\u01f7":179,"\u01f8":180,"\u01fa":181,"\u01fc":182,"\u01fe":183,"\u0200":184,"\u0202":185,"\u0204":186,"\u0206":187,"\u0208":188,"\u020a":189,"\u020c":190,"\u020e":191,"\u0210":192,"\u0212":193,"\u0214":194,"\u0216":195,"\u0218":196,"\u021a":197,"\u021c":198,"\u021e":199,"\u0220":200,"\u0222":201,"\u0224":202,"\u0226":203,"\u0228":204,"\u022a":205,"\u022c":206,"\u022e":207,"\u0230":208,"\u0232":209,"\u023a":210,"\u023b":211,"\u023d":212,"\u023e":213,"\u0241":214,"\u0243":215,"\u0244":216,"\u0245":217,"\u0246":218,"\u0248":219,"\u024a":220,"\u024c":221,"\u024e":222,"\u0370":223,"\u0372":224,"\u0376":225,"\u037f":226,"\u0386":227,"\u0388":228,"\u0389":229,"\u038a":230,"\u038c":231,"\u038e":232,"\u038f":233,"\u0391":234,"\u0392":235,"\u0393":236,"\u0394":237,"\u0395":238,"\u0396":239,"\u0397":240,"\u0398":241,"\u0399":242,"\u039a":243,"\u039b":244,"\u039c":245,"\u039d":246,"\u039e":247,"\u039f":248,"\u03a0":249,"\u03a1":250,"\u03a3":251,"\u03a4":252,"\u03a5":253,"\u03a6":254,"\u03a7":255,"\u03a8":256,"\u03a9":257,"\u03aa":258,"\u03ab":259,"\u03e2":260,"\u03e4":261,"\u03e6":262,"\u03e8":263,"\u03ea":264,"\u03ec":265,"\u03ee":266,"\u03f7":267,"\u03fa":268,"\u0400":269,"\u0401":270,"\u0402":271,"\u0403":272,"\u0404":273,"\u0405":274,"\u0406":275,"\u0407":276,"\u0408":277,"\u0409":278,"\u040a":279,"\u040b":280,"\u040c":281,"\u040d":282,"\u040e":283,"\u040f":284,"\u0410":285,"\u0411":286,"\u0412":287,"\u0413":288,"\u0414":289,"\u0415":290,"\u0416":291,"\u0417":292,"\u0418":293,"\u0419":294,"\u041a":295,"\u041b":296,"\u041c":297,"\u041d":298,"\u041e":299,"\u041f":300,"\u0420":301,"\u0421":302,"\u0422":303,"\u0423":304,"\u0424":305,"\u0425":306,"\u0426":307,"\u0427":308,"\u0428":309,"\u0429":310,"\u042a":311,"\u042b":312,"\u042c":313,"\u042d":314,"\u042e":315,"\u042f":316,"\u0460":317,"\u0462":318,"\u0464":319,"\u0466":320,"\u0468":321,"\u046a":322,"\u046c":323,"\u046e":324,"\u0470":325,"\u0472":326,"\u0474":327,"\u0476":328,"\u0478":329,"\u047a":330,"\u047c":331,"\u047e":332,"\u0480":333,"\u048a":334,"\u048c":335,"\u048e":336,"\u0490":337,"\u0492":338,"\u0494":339,"\u0496":340,"\u0498":341,"\u049a":342,"\u049c":343,"\u049e":344,"\u04a0":345,"\u04a2":346,"\u04a6":347,"\u04a8":348,"\u04aa":349,"\u04ac":350,"\u04ae":351,"\u04b0":352,"\u04b2":353,"\u04b6":354,"\u04b8":355,"\u04ba":356,"\u04bc":357,"\u04be":358,"\u04c1":359,"\u04c3":360,"\u04c5":361,"\u04c7":362,"\u04c9":363,"\u04cb":364,"\u04cd":365,"\u04d0":366,"\u04d2":367,"\u04d6":368,"\u04d8":369,"\u04da":370,"\u04dc":371,"\u04de":372,"\u04e0":373,"\u04e2":374,"\u04e4":375,"\u04e6":376,"\u04e8":377,"\u04ea":378,"\u04ec":379,"\u04ee":380,"\u04f0":381,"\u04f2":382,"\u04f4":383,"\u04f6":384,"\u04f8":385,"\u04fa":386,"\u04fc":387,"\u04fe":388,"\u0500":389,"\u0502":390,"\u0504":391,"\u0506":392,"\u0508":393,"\u050a":394,"\u050c":395,"\u050e":396,"\u0510":397,"\u0512":398,"\u0514":399,"\u0516":400,"\u0518":401,"\u051a":402,"\u051c":403,"\u051e":404,"\u0520":405,"\u0522":406,"\u0524":407,"\u0526":408,"\u0528":409,"\u052a":410,"\u052c":411,"\u052e":412,"\u0531":413,"\u0532":414,"\u0533":415,"\u0534":416,"\u0535":417,"\u0536":418,"\u0537":419,"\u0538":420,"\u0539":421,"\u053a":422,"\u053b":423,"\u053c":424,"\u053d":425,"\u053e":426,"\u053f":427,"\u0540":428,"\u0541":429,"\u0542":430,"\u0543":431,"\u0544":432,"\u0545":433,"\u0546":434,"\u0547":435,"\u0548":436,"\u0549":437,"\u054a":438,"\u054b":439,"\u054c":440,"\u054d":441,"\u054e":442,"\u054f":443,"\u0550":444,"\u0551":445,"\u0552":446,"\u0553":447,"\u0554":448,"\u0555":449,"\u0556":450,"\u10a0":451,"\u10a1":452,"\u10a2":453,"\u10a3":454,"\u10a4":455,"\u10a5":456,"\u10a6":457,"\u10a7":458,"\u10a8":459,"\u10a9":460,"\u10aa":461,"\u10ab":462,"\u10ac":463,"\u10ad":464,"\u10ae":465,"\u10af":466,"\u10b0":467,"\u10b1":468,"\u10b2":469,"\u10b3":470,"\u10b4":471,"\u10b5":472,"\u10b6":473,"\u10b7":474,"\u10b8":475,"\u10b9":476,"\u10ba":477,"\u10bb":478,"\u10bc":479,"\u10bd":480,"\u10be":481,"\u10bf":482,"\u10c0":483,"\u10c1":484,"\u10c2":485,"\u10c3":486,"\u10c4":487,"\u10c5":488,"\u10c7":489,"\u10cd":490,"\u1c90":491,"\u1c91":492,"\u1c92":493,"\u1c93":494,"\u1c94":495,"\u1c95":496,"\u1c96":497,"\u1c97":498,"\u1c98":499,"\u1c99":500,"\u1c9a":501,"\u1c9b":502,"\u1c9c":503,"\u1c9d":504,"\u1c9e":505,"\u1c9f":506,"\u1ca0":507,"\u1ca1":508,"\u1ca2":509,"\u1ca3":510,"\u1ca4":511,"\u1ca5":512,"\u1ca6":513,"\u1ca7":514,"\u1ca8":515,"\u1ca9":516,"\u1caa":517,"\u1cab":518,"\u1cac":519,"\u1cad":520,"\u1cae":521,"\u1caf":522,"\u1cb0":523,"\u1cb1":524,"\u1cb2":525,"\u1cb3":526,"\u1cb4":527,"\u1cb5":528,"\u1cb6":529,"\u1cb7":530,"\u1cb8":531,"\u1cb9":532,"\u1cba":533,"\u1cbd":534,"\u1cbe":535,"\u1cbf":536,"\u1e00":537,"\u1e02":538,"\u1e04":539,"\u1e06":540,"\u1e08":541,"\u1e0a":542,"\u1e0c":543,"\u1e0e":544,"\u1e10":545,"\u1e12":546,"\u1e14":547,"\u1e16":548,"\u1e18":549,"\u1e1a":550,"\u1e1c":551,"\u1e1e":552,"\u1e20":553,"\u1e22":554,"\u1e24":555,"\u1e26":556,"\u1e28":557,"\u1e2a":558,"\u1e2c":559,"\u1e2e":560,"\u1e30":561,"\u1e32":562,"\u1e34":563,"\u1e36":564,"\u1e38":565,"\u1e3a":566,"\u1e3c":567,"\u1e3e":568,"\u1e40":569,"\u1e42":570,"\u1e44":571,"\u1e46":572,"\u1e48":573,"\u1e4a":574,"\u1e4c":575,"\u1e4e":576,"\u1e50":577,"\u1e52":578,"\u1e54":579,"\u1e56":580,"\u1e58":581,"\u1e5a":582,"\u1e5c":583,"\u1e5e":584,"\u1e60":585,"\u1e62":586,"\u1e64":587,"\u1e66":588,"\u1e68":589,"\u1e6a":590,"\u1e6c":591,"\u1e6e":592,"\u1e70":593,"\u1e72":594,"\u1e74":595,"\u1e76":596,"\u1e78":597,"\u1e7a":598,"\u1e7c":599,"\u1e7e":600,"\u1e80":601,"\u1e82":602,"\u1e84":603,"\u1e86":604,"\u1e88":605,"\u1e8a":606,"\u1e8c":607,"\u1e8e":608,"\u1e90":609,"\u1e92":610,"\u1e94":611,"\u1e9e":612,"\u1ea0":613,"\u1ea2":614,"\u1ea4":615,"\u1ea6":616,"\u1ea8":617,"\u1eaa":618,"\u1eac":619,"\u1eae":620,"\u1eb0":621,"\u1eb2":622,"\u1eb4":623,"\u1eb6":624,"\u1eb8":625,"\u1eba":626,"\u1ebc":627,"\u1ebe":628,"\u1ec0":629,"\u1ec2":630,"\u1ec4":631,"\u1ec6":632,"\u1ec8":633,"\u1eca":634,"\u1ecc":635,"\u1ece":636,"\u1ed0":637,"\u1ed2":638,"\u1ed4":639,"\u1ed6":640,"\u1ed8":641,"\u1eda":642,"\u1edc":643,"\u1ede":644,"\u1ee0":645,"\u1ee2":646,"\u1ee4":647,"\u1ee6":648,"\u1ee8":649,"\u1eea":650,"\u1eec":651,"\u1eee":652,"\u1ef0":653,"\u1ef2":654,"\u1ef4":655,"\u1ef6":656,"\u1ef8":657,"\u1efa":658,"\u1efc":659,"\u1efe":660,"\u1f08":661,"\u1f09":662,"\u1f0a":663,"\u1f0b":664,"\u1f0c":665,"\u1f0d":666,"\u1f0e":667,"\u1f0f":668,"\u1f18":669,"\u1f19":670,"\u1f1a":671,"\u1f1b":672,"\u1f1c":673,"\u1f1d":674,"\u1f28":675,"\u1f29":676,"\u1f2a":677,"\u1f2b":678,"\u1f2c":679,"\u1f2d":680,"\u1f2e":681,"\u1f2f":682,"\u1f38":683,"\u1f39":684,"\u1f3a":685,"\u1f3b":686,"\u1f3c":687,"\u1f3d":688,"\u1f3e":689,"\u1f3f":690,"\u1f48":691,"\u1f49":692,"\u1f4a":693,"\u1f4b":694,"\u1f4c":695,"\u1f4d":696,"\u1f59":697,"\u1f5b":698,"\u1f5d":699,"\u1f5f":700,"\u1f68":701,"\u1f69":702,"\u1f6a":703,"\u1f6b":704,"\u1f6c":705,"\u1f6d":706,"\u1f6e":707,"\u1f6f":708,"\u1f88":709,"\u1f89":710,"\u1f8a":711,"\u1f8b":712,"\u1f8c":713,"\u1f8d":714,"\u1f8e":715,"\u1f8f":716,"\u1f98":717,"\u1f99":718,"\u1f9a":719,"\u1f9b":720,"\u1f9c":721,"\u1f9d":722,"\u1f9e":723,"\u1f9f":724,"\u1fa8":725,"\u1fa9":726,"\u1faa":727,"\u1fab":728,"\u1fac":729,"\u1fad":730,"\u1fae":731,"\u1faf":732,"\u1fb8":733,"\u1fb9":734,"\u1fba":735,"\u1fbb":736,"\u1fbc":737,"\u1fc8":738,"\u1fc9":739,"\u1fca":740,"\u1fcb":741,"\u1fcc":742,"\u1fd8":743,"\u1fd9":744,"\u1fda":745,"\u1fdb":746,"\u1fe8":747,"\u1fe9":748,"\u1fea":749,"\u1feb":750,"\u1fec":751,"\u1ff8":752,"\u1ff9":753,"\u1ffa":754,"\u1ffb":755,"\u1ffc":756,"\u24b6":757,"\u24b7":758,"\u24b8":759,"\u24b9":760,"\u24ba":761,"\u24bb":762,"\u24bc":763,"\u24bd":764,"\u24be":765,"\u24bf":766,"\u24c0":767,"\u24c1":768,"\u24c2":769,"\u24c3":770,"\u24c4":771,"\u24c5":772,"\u24c6":773,"\u24c7":774,"\u24c8":775,"\u24c9":776,"\u24ca":777,"\u24cb":778,"\u24cc":779,"\u24cd":780,"\u24ce":781,"\u24cf":782,"\u2c00":783,"\u2c01":784,"\u2c02":785,"\u2c03":786,"\u2c04":787,"\u2c05":788,"\u2c06":789,"\u2c07":790,"\u2c08":791,"\u2c09":792,"\u2c0a":793,"\u2c0b":794,"\u2c0c":795,"\u2c0d":796,"\u2c0e":797,"\u2c0f":798,"\u2c10":799,"\u2c11":800,"\u2c12":801,"\u2c13":802,"\u2c14":803,"\u2c15":804,"\u2c16":805,"\u2c17":806,"\u2c18":807,"\u2c19":808,"\u2c1a":809,"\u2c1b":810,"\u2c1c":811,"\u2c1d":812,"\u2c1e":813,"\u2c1f":814,"\u2c20":815,"\u2c21":816,"\u2c22":817,"\u2c23":818,"\u2c24":819,"\u2c25":820,"\u2c26":821,"\u2c27":822,"\u2c28":823,"\u2c29":824,"\u2c2a":825,"\u2c2b":826,"\u2c2c":827,"\u2c2d":828,"\u2c2e":829,"\u2c2f":830,"\u2c60":831,"\u2c62":832,"\u2c63":833,"\u2c64":834,"\u2c67":835,"\u2c69":836,"\u2c6b":837,"\u2c6d":838,"\u2c6e":839,"\u2c6f":840,"\u2c70":841,"\u2c72":842,"\u2c75":843,"\u2c7e":844,"\u2c7f":845,"\u2c80":846,"\u2c82":847,"\u2c84":848,"\u2c86":849,"\u2c88":850,"\u2c8a":851,"\u2c8c":852,"\u2c8e":853,"\u2c90":854,"\u2c92":855,"\u2c94":856,"\u2c96":857,"\u2c98":858,"\u2c9a":859,"\u2c9c":860,"\u2c9e":861,"\u2ca0":862,"\u2ca2":863,"\u2ca4":864,"\u2ca6":865,"\u2ca8":866,"\u2caa":867,"\u2cac":868,"\u2cae":869,"\u2cb0":870,"\u2cb2":871,"\u2cb4":872,"\u2cb6":873,"\u2cb8":874,"\u2cba":875,"\u2cbc":876,"\u2cbe":877,"\u2cc0":878,"\u2cc2":879,"\u2cc4":880,"\u2cc6":881,"\u2cc8":882,"\u2cca":883,"\u2ccc":884,"\u2cce":885,"\u2cd0":886,"\u2cd2":887,"\u2cd4":888,"\u2cd6":889,"\u2cd8":890,"\u2cda":891,"\u2cdc":892,"\u2cde":893,"\u2ce0":894,"\u2ce2":895,"\u2ceb":896,"\u2ced":897,"\u2cf2":898,"\ua640":899,"\ua642":900,"\ua644":901,"\ua646":902,"\ua648":903,"\ua64a":904,"\ua64c":905,"\ua64e":906,"\ua650":907,"\ua652":908,"\ua654":909,"\ua656":910,"\ua658":911,"\ua65a":912,"\ua65c":913,"\ua65e":914,"\ua660":915,"\ua662":916,"\ua664":917,"\ua666":918,"\ua668":919,"\ua66a":920,"\ua66c":921,"\ua680":922,"\ua682":923,"\ua684":924,"\ua686":925,"\ua688":926,"\ua68a":927,"\ua68c":928,"\ua68e":929,"\ua690":930,"\ua692":931,"\ua694":932,"\ua696":933,"\ua698":934,"\ua69a":935,"\ua722":936,"\ua724":937,"\ua726":938,"\ua728":939,"\ua72a":940,"\ua72c":941,"\ua72e":942,"\ua732":943,"\ua734":944,"\ua736":945,"\ua738":946,"\ua73a":947,"\ua73c":948,"\ua73e":949,"\ua740":950,"\ua742":951,"\ua744":952,"\ua746":953,"\ua748":954,"\ua74a":955,"\ua74c":956,"\ua74e":957,"\ua750":958,"\ua752":959,"\ua754":960,"\ua756":961,"\ua758":962,"\ua75a":963,"\ua75c":964,"\ua75e":965,"\ua760":966,"\ua762":967,"\ua764":968,"\ua766":969,"\ua768":970,"\ua76a":971,"\ua76c":972,"\ua76e":973,"\ua779":974,"\ua77b":975,"\ua77d":976,"\ua77e":977,"\ua780":978,"\ua782":979,"\ua784":980,"\ua786":981,"\ua78b":982,"\ua78d":983,"\ua790":984,"\ua792":985,"\ua796":986,"\ua798":987,"\ua79a":988,"\ua79c":989,"\ua79e":990,"\ua7a0":991,"\ua7a2":992,"\ua7a4":993,"\ua7a6":994,"\ua7a8":995,"\ua7aa":996,"\ua7ab":997,"\ua7ac":998,"\ua7ad":999,"\ua7ae":1000,"\ua7b0":1001,"\ua7b1":1002,"\ua7b2":1003,"\ua7b3":1004,"\ua7b4":1005,"\ua7b6":1006,"\ua7b8":1007,"\ua7ba":1008,"\ua7bc":1009,"\ua7be":1010,"\ua7c0":1011,"\ua7c2":1012,"\ua7c4":1013,"\ua7c5":1014,"\ua7c6":1015,"\ua7c7":1016,"\ua7c9":1017,"\ua7d0":1018,"\ua7d6":1019,"\ua7d8":1020,"\ua7f5":1021,"\uff21":1022,"\uff22":1023,"\uff23":1024,"\uff24":1025,"\uff25":1026,"\uff26":1027,"\uff27":1028,"\uff28":1029,"\uff29":1030,"\uff2a":1031,"\uff2b":1032,"\uff2c":1033,"\uff2d":1034,"\uff2e":1035,"\uff2f":1036,"\uff30":1037,"\uff31":1038,"\uff32":1039,"\uff33":1040,"\uff34":1041,"\uff35":1042,"\uff36":1043,"\uff37":1044,"\uff38":1045,"\uff39":1046,"\uff3a":1047,"\ud801\udc00":1048,"\ud801\udc01":1049,"\ud801\udc02":1050,"\ud801\udc03":1051,"\ud801\udc04":1052,"\ud801\udc05":1053,"\ud801\udc06":1054,"\ud801\udc07":1055,"\ud801\udc08":1056,"\ud801\udc09":1057,"\ud801\udc0a":1058,"\ud801\udc0b":1059,"\ud801\udc0c":1060,"\ud801\udc0d":1061,"\ud801\udc0e":1062,"\ud801\udc0f":1063,"\ud801\udc10":1064,"\ud801\udc11":1065,"\ud801\udc12":1066,"\ud801\udc13":1067,"\ud801\udc14":1068,"\ud801\udc15":1069,"\ud801\udc16":1070,"\ud801\udc17":1071,"\ud801\udc18":1072,"\ud801\udc19":1073,"\ud801\udc1a":1074,"\ud801\udc1b":1075,"\ud801\udc1c":1076,"\ud801\udc1d":1077,"\ud801\udc1e":1078,"\ud801\udc1f":1079,"\ud801\udc20":1080,"\ud801\udc21":1081,"\ud801\udc22":1082,"\ud801\udc23":1083,"\ud801\udc24":1084,"\ud801\udc25":1085,"\ud801\udc26":1086,"\ud801\udc27":1087,"\ud801\udcb0":1088,"\ud801\udcb1":1089,"\ud801\udcb2":1090,"\ud801\udcb3":1091,"\ud801\udcb4":1092,"\ud801\udcb5":1093,"\ud801\udcb6":1094,"\ud801\udcb7":1095,"\ud801\udcb8":1096,"\ud801\udcb9":1097,"\ud801\udcba":1098,"\ud801\udcbb":1099,"\ud801\udcbc":1100,"\ud801\udcbd":1101,"\ud801\udcbe":1102,"\ud801\udcbf":1103,"\ud801\udcc0":1104,"\ud801\udcc1":1105,"\ud801\udcc2":1106,"\ud801\udcc3":1107,"\ud801\udcc4":1108,"\ud801\udcc5":1109,"\ud801\udcc6":1110,"\ud801\udcc7":1111,"\ud801\udcc8":1112,"\ud801\udcc9":1113,"\ud801\udcca":1114,"\ud801\udccb":1115,"\ud801\udccc":1116,"\ud801\udccd":1117,"\ud801\udcce":1118,"\ud801\udccf":1119,"\ud801\udcd0":1120,"\ud801\udcd1":1121,"\ud801\udcd2":1122,"\ud801\udcd3":1123,"\ud801\udd70":1124,"\ud801\udd71":1125,"\ud801\udd72":1126,"\ud801\udd73":1127,"\ud801\udd74":1128,"\ud801\udd75":1129,"\ud801\udd76":1130,"\ud801\udd77":1131,"\ud801\udd78":1132,"\ud801\udd79":1133,"\ud801\udd7a":1134,"\ud801\udd7c":1135,"\ud801\udd7d":1136,"\ud801\udd7e":1137,"\ud801\udd7f":1138,"\ud801\udd80":1139,"\ud801\udd81":1140,"\ud801\udd82":1141,"\ud801\udd83":1142,"\ud801\udd84":1143,"\ud801\udd85":1144,"\ud801\udd86":1145,"\ud801\udd87":1146,"\ud801\udd88":1147,"\ud801\udd89":1148,"\ud801\udd8a":1149,"\ud801\udd8c":1150,"\ud801\udd8d":1151,"\ud801\udd8e":1152,"\ud801\udd8f":1153,"\ud801\udd90":1154,"\ud801\udd91":1155,"\ud801\udd92":1156,"\ud801\udd94":1157,"\ud801\udd95":1158,"\ud803\udc80":1159,"\ud803\udc81":1160,"\ud803\udc82":1161,"\ud803\udc83":1162,"\ud803\udc84":1163,"\ud803\udc85":1164,"\ud803\udc86":1165,"\ud803\udc87":1166,"\ud803\udc88":1167,"\ud803\udc89":1168,"\ud803\udc8a":1169,"\ud803\udc8b":1170,"\ud803\udc8c":1171,"\ud803\udc8d":1172,"\ud803\udc8e":1173,"\ud803\udc8f":1174,"\ud803\udc90":1175,"\ud803\udc91":1176,"\ud803\udc92":1177,"\ud803\udc93":1178,"\ud803\udc94":1179,"\ud803\udc95":1180,"\ud803\udc96":1181,"\ud803\udc97":1182,"\ud803\udc98":1183,"\ud803\udc99":1184,"\ud803\udc9a":1185,"\ud803\udc9b":1186,"\ud803\udc9c":1187,"\ud803\udc9d":1188,"\ud803\udc9e":1189,"\ud803\udc9f":1190,"\ud803\udca0":1191,"\ud803\udca1":1192,"\ud803\udca2":1193,"\ud803\udca3":1194,"\ud803\udca4":1195,"\ud803\udca5":1196,"\ud803\udca6":1197,"\ud803\udca7":1198,"\ud803\udca8":1199,"\ud803\udca9":1200,"\ud803\udcaa":1201,"\ud803\udcab":1202,"\ud803\udcac":1203,"\ud803\udcad":1204,"\ud803\udcae":1205,"\ud803\udcaf":1206,"\ud803\udcb0":1207,"\ud803\udcb1":1208,"\ud803\udcb2":1209,"\ud806\udca0":1210,"\ud806\udca1":1211,"\ud806\udca2":1212,"\ud806\udca3":1213,"\ud806\udca4":1214,"\ud806\udca5":1215,"\ud806\udca6":1216,"\ud806\udca7":1217,"\ud806\udca8":1218,"\ud806\udca9":1219,"\ud806\udcaa":1220,"\ud806\udcab":1221,"\ud806\udcac":1222,"\ud806\udcad":1223,"\ud806\udcae":1224,"\ud806\udcaf":1225,"\ud806\udcb0":1226,"\ud806\udcb1":1227,"\ud806\udcb2":1228,"\ud806\udcb3":1229,"\ud806\udcb4":1230,"\ud806\udcb5":1231,"\ud806\udcb6":1232,"\ud806\udcb7":1233,"\ud806\udcb8":1234,"\ud806\udcb9":1235,"\ud806\udcba":1236,"\ud806\udcbb":1237,"\ud806\udcbc":1238,"\ud806\udcbd":1239,"\ud806\udcbe":1240,"\ud806\udcbf":1241,"\ud81b\ude40":1242,"\ud81b\ude41":1243,"\ud81b\ude42":1244,"\ud81b\ude43":1245,"\ud81b\ude44":1246,"\ud81b\ude45":1247,"\ud81b\ude46":1248,"\ud81b\ude47":1249,"\ud81b\ude48":1250,"\ud81b\ude49":1251,"\ud81b\ude4a":1252,"\ud81b\ude4b":1253,"\ud81b\ude4c":1254,"\ud81b\ude4d":1255,"\ud81b\ude4e":1256,"\ud81b\ude4f":1257,"\ud81b\ude50":1258,"\ud81b\ude51":1259,"\ud81b\ude52":1260,"\ud81b\ude53":1261,"\ud81b\ude54":1262,"\ud81b\ude55":1263,"\ud81b\ude56":1264,"\ud81b\ude57":1265,"\ud81b\ude58":1266,"\ud81b\ude59":1267,"\ud81b\ude5a":1268,"\ud81b\ude5b":1269,"\ud81b\ude5c":1270,"\ud81b\ude5d":1271,"\ud81b\ude5e":1272,"\ud81b\ude5f":1273,"\ud83a\udd00":1274,"\ud83a\udd01":1275,"\ud83a\udd02":1276,"\ud83a\udd03":1277,"\ud83a\udd04":1278,"\ud83a\udd05":1279,"\ud83a\udd06":1280,"\ud83a\udd07":1281,"\ud83a\udd08":1282,"\ud83a\udd09":1283,"\ud83a\udd0a":1284,"\ud83a\udd0b":1285,"\ud83a\udd0c":1286,"\ud83a\udd0d":1287,"\ud83a\udd0e":1288,"\ud83a\udd0f":1289,"\ud83a\udd10":1290,"\ud83a\udd11":1291,"\ud83a\udd12":1292,"\ud83a\udd13":1293,"\ud83a\udd14":1294,"\ud83a\udd15":1295,"\ud83a\udd16":1296,"\ud83a\udd17":1297,"\ud83a\udd18":1298,"\ud83a\udd19":1299,"\ud83a\udd1a":1300,"\ud83a\udd1b":1301,"\ud83a\udd1c":1302,"\ud83a\udd1d":1303,"\ud83a\udd1e":1304,"\ud83a\udd1f":1305,"\ud83a\udd20":1306,"\ud83a\udd21":1307}
 B.a2v=new A.aR(B.a4U,["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","\xe0","\xe1","\xe2","\xe3","\xe4","\xe5","\xe6","\xe7","\xe8","\xe9","\xea","\xeb","\xec","\xed","\xee","\xef","\xf0","\xf1","\xf2","\xf3","\xf4","\xf5","\xf6","\xf8","\xf9","\xfa","\xfb","\xfc","\xfd","\xfe","\u0101","\u0103","\u0105","\u0107","\u0109","\u010b","\u010d","\u010f","\u0111","\u0113","\u0115","\u0117","\u0119","\u011b","\u011d","\u011f","\u0121","\u0123","\u0125","\u0127","\u0129","\u012b","\u012d","\u012f","i\u0307","\u0135","\u0137","\u013a","\u013c","\u013e","\u0140","\u0142","\u0144","\u0146","\u0148","\u014b","\u014d","\u014f","\u0151","\u0155","\u0157","\u0159","\u015b","\u015d","\u015f","\u0161","\u0163","\u0165","\u0167","\u0169","\u016b","\u016d","\u016f","\u0171","\u0173","\u0175","\u0177","\xff","\u017a","\u017c","\u017e","\u0253","\u0183","\u0185","\u0254","\u0188","\u0256","\u0257","\u018c","\u01dd","\u0259","\u025b","\u0192","\u0260","\u0263","\u0269","\u0268","\u0199","\u026f","\u0272","\u0275","\u01a1","\u01a3","\u01a5","\u01a8","\u0283","\u01ad","\u0288","\u01b0","\u028a","\u028b","\u01b4","\u01b6","\u0292","\u01b9","\u01bd","\u01c6","\u01c6","\u01c9","\u01c9","\u01cc","\u01cc","\u01ce","\u01d0","\u01d2","\u01d4","\u01d6","\u01d8","\u01da","\u01dc","\u01df","\u01e1","\u01e3","\u01e5","\u01e7","\u01e9","\u01eb","\u01ed","\u01ef","\u01f3","\u01f3","\u01f5","\u0195","\u01bf","\u01f9","\u01fb","\u01fd","\u01ff","\u0201","\u0203","\u0205","\u0207","\u0209","\u020b","\u020d","\u020f","\u0211","\u0213","\u0215","\u0217","\u0219","\u021b","\u021d","\u021f","\u019e","\u0223","\u0225","\u0227","\u0229","\u022b","\u022d","\u022f","\u0231","\u0233","\u2c65","\u023c","\u019a","\u2c66","\u0242","\u0180","\u0289","\u028c","\u0247","\u0249","\u024b","\u024d","\u024f","\u0371","\u0373","\u0377","\u03f3","\u03ac","\u03ad","\u03ae","\u03af","\u03cc","\u03cd","\u03ce","\u03b1","\u03b2","\u03b3","\u03b4","\u03b5","\u03b6","\u03b7","\u03b8","\u03b9","\u03ba","\u03bb","\u03bc","\u03bd","\u03be","\u03bf","\u03c0","\u03c1","\u03c3","\u03c4","\u03c5","\u03c6","\u03c7","\u03c8","\u03c9","\u03ca","\u03cb","\u03e3","\u03e5","\u03e7","\u03e9","\u03eb","\u03ed","\u03ef","\u03f8","\u03fb","\u0450","\u0451","\u0452","\u0453","\u0454","\u0455","\u0456","\u0457","\u0458","\u0459","\u045a","\u045b","\u045c","\u045d","\u045e","\u045f","\u0430","\u0431","\u0432","\u0433","\u0434","\u0435","\u0436","\u0437","\u0438","\u0439","\u043a","\u043b","\u043c","\u043d","\u043e","\u043f","\u0440","\u0441","\u0442","\u0443","\u0444","\u0445","\u0446","\u0447","\u0448","\u0449","\u044a","\u044b","\u044c","\u044d","\u044e","\u044f","\u0461","\u0463","\u0465","\u0467","\u0469","\u046b","\u046d","\u046f","\u0471","\u0473","\u0475","\u0477","\u0479","\u047b","\u047d","\u047f","\u0481","\u048b","\u048d","\u048f","\u0491","\u0493","\u0495","\u0497","\u0499","\u049b","\u049d","\u049f","\u04a1","\u04a3","\u04a7","\u04a9","\u04ab","\u04ad","\u04af","\u04b1","\u04b3","\u04b7","\u04b9","\u04bb","\u04bd","\u04bf","\u04c2","\u04c4","\u04c6","\u04c8","\u04ca","\u04cc","\u04ce","\u04d1","\u04d3","\u04d7","\u04d9","\u04db","\u04dd","\u04df","\u04e1","\u04e3","\u04e5","\u04e7","\u04e9","\u04eb","\u04ed","\u04ef","\u04f1","\u04f3","\u04f5","\u04f7","\u04f9","\u04fb","\u04fd","\u04ff","\u0501","\u0503","\u0505","\u0507","\u0509","\u050b","\u050d","\u050f","\u0511","\u0513","\u0515","\u0517","\u0519","\u051b","\u051d","\u051f","\u0521","\u0523","\u0525","\u0527","\u0529","\u052b","\u052d","\u052f","\u0561","\u0562","\u0563","\u0564","\u0565","\u0566","\u0567","\u0568","\u0569","\u056a","\u056b","\u056c","\u056d","\u056e","\u056f","\u0570","\u0571","\u0572","\u0573","\u0574","\u0575","\u0576","\u0577","\u0578","\u0579","\u057a","\u057b","\u057c","\u057d","\u057e","\u057f","\u0580","\u0581","\u0582","\u0583","\u0584","\u0585","\u0586","\u2d00","\u2d01","\u2d02","\u2d03","\u2d04","\u2d05","\u2d06","\u2d07","\u2d08","\u2d09","\u2d0a","\u2d0b","\u2d0c","\u2d0d","\u2d0e","\u2d0f","\u2d10","\u2d11","\u2d12","\u2d13","\u2d14","\u2d15","\u2d16","\u2d17","\u2d18","\u2d19","\u2d1a","\u2d1b","\u2d1c","\u2d1d","\u2d1e","\u2d1f","\u2d20","\u2d21","\u2d22","\u2d23","\u2d24","\u2d25","\u2d27","\u2d2d","\u10d0","\u10d1","\u10d2","\u10d3","\u10d4","\u10d5","\u10d6","\u10d7","\u10d8","\u10d9","\u10da","\u10db","\u10dc","\u10dd","\u10de","\u10df","\u10e0","\u10e1","\u10e2","\u10e3","\u10e4","\u10e5","\u10e6","\u10e7","\u10e8","\u10e9","\u10ea","\u10eb","\u10ec","\u10ed","\u10ee","\u10ef","\u10f0","\u10f1","\u10f2","\u10f3","\u10f4","\u10f5","\u10f6","\u10f7","\u10f8","\u10f9","\u10fa","\u10fd","\u10fe","\u10ff","\u1e01","\u1e03","\u1e05","\u1e07","\u1e09","\u1e0b","\u1e0d","\u1e0f","\u1e11","\u1e13","\u1e15","\u1e17","\u1e19","\u1e1b","\u1e1d","\u1e1f","\u1e21","\u1e23","\u1e25","\u1e27","\u1e29","\u1e2b","\u1e2d","\u1e2f","\u1e31","\u1e33","\u1e35","\u1e37","\u1e39","\u1e3b","\u1e3d","\u1e3f","\u1e41","\u1e43","\u1e45","\u1e47","\u1e49","\u1e4b","\u1e4d","\u1e4f","\u1e51","\u1e53","\u1e55","\u1e57","\u1e59","\u1e5b","\u1e5d","\u1e5f","\u1e61","\u1e63","\u1e65","\u1e67","\u1e69","\u1e6b","\u1e6d","\u1e6f","\u1e71","\u1e73","\u1e75","\u1e77","\u1e79","\u1e7b","\u1e7d","\u1e7f","\u1e81","\u1e83","\u1e85","\u1e87","\u1e89","\u1e8b","\u1e8d","\u1e8f","\u1e91","\u1e93","\u1e95","ss","\u1ea1","\u1ea3","\u1ea5","\u1ea7","\u1ea9","\u1eab","\u1ead","\u1eaf","\u1eb1","\u1eb3","\u1eb5","\u1eb7","\u1eb9","\u1ebb","\u1ebd","\u1ebf","\u1ec1","\u1ec3","\u1ec5","\u1ec7","\u1ec9","\u1ecb","\u1ecd","\u1ecf","\u1ed1","\u1ed3","\u1ed5","\u1ed7","\u1ed9","\u1edb","\u1edd","\u1edf","\u1ee1","\u1ee3","\u1ee5","\u1ee7","\u1ee9","\u1eeb","\u1eed","\u1eef","\u1ef1","\u1ef3","\u1ef5","\u1ef7","\u1ef9","\u1efb","\u1efd","\u1eff","\u1f00","\u1f01","\u1f02","\u1f03","\u1f04","\u1f05","\u1f06","\u1f07","\u1f10","\u1f11","\u1f12","\u1f13","\u1f14","\u1f15","\u1f20","\u1f21","\u1f22","\u1f23","\u1f24","\u1f25","\u1f26","\u1f27","\u1f30","\u1f31","\u1f32","\u1f33","\u1f34","\u1f35","\u1f36","\u1f37","\u1f40","\u1f41","\u1f42","\u1f43","\u1f44","\u1f45","\u1f51","\u1f53","\u1f55","\u1f57","\u1f60","\u1f61","\u1f62","\u1f63","\u1f64","\u1f65","\u1f66","\u1f67","\u1f00\u03b9","\u1f01\u03b9","\u1f02\u03b9","\u1f03\u03b9","\u1f04\u03b9","\u1f05\u03b9","\u1f06\u03b9","\u1f07\u03b9","\u1f20\u03b9","\u1f21\u03b9","\u1f22\u03b9","\u1f23\u03b9","\u1f24\u03b9","\u1f25\u03b9","\u1f26\u03b9","\u1f27\u03b9","\u1f60\u03b9","\u1f61\u03b9","\u1f62\u03b9","\u1f63\u03b9","\u1f64\u03b9","\u1f65\u03b9","\u1f66\u03b9","\u1f67\u03b9","\u1fb0","\u1fb1","\u1f70","\u1f71","\u03b1\u03b9","\u1f72","\u1f73","\u1f74","\u1f75","\u03b7\u03b9","\u1fd0","\u1fd1","\u1f76","\u1f77","\u1fe0","\u1fe1","\u1f7a","\u1f7b","\u1fe5","\u1f78","\u1f79","\u1f7c","\u1f7d","\u03c9\u03b9","\u24d0","\u24d1","\u24d2","\u24d3","\u24d4","\u24d5","\u24d6","\u24d7","\u24d8","\u24d9","\u24da","\u24db","\u24dc","\u24dd","\u24de","\u24df","\u24e0","\u24e1","\u24e2","\u24e3","\u24e4","\u24e5","\u24e6","\u24e7","\u24e8","\u24e9","\u2c30","\u2c31","\u2c32","\u2c33","\u2c34","\u2c35","\u2c36","\u2c37","\u2c38","\u2c39","\u2c3a","\u2c3b","\u2c3c","\u2c3d","\u2c3e","\u2c3f","\u2c40","\u2c41","\u2c42","\u2c43","\u2c44","\u2c45","\u2c46","\u2c47","\u2c48","\u2c49","\u2c4a","\u2c4b","\u2c4c","\u2c4d","\u2c4e","\u2c4f","\u2c50","\u2c51","\u2c52","\u2c53","\u2c54","\u2c55","\u2c56","\u2c57","\u2c58","\u2c59","\u2c5a","\u2c5b","\u2c5c","\u2c5d","\u2c5e","\u2c5f","\u2c61","\u026b","\u1d7d","\u027d","\u2c68","\u2c6a","\u2c6c","\u0251","\u0271","\u0250","\u0252","\u2c73","\u2c76","\u023f","\u0240","\u2c81","\u2c83","\u2c85","\u2c87","\u2c89","\u2c8b","\u2c8d","\u2c8f","\u2c91","\u2c93","\u2c95","\u2c97","\u2c99","\u2c9b","\u2c9d","\u2c9f","\u2ca1","\u2ca3","\u2ca5","\u2ca7","\u2ca9","\u2cab","\u2cad","\u2caf","\u2cb1","\u2cb3","\u2cb5","\u2cb7","\u2cb9","\u2cbb","\u2cbd","\u2cbf","\u2cc1","\u2cc3","\u2cc5","\u2cc7","\u2cc9","\u2ccb","\u2ccd","\u2ccf","\u2cd1","\u2cd3","\u2cd5","\u2cd7","\u2cd9","\u2cdb","\u2cdd","\u2cdf","\u2ce1","\u2ce3","\u2cec","\u2cee","\u2cf3","\ua641","\ua643","\ua645","\ua647","\ua649","\ua64b","\ua64d","\ua64f","\ua651","\ua653","\ua655","\ua657","\ua659","\ua65b","\ua65d","\ua65f","\ua661","\ua663","\ua665","\ua667","\ua669","\ua66b","\ua66d","\ua681","\ua683","\ua685","\ua687","\ua689","\ua68b","\ua68d","\ua68f","\ua691","\ua693","\ua695","\ua697","\ua699","\ua69b","\ua723","\ua725","\ua727","\ua729","\ua72b","\ua72d","\ua72f","\ua733","\ua735","\ua737","\ua739","\ua73b","\ua73d","\ua73f","\ua741","\ua743","\ua745","\ua747","\ua749","\ua74b","\ua74d","\ua74f","\ua751","\ua753","\ua755","\ua757","\ua759","\ua75b","\ua75d","\ua75f","\ua761","\ua763","\ua765","\ua767","\ua769","\ua76b","\ua76d","\ua76f","\ua77a","\ua77c","\u1d79","\ua77f","\ua781","\ua783","\ua785","\ua787","\ua78c","\u0265","\ua791","\ua793","\ua797","\ua799","\ua79b","\ua79d","\ua79f","\ua7a1","\ua7a3","\ua7a5","\ua7a7","\ua7a9","\u0266","\u025c","\u0261","\u026c","\u026a","\u029e","\u0287","\u029d","\uab53","\ua7b5","\ua7b7","\ua7b9","\ua7bb","\ua7bd","\ua7bf","\ua7c1","\ua7c3","\ua794","\u0282","\u1d8e","\ua7c8","\ua7ca","\ua7d1","\ua7d7","\ua7d9","\ua7f6","\uff41","\uff42","\uff43","\uff44","\uff45","\uff46","\uff47","\uff48","\uff49","\uff4a","\uff4b","\uff4c","\uff4d","\uff4e","\uff4f","\uff50","\uff51","\uff52","\uff53","\uff54","\uff55","\uff56","\uff57","\uff58","\uff59","\uff5a","\ud801\udc28","\ud801\udc29","\ud801\udc2a","\ud801\udc2b","\ud801\udc2c","\ud801\udc2d","\ud801\udc2e","\ud801\udc2f","\ud801\udc30","\ud801\udc31","\ud801\udc32","\ud801\udc33","\ud801\udc34","\ud801\udc35","\ud801\udc36","\ud801\udc37","\ud801\udc38","\ud801\udc39","\ud801\udc3a","\ud801\udc3b","\ud801\udc3c","\ud801\udc3d","\ud801\udc3e","\ud801\udc3f","\ud801\udc40","\ud801\udc41","\ud801\udc42","\ud801\udc43","\ud801\udc44","\ud801\udc45","\ud801\udc46","\ud801\udc47","\ud801\udc48","\ud801\udc49","\ud801\udc4a","\ud801\udc4b","\ud801\udc4c","\ud801\udc4d","\ud801\udc4e","\ud801\udc4f","\ud801\udcd8","\ud801\udcd9","\ud801\udcda","\ud801\udcdb","\ud801\udcdc","\ud801\udcdd","\ud801\udcde","\ud801\udcdf","\ud801\udce0","\ud801\udce1","\ud801\udce2","\ud801\udce3","\ud801\udce4","\ud801\udce5","\ud801\udce6","\ud801\udce7","\ud801\udce8","\ud801\udce9","\ud801\udcea","\ud801\udceb","\ud801\udcec","\ud801\udced","\ud801\udcee","\ud801\udcef","\ud801\udcf0","\ud801\udcf1","\ud801\udcf2","\ud801\udcf3","\ud801\udcf4","\ud801\udcf5","\ud801\udcf6","\ud801\udcf7","\ud801\udcf8","\ud801\udcf9","\ud801\udcfa","\ud801\udcfb","\ud801\udd97","\ud801\udd98","\ud801\udd99","\ud801\udd9a","\ud801\udd9b","\ud801\udd9c","\ud801\udd9d","\ud801\udd9e","\ud801\udd9f","\ud801\udda0","\ud801\udda1","\ud801\udda3","\ud801\udda4","\ud801\udda5","\ud801\udda6","\ud801\udda7","\ud801\udda8","\ud801\udda9","\ud801\uddaa","\ud801\uddab","\ud801\uddac","\ud801\uddad","\ud801\uddae","\ud801\uddaf","\ud801\uddb0","\ud801\uddb1","\ud801\uddb3","\ud801\uddb4","\ud801\uddb5","\ud801\uddb6","\ud801\uddb7","\ud801\uddb8","\ud801\uddb9","\ud801\uddbb","\ud801\uddbc","\ud803\udcc0","\ud803\udcc1","\ud803\udcc2","\ud803\udcc3","\ud803\udcc4","\ud803\udcc5","\ud803\udcc6","\ud803\udcc7","\ud803\udcc8","\ud803\udcc9","\ud803\udcca","\ud803\udccb","\ud803\udccc","\ud803\udccd","\ud803\udcce","\ud803\udccf","\ud803\udcd0","\ud803\udcd1","\ud803\udcd2","\ud803\udcd3","\ud803\udcd4","\ud803\udcd5","\ud803\udcd6","\ud803\udcd7","\ud803\udcd8","\ud803\udcd9","\ud803\udcda","\ud803\udcdb","\ud803\udcdc","\ud803\udcdd","\ud803\udcde","\ud803\udcdf","\ud803\udce0","\ud803\udce1","\ud803\udce2","\ud803\udce3","\ud803\udce4","\ud803\udce5","\ud803\udce6","\ud803\udce7","\ud803\udce8","\ud803\udce9","\ud803\udcea","\ud803\udceb","\ud803\udcec","\ud803\udced","\ud803\udcee","\ud803\udcef","\ud803\udcf0","\ud803\udcf1","\ud803\udcf2","\ud806\udcc0","\ud806\udcc1","\ud806\udcc2","\ud806\udcc3","\ud806\udcc4","\ud806\udcc5","\ud806\udcc6","\ud806\udcc7","\ud806\udcc8","\ud806\udcc9","\ud806\udcca","\ud806\udccb","\ud806\udccc","\ud806\udccd","\ud806\udcce","\ud806\udccf","\ud806\udcd0","\ud806\udcd1","\ud806\udcd2","\ud806\udcd3","\ud806\udcd4","\ud806\udcd5","\ud806\udcd6","\ud806\udcd7","\ud806\udcd8","\ud806\udcd9","\ud806\udcda","\ud806\udcdb","\ud806\udcdc","\ud806\udcdd","\ud806\udcde","\ud806\udcdf","\ud81b\ude60","\ud81b\ude61","\ud81b\ude62","\ud81b\ude63","\ud81b\ude64","\ud81b\ude65","\ud81b\ude66","\ud81b\ude67","\ud81b\ude68","\ud81b\ude69","\ud81b\ude6a","\ud81b\ude6b","\ud81b\ude6c","\ud81b\ude6d","\ud81b\ude6e","\ud81b\ude6f","\ud81b\ude70","\ud81b\ude71","\ud81b\ude72","\ud81b\ude73","\ud81b\ude74","\ud81b\ude75","\ud81b\ude76","\ud81b\ude77","\ud81b\ude78","\ud81b\ude79","\ud81b\ude7a","\ud81b\ude7b","\ud81b\ude7c","\ud81b\ude7d","\ud81b\ude7e","\ud81b\ude7f","\ud83a\udd22","\ud83a\udd23","\ud83a\udd24","\ud83a\udd25","\ud83a\udd26","\ud83a\udd27","\ud83a\udd28","\ud83a\udd29","\ud83a\udd2a","\ud83a\udd2b","\ud83a\udd2c","\ud83a\udd2d","\ud83a\udd2e","\ud83a\udd2f","\ud83a\udd30","\ud83a\udd31","\ud83a\udd32","\ud83a\udd33","\ud83a\udd34","\ud83a\udd35","\ud83a\udd36","\ud83a\udd37","\ud83a\udd38","\ud83a\udd39","\ud83a\udd3a","\ud83a\udd3b","\ud83a\udd3c","\ud83a\udd3d","\ud83a\udd3e","\ud83a\udd3f","\ud83a\udd40","\ud83a\udd41","\ud83a\udd42","\ud83a\udd43"],t.Q)
 B.a51={multiply:0,screen:1,overlay:2,darken:3,lighten:4,"color-dodge":5,"color-burn":6,"hard-light":7,"soft-light":8,difference:9,exclusion:10,hue:11,saturation:12,color:13,luminosity:14}
@@ -117832,17 +117832,17 @@ B.BX=new A.asO(0,"max")
 B.S9=new A.aA(16,8,0,0)
 B.ahd=new A.bd("No exercises with recruitment \u2265 0.5",null,null,null,null,null,null,null,null,null,null)
 B.a6j=new A.aH(B.S9,B.ahd,null)
-B.aad=new A.Yk(null)
-B.a6l=new A.aH(B.b_,B.aad,null)
 B.S7=new A.aA(0,6,0,6)
 B.bA=new A.aEg(1,"down")
 B.amw=new A.anH(0,"text")
 B.a1j=new A.UW(null)
 B.adJ=new A.z(!0,null,null,null,null,null,null,B.uF,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ahR=new A.bd("beta",null,B.adJ,null,null,null,null,null,null,null,null)
-B.a_e=A.a(s([B.a1j,B.ahR]),t.p)
-B.a9c=new A.hM(B.ad,B.i,B.l,B.e8,null,B.bA,null,0,B.a_e,null)
-B.a6n=new A.aH(B.S7,B.a9c,null)
+B.ahk=new A.bd("alpha (preview) version",null,B.adJ,null,null,null,null,null,null,null,null)
+B.Ym=A.a(s([B.a1j,B.ahk]),t.p)
+B.a9a=new A.hM(B.ad,B.i,B.l,B.e8,null,B.bA,null,0,B.Ym,null)
+B.a6k=new A.aH(B.S7,B.a9a,null)
+B.aad=new A.Yk(null)
+B.a6m=new A.aH(B.b_,B.aad,null)
 B.a7j=new A.Wv(null)
 B.a6p=new A.aH(B.b_,B.a7j,null)
 B.BY=new A.zO(null)
@@ -117960,8 +117960,8 @@ B.bV=new A.Ah(3,"layout")
 B.a94=new A.Xq(0,"raster")
 B.a95=new A.Xq(1,"picture")
 B.ad4=new A.z(!0,null,null,null,null,null,12,B.b9,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ahN=new A.bd("COMBO",null,B.ad4,null,null,null,null,null,null,null,null)
-B.a96=new A.Ir(1,B.ahN,null)
+B.ahO=new A.bd("COMBO",null,B.ad4,null,null,null,null,null,null,null,null)
+B.a96=new A.Ir(1,B.ahO,null)
 B.FJ=new A.axL(null)
 B.kH=new A.b5(28,28)
 B.Kn=new A.dE(B.kH,B.kH,B.kH,B.kH)
@@ -117980,34 +117980,34 @@ B.Vn=new A.da(57527,"MaterialIcons",null,!1)
 B.VL=new A.hd(B.Vn,null,null,null,null)
 B.ahh=new A.bd("generate workout",null,null,null,null,null,null,null,null,null,null)
 B.a_q=A.a(s([B.VL,B.ahh]),t.p)
-B.a9a=new A.hM(B.ad,B.i,B.l,B.n,null,B.bA,null,0,B.a_q,null)
+B.a9b=new A.hM(B.ad,B.i,B.l,B.n,null,B.bA,null,0,B.a_q,null)
 B.abk=new A.bE(24,null,null,null)
-B.ahm=new A.bd("(height corresponds to muscle strength for this movement)",null,null,null,null,!0,null,null,null,null,null)
-B.UD=new A.cS(1,B.ae,B.ahm,null)
+B.ahn=new A.bd("(height corresponds to muscle strength for this movement)",null,null,null,null,!0,null,null,null,null,null)
+B.UD=new A.cS(1,B.ae,B.ahn,null)
 B.a_l=A.a(s([B.abk,B.UD]),t.p)
-B.a9b=new A.hM(B.ad,B.i,B.Y,B.n,null,B.bA,null,0,B.a_l,null)
+B.a9c=new A.hM(B.ad,B.i,B.Y,B.n,null,B.bA,null,0,B.a_l,null)
 B.N9=new A.ug(16,16,0,8,16,null)
 B.aW=new A.bE(8,null,null,null)
 B.ahf=new A.bd("muscle moment arm curve",null,null,null,null,null,null,null,null,null,null)
-B.Zs=A.a(s([B.N9,B.aW,B.ahf]),t.p)
-B.a9d=new A.hM(B.ad,B.i,B.Y,B.n,null,B.bA,null,0,B.Zs,null)
+B.Zt=A.a(s([B.N9,B.aW,B.ahf]),t.p)
+B.a9d=new A.hM(B.ad,B.i,B.Y,B.n,null,B.bA,null,0,B.Zt,null)
 B.a33=new A.Vc(null)
-B.a6k=new A.aH(B.bN,B.a33,null)
-B.Ur=new A.lJ(1,B.ef,B.a6k,null)
+B.a6l=new A.aH(B.bN,B.a33,null)
+B.Ur=new A.lJ(1,B.ef,B.a6l,null)
 B.a32=new A.Vb(null)
-B.a6m=new A.aH(B.bN,B.a32,null)
-B.Uq=new A.lJ(3,B.ef,B.a6m,null)
-B.YM=A.a(s([B.Ur,B.Uq]),t.p)
-B.a9e=new A.hM(B.ad,B.i,B.l,B.N,null,B.bA,null,0,B.YM,null)
+B.a6n=new A.aH(B.bN,B.a32,null)
+B.Uq=new A.lJ(3,B.ef,B.a6n,null)
+B.YN=A.a(s([B.Ur,B.Uq]),t.p)
+B.a9e=new A.hM(B.ad,B.i,B.l,B.N,null,B.bA,null,0,B.YN,null)
 B.ahV=new A.bd("add workout",null,null,null,null,null,null,null,null,null,null)
-B.YE=A.a(s([B.uV,B.ahV]),t.p)
-B.a9f=new A.hM(B.ad,B.i,B.l,B.n,null,B.bA,null,0,B.YE,null)
+B.YF=A.a(s([B.uV,B.ahV]),t.p)
+B.a9f=new A.hM(B.ad,B.i,B.l,B.n,null,B.bA,null,0,B.YF,null)
 B.Vw=new A.da(58335,"MaterialIcons",null,!1)
 B.VG=new A.hd(B.Vw,16,B.dK,null,null)
 B.il=new A.bE(4,null,null,null)
 B.Hl=new A.z(!0,B.dK,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ahE=new A.bd("New ComboSet",null,B.Hl,null,null,null,null,null,null,null,null)
-B.Ye=A.a(s([B.VG,B.il,B.ahE]),t.p)
+B.ahF=new A.bd("New ComboSet",null,B.Hl,null,null,null,null,null,null,null,null)
+B.Ye=A.a(s([B.VG,B.il,B.ahF]),t.p)
 B.a9g=new A.hM(B.ad,B.i,B.Y,B.n,null,B.bA,null,0,B.Ye,null)
 B.a9h=new A.It(1333)
 B.oR=new A.It(2222)
@@ -118662,30 +118662,30 @@ B.ahc=new A.bd("muscle inactive",null,null,null,null,null,null,null,null,null,nu
 B.ir=new A.bd("Cancel",null,null,null,null,null,null,null,null,null,null)
 B.ahi=new A.bd("Body.build: Home",null,null,null,null,null,null,null,null,null,null)
 B.ahj=new A.bd("Close",null,null,null,null,null,null,null,null,null,null)
-B.ahk=new A.bd("no moves for this articulation",null,null,null,null,null,null,null,null,null,null)
-B.ahl=new A.bd("Basic Gym",null,null,null,null,null,null,null,null,null,null)
+B.ahl=new A.bd("no moves for this articulation",null,null,null,null,null,null,null,null,null,null)
+B.ahm=new A.bd("Basic Gym",null,null,null,null,null,null,null,null,null,null)
 B.Ho=new A.bd("Rename",null,null,null,null,null,null,null,null,null,null)
-B.ahn=new A.bd('note: this is a "pseudo" muscle',null,null,null,null,null,null,null,null,null,null)
+B.aho=new A.bd('note: this is a "pseudo" muscle',null,null,null,null,null,null,null,null,null,null)
 B.Hp=new A.bd("OK",null,null,null,null,null,null,null,null,null,null)
-B.aho=new A.bd("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
-B.ahq=new A.bd("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
-B.ahr=new A.bd("Legend",null,null,null,null,null,null,null,null,null,null)
+B.ahp=new A.bd("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
+B.ahr=new A.bd("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
+B.ahs=new A.bd("Legend",null,null,null,null,null,null,null,null,null,null)
 B.agH=new A.z(!0,null,null,null,null,null,12,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.aht=new A.bd("Program Volume Score",null,B.agH,null,null,null,null,null,null,null,null)
-B.ahu=new A.bd("Assuming you use these exercise cues:",null,B.pL,null,null,null,null,null,null,null,null)
-B.ahv=new A.bd("Create",null,null,null,null,null,null,null,null,null,null)
-B.ahA=new A.bd("Conditions:",null,B.cM,null,null,null,null,null,null,null,null)
-B.ahC=new A.bd("Page Not Found",null,null,null,null,null,null,null,null,null,null)
-B.ahD=new A.bd("overall range",null,null,null,null,null,null,null,null,null,null)
-B.ahF=new A.bd("Set up",null,null,null,null,null,null,null,null,null,null)
-B.ahG=new A.bd("version landing-e69e158 (Mon Apr 14 14:04:50 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.ahu=new A.bd("Program Volume Score",null,B.agH,null,null,null,null,null,null,null,null)
+B.ahv=new A.bd("Assuming you use these exercise cues:",null,B.pL,null,null,null,null,null,null,null,null)
+B.ahw=new A.bd("Create",null,null,null,null,null,null,null,null,null,null)
+B.ahB=new A.bd("Conditions:",null,B.cM,null,null,null,null,null,null,null,null)
+B.ahD=new A.bd("Page Not Found",null,null,null,null,null,null,null,null,null,null)
+B.ahE=new A.bd("overall range",null,null,null,null,null,null,null,null,null,null)
+B.ahG=new A.bd("Set up",null,null,null,null,null,null,null,null,null,null)
 B.ahI=new A.bd("Passive insufficiency",null,B.cM,null,null,null,null,null,null,null,null)
 B.ahK=new A.bd("No workouts available. Create workouts in the Program Builder first.",null,null,null,null,null,null,null,null,null,null)
 B.ae4=new A.z(!0,B.r,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.ahL=new A.bd("Go to home page",null,B.ae4,null,null,null,null,null,null,null,null)
-B.ahM=new A.bd("None",null,null,null,null,null,null,null,null,null,null)
-B.ahO=new A.bd("Page Not Found",null,B.cM,null,null,null,null,null,null,null,null)
-B.ahP=new A.bd("Create New",null,null,null,null,null,null,null,null,null,null)
+B.ahM=new A.bd("version main-12e44e5 (Mon Apr 14 14:09:08 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.ahN=new A.bd("None",null,null,null,null,null,null,null,null,null,null)
+B.ahP=new A.bd("Page Not Found",null,B.cM,null,null,null,null,null,null,null,null)
+B.ahQ=new A.bd("Create New",null,null,null,null,null,null,null,null,null,null)
 B.Hq=new A.bd("Duplicate",null,null,null,null,null,null,null,null,null,null)
 B.ahS=new A.bd("Active insufficiency",null,B.cM,null,null,null,null,null,null,null,null)
 B.ahW=new A.bd("this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc",null,null,null,null,null,null,null,null,null,null)
@@ -119224,7 +119224,7 @@ r($,"bkM","b7W",()=>A.bjY())
 r($,"buw","b8n",()=>A.hr().gO0()+"roboto/v32/KFOmCnqEu92Fr1Me4GZLCzYlKw.woff2")
 r($,"btE","aXG",()=>A.bjM(A.b3U(A.b3U(A.bp7(),"window"),"FinalizationRegistry"),A.cJ(new A.aR5())))
 r($,"bwb","aY0",()=>new A.asm())
-s($,"btS","b7Z",()=>A.bei(B.Z6))
+s($,"btS","b7Z",()=>A.bei(B.Z7))
 s($,"btR","aaN",()=>A.anR(A.baS($.b7Z())))
 s($,"btv","b7K",()=>A.b1a(A.X(A.aK(),"ParagraphBuilder")))
 s($,"bwt","b9q",()=>{var q=t.N,p=A.a6("+breaks,graphemes,words(Bi,Bi,Bi)"),o=A.aV0(1e5,q,p),n=A.aV0(1e4,q,p)
