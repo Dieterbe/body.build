@@ -83,6 +83,25 @@
       color: #219a52;
       border-bottom-color: #219a52;
     }
+    .personal-quote {
+      position: relative;
+      margin: 1.5rem 0;
+      padding: 1.5rem 2rem;
+      background: #f8f9fa;
+      border-left: 4px solid #27ae60;
+      border-radius: 0 4px 4px 0;
+      font-style: italic;
+    }
+    .personal-quote p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+    .personal-quote p:first-child {
+      margin-top: 0;
+    }
+    .personal-quote p:last-child {
+      margin-bottom: 0;
+    }
     .footer {
       text-align: center;
       padding: 2rem 0;
@@ -144,7 +163,7 @@
     <div class="container">
       <h1>Body.build: Optimize Your Weight Training</h1>
       <p>With the world's most advanced, evidence-based programming tool.</p>
-      <p><em>Created for free by a top Menno Henselmans course graduate — no strings attached.</em></p> <!-- https://mennohenselmans.com/online-pt-course/ -->
+      <p><em>Created for free by a top Menno Henselmans course graduate — no strings attached.</em></p>
       <a href="/app" class="cta">Launch the App (desktop only)</a>
     </div>
   </header>
@@ -206,8 +225,10 @@
         <ul>
           <li>No payment, no ads, no sign-up</li>
           <li>No personal data collection, no credit card details</li>
-          <li><em>"I just want to make something genuinely helpful.  Like Wikipedia, but for lifting."</em></li>
         </ul>
+        <blockquote class="personal-quote">
+          <p>I took the <a href="https://mennohenselmans.com/online-pt-course/">Menno Henselmans Personal Training Course</a> — the most in-depth science-based personal trainer course in the world — and graduated <em>Magna cum laude</em> in 2025.  Now I just want to make an awesome service that anyone can freely use. Like Wikipedia, but for lifting.</p>
+        </blockquote>
       </div>
     </section>
     <section>
@@ -232,10 +253,11 @@
   <div class="lightbox" onclick="this.classList.remove('active')">
     <img src="" alt="Fullsize preview">
   </div>
-
+<!--
   <div class="footer">
     <p>Just a project I'm passionate about — let's see how it evolves!</p>
   </div>
+-->
   <script>
     // Email protection
     const emailLink = document.getElementById('email-link');
