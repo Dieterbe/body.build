@@ -70,7 +70,7 @@ const legCurlAnkleDorsiflexed = Modifier('ankle dorsiflexed', 'no', {
 }, desc: '''
 * Study: [Different Knee and Ankle Positions Affect Force and Muscle Activation During Prone Leg Curl in Trained Subjects](https://pubmed.ncbi.nlm.nih.gov/31469769/)
 * Study: [Differential effects of ankle position on isokinetic knee extensor and flexor strength gains during strength training](https://journals.sagepub.com/doi/10.3233/IES-160617)
-* [for the instagram lovers](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)''');
+* [Menno Henselmans breaks it down on instagram](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)''');
 
 const legCurlHipFlexion = Modifier('hip flexion', 'yes', {
   'yes': (
@@ -196,32 +196,32 @@ const deficit = Modifier('deficit', 'no', {
 Does not affect recruitment, but increases ROM and probably gains''');
 
 Modifier lateralRaiseShoulderRotation = const Modifier(
-    'wrist position',
-    'pinkie up',
+    'wrist position', 'pinkie up', {
+  'pinkie up': (
     {
-      'pinkie up': (
-        {
-          ProgramGroup.frontDelts: Assign(0.25,
-              'deactivation from shoulder abduction (due to internal rotation)'),
-        },
-        ''
-      ),
-      'horizontal': (
-        {
-          ProgramGroup.frontDelts: Assign(0.75, 'shoulder abduction'),
-        },
-        ''
-      ),
-      'pinkie down': (
-        {
-          ProgramGroup.frontDelts:
-              Assign(1, 'shoulder abduction (externally rotated)'),
-        },
-        ''
-      ),
+      ProgramGroup.frontDelts: Assign(0.25,
+          'deactivation from shoulder abduction (due to internal rotation)'),
     },
+    ''
+  ),
+  'horizontal': (
+    {
+      ProgramGroup.frontDelts: Assign(0.75, 'shoulder abduction'),
+    },
+    ''
+  ),
+  'pinkie down': (
+    {
+      ProgramGroup.frontDelts:
+          Assign(1, 'shoulder abduction (externally rotated)'),
+    },
+    ''
+  ),
+},
     desc:
-        'The more you internally rotate the shoulder (raise the pinkie), the less you activate the front delts.');
+        """The more you internally rotate the shoulder (raise the pinkie), the less you activate the front delts and focus on side delts.  
+[Dr Mike recommends considering your shoulder comfort](https://www.youtube.com/watch?v=n5dsI9qQXwY&t=4m34s)
+        """);
 
 Modifier lateralRaiseCablePath = const Modifier(
     'cable path',
@@ -244,6 +244,21 @@ Modifier lateralRaiseCablePath = const Modifier(
     },
     desc:
         'See [this youtube short by The Modern Meathead](https://www.youtube.com/shorts/jc900Wb-bCY)');
+/*
+https://www.youtube.com/watch?v=n5dsI9qQXwY&t=2m13s
+
+ROM:
+to just below pararrel - if you have sensitive shoulders. no problem, can get stimulus
+to paralel - probably a bit better
+to above parrallel - shoulder pump , high contraction
+way up - lose some tension at the top, but higher contraction. if shoulder can take it
+
+3:25 include bottom 45 degrees or no - to keep tension
+
+4:34 hand position
+
+5:20 pauses at the top for increased MMC
+*/
 
 Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       'hip flexion',
