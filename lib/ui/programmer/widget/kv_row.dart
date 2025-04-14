@@ -25,7 +25,7 @@ class KVRow extends StatelessWidget {
         title: helpTitle!,
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 800),
-          child: markdown(help!),
+          child: markdown(help!, context),
         ),
       );
     }

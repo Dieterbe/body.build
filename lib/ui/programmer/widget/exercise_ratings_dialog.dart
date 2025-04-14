@@ -23,7 +23,7 @@ class ExerciseRatingsDialog extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        markdown(comment),
+        markdown(comment, context),
       ],
     );
   }

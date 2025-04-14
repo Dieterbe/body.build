@@ -21,7 +21,9 @@ sed -i "s/^buildVersion unknown/buildVersion $version/" web/index.html
 sed -i "s/^buildTime unknown/buildTime $timestamp/" web/index.html
 
 log "build web"
-flutter build web
+flutter build web --base-href '/app/' -o build/web/app
+log "copying landing page"
+cp -ax landing-page/* build/web/
 
 log "git add build/web, deploy and git push"
 git add -f build/web && git commit -m 'build' && git push $1 origin HEAD

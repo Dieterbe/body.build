@@ -323,7 +323,8 @@ final List<Ex> exes = [
               ProgramGroup.spinalErectors:
                   Assign(0.5, 'flexion & extension cycles'),
             },
-            'flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout'
+            """flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout.  
+            Also called 'flexion row'"""
           )
         }),
         Modifier('grip width', 'shoulder', {
