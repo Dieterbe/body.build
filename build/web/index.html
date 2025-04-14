@@ -1,50 +1,259 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
-
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Body.build nutrition and workout planner for advanced weight lifters and coaches">
-
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="body.build: advanced workout planner for coaches and lifters">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>body.build: advanced workout planner for coaches and lifters</title>
-  <link rel="manifest" href="manifest.json">
-  <script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-      // Note: making this key public is not an issue. it's write-only
-    posthog.init('phc_WC0LK9tiHgH0rMWV8KKYTUOnWJt9PRMny3Vw8dGG8bJ', {
-        api_host: 'https://eu.i.posthog.com',
-        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-    })
-</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Body.build: Optimize Your Lifting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #222;
+    }
+    .container {
+      width: 90%;
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem 0;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    header h1 {
+      margin-bottom: 0.5rem;
+    }
+    .cta {
+      display: inline-block;
+      background: #27ae60;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 1rem;
+      transition: background-color 0.2s;
+    }
+    .cta:hover {
+      background: #219a52;
+    }
+    section {
+      margin: 4rem 0;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    section:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .section-content {
+      flex: 1;
+    }
+    .section-image {
+      flex: 1;
+      max-width: 500px;
+    }
+    .section-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2c3e50;
+      margin-top: 0;
+    }
+    ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin: 0;
+    }
+    a:not(.cta) {
+      color: #27ae60;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    a:not(.cta):hover {
+      color: #219a52;
+      border-bottom-color: #219a52;
+    }
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .lightbox.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    @media (min-width: 769px) {
+      .section-image img {
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .section-image img:hover {
+        transform: scale(1.02);
+      }
+    }
+    @media (max-width: 768px) {
+      section {
+        flex-direction: column !important;
+        text-align: center;
+      }
+      ul {
+        text-align: left;
+      }
+      .section-image {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+  <header>
+    <div class="container">
+      <h1>Body.build: Optimize Your Weight Training</h1>
+      <p>With the world's most advanced, evidence-based programming tool.</p>
+      <p><em>Created for free by a top Menno Henselmans course graduate — no strings attached.</em></p> <!-- https://mennohenselmans.com/online-pt-course/ -->
+      <a href="/app" class="cta">Launch the App (desktop only)</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <section>
+      <div class="section-content">
+        <h2>Explore the best exercise techniques</h2>
+        <ul>
+          <li>Extensive catalog of exercises with technique tweaks and cues</li>
+          <li>Links to relevant scientific studies and expert social media content</li>
+          <li>Ratings and quotes from respected coaches and creators</li>
+        </ul>
+      </div>
+      <div class="section-image">
+        <img src="img/body.build-modifiers.png" alt="Exercise technique and modifier options interface">
+      </div>
+    </section>
+    <section>
+      <div class="section-content">
+        <h2>Scientifically Optimized Programming</h2>
+        <ul>
+          <li>Use fractional volume counting for precise volume balancing</li>
+          <li>Detect antagonist supersets and non-overlapping-musculature sets for improved time efficiency and gains</li>
+          <li>Visual guidance for muscle targeting and time-efficient training</li>
+        </ul>
+      </div>
+      <div class="section-image">
+        <img src="img/body.build-program-builder.png" alt="Program builder interface showing exercise selection and visual fractional volume counting">
+      </div>
+    </section>
+    <section>
+      <div class="section-content">
+        <h2>Complete Muscle Coverage</h2>
+        <ul>
+          <li>Ensure all major muscles are trained with appropriate tension and ranges</li>
+          <li>Target all muscle lengths and movement patterns</li>
+        </ul>
+      </div>
+      <div class="section-image">
+        <img src="img/body.build-advanced-coverage.png" alt="Advanced muscle coverage analysis interface">
+      </div>
+    </section>
+    <section>
+      <div class="section-content">
+        <h2>Personalized Weekly Volume</h2>
+        <ul>
+          <li>Based on your body & lifestyle, nutrition and training stats and goals</li>
+          <li>Per-muscle-group recommendations based on latest evidence</li>
+        </ul>
+      </div>
+      <div class="section-image">
+        <img src="img/body.build-volume-targets.png" alt="Weekly volume targets and recommendations interface">
+      </div>
+    </section>
+    <section>
+      <div class="section-content">
+        <h2>100% Free.  No strings attached</h2>
+        <ul>
+          <li>No payment, no ads, no sign-up</li>
+          <li>No personal data collection, no credit card details</li>
+          <li><em>"I just want to make something genuinely helpful.  Like Wikipedia, but for lifting."</em></li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="section-content">
+        <h2>How It Works</h2>
+        <ul>
+          <li><strong>Setup Tab:</strong> Input personal info to calculate optimal calorie intake & volume</li>
+          <li><strong>Programmer Tab:</strong> Build your training plan visually, get instant feedback</li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="section-content">
+        <h2>Questions or comments?</h2>
+        <ul>
+          <li><strong>Email:</strong>  <a href="#" id="email-link" data-name="info" data-domain="body.build">info [at] body.build</a></li>
+<li><strong>Twitter/X</strong>  <a href="https://x.com/bodydotbuild">@bodydotbuild</a></li></ul>
+      </div>
+    </section>
+  </div>
+
+  <div class="lightbox" onclick="this.classList.remove('active')">
+    <img src="" alt="Fullsize preview">
+  </div>
+
+  <div class="footer">
+    <p>Just a project I'm passionate about — let's see how it evolves!</p>
+  </div>
+  <script>
+    // Email protection
+    const emailLink = document.getElementById('email-link');
+    if (emailLink) {
+      const name = emailLink.getAttribute('data-name');
+      const domain = emailLink.getAttribute('data-domain');
+      const email = `${name}@${domain}`;
+      emailLink.href = `mailto:${email}`;
+      emailLink.textContent = email;
+    }
+
+    // Lightbox functionality
+    if (window.innerWidth > 768) {
+      document.querySelectorAll('.section-image img').forEach(img => {
+        img.addEventListener('click', function() {
+          const lightbox = document.querySelector('.lightbox');
+          const lightboxImg = lightbox.querySelector('img');
+          lightboxImg.src = this.src;
+          lightboxImg.alt = this.alt;
+          lightbox.classList.add('active');
+        });
+      });
+    }
+  </script>
 </body>
-<!--
-buildVersion main-77154ec
-buildTime Thu Apr 10 11:08:16 2025 +0200
--->
 </html>
