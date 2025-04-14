@@ -75,6 +75,37 @@
       font-size: 0.9rem;
       color: #666;
     }
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .lightbox.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    @media (min-width: 769px) {
+      .section-image img {
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .section-image img:hover {
+        transform: scale(1.02);
+      }
+    }
     @media (max-width: 768px) {
       section {
         flex-direction: column !important;
@@ -172,13 +203,41 @@
     <section>
       <div class="section-content">
         <h2>Questions or comments?</h2>
-        <p>Email me at [your email here] or reach out on <a href="https://x.com/yourhandle">Twitter/X</a>.</p>
+        <p>Email me at <a href="#" id="email-link" data-name="info" data-domain="body.build">info [at] body.build</a> or reach out on <a href="https://x.com/bodydotbuild">Twitter/X @bodydotbuild</a>.</p>
       </div>
     </section>
+  </div>
+
+  <div class="lightbox" onclick="this.classList.remove('active')">
+    <img src="" alt="Fullsize preview">
   </div>
 
   <div class="footer">
     <p>Just a project I'm passionate about — let's see how it evolves!</p>
   </div>
+  <script>
+    // Email protection
+    const emailLink = document.getElementById('email-link');
+    if (emailLink) {
+      const name = emailLink.getAttribute('data-name');
+      const domain = emailLink.getAttribute('data-domain');
+      const email = `${name}@${domain}`;
+      emailLink.href = `mailto:${email}`;
+      emailLink.textContent = email;
+    }
+
+    // Lightbox functionality
+    if (window.innerWidth > 768) {
+      document.querySelectorAll('.section-image img').forEach(img => {
+        img.addEventListener('click', function() {
+          const lightbox = document.querySelector('.lightbox');
+          const lightboxImg = lightbox.querySelector('img');
+          lightboxImg.src = this.src;
+          lightboxImg.alt = this.alt;
+          lightbox.classList.add('active');
+        });
+      });
+    }
+  </script>
 </body>
 </html>
