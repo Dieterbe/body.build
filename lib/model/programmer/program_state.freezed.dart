@@ -22,6 +22,7 @@ ProgramState _$ProgramStateFromJson(Map<String, dynamic> json) {
 mixin _$ProgramState {
   String get name => throw _privateConstructorUsedError;
   List<Workout> get workouts => throw _privateConstructorUsedError;
+  bool get builtin => throw _privateConstructorUsedError;
 
   /// Serializes this ProgramState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $ProgramStateCopyWith<$Res> {
           ProgramState value, $Res Function(ProgramState) then) =
       _$ProgramStateCopyWithImpl<$Res, ProgramState>;
   @useResult
-  $Res call({String name, List<Workout> workouts});
+  $Res call({String name, List<Workout> workouts, bool builtin});
 }
 
 /// @nodoc
@@ -59,6 +60,7 @@ class _$ProgramStateCopyWithImpl<$Res, $Val extends ProgramState>
   $Res call({
     Object? name = null,
     Object? workouts = null,
+    Object? builtin = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -69,6 +71,10 @@ class _$ProgramStateCopyWithImpl<$Res, $Val extends ProgramState>
           ? _value.workouts
           : workouts // ignore: cast_nullable_to_non_nullable
               as List<Workout>,
+      builtin: null == builtin
+          ? _value.builtin
+          : builtin // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -81,7 +87,7 @@ abstract class _$$ProgramStateImplCopyWith<$Res>
       __$$ProgramStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<Workout> workouts});
+  $Res call({String name, List<Workout> workouts, bool builtin});
 }
 
 /// @nodoc
@@ -99,6 +105,7 @@ class __$$ProgramStateImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? workouts = null,
+    Object? builtin = null,
   }) {
     return _then(_$ProgramStateImpl(
       name: null == name
@@ -109,6 +116,10 @@ class __$$ProgramStateImplCopyWithImpl<$Res>
           ? _value._workouts
           : workouts // ignore: cast_nullable_to_non_nullable
               as List<Workout>,
+      builtin: null == builtin
+          ? _value.builtin
+          : builtin // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -117,7 +128,9 @@ class __$$ProgramStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProgramStateImpl implements _ProgramState {
   const _$ProgramStateImpl(
-      {this.name = 'unnamed program', final List<Workout> workouts = const []})
+      {this.name = 'unnamed program',
+      final List<Workout> workouts = const [],
+      this.builtin = true})
       : _workouts = workouts;
 
   factory _$ProgramStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -136,8 +149,12 @@ class _$ProgramStateImpl implements _ProgramState {
   }
 
   @override
+  @JsonKey()
+  final bool builtin;
+
+  @override
   String toString() {
-    return 'ProgramState(name: $name, workouts: $workouts)';
+    return 'ProgramState(name: $name, workouts: $workouts, builtin: $builtin)';
   }
 
   /// Create a copy of ProgramState
@@ -158,7 +175,9 @@ class _$ProgramStateImpl implements _ProgramState {
 
 abstract class _ProgramState implements ProgramState {
   const factory _ProgramState(
-      {final String name, final List<Workout> workouts}) = _$ProgramStateImpl;
+      {final String name,
+      final List<Workout> workouts,
+      final bool builtin}) = _$ProgramStateImpl;
 
   factory _ProgramState.fromJson(Map<String, dynamic> json) =
       _$ProgramStateImpl.fromJson;
@@ -167,6 +186,8 @@ abstract class _ProgramState implements ProgramState {
   String get name;
   @override
   List<Workout> get workouts;
+  @override
+  bool get builtin;
 
   /// Create a copy of ProgramState
   /// with the given fields replaced by the non-null parameter values.

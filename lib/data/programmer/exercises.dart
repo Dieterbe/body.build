@@ -39,6 +39,10 @@ class Ex {
     for (final modifier in modifiers) {
       final selectedOption =
           modifierOptions[modifier.name] ?? modifier.defaultVal;
+      if (!modifier.opts.containsKey(selectedOption)) {
+        print(
+            'modifier ${modifier.name} has no option $selectedOption'); // TODO: SHOULD NEVER HAPPEN :]
+      }
       final optEffects = modifier.opts[selectedOption]!.$1;
       if (optEffects.containsKey(pg)) {
         r = r.merge(optEffects[pg]!);
@@ -364,7 +368,7 @@ final List<Ex> exes = [
       [ratingJNRowChestSupported]),
   const Ex(vaRowWithoutSpine, "chest supported incline bench row",
       [Equipment.rowMachine], [], handSqueeze, [ratingJNRowChestSupported]),
-  const Ex(vaRowWithoutSpine, "chest supported machine rows",
+  const Ex(vaRowWithoutSpine, "chest supported machine row",
       [Equipment.rowMachine], [], handSqueeze, [ratingJNRowChestSupported]),
   const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [],
       handSqueeze),
@@ -574,9 +578,9 @@ final List<Ex> exes = [
       vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [], handSqueeze),
   const Ex(vaAbCrunch, "laying ab crunch", []),
   const Ex(vaAbIsometric, "plank", []),
-  const Ex(vaWristFlexion, "dumbbell wrist curls", [Equipment.dumbbell], [],
+  const Ex(vaWristFlexion, "dumbbell wrist curl", [Equipment.dumbbell], [],
       handSqueeze),
-  const Ex(vaWristExtension, "dumbbell wrist extensions", [Equipment.dumbbell]),
+  const Ex(vaWristExtension, "dumbbell wrist extension", [Equipment.dumbbell]),
 ];
 
 /// Returns a filtered list of exercises based on various criteria:

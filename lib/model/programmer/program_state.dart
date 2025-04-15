@@ -9,6 +9,7 @@ class ProgramState with _$ProgramState {
   const factory ProgramState({
     @Default('unnamed program') String name,
     @Default([]) List<Workout> workouts,
+    @Default(false) bool builtin,
   }) = _ProgramState;
 
   factory ProgramState.fromJson(Map<String, dynamic> json) =>

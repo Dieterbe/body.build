@@ -1,7 +1,8 @@
+import 'package:bodybuild/data/programmer/demo_workouts.dart';
+import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
 
 part 'program_manager.g.dart';
 
@@ -43,8 +44,9 @@ class ProgramManager extends _$ProgramManager {
     // Get last selected or create default
     String currentId;
     if (programs.isEmpty) {
-      currentId = DateTime.now().millisecondsSinceEpoch.toString();
-      programs[currentId] = const ProgramState(name: 'New Program');
+      currentId = 'demo1';
+      programs['demo1'] = demo1;
+
       await service.saveProgram(currentId, programs[currentId]!);
       await service.saveLastProgramId(currentId);
     } else {

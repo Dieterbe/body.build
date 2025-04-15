@@ -13,10 +13,12 @@ _$ProgramStateImpl _$$ProgramStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Workout.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      builtin: json['builtin'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$ProgramStateImplToJson(_$ProgramStateImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'workouts': instance.workouts,
+      'builtin': instance.builtin,
     };
