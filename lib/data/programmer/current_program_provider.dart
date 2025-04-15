@@ -1,4 +1,5 @@
 import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
+import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'current_program_provider.g.dart';
@@ -24,10 +25,17 @@ class CurrentProgram extends _$CurrentProgram {
       }
     }
 
+    // If no last program or it doesn't exist anymore, get the first available program
     final programs = await service.loadPrograms();
 
     if (programs.isEmpty) {
-      throw Exception('No programs found');
+      final newId = DateTime.now().millisecondsSinceEpoch.toString();
+      await service.saveProgram(
+        newId,
+        const ProgramState(name: 'New Program'),
+      );
+      await service.saveLastProgramId(newId);
+      return newId;
     }
 
     final firstId = programs.keys.first;
