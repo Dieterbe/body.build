@@ -3,11 +3,17 @@ import 'package:uuid/uuid.dart';
 
 class DataManager extends StatelessWidget {
   final List<String> opts;
+  // name is guaranteed to be one of the opts
   final Function(String name) onSelect;
+  // name is guaranteed to be a unique new name
   final Function(String id, String name) onCreate;
+  // nameOld is the currently selected, so you may ignore it
+  // nameNew is guaranteed to be unique and different from nameOld
   final Function(String nameOld, String nameNew) onRename;
+  // nameOld is the currently selected, so you may ignore it
+  // nameNew is guaranteed to be unique
   final Function(String nameOld, String nameNew) onDuplicate;
-  final Function(String name) onDelete;
+  final Function(String name)? onDelete;
 
   const DataManager({
     super.key,
@@ -16,7 +22,7 @@ class DataManager extends StatelessWidget {
     required this.onCreate,
     required this.onRename,
     required this.onDuplicate,
-    required this.onDelete,
+    this.onDelete,
   });
 
   @override
@@ -148,13 +154,20 @@ class DataManager extends StatelessWidget {
                         shape: const RoundedRectangleBorder(),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      icon: Icon(
-                        Icons.delete,
-                        color: Theme.of(context).colorScheme.error,
+                      icon: Opacity(
+                        opacity: onDelete == null ? 0.38 : 1.0,
+                        child: Icon(
+                          Icons.delete,
+                          color: onDelete == null
+                              ? Theme.of(context).colorScheme.onSurface
+                              : Theme.of(context).colorScheme.error,
+                        ),
                       ),
-                      tooltip: 'Delete',
+                      tooltip: onDelete == null
+                          ? 'Builtin - cannot be deleted'
+                          : 'Delete',
                       onPressed: () {
-                        if (opts.isEmpty || opts.length <= 1) return;
+                        if (opts.isEmpty || onDelete == null) return;
                         _showDeleteDialog(context, opts.first);
                       },
                     ),
@@ -265,7 +278,7 @@ class DataManager extends StatelessWidget {
       ),
     );
 
-    if (result != null && result.isNotEmpty) {
+    if (result != null && result.isNotEmpty && result != item) {
       onRename(item, result);
     }
   }
@@ -340,7 +353,7 @@ class DataManager extends StatelessWidget {
     );
 
     if (result == true) {
-      onDelete(item);
+      onDelete!(item);
     }
   }
 }

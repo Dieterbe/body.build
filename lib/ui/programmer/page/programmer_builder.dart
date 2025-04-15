@@ -1,7 +1,7 @@
+import 'package:bodybuild/data/programmer/program_manager.dart';
 import 'package:bodybuild/ui/core/widget/version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bodybuild/data/programmer/program.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 
@@ -17,9 +17,10 @@ class ProgrammerBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final program = ref.watch(programProvider);
+    final program = ref.watch(
+        programManagerProvider.select((state) => state.value?.currentProgram));
     final setup = ref.watch(setupProvider);
-    final notifier = ref.read(programProvider.notifier);
+    final notifier = ref.read(programManagerProvider.notifier);
 
     /*
       To make sure the programGroup indicators are all aligned, between the top
@@ -35,22 +36,22 @@ class ProgrammerBuilder extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) =>
           Center(child: Text('Error loading settings: $error')),
-      data: (setup) => program.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) =>
-            Center(child: Text('Error loading program: $error')),
-        data: (program) {
-          //   dumpProgram(program);
+      data: (setup) {
+        if (program == null) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          return Column(children: [
+        return Column(
+          children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const SizedBox(width: 20),
                 const Flexible(flex: 45, child: ProgramHeader()),
                 Flexible(
-                    flex: 55,
-                    child: program.workouts.isEmpty ? Container() : headers()),
+                  flex: 55,
+                  child: program.workouts.isEmpty ? Container() : headers(),
+                ),
                 const SizedBox(width: 20),
               ],
             ),
@@ -106,9 +107,9 @@ class ProgrammerBuilder extends ConsumerWidget {
                 ),
               ),
             const VersionWidget(),
-          ]);
-        },
-      ),
+          ],
+        );
+      },
     );
   }
 

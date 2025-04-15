@@ -13,7 +13,7 @@ model:
 
 why e.g. data/programmer and not programmer/data - wouldn't that make more sense?
 * because we also have ui/programmer and not programmer/ui, and we want to leave room for files in ui that are not specific to a feature -> nope, could go into core/ui
-* it's because we except certain commonalities between different data files, ui files etc, so putting them closer together may help with diffing files, copying them etc on the CLI
+* it's because we accept certain commonalities between different data files, ui files etc, so putting them closer together may help with diffing files, copying them etc on the CLI
 
 ## things to do still
 

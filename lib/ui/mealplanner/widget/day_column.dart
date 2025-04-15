@@ -1,7 +1,7 @@
+import 'package:bodybuild/data/programmer/program_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/mealplan/mealplan.dart';
-import 'package:bodybuild/data/programmer/program.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/mealplanner/meal_plan.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
@@ -277,7 +277,7 @@ class DayColumn extends ConsumerWidget {
           title: const Text('Add Event'),
           content: StatefulBuilder(
             builder: (context, setState) {
-              final programState = ref.watch(programProvider);
+              final programManagerState = ref.watch(programManagerProvider);
 
               return SingleChildScrollView(
                 child: Column(
@@ -317,9 +317,9 @@ class DayColumn extends ConsumerWidget {
                       ),
                       const SizedBox(height: 16),
                       if (workoutType == 'existing') ...[
-                        programState.when(
+                        programManagerState.when(
                           data: (program) {
-                            if (program.workouts.isEmpty) {
+                            if (program.currentProgram.workouts.isEmpty) {
                               return const Text(
                                   'No workouts available. Create workouts in the Program Builder first.');
                             }
@@ -328,7 +328,8 @@ class DayColumn extends ConsumerWidget {
                                 labelText: 'Select Workout',
                               ),
                               value: selectedWorkout,
-                              items: program.workouts.map((workout) {
+                              items: program.currentProgram.workouts
+                                  .map((workout) {
                                 return DropdownMenuItem(
                                   value: workout,
                                   child: Text(workout.name),

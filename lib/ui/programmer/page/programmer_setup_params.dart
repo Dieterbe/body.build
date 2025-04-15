@@ -114,6 +114,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                       titleTextMedium('Add for: ', context),
                       v: DropdownButton<ProgramGroup>(
                         value: null,
+                        isExpanded: true,
                         hint: Text('Select muscle', style: ts100(context)),
                         items: availableGroups
                             .map((group) => DropdownMenuItem(
