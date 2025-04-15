@@ -36,7 +36,7 @@ class ProgramHeader extends ConsumerWidget {
     }
 
     dynamic onCreate(String id, String name) {
-      ref.read(programManagerProvider.notifier).createProgram(name);
+      ref.read(programManagerProvider.notifier).createNewProgram(name);
       return null;
     }
 
@@ -46,20 +46,7 @@ class ProgramHeader extends ConsumerWidget {
     }
 
     dynamic onDuplicate(String name) {
-      final state = programManagerState.value!;
-      final currentProgram = state.currentProgram;
-
-      // Generate a new unique name based on the current program's name
-      final baseName = currentProgram.name;
-      var newName = 'Copy of $baseName';
-      var counter = 1;
-
-      while (state.programs.values.any((p) => p.name == newName)) {
-        counter++;
-        newName = 'Copy $counter of $baseName';
-      }
-
-      ref.read(programManagerProvider.notifier).createProgram(newName);
+      ref.read(programManagerProvider.notifier).duplicateProgram(name);
       return null;
     }
 

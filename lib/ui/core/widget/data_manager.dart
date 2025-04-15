@@ -6,8 +6,9 @@ class DataManager extends StatelessWidget {
   final Function(String name) onSelect;
   final Function(String id, String name) onCreate;
   final Function(String nameOld, String nameNew) onRename;
-  final Function(String nameOld, String nameNew)
-      onDuplicate; // nameOld is implied, it's always currently selected
+  // nameOld is the currently selected, so you may ignore it
+  // nameNew is guaranteed to be unique
+  final Function(String nameOld, String nameNew) onDuplicate;
   final Function(String name) onDelete;
 
   const DataManager({

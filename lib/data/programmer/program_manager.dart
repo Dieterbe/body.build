@@ -65,21 +65,20 @@ class ProgramManager extends _$ProgramManager {
     await service.saveLastProgramId(id);
   }
 
-  Future<void> createProgram(String name) async {
+// caller should assure the name is not used yet
+  Future<void> createNewProgram(String name) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
     final newProgram = ProgramState(name: name);
+    _createProgram(id, newProgram);
+  }
 
-    final updatedPrograms = Map.of(state.value!.programs);
-    updatedPrograms[id] = newProgram;
-
-    state = AsyncData(state.value!.copyWith(
-      programs: updatedPrograms,
-      currentProgramId: id,
-    ));
-
-    final service = await ref.read(programPersistenceProvider.future);
-    await service.saveProgram(id, newProgram);
-    await service.saveLastProgramId(id);
+// caller should assure the name is not used yet
+  Future<void> duplicateProgram(String newName) async {
+    final currentId = state.value!.currentProgramId;
+    final currentProgram = state.value!.programs[currentId]!;
+    final id = DateTime.now().millisecondsSinceEpoch.toString();
+    final newProgram = currentProgram.copyWith(name: newName);
+    _createProgram(id, newProgram);
   }
 
   Future<void> deleteProgram(String id) async {
@@ -90,7 +89,7 @@ class ProgramManager extends _$ProgramManager {
     await service.deleteProgram(id);
 
     if (updatedPrograms.isEmpty) {
-      await createProgram('New Program');
+      await createNewProgram('New Program');
       return;
     }
 
@@ -138,7 +137,23 @@ class ProgramManager extends _$ProgramManager {
     });
   }
 
-  void _updateCurrentProgram(ProgramState Function(ProgramState) update) {
+  // id must be new, and program must have a unique name
+  Future<void> _createProgram(String id, ProgramState program) async {
+    final updatedPrograms = Map.of(state.value!.programs);
+    updatedPrograms[id] = program;
+
+    state = AsyncData(state.value!.copyWith(
+      programs: updatedPrograms,
+      currentProgramId: id,
+    ));
+
+    final service = await ref.read(programPersistenceProvider.future);
+    await service.saveProgram(id, program);
+    await service.saveLastProgramId(id);
+  }
+
+  Future<void> _updateCurrentProgram(
+      ProgramState Function(ProgramState) update) async {
     final currentId = state.value!.currentProgramId;
     final currentProgram = state.value!.programs[currentId]!;
     final updatedProgram = update(currentProgram);
@@ -147,11 +162,8 @@ class ProgramManager extends _$ProgramManager {
     updatedPrograms[currentId] = updatedProgram;
 
     state = AsyncData(state.value!.copyWith(programs: updatedPrograms));
-    _persistCurrentProgram(updatedProgram);
-  }
 
-  Future<void> _persistCurrentProgram(ProgramState program) async {
     final service = await ref.read(programPersistenceProvider.future);
-    await service.saveProgram(state.value!.currentProgramId, program);
+    await service.saveProgram(currentId, updatedProgram);
   }
 }
