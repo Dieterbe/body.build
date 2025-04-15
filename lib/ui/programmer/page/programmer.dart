@@ -177,10 +177,10 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.settings,
+                    Icon(Icons.fitness_center,
                         size: MediaQuery.of(context).size.width / 70),
                     const SizedBox(width: 8),
-                    const Text("Set up"),
+                    const Text("Workout programmer"),
                   ],
                 ),
               ),
@@ -192,10 +192,10 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.fitness_center,
+                    Icon(Icons.settings,
                         size: MediaQuery.of(context).size.width / 70),
                     const SizedBox(width: 8),
-                    const Text("Workout programmer"),
+                    const Text("Set up"),
                   ],
                 ),
               ),
@@ -206,14 +206,14 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
       body: const TabBarView(
         children: [
           SingleChildScrollView(
-            child: ProgrammerSetup(),
-          ),
-          SingleChildScrollView(
             child: Padding(
               padding:
                   EdgeInsets.only(left: 8, right: 28), // to fix header overflow
               child: ProgrammerBuilder(),
             ),
+          ),
+          SingleChildScrollView(
+            child: ProgrammerSetup(),
           ),
           //  SingleChildScrollView(
           //   child: MealPlanScreen(),
