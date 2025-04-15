@@ -3,8 +3,12 @@ import 'package:uuid/uuid.dart';
 
 class DataManager extends StatelessWidget {
   final List<String> opts;
+  // name is guaranteed to be one of the opts
   final Function(String name) onSelect;
+  // name is guaranteed to be a unique new name
   final Function(String id, String name) onCreate;
+  // nameOld is the currently selected, so you may ignore it
+  // nameNew is guaranteed to be unique and different from nameOld
   final Function(String nameOld, String nameNew) onRename;
   // nameOld is the currently selected, so you may ignore it
   // nameNew is guaranteed to be unique
@@ -156,7 +160,7 @@ class DataManager extends StatelessWidget {
                       ),
                       tooltip: 'Delete',
                       onPressed: () {
-                        if (opts.isEmpty || opts.length <= 1) return;
+                        if (opts.isEmpty) return;
                         _showDeleteDialog(context, opts.first);
                       },
                     ),
@@ -267,7 +271,7 @@ class DataManager extends StatelessWidget {
       ),
     );
 
-    if (result != null && result.isNotEmpty) {
+    if (result != null && result.isNotEmpty && result != item) {
       onRename(item, result);
     }
   }
