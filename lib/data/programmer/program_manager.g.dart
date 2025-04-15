@@ -6,7 +6,7 @@ part of 'program_manager.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$programManagerHash() => r'bcefab397b65720bbfbbd158b90a7d574214ffed';
+String _$programManagerHash() => r'0fd2997a8cb552a5bc08562ac54d2ca8cd49e2d7';
 
 /// See also [ProgramManager].
 @ProviderFor(ProgramManager)

@@ -71,7 +71,7 @@ class ProgramHeader extends ConsumerWidget {
             onCreate: onCreate,
             onRename: onRename,
             onDuplicate: (_, name) => onDuplicate(name),
-            onDelete: onDelete,
+            onDelete: state.currentProgram.builtin ? null : onDelete,
           ),
           const SizedBox(height: 20),
           Row(

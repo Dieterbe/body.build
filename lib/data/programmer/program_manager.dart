@@ -78,7 +78,8 @@ class ProgramManager extends _$ProgramManager {
 // caller should assure the name is not used yet
   Future<void> duplicateProgram(String newName) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
-    final newProgram = state.value!.currentProgram.copyWith(name: newName);
+    final newProgram =
+        state.value!.currentProgram.copyWith(name: newName, builtin: false);
     _createProgram(state.value!.programs, id, newProgram);
   }
 
@@ -90,6 +91,7 @@ class ProgramManager extends _$ProgramManager {
     await service.deleteProgram(id);
 
     if (updatedPrograms.isEmpty) {
+      // this should actually never happen anymore since we now have non-deletable builtins
       final id = DateTime.now().millisecondsSinceEpoch.toString();
       const newProgram = ProgramState(name: 'New Program');
       _createProgram(updatedPrograms, id, newProgram);

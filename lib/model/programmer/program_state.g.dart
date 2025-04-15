@@ -13,7 +13,7 @@ _$ProgramStateImpl _$$ProgramStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Workout.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      builtin: json['builtin'] as bool? ?? true,
+      builtin: json['builtin'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$ProgramStateImplToJson(_$ProgramStateImpl instance) =>

@@ -130,7 +130,7 @@ class _$ProgramStateImpl implements _ProgramState {
   const _$ProgramStateImpl(
       {this.name = 'unnamed program',
       final List<Workout> workouts = const [],
-      this.builtin = true})
+      this.builtin = false})
       : _workouts = workouts;
 
   factory _$ProgramStateImpl.fromJson(Map<String, dynamic> json) =>
