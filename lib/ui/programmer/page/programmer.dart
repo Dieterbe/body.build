@@ -143,8 +143,11 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                         ),
                         const SizedBox(height: 16),
                         Flexible(
-                          child: SingleChildScrollView(
-                            child: markdown(helpProgrammer, context),
+                          child: Scrollbar(
+                            thumbVisibility: true,
+                            child: SingleChildScrollView(
+                              child: markdown(helpProgrammer, context),
+                            ),
                           ),
                         ),
                       ],
