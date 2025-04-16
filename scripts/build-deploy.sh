@@ -24,6 +24,11 @@ log "build web"
 flutter build web --base-href '/app/' -o build/web/app
 log "copying landing page"
 cp -ax landing-page/* build/web/
+log "build docs"
+cd docs
+npm run build
+cd -
+rsync -a docs/build/ build/web/docs/
 
 log "git add build/web, deploy and git push"
 git add -f build/web && git commit -m 'build' && git push $1 origin HEAD

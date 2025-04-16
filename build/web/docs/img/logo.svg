@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40">
+  <!-- Bar grip (handle) -->
+  <rect x="45" y="17" width="30" height="6" rx="3" fill="#27ae60"/>
+  
+  <!-- Bar ends -->
+  <rect x="25" y="18" width="20" height="4" rx="1" fill="#27ae60"/>
+  <rect x="75" y="18" width="20" height="4" rx="1" fill="#27ae60"/>
+  
+  <!-- Left plate stack -->
+  <path d="M5 5 h20 v30 h-20 a3 3 0 0 1-3-3 v-24 a3 3 0 0 1 3-3z" fill="#27ae60"/>
+  <rect x="25" y="7" width="3" height="26" fill="#27ae60" opacity="0.8"/>
+  
+  <!-- Right plate stack -->
+  <path d="M115 5 h-20 v30 h20 a3 3 0 0 0 3-3 v-24 a3 3 0 0 0-3-3z" fill="#27ae60"/>
+  <rect x="92" y="7" width="3" height="26" fill="#27ae60" opacity="0.8"/>
+  
+  <!-- Plate details (lines suggesting multiple plates) -->
+  <path d="M8 15 h14 M8 25 h14" stroke="#1e8449" stroke-width="1"/>
+  <path d="M98 15 h14 M98 25 h14" stroke="#1e8449" stroke-width="1"/>
+</svg>
