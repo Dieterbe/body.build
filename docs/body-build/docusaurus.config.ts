@@ -74,14 +74,23 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Links',
+          // title: 'Links',
           items: [
+     
+            {
+              label: 'Homepage',
+              href: 'https://body.build',
+            },
+            {
+              label: 'Application',
+              href: 'https://body.build/app',
+            },
             {
               label: 'GitHub',
-              href: 'https://github.com/dieterbe/body.build',
-            },
+              href: 'https://github.com/Dieterbe/body.build',
+            }
           ],
-        },
+        }
       ],
       copyright: `Copyright ${new Date().getFullYear()} body.build`,
     },

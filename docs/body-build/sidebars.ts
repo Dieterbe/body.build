@@ -14,11 +14,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
  */
 const sidebars: SidebarsConfig = {
   docs: [
-    'algorithm',
-    'exercise-selection',
-    'workout-structure',
-    'back-pain',
-    'meal-plan'
+    'backstory',
   ],
 };
 
