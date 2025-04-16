@@ -30,7 +30,9 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
+  clientModules: [
+    require.resolve('./src/posthog.js'),
+  ],
   presets: [
     [
       'classic',
