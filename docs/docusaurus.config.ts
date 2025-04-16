@@ -63,11 +63,13 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
+        /*
         {
           href: 'https://github.com/Dieterbe/body.build',
           label: 'GitHub',
           position: 'right',
         },
+        */
       ],
     },
     footer: {
@@ -92,7 +94,7 @@ const config: Config = {
           ],
         }
       ],
-      copyright: `Copyright ${new Date().getFullYear()} body.build`,
+     // copyright: `Copyright ${new Date().getFullYear()} body.build`,
     },
     prism: {
       theme: prismThemes.github,
