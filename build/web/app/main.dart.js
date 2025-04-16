@@ -51008,7 +51008,7 @@ p.push(B.aG)
 l=t.p
 p.push(A.bh(A.a([A.a0(A.m(m.d)+" \xb0",n,n,n,n,n,n,n),B.ahE,A.a0(A.m(m.e)+" \xb0",n,n,n,n,n,n,n)],l),B.m,B.fh,B.l,n,n))
 p.push(B.aG)
-p.push(B.ahs)
+p.push(B.ahr)
 m=A.p(a).ax
 o=m.ch
 p.push(A.b2(A.a([A.bh(A.a([A.ax(n,n,B.j,o==null?m.z:o,n,n,16,n,n,16),B.aX,B.ahb],l),B.m,B.i,B.Y,n,n),A.bh(A.a([A.ax(n,n,B.j,B.mt,n,n,16,n,n,16),B.aX,B.ah6],l),B.m,B.i,B.Y,n,n),B.a9c,B.a9b],l),B.O,B.i,B.l,0))
@@ -51276,7 +51276,7 @@ A.ahH.prototype={
 $1(a){this.a.r.$1(a)},
 $S:89}
 A.ZZ.prototype={
-I(a){return B.aho}}
+I(a){return B.ahu}}
 A.vD.prototype={
 an(){return new A.a3n()}}
 A.a3n.prototype={
@@ -51823,7 +51823,7 @@ r=t.p
 s=A.a([A.bh(A.a([B.GN,B.UC,new A.cR(55,B.ae,s,p),B.GN],r),B.e9,B.i,B.l,p,p)],r)
 B.b.E(s,J.cy(o.ghJ(),new A.aut(a,q.c),t.l))
 if(J.f0(o.ghJ()))s.push(A.aYR(o.ghJ(),a))
-if(J.f0(o.ghJ()))s.push(new A.aH(B.S2,A.bh(A.a([A.bcL(B.VL,B.ahr,new A.auu(q.a,q.d,o))],r),B.m,B.dm,B.l,p,p),p))
+if(J.f0(o.ghJ()))s.push(new A.aH(B.S2,A.bh(A.a([A.bcL(B.VL,B.ahq,new A.auu(q.a,q.d,o))],r),B.m,B.dm,B.l,p,p),p))
 s.push(B.HG)
 return A.b2(s,B.m,B.i,B.l,0)},
 $S:641}
@@ -52223,7 +52223,7 @@ o=t.p
 n=A.a([],o)
 if(!h&&r){h=g.r
 h===$&&A.b()
-n.push(new A.aH(B.ht,A.b2(A.a([B.ahu,A.a0(B.d.ao(h*100,1)+"%",j,j,j,j,B.adD,j,j)],o),B.m,B.dm,B.l,0),j))}n.push(A.c0(new A.es(A.a0(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ab(a,B.u,q).w.a.a/100,j,j,B.bb,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
+n.push(new A.aH(B.ht,A.b2(A.a([B.aht,A.a0(B.d.ao(h*100,1)+"%",j,j,j,j,B.adD,j,j)],o),B.m,B.dm,B.l,0),j))}n.push(A.c0(new A.es(A.a0(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.ab(a,B.u,q).w.a.a/100,j,j,B.bb,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
 h=A.bh(n,B.m,B.i,B.l,j,j)
 n=g.e
 n===$&&A.b()
@@ -52965,7 +52965,7 @@ h=n.gdz(n)
 h.toString
 J.aU9(k,h,new A.atW(n),new A.atX(n))}}}s=A.p(a)
 r=A.ce(8)
-q=A.a([A.a0("Muscle modalities",g,g,g,g,A.p(a).p1.r,g,g),B.eE,B.ahY,B.ai2,B.ahV,B.ahp,B.aG],t.p)
+q=A.a([A.a0("Muscle modalities",g,g,g,g,A.p(a).p1.r,g,g),B.eE,B.ahY,B.ai2,B.ahV,B.aho,B.aG],t.p)
 B.b.E(q,new A.L(B.bF,new A.atY(f,a),t.ZN))
 return A.ax(g,A.b2(q,B.O,B.i,B.l,0),B.j,g,g,new A.bJ(s.ax.k2,g,g,r,g,g,B.N),g,g,B.bO,g)}}
 A.atV.prototype={
@@ -116289,8 +116289,8 @@ B.Yb=A.a(s([B.jY,B.va,B.vb,B.vc]),A.a6("t<hG>"))
 B.ahy=new A.be("Off",null,null,null,null,null,null,null,null,null,null)
 B.Lp=new A.hX(B.f0,B.ahy,t.vS)
 B.rz=new A.lE(1,"on")
-B.aht=new A.be("On",null,null,null,null,null,null,null,null,null,null)
-B.Lk=new A.hX(B.rz,B.aht,t.vS)
+B.ahs=new A.be("On",null,null,null,null,null,null,null,null,null,null)
+B.Lk=new A.hX(B.rz,B.ahs,t.vS)
 B.rA=new A.lE(2,"psmf")
 B.ahz=new A.be("PSMF Days",null,null,null,null,null,null,null,null,null,null)
 B.Lo=new A.hX(B.rA,B.ahz,t.vS)
@@ -116372,8 +116372,8 @@ B.akk=new A.pA(12,0.14)
 B.vs=A.a(s([B.akj,B.ako,B.akm,B.akn,B.akl,B.akk]),A.a6("t<pA>"))
 B.ahf=new A.be("Existing Workout",null,null,null,null,null,null,null,null,null,null)
 B.Ln=new A.hX("existing",B.ahf,t.Zx)
-B.ahq=new A.be("Custom",null,null,null,null,null,null,null,null,null,null)
-B.Lm=new A.hX("custom",B.ahq,t.Zx)
+B.ahp=new A.be("Custom",null,null,null,null,null,null,null,null,null,null)
+B.Lm=new A.hX("custom",B.ahp,t.Zx)
 B.YW=A.a(s([B.Ln,B.Lm]),t.CK)
 B.ahQ=new A.be("",null,null,null,null,null,null,null,null,null,null)
 B.tu=new A.oh(B.ahQ)
@@ -118745,13 +118745,13 @@ B.ahk=new A.be("no moves for this articulation",null,null,null,null,null,null,nu
 B.ahl=new A.be("Basic Gym",null,null,null,null,null,null,null,null,null,null)
 B.Hn=new A.be("Rename",null,null,null,null,null,null,null,null,null,null)
 B.ahn=new A.be('note: this is a "pseudo" muscle',null,null,null,null,null,null,null,null,null,null)
-B.aho=new A.be("version main-08bddab (Tue Apr 15 21:09:02 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
 B.Ho=new A.be("OK",null,null,null,null,null,null,null,null,null,null)
-B.ahp=new A.be("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
-B.ahr=new A.be("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
-B.ahs=new A.be("Legend",null,null,null,null,null,null,null,null,null,null)
+B.aho=new A.be("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
+B.ahq=new A.be("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
+B.ahr=new A.be("Legend",null,null,null,null,null,null,null,null,null,null)
 B.agG=new A.A(!0,null,null,null,null,null,12,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ahu=new A.be("Program Volume Score",null,B.agG,null,null,null,null,null,null,null,null)
+B.aht=new A.be("Program Volume Score",null,B.agG,null,null,null,null,null,null,null,null)
+B.ahu=new A.be("version docs-538d7e9 (Wed Apr 16 10:32:34 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
 B.ahv=new A.be("Assuming you use these exercise cues:",null,B.pL,null,null,null,null,null,null,null,null)
 B.ahw=new A.be("Create",null,null,null,null,null,null,null,null,null,null)
 B.ahB=new A.be("Conditions:",null,B.cN,null,null,null,null,null,null,null,null)
