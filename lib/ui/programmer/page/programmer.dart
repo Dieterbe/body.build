@@ -105,8 +105,9 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
         ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          IconButton(
+          FilledButton.icon(
             icon: const Icon(Icons.help_outline),
+            label: const Text('Help'),
             onPressed: () {
               showDialog(
                 context: context,
