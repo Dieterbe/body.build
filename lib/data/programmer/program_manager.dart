@@ -41,16 +41,19 @@ class ProgramManager extends _$ProgramManager {
     // Load all programs
     final programs = await service.loadPrograms();
 
-    // Get last selected or create default
     String currentId;
     if (programs.isEmpty) {
-      currentId = 'demo1';
-      programs['demo1'] = demo1;
-
-      await service.saveProgram(currentId, programs[currentId]!);
-      await service.saveLastProgramId(currentId);
+      currentId = demo1ID;
     } else {
       currentId = await service.loadLastProgramId() ?? programs.keys.first;
+    }
+
+    // programs may be empty (first run) or older copy predating the demo's
+    if (!programs.containsKey(demo1ID)) {
+      programs[demo1ID] = demo1;
+
+      await service.saveProgram(demo1ID, demo1);
+      await service.saveLastProgramId(demo1ID);
     }
 
     return ProgramManagerState(

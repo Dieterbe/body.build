@@ -4,6 +4,7 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 
 // TODO: need good tracking, ex not found -> posthog error. cue/modifier not found -> error, right now it's ignored
+const demo1ID = 'demo1';
 final demo1 = ProgramState(
   name: 'Demo Program 1 - Full body',
   builtin: true,
