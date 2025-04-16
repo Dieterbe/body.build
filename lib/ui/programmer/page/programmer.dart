@@ -13,23 +13,43 @@ const String helpProgrammer = '''
 # What is this?
 
 body.build is a web application for:
-* building state of the art science-based weight lifting and body building plans.
-* setting corresponding kcal & macro goals.
+* building optimal weight lifting and body building plans.
+* setting personalised kcal and workout volume targets.
 
-The main strength right now is the fractional volume counting workout programmer.  
+Body.build is different from others in the sense that:
+* it visualizes fractional volume counting (the most accurate way to count volume)
+* it integrates social media content, instructional videos, ratings, and scientific studies etc from respected authors
+* we do not have an app to actually track progress in the gym, but working on it!
+
 The application is:
-* technical. Works best if you have coaching level knowledge.
-* free of charge
-* a work-in-progress
+* completely free to use by anyone without any type of signup or data collection.
+* a work-in-progress. things may change and break, while i keep working on it!
 
 It is based on the latest scientific principles, as tought in the [Menno Henselmans Personal Training Course](https://mennohenselmans.com/online-pt-course/) - probably the most comprehensive evidence based personal training course program on the planet - from which I graduated magna cum laude in 2025.
 I'm looking for your feedback.  Please reach out on the following email: info@body.build 
 
 # How to use?
 
-There are 2 main steps: filling in the **set-up**, and **making the training program**.
+There are 2 main tabs: **workout programmer** and **set-up**
 
-## Complete the **set up tab**.
+## On the first **workout programmer tab**.
+
+Explore/modify the built-in demo program on create a new one.
+
+A program defines one or more workouts. Each workout has one or more sets, and sets may be combined into combo sets.
+You can add sets with the "add set" button, or any of the muscle-specific "⊕" buttons, these let you add exercises that recruit that muscle well.
+You can also drag and drop sets to re-order them. Dragging a set onto another creates a combo set.
+
+Not all muscles are included here (e.g. rhomboids, psoas, etc) for two reasons:
+- some muscles are trained automatically along with others: e.g. the teres major 
+contributes to shoulder extension, adduction and internal rotation along with the lats, so training lats also trains the teres major
+- some muscles are a bit less relevant for body building, such as hip adductors.  Most body builders grow them sufficiently from hip extension already.
+
+
+## Optional: personalisation on the **set up tab**.
+
+Here you can personalise.
+
 * Enter personal details, training & nutritional information.
 * Then, facts and parameters will be generated for you.  Choose which BMR formula you prefer.
 * Optionally, override parameters such as intensity, or muscle set volume.
@@ -37,19 +57,11 @@ There are 2 main steps: filling in the **set-up**, and **making the training pro
 
 You can create multiple profiles, and give them different names.
 
-## Then proceed to the **workout programmer tab**.
-
-Here you define a program by defining one or more workouts. Each workout has one or more sets, and sets may be combined into combo sets.
-You can add sets with the "add set" button, or any of the muscle-specific "⊕" buttons, these let you add exercises that recruit that muscle well.
-You can also drag and drop sets to re-order them. Dragging a set onto another creates a combo set.
-
-Not all muscles are included here (e.g. rhomboids, psoas, etc) for two reasons:
-- some muscles are trained automatically along with others: e.g. the teres major 
-contributos to shoulder extension, adduction and internal rotation along with the lats, so training lats also trains the teres major
-- some muscles are a bit less relevant for body building, such as hip adductors.  Most body builders grow them sufficiently from hip extension already.
-
-### Need more help?
-Look for the info buttons (ⓘ) next to parameters for detailed explanations
+# Need more help?
+* Tap the info buttons (ⓘ) next to parameters for detailed explanations
+* Use the [documentation website](https://body.build/docs) for more information
+* The [home page](https://body.build) has a quick overview of the most important features
+* Reach out on info@body.build or [twitter/X @bodydotbuild](https://x.com/bodydotbuild)
 ''';
 
 class ProgrammerScreen extends StatefulWidget {
