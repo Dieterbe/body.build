@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
@@ -8,25 +7,15 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
-import 'package:bodybuild/ui/programmer/widget/ex_modifiers_cues_widget.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_edit_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
+import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 
-class BuilderSets extends ConsumerWidget {
-  void _showRatingsDialog(List<Rating> ratings, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => ExerciseRatingsDialog(
-        exerciseId: sets.ex!.id,
-        ratings: ratings,
-      ),
-    );
-  }
-
+class BuilderSets extends ConsumerStatefulWidget {
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
-
   final Function(Sets? sgNew) onChange;
 
   const BuilderSets(
@@ -34,57 +23,76 @@ class BuilderSets extends ConsumerWidget {
       {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final setRatings = sets.getApplicableRatings().toList();
-    // this layout matches BuilderWorkoutSetsHeader
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16), // affects align
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(8),
+  ConsumerState<BuilderSets> createState() => _BuilderSetsState();
+}
+
+class _BuilderSetsState extends ConsumerState<BuilderSets> {
+  bool isExpanded = false;
+
+  void _showRatingsDialog(List<Rating> ratings, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => ExerciseRatingsDialog(
+        exerciseId: widget.sets.ex!.id,
+        ratings: ratings,
       ),
-      child: Row(children: [
-        Flexible(
-          flex: 45,
-          child: Row(
-            children: [
-              Flexible(flex: 15, child: _numSetsButton(context)),
-              Flexible(flex: 15, child: _intensityButton(context)),
-              Flexible(flex: 10, child: _editButton(context)),
-              Flexible(
-                  flex: 15,
-                  child: (sets.ex == null)
-                      ? Container()
-                      : ExModifiersCuesWidget(
-                          sets: sets,
-                          modifiers: sets.ex!.modifiers,
-                          selectedOptions: sets.modifierOptions,
-                          onOptionSelected: (name, opt) =>
-                              onChange(sets.copyWith(
-                            modifierOptions: {
-                              ...sets.modifierOptions,
-                              name: opt
-                            },
-                          )),
-                          cues: sets.ex!.cues,
-                          cueOptions: sets.cueOptions,
-                          onShowRatings: (ratings) =>
-                              _showRatingsDialog(ratings, context),
-                          onCueToggled: (name, enabled) =>
-                              onChange(sets.copyWith(
-                            cueOptions: {...sets.cueOptions, name: enabled},
-                          )),
-                        )),
-              Flexible(flex: 10, child: _deleteButton(context)),
-              Flexible(flex: 70, child: _exerciseName(setRatings, context)),
-              // we squeeze the combo set button in with the equipment
-              // not the most semantically correct, but it works for now
-              Flexible(flex: 35, child: _equipment(context)),
-            ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final setRatings = widget.sets.getApplicableRatings().toList();
+    return Column(
+      children: [
+        // this layout matches BuilderWorkoutSetsHeader
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
+              bottomLeft: isExpanded ? Radius.zero : Radius.circular(8),
+              bottomRight: isExpanded ? Radius.zero : Radius.circular(8),
+            ),
           ),
+          child: Row(children: [
+            Flexible(
+              flex: 45,
+              child: Row(
+                children: [
+                  Flexible(flex: 15, child: _numSetsButton(context)),
+                  Flexible(flex: 15, child: _intensityButton(context)),
+                  Flexible(flex: 15, child: _exerciseEditButton(context)),
+                  Flexible(flex: 10, child: _deleteButton(context)),
+                  Flexible(flex: 70, child: _exerciseName(setRatings, context)),
+                  Flexible(flex: 35, child: _equipment(context)),
+                ],
+              ),
+            ),
+            Flexible(flex: 55, child: _recruitmentMarkers(context)),
+          ]),
         ),
-        Flexible(flex: 55, child: _recruitmentMarkers(context)),
-      ]),
+        if (isExpanded) ...[
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
+            ),
+            child: ExerciseEditDialog(
+              sets: widget.sets,
+              setup: widget.setup,
+              onChange: widget.onChange,
+              onShowRatings: (ratings) => _showRatingsDialog(ratings, context),
+            ),
+          ),
+        ],
+      ],
     );
   }
 
@@ -92,7 +100,7 @@ class BuilderSets extends ConsumerWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: DropdownButton<int>(
-            value: sets.n,
+            value: widget.sets.n,
             icon: Icon(
               Icons.arrow_drop_down,
               color: Theme.of(context).colorScheme.primary,
@@ -114,7 +122,7 @@ class BuilderSets extends ConsumerWidget {
             }).toList(),
             onChanged: (int? newValue) {
               if (newValue == null) return;
-              onChange(sets.copyWith(n: newValue));
+              widget.onChange(widget.sets.copyWith(n: newValue));
             },
           ),
         ),
@@ -125,13 +133,14 @@ class BuilderSets extends ConsumerWidget {
           alignment: Alignment.centerLeft,
           child: DropdownButton<int>(
             // if you go back and change the setup, we must reset the intensity to something that's allowed
-            value: (setup.paramFinal.intensities.contains(sets.intensity))
-                ? sets.intensity
-                : setup.paramFinal.intensities.first,
+            value: (widget.setup.paramFinal.intensities
+                    .contains(widget.sets.intensity))
+                ? widget.sets.intensity
+                : widget.setup.paramFinal.intensities.first,
             icon: Icon(Icons.arrow_drop_down,
                 color: Theme.of(context).colorScheme.primary,
                 size: MediaQuery.sizeOf(context).width / 60),
-            items: setup.paramFinal.intensities
+            items: widget.setup.paramFinal.intensities
                 .map<DropdownMenuItem<int>>((int value) {
               return DropdownMenuItem<int>(
                 value: value,
@@ -147,34 +156,42 @@ class BuilderSets extends ConsumerWidget {
             }).toList(),
             onChanged: (int? newValue) {
               if (newValue == null) return;
-              onChange(sets.copyWith(intensity: newValue));
+              widget.onChange(widget.sets.copyWith(intensity: newValue));
             },
           ),
         ),
       );
 
-  Widget _editButton(BuildContext context) => IconButton(
-        onPressed: () {
-          onChange(sets.copyWith(changeEx: !sets.changeEx));
-        },
-        icon: Icon(
-          Icons.edit,
-          size: MediaQuery.sizeOf(context).width / 60,
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+  Widget _exerciseEditButton(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          isExpanded = !isExpanded;
+        });
+      },
+      icon: widget.sets.ex == null
+          ? PulseWidget(
+              pulse: !isExpanded,
+              child: Icon(
+                isExpanded ? Icons.expand_less : Icons.settings,
+              ),
+            )
+          : Icon(
+              isExpanded ? Icons.expand_less : Icons.settings,
+            ),
+      style: IconButton.styleFrom(
+        backgroundColor:
+            Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
-        style: IconButton.styleFrom(
-          backgroundColor: sets.changeEx
-              ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
-              : Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      );
+      ),
+    );
+  }
 
   Widget _deleteButton(BuildContext context) => IconButton(
         onPressed: () {
-          onChange(null);
+          widget.onChange(null);
         },
         icon: Icon(
           Icons.delete_outline,
@@ -190,13 +207,13 @@ class BuilderSets extends ConsumerWidget {
 
   Widget _exerciseName(List<Rating> setRatings, BuildContext context) => Align(
         alignment: Alignment.centerLeft,
-        child: (sets.ex != null && !sets.changeEx)
+        child: (widget.sets.ex != null)
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
                     Text(
-                      sets.ex!.id,
+                      widget.sets.ex!.id,
                       style: TextStyle(
                         fontSize: MediaQuery.sizeOf(context).width / 110,
                         fontWeight: FontWeight.w500,
@@ -221,102 +238,19 @@ class BuilderSets extends ConsumerWidget {
                     ],
                   ],
                 ))
-            : Autocomplete<Ex>(
-                displayStringForOption: (e) => e.id,
-                optionsBuilder: (textEditingValue) {
-                  final filtered = setup.availableExercises
-                      .where((e) => e.id
-                          .toLowerCase()
-                          .contains(textEditingValue.text.toLowerCase()))
-                      .toList();
-                  filtered.sort((a, b) => a.id.compareTo(b.id));
-                  return filtered;
-                },
-                fieldViewBuilder:
-                    (context, controller, focusNode, onSubmitted) {
-                  return TextField(
-                    controller: controller,
-                    focusNode: focusNode,
-                    onEditingComplete: onSubmitted,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      hintText: 'Search exercise...',
-                      prefixIcon: const Icon(Icons.search),
-                      filled: true,
-                      fillColor: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: 0.05),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.2),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                optionsViewBuilder: (context, onSelected, options) {
-                  return Align(
-                    alignment: Alignment.topLeft,
-                    child: Material(
-                      elevation: 4,
-                      borderRadius: BorderRadius.circular(8),
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxHeight: 200,
-                          maxWidth: 400,
-                        ),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          itemCount: options.length,
-                          itemBuilder: (context, index) {
-                            final option = options.elementAt(index);
-
-                            return ListTile(
-                              dense: true,
-                              title: Text(option.id),
-                              onTap: () {
-                                onSelected(option);
-                                onChange(
-                                    sets.copyWith(ex: option, changeEx: false));
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                onSelected: (Ex e) {
-                  onChange(sets.copyWith(ex: e, changeEx: false));
-                }),
+            : Container(),
       );
 
   Widget _equipment(BuildContext context) => Row(
         children: [
-          if (sets.ex != null) ...[
-            ...sets.ex!.equipment.map((e) => Padding(
+          if (widget.sets.ex != null) ...[
+            ...widget.sets.ex!.equipment.map((e) => Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child:
-                      EquipmentLabel(e, err: !setup.availEquipment.contains(e)),
+                  child: EquipmentLabel(e,
+                      err: !widget.setup.availEquipment.contains(e)),
                 )),
           ],
-          if (hasNewComboButton)
+          if (widget.hasNewComboButton)
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Container(
@@ -355,10 +289,11 @@ class BuilderSets extends ConsumerWidget {
                       child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: muscleMark(
-                              sets.ex == null
+                              widget.sets.ex == null
                                   ? 0
-                                  : sets.ex!
-                                      .recruitment(g, sets.modifierOptions)
+                                  : widget.sets.ex!
+                                      .recruitment(
+                                          g, widget.sets.modifierOptions)
                                       .volume,
                               context)),
                     ),
