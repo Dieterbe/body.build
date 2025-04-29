@@ -29,16 +29,6 @@ class BuilderSets extends ConsumerStatefulWidget {
 class _BuilderSetsState extends ConsumerState<BuilderSets> {
   bool isExpanded = false;
 
-  void _showRatingsDialog(List<Rating> ratings, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => ExerciseRatingsDialog(
-        exerciseId: widget.sets.ex!.id,
-        ratings: ratings,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final setRatings = widget.sets.getApplicableRatings().toList();
@@ -50,10 +40,10 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8),
-              topRight: Radius.circular(8),
-              bottomLeft: isExpanded ? Radius.zero : Radius.circular(8),
-              bottomRight: isExpanded ? Radius.zero : Radius.circular(8),
+              topLeft: const Radius.circular(8),
+              topRight: const Radius.circular(8),
+              bottomLeft: isExpanded ? Radius.zero : const Radius.circular(8),
+              bottomRight: isExpanded ? Radius.zero : const Radius.circular(8),
             ),
           ),
           child: Row(children: [
@@ -79,7 +69,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(8),
                 bottomRight: Radius.circular(8),
               ),
@@ -88,7 +78,6 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
               sets: widget.sets,
               setup: widget.setup,
               onChange: widget.onChange,
-              onShowRatings: (ratings) => _showRatingsDialog(ratings, context),
             ),
           ),
         ],
@@ -224,8 +213,8 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                     if (setRatings.isNotEmpty) ...[
                       const SizedBox(width: 8),
                       IconButton(
-                        onPressed: () =>
-                            _showRatingsDialog(setRatings, context),
+                        onPressed: () => showRatingsDialog(
+                            widget.sets.ex!.id, setRatings, context),
                         icon: RatingIcon(
                           ratings: setRatings,
                           size: MediaQuery.sizeOf(context).width /

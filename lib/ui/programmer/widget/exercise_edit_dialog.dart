@@ -1,7 +1,7 @@
 import 'package:bodybuild/ui/core/markdown.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
 import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
-import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
@@ -11,14 +11,12 @@ class ExerciseEditDialog extends StatefulWidget {
   final Sets sets;
   final Settings setup;
   final Function(Sets) onChange;
-  final Function(List<Rating>) onShowRatings;
 
   const ExerciseEditDialog({
     super.key,
     required this.sets,
     required this.setup,
     required this.onChange,
-    required this.onShowRatings,
   });
 
   @override
@@ -85,7 +83,9 @@ class _ExerciseEditDialogState extends State<ExerciseEditDialog> {
 
     return RatingIcon(
       ratings: ratings,
-      onTap: ratings.isEmpty ? null : () => widget.onShowRatings(ratings),
+      onTap: ratings.isEmpty
+          ? null
+          : () => {showRatingsDialog(widget.sets.ex!.id, ratings, context)},
     );
   }
 
