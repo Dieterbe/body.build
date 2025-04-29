@@ -74,10 +74,23 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                 bottomRight: Radius.circular(8),
               ),
             ),
-            child: ExerciseEditDialog(
-              sets: widget.sets,
-              setup: widget.setup,
-              onChange: widget.onChange,
+            child: TweenAnimationBuilder<double>(
+              duration: const Duration(milliseconds: 300),
+              tween: Tween(begin: 0.0, end: 1.0),
+              builder: (context, value, child) {
+                return Opacity(
+                  opacity: value,
+                  child: Transform.translate(
+                    offset: Offset(0, 8 * (1 - value)),
+                    child: child,
+                  ),
+                );
+              },
+              child: ExerciseEditDialog(
+                sets: widget.sets,
+                setup: widget.setup,
+                onChange: widget.onChange,
+              ),
             ),
           ),
         ],
