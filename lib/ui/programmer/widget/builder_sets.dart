@@ -64,32 +64,42 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
           ]),
         ),
         if (isExpanded) ...[
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(8),
+          // Wrap the expanded menu in a GestureDetector to prevent drag events
+          GestureDetector(
+            // This prevents the tap from propagating to parent widgets (like Draggable)
+            behavior: HitTestBehavior.opaque,
+            // Handle the tap event here to prevent it from propagating
+            onTap: () {}, // Empty callback to consume the event
+            onPanStart: (_) {}, // Prevent pan gestures from propagating
+            onPanUpdate: (_) {}, // Prevent pan gestures from propagating
+            onPanDown: (_) {}, // Prevent pan gestures from propagating
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
               ),
-            ),
-            child: TweenAnimationBuilder<double>(
-              duration: const Duration(milliseconds: 300),
-              tween: Tween(begin: 0.0, end: 1.0),
-              builder: (context, value, child) {
-                return Opacity(
-                  opacity: value,
-                  child: Transform.translate(
-                    offset: Offset(0, 8 * (1 - value)),
-                    child: child,
-                  ),
-                );
-              },
-              child: ExerciseEditDialog(
-                sets: widget.sets,
-                setup: widget.setup,
-                onChange: widget.onChange,
+              child: TweenAnimationBuilder<double>(
+                duration: const Duration(milliseconds: 300),
+                tween: Tween(begin: 0.0, end: 1.0),
+                builder: (context, value, child) {
+                  return Opacity(
+                    opacity: value,
+                    child: Transform.translate(
+                      offset: Offset(0, 8 * (1 - value)),
+                      child: child,
+                    ),
+                  );
+                },
+                child: ExerciseEditDialog(
+                  sets: widget.sets,
+                  setup: widget.setup,
+                  onChange: widget.onChange,
+                ),
               ),
             ),
           ),
