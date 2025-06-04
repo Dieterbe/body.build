@@ -35,6 +35,15 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
   bool isExpanded = false;
 
   @override
+  void dispose() {
+    // Make sure the notifier is updated when disposed
+    if (isExpanded) {
+      widget.isExpandedNotifier.value = false;
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final setRatings = widget.sets.getApplicableRatings().toList();
     return Column(
@@ -174,6 +183,8 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
       onPressed: () {
         setState(() {
           isExpanded = !isExpanded;
+
+          // Update the expansion notifier
           widget.isExpandedNotifier.value = isExpanded;
         });
       },
