@@ -64,15 +64,26 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
           ]),
         ),
         if (isExpanded) ...[
-          // Wrap the expanded menu in a GestureDetector to prevent drag events
+          // if the menu is expanded we wouldn't want any clicking, swiping etc in the expanded menu
+          // and trigger a drag event on the parent widget (Draggable)
+          // therefore we need to catch and ignore many events here
           GestureDetector(
-            // This prevents the tap from propagating to parent widgets (like Draggable)
             behavior: HitTestBehavior.opaque,
-            // Handle the tap event here to prevent it from propagating
-            onTap: () {}, // Empty callback to consume the event
-            onPanStart: (_) {}, // Prevent pan gestures from propagating
-            onPanUpdate: (_) {}, // Prevent pan gestures from propagating
-            onPanDown: (_) {}, // Prevent pan gestures from propagating
+            onTap: () {},
+            onLongPress: () {},
+            onLongPressEnd: (_) {},
+            onLongPressMoveUpdate: (_) {},
+            onLongPressStart: (_) {},
+            onLongPressUp: () {},
+            onForcePressStart: (_) {},
+            onForcePressEnd: (_) {},
+            onForcePressUpdate: (_) {},
+            onHorizontalDragEnd: (_) {},
+            onHorizontalDragStart: (_) {},
+            onHorizontalDragUpdate: (_) {},
+            onVerticalDragEnd: (_) {},
+            onVerticalDragStart: (_) {},
+            onVerticalDragUpdate: (_) {},
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.all(16),
