@@ -13,19 +13,31 @@ import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 
 class BuilderSets extends ConsumerStatefulWidget {
-  // We need a way for DraggableSets to know if its specific BuilderSets instance is expanded.
-  // Since the _BuilderSetsState is private, we use a ValueNotifier to communicate the expansion state.
-  // This allows us to only disable dragging for the specific DraggableSets that owns an expanded BuilderSets.
-  final ValueNotifier<bool> isExpandedNotifier;
+  /*
+   Use static tracking to see which _BuilderSetsState instances are expanded.
+   This is used to disable dragging when any menu is expanded.
+   Ideally, the caller (DraggableSets) could just check the state of the one BuilderSets that it owns,
+   but that's not possible because the _BuilderSetsState is private.
+   making it public is considered an anti-pattern
+   see https://stackoverflow.com/questions/65486315/why-state-class-of-statefulwidget-should-be-private-in-flutter
+   we could also allow the caller to pass in a notifier, and then in _BuilderSetState update the notifier
+   but then DraggableSets would need to be stateful I think, or forcing a rebuild would be non trivial.
+   Perhaps we can find a better approach later if we refactor the code.
+  */
+  static bool isAnyMenuExpanded() {
+    return _expandedInstances.isNotEmpty;
+  }
+
+  static final Set<_BuilderSetsState> _expandedInstances = {};
 
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
   final Function(Sets? sgNew) onChange;
 
-  BuilderSets(this.setup, this.sets, this.hasNewComboButton, this.onChange,
-      {super.key})
-      : isExpandedNotifier = ValueNotifier<bool>(false);
+  const BuilderSets(
+      this.setup, this.sets, this.hasNewComboButton, this.onChange,
+      {super.key});
 
   @override
   ConsumerState<BuilderSets> createState() => _BuilderSetsState();
@@ -36,9 +48,9 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
 
   @override
   void dispose() {
-    // Make sure the notifier is updated when disposed
+    // Remove this instance from the expanded instances set when disposed
     if (isExpanded) {
-      widget.isExpandedNotifier.value = false;
+      BuilderSets._expandedInstances.remove(this);
     }
     super.dispose();
   }
@@ -184,8 +196,12 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
         setState(() {
           isExpanded = !isExpanded;
 
-          // Update the expansion notifier
-          widget.isExpandedNotifier.value = isExpanded;
+          // Update the set of expanded instances
+          if (isExpanded) {
+            BuilderSets._expandedInstances.add(this);
+          } else {
+            BuilderSets._expandedInstances.remove(this);
+          }
         });
       },
       icon: widget.sets.ex == null
