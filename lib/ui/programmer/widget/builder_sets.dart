@@ -13,23 +13,6 @@ import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 
 class BuilderSets extends ConsumerStatefulWidget {
-  /*
-   Use static tracking to see which _BuilderSetsState instances are expanded.
-   This is used to disable dragging when any menu is expanded.
-   Ideally, the caller (DraggableSets) could just check the state of the one BuilderSets that it owns,
-   but that's not possible because the _BuilderSetsState is private.
-   making it public is considered an anti-pattern
-   see https://stackoverflow.com/questions/65486315/why-state-class-of-statefulwidget-should-be-private-in-flutter
-   we could also allow the caller to pass in a notifier, and then in _BuilderSetState update the notifier
-   but then DraggableSets would need to be stateful I think, or forcing a rebuild would be non trivial.
-   Perhaps we can find a better approach later if we refactor the code.
-  */
-  static bool isAnyMenuExpanded() {
-    return _expandedInstances.isNotEmpty;
-  }
-
-  static final Set<_BuilderSetsState> _expandedInstances = {};
-
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
@@ -45,15 +28,6 @@ class BuilderSets extends ConsumerStatefulWidget {
 
 class _BuilderSetsState extends ConsumerState<BuilderSets> {
   bool isExpanded = false;
-
-  @override
-  void dispose() {
-    // Remove this instance from the expanded instances set when disposed
-    if (isExpanded) {
-      BuilderSets._expandedInstances.remove(this);
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,32 +64,42 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
           ]),
         ),
         if (isExpanded) ...[
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(8),
+          // Wrap the expanded menu in a GestureDetector to prevent drag events
+          GestureDetector(
+            // This prevents the tap from propagating to parent widgets (like Draggable)
+            behavior: HitTestBehavior.opaque,
+            // Handle the tap event here to prevent it from propagating
+            onTap: () {}, // Empty callback to consume the event
+            onPanStart: (_) {}, // Prevent pan gestures from propagating
+            onPanUpdate: (_) {}, // Prevent pan gestures from propagating
+            onPanDown: (_) {}, // Prevent pan gestures from propagating
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
               ),
-            ),
-            child: TweenAnimationBuilder<double>(
-              duration: const Duration(milliseconds: 300),
-              tween: Tween(begin: 0.0, end: 1.0),
-              builder: (context, value, child) {
-                return Opacity(
-                  opacity: value,
-                  child: Transform.translate(
-                    offset: Offset(0, 8 * (1 - value)),
-                    child: child,
-                  ),
-                );
-              },
-              child: ExerciseEditDialog(
-                sets: widget.sets,
-                setup: widget.setup,
-                onChange: widget.onChange,
+              child: TweenAnimationBuilder<double>(
+                duration: const Duration(milliseconds: 300),
+                tween: Tween(begin: 0.0, end: 1.0),
+                builder: (context, value, child) {
+                  return Opacity(
+                    opacity: value,
+                    child: Transform.translate(
+                      offset: Offset(0, 8 * (1 - value)),
+                      child: child,
+                    ),
+                  );
+                },
+                child: ExerciseEditDialog(
+                  sets: widget.sets,
+                  setup: widget.setup,
+                  onChange: widget.onChange,
+                ),
               ),
             ),
           ),
@@ -195,13 +179,6 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
       onPressed: () {
         setState(() {
           isExpanded = !isExpanded;
-
-          // Update the set of expanded instances
-          if (isExpanded) {
-            BuilderSets._expandedInstances.add(this);
-          } else {
-            BuilderSets._expandedInstances.remove(this);
-          }
         });
       },
       icon: widget.sets.ex == null
