@@ -129,3 +129,13 @@ class ExerciseRatingsDialog extends StatelessWidget {
     );
   }
 }
+
+void showRatingsDialog(String id, List<Rating> ratings, BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => ExerciseRatingsDialog(
+      exerciseId: id,
+      ratings: ratings,
+    ),
+  );
+}

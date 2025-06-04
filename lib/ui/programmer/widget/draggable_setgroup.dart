@@ -42,6 +42,8 @@ class DraggableSets extends StatelessWidget {
               workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()));
     });
 
+    // The BuilderSets widget now handles preventing drag events internally
+    // with a GestureDetector when the menu is expanded
     return Draggable<MapEntry<Workout, Sets>>(
       data: MapEntry(workout, sets),
       onDragStarted: () {
