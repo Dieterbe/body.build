@@ -48,15 +48,12 @@ class DraggableSets extends StatelessWidget {
       builder: (context, _) {
         // Get the current expansion state
         final isExpanded = builderSets.isExpandedNotifier.value;
-        final maxSimultaneousDrags = isExpanded ? 0 : null;
-        print("maxSimultaneousDrags $maxSimultaneousDrags");
-
+        
         return Draggable<MapEntry<Workout, Sets>>(
           // Disable dragging if the menu is expanded
-          maxSimultaneousDrags: maxSimultaneousDrags,
+          maxSimultaneousDrags: isExpanded ? 0 : null,
           data: MapEntry(workout, sets),
           onDragStarted: () {
-            print('onDragStarted');
             // Only set drag in progress if not expanded
             if (!isExpanded) {
               dragInProgressNotifier.value = true;
@@ -79,8 +76,7 @@ class DraggableSets extends StatelessWidget {
           childWhenDragging: Container(
             height: 60,
             decoration: BoxDecoration(
-              color:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
           ),

@@ -35,27 +35,6 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
   bool isExpanded = false;
 
   @override
-  void initState() {
-    super.initState();
-    // Ensure notifier is in sync with initial state
-    widget.isExpandedNotifier.value = isExpanded;
-  }
-
-  @override
-  void didUpdateWidget(BuilderSets oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Ensure the notifier stays in sync with the state
-    widget.isExpandedNotifier.value = isExpanded;
-  }
-
-  @override
-  void dispose() {
-    // Make sure the notifier is updated when disposed
-    widget.isExpandedNotifier.value = false;
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final setRatings = widget.sets.getApplicableRatings().toList();
     return Column(
