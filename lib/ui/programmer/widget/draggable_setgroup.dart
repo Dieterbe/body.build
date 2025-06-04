@@ -42,40 +42,51 @@ class DraggableSets extends StatelessWidget {
               workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()));
     });
 
-    // Create a draggable widget that's only draggable when no menus are expanded
-    return Draggable<MapEntry<Workout, Sets>>(
-      // Disable dragging if any menu is expanded
-      maxSimultaneousDrags: BuilderSets.isAnyMenuExpanded() ? 0 : null,
-      data: MapEntry(workout, sets),
-      onDragStarted: () {
-        dragInProgressNotifier.value = true;
-      },
-      onDragEnd: (_) {
-        dragInProgressNotifier.value = false;
-      },
-      onDraggableCanceled: (_, __) {
-        dragInProgressNotifier.value = false;
-      },
-      feedback: Material(
-        elevation: 4,
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
-          color: Theme.of(context).colorScheme.surface,
+    // Wrap in a ListenableBuilder to rebuild when the expansion state changes
+    return ListenableBuilder(
+      listenable: builderSets.isExpandedNotifier,
+      builder: (context, _) {
+        // Get the current expansion state
+        final isExpanded = builderSets.isExpandedNotifier.value;
+        
+        return Draggable<MapEntry<Workout, Sets>>(
+          // Disable dragging if the menu is expanded
+          maxSimultaneousDrags: isExpanded ? 0 : null,
+          data: MapEntry(workout, sets),
+          onDragStarted: () {
+            // Only set drag in progress if not expanded
+            if (!isExpanded) {
+              dragInProgressNotifier.value = true;
+            }
+          },
+          onDragEnd: (_) {
+            dragInProgressNotifier.value = false;
+          },
+          onDraggableCanceled: (_, __) {
+            dragInProgressNotifier.value = false;
+          },
+          feedback: Material(
+            elevation: 4,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              color: Theme.of(context).colorScheme.surface,
+              child: builderSets,
+            ),
+          ),
+          childWhenDragging: Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          onDragCompleted: () {
+            dragInProgressNotifier.value = false;
+            // We don't do any updates to the workout state here. that is left to the drop target
+          },
           child: builderSets,
-        ),
-      ),
-      childWhenDragging: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      onDragCompleted: () {
-        dragInProgressNotifier.value = false;
-        // We don't do any updates to the workout state here. that is left to the drop target
+        );
       },
-      child: builderSets,
     );
   }
 }
