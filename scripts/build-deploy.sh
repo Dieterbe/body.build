@@ -14,6 +14,11 @@ function die_error() {
 version=$(./scripts/git-version.sh)
 timestamp=$(git log -1 --format=%cd)
 
+if [[ $version =~ "dirty" ]]; then
+  echo "version '$version' is dirty. continue?"
+  read
+fi
+
 log "injecting version $version ($timestamp) into sources..."
 sed -i "s/^const buildVersion = 'unknown';/const buildVersion = '$version';/" lib/ui/const.dart
 sed -i "s/^const buildTime = 'unknown';/const buildTime = '$timestamp';/" lib/ui/const.dart
