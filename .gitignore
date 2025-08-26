@@ -21,6 +21,9 @@ migrate_working_dir/
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
+#
+# gemini-cli preferences - might want to track this in the future
+.gemini
 
 # Flutter/Dart/Pub related
 **/doc/api/
