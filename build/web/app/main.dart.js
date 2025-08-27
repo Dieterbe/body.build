@@ -51586,7 +51586,7 @@ A.aic.prototype={
 $1(a){this.a.r.$1(a)},
 $S:84}
 A.a_D.prototype={
-I(a){return B.aih}}
+I(a){return B.aig}}
 A.vP.prototype={
 ak(){return new A.a40()}}
 A.a40.prototype={
@@ -53189,7 +53189,7 @@ r=A.a([A.a_("Average Rating: "+B.d.an(n*100,1)+"%",o,o,o,o,B.cU,o,o),B.aO],s)
 q=p.d
 B.b.F(r,new A.M(q,new A.ajJ(p,a),A.W(q).h("M<1,f>")))
 r=A.ml(A.b2(r,B.Q,B.j,B.Z,0),o,B.K,o,o,B.a9)
-return A.ub(A.a([A.io(!1,B.aig,o,o,o,o,o,o,new A.ajK(a),o,o)],s),new A.eh(new A.ar(0,k.a.a*0.4,0,l.a.b*0.8),r,o),m)}}
+return A.ub(A.a([A.io(!1,B.aih,o,o,o,o,o,o,new A.ajK(a),o,o)],s),new A.eh(new A.ar(0,k.a.a*0.4,0,l.a.b*0.8),r,o),m)}}
 A.ajF.prototype={
 $2(a,b){return a+b.b},
 $S:354}
@@ -120529,8 +120529,8 @@ B.ai8=new A.bb("All",null,null,null,null,null,null,null,null,null,null)
 B.ai9=new A.bb("muscle inactive",null,null,null,null,null,null,null,null,null,null)
 B.iw=new A.bb("Cancel",null,null,null,null,null,null,null,null,null,null)
 B.aif=new A.bb("Body.build: Home",null,null,null,null,null,null,null,null,null,null)
-B.aig=new A.bb("Close",null,null,null,null,null,null,null,null,null,null)
-B.aih=new A.bb("version main-faee960 (Tue Aug 26 15:40:17 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.aig=new A.bb("version main-bf722ee (Wed Aug 27 21:49:45 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.aih=new A.bb("Close",null,null,null,null,null,null,null,null,null,null)
 B.aij=new A.bb("no moves for this articulation",null,null,null,null,null,null,null,null,null,null)
 B.aik=new A.bb("Basic Gym",null,null,null,null,null,null,null,null,null,null)
 B.I2=new A.bb("Rename",null,null,null,null,null,null,null,null,null,null)
