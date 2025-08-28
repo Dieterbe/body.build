@@ -51067,7 +51067,7 @@ $S:701}
 A.vp.prototype={
 I(a){var s=this,r=null,q=s.d,p=q.w,o=p!=null&&B.b.du(p.a,new A.ani(s)),n=q.x,m=n!=null&&B.b.du(n.a,new A.anj(s))
 q=A.a([A.e1(new A.vU(s.c,q.b,r),r,r)],t.p)
-if(o)q.push(B.aiQ)
+if(o)q.push(B.aiR)
 if(o)q.push(new A.vo(p,s.e,r))
 if(m)q.push(B.aiH)
 if(m)q.push(new A.vo(n,s.e,r))
@@ -51269,7 +51269,7 @@ I(a){var s=null,r=A.a([B.aiA],t.p),q=this.c,p=q.a
 B.b.F(r,new A.M(p,new A.anh(this),A.W(p).h("M<1,f>")))
 q=q.b
 p=q!=null
-if(p)r.push(B.aiV)
+if(p)r.push(B.aiW)
 if(p)r.push(A.a_("("+q+")",s,s,s,s,s,s,s))
 return A.b2(r,B.Q,B.j,B.l,0)}}
 A.anh.prototype={
@@ -51586,7 +51586,7 @@ A.aic.prototype={
 $1(a){this.a.r.$1(a)},
 $S:84}
 A.a_D.prototype={
-I(a){return B.aj0}}
+I(a){return B.aiP}}
 A.vP.prototype={
 ak(){return new A.a40()}}
 A.a40.prototype={
@@ -51770,7 +51770,7 @@ r.b=""
 r.c=r.d=null
 r.e="existing"
 r.f=null
-return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.agE(a),s,s),A.io(!1,B.aj3,s,s,s,s,s,s,new A.agF(r,this.b,this.c,a),s,s)],t.p),new A.JR(new A.agG(r,this.a),s),B.aiZ)},
+return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.agE(a),s,s),A.io(!1,B.aj3,s,s,s,s,s,s,new A.agF(r,this.b,this.c,a),s,s)],t.p),new A.JR(new A.agG(r,this.a),s),B.aj_)},
 $S:70}
 A.agG.prototype={
 $2(a,b){var s=null,r="\u2022",q=this.b,p=q.dZ($.ob(),t.oc),o=this.a,n=t.N,m=t.p,l=A.a([A.aXI(new A.agp(o,b),B.a0t,A.cv([o.a],n),n),B.aO],m)
@@ -52093,7 +52093,7 @@ o=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.af(a,B.v,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,
 n=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.af(a,B.v,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,k)
 m=A.o(a)
 l=A.o(a).ax.k3.bx(0.7)
-return A.ww(A.y2(s,!1,i,new A.K7(A.a([A.b3m(A.az(k,A.bk(A.a([A.eB(B.Wh,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiW],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44),A.b3m(A.az(k,A.bk(A.a([A.eB(B.nG,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiF],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44)],h),new A.bN(r,k,p,q,k,k,B.P),B.N,m.ax.b,l,o,n,new A.b8(new A.aNK(a),t.b),k),B.a76,72),B.ad8)},
+return A.ww(A.y2(s,!1,i,new A.K7(A.a([A.b3m(A.az(k,A.bk(A.a([A.eB(B.Wh,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiX],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44),A.b3m(A.az(k,A.bk(A.a([A.eB(B.nG,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiF],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44)],h),new A.bN(r,k,p,q,k,k,B.P),B.N,m.ax.b,l,o,n,new A.b8(new A.aNK(a),t.b),k),B.a76,72),B.ad8)},
 aE(){this.aU()
 A.aVx("Example Screen dietertest")}}
 A.aNJ.prototype={
@@ -52101,7 +52101,7 @@ $0(){A.o9(new A.aNI(),this.a,t.z)},
 $S:0}
 A.aNI.prototype={
 $1(a){var s=null,r=t.w,q=A.af(a,s,r).w,p=t.p
-return A.ah3(s,s,A.az(s,A.b2(A.a([A.bk(A.a([A.a_("Body.Build Help Guide",s,s,s,s,A.aF(s,s,s,s,s,s,s,s,s,s,s,A.af(a,B.v,r).w.a.a/50,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),A.hn(s,s,B.vq,s,s,new A.aNH(a),s,s,s,s,s)],p),B.m,B.fn,B.l,s,s),B.aO,new A.cV(1,B.ag,A.azl(A.ml(A.xR('# What is this?\n\nbody.build is a web application for:\n* building optimal weight lifting and body building plans.\n* setting personalised kcal and workout volume targets.\n\nBody.build is different from others in the sense that:\n* it visualizes fractional volume counting (the most accurate way to count volume)\n* it integrates social media content, instructional videos, ratings, and scientific studies etc from respected authors\n* we do not have an app to actually track progress in the gym, but working on it!\n\nThe application is:\n* completely free to use by anyone without any type of signup or data collection.\n* a work-in-progress. things may change and break, while i keep working on it!\n\nIt is based on the latest scientific principles, as tought in the [Menno Henselmans Personal Training Course](https://mennohenselmans.com/online-pt-course/) - probably the most comprehensive evidence based personal training course program on the planet - from which I graduated magna cum laude in 2025.\nI\'m looking for your feedback.  Please reach out on the following email: info@body.build \n\n# How to use?\n\nThere are 2 main tabs: **workout programmer** and **set-up**\n\n## On the first **workout programmer tab**.\n\nExplore/modify the built-in demo program on create a new one.\n\nA program defines one or more workouts. Each workout has one or more sets, and sets may be combined into combo sets.\nYou can add sets with the "add set" button, or any of the muscle-specific "\u2295" buttons, these let you add exercises that recruit that muscle well.\nYou can also drag and drop sets to re-order them. Dragging a set onto another creates a combo set.\n\nNot all muscles are included here (e.g. rhomboids, psoas, etc) for two reasons:\n- some muscles are trained automatically along with others: e.g. the teres major \ncontributes to shoulder extension, adduction and internal rotation along with the lats, so training lats also trains the teres major\n- some muscles are a bit less relevant for body building, such as hip adductors.  Most body builders grow them sufficiently from hip extension already.\n\n\n## Optional: personalisation on the **set up tab**.\n\nHere you can personalise.\n\n* Enter personal details, training & nutritional information.\n* Then, facts and parameters will be generated for you.  Choose which BMR formula you prefer.\n* Optionally, override parameters such as intensity, or muscle set volume.\n* Fill in the equipment you have. there are shortcut buttons which help to select many pieces of equipment. (this is **important** as it affects which exercises will be available in the programmer)\n\nYou can create multiple profiles, and give them different names.\n\n# Need more help?\n* Tap the info buttons (\u24d8) next to parameters for detailed explanations\n* Use the [documentation website](https://body.build/docs) for more information\n* The [home page](https://body.build) has a quick overview of the most important features\n* Reach out on info@body.build or [twitter/X @bodydotbuild](https://x.com/bodydotbuild)\n',a),s,B.K,s,s,B.a9),s,!0),s)],p),B.Q,B.j,B.Z,0),B.i,s,s,s,s,s,B.bA,q.a.a*0.6),s,s,s,B.pq,s,s,s)},
+return A.ah3(s,s,A.az(s,A.b2(A.a([A.bk(A.a([A.a_("Body.Build Help Guide",s,s,s,s,A.aF(s,s,s,s,s,s,s,s,s,s,s,A.af(a,B.v,r).w.a.a/50,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),A.hn(s,s,B.vq,s,s,new A.aNH(a),s,s,s,s,s)],p),B.m,B.fn,B.l,s,s),B.aO,new A.cV(1,B.ag,A.azl(A.ml(A.xR('# What is this?\n\nbody.build is a web application for:\n* building optimal weight lifting and body building plans.\n* setting personalised kcal and workout volume targets.\n\nBody.build is different from others in the sense that:\n* it visualizes fractional volume counting (the most accurate way to count volume)\n* it integrates social media content, instructional videos, ratings, and scientific studies etc from respected authors\n* we do not have an app to actually track progress in the gym, but working on it!\n\nThe application is:\n* completely free to use by anyone without any type of signup or data collection.\n* a work-in-progress. things may change and break, while i keep working on it!\n\nIt is based on the latest scientific principles, as tought in the [Menno Henselmans Personal Training Course](https://mennohenselmans.com/online-pt-course/) - probably the most comprehensive evidence based personal training course program on the planet - from which I graduated magna cum laude in 2025.\nI\'m looking for your feedback.  Please reach out on the following email: info@body.build \n\n# How to use?\n\nThere are 2 main tabs: **workout programmer** and **set-up**\n\n## On the first **workout programmer tab**.\n\nExplore/modify the built-in demo program on create a new one.\n\nA program defines one or more workouts. Each workout has one or more sets, and sets may be combined into combo sets.\nYou can add sets with the "add set" button, or any of the muscle-specific "\u2295" buttons, these let you add exercises that recruit that muscle well.\nYou can also drag and drop sets to re-order them. Dragging a set onto another creates a combo set.\n\nNot all muscles are included here (e.g. rhomboids, psoas, etc) for two reasons:\n- some muscles are trained automatically along with others: e.g. the teres major \ncontributes to shoulder extension, adduction and internal rotation along with the lats, so training lats also trains the teres major\n- some muscles are a bit less relevant for body building, such as hip adductors.  Most body builders grow them sufficiently from hip extension already.\n\n\n## Optional: personalisation on the **set up tab**.\n\nHere you can personalise.\n\n* Enter personal details, training & nutritional information.\n* Then, facts and parameters will be generated for you.  Choose which BMR formula you prefer.\n* Optionally, override parameters such as intensity, or muscle set volume.\n* Fill in the equipment you have. there are shortcut buttons which help to select many pieces of equipment. (this is **important** as it affects which exercises will be available in the programmer)\n\nYou can create multiple profiles, and give them different names.\n\n# Need more help?\n* Tap the info buttons (\u24d8) next to parameters for detailed explanations\n* Introduction [video on YouTube](https://www.youtube.com/watch?v=wOVZdZ9_jdE)\n* Use the [documentation website](https://body.build/docs) for more information\n* The [home page](https://body.build) has a quick overview of the most important features\n* Reach out on info@body.build or [twitter/X @bodydotbuild](https://x.com/bodydotbuild) or join the [Discord community](https://discord.gg/YUcS6btXYD)\n',a),s,B.K,s,s,B.a9),s,!0),s)],p),B.Q,B.j,B.Z,0),B.i,s,s,s,s,s,B.bA,q.a.a*0.6),s,s,s,B.pq,s,s,s)},
 $S:236}
 A.aNH.prototype={
 $0(){return A.fc(this.a,!1).eO()},
@@ -53199,7 +53199,7 @@ p=A.a([A.a_("Source: "+(p[0].toUpperCase()+B.c.bc(p,1)),q,q,q,q,B.q9,q,q),A.a_("
 s=a.d
 if(s.length!==0)p.push(A.b2(A.a([A.xR(s,this.b)],o),B.Q,B.j,B.l,0))
 s=a.e
-if(s.gbV(s)){r=A.a([B.eG,B.aiY,B.eG],o)
+if(s.gbV(s)){r=A.a([B.eG,B.aiZ,B.eG],o)
 s=s.gdJ(s)
 B.b.F(r,s.dL(s,new A.ajG(),t.l))
 B.b.F(p,r)}if(B.fH.gbV(B.fH)){s=A.a([B.eG,B.aiu,B.eG],o)
@@ -53320,7 +53320,7 @@ h=n.gcN(n)
 h.toString
 J.aW3(k,h,new A.aux(n),new A.auy(n))}}}s=A.o(a)
 r=A.cy(8)
-q=A.a([A.a_("Muscle modalities",g,g,g,g,A.o(a).ok.r,g,g),B.eG,B.aiX,B.aj2,B.aiU,B.aio,B.aO],t.p)
+q=A.a([A.a_("Muscle modalities",g,g,g,g,A.o(a).ok.r,g,g),B.eG,B.aiY,B.aj2,B.aiV,B.aio,B.aO],t.p)
 B.b.F(q,new A.M(B.bJ,new A.auz(f,a),t.ZN))
 return A.az(g,A.b2(q,B.Q,B.j,B.l,0),B.i,g,g,new A.bN(s.ax.k2,g,g,r,g,g,B.P),g,g,B.bA,g)}}
 A.auw.prototype={
@@ -116854,16 +116854,16 @@ B.aib=new A.bb("insertion",null,null,null,null,null,null,null,null,null,null)
 B.RI=new A.jV(B.aib)
 B.aiw=new A.bb("active insufficiency",null,null,null,null,null,null,null,null,null,null)
 B.RJ=new A.jV(B.aiw)
-B.aiR=new A.bb("articulation",null,null,null,null,null,null,null,null,null,null)
-B.RK=new A.jV(B.aiR)
-B.aiS=new A.bb("nicknames",null,null,null,null,null,null,null,null,null,null)
-B.u_=new A.jV(B.aiS)
+B.aiS=new A.bb("articulation",null,null,null,null,null,null,null,null,null,null)
+B.RK=new A.jV(B.aiS)
+B.aiT=new A.bb("nicknames",null,null,null,null,null,null,null,null,null,null)
+B.u_=new A.jV(B.aiT)
 B.ai6=new A.bb("origins",null,null,null,null,null,null,null,null,null,null)
 B.RL=new A.jV(B.ai6)
 B.aiB=new A.bb("passive insufficiency",null,null,null,null,null,null,null,null,null,null)
 B.RM=new A.jV(B.aiB)
-B.aj_=new A.bb("Articulation",null,null,null,null,null,null,null,null,null,null)
-B.RN=new A.ow(B.aj_)
+B.aj0=new A.bb("Articulation",null,null,null,null,null,null,null,null,null,null)
+B.RN=new A.ow(B.aj0)
 B.RO=new A.Fg(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.RP=new A.Fh(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.u1=new A.uJ(0,"uninitialized")
@@ -118134,8 +118134,8 @@ B.M3=new A.i7("existing",B.aid,t.Zx)
 B.aip=new A.bb("Custom",null,null,null,null,null,null,null,null,null,null)
 B.M2=new A.i7("custom",B.aip,t.Zx)
 B.ZL=A.a(s([B.M3,B.M2]),t.CK)
-B.aiP=new A.bb("",null,null,null,null,null,null,null,null,null,null)
-B.u0=new A.ow(B.aiP)
+B.aiQ=new A.bb("",null,null,null,null,null,null,null,null,null,null)
+B.u0=new A.ow(B.aiQ)
 B.ZT=A.a(s([B.u0,B.u0]),t.UR)
 B.d9=new A.HS(0,"nonZero")
 B.Cx=new A.HS(1,"evenOdd")
@@ -119840,8 +119840,8 @@ B.a79=new A.aH(B.bA,B.a3R,null)
 B.Vc=new A.m1(3,B.ek,B.a79,null)
 B.ZB=A.a(s([B.Vd,B.Vc]),t.p)
 B.aa1=new A.hW(B.af,B.j,B.l,B.Q,null,B.bF,null,0,B.ZB,null)
-B.aiT=new A.bb("add workout",null,null,null,null,null,null,null,null,null,null)
-B.Zt=A.a(s([B.vr,B.aiT]),t.p)
+B.aiU=new A.bb("add workout",null,null,null,null,null,null,null,null,null,null)
+B.Zt=A.a(s([B.vr,B.aiU]),t.p)
 B.aa2=new A.hW(B.af,B.j,B.l,B.m,null,B.bF,null,0,B.Zt,null)
 B.Wj=new A.dj(58335,"MaterialIcons",null,!1)
 B.Wr=new A.hm(B.Wj,16,B.dT,null,null)
@@ -120555,16 +120555,16 @@ B.aiK=new A.bb("Go to home page",null,B.af1,null,null,null,null,null,null,null,n
 B.aiL=new A.bb("None",null,null,null,null,null,null,null,null,null,null)
 B.aiN=new A.bb("Page Not Found",null,B.cU,null,null,null,null,null,null,null,null)
 B.aiO=new A.bb("Create New",null,null,null,null,null,null,null,null,null,null)
+B.aiP=new A.bb("version main-cd08c5e (Thu Aug 28 17:19:02 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
 B.I4=new A.bb("Duplicate",null,null,null,null,null,null,null,null,null,null)
-B.aiQ=new A.bb("Active insufficiency",null,B.cU,null,null,null,null,null,null,null,null)
-B.aiU=new A.bb("this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc",null,null,null,null,null,null,null,null,null,null)
-B.aiV=new A.bb("Comment",null,B.cU,null,null,null,null,null,null,null,null)
-B.aiW=new A.bb("Workout programmer",null,null,null,null,null,null,null,null,null,null)
-B.aiX=new A.bb("Note: the purpose is understanding the different ways in which the muscle is stimulated",null,null,null,null,null,null,null,null,null,null)
-B.aiY=new A.bb("Assuming you uset hese exercise modifiers:",null,B.q9,null,null,null,null,null,null,null,null)
-B.aiZ=new A.bb("Add Event",null,null,null,null,null,null,null,null,null,null)
+B.aiR=new A.bb("Active insufficiency",null,B.cU,null,null,null,null,null,null,null,null)
+B.aiV=new A.bb("this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc",null,null,null,null,null,null,null,null,null,null)
+B.aiW=new A.bb("Comment",null,B.cU,null,null,null,null,null,null,null,null)
+B.aiX=new A.bb("Workout programmer",null,null,null,null,null,null,null,null,null,null)
+B.aiY=new A.bb("Note: the purpose is understanding the different ways in which the muscle is stimulated",null,null,null,null,null,null,null,null,null,null)
+B.aiZ=new A.bb("Assuming you uset hese exercise modifiers:",null,B.q9,null,null,null,null,null,null,null,null)
+B.aj_=new A.bb("Add Event",null,null,null,null,null,null,null,null,null,null)
 B.I5=new A.bb("not enough range information known",null,null,null,null,null,null,null,null,null,null)
-B.aj0=new A.bb("version main-db36f7a (Thu Aug 28 17:15:03 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
 B.aj1=new A.bb("no affected muscles/heads",null,null,null,null,null,null,null,null,null,null)
 B.aj2=new A.bb("for a given muscle, only the relevant articulations of used exercises are shown",null,null,null,null,null,null,null,null,null,null)
 B.aj3=new A.bb("Add",null,null,null,null,null,null,null,null,null,null)
