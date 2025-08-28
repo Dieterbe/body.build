@@ -51317,7 +51317,7 @@ l.push(B.aO)
 p=t.p
 l.push(A.bk(A.a([A.a_(A.l(m.d)+" \xb0",n,n,n,n,n,n,n),B.aiE,A.a_(A.l(m.e)+" \xb0",n,n,n,n,n,n,n)],p),B.m,B.fn,B.l,n,n))
 l.push(B.aO)
-l.push(B.ais)
+l.push(B.air)
 m=A.o(a).ax
 o=m.ch
 l.push(A.b2(A.a([A.bk(A.a([A.az(n,n,B.i,o==null?m.z:o,n,n,16,n,n,16),B.b_,B.ai9],p),B.m,B.j,B.Z,n,n),A.bk(A.a([A.az(n,n,B.i,B.mx,n,n,16,n,n,16),B.b_,B.ai4],p),B.m,B.j,B.Z,n,n),B.aa0,B.aa_],p),B.Q,B.j,B.l,0))
@@ -51498,7 +51498,7 @@ s.CP(this.b,B.b.ga1(r))},
 $S:0}
 A.afJ.prototype={
 $1(a){var s=null,r=this.b,q=this.c,p=A.te(!0,B.iX,r,B.X2,s,s,q,s,s,s,s,new A.afG(this.a))
-return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.afH(a),s,s),A.ajS(!1,B.aiw,B.i,s,s,s,s,s,new A.afI(q,a,r),s,s)],t.p),p,B.aiP)},
+return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.afH(a),s,s),A.ajS(!1,B.aiv,B.i,s,s,s,s,s,new A.afI(q,a,r),s,s)],t.p),p,B.aiP)},
 $S:70}
 A.afG.prototype={
 $1(a){if(a==null||a.length===0)return"Name cannot be empty"
@@ -51586,7 +51586,7 @@ A.aic.prototype={
 $1(a){this.a.r.$1(a)},
 $S:84}
 A.a_D.prototype={
-I(a){return B.aiq}}
+I(a){return B.aiA}}
 A.vP.prototype={
 ak(){return new A.a40()}}
 A.a40.prototype={
@@ -52135,7 +52135,7 @@ r=t.p
 s=A.a([A.bk(A.a([B.Hr,B.Vq,new A.cV(55,B.ag,s,p),B.Hr],r),B.ee,B.j,B.l,p,p)],r)
 B.b.F(s,J.cI(o.ghy(),new A.av4(a,q.c),t.l))
 if(J.fn(o.ghy()))s.push(A.b_H(o.ghy(),a))
-if(J.fn(o.ghy()))s.push(new A.aH(B.SR,A.bk(A.a([A.be3(B.Wy,B.air,new A.av5(q.a,q.d,o))],r),B.m,B.du,B.l,p,p),p))
+if(J.fn(o.ghy()))s.push(new A.aH(B.SR,A.bk(A.a([A.be3(B.Wy,B.aiq,new A.av5(q.a,q.d,o))],r),B.m,B.du,B.l,p,p),p))
 s.push(B.Im)
 return A.b2(s,B.m,B.j,B.l,0)},
 $S:523}
@@ -52551,7 +52551,7 @@ o=t.p
 n=A.a([],o)
 if(!h&&r){h=g.r
 h===$&&A.b()
-n.push(new A.aH(B.hC,A.b2(A.a([B.aiu,A.a_(B.d.an(h*100,1)+"%",j,j,j,j,B.aeB,j,j)],o),B.m,B.du,B.l,0),j))}n.push(A.c1(new A.eC(A.a_(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.af(a,B.v,q).w.a.a/100,j,j,B.b4,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
+n.push(new A.aH(B.hC,A.b2(A.a([B.ait,A.a_(B.d.an(h*100,1)+"%",j,j,j,j,B.aeB,j,j)],o),B.m,B.du,B.l,0),j))}n.push(A.c1(new A.eC(A.a_(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.af(a,B.v,q).w.a.a/100,j,j,B.b4,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
 h=A.bk(n,B.m,B.j,B.l,j,j)
 n=g.e
 n===$&&A.b()
@@ -53202,7 +53202,7 @@ s=a.e
 if(s.gbV(s)){r=A.a([B.eG,B.aiZ,B.eG],o)
 s=s.gdJ(s)
 B.b.F(r,s.dL(s,new A.ajG(),t.l))
-B.b.F(p,r)}if(B.fH.gbV(B.fH)){s=A.a([B.eG,B.aiv,B.eG],o)
+B.b.F(p,r)}if(B.fH.gbV(B.fH)){s=A.a([B.eG,B.aiu,B.eG],o)
 B.b.F(s,new A.jZ(B.fH,new A.ajH(),A.k(B.fH).h("jZ<1,f>")))
 B.b.F(p,s)}s=a.c
 if(s.length!==0){r=A.W(s).h("M<1,hh>")
@@ -116852,8 +116852,8 @@ B.mE=new A.SV(1,"elevated")
 B.RH=new A.afF(1,"latency")
 B.aib=new A.bb("insertion",null,null,null,null,null,null,null,null,null,null)
 B.RI=new A.jV(B.aib)
-B.aix=new A.bb("active insufficiency",null,null,null,null,null,null,null,null,null,null)
-B.RJ=new A.jV(B.aix)
+B.aiw=new A.bb("active insufficiency",null,null,null,null,null,null,null,null,null,null)
+B.RJ=new A.jV(B.aiw)
 B.aiS=new A.bb("articulation",null,null,null,null,null,null,null,null,null,null)
 B.RK=new A.jV(B.aiS)
 B.aiT=new A.bb("nicknames",null,null,null,null,null,null,null,null,null,null)
@@ -118045,14 +118045,14 @@ B.vH=new A.hP(1,"intermediate")
 B.vI=new A.hP(2,"advanced")
 B.vJ=new A.hP(3,"elite")
 B.Z0=A.a(s([B.jY,B.vH,B.vI,B.vJ]),A.a4("t<hP>"))
-B.aiy=new A.bb("Off",null,null,null,null,null,null,null,null,null,null)
-B.M5=new A.i7(B.f6,B.aiy,t.vS)
+B.aix=new A.bb("Off",null,null,null,null,null,null,null,null,null,null)
+B.M5=new A.i7(B.f6,B.aix,t.vS)
 B.t4=new A.lU(1,"on")
-B.ait=new A.bb("On",null,null,null,null,null,null,null,null,null,null)
-B.M0=new A.i7(B.t4,B.ait,t.vS)
+B.ais=new A.bb("On",null,null,null,null,null,null,null,null,null,null)
+B.M0=new A.i7(B.t4,B.ais,t.vS)
 B.t5=new A.lU(2,"psmf")
-B.aiz=new A.bb("PSMF Days",null,null,null,null,null,null,null,null,null,null)
-B.M4=new A.i7(B.t5,B.aiz,t.vS)
+B.aiy=new A.bb("PSMF Days",null,null,null,null,null,null,null,null,null,null)
+B.M4=new A.i7(B.t5,B.aiy,t.vS)
 B.Z1=A.a(s([B.M5,B.M0,B.M4]),A.a4("t<i7<lU>>"))
 B.alx=new A.jG(0,1)
 B.alC=new A.jG(0.5,1)
@@ -118266,8 +118266,8 @@ B.eH=new A.Bb(0,"butt")
 B.l6=new A.Bb(1,"round")
 B.Hy=new A.Bb(2,"square")
 B.a0q=A.a(s([B.eH,B.l6,B.Hy]),A.a4("t<Bb>"))
-B.aiA=new A.bb("Meal",null,null,null,null,null,null,null,null,null,null)
-B.M1=new A.i7("meal",B.aiA,t.Zx)
+B.aiz=new A.bb("Meal",null,null,null,null,null,null,null,null,null,null)
+B.M1=new A.i7("meal",B.aiz,t.Zx)
 B.aiJ=new A.bb("Workout",null,null,null,null,null,null,null,null,null,null)
 B.M_=new A.i7("workout",B.aiJ,t.Zx)
 B.a0t=A.a(s([B.M1,B.M_]),t.CK)
@@ -120538,13 +120538,13 @@ B.aim=new A.bb("Change",null,null,null,null,null,null,null,null,null,null)
 B.ain=new A.bb("Help",null,null,null,null,null,null,null,null,null,null)
 B.I3=new A.bb("OK",null,null,null,null,null,null,null,null,null,null)
 B.aio=new A.bb("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
-B.aiq=new A.bb("version main-d3b1772 (Thu Aug 28 17:27:57 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
-B.air=new A.bb("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
-B.ais=new A.bb("Legend",null,null,null,null,null,null,null,null,null,null)
+B.aiq=new A.bb("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
+B.air=new A.bb("Legend",null,null,null,null,null,null,null,null,null,null)
 B.ahE=new A.z(!0,null,null,null,null,null,12,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.aiu=new A.bb("Program Volume Score",null,B.ahE,null,null,null,null,null,null,null,null)
-B.aiv=new A.bb("Assuming you use these exercise cues:",null,B.q9,null,null,null,null,null,null,null,null)
-B.aiw=new A.bb("Create",null,null,null,null,null,null,null,null,null,null)
+B.ait=new A.bb("Program Volume Score",null,B.ahE,null,null,null,null,null,null,null,null)
+B.aiu=new A.bb("Assuming you use these exercise cues:",null,B.q9,null,null,null,null,null,null,null,null)
+B.aiv=new A.bb("Create",null,null,null,null,null,null,null,null,null,null)
+B.aiA=new A.bb("version main-d37bef8 (Thu Aug 28 17:36:16 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
 B.aiB=new A.bb("Conditions:",null,B.cU,null,null,null,null,null,null,null,null)
 B.aiD=new A.bb("Page Not Found",null,null,null,null,null,null,null,null,null,null)
 B.aiE=new A.bb("overall range",null,null,null,null,null,null,null,null,null,null)
