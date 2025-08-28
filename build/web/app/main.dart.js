@@ -51269,7 +51269,7 @@ I(a){var s=null,r=A.a([B.aiA],t.p),q=this.c,p=q.a
 B.b.F(r,new A.M(p,new A.anh(this),A.W(p).h("M<1,f>")))
 q=q.b
 p=q!=null
-if(p)r.push(B.aiW)
+if(p)r.push(B.aiV)
 if(p)r.push(A.a_("("+q+")",s,s,s,s,s,s,s))
 return A.b2(r,B.Q,B.j,B.l,0)}}
 A.anh.prototype={
@@ -51586,7 +51586,7 @@ A.aic.prototype={
 $1(a){this.a.r.$1(a)},
 $S:84}
 A.a_D.prototype={
-I(a){return B.aiV}}
+I(a){return B.aj0}}
 A.vP.prototype={
 ak(){return new A.a40()}}
 A.a40.prototype={
@@ -51770,7 +51770,7 @@ r.b=""
 r.c=r.d=null
 r.e="existing"
 r.f=null
-return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.agE(a),s,s),A.io(!1,B.aj3,s,s,s,s,s,s,new A.agF(r,this.b,this.c,a),s,s)],t.p),new A.JR(new A.agG(r,this.a),s),B.aj_)},
+return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.agE(a),s,s),A.io(!1,B.aj3,s,s,s,s,s,s,new A.agF(r,this.b,this.c,a),s,s)],t.p),new A.JR(new A.agG(r,this.a),s),B.aiZ)},
 $S:70}
 A.agG.prototype={
 $2(a,b){var s=null,r="\u2022",q=this.b,p=q.dZ($.ob(),t.oc),o=this.a,n=t.N,m=t.p,l=A.a([A.aXI(new A.agp(o,b),B.a0t,A.cv([o.a],n),n),B.aO],m)
@@ -52093,7 +52093,7 @@ o=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.af(a,B.v,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,
 n=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.af(a,B.v,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,k)
 m=A.o(a)
 l=A.o(a).ax.k3.bx(0.7)
-return A.ww(A.y2(s,!1,i,new A.K7(A.a([A.b3m(A.az(k,A.bk(A.a([A.eB(B.Wh,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiX],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44),A.b3m(A.az(k,A.bk(A.a([A.eB(B.nG,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiF],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44)],h),new A.bN(r,k,p,q,k,k,B.P),B.N,m.ax.b,l,o,n,new A.b8(new A.aNK(a),t.b),k),B.a76,72),B.ad8)},
+return A.ww(A.y2(s,!1,i,new A.K7(A.a([A.b3m(A.az(k,A.bk(A.a([A.eB(B.Wh,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiW],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44),A.b3m(A.az(k,A.bk(A.a([A.eB(B.nG,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiF],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44)],h),new A.bN(r,k,p,q,k,k,B.P),B.N,m.ax.b,l,o,n,new A.b8(new A.aNK(a),t.b),k),B.a76,72),B.ad8)},
 aE(){this.aU()
 A.aVx("Example Screen dietertest")}}
 A.aNJ.prototype={
@@ -53199,7 +53199,7 @@ p=A.a([A.a_("Source: "+(p[0].toUpperCase()+B.c.bc(p,1)),q,q,q,q,B.q9,q,q),A.a_("
 s=a.d
 if(s.length!==0)p.push(A.b2(A.a([A.xR(s,this.b)],o),B.Q,B.j,B.l,0))
 s=a.e
-if(s.gbV(s)){r=A.a([B.eG,B.aiZ,B.eG],o)
+if(s.gbV(s)){r=A.a([B.eG,B.aiY,B.eG],o)
 s=s.gdJ(s)
 B.b.F(r,s.dL(s,new A.ajG(),t.l))
 B.b.F(p,r)}if(B.fH.gbV(B.fH)){s=A.a([B.eG,B.aiu,B.eG],o)
@@ -53320,7 +53320,7 @@ h=n.gcN(n)
 h.toString
 J.aW3(k,h,new A.aux(n),new A.auy(n))}}}s=A.o(a)
 r=A.cy(8)
-q=A.a([A.a_("Muscle modalities",g,g,g,g,A.o(a).ok.r,g,g),B.eG,B.aiY,B.aj2,B.aiU,B.aio,B.aO],t.p)
+q=A.a([A.a_("Muscle modalities",g,g,g,g,A.o(a).ok.r,g,g),B.eG,B.aiX,B.aj2,B.aiU,B.aio,B.aO],t.p)
 B.b.F(q,new A.M(B.bJ,new A.auz(f,a),t.ZN))
 return A.az(g,A.b2(q,B.Q,B.j,B.l,0),B.i,g,g,new A.bN(s.ax.k2,g,g,r,g,g,B.P),g,g,B.bA,g)}}
 A.auw.prototype={
@@ -116862,8 +116862,8 @@ B.ai6=new A.bb("origins",null,null,null,null,null,null,null,null,null,null)
 B.RL=new A.jV(B.ai6)
 B.aiB=new A.bb("passive insufficiency",null,null,null,null,null,null,null,null,null,null)
 B.RM=new A.jV(B.aiB)
-B.aj0=new A.bb("Articulation",null,null,null,null,null,null,null,null,null,null)
-B.RN=new A.ow(B.aj0)
+B.aj_=new A.bb("Articulation",null,null,null,null,null,null,null,null,null,null)
+B.RN=new A.ow(B.aj_)
 B.RO=new A.Fg(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.RP=new A.Fh(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.u1=new A.uJ(0,"uninitialized")
@@ -120558,13 +120558,13 @@ B.aiO=new A.bb("Create New",null,null,null,null,null,null,null,null,null,null)
 B.I4=new A.bb("Duplicate",null,null,null,null,null,null,null,null,null,null)
 B.aiQ=new A.bb("Active insufficiency",null,B.cU,null,null,null,null,null,null,null,null)
 B.aiU=new A.bb("this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc",null,null,null,null,null,null,null,null,null,null)
-B.aiV=new A.bb("version main-a06c162 (Thu Aug 28 17:07:05 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
-B.aiW=new A.bb("Comment",null,B.cU,null,null,null,null,null,null,null,null)
-B.aiX=new A.bb("Workout programmer",null,null,null,null,null,null,null,null,null,null)
-B.aiY=new A.bb("Note: the purpose is understanding the different ways in which the muscle is stimulated",null,null,null,null,null,null,null,null,null,null)
-B.aiZ=new A.bb("Assuming you uset hese exercise modifiers:",null,B.q9,null,null,null,null,null,null,null,null)
-B.aj_=new A.bb("Add Event",null,null,null,null,null,null,null,null,null,null)
+B.aiV=new A.bb("Comment",null,B.cU,null,null,null,null,null,null,null,null)
+B.aiW=new A.bb("Workout programmer",null,null,null,null,null,null,null,null,null,null)
+B.aiX=new A.bb("Note: the purpose is understanding the different ways in which the muscle is stimulated",null,null,null,null,null,null,null,null,null,null)
+B.aiY=new A.bb("Assuming you uset hese exercise modifiers:",null,B.q9,null,null,null,null,null,null,null,null)
+B.aiZ=new A.bb("Add Event",null,null,null,null,null,null,null,null,null,null)
 B.I5=new A.bb("not enough range information known",null,null,null,null,null,null,null,null,null,null)
+B.aj0=new A.bb("version main-db36f7a (Thu Aug 28 17:15:03 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
 B.aj1=new A.bb("no affected muscles/heads",null,null,null,null,null,null,null,null,null,null)
 B.aj2=new A.bb("for a given muscle, only the relevant articulations of used exercises are shown",null,null,null,null,null,null,null,null,null,null)
 B.aj3=new A.bb("Add",null,null,null,null,null,null,null,null,null,null)
