@@ -51069,7 +51069,7 @@ I(a){var s=this,r=null,q=s.d,p=q.w,o=p!=null&&B.b.du(p.a,new A.ani(s)),n=q.x,m=n
 q=A.a([A.e1(new A.vU(s.c,q.b,r),r,r)],t.p)
 if(o)q.push(B.aiR)
 if(o)q.push(new A.vo(p,s.e,r))
-if(m)q.push(B.aiH)
+if(m)q.push(B.aiI)
 if(m)q.push(new A.vo(n,s.e,r))
 return new A.aH(B.mR,A.aej(new A.aH(B.mR,A.b2(q,B.Q,B.j,B.l,0),r),r),r)}}
 A.ani.prototype={
@@ -51265,7 +51265,7 @@ s.r=this.c.gp(0)
 a.a.f8(this.b,s)},
 eE(a){return!0}}
 A.vo.prototype={
-I(a){var s=null,r=A.a([B.aiA],t.p),q=this.c,p=q.a
+I(a){var s=null,r=A.a([B.aiB],t.p),q=this.c,p=q.a
 B.b.F(r,new A.M(p,new A.anh(this),A.W(p).h("M<1,f>")))
 q=q.b
 p=q!=null
@@ -51315,9 +51315,9 @@ p===$&&A.b()
 l=A.S(new A.M(p,new A.awi(r,q,l+r,a),A.W(p).h("M<1,f>")),t.l)
 l.push(B.aO)
 p=t.p
-l.push(A.bk(A.a([A.a_(A.l(m.d)+" \xb0",n,n,n,n,n,n,n),B.aiD,A.a_(A.l(m.e)+" \xb0",n,n,n,n,n,n,n)],p),B.m,B.fn,B.l,n,n))
+l.push(A.bk(A.a([A.a_(A.l(m.d)+" \xb0",n,n,n,n,n,n,n),B.aiE,A.a_(A.l(m.e)+" \xb0",n,n,n,n,n,n,n)],p),B.m,B.fn,B.l,n,n))
 l.push(B.aO)
-l.push(B.air)
+l.push(B.ais)
 m=A.o(a).ax
 o=m.ch
 l.push(A.b2(A.a([A.bk(A.a([A.az(n,n,B.i,o==null?m.z:o,n,n,16,n,n,16),B.b_,B.ai9],p),B.m,B.j,B.Z,n,n),A.bk(A.a([A.az(n,n,B.i,B.mx,n,n,16,n,n,16),B.b_,B.ai4],p),B.m,B.j,B.Z,n,n),B.aa0,B.aa_],p),B.Q,B.j,B.l,0))
@@ -51498,7 +51498,7 @@ s.CP(this.b,B.b.ga1(r))},
 $S:0}
 A.afJ.prototype={
 $1(a){var s=null,r=this.b,q=this.c,p=A.te(!0,B.iX,r,B.X2,s,s,q,s,s,s,s,new A.afG(this.a))
-return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.afH(a),s,s),A.ajS(!1,B.aiv,B.i,s,s,s,s,s,new A.afI(q,a,r),s,s)],t.p),p,B.aiO)},
+return A.ub(A.a([A.io(!1,B.iw,s,s,s,s,s,s,new A.afH(a),s,s),A.ajS(!1,B.aiw,B.i,s,s,s,s,s,new A.afI(q,a,r),s,s)],t.p),p,B.aiP)},
 $S:70}
 A.afG.prototype={
 $1(a){if(a==null||a.length===0)return"Name cannot be empty"
@@ -51586,7 +51586,7 @@ A.aic.prototype={
 $1(a){this.a.r.$1(a)},
 $S:84}
 A.a_D.prototype={
-I(a){return B.aiP}}
+I(a){return B.aiq}}
 A.vP.prototype={
 ak(){return new A.a40()}}
 A.a40.prototype={
@@ -51798,7 +51798,7 @@ r.f=r.d=null},
 $S:0}
 A.agr.prototype={
 $1(a){var s,r,q=a.a,p=a.b,o=J.am(q)
-if(J.e8(o.i(q,p).ghy()))return B.aiJ
+if(J.e8(o.i(q,p).ghy()))return B.aiK
 s=this.a
 r=s.f
 p=J.cI(o.i(q,p).ghy(),new A.agl(),t.mz)
@@ -52093,7 +52093,7 @@ o=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.af(a,B.v,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,
 n=A.aF(k,k,k,k,k,k,k,k,k,k,k,A.af(a,B.v,j).w.a.a/100,k,k,k,k,k,!0,k,k,k,k,k,k,k,k)
 m=A.o(a)
 l=A.o(a).ax.k3.bx(0.7)
-return A.ww(A.y2(s,!1,i,new A.K7(A.a([A.b3m(A.az(k,A.bk(A.a([A.eB(B.Wh,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiX],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44),A.b3m(A.az(k,A.bk(A.a([A.eB(B.nG,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiF],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44)],h),new A.bN(r,k,p,q,k,k,B.P),B.N,m.ax.b,l,o,n,new A.b8(new A.aNK(a),t.b),k),B.a76,72),B.ad8)},
+return A.ww(A.y2(s,!1,i,new A.K7(A.a([A.b3m(A.az(k,A.bk(A.a([A.eB(B.Wh,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiX],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44),A.b3m(A.az(k,A.bk(A.a([A.eB(B.nG,k,k,A.af(a,k,j).w.a.a/70),B.b_,B.aiG],h),B.m,B.du,B.l,k,k),B.i,k,k,k,k,k,B.jA,k),44)],h),new A.bN(r,k,p,q,k,k,B.P),B.N,m.ax.b,l,o,n,new A.b8(new A.aNK(a),t.b),k),B.a76,72),B.ad8)},
 aE(){this.aU()
 A.aVx("Example Screen dietertest")}}
 A.aNJ.prototype={
@@ -52135,7 +52135,7 @@ r=t.p
 s=A.a([A.bk(A.a([B.Hr,B.Vq,new A.cV(55,B.ag,s,p),B.Hr],r),B.ee,B.j,B.l,p,p)],r)
 B.b.F(s,J.cI(o.ghy(),new A.av4(a,q.c),t.l))
 if(J.fn(o.ghy()))s.push(A.b_H(o.ghy(),a))
-if(J.fn(o.ghy()))s.push(new A.aH(B.SR,A.bk(A.a([A.be3(B.Wy,B.aiq,new A.av5(q.a,q.d,o))],r),B.m,B.du,B.l,p,p),p))
+if(J.fn(o.ghy()))s.push(new A.aH(B.SR,A.bk(A.a([A.be3(B.Wy,B.air,new A.av5(q.a,q.d,o))],r),B.m,B.du,B.l,p,p),p))
 s.push(B.Im)
 return A.b2(s,B.m,B.j,B.l,0)},
 $S:523}
@@ -52237,7 +52237,7 @@ $2(a,b){var s=null
 return A.e1(A.a_("Error: "+A.l(a),s,s,s,s,s,s,s),s,s)},
 $S:57}
 A.avl.prototype={
-$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b1l(A.a([A.uV(!1,B.aiL,k,k,k,k,k,k,new A.avg(j),k,k),A.uV(!1,B.aij,k,k,k,k,k,k,new A.avh(j),k,k),A.uV(!1,B.ai8,k,k,k,k,k,k,new A.avi(j),k,k)],i),B.b_,t.l)
+$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b1l(A.a([A.uV(!1,B.aiM,k,k,k,k,k,k,new A.avg(j),k,k),A.uV(!1,B.aij,k,k,k,k,k,k,new A.avh(j),k,k),A.uV(!1,B.ai8,k,k,k,k,k,k,new A.avi(j),k,k)],i),B.b_,t.l)
 h=A.S(h,A.k(h).h("n.E"))
 h=A.bk(A.a([new A.cV(28,B.ag,new A.rj("Available equipment",h,k),k)],i),B.m,B.j,B.l,k,k)
 s=A.a([],i)
@@ -52551,7 +52551,7 @@ o=t.p
 n=A.a([],o)
 if(!h&&r){h=g.r
 h===$&&A.b()
-n.push(new A.aH(B.hC,A.b2(A.a([B.ait,A.a_(B.d.an(h*100,1)+"%",j,j,j,j,B.aeB,j,j)],o),B.m,B.du,B.l,0),j))}n.push(A.c1(new A.eC(A.a_(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.af(a,B.v,q).w.a.a/100,j,j,B.b4,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
+n.push(new A.aH(B.hC,A.b2(A.a([B.aiu,A.a_(B.d.an(h*100,1)+"%",j,j,j,j,B.aeB,j,j)],o),B.m,B.du,B.l,0),j))}n.push(A.c1(new A.eC(A.a_(i,j,j,j,j,A.aF(j,j,j,j,j,j,j,j,j,j,j,A.af(a,B.v,q).w.a.a/100,j,j,B.b4,j,j,!0,j,j,j,j,j,j,j,j),j,j),j,"Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  \nThis enables you to see and optimize the balance between isolation and compound exercises.\n",j,i,j),1))
 h=A.bk(n,B.m,B.j,B.l,j,j)
 n=g.e
 n===$&&A.b()
@@ -53202,7 +53202,7 @@ s=a.e
 if(s.gbV(s)){r=A.a([B.eG,B.aiZ,B.eG],o)
 s=s.gdJ(s)
 B.b.F(r,s.dL(s,new A.ajG(),t.l))
-B.b.F(p,r)}if(B.fH.gbV(B.fH)){s=A.a([B.eG,B.aiu,B.eG],o)
+B.b.F(p,r)}if(B.fH.gbV(B.fH)){s=A.a([B.eG,B.aiv,B.eG],o)
 B.b.F(s,new A.jZ(B.fH,new A.ajH(),A.k(B.fH).h("jZ<1,f>")))
 B.b.F(p,s)}s=a.c
 if(s.length!==0){r=A.W(s).h("M<1,hh>")
@@ -105276,7 +105276,7 @@ A.a6N.prototype={}
 A.yX.prototype={
 I(a){var s=null,r=this.c
 r=r==null?s:"GoException: "+r.a
-return A.ayM(!0,A.e1(A.b2(A.a([B.aiN,B.aO,A.a_(r==null?"page not found":r,s,s,s,s,s,s,s),B.aO,new A.Ly(new A.ajC(a),B.aiK,s)],t.p),B.m,B.du,B.l,0),s,s),B.a_,!0)}}
+return A.ayM(!0,A.e1(A.b2(A.a([B.aiO,B.aO,A.a_(r==null?"page not found":r,s,s,s,s,s,s,s),B.aO,new A.Ly(new A.ajC(a),B.aiL,s)],t.p),B.m,B.du,B.l,0),s,s),B.a_,!0)}}
 A.ajC.prototype={
 $0(){return A.Um(this.a).Hf(0,"/",null)},
 $S:0}
@@ -105323,7 +105323,7 @@ return new A.bA(A.bS(s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s
 qe(a,b,c,d){return this.$ti.h("iH<1>").a(this.c).CW.$4(a,b,c,d)}}
 A.w_.prototype={}
 A.zO.prototype={
-I(a){var s=null,r=A.y2(s,!0,s,s,B.aiC,s),q=this.c
+I(a){var s=null,r=A.y2(s,!0,s,s,B.aiD,s),q=this.c
 q=q==null?s:"GoException: "+q.a
 if(q==null)q="page not found"
 return A.ww(r,A.e1(A.b2(A.a([new A.wD(q,s,s,s,s,s,s),A.io(!1,B.ai5,s,s,s,s,s,s,new A.ar3(a),s,s)],t.p),B.m,B.du,B.l,0),s,s))}}
@@ -116638,8 +116638,8 @@ B.f7=new A.ut(null,null,null,null,null,null,null)
 B.cE=new A.hG(B.T,null,null,B.f7,null)
 B.Y3=new A.Vt(null)
 B.NW=new A.hG(B.T,null,null,B.Y3,null)
-B.aiG=new A.bb("No events yet",null,null,null,null,null,null,null,null,null,null)
-B.NX=new A.hG(B.T,null,null,B.aiG,null)
+B.aiH=new A.bb("No events yet",null,null,null,null,null,null,null,null,null,null)
+B.NX=new A.hG(B.T,null,null,B.aiH,null)
 B.NZ=new A.yh(null,null,null,null,null,null,null,null,null)
 B.O_=new A.EI(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.t6=new A.fp(0,B.q)
@@ -116852,16 +116852,16 @@ B.mE=new A.SV(1,"elevated")
 B.RH=new A.afF(1,"latency")
 B.aib=new A.bb("insertion",null,null,null,null,null,null,null,null,null,null)
 B.RI=new A.jV(B.aib)
-B.aiw=new A.bb("active insufficiency",null,null,null,null,null,null,null,null,null,null)
-B.RJ=new A.jV(B.aiw)
+B.aix=new A.bb("active insufficiency",null,null,null,null,null,null,null,null,null,null)
+B.RJ=new A.jV(B.aix)
 B.aiS=new A.bb("articulation",null,null,null,null,null,null,null,null,null,null)
 B.RK=new A.jV(B.aiS)
 B.aiT=new A.bb("nicknames",null,null,null,null,null,null,null,null,null,null)
 B.u_=new A.jV(B.aiT)
 B.ai6=new A.bb("origins",null,null,null,null,null,null,null,null,null,null)
 B.RL=new A.jV(B.ai6)
-B.aiB=new A.bb("passive insufficiency",null,null,null,null,null,null,null,null,null,null)
-B.RM=new A.jV(B.aiB)
+B.aiC=new A.bb("passive insufficiency",null,null,null,null,null,null,null,null,null,null)
+B.RM=new A.jV(B.aiC)
 B.aj0=new A.bb("Articulation",null,null,null,null,null,null,null,null,null,null)
 B.RN=new A.ow(B.aj0)
 B.RO=new A.Fg(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
@@ -118045,14 +118045,14 @@ B.vH=new A.hP(1,"intermediate")
 B.vI=new A.hP(2,"advanced")
 B.vJ=new A.hP(3,"elite")
 B.Z0=A.a(s([B.jY,B.vH,B.vI,B.vJ]),A.a4("t<hP>"))
-B.aix=new A.bb("Off",null,null,null,null,null,null,null,null,null,null)
-B.M5=new A.i7(B.f6,B.aix,t.vS)
+B.aiy=new A.bb("Off",null,null,null,null,null,null,null,null,null,null)
+B.M5=new A.i7(B.f6,B.aiy,t.vS)
 B.t4=new A.lU(1,"on")
-B.ais=new A.bb("On",null,null,null,null,null,null,null,null,null,null)
-B.M0=new A.i7(B.t4,B.ais,t.vS)
+B.ait=new A.bb("On",null,null,null,null,null,null,null,null,null,null)
+B.M0=new A.i7(B.t4,B.ait,t.vS)
 B.t5=new A.lU(2,"psmf")
-B.aiy=new A.bb("PSMF Days",null,null,null,null,null,null,null,null,null,null)
-B.M4=new A.i7(B.t5,B.aiy,t.vS)
+B.aiz=new A.bb("PSMF Days",null,null,null,null,null,null,null,null,null,null)
+B.M4=new A.i7(B.t5,B.aiz,t.vS)
 B.Z1=A.a(s([B.M5,B.M0,B.M4]),A.a4("t<i7<lU>>"))
 B.alx=new A.jG(0,1)
 B.alC=new A.jG(0.5,1)
@@ -118266,10 +118266,10 @@ B.eH=new A.Bb(0,"butt")
 B.l6=new A.Bb(1,"round")
 B.Hy=new A.Bb(2,"square")
 B.a0q=A.a(s([B.eH,B.l6,B.Hy]),A.a4("t<Bb>"))
-B.aiz=new A.bb("Meal",null,null,null,null,null,null,null,null,null,null)
-B.M1=new A.i7("meal",B.aiz,t.Zx)
-B.aiI=new A.bb("Workout",null,null,null,null,null,null,null,null,null,null)
-B.M_=new A.i7("workout",B.aiI,t.Zx)
+B.aiA=new A.bb("Meal",null,null,null,null,null,null,null,null,null,null)
+B.M1=new A.i7("meal",B.aiA,t.Zx)
+B.aiJ=new A.bb("Workout",null,null,null,null,null,null,null,null,null,null)
+B.M_=new A.i7("workout",B.aiJ,t.Zx)
 B.a0t=A.a(s([B.M1,B.M_]),t.CK)
 B.fs=new A.ke(0,"controlModifier")
 B.ft=new A.ke(1,"shiftModifier")
@@ -119801,8 +119801,8 @@ B.c_=new A.Ax(3,"layout")
 B.a9S=new A.Y8(0,"raster")
 B.a9T=new A.Y8(1,"picture")
 B.ae1=new A.z(!0,null,null,null,null,null,12,B.b4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.aiM=new A.bb("COMBO",null,B.ae1,null,null,null,null,null,null,null,null)
-B.a9U=new A.IW(1,B.aiM,null)
+B.aiN=new A.bb("COMBO",null,B.ae1,null,null,null,null,null,null,null,null)
+B.a9U=new A.IW(1,B.aiN,null)
 B.Gf=new A.ayk(null)
 B.kH=new A.ba(28,28)
 B.L1=new A.dq(B.kH,B.kH,B.kH,B.kH)
@@ -119847,8 +119847,8 @@ B.Wj=new A.dj(58335,"MaterialIcons",null,!1)
 B.Wr=new A.hm(B.Wj,16,B.dT,null,null)
 B.l5=new A.dX(4,null,null,null)
 B.I_=new A.z(!0,B.dT,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.aiE=new A.bb("New ComboSet",null,B.I_,null,null,null,null,null,null,null,null)
-B.Z2=A.a(s([B.Wr,B.l5,B.aiE]),t.p)
+B.aiF=new A.bb("New ComboSet",null,B.I_,null,null,null,null,null,null,null,null)
+B.Z2=A.a(s([B.Wr,B.l5,B.aiF]),t.p)
 B.aa3=new A.hW(B.af,B.j,B.Z,B.m,null,B.bF,null,0,B.Z2,null)
 B.aa4=new A.IY(1333)
 B.pa=new A.IY(2222)
@@ -120538,24 +120538,24 @@ B.aim=new A.bb("Change",null,null,null,null,null,null,null,null,null,null)
 B.ain=new A.bb("Help",null,null,null,null,null,null,null,null,null,null)
 B.I3=new A.bb("OK",null,null,null,null,null,null,null,null,null,null)
 B.aio=new A.bb("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
-B.aiq=new A.bb("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
-B.air=new A.bb("Legend",null,null,null,null,null,null,null,null,null,null)
+B.aiq=new A.bb("version main-d3b1772 (Thu Aug 28 17:27:57 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.air=new A.bb("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
+B.ais=new A.bb("Legend",null,null,null,null,null,null,null,null,null,null)
 B.ahE=new A.z(!0,null,null,null,null,null,12,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ait=new A.bb("Program Volume Score",null,B.ahE,null,null,null,null,null,null,null,null)
-B.aiu=new A.bb("Assuming you use these exercise cues:",null,B.q9,null,null,null,null,null,null,null,null)
-B.aiv=new A.bb("Create",null,null,null,null,null,null,null,null,null,null)
-B.aiA=new A.bb("Conditions:",null,B.cU,null,null,null,null,null,null,null,null)
-B.aiC=new A.bb("Page Not Found",null,null,null,null,null,null,null,null,null,null)
-B.aiD=new A.bb("overall range",null,null,null,null,null,null,null,null,null,null)
-B.aiF=new A.bb("Set up",null,null,null,null,null,null,null,null,null,null)
-B.aiH=new A.bb("Passive insufficiency",null,B.cU,null,null,null,null,null,null,null,null)
-B.aiJ=new A.bb("No workouts available. Create workouts in the Program Builder first.",null,null,null,null,null,null,null,null,null,null)
+B.aiu=new A.bb("Program Volume Score",null,B.ahE,null,null,null,null,null,null,null,null)
+B.aiv=new A.bb("Assuming you use these exercise cues:",null,B.q9,null,null,null,null,null,null,null,null)
+B.aiw=new A.bb("Create",null,null,null,null,null,null,null,null,null,null)
+B.aiB=new A.bb("Conditions:",null,B.cU,null,null,null,null,null,null,null,null)
+B.aiD=new A.bb("Page Not Found",null,null,null,null,null,null,null,null,null,null)
+B.aiE=new A.bb("overall range",null,null,null,null,null,null,null,null,null,null)
+B.aiG=new A.bb("Set up",null,null,null,null,null,null,null,null,null,null)
+B.aiI=new A.bb("Passive insufficiency",null,B.cU,null,null,null,null,null,null,null,null)
+B.aiK=new A.bb("No workouts available. Create workouts in the Program Builder first.",null,null,null,null,null,null,null,null,null,null)
 B.af1=new A.z(!0,B.r,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.aiK=new A.bb("Go to home page",null,B.af1,null,null,null,null,null,null,null,null)
-B.aiL=new A.bb("None",null,null,null,null,null,null,null,null,null,null)
-B.aiN=new A.bb("Page Not Found",null,B.cU,null,null,null,null,null,null,null,null)
-B.aiO=new A.bb("Create New",null,null,null,null,null,null,null,null,null,null)
-B.aiP=new A.bb("version main-cd08c5e (Thu Aug 28 17:19:02 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.aiL=new A.bb("Go to home page",null,B.af1,null,null,null,null,null,null,null,null)
+B.aiM=new A.bb("None",null,null,null,null,null,null,null,null,null,null)
+B.aiO=new A.bb("Page Not Found",null,B.cU,null,null,null,null,null,null,null,null)
+B.aiP=new A.bb("Create New",null,null,null,null,null,null,null,null,null,null)
 B.I4=new A.bb("Duplicate",null,null,null,null,null,null,null,null,null,null)
 B.aiR=new A.bb("Active insufficiency",null,B.cU,null,null,null,null,null,null,null,null)
 B.aiV=new A.bb("this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc",null,null,null,null,null,null,null,null,null,null)
