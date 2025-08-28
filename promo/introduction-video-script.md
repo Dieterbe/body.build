@@ -35,7 +35,7 @@ So here we define a bunch of sets to cover most of the muscles, we group them in
 Another way that sets body.build apart from other apps is the many ways to tweak the form of an exercise, which is helpful
 to advanced users who want to really finetune their program or experiment with different cues and modifications to an exercise.
 
-So let's have a better look at, for example, the seated leg extension machine.  Let's click on the settings menu.
+So let's have a better look at, for example, the seated leg extension machine, one of my personal favorites.  Let's click on the settings menu.
 
 There's basically two things here.
 There's modifiers and there's cues.
@@ -92,10 +92,10 @@ many of your sets have you defined that target a certain number of muscle groups
 So for example, here we're looking at Day B, and Day B has eight sets where you only target
 one muscle group, so those are obviously your isolations, whereas all the other sets are
 compounds that involve multiple muscles.
-Because for most people time is a limiting factor, you want to program more compounds and
-less isolations to save time because you can just target more muscles within one exercise.
-So these charts are kind of a useful reminder, like hmm, that's actually quite a lot of isolations.
-Maybe we can reduce the amount of total sets more by doing more compounds instead of isolations.
+Because for most people time is a limiting factor, you want to program more compounds,
+but OTOH, if you have many exercises that hit many muscles, that can get quite fatiguing,
+so here you can keep an eye on your overall distribution and i think visualizations like this
+will turn out handy when we start comparing different workout programs and see which is more suitable to us.
 
 # help button
 
@@ -107,29 +107,25 @@ I'm still building out the docs but there's a quickstart guide for example.
 # creating your own program
 
 OK let's now have a look at defining your own program.
-So let's create a test program.  At the top left we can create a program and give it a name.
+At the top left we can create a program and give it a name.
 
 You can kind of just follow the buttons that are drawing your attention.
-So it will say add a workout, you add a workout, then it will ask you to add a set to the workout.
-To add a set, you can either use that button or you can use any of these buttons to add a set.
-Then of course you have to configure that set, choose an exercise, change which cues or modifiers
+It will say add a workout, so click the add workout button, then it will ask you to add a set to the workout.
+
+There are two ways add a set to a workout.
+First, you can use this button here to just add a set, it shows up here in your workout,
+and you need to configure it, choose any exercise, change which cues or modifiers
 you want to use, and that's it.
-But then you can also, instead of adding sets and then just choosing from this huge list
-of exercises, you can also choose exercises for a specific muscle.
-So for example, in this case, let's say we want to target the biceps specifically, then
-we can click this button and now we can add a set for all exercises that target biceps.
+The second option is a shortcut for when you already know you want to target a specific muscle.
+So for example, let's say we want to target the biceps, then
+we can click this button and now we can add a set for an exercise that target biceps.
 And these are ordered by recruitment as well as rating.
-So at the top, of course, like we saw before, we have that Bayesian standing cable bicep curl
-that had the rating of 10.
-The ratings will start going down, as you can see.
-Recruitment also goes down, but there's many of these exercises that give you 100% recruitment.
-Even like things like pull-up, for example, have very good recruitment.
-But then as you start going down, you get some rows and exercises like that that won't
-recruit as well.
-But basically, here you have all of your varieties so you can choose the perfect exercise. # add the bicep curl
-But you can, of course, always change your style again after adding the set.
-So if you wanted to change it back to standard or Bayesian with arms behind and going up,
-you can do that here.
+So at the top, we have that Bayesian standing cable bicep curl that had the rating of 10.
+As you scroll down, you will see many exercises that fully recruit the biceps but the ratings will go down for a variety of reasons,
+and as you keep scrolling, you start seeing exercises that don't recruit the biceps as well, but they can still be great overall exercises, like rows for example.
+
+So you choose your desired exercise, let's add the bicep curl # add the bicep curl
+Note that now still, you can still change the modifiers, cues, or even the exercise itself, if you want to.
 
 # drag & drop
 
@@ -139,7 +135,7 @@ Let's add this back extension, and then we'll add the face pull.
 Let's say we want to make the face pull the first one.
 You click on it, you hold it, you can move it up to the first one.
 For this bicep curl, let's say we want to make a combo set with the face pull, you
-dreop it on top of the face pull, now you have a combo set.
+drop it on top of the face pull, now you have a combo set.
 You want to add the back extension to the combo set, no problem.
 Drop it anywhere here, it will be part of the combo set.
 Drop it outside of it, and it will still be a standalone set.
@@ -154,13 +150,13 @@ For example, I actually create a new profile for myself every couple of months b
 Then you fill in all the values here. Some of these are not obvious and it is quite important to understand what these all mean,
 so every value has a little info button, which provides a pop-up with in-depth information
 
-So anyway, let's just say we are dealing with an advanced trainee who does three workouts
-per week, energy balance, let's say he has a 10% calorie surplus.
+So anyway, let's just say we are dealing with an advanced trainee who does three workouts per week
+energy balance, let's say he has a 10% calorie surplus.
 for these other values you'll just need to read the documentation.
 The important thing here is that you will have a base metabolic rate, and you can choose between
 three different formulas, again, the formulas are explained in a little popup
 This results in certain target calorie intake for your resting days, your training days, and
-your average.
+your average day.
 And then we also calculate your recommended intensities and your recommended workout volume.
 the intensity ranges, these are percentage of 1RM.
 Notice how now we have 65-85 here, so now those are your two options when you configure your sets for an exercise, but you can override
@@ -174,21 +170,21 @@ If you are a female, that volume will go up.
 Based on all of these parameters, this value will change.
 Of course, you can change it to whatever you like.
 You can just say, ignore this, I want 10 sets of every muscle group per week.
-And by the way, this includes your direct quote-unquote volume as well as your indirect
+And by the way, this includes your direct volume as well as your indirect
 volume like we said before, which is why these numbers may seem high at first.
 You can also do muscle-specific overrides.
 So for example, let's say you have 10 per muscle group, but you want 15 for biceps.
 Or you want abs, you want only 8, or whatever.
 These targets will actually be used here.
 So let's maybe go back to the demo program.
-So here we actually compare all the volumes in the program with what's configured. 
+So here we actually compare all the volumes in the program with what's configured in the setup tab.
 All of them are red right now, cause the program doesn't meet the required volume, except for triceps where we have enough.
 You don't need to obsess too much over these numbers, but it can be helpful to think through your desired volumes for all your muscles and then confirm that your program matches accordingly.
 
 And it's fine and expected even that some of these will be fairly low,
 like it's pretty common for the hamstring short head or the tricep long head to have a lower volume, or maybe the soleus.
 
-## equipment 
+# equipment 
 And then finally, we have the equipment here at the bottom.
 So by default, everything's enabled.
 There's a couple of presets, like basic gym stuff, no equipment whatsoever.
@@ -198,22 +194,25 @@ So if you mark that you don't have certain equipment available, then when you go
 a set and you look for an exercise here, then those exercises will not show up, obviously.
 So that's just a little helper.
 
+# program breakdown
+
 Oh just one last thing. Here at the bottom there's a program breakdown.
 This is very much a work in progress, but this basically analyzes your program and verifies that you train
 your muscles at different muscle lengths and in different movements.  This is more for advanced body builders,
 they need to carefully select exercises that are complimentary to fully train each muscle.  Anyway, it's a work in progress.
 
-## end 
-And that's it really.  That's in a nutshell how body.build works.
-I'm always adding more stuff.
-Now you get the gist of how the application works, I hope.
-So you can use this to compute some parameters and define your programs.
-I have a lot more planned, to help you when you're at the gym, to follow your program, look up cues, track your statistics, tools to further adjust your program based on your observed performance, and so on.
+# closing notes
+
+And that is how body.build works today.
+We saw how you can put in your personal parameters, and how to calculate your calorie needs, your recommend volumes and intensities.
+We saw how you can customize your desired workout volume and available equipment.
+We looked at how you can use the demo program, customize it, or make your own, how to choose exercises based on their recruitment and ratings, and how to make sure
+you end up with a coherent, sensible program with a good distribution of compounds and isolations, and some tricks to optimize the time spent in the gym.
+
+I have a lot more planned, to help you when you're at the gym, to follow your program, look up cues, track your statistics, tools to further adjust your program based on your observed gains, and so on.
 
 All of that is coming.
-For now you can just build and modify your program and the rest will come later.
 
-I hope this was a useful introduction and that you understand the application better and what I'm trying to achieve.
-Please let me know what you think.  I'm really curious for your feedback.
-You can leave a comment on youtube, or go to the homepage. From here you can find our discord, email, and twitter. 
-Thanks.
+Please let me know what you think.  I'm really curious for your feedback. It would be quite helpful.
+You can leave a comment on youtube, or go to the homepage. From here you can find our discord community, or reach out via email or twitter. 
+Now go lift some weights!
