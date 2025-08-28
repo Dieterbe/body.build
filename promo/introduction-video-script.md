@@ -1,6 +1,9 @@
 # Before starting,
-# Check for top bar status, browser tabs open, and verify opening of insta link
-# make sure default/empty program loaded
+# clean browser (no bookmarks bar, open tabs)
+# full screen the browser to hide all window management
+# verify opening of insta, youtube, and research links
+# make sure default/empty program loaded (in chrome: third-party cookies to delete site data and start fresh)
+# turn off break timer
 Quick introduction to body.build
 You can go straight to the app. There is no signup and no payment. It's completely free.
 
