@@ -4,6 +4,19 @@ sidebar_position: 1
 
 # Welcome to body.build
 
+<div style={{textAlign: 'center'}}>
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/wOVZdZ9_jdE"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  ></iframe>
+</div>
+
+
 Body.build is the world's most advanced, evidence-based weight lifting program builder.  Completely free and open to everyone - no strings attached.  Well, that's the ambition anyway.  To achieve something like WikiPedia for weight lifting, but *personalized* and *actionable*.
 
 I took the most intense education program for sports science / personal training that I could find - the Menno Henselmans training course - so that I could build this tool for you.
