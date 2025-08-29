@@ -4,6 +4,7 @@
 # verify opening of insta, youtube, and research links
 # make sure default/empty program loaded (in chrome: third-party cookies to delete site data and start fresh)
 # turn off break timer
+# note: it will be a bit tricky to match up the right actions to a playing audio stream. practice a few times, and perhaps we can smoothen out the script a bit more
 Quick introduction to body.build
 You can go straight to the app. There is no signup and no payment. It's completely free.
 
@@ -129,12 +130,15 @@ and as you keep scrolling, you start seeing exercises that don't recruit the bic
 
 So you choose your desired exercise, let's add the bicep curl # add the bicep curl
 Note that now still, you can still change the modifiers, cues, or even the exercise itself, if you want to.
+# note: bicep curl stays in place
 
 # drag & drop
-
 Another thing I wanted to show is that you can drag and drop exercises.
 So let me just add some first.
-Let's add this back extension, and then we'll add the face pull.
+# wait 3 sec to do 'add set' and hit change
+Let's add this back extension
+# wait 3 sec to add another set and hit change
+and then we'll add the face pull.
 Let's say we want to make the face pull the first one.
 You click on it, you hold it, you can move it up to the first one.
 For this bicep curl, let's say we want to make a combo set with the face pull, you
