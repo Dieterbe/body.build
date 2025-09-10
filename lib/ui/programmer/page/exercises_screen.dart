@@ -22,11 +22,16 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   String _searchQuery = '';
   ProgramGroup? _selectedMuscleGroup;
   Set<Equipment> _selectedEquipment = {};
+  Set<EquipmentCategory> _selectedEquipmentCategories = {};
   Ex? _selectedExercise;
+  bool _showFilters = false;
 
   @override
   Widget build(BuildContext context) {
     final setup = ref.watch(setupProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth > 1024;
+    final isTablet = screenWidth > 768 && screenWidth <= 1024;
 
     return setup.when(
       loading: () => const Scaffold(
@@ -39,47 +44,226 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         appBar: AppBar(
           title: const Text('Exercise Browser'),
           backgroundColor: Theme.of(context).colorScheme.surface,
+          actions: [
+            if (!isDesktop) ...[
+              IconButton(
+                icon: Icon(
+                    _showFilters ? Icons.filter_list_off : Icons.filter_list),
+                onPressed: () {
+                  setState(() {
+                    _showFilters = !_showFilters;
+                  });
+                },
+              ),
+            ],
+          ],
         ),
-        body: Row(
-          children: [
-            // Filters Panel
-            Container(
-              width: 300,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                border: Border(
-                  right: BorderSide(
-                    color:
-                        Theme.of(context).dividerColor.withValues(alpha: 0.3),
-                  ),
+        body: isDesktop
+            ? _buildDesktopLayout(setupData)
+            : isTablet
+                ? _buildTabletLayout(setupData)
+                : _buildMobileLayout(setupData),
+      ),
+    );
+  }
+
+  Widget _buildDesktopLayout(setupData) {
+    return Row(
+      children: [
+        // Filters Panel
+        Container(
+          width: 300,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            border: Border(
+              right: BorderSide(
+                color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
+              ),
+            ),
+          ),
+          child: _buildFiltersPanel(setupData),
+        ),
+        // Exercise List
+        Expanded(
+          flex: 2,
+          child: _buildExerciseList(setupData),
+        ),
+        // Exercise Detail Panel
+        if (_selectedExercise != null)
+          Container(
+            width: 400,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              border: Border(
+                left: BorderSide(
+                  color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
                 ),
               ),
-              child: _buildFiltersPanel(setupData),
             ),
-            // Exercise List
-            Expanded(
-              flex: 2,
-              child: _buildExerciseList(setupData),
-            ),
-            // Exercise Detail Panel
-            if (_selectedExercise != null)
+            child: _buildExerciseDetail(setupData),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildTabletLayout(setupData) {
+    return Stack(
+      children: [
+        Row(
+          children: [
+            // Collapsible Filters Panel
+            if (_showFilters)
               Container(
-                width: 400,
+                width: 280,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
                   border: Border(
-                    left: BorderSide(
+                    right: BorderSide(
                       color:
                           Theme.of(context).dividerColor.withValues(alpha: 0.3),
                     ),
                   ),
                 ),
-                child: _buildExerciseDetail(setupData),
+                child: _buildFiltersPanel(setupData),
               ),
+            // Exercise List
+            Expanded(
+              child: _buildExerciseList(setupData),
+            ),
           ],
         ),
+        // Exercise Detail Modal
+        if (_selectedExercise != null) _buildExerciseDetailModal(setupData),
+      ],
+    );
+  }
+
+  Widget _buildMobileLayout(setupData) {
+    return Column(
+      children: [
+        if (_showFilters) _buildCompactFilterBar(setupData),
+        Expanded(
+          child: _buildExerciseList(setupData),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCompactFilterBar(setupData) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
+          ),
+        ),
+      ),
+      child: Column(
+        children: [
+          // Search Bar
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                _searchQuery = value;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Search exercises...',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              filled: true,
+              fillColor:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            ),
+          ),
+          const SizedBox(height: 12),
+          // Quick Filters Row
+          Row(
+            children: [
+              // Muscle Group Chip
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => _showMuscleGroupPicker(),
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Theme.of(context).dividerColor),
+                      borderRadius: BorderRadius.circular(8),
+                      color: _selectedMuscleGroup != null
+                          ? Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withValues(alpha: 0.1)
+                          : null,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.fitness_center, size: 16),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            _selectedMuscleGroup?.displayName ?? 'All muscles',
+                            style: const TextStyle(fontSize: 12),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Icon(Icons.arrow_drop_down, size: 16),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              // Equipment Chip
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => _showEquipmentPicker(setupData),
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Theme.of(context).dividerColor),
+                      borderRadius: BorderRadius.circular(8),
+                      color: _selectedEquipmentCategories.isNotEmpty ||
+                              _selectedEquipment.isNotEmpty
+                          ? Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withValues(alpha: 0.1)
+                          : null,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.build, size: 16),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            _getEquipmentFilterText(),
+                            style: const TextStyle(fontSize: 12),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Icon(Icons.arrow_drop_down, size: 16),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -88,35 +272,37 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Filters',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        const SizedBox(height: 16),
-
-        // Search Filter
-        TextField(
-          onChanged: (value) {
-            setState(() {
-              _searchQuery = value;
-            });
-          },
-          decoration: InputDecoration(
-            hintText: 'Search exercises...',
-            prefixIcon: const Icon(Icons.search),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+        
+          Text(
+            'Filters',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
             ),
-            filled: true,
-            fillColor:
-                Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
           ),
-        ),
-        const SizedBox(height: 24),
+          const SizedBox(height: 16),
+
+          // Search Filter
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                _searchQuery = value;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Search exercises...',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              filled: true,
+              fillColor:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+            ),
+          ),
+          const SizedBox(height: 24),
+        
 
         // Muscle Group Filter
         Text(
@@ -158,11 +344,12 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             ),
           ),
         ),
+
         const SizedBox(height: 24),
 
         // Equipment Filter
         Text(
-          'Available Equipment',
+          'Equipment',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -176,6 +363,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
               onPressed: () {
                 setState(() {
                   _selectedEquipment = {};
+                  _selectedEquipmentCategories = {};
                 });
               },
               child: const Text('All'),
@@ -185,6 +373,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
               onPressed: () {
                 setState(() {
                   _selectedEquipment = setupData.availEquipment;
+                  _selectedEquipmentCategories = {};
                 });
               },
               child: const Text('My Equipment'),
@@ -194,59 +383,57 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         const SizedBox(height: 12),
         Expanded(
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (final category in EquipmentCategory.values) ...[
-                  Text(
-                    category.displayName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.8),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ...Equipment.values
-                      .where((equipment) => equipment.category == category)
-                      .map((equipment) {
-                    return CheckboxListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(
-                        equipment.displayName,
-                        style: const TextStyle(fontSize: 13),
-                      ),
-                      value: _selectedEquipment.isEmpty ||
-                          _selectedEquipment.contains(equipment),
-                      onChanged: (selected) {
-                        setState(() {
-                          if (_selectedEquipment.isEmpty) {
-                            // If showing all, start with all equipment and remove this one
-                            _selectedEquipment = Equipment.values.toSet();
-                            if (selected != true) {
-                              _selectedEquipment.remove(equipment);
-                            }
-                          } else {
-                            if (selected == true) {
-                              _selectedEquipment.add(equipment);
-                            } else {
-                              _selectedEquipment.remove(equipment);
-                            }
-                          }
-                        });
-                      },
-                    );
-                  }),
-                  const SizedBox(height: 12),
-                ],
-              ],
-            ),
+            child: _buildSimplifiedEquipmentList(),
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildSimplifiedEquipmentList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Individual Non-machine and General Machine equipment
+        ...Equipment.values
+            .where((eq) =>
+                eq.category == EquipmentCategory.nonMachine ||
+                eq.category == EquipmentCategory.generalMachines)
+            .map((equipment) {
+          return CheckboxListTile(
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              equipment.displayName,
+              style: const TextStyle(fontSize: 13),
+            ),
+            value: _selectedEquipment.isEmpty ||
+                _selectedEquipment.contains(equipment),
+            onChanged: (selected) => _toggleEquipment(equipment, selected),
+          );
+        }),
+
+        const SizedBox(height: 12),
+
+        // Grouped machine categories
+        ...[
+          EquipmentCategory.upperBodyMachines,
+          EquipmentCategory.lowerBodyMachines,
+          EquipmentCategory.coreAndGluteMachines,
+        ].map((category) {
+          final isSelected = _selectedEquipmentCategories.contains(category);
+          return CheckboxListTile(
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              category.displayName,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            ),
+            value: isSelected,
+            onChanged: (selected) =>
+                _toggleEquipmentCategory(category, selected),
+          );
+        }),
       ],
     );
   }
@@ -350,6 +537,12 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                     setState(() {
                       _selectedExercise = isSelected ? null : exercise;
                     });
+
+                    // On mobile, show modal
+                    if (MediaQuery.of(context).size.width <= 768 &&
+                        _selectedExercise != null) {
+                      _showExerciseDetailModal(setupData);
+                    }
                   },
                 ),
               );
@@ -443,6 +636,128 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     );
   }
 
+  Widget _buildExerciseDetailModal(setupData) {
+    return Container(
+      color: Colors.black54,
+      child: Center(
+        child: Container(
+          margin: const EdgeInsets.all(20),
+          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: _buildExerciseDetail(setupData),
+        ),
+      ),
+    );
+  }
+
+  void _showExerciseDetailModal(setupData) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        insetPadding: const EdgeInsets.all(20),
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
+          padding: const EdgeInsets.all(16),
+          child: _buildExerciseDetail(setupData),
+        ),
+      ),
+    );
+  }
+
+  void _showMuscleGroupPicker() {
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: const Text('Select Muscle Group'),
+        children: [
+          SimpleDialogOption(
+            onPressed: () {
+              setState(() {
+                _selectedMuscleGroup = null;
+              });
+              Navigator.pop(context);
+            },
+            child: const Text('All muscle groups'),
+          ),
+          ...ProgramGroup.values.map((group) => SimpleDialogOption(
+                onPressed: () {
+                  setState(() {
+                    _selectedMuscleGroup = group;
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text(group.displayName),
+              )),
+        ],
+      ),
+    );
+  }
+
+  void _showEquipmentPicker(setupData) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Equipment'),
+        content: Container(
+          width: double.maxFinite,
+          child: _buildSimplifiedEquipmentList(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Done'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _toggleEquipment(Equipment equipment, bool? selected) {
+    setState(() {
+      if (_selectedEquipment.isEmpty) {
+        // If showing all, start with all equipment and remove this one
+        _selectedEquipment = Equipment.values.toSet();
+        if (selected != true) {
+          _selectedEquipment.remove(equipment);
+        }
+      } else {
+        if (selected == true) {
+          _selectedEquipment.add(equipment);
+        } else {
+          _selectedEquipment.remove(equipment);
+        }
+      }
+    });
+  }
+
+  void _toggleEquipmentCategory(EquipmentCategory category, bool? selected) {
+    setState(() {
+      if (selected == true) {
+        _selectedEquipmentCategories.add(category);
+      } else {
+        _selectedEquipmentCategories.remove(category);
+      }
+    });
+  }
+
+  String _getEquipmentFilterText() {
+    if (_selectedEquipmentCategories.isEmpty && _selectedEquipment.isEmpty) {
+      return 'All equipment';
+    }
+
+    final count = _selectedEquipmentCategories.length +
+        _selectedEquipment
+            .where((eq) =>
+                eq.category == EquipmentCategory.nonMachine ||
+                eq.category == EquipmentCategory.generalMachines)
+            .length;
+
+    return count == 1 ? '1 filter' : '$count filters';
+  }
+
   List<Ex> _getFilteredExercises(setupData) {
     List<Ex> exercises = List.from(exes);
 
@@ -463,10 +778,20 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     }
 
     // Apply equipment filter
-    if (_selectedEquipment.isNotEmpty) {
+    if (_selectedEquipment.isNotEmpty ||
+        _selectedEquipmentCategories.isNotEmpty) {
       exercises = exercises.where((ex) {
         if (ex.equipment.isEmpty) return true; // Bodyweight exercises
-        return ex.equipment.every((eq) => _selectedEquipment.contains(eq));
+
+        // Check individual equipment selections
+        final hasSelectedEquipment =
+            ex.equipment.any((eq) => _selectedEquipment.contains(eq));
+
+        // Check category selections
+        final hasSelectedCategory = ex.equipment
+            .any((eq) => _selectedEquipmentCategories.contains(eq.category));
+
+        return hasSelectedEquipment || hasSelectedCategory;
       }).toList();
     }
 

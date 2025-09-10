@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       title: 'Body.build: advanced workout planner for coaches and lifters',
       //     darkTheme: ThemeData.dark(),
