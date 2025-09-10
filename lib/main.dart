@@ -10,6 +10,7 @@ import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
+import 'package:bodybuild/ui/programmer/page/exercises_screen.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 void main() async {
@@ -92,6 +93,11 @@ class MyApp extends StatelessWidget {
                 name: MealPlanScreen.routeName,
                 path: MealPlanScreen.routeName,
                 builder: (context, state) => const MealPlanScreen(),
+              ),
+              GoRoute(
+                name: ExercisesScreen.routeName,
+                path: ExercisesScreen.routeName,
+                builder: (context, state) => const ExercisesScreen(),
               )
             ],
           ),

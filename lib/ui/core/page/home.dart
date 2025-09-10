@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/programmer/page/exercises_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/anatomy/page/articulations.dart';
@@ -65,6 +66,14 @@ To see it, hit the "articulations" button, and then click on "shoulder flexion".
                 context.goNamed(ProgrammerScreen.routeName);
               },
               child: Text('programmer',
+                  style: Theme.of(context).textTheme.titleLarge),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                context.goNamed(ExercisesScreen.routeName);
+              },
+              child: Text('exercises',
                   style: Theme.of(context).textTheme.titleLarge),
             ),
           ],
