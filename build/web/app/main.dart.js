@@ -53539,7 +53539,7 @@ A.aew.prototype={
 $0(){return this.a.xw(this.b,"articulations")},
 $S:0}
 A.a19.prototype={
-I(a){return B.aka}}
+I(a){return B.akh}}
 A.wo.prototype={
 ai(){return new A.a5S()}}
 A.a5S.prototype={
@@ -53752,7 +53752,7 @@ r.f=r.d=null},
 $S:0}
 A.aiB.prototype={
 $1(a){var s,r,q=a.a,p=a.b,o=J.aq(q)
-if(J.ee(o.i(q,p).ghQ()))return B.akb
+if(J.ee(o.i(q,p).ghQ()))return B.aka
 s=this.a
 r=s.f
 p=J.cO(o.i(q,p).ghQ(),new A.aiv(),t.mz)
@@ -54161,7 +54161,7 @@ $S:664}
 A.aO_.prototype={
 $1(a){var s,r,q=this,p=null,o=A.m(q.b),n=t.p,m=A.b([],n),l=q.c
 if(!l){s=q.a
-B.b.D(m,A.b([A.f8(p,p,A.dP(s.as?B.Xn:B.Xa,p,p,p),p,p,new A.aNZ(s),p,p,p,p,p)],n))}o=A.oD(m,!0,o.ax.k2,p,p,p,B.ake,p)
+B.b.D(m,A.b([A.f8(p,p,A.dP(s.as?B.Xn:B.Xa,p,p,p),p,p,new A.aNZ(s),p,p,p,p,p)],n))}o=A.oD(m,!0,o.ax.k2,p,p,p,B.akd,p)
 if(l){m=q.a
 l=m.c
 l.toString
@@ -54323,7 +54323,7 @@ $S:142}
 A.aNV.prototype={
 $1(a){var s=this.a,r=A.b([A.b7J(B.qX,new A.aNT(s,a))],t.p)
 B.b.D(r,new A.H(B.bs,new A.aNU(s,a),t.ZN))
-return A.b7I(r,B.TH,B.akg)},
+return A.b7I(r,B.TH,B.akf)},
 $S:690}
 A.aNT.prototype={
 $0(){var s=this.a
@@ -54564,7 +54564,7 @@ $2(a,b){var s=null
 return A.dO(A.Z("Error: "+A.l(a),s,s,s,s,s,s,s),s,s)},
 $S:53}
 A.axz.prototype={
-$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b6_(A.b([A.oX(!1,B.akd,k,k,k,k,k,k,new A.axu(j),k,k),A.oX(!1,B.ajJ,k,k,k,k,k,k,new A.axv(j),k,k),A.oX(!1,B.II,k,k,k,k,k,k,new A.axw(j),k,k)],i),B.aT,t.l)
+$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b6_(A.b([A.oX(!1,B.akc,k,k,k,k,k,k,new A.axu(j),k,k),A.oX(!1,B.ajJ,k,k,k,k,k,k,new A.axv(j),k,k),A.oX(!1,B.II,k,k,k,k,k,k,new A.axw(j),k,k)],i),B.aT,t.l)
 h=A.Q(h,A.j(h).h("o.E"))
 h=A.ba(A.b([new A.d1(28,B.aj,new A.rL("Available equipment",h,k),k)],i),B.m,B.i,B.l,0,k,k)
 s=A.b([],i)
@@ -109287,7 +109287,7 @@ A.a8P.prototype={}
 A.zD.prototype={
 I(a){var s=null,r=this.c
 r=r==null?s:"GoException: "+r.a
-return A.a_1(!0,A.dO(A.aU(A.b([B.akh,B.aN,A.Z(r==null?"page not found":r,s,s,s,s,s,s,s),B.aN,new A.Mw(new A.alK(a),B.akc,s)],t.p),B.m,B.e5,B.l,0),s,s),B.W,!0)}}
+return A.a_1(!0,A.dO(A.aU(A.b([B.akg,B.aN,A.Z(r==null?"page not found":r,s,s,s,s,s,s,s),B.aN,new A.Mw(new A.alK(a),B.akb,s)],t.p),B.m,B.e5,B.l,0),s,s),B.W,!0)}}
 A.alK.prototype={
 $0(){return A.Hc(this.a).B7(0,"/",null)},
 $S:0}
@@ -124039,8 +124039,8 @@ B.c5=new A.Be(3,"layout")
 B.abl=new A.ZE(0,"raster")
 B.abm=new A.ZE(1,"picture")
 B.afp=new A.B(!0,null,null,null,null,null,12,B.bj,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.akf=new A.b7("COMBO",null,B.afp,null,null,null,null,null,null,null,null)
-B.abn=new A.JS(1,B.akf,null)
+B.ake=new A.b7("COMBO",null,B.afp,null,null,null,null,null,null,null,null)
+B.abn=new A.JS(1,B.ake,null)
 B.H6=new A.aAx(null)
 B.abo=new A.du(B.mK,B.n)
 B.li=new A.b6(28,28)
@@ -124782,14 +124782,14 @@ B.ak3=new A.b7("Page Not Found",null,null,null,null,null,null,null,null,null,nul
 B.ak4=new A.b7("overall range",null,null,null,null,null,null,null,null,null,null)
 B.ak6=new A.b7("Set up",null,null,null,null,null,null,null,null,null,null)
 B.ak8=new A.b7("Passive insufficiency",null,B.cY,null,null,null,null,null,null,null,null)
-B.aka=new A.b7("version main-fe349c5 (Thu Sep 11 16:38:29 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
-B.akb=new A.b7("No workouts available. Create workouts in the Program Builder first.",null,null,null,null,null,null,null,null,null,null)
+B.aka=new A.b7("No workouts available. Create workouts in the Program Builder first.",null,null,null,null,null,null,null,null,null,null)
 B.agq=new A.B(!0,B.p,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.akc=new A.b7("Go to home page",null,B.agq,null,null,null,null,null,null,null,null)
-B.akd=new A.b7("None",null,null,null,null,null,null,null,null,null,null)
-B.ake=new A.b7("Exercise Browser",null,null,null,null,null,null,null,null,null,null)
-B.akg=new A.b7("Select Muscle Group",null,null,null,null,null,null,null,null,null,null)
-B.akh=new A.b7("Page Not Found",null,B.cY,null,null,null,null,null,null,null,null)
+B.akb=new A.b7("Go to home page",null,B.agq,null,null,null,null,null,null,null,null)
+B.akc=new A.b7("None",null,null,null,null,null,null,null,null,null,null)
+B.akd=new A.b7("Exercise Browser",null,null,null,null,null,null,null,null,null,null)
+B.akf=new A.b7("Select Muscle Group",null,null,null,null,null,null,null,null,null,null)
+B.akg=new A.b7("Page Not Found",null,B.cY,null,null,null,null,null,null,null,null)
+B.akh=new A.b7("version main-5718a94 (Thu Sep 11 16:39:32 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
 B.aki=new A.b7("Create New",null,null,null,null,null,null,null,null,null,null)
 B.akk=new A.b7("Meal Planner",null,null,null,null,null,null,null,null,null,null)
 B.IL=new A.b7("Duplicate",null,null,null,null,null,null,null,null,null,null)
