@@ -53054,7 +53054,7 @@ if(n!=null)o.push(A.vd(A.b([B.Sx,A.rc(A.Z(A.mC(A.mB(n.b)),r,r,r,r,r,r,r))],t.sa)
 if(q instanceof A.Kv){n=q.f
 n===$&&A.a()
 B.b.D(o,A.bbw(n))}p=A.b([p,A.bcb(o)],t.p)
-if(q.c)p.push(B.ajM)
+if(q.c)p.push(B.ajN)
 p.push(B.aN)
 o=q instanceof A.Az
 if(o)p.push(A.Z("Heads",r,r,r,r,A.m(a).ok.w,r,r))
@@ -53539,7 +53539,7 @@ A.aew.prototype={
 $0(){return this.a.xw(this.b,"articulations")},
 $S:0}
 A.a19.prototype={
-I(a){return B.ajR}}
+I(a){return B.ajJ}}
 A.wo.prototype={
 ai(){return new A.a5S()}}
 A.a5S.prototype={
@@ -54347,7 +54347,7 @@ $0(){this.a.x=this.b},
 $S:0}
 A.aNO.prototype={
 $1(a){var s=null,r=A.aj(s,this.a.Vt(),B.f,s,s,s,s,s,s,17976931348623157e292)
-return A.qJ(A.b([A.jN(!1,B.ajw,s,s,s,s,s,s,new A.aNN(a),s,s)],t.p),r,B.ajL)},
+return A.qJ(A.b([A.jN(!1,B.ajw,s,s,s,s,s,s,new A.aNN(a),s,s)],t.p),r,B.ajM)},
 $S:54}
 A.aNN.prototype={
 $0(){A.en(this.a,!1).hM(null)
@@ -54405,7 +54405,7 @@ return B.adK}i=A.m(a).ax
 h=i.y2
 i=h==null?i.c:h
 h=t.p
-s=A.b([A.bj5(B.Xz,B.ajO,new A.aRi(a))],h)
+s=A.b([A.bj5(B.Xz,B.ajP,new A.aRi(a))],h)
 r=A.m(a).ax.b.aY(0.1)
 q=A.cd(8)
 p=A.kT(A.m(a).ax.b.aY(0.1),2)
@@ -54564,7 +54564,7 @@ $2(a,b){var s=null
 return A.dO(A.Z("Error: "+A.l(a),s,s,s,s,s,s,s),s,s)},
 $S:53}
 A.axz.prototype={
-$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b6_(A.b([A.oX(!1,B.akd,k,k,k,k,k,k,new A.axu(j),k,k),A.oX(!1,B.ajJ,k,k,k,k,k,k,new A.axv(j),k,k),A.oX(!1,B.II,k,k,k,k,k,k,new A.axw(j),k,k)],i),B.aT,t.l)
+$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.b6_(A.b([A.oX(!1,B.akd,k,k,k,k,k,k,new A.axu(j),k,k),A.oX(!1,B.ajK,k,k,k,k,k,k,new A.axv(j),k,k),A.oX(!1,B.II,k,k,k,k,k,k,new A.axw(j),k,k)],i),B.aT,t.l)
 h=A.Q(h,A.j(h).h("o.E"))
 h=A.ba(A.b([new A.d1(28,B.aj,new A.rL("Available equipment",h,k),k)],i),B.m,B.i,B.l,0,k,k)
 s=A.b([],i)
@@ -55386,7 +55386,7 @@ s=p.d
 s===$&&A.a()
 if(s.gcW(s)!=null&&!p.d.ga3S()){s=p.d
 s=A.b([A.Z(s.gcW(s).f,o,o,o,o,o,o,o),B.qA],r)
-if(n)s.push(A.jN(!1,B.ajN,o,o,o,o,o,o,new A.aN7(p),o,o))
+if(n)s.push(A.jN(!1,B.ajO,o,o,o,o,o,o,new A.aN7(p),o,o))
 B.b.D(m,A.b([A.ba(s,B.m,B.i,B.l,0,o,o)],r))}else B.b.D(m,A.b([A.b3X(new A.aN8(),new A.aN9(),new A.aNa(p),new A.aNb(p),o,t.W9)],r))
 m.push(B.h9)
 s=p.d
@@ -55674,7 +55674,7 @@ h=n.gcW(n)
 h.toString
 J.b_i(k,h,new A.awL(n),new A.awM(n))}}}s=A.m(a)
 r=A.cd(8)
-q=A.b([A.Z("Muscle modalities",g,g,g,g,A.m(a).ok.r,g,g),B.dk,B.aks,B.akx,B.akp,B.ajP,B.aN],t.p)
+q=A.b([A.Z("Muscle modalities",g,g,g,g,A.m(a).ok.r,g,g),B.dk,B.aks,B.akx,B.akp,B.ajQ,B.aN],t.p)
 B.b.D(q,new A.H(B.bs,new A.awN(f,a),t.ZN))
 return A.aj(g,A.aU(q,B.P,B.i,B.l,0),B.f,g,g,new A.bx(s.ax.k2,g,g,r,g,g,B.J),g,g,B.aR,g)}}
 A.awK.prototype={
@@ -122349,8 +122349,8 @@ B.amV=new A.qh(12,0.14)
 B.wR=s([B.amU,B.amZ,B.amX,B.amY,B.amW,B.amV],A.a5("r<qh>"))
 B.ajE=new A.b7("Existing Workout",null,null,null,null,null,null,null,null,null,null)
 B.MK=new A.im("existing",B.ajE,t.Zx)
-B.ajQ=new A.b7("Custom",null,null,null,null,null,null,null,null,null,null)
-B.MJ=new A.im("custom",B.ajQ,t.Zx)
+B.ajR=new A.b7("Custom",null,null,null,null,null,null,null,null,null,null)
+B.MJ=new A.im("custom",B.ajR,t.Zx)
 B.a_U=s([B.MK,B.MJ],t.CK)
 B.akj=new A.b7("",null,null,null,null,null,null,null,null,null,null)
 B.uS=new A.oQ(B.akj)
@@ -124062,8 +124062,8 @@ B.ajF=new A.b7("generate workout",null,null,null,null,null,null,null,null,null,n
 B.a1q=s([B.Xv,B.ajF],t.p)
 B.abu=new A.i6(B.ai,B.i,B.l,B.m,null,B.bK,null,0,B.a1q,null)
 B.adF=new A.ec(24,null,null,null)
-B.ajK=new A.b7("(height corresponds to muscle strength for this movement)",null,null,null,null,!0,null,null,null,null,null)
-B.Wi=new A.d1(1,B.aj,B.ajK,null)
+B.ajL=new A.b7("(height corresponds to muscle strength for this movement)",null,null,null,null,!0,null,null,null,null,null)
+B.Wi=new A.d1(1,B.aj,B.ajL,null)
 B.a1l=s([B.adF,B.Wi],t.p)
 B.abv=new A.i6(B.ai,B.i,B.Z,B.m,null,B.bK,null,0,B.a1l,null)
 B.OH=new A.uY(16,16,0,8,16,null)
@@ -124763,15 +124763,15 @@ B.ajA=new A.b7("muscle inactive",null,null,null,null,null,null,null,null,null,nu
 B.j3=new A.b7("Cancel",null,null,null,null,null,null,null,null,null,null)
 B.ajG=new A.b7("Close",null,null,null,null,null,null,null,null,null,null)
 B.ajI=new A.b7("no moves for this articulation",null,null,null,null,null,null,null,null,null,null)
-B.ajJ=new A.b7("Basic Gym",null,null,null,null,null,null,null,null,null,null)
-B.ajL=new A.b7("Select Equipment",null,null,null,null,null,null,null,null,null,null)
+B.ajJ=new A.b7("version main-fa2be02 (Thu Sep 11 16:33:38 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.ajK=new A.b7("Basic Gym",null,null,null,null,null,null,null,null,null,null)
+B.ajM=new A.b7("Select Equipment",null,null,null,null,null,null,null,null,null,null)
 B.IJ=new A.b7("Rename",null,null,null,null,null,null,null,null,null,null)
-B.ajM=new A.b7('note: this is a "pseudo" muscle',null,null,null,null,null,null,null,null,null,null)
-B.ajN=new A.b7("Change",null,null,null,null,null,null,null,null,null,null)
-B.ajO=new A.b7("Help",null,null,null,null,null,null,null,null,null,null)
+B.ajN=new A.b7('note: this is a "pseudo" muscle',null,null,null,null,null,null,null,null,null,null)
+B.ajO=new A.b7("Change",null,null,null,null,null,null,null,null,null,null)
+B.ajP=new A.b7("Help",null,null,null,null,null,null,null,null,null,null)
 B.IK=new A.b7("OK",null,null,null,null,null,null,null,null,null,null)
-B.ajP=new A.b7("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
-B.ajR=new A.b7("version main-69d08fc (Thu Sep 11 15:48:03 2025 +0200)",null,null,null,null,null,null,null,null,null,null)
+B.ajQ=new A.b7("For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis",null,null,null,null,null,null,null,null,null,null)
 B.ajS=new A.b7("View Program Breakdown",null,null,null,null,null,null,null,null,null,null)
 B.ajT=new A.b7("Legend",null,null,null,null,null,null,null,null,null,null)
 B.ajU=new A.b7("My Equipment",null,null,null,null,null,null,null,null,null,null)

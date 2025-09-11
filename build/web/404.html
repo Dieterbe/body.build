@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Body.build</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .logo-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(39, 174, 96, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-body {
+            color: #27ae60;
+        }
+
+        .logo-dot {
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(39, 174, 96, 0.6);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .logo-dot::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 4px;
+            height: 4px;
+            background: rgba(39, 174, 96, 0.8);
+            border-radius: 50%;
+        }
+
+        .logo-build {
+            color: #ffffff;
+            font-weight: 300;
+        }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(39, 174, 96, 0.2);
+            color: #27ae60;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+        }
+
+        .error-section {
+            margin-bottom: 40px;
+        }
+
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .error-icon svg {
+            width: 40px;
+            height: 40px;
+            color: rgba(239, 68, 68, 0.7);
+        }
+
+        .error-code {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ef4444;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .error-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .error-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #219a52;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(39, 174, 96, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .quick-nav {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quick-nav h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .nav-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .nav-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: rgba(39, 174, 96, 0.1);
+            color: #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .nav-chip:hover {
+            background: rgba(39, 174, 96, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .nav-chip svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .logo-text {
+                font-size: 2rem;
+            }
+
+            .error-code {
+                font-size: 3rem;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+            }
+
+            .actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo">
+                <span class="logo-text logo-body">BODY</span>
+                <div class="logo-dot"></div>
+                <span class="logo-text logo-build">BUILD</span>
+            </div>
+            <div class="tagline">Advanced workout planner for coaches and lifters</div>
+            <div class="badge">Free • No ads • No signup</div>
+        </div>
+
+        <!-- Error Section -->
+        <div class="error-section">
+            <div class="error-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13l6 6"></path>
+                </svg>
+            </div>
+            <div class="error-code">404</div>
+            <div class="error-title">Page Not Found</div>
+            <div class="error-description">
+                The page you're looking for doesn't exist.<br>
+                It might have been moved, deleted, or you entered the wrong URL.
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            <a href="/" class="btn btn-primary">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                Go Home
+            </a>
+            <button onclick="history.back()" class="btn btn-secondary">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                Go Back
+            </button>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="quick-nav">
+            <h3>Quick Navigation</h3>
+            <div class="nav-chips">
+                <a href="/exercises" class="nav-chip">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/>
+                    </svg>
+                    Exercises
+                </a>
+                <a href="/programmer" class="nav-chip">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                    </svg>
+                    Programmer
+                </a>
+                <a href="/muscles" class="nav-chip">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/>
+                    </svg>
+                    Muscles
+                </a>
+                <a href="/mealplan" class="nav-chip">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
+                    </svg>
+                    Meal Plan
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
