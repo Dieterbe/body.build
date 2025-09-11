@@ -7,6 +7,7 @@ import 'package:bodybuild/ui/anatomy/colors.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
 import 'package:bodybuild/ui/anatomy/page/muscle.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
@@ -35,6 +36,7 @@ void main() async {
   if (kIsWeb) {
     await Posthog().setup(config);
   }
+  usePathUrlStrategy();
   runApp(const ProviderScope(child: MyApp()));
 }
 
