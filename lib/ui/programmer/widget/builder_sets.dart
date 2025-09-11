@@ -7,7 +7,7 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_edit_dialog.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
@@ -106,7 +106,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                     ),
                   );
                 },
-                child: ExerciseEditDialog(
+                child: ExerciseDetailsDialog(
                   sets: widget.sets,
                   setup: widget.setup,
                   onChange: widget.onChange,

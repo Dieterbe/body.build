@@ -5,7 +5,7 @@ import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_edit_dialog.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 
