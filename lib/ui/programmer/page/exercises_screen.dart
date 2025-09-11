@@ -8,6 +8,7 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 
 class ExercisesScreen extends ConsumerStatefulWidget {
   static const String routeName = 'exercises';
@@ -58,6 +59,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             ],
           ],
         ),
+        drawer: const AppNavigationDrawer(),
         body: isDesktop
             ? _buildDesktopLayout(setupData)
             : isTablet
@@ -102,6 +104,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                 ),
               ),
             ),
+            alignment: Alignment.topCenter,
             child: _buildExerciseDetail(setupData),
           ),
       ],
@@ -272,37 +275,35 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
-          Text(
-            'Filters',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+        Text(
+          'Filters',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
           ),
-          const SizedBox(height: 16),
+        ),
+        const SizedBox(height: 16),
 
-          // Search Filter
-          TextField(
-            onChanged: (value) {
-              setState(() {
-                _searchQuery = value;
-              });
-            },
-            decoration: InputDecoration(
-              hintText: 'Search exercises...',
-              prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              filled: true,
-              fillColor:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+        // Search Filter
+        TextField(
+          onChanged: (value) {
+            setState(() {
+              _searchQuery = value;
+            });
+          },
+          decoration: InputDecoration(
+            hintText: 'Search exercises...',
+            prefixIcon: const Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
             ),
+            filled: true,
+            fillColor:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
           ),
-          const SizedBox(height: 24),
-        
+        ),
+        const SizedBox(height: 24),
 
         // Muscle Group Filter
         Text(
@@ -565,7 +566,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     if (recruitmentData.isEmpty) return const SizedBox.shrink();
 
     return Container(
-      height: 20,
+      height: 10,
+      margin: const EdgeInsets.only(top: 4),
       child: Row(
         children: recruitmentData.entries.map((entry) {
           final group = entry.key;
@@ -573,10 +575,10 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           return Expanded(
             flex: (volume * 100).round(),
             child: Container(
-              margin: const EdgeInsets.only(right: 1),
+              margin: const EdgeInsets.only(right: 0.5),
               decoration: BoxDecoration(
-                color: bgColorForProgramGroup(group),
-                borderRadius: BorderRadius.circular(2),
+                color: bgColorForProgramGroup(group).withValues(alpha: 0.7),
+                borderRadius: BorderRadius.circular(1),
               ),
               child: Tooltip(
                 message:
@@ -596,43 +598,36 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     final exercise = _selectedExercise!;
     final dummySets = Sets(1, ex: exercise);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              'Exercise Details',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () {
-                setState(() {
-                  _selectedExercise = null;
-                });
-              },
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Expanded(
-          child: SingleChildScrollView(
-            child: ExerciseEditDialog(
-              sets: dummySets,
-              setup: setupData,
-              onChange: (newSets) {
-                // This is just for display, so we don't need to handle changes
-              },
-            ),
-          ),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: ExerciseDetailsDialog(
+        sets: dummySets,
+        setup: setupData,
+        onClose: () {
+          setState(() {
+            _selectedExercise = null;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildExerciseDetailForModal(setupData, BuildContext dialogContext) {
+    if (_selectedExercise == null) return const SizedBox.shrink();
+
+    final exercise = _selectedExercise!;
+    final dummySets = Sets(1, ex: exercise);
+
+    return SingleChildScrollView(
+      child: ExerciseDetailsDialog(
+        sets: dummySets,
+        setup: setupData,
+        onClose: () {
+          setState(() {
+            _selectedExercise = null;
+          });
+          Navigator.pop(dialogContext);
+        },
+      ),
     );
   }
 
@@ -642,6 +637,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
       child: Center(
         child: Container(
           margin: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
@@ -656,12 +652,12 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   void _showExerciseDetailModal(setupData) {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
+      builder: (dialogContext) => Dialog(
         insetPadding: const EdgeInsets.all(20),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
           padding: const EdgeInsets.all(16),
-          child: _buildExerciseDetail(setupData),
+          child: _buildExerciseDetailForModal(setupData, dialogContext),
         ),
       ),
     );

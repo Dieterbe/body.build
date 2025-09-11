@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:bodybuild/data/anatomy/articulations.dart';
 import 'package:bodybuild/model/anatomy/movements.dart';
 import 'package:bodybuild/ui/anatomy/page/articulation.dart';
+import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/util.dart';
 
 class ArticulationsScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('Body.build - $varTitle'),
       ),
+      drawer: const AppNavigationDrawer(),
       body: Column(
         children: [
           Padding(

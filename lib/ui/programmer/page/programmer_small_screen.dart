@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 
 class SmallScreen extends StatelessWidget {
   final IconData icon;
@@ -15,6 +16,16 @@ class SmallScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+      ),
+      drawer: const AppNavigationDrawer(),
       body: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 600),

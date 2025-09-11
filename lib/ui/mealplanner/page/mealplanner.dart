@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner_builder.dart';
+import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'mealplanner_wizard.dart';
 
 class MealPlanScreen extends ConsumerStatefulWidget {
@@ -15,24 +16,31 @@ class MealPlanScreen extends ConsumerStatefulWidget {
 class _MealPlanScreenState extends ConsumerState<MealPlanScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: MealPlannerWizard(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Meal Planner'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      drawer: const AppNavigationDrawer(),
+      body: const Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: MealPlannerWizard(),
+            ),
           ),
-        ),
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: MealPlannerBuilder(),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: MealPlannerBuilder(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
