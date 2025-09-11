@@ -1,84 +1,141 @@
-import 'package:bodybuild/ui/programmer/page/exercises_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:bodybuild/ui/anatomy/page/articulations.dart';
-import 'package:bodybuild/ui/anatomy/page/muscles.dart';
-import 'package:bodybuild/ui/programmer/page/programmer.dart';
-import 'package:bodybuild/ui/core/markdown.dart';
+import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'home';
   const HomeScreen({super.key});
 
-  static const String markdownSource = '''
-# PTC Pro
-
-Dieter wrote this app to summarize the information from the PTC anatomy module and make it more practical.
-You can look up:
-* muscle's common functions and other details (e.g. insufficiency)
-* joint articulations & involved muscles.
-
-What I would really like to do is make this more visual.  
-Such that you can see the entire ROM (range of motion) of a movement and see how different muscles/heads/fibers activate,  
-become stronger at specific points (or have a better moment arm), when they are fully stretched, and deactivate
-
-The best example of my current progress would be the **shoulder flexion**.  
-To see it, hit the "articulations" button, and then click on "shoulder flexion".
-
-### DISCLAIMER:
-* use any information here at your own risk
-* the **information is incomplete**, i need to add more data.
-* the app is a work in progress and might crash or not work at all
-* some of the information included is based on interpretations, or from other sources beyond just the PTC module
-''';
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Body.build: Home'),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            markdown(markdownSource, context),
-            const SizedBox(height: 32),
-            TextButton(
-              onPressed: () {
-                context.goNamed(ArticulationsScreen.routeName);
-              },
-              child: Text('articulations',
-                  style: Theme.of(context).textTheme.titleLarge),
+        appBar: AppBar(
+          title: const Text('Body.build'),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        drawer: const AppNavigationDrawer(),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            // Hero Section
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    colorScheme.primary.withValues(alpha: 0.1),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Column(
+                  children: [
+                    // Logo Section
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: colorScheme.surface,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: colorScheme.shadow.withValues(alpha: 0.1),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'BODY',
+                            style: theme.textTheme.headlineMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.primary,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color:
+                                    colorScheme.primary.withValues(alpha: 0.6),
+                                width: 2,
+                              ),
+                            ),
+                            child: Container(
+                              margin: const EdgeInsets.all(1),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: colorScheme.primary
+                                      .withValues(alpha: 0.7),
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            'BUILD',
+                            style: theme.textTheme.headlineMedium?.copyWith(
+                              fontWeight: FontWeight.w300,
+                              color: colorScheme.onSurface,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Advanced workout planner\nfor coaches and lifters',
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.8),
+                        height: 1.3,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        'Free • No ads • No signup',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "Use the top-left hamburger menu to navigate to the different sections of the app",
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.7),
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                context.goNamed(MusclesScreen.routeName);
-              },
-              child: Text('muscles',
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                context.goNamed(ProgrammerScreen.routeName);
-              },
-              child: Text('programmer',
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                context.goNamed(ExercisesScreen.routeName);
-              },
-              child: Text('exercises',
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
-          ],
-        )),
-      ),
-    );
+          ]),
+        ));
   }
 }
