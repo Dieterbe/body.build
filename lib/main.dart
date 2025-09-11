@@ -7,9 +7,11 @@ import 'package:bodybuild/ui/anatomy/colors.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
 import 'package:bodybuild/ui/anatomy/page/muscle.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
+import 'package:bodybuild/ui/programmer/page/exercises_screen.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 void main() async {
@@ -34,6 +36,7 @@ void main() async {
   if (kIsWeb) {
     await Posthog().setup(config);
   }
+  usePathUrlStrategy();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -44,6 +47,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       title: 'Body.build: advanced workout planner for coaches and lifters',
       //     darkTheme: ThemeData.dark(),
@@ -52,7 +56,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routerConfig: GoRouter(
-        initialLocation: '/${ProgrammerScreen.routeName}',
+        initialLocation: '/',
         routes: [
           GoRoute(
             path: '/',
@@ -92,6 +96,11 @@ class MyApp extends StatelessWidget {
                 name: MealPlanScreen.routeName,
                 path: MealPlanScreen.routeName,
                 builder: (context, state) => const MealPlanScreen(),
+              ),
+              GoRoute(
+                name: ExercisesScreen.routeName,
+                path: ExercisesScreen.routeName,
+                builder: (context, state) => const ExercisesScreen(),
               )
             ],
           ),

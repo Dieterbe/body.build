@@ -7,12 +7,9 @@ Widget markdown(String body, BuildContext context) {
     data: body,
     styleSheet: MarkdownStyleSheet(
       p: TextStyle(
-        fontSize: MediaQuery.of(context).size.width / 120,
         color: Theme.of(context).hintColor,
-        height: 1.4,
       ),
       a: TextStyle(
-        fontSize: MediaQuery.of(context).size.width / 120,
         color: Theme.of(context).colorScheme.primary,
         decoration: TextDecoration.none,
         fontWeight: FontWeight.w500,

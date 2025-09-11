@@ -7,6 +7,7 @@ import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:bodybuild/ui/core/logo.dart';
+import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 const String helpProgrammer = '''
@@ -87,18 +88,18 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           icon: Icons.screen_rotation,
           title: 'Rotate screen',
           description:
-              'This application requires a large screen in landscape mode (e.g. a desktop, desktop or tablet)',
+              'This section requires a large screen in landscape mode (e.g. a desktop, desktop or tablet)',
           instructions:
-              'Please rotate the screen or use another screen of at least 1000 pixels wide.',
+              'Please rotate the screen or use another screen of at least 1000 pixels wide, or use the menu to load another section',
         );
       }
       return const SmallScreen(
         icon: Icons.fit_screen,
         title: 'Screen Too Small',
         description:
-            'This is an advanced application that requires a bigger screen (e.g. a laptop, desktop or tablet). It does not work on small screens such as smart phones',
+            'This is an advanced section that requires a bigger screen (e.g. a laptop, desktop or tablet). It does not work on small screens such as smart phones',
         instructions:
-            'Please use a device with a screen width of at least 1000 pixels.',
+            'Please use a device with a screen width of at least 1000 pixels, or use the menu to load another section',
       );
     }
     return Scaffold(
@@ -117,6 +118,12 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
         actions: [
           FilledButton.icon(
             icon: const Icon(Icons.help_outline),
@@ -220,6 +227,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           ],
         ),
       ),
+      drawer: const AppNavigationDrawer(),
       body: const TabBarView(
         children: [
           SingleChildScrollView(
