@@ -1,5 +1,5 @@
 import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/ui/programmer/widget/exercises/equipment_filter.dart';
+import 'package:bodybuild/ui/exercises/widget/equipment_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';

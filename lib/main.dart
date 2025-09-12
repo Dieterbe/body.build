@@ -11,7 +11,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
-import 'package:bodybuild/ui/programmer/page/exercises_screen.dart';
+import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 void main() async {
