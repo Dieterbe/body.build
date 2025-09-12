@@ -4,10 +4,7 @@ import 'package:bodybuild/ui/anatomy/page/articulations.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/programmer/page/exercises_screen.dart';
-import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
-import 'package:iconify_flutter/iconify_flutter.dart';
-import 'package:iconify_flutter/icons/icon_park_outline.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({super.key});
