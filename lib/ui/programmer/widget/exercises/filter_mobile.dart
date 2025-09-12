@@ -2,35 +2,18 @@ import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/ui/programmer/widget/exercises/equipment_filter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 
-class FilterMobile extends StatelessWidget {
+class FilterMobile extends ConsumerWidget {
   const FilterMobile({
     super.key,
-    required this.searchController,
-    required this.setQuery,
-    required this.setAllEquipment,
-    required this.setNoEquipment,
-    required this.selectedMuscleGroup,
-    required this.setMuscleGroup,
-    required this.selectedEquipment,
-    required this.selectedEquipmentCategories,
-    required this.onToggleEquipment,
-    required this.onToggleEquipmentCategory,
   });
 
-  final TextEditingController searchController;
-  final void Function(String) setQuery;
-  final void Function() setAllEquipment;
-  final void Function() setNoEquipment;
-  final void Function(ProgramGroup?) setMuscleGroup;
-  final ProgramGroup? selectedMuscleGroup;
-  final Set<Equipment> selectedEquipment;
-  final Set<EquipmentCategory> selectedEquipmentCategories;
-  final void Function(Equipment, bool?) onToggleEquipment;
-  final void Function(EquipmentCategory, bool?) onToggleEquipmentCategory;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filterState = ref.watch(exerciseFilterProvider);
+    final filterNotifier = ref.read(exerciseFilterProvider.notifier);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -44,9 +27,9 @@ class FilterMobile extends StatelessWidget {
       child: Column(
         children: [
           // Search Bar
-          TextField(
-            controller: searchController,
-            onChanged: setQuery,
+          TextFormField(
+            initialValue: filterState.query,
+            onChanged: filterNotifier.setQuery,
             decoration: InputDecoration(
               hintText: 'Search exercises...',
               prefixIcon: const Icon(Icons.search),
@@ -67,14 +50,14 @@ class FilterMobile extends StatelessWidget {
               // Muscle Group Chip
               Expanded(
                 child: GestureDetector(
-                  onTap: () => _showMuscleGroupPicker(context),
+                  onTap: () => _showMuscleGroupPicker(context, ref),
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: Theme.of(context).dividerColor),
                       borderRadius: BorderRadius.circular(8),
-                      color: selectedMuscleGroup != null
+                      color: filterState.selectedMuscleGroup != null
                           ? Theme.of(context)
                               .colorScheme
                               .primary
@@ -88,7 +71,8 @@ class FilterMobile extends StatelessWidget {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            selectedMuscleGroup?.displayName ?? 'All muscles',
+                            filterState.selectedMuscleGroup?.displayName ??
+                                'All muscles',
                             style: const TextStyle(fontSize: 12),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -103,20 +87,21 @@ class FilterMobile extends StatelessWidget {
               // Equipment Chip
               Expanded(
                 child: GestureDetector(
-                  onTap: () => _showEquipmentPicker(context),
+                  onTap: () => _showEquipmentPicker(context, ref),
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: Theme.of(context).dividerColor),
                       borderRadius: BorderRadius.circular(8),
-                      color: selectedEquipmentCategories.isNotEmpty ||
-                              selectedEquipment.isNotEmpty
-                          ? Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.1)
-                          : null,
+                      color:
+                          filterState.selectedEquipmentCategories.isNotEmpty ||
+                                  filterState.selectedEquipment.isNotEmpty
+                              ? Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withValues(alpha: 0.1)
+                              : null,
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -125,7 +110,7 @@ class FilterMobile extends StatelessWidget {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            _getEquipmentFilterText(),
+                            _getEquipmentFilterText(filterState),
                             style: const TextStyle(fontSize: 12),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -143,7 +128,8 @@ class FilterMobile extends StatelessWidget {
     );
   }
 
-  void _showMuscleGroupPicker(BuildContext context) {
+  void _showMuscleGroupPicker(BuildContext context, WidgetRef ref) {
+    final filterNotifier = ref.read(exerciseFilterProvider.notifier);
     showDialog(
       context: context,
       builder: (context) => SimpleDialog(
@@ -151,14 +137,14 @@ class FilterMobile extends StatelessWidget {
         children: [
           SimpleDialogOption(
             onPressed: () {
-              setMuscleGroup(null);
+              filterNotifier.setMuscleGroup(null);
               Navigator.pop(context);
             },
             child: const Text('All muscle groups'),
           ),
           ...ProgramGroup.values.map((group) => SimpleDialogOption(
                 onPressed: () {
-                  setMuscleGroup(group);
+                  filterNotifier.setMuscleGroup(group);
                   Navigator.pop(context);
                 },
                 child: Text(group.displayName),
@@ -168,59 +154,39 @@ class FilterMobile extends StatelessWidget {
     );
   }
 
-  void _showEquipmentPicker(BuildContext context) {
+  void _showEquipmentPicker(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setState) => AlertDialog(
-          title: const Text('Select Equipment'),
-          content: Container(
-            width: double.maxFinite,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Equipment list
-                Flexible(
-                  child: EquipmentFilter(
-                    selectedEquipment: selectedEquipment,
-                    selectedEquipmentCategories: selectedEquipmentCategories,
-                    onToggleEquipment: (equipment, selected) {
-                      onToggleEquipment(equipment, selected);
-                      setState(() {}); // Trigger dialog rebuild
-                    },
-                    onToggleEquipmentCategory: (category, selected) {
-                      onToggleEquipmentCategory(category, selected);
-                      setState(() {}); // Trigger dialog rebuild
-                    },
-                    setAllEquipment: () {
-                      setAllEquipment();
-                      setState(() {}); // Trigger dialog rebuild
-                    },
-                    setNoEquipment: () {
-                      setNoEquipment();
-                      setState(() {}); // Trigger dialog rebuild
-                    },
-                  ),
-                ),
-              ],
-            ),
+      builder: (context) => AlertDialog(
+        title: const Text('Select Equipment'),
+        content: Container(
+          width: double.maxFinite,
+          child: const Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Equipment list
+              Flexible(
+                child: EquipmentFilter(),
+              ),
+            ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Done'),
-            ),
-          ],
         ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Done'),
+          ),
+        ],
       ),
     );
   }
 
-  String _getEquipmentFilterText() {
+  String _getEquipmentFilterText(ExerciseFilterState filterState) {
     final catBased = Equipment.values
-        .where((eq) => selectedEquipmentCategories.contains(eq.category))
+        .where((eq) =>
+            filterState.selectedEquipmentCategories.contains(eq.category))
         .length;
-    final count = selectedEquipment.length + catBased;
+    final count = filterState.selectedEquipment.length + catBased;
 
     if (count == Equipment.values.length) {
       return 'Equipment: all';

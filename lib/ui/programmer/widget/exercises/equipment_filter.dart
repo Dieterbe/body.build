@@ -1,26 +1,17 @@
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 
-class EquipmentFilter extends StatelessWidget {
+class EquipmentFilter extends ConsumerWidget {
   const EquipmentFilter({
     super.key,
-    required this.selectedEquipment,
-    required this.selectedEquipmentCategories,
-    required this.onToggleEquipment,
-    required this.onToggleEquipmentCategory,
-    required this.setAllEquipment,
-    required this.setNoEquipment,
   });
 
-  final Set<Equipment> selectedEquipment;
-  final Set<EquipmentCategory> selectedEquipmentCategories;
-  final void Function(Equipment, bool?) onToggleEquipment;
-  final void Function(EquipmentCategory, bool?) onToggleEquipmentCategory;
-  final void Function() setAllEquipment;
-  final void Function() setNoEquipment;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filterState = ref.watch(exerciseFilterProvider);
+    final filterNotifier = ref.read(exerciseFilterProvider.notifier);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,12 +19,12 @@ class EquipmentFilter extends StatelessWidget {
         Row(
           children: [
             ElevatedButton(
-              onPressed: setAllEquipment,
+              onPressed: filterNotifier.setAllEquipment,
               child: const Text('All'),
             ),
             const SizedBox(width: 8),
             ElevatedButton(
-              onPressed: setNoEquipment,
+              onPressed: filterNotifier.setNoEquipment,
               child: const Text('None'),
             ),
           ],
@@ -53,8 +44,9 @@ class EquipmentFilter extends StatelessWidget {
               equipment.displayName,
               style: const TextStyle(fontSize: 13),
             ),
-            value: selectedEquipment.contains(equipment),
-            onChanged: (selected) => onToggleEquipment(equipment, selected),
+            value: filterState.selectedEquipment.contains(equipment),
+            onChanged: (selected) =>
+                filterNotifier.toggleEquipment(equipment, selected),
           );
         }),
 
@@ -65,20 +57,19 @@ class EquipmentFilter extends StatelessWidget {
           EquipmentCategory.upperBodyMachines,
           EquipmentCategory.lowerBodyMachines,
           EquipmentCategory.coreAndGluteMachines,
-        ].map((category) {
-          final isSelected = selectedEquipmentCategories.contains(category);
-          return CheckboxListTile(
+        ].map(
+          (category) => CheckboxListTile(
             dense: true,
             contentPadding: EdgeInsets.zero,
             title: Text(
               category.displayName,
               style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
             ),
-            value: isSelected,
+            value: filterState.selectedEquipmentCategories.contains(category),
             onChanged: (selected) =>
-                onToggleEquipmentCategory(category, selected),
-          );
-        }),
+                filterNotifier.toggleEquipmentCategory(category, selected),
+          ),
+        ),
       ],
     );
   }

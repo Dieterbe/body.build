@@ -1,36 +1,18 @@
-import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/ui/programmer/widget/exercises/equipment_filter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 
-class FilterPanel extends StatelessWidget {
+class FilterPanel extends ConsumerWidget {
   const FilterPanel({
     super.key,
-    required this.searchController,
-    required this.setQuery,
-    required this.setAllEquipment,
-    required this.setNoEquipment,
-    required this.selectedMuscleGroup,
-    required this.setMuscleGroup,
-    required this.selectedEquipment,
-    required this.selectedEquipmentCategories,
-    required this.onToggleEquipment,
-    required this.onToggleEquipmentCategory,
   });
 
-  final TextEditingController searchController;
-  final void Function(String) setQuery;
-  final void Function() setAllEquipment;
-  final void Function() setNoEquipment;
-  final void Function(ProgramGroup?) setMuscleGroup;
-  final ProgramGroup? selectedMuscleGroup;
-  final Set<Equipment> selectedEquipment;
-  final Set<EquipmentCategory> selectedEquipmentCategories;
-  final void Function(Equipment, bool?) onToggleEquipment;
-  final void Function(EquipmentCategory, bool?) onToggleEquipmentCategory;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filterState = ref.watch(exerciseFilterProvider);
+    final filterNotifier = ref.read(exerciseFilterProvider.notifier);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -45,9 +27,9 @@ class FilterPanel extends StatelessWidget {
         const SizedBox(height: 16),
 
         // Search Filter
-        TextField(
-          controller: searchController,
-          onChanged: setQuery,
+        TextFormField(
+          initialValue: filterState.query,
+          onChanged: filterNotifier.setQuery,
           decoration: InputDecoration(
             hintText: 'Search exercises...',
             prefixIcon: const Icon(Icons.search),
@@ -80,7 +62,7 @@ class FilterPanel extends StatelessWidget {
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<ProgramGroup?>(
-              value: selectedMuscleGroup,
+              value: filterState.selectedMuscleGroup,
               hint: const Text('All muscle groups'),
               isExpanded: true,
               items: [
@@ -93,7 +75,7 @@ class FilterPanel extends StatelessWidget {
                       child: Text(group.displayName),
                     )),
               ],
-              onChanged: setMuscleGroup,
+              onChanged: filterNotifier.setMuscleGroup,
             ),
           ),
         ),
@@ -110,16 +92,9 @@ class FilterPanel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Expanded(
+        const Expanded(
           child: SingleChildScrollView(
-            child: EquipmentFilter(
-              selectedEquipment: selectedEquipment,
-              selectedEquipmentCategories: selectedEquipmentCategories,
-              onToggleEquipment: onToggleEquipment,
-              onToggleEquipmentCategory: onToggleEquipmentCategory,
-              setAllEquipment: setAllEquipment,
-              setNoEquipment: setNoEquipment,
-            ),
+            child: EquipmentFilter(),
           ),
         ),
       ],

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 
 class ExercisesScreen extends ConsumerStatefulWidget {
   static const String routeName = 'exercises';
@@ -22,24 +22,6 @@ class ExercisesScreen extends ConsumerStatefulWidget {
 }
 
 class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
-  String _searchQuery = '';
-  ProgramGroup? _selectedMuscleGroup;
-  // for non-machine and general machines
-  Set<Equipment> _selectedEquipment = {};
-  // to keep the UI compact, equipment that uses specialized machines are
-  // toggled on-off in group based on their machine category
-  Set<EquipmentCategory> _selectedEquipmentCategories = {};
-  Ex? _selectedExercise;
-  bool _showFilters = false;
-
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final setup = ref.watch(setupProvider);
@@ -60,13 +42,20 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           backgroundColor: Theme.of(context).colorScheme.surface,
           actions: [
             if (!isDesktop) ...[
-              IconButton(
-                icon: Icon(
-                    _showFilters ? Icons.filter_list_off : Icons.filter_list),
-                onPressed: () {
-                  setState(() {
-                    _showFilters = !_showFilters;
-                  });
+              Consumer(
+                builder: (context, ref, child) {
+                  final showFilters = ref.watch(exerciseFilterProvider
+                      .select((state) => state.showFilters));
+                  return IconButton(
+                    icon: Icon(showFilters
+                        ? Icons.filter_list_off
+                        : Icons.filter_list),
+                    onPressed: () {
+                      ref
+                          .read(exerciseFilterProvider.notifier)
+                          .toggleShowFilters();
+                    },
+                  );
                 },
               ),
             ],
@@ -97,18 +86,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
               ),
             ),
           ),
-          child: FilterPanel(
-            searchController: _searchController,
-            setQuery: setQuery,
-            setAllEquipment: setAllEquipment,
-            setNoEquipment: setNoEquipment,
-            selectedMuscleGroup: _selectedMuscleGroup,
-            setMuscleGroup: setMuscleGroup,
-            selectedEquipment: _selectedEquipment,
-            selectedEquipmentCategories: _selectedEquipmentCategories,
-            onToggleEquipment: _toggleEquipment,
-            onToggleEquipmentCategory: _toggleEquipmentCategory,
-          ),
+          child: const FilterPanel(),
         ),
         // Exercise List
         Expanded(
@@ -116,21 +94,28 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           child: _buildExerciseList(setupData),
         ),
         // Exercise Detail Panel
-        if (_selectedExercise != null)
-          Container(
-            width: 400,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              border: Border(
-                left: BorderSide(
-                  color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
+        Consumer(
+          builder: (context, ref, child) {
+            final selectedExercise = ref.watch(exerciseFilterProvider
+                .select((state) => state.selectedExercise));
+            if (selectedExercise == null) return const SizedBox.shrink();
+            return Container(
+              width: 400,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                border: Border(
+                  left: BorderSide(
+                    color:
+                        Theme.of(context).dividerColor.withValues(alpha: 0.3),
+                  ),
                 ),
               ),
-            ),
-            alignment: Alignment.topCenter,
-            child: _buildExerciseDetail(setupData),
-          ),
+              alignment: Alignment.topCenter,
+              child: _buildExerciseDetail(setupData),
+            );
+          },
+        ),
       ],
     );
   }
@@ -141,32 +126,28 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         Row(
           children: [
             // Collapsible Filters Panel
-            if (_showFilters)
-              Container(
-                width: 280,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  border: Border(
-                    right: BorderSide(
-                      color:
-                          Theme.of(context).dividerColor.withValues(alpha: 0.3),
+            Consumer(
+              builder: (context, ref, child) {
+                final showFilters = ref.watch(exerciseFilterProvider
+                    .select((state) => state.showFilters));
+                if (!showFilters) return const SizedBox.shrink();
+                return Container(
+                  width: 280,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    border: Border(
+                      right: BorderSide(
+                        color: Theme.of(context)
+                            .dividerColor
+                            .withValues(alpha: 0.3),
+                      ),
                     ),
                   ),
-                ),
-                child: FilterPanel(
-                  searchController: _searchController,
-                  setQuery: setQuery,
-                  setAllEquipment: setAllEquipment,
-                  setNoEquipment: setNoEquipment,
-                  selectedMuscleGroup: _selectedMuscleGroup,
-                  setMuscleGroup: setMuscleGroup,
-                  selectedEquipment: _selectedEquipment,
-                  selectedEquipmentCategories: _selectedEquipmentCategories,
-                  onToggleEquipment: _toggleEquipment,
-                  onToggleEquipmentCategory: _toggleEquipmentCategory,
-                ),
-              ),
+                  child: const FilterPanel(),
+                );
+              },
+            ),
             // Exercise List
             Expanded(
               child: _buildExerciseList(setupData),
@@ -174,7 +155,14 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           ],
         ),
         // Exercise Detail Modal
-        if (_selectedExercise != null) _buildExerciseDetailModal(setupData),
+        Consumer(
+          builder: (context, ref, child) {
+            final selectedExercise = ref.watch(exerciseFilterProvider
+                .select((state) => state.selectedExercise));
+            if (selectedExercise == null) return const SizedBox.shrink();
+            return _buildExerciseDetailModal(setupData);
+          },
+        ),
       ],
     );
   }
@@ -182,19 +170,14 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   Widget _buildMobileLayout(setupData) {
     return Column(
       children: [
-        if (_showFilters)
-          FilterMobile(
-            searchController: _searchController,
-            setQuery: setQuery,
-            setAllEquipment: setAllEquipment,
-            setNoEquipment: setNoEquipment,
-            selectedMuscleGroup: _selectedMuscleGroup,
-            setMuscleGroup: setMuscleGroup,
-            selectedEquipment: _selectedEquipment,
-            selectedEquipmentCategories: _selectedEquipmentCategories,
-            onToggleEquipment: _toggleEquipment,
-            onToggleEquipmentCategory: _toggleEquipmentCategory,
-          ),
+        Consumer(
+          builder: (context, ref, child) {
+            final showFilters = ref.watch(
+                exerciseFilterProvider.select((state) => state.showFilters));
+            if (!showFilters) return const SizedBox.shrink();
+            return const FilterMobile();
+          },
+        ),
         Expanded(
           child: _buildExerciseList(setupData),
         ),
@@ -203,8 +186,20 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   }
 
   Widget _buildExerciseList(setupData) {
-    final filteredExercises = _getFilteredExercises(setupData);
+    return Consumer(
+      builder: (context, ref, child) {
+        final filteredExercises = ref.watch(filteredExercisesProvider);
+        final selectedExercise = ref.watch(
+            exerciseFilterProvider.select((state) => state.selectedExercise));
 
+        return _buildExerciseListContent(
+            filteredExercises, selectedExercise, setupData);
+      },
+    );
+  }
+
+  Widget _buildExerciseListContent(
+      List<Ex> filteredExercises, Ex? selectedExercise, setupData) {
     return Column(
       children: [
         Container(
@@ -245,7 +240,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             itemCount: filteredExercises.length,
             itemBuilder: (context, index) {
               final exercise = filteredExercises[index];
-              final isSelected = _selectedExercise == exercise;
+              final isSelected = selectedExercise == exercise;
 
               return Container(
                 decoration: BoxDecoration(
@@ -298,13 +293,14 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                       ? RatingIcon(ratings: exercise.ratings)
                       : null,
                   onTap: () {
-                    setState(() {
-                      _selectedExercise = isSelected ? null : exercise;
-                    });
+                    final newSelection = isSelected ? null : exercise;
+                    ref
+                        .read(exerciseFilterProvider.notifier)
+                        .setSelectedExercise(newSelection);
 
                     // On mobile, show modal
                     if (MediaQuery.of(context).size.width <= 768 &&
-                        _selectedExercise != null) {
+                        newSelection != null) {
                       _showExerciseDetailModal(setupData);
                     }
                   },
@@ -356,41 +352,53 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   }
 
   Widget _buildExerciseDetail(setupData) {
-    if (_selectedExercise == null) return const SizedBox.shrink();
+    return Consumer(
+      builder: (context, ref, child) {
+        final selectedExercise = ref.watch(
+            exerciseFilterProvider.select((state) => state.selectedExercise));
+        if (selectedExercise == null) return const SizedBox.shrink();
 
-    final exercise = _selectedExercise!;
-    final dummySets = Sets(1, ex: exercise);
+        final exercise = selectedExercise;
+        final dummySets = Sets(1, ex: exercise);
 
-    return SingleChildScrollView(
-      child: ExerciseDetailsDialog(
-        sets: dummySets,
-        setup: setupData,
-        onClose: () {
-          setState(() {
-            _selectedExercise = null;
-          });
-        },
-      ),
+        return SingleChildScrollView(
+          child: ExerciseDetailsDialog(
+            sets: dummySets,
+            setup: setupData,
+            onClose: () {
+              ref
+                  .read(exerciseFilterProvider.notifier)
+                  .setSelectedExercise(null);
+            },
+          ),
+        );
+      },
     );
   }
 
   Widget _buildExerciseDetailForModal(setupData, BuildContext dialogContext) {
-    if (_selectedExercise == null) return const SizedBox.shrink();
+    return Consumer(
+      builder: (context, ref, child) {
+        final selectedExercise = ref.watch(
+            exerciseFilterProvider.select((state) => state.selectedExercise));
+        if (selectedExercise == null) return const SizedBox.shrink();
 
-    final exercise = _selectedExercise!;
-    final dummySets = Sets(1, ex: exercise);
+        final exercise = selectedExercise;
+        final dummySets = Sets(1, ex: exercise);
 
-    return SingleChildScrollView(
-      child: ExerciseDetailsDialog(
-        sets: dummySets,
-        setup: setupData,
-        onClose: () {
-          setState(() {
-            _selectedExercise = null;
-          });
-          Navigator.pop(dialogContext);
-        },
-      ),
+        return SingleChildScrollView(
+          child: ExerciseDetailsDialog(
+            sets: dummySets,
+            setup: setupData,
+            onClose: () {
+              ref
+                  .read(exerciseFilterProvider.notifier)
+                  .setSelectedExercise(null);
+              Navigator.pop(dialogContext);
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -424,95 +432,5 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         ),
       ),
     );
-  }
-
-  void _toggleEquipment(Equipment equipment, bool? selected) {
-    setState(() {
-      if (selected == true) {
-        _selectedEquipment.add(equipment);
-      } else {
-        _selectedEquipment.remove(equipment);
-      }
-    });
-  }
-
-  void _toggleEquipmentCategory(EquipmentCategory category, bool? selected) {
-    setState(() {
-      if (selected == true) {
-        _selectedEquipmentCategories.add(category);
-      } else {
-        _selectedEquipmentCategories.remove(category);
-      }
-    });
-  }
-
-  void setAllEquipment() {
-    setState(() {
-      _selectedEquipment = Equipment.values
-          .where((eq) =>
-              eq.category == EquipmentCategory.nonMachine ||
-              eq.category == EquipmentCategory.generalMachines)
-          .toSet();
-      _selectedEquipmentCategories = {
-        EquipmentCategory.upperBodyMachines,
-        EquipmentCategory.lowerBodyMachines,
-        EquipmentCategory.coreAndGluteMachines,
-      };
-    });
-  }
-
-  void setNoEquipment() {
-    setState(() {
-      _selectedEquipment = {};
-      _selectedEquipmentCategories = {};
-    });
-  }
-
-  void setQuery(String query) {
-    setState(() {
-      _searchQuery = query;
-    });
-  }
-
-  void setMuscleGroup(ProgramGroup? group) {
-    setState(() {
-      _selectedMuscleGroup = group;
-    });
-  }
-
-  List<Ex> _getFilteredExercises(setupData) {
-    List<Ex> exercises = List.from(exes);
-
-    // Apply search filter
-    if (_searchQuery.isNotEmpty) {
-      exercises = exercises
-          .where(
-              (ex) => ex.id.toLowerCase().contains(_searchQuery.toLowerCase()))
-          .toList();
-    }
-
-    // Apply muscle group filter
-    if (_selectedMuscleGroup != null) {
-      exercises = exercises.where((ex) {
-        final recruitment = ex.recruitment(_selectedMuscleGroup!, {});
-        return recruitment.volume > 0;
-      }).toList();
-    }
-
-    // Apply equipment filter
-    exercises = exercises.where((ex) {
-      for (final eq in ex.equipment) {
-        if (!_selectedEquipment.contains(eq) &&
-            !_selectedEquipmentCategories.contains(eq.category)) {
-          return false;
-        }
-      }
-      return true;
-    }).toList();
-
-    // Sort exercises alphabetically
-    exercises.sort((a, b) => a.id.compareTo(b.id));
-
-    return exercises;
   }
 }
