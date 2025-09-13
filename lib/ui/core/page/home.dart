@@ -546,7 +546,7 @@ class HomeScreen extends StatelessWidget {
         'route': routeName,
       },
     );
-    
+
     if (context.mounted) {
       if (wip) {
         ScaffoldMessenger.of(context).showSnackBar(

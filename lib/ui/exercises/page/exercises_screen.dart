@@ -125,8 +125,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         // Collapsible Filters Panel
         Consumer(
           builder: (context, ref, child) {
-            final showFilters = ref.watch(exerciseFilterProvider
-                .select((state) => state.showFilters));
+            final showFilters = ref.watch(
+                exerciseFilterProvider.select((state) => state.showFilters));
             if (!showFilters) return const SizedBox.shrink();
             return Container(
               width: 280,
@@ -135,9 +135,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                 color: Theme.of(context).colorScheme.surface,
                 border: Border(
                   right: BorderSide(
-                    color: Theme.of(context)
-                        .dividerColor
-                        .withValues(alpha: 0.3),
+                    color:
+                        Theme.of(context).dividerColor.withValues(alpha: 0.3),
                   ),
                 ),
               ),

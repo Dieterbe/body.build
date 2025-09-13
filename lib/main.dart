@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
         routes: [
           GoRoute(
             path: '/',
+            name: 'home',
             builder: (context, state) => const HomeScreen(),
             routes: [
               GoRoute(
@@ -102,6 +103,7 @@ class MyApp extends StatelessWidget {
             ],
           ),
         ],
+        observers: [PosthogObserver()],
       ),
     );
   }
