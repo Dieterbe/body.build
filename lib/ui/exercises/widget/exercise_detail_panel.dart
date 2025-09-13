@@ -26,6 +26,7 @@ class ExerciseDetailPanel extends ConsumerWidget {
       child: ExerciseDetailsDialog(
         sets: Sets(1, ex: selectedExercise),
         setup: setupData,
+        onChangeModifiersCues: (sets) {},
         onClose: () {
           ref.read(exerciseFilterProvider.notifier).setSelectedExercise(null);
           if (pop != null) Navigator.pop(pop!);

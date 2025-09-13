@@ -109,7 +109,9 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                 child: ExerciseDetailsDialog(
                   sets: widget.sets,
                   setup: widget.setup,
-                  onChange: widget.onChange,
+                  onChangeEx: widget.onChange,
+                  onChangeModifiersCues: widget.onChange,
+                  showRecruitmentViz: false,
                 ),
               ),
             ),

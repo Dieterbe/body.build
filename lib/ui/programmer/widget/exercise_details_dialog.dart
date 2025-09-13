@@ -1,5 +1,6 @@
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
 import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
@@ -10,15 +11,19 @@ import 'package:bodybuild/model/programmer/settings.dart';
 class ExerciseDetailsDialog extends StatefulWidget {
   final Sets sets;
   final Settings setup;
-  final Function(Sets)? onChange; // leave empty to make the dialog non-editable
+  final Function(Sets)? onChangeEx; // allow editng exercise name?
+  final Function(Sets)? onChangeModifiersCues; // allow editng modifiers/cues?
   final Function()? onClose; // if set, puts a close button
+  final bool showRecruitmentViz;
 
   const ExerciseDetailsDialog({
     super.key,
     required this.sets,
     required this.setup,
-    this.onChange,
+    this.onChangeEx,
+    this.onChangeModifiersCues,
     this.onClose,
+    this.showRecruitmentViz = true,
   });
 
   @override
@@ -91,10 +96,20 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     );
   }
 
-  void onChange(Sets newSets) {
-    if (widget.onChange == null) return;
+  void onChangeEx(Sets newSets) {
+    if (widget.onChangeEx == null) return;
     // update parent widget(s) which are in the background of our dialog
-    widget.onChange!(newSets);
+    widget.onChangeEx!(newSets);
+    // update our local state (which isn't automatically updated after our parent has launched the dialog)
+    setState(() {
+      localSets = newSets;
+    });
+  }
+
+  void onChangeModifiersCues(Sets newSets) {
+    if (widget.onChangeModifiersCues == null) return;
+    // update parent widget(s) which are in the background of our dialog
+    widget.onChangeModifiersCues!(newSets);
     // update our local state (which isn't automatically updated after our parent has launched the dialog)
     setState(() {
       localSets = newSets;
@@ -103,8 +118,6 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final editable = widget.onChange != null;
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,10 +208,10 @@ In the future, you'll be able to add any cues you can come up with.
                 */
               ),
               const Spacer(),
-              if (editable)
+              if (widget.onChangeEx != null)
                 TextButton(
                   onPressed: () {
-                    onChange(localSets.copyWith(changeEx: true));
+                    onChangeEx(localSets.copyWith(changeEx: true));
                   },
                   child: const Text('Change'),
                 ),
@@ -217,7 +230,7 @@ In the future, you'll be able to add any cues you can come up with.
               return filtered;
             },
             onSelected: (Ex selection) {
-              onChange(localSets.copyWith(
+              onChangeEx(localSets.copyWith(
                 ex: selection,
                 changeEx: false,
                 modifierOptions: {},
@@ -249,6 +262,14 @@ In the future, you'll be able to add any cues you can come up with.
           ),
         ],
         const SizedBox(height: 24),
+        if (widget.showRecruitmentViz) ...[
+          ExerciseRecruitmentVisualization(
+            exercise: localSets.ex!,
+            modifierOptions: localSets.modifierOptions,
+            setup: widget.setup,
+          ),
+          const SizedBox(height: 24),
+        ],
         if (localSets.ex?.modifiers.isEmpty == false) ...[
           ...localSets.ex!.modifiers.map((modifier) => Padding(
                 padding: const EdgeInsets.only(bottom: 24),
@@ -310,10 +331,12 @@ In the future, you'll be able to add any cues you can come up with.
                                   groupValue: localSets
                                           .modifierOptions[modifier.name] ??
                                       modifier.defaultVal,
-                                  onChanged: editable
+                                  onChanged: widget.onChangeModifiersCues !=
+                                          null
                                       ? (value) {
                                           if (value != null) {
-                                            onChange(localSets.copyWith(
+                                            onChangeModifiersCues(
+                                                localSets.copyWith(
                                               modifierOptions: {
                                                 ...localSets.modifierOptions,
                                                 modifier.name: value
@@ -384,9 +407,9 @@ In the future, you'll be able to add any cues you can come up with.
                         ),
                         Switch(
                           value: isEnabled,
-                          onChanged: editable
+                          onChanged: widget.onChangeModifiersCues != null
                               ? (value) {
-                                  onChange(localSets.copyWith(
+                                  onChangeModifiersCues(localSets.copyWith(
                                     cueOptions: {
                                       ...localSets.cueOptions,
                                       entry.key: value,
