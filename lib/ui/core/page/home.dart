@@ -151,12 +151,13 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       Text(
                         "Use the top-left hamburger menu to navigate to all sections of the app",
-                        textAlign: TextAlign.center,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurface.withValues(alpha: 0.6),
                           height: 1.4,
                         ),
                       ),
+                      const SizedBox(height: 16),
+
                       Text(
                         'Quick Access',
                         style: theme.textTheme.headlineSmall?.copyWith(
