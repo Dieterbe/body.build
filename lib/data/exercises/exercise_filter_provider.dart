@@ -2,6 +2,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/model/programmer/parameters.dart';
 
 part 'exercise_filter_provider.g.dart';
 
@@ -25,6 +27,7 @@ class ExerciseFilterState {
   final Set<Equipment> selectedEquipment;
   final Set<EquipmentCategory> selectedEquipmentCategories;
   final Ex? selectedExercise;
+  final Set<String> expandedExercises;
 
   const ExerciseFilterState({
     this.showFilters = false,
@@ -33,6 +36,7 @@ class ExerciseFilterState {
     this.selectedEquipment = const {},
     this.selectedEquipmentCategories = const {},
     this.selectedExercise,
+    this.expandedExercises = const {},
   });
 
   ExerciseFilterState copyWith({
@@ -42,6 +46,7 @@ class ExerciseFilterState {
     Set<Equipment>? selectedEquipment,
     Set<EquipmentCategory>? selectedEquipmentCategories,
     Ex? selectedExercise,
+    Set<String>? expandedExercises,
     bool clearSelectedMuscleGroup = false,
     bool clearSelectedExercise = false,
   }) {
@@ -57,6 +62,7 @@ class ExerciseFilterState {
       selectedExercise: clearSelectedExercise
           ? null
           : (selectedExercise ?? this.selectedExercise),
+      expandedExercises: expandedExercises ?? this.expandedExercises,
     );
   }
 }
@@ -127,6 +133,16 @@ class ExerciseFilter extends _$ExerciseFilter {
 
   void toggleShowFilters() {
     state = state.copyWith(showFilters: !state.showFilters);
+  }
+
+  void toggleExerciseExpansion(String exerciseId) {
+    final newExpanded = Set<String>.from(state.expandedExercises);
+    if (newExpanded.contains(exerciseId)) {
+      newExpanded.remove(exerciseId);
+    } else {
+      newExpanded.add(exerciseId);
+    }
+    state = state.copyWith(expandedExercises: newExpanded);
   }
 }
 
