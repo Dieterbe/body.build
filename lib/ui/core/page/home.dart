@@ -1,7 +1,6 @@
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
@@ -541,14 +540,13 @@ class HomeScreen extends StatelessWidget {
 
   void _navigateQuickAccess(
       BuildContext context, String routeName, bool wip) async {
-    if (kIsWeb) {
-      await Posthog().capture(
-        eventName: 'QuickAccessClicked',
-        properties: {
-          'route': routeName,
-        },
-      );
-    }
+    await Posthog().capture(
+      eventName: 'QuickAccessClicked',
+      properties: {
+        'route': routeName,
+      },
+    );
+    
     if (context.mounted) {
       if (wip) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -567,15 +565,13 @@ class HomeScreen extends StatelessWidget {
   void _openYouTubeVideo() async {
     const youtubeUrl = 'https://www.youtube.com/watch?v=wOVZdZ9_jdE';
 
-    if (kIsWeb) {
-      await Posthog().capture(
-        eventName: 'YouTubeVideoClicked',
-        properties: {
-          'source': 'home_screen',
-          'video_url': youtubeUrl,
-        },
-      );
-    }
+    await Posthog().capture(
+      eventName: 'YouTubeVideoClicked',
+      properties: {
+        'source': 'home_screen',
+        'video_url': youtubeUrl,
+      },
+    );
 
     final uri = Uri.parse(youtubeUrl);
     try {

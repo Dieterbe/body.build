@@ -1,7 +1,6 @@
 import 'package:bodybuild/ui/const.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_small_screen.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
@@ -256,11 +255,9 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
 }
 
 void trackScreen(String screenName) async {
-  if (kIsWeb) {
-    await Posthog().screen(
-      screenName: screenName,
-    );
-  }
+  await Posthog().screen(
+    screenName: screenName,
+  );
 }
 
 /*

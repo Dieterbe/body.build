@@ -1,5 +1,4 @@
 import 'package:bodybuild/model/programmer/parameters.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
@@ -113,15 +112,14 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                     pulse: workout.setGroups.isEmpty,
                     child: GestureDetector(
                       onTap: () async {
-                        if (kIsWeb) {
-                          await Posthog().capture(
-                            eventName: 'AddSetButtonClicked',
-                            properties: {
-                              'muscle': g.name,
-                              'setgroups': workout.setGroups.length,
-                            },
-                          );
-                        }
+                        await Posthog().capture(
+                          eventName: 'AddSetButtonClicked',
+                          properties: {
+                            'muscle': g.name,
+                            'setgroups': workout.setGroups.length,
+                          },
+                        );
+
                         showDialog(
                           context: context,
                           builder: (context) {

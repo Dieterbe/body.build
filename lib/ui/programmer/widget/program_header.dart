@@ -2,7 +2,6 @@ import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/program_manager.dart';
 import 'package:bodybuild/model/programgen_v2/generator.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
@@ -84,15 +83,12 @@ class ProgramHeader extends ConsumerWidget {
                       ref
                           .read(programManagerProvider.notifier)
                           .addWorkout(const Workout());
-                      if (kIsWeb) {
-                        await Posthog().capture(
-                          eventName: 'AddWorkoutButtonClicked',
-                          properties: {
-                            'workouts':
-                                state.currentProgram.workouts.length + 1,
-                          },
-                        );
-                      }
+                      await Posthog().capture(
+                        eventName: 'AddWorkoutButtonClicked',
+                        properties: {
+                          'workouts': state.currentProgram.workouts.length + 1,
+                        },
+                      );
                     },
                     child: const Row(
                       children: [Icon(Icons.add), Text('add workout')],
