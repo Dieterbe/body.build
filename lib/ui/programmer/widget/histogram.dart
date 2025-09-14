@@ -41,7 +41,8 @@ class HistogramWidget extends StatelessWidget {
 
         return Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.05),
+            color:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(8),
           ),
           padding: containerPadding,
@@ -77,7 +78,7 @@ class HistogramWidget extends StatelessWidget {
                           color: Theme.of(context)
                               .colorScheme
                               .primary
-                              .withOpacity(0.8),
+                              .withValues(alpha: 0.8),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
