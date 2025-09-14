@@ -29,7 +29,13 @@ class ExerciseDetailPanel extends ConsumerWidget {
         sets: Sets(1,
             ex: selectedExercise, modifierOptions: selectedModifierOptions),
         setup: setupData,
-        onChangeModifiersCues: (sets) {},
+        onChangeModifiersCues: (sets) {
+          // Update the selected exercise with new modifier options
+          ref.read(exerciseFilterProvider.notifier).setSelectedExercise(
+                sets.ex,
+                modifierOptions: sets.modifierOptions,
+              );
+        },
         onClose: () {
           ref.read(exerciseFilterProvider.notifier).setSelectedExercise(null);
           if (pop != null) Navigator.pop(pop!);
