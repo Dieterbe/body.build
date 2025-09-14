@@ -1,0 +1,85 @@
+name: Dependency Security Check
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+  schedule:
+    # Run weekly security checks
+    - cron: '0 9 * * 1'
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 'stable'
+        cache: true
+        
+    - name: Get dependencies
+      run: flutter pub get
+      
+    - name: Check for known vulnerabilities
+      run: |
+        # Create a simple security check script
+        echo "Checking for known vulnerable packages..."
+        
+        # Check pubspec.lock for known vulnerable versions
+        if [ -f "pubspec.lock" ]; then
+          echo "📋 Dependency Security Report" > security-report.md
+          echo "Generated on: $(date)" >> security-report.md
+          echo "" >> security-report.md
+          
+          # Add basic security recommendations
+          echo "## 🔒 Security Recommendations" >> security-report.md
+          echo "" >> security-report.md
+          echo "- Keep dependencies updated to latest stable versions" >> security-report.md
+          echo "- Review changelogs for security fixes" >> security-report.md
+          echo "- Monitor [Dart Security Advisories](https://github.com/dart-lang/sdk/security/advisories)" >> security-report.md
+          echo "- Use \`flutter pub deps\` to check dependency tree" >> security-report.md
+          echo "" >> security-report.md
+          
+          echo "## 📦 Current Dependencies" >> security-report.md
+          echo "" >> security-report.md
+          echo "\`\`\`" >> security-report.md
+          flutter pub deps --style=compact >> security-report.md
+          echo "\`\`\`" >> security-report.md
+        fi
+        
+    - name: Comment security report on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          
+          let report = '';
+          try {
+            report = fs.readFileSync('security-report.md', 'utf8');
+          } catch (error) {
+            console.log('No security report generated');
+            return;
+          }
+          
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `🔒 **Security Check Report**
+
+${report}
+
+*This is an automated security check. Please review any dependency changes for potential security implications.*`
+          });

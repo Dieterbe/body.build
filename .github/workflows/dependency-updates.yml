@@ -1,0 +1,224 @@
+name: Enhanced Dependency Updates
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+
+jobs:
+  enhance-dependency-pr:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 'stable'
+        cache: true
+        
+    - name: Get changed dependencies
+      id: deps
+      run: |
+        # Get the base branch pubspec.yaml
+        git show HEAD~1:pubspec.yaml > pubspec_old.yaml || echo "dependencies:" > pubspec_old.yaml
+        
+        # Extract dependency changes
+        python3 << 'EOF'
+        import yaml
+        import re
+        import json
+        
+        try:
+            with open('pubspec_old.yaml', 'r') as f:
+                old_deps = yaml.safe_load(f) or {}
+            with open('pubspec.yaml', 'r') as f:
+                new_deps = yaml.safe_load(f) or {}
+        except Exception as e:
+            print(f"Error reading pubspec files: {e}")
+            exit(0)
+            
+        old_all = {}
+        new_all = {}
+        
+        # Combine dependencies and dev_dependencies
+        for section in ['dependencies', 'dev_dependencies']:
+            if section in old_deps:
+                old_all.update(old_deps[section] or {})
+            if section in new_deps:
+                new_all.update(new_deps[section] or {})
+        
+        changes = []
+        for pkg, new_version in new_all.items():
+            old_version = old_all.get(pkg)
+            if old_version != new_version:
+                # Extract version numbers
+                old_ver = re.search(r'[\d.]+', str(old_version)) if old_version else None
+                new_ver = re.search(r'[\d.]+', str(new_version)) if new_version else None
+                
+                old_ver_str = old_ver.group() if old_ver else "new"
+                new_ver_str = new_ver.group() if new_ver else str(new_version)
+                
+                changes.append({
+                    'package': pkg,
+                    'old_version': old_ver_str,
+                    'new_version': new_ver_str
+                })
+        
+        print(json.dumps(changes))
+        EOF
+        
+    - name: Fetch package information and changelogs
+      id: changelog
+      run: |
+        changes='${{ steps.deps.outputs.stdout }}'
+        if [ -z "$changes" ] || [ "$changes" = "[]" ]; then
+          echo "No dependency changes detected"
+          exit 0
+        fi
+        
+        echo "## 📦 Dependency Updates" > changelog.md
+        echo "" >> changelog.md
+        
+        echo "$changes" | python3 << 'EOF'
+        import json
+        import sys
+        import urllib.request
+        import urllib.error
+        
+        try:
+            changes = json.loads(sys.stdin.read())
+        except:
+            changes = []
+            
+        if not changes:
+            print("No changes to process")
+            exit(0)
+            
+        for change in changes:
+            pkg = change['package']
+            old_ver = change['old_version']
+            new_ver = change['new_version']
+            
+            print(f"### {pkg}")
+            print(f"**{old_ver}** → **{new_ver}**")
+            print("")
+            
+            # Try to fetch package info from pub.dev
+            try:
+                url = f"https://pub.dev/api/packages/{pkg}"
+                with urllib.request.urlopen(url) as response:
+                    data = json.loads(response.read())
+                    
+                print(f"📝 **Description:** {data.get('latest', {}).get('pubspec', {}).get('description', 'No description available')}")
+                print("")
+                
+                # Add links
+                homepage = data.get('latest', {}).get('pubspec', {}).get('homepage')
+                repository = data.get('latest', {}).get('pubspec', {}).get('repository')
+                
+                if homepage:
+                    print(f"🏠 [Homepage]({homepage})")
+                if repository:
+                    print(f"📚 [Repository]({repository})")
+                    
+                print(f"📋 [Changelog](https://pub.dev/packages/{pkg}/changelog)")
+                print(f"🔍 [Pub.dev](https://pub.dev/packages/{pkg})")
+                print("")
+                
+            except Exception as e:
+                print(f"ℹ️ [View on pub.dev](https://pub.dev/packages/{pkg})")
+                print("")
+                
+            print("---")
+            print("")
+        EOF >> changelog.md
+        
+        # Add general information
+        echo "## 🔍 Review Checklist" >> changelog.md
+        echo "" >> changelog.md
+        echo "- [ ] Review breaking changes in package changelogs" >> changelog.md
+        echo "- [ ] Test critical app functionality" >> changelog.md
+        echo "- [ ] Check for deprecation warnings" >> changelog.md
+        echo "- [ ] Verify app builds successfully" >> changelog.md
+        echo "- [ ] Run existing tests" >> changelog.md
+        echo "" >> changelog.md
+        echo "## 🚀 Testing" >> changelog.md
+        echo "" >> changelog.md
+        echo "Run the following commands to test the updates:" >> changelog.md
+        echo '```bash' >> changelog.md
+        echo 'flutter pub get' >> changelog.md
+        echo 'flutter analyze' >> changelog.md
+        echo 'flutter test' >> changelog.md
+        echo 'flutter build apk --debug' >> changelog.md
+        echo '```' >> changelog.md
+        
+    - name: Update PR description
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          
+          let changelog = '';
+          try {
+            changelog = fs.readFileSync('changelog.md', 'utf8');
+          } catch (error) {
+            console.log('No changelog file found, skipping update');
+            return;
+          }
+          
+          const { data: pr } = await github.rest.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+          });
+          
+          const newBody = `${pr.body || ''}
+          
+---
+
+${changelog}`;
+          
+          await github.rest.pulls.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+            body: newBody
+          });
+          
+    - name: Add helpful comment
+      uses: actions/github-script@v7
+      with:
+        script: |
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `🤖 **Dependency Update Assistant**
+            
+This PR has been automatically enhanced with:
+- 📋 Package descriptions and links
+- 🔗 Direct links to changelogs
+- ✅ Review checklist
+- 🧪 Testing commands
+
+**Important:** Please review the changelog links above for any breaking changes before merging.
+
+To test these updates locally:
+\`\`\`bash
+gh pr checkout ${context.issue.number}
+flutter pub get
+flutter analyze
+flutter test
+\`\`\``
+          });
