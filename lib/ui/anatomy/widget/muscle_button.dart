@@ -1,3 +1,4 @@
+import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -19,7 +20,7 @@ class MuscleButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => context.pushNamed(
         MuscleScreen.routeName,
-        pathParameters: {"id": muscle.categories.first.name},
+        pathParameters: {"id": muscle.categories.first.name.camelToSnake()},
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

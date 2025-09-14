@@ -60,7 +60,7 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
                       '${ArticulationMovements(articulation).moves.length} known muscle/head movements'),
                   onTap: () => context.pushNamed(
                     ArticulationScreen.routeName,
-                    pathParameters: {"id": articulation.name},
+                    pathParameters: {"id": articulation.name.camelToSnake()},
                   ),
                 );
               },

@@ -64,7 +64,7 @@ class _MusclesScreenState extends State<MusclesScreen> {
                   ),
                   onTap: () => context.pushNamed(
                     MuscleScreen.routeName,
-                    pathParameters: {"id": category.name},
+                    pathParameters: {"id": category.name.camelToSnake()},
                   ),
                 );
               },

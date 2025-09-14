@@ -1,3 +1,4 @@
+import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/ui/anatomy/page/articulation.dart';
@@ -70,7 +71,7 @@ class MyApp extends StatelessWidget {
                 name: ArticulationScreen.routeName,
                 path: '${ArticulationScreen.routeName}/:id',
                 builder: (context, state) => ArticulationScreen(
-                  id: state.pathParameters['id']!,
+                  id: state.pathParameters['id']!.snakeToCamel(),
                 ),
               ),
               GoRoute(
@@ -82,7 +83,7 @@ class MyApp extends StatelessWidget {
                 name: MuscleScreen.routeName,
                 path: '${MuscleScreen.routeName}/:id',
                 builder: (context, state) => MuscleScreen(
-                  id: state.pathParameters['id']!,
+                  id: state.pathParameters['id']!.snakeToCamel(),
                 ),
               ),
               GoRoute(

@@ -21,7 +21,7 @@ class ArticulationButton extends StatelessWidget {
       onPressed: () => nav
           ? context.pushNamed(
               ArticulationScreen.routeName,
-              pathParameters: {"id": articulation.name},
+              pathParameters: {"id": articulation.name.camelToSnake()},
             )
           : {},
       child: Row(

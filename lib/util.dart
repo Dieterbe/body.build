@@ -15,6 +15,22 @@ extension StringExtension on String {
   String camelToTitle() {
     return camelToSpace().capitalizeFirstOnly();
   }
+
+  /// Converts camelCase to snake_case for URL paths
+  String camelToSnake() {
+    return replaceAllMapped(
+      RegExp(r'[A-Z]'),
+      (match) => '_${match.group(0)!.toLowerCase()}',
+    );
+  }
+
+  /// Converts snake_case to camelCase for parsing URL paths
+  String snakeToCamel() {
+    return replaceAllMapped(
+      RegExp(r'_([a-z])'),
+      (match) => match.group(1)!.toUpperCase(),
+    );
+  }
 }
 
 extension IterableExtension<T> on Iterable<T> {
