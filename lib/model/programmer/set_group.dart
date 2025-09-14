@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
+import 'package:bodybuild/util/url.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'set_group.freezed.dart';
@@ -25,7 +26,12 @@ class Sets with _$Sets {
     Map<String, bool> cueOptions, // Map of cue name to enabled state
   }) = _Sets;
 
-  factory Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json);
+  factory Sets.fromJson(Map<String, dynamic> json) {
+    final sets = _$SetsFromJson(json);
+    return sets.copyWith(
+      modifierOptions: migrateModifierOptions(sets.modifierOptions),
+    );
+  }
 
   double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;

@@ -55,7 +55,7 @@ final demo1 = ProgramState(
               ex: exes.firstWhere((e) => e.id == 'barbell squat'),
               modifierOptions: {
                 'bar': 'front',
-                'lower leg movement': 'back & forth'
+                'lower leg movement': 'back and forth'
               }),
           Sets(2,
               n: 2,

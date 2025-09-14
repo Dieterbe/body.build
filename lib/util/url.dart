@@ -2,6 +2,17 @@
 /// see exercises.dart for detailed character rules of the various fields
 /// most importantly, '_' is not allowed, so we can use them in the URL
 
+/// Migrates old modifier values by replacing '&' with ' and '
+String migrateModifierValue(String value) {
+  return value.replaceFirst('&', 'and');
+}
+
+/// Migrates a map of modifier options
+Map<String, String> migrateModifierOptions(Map<String, String> options) {
+  return options
+      .map((key, value) => MapEntry(key, migrateModifierValue(value)));
+}
+
 /// Builds an exercise detail URL with encoded exercise ID and modifier options.
 String buildExerciseDetailUrl(
     String exerciseId, Map<String, String> modifierOptions) {
