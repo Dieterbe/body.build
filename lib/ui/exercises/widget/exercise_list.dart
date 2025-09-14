@@ -225,7 +225,7 @@ class ExerciseList extends ConsumerWidget {
                   ),
                   // Variations (shown when expanded)
                   if (isExpanded && hasVariations)
-                    ...variations.skip(1).map((variation) => Container(
+                    ...variations.map((variation) => Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context)
                                 .colorScheme
