@@ -179,8 +179,15 @@ sealed class Muscle {
   List<MovementStruct> getMovements(Articulation a);
   List<Articulation> getArticulations();
 
-  String nameWithHead(MuscleId? head) =>
-      name + (head != null ? ' ($head)' : ''); // TODO do name better?
+  String nameWithHead(MuscleId? head) {
+    // e.g.
+    // name: Deltoids, head: MuscleId.deltoidsAnteriorHead -> print Deltoids (Anterior Head)
+    // name: Pectoralis major, head:MuscleId.pectoralisMajorClavicularHead -> print Pectoralis major (Clavicular Head)
+    return name +
+        (head != null
+            ? ' (${head.name.camelToTitle().replaceFirst(name + ' ', '')})'
+            : '');
+  }
 }
 
 class MultiHeadMuscle extends Muscle {
