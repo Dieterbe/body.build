@@ -46,7 +46,7 @@ dependencies:
   shared_preferences: ^2.3.3
   uuid: ^4.2.2
   url_launcher: ^6.3.1
-  posthog_flutter: ^4.10.2
+  posthog_flutter: ^5.5.0
   flutter_web_plugins:
     sdk: flutter
 
