@@ -87,5 +87,5 @@ final latissimusDorsi = SingleHeadMuscle(
       Bone.lowerRibs,
       Bone.scapula
     ]);
-  // teres major is ignored. train lats well = train teres major well
+// teres major is ignored. train lats well = train teres major well
 // teres major: shoulder extension, adduction, internal rotation

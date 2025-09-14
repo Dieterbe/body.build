@@ -183,7 +183,9 @@ class RangeWidget extends StatelessWidget {
                         ChartWidget(
                             height: 16, width: 16, p1: 0, p2: 8, p3: 16),
                         SizedBox(width: 8),
-                        Text('muscle moment arm curve'),
+                        Text(
+                          'muscle moment arm curve',
+                        ),
                       ],
                     ),
                     const Row(

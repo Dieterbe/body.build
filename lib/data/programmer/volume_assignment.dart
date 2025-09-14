@@ -343,7 +343,6 @@ const vaWristExtension = {
 const vaWristFlexion = {
   ProgramGroup.wristFlexors: Assign(1, 'active ROM'),
 };
-   
 
 // why no seperation in lats activation for rows vs prayers. various triceps extensions
 
@@ -352,11 +351,8 @@ const vaWristFlexion = {
 // pulldowns, can effectively stimulate the long head of the triceps in relative isolation to
 // compensate for its lack of activation during pushing exercises.
 
-
 // bulgarians here assume you use rear leg so you activate RF on that. could also hav variant that doesn't use rear leg
 // TODO split up chest upper / lower / mid
-
-
 
 // triceps pitfall:
 // pressing exercises train medial/lateral head
@@ -375,7 +371,7 @@ const vaWristFlexion = {
 
 //                           medial/lat    long
 // barbell presses              v
-// cable/dummbell presses       
+// cable/dummbell presses
 // tri isolation work           v            v
 // lat prayer                                v
 //
