@@ -66,25 +66,29 @@ class MyApp extends StatelessWidget {
                 name: ArticulationsScreen.routeName,
                 path: ArticulationsScreen.routeName,
                 builder: (context, state) => const ArticulationsScreen(),
-              ),
-              GoRoute(
-                name: ArticulationScreen.routeName,
-                path: '${ArticulationScreen.routeName}/:id',
-                builder: (context, state) => ArticulationScreen(
-                  id: state.pathParameters['id']!.snakeToCamel(),
-                ),
+                routes: [
+                  GoRoute(
+                    name: ArticulationScreen.routeName,
+                    path: '/:id',
+                    builder: (context, state) => ArticulationScreen(
+                      id: state.pathParameters['id']!.snakeToCamel(),
+                    ),
+                  ),
+                ],
               ),
               GoRoute(
                 name: MusclesScreen.routeName,
                 path: MusclesScreen.routeName,
                 builder: (context, state) => const MusclesScreen(),
-              ),
-              GoRoute(
-                name: MuscleScreen.routeName,
-                path: '${MuscleScreen.routeName}/:id',
-                builder: (context, state) => MuscleScreen(
-                  id: state.pathParameters['id']!.snakeToCamel(),
-                ),
+                routes: [
+                  GoRoute(
+                    name: MuscleScreen.routeName,
+                    path: '/:id',
+                    builder: (context, state) => MuscleScreen(
+                      id: state.pathParameters['id']!.snakeToCamel(),
+                    ),
+                  ),
+                ],
               ),
               GoRoute(
                 name: ProgrammerScreen.routeName,
