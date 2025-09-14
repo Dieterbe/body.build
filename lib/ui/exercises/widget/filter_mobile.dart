@@ -67,7 +67,7 @@ class FilterMobile extends ConsumerWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.fitness_center, size: 16),
+                        const Icon(Icons.fitness_center, size: 16),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
@@ -77,7 +77,7 @@ class FilterMobile extends ConsumerWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Icon(Icons.arrow_drop_down, size: 16),
+                        const Icon(Icons.arrow_drop_down, size: 16),
                       ],
                     ),
                   ),
@@ -106,7 +106,7 @@ class FilterMobile extends ConsumerWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.build, size: 16),
+                        const Icon(Icons.build, size: 16),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
@@ -115,7 +115,7 @@ class FilterMobile extends ConsumerWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        Icon(Icons.arrow_drop_down, size: 16),
+                        const Icon(Icons.arrow_drop_down, size: 16),
                       ],
                     ),
                   ),

@@ -302,9 +302,6 @@ In the future, you'll be able to add any cues you can come up with.
                           ...(modifier.opts.entries.toList()
                                 ..sort((a, b) => a.key.compareTo(b.key)))
                               .map((opt) {
-                            final isSelected = opt.key ==
-                                (localSets.modifierOptions[modifier.name] ??
-                                    modifier.defaultVal);
                             final optionDesc = opt.value.$2;
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
