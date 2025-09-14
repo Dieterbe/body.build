@@ -12,11 +12,4 @@ const strengthColors = [
   Color.fromARGB(255, 255, 0, 0),
 ];
 
-const strengthStrings = [
-  'trivial',
-  'very weak',
-  'weak',
-  'moderate/unknown',
-  'strong',
-  'strongest'
-];
+const strengthStrings = ['trivial', 'very weak', 'weak', 'moderate/unknown', 'strong', 'strongest'];

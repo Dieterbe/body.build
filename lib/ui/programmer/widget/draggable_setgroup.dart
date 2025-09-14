@@ -12,8 +12,8 @@ class DraggableSets extends StatelessWidget {
   final Settings setup;
   final bool hasNewComboButton;
   final Function(Workout) onChange;
-  const DraggableSets(this.setup, this.workout, this.sg, this.sets,
-      this.hasNewComboButton, this.onChange,
+  const DraggableSets(
+      this.setup, this.workout, this.sg, this.sets, this.hasNewComboButton, this.onChange,
       {super.key});
 
   @override
@@ -22,8 +22,7 @@ class DraggableSets extends StatelessWidget {
       if (sNew == null && sg.sets.length == 1) {
         // special case: if sNew needs to be removed, and it's the only one in the setgroup,
         // then the whole setGroup should be deleted
-        onChange(workout.copyWith(
-            setGroups: workout.setGroups.where((e) => (e != sg)).toList()));
+        onChange(workout.copyWith(setGroups: workout.setGroups.where((e) => (e != sg)).toList()));
         return;
       }
       final SetGroup sg2;
@@ -37,9 +36,8 @@ class DraggableSets extends StatelessWidget {
           sg.sets.map((s) => (s == sets) ? sNew : s).toList(),
         );
       }
-      onChange(workout.copyWith(
-          setGroups:
-              workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()));
+      onChange(
+          workout.copyWith(setGroups: workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()));
     });
 
     // The BuilderSets widget now handles preventing drag events internally

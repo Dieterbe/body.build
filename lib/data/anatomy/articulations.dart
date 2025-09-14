@@ -4,9 +4,7 @@ enum Articulation {
   cervicalSpineExtension(nick: ['neck extension'], constraint: null),
   cervicalSpineHyperextension(nick: ['neck hyperextension'], constraint: null),
   cervicalSpineRotation(nick: ['neck rotation'], constraint: null),
-  scapularRetraction(
-      nick: ['scapular adduction', 'scapular external rotation'],
-      constraint: null),
+  scapularRetraction(nick: ['scapular adduction', 'scapular external rotation'], constraint: null),
   scapularProtraction(nick: ['scapular abduction'], constraint: null),
   scapularDepression(nick: [], constraint: null),
   scapularDownardRotation(nick: [], constraint: null),
@@ -17,13 +15,10 @@ enum Articulation {
       constraint: "shoulder externally rotated (thumbs up)"),
   shoulderTransverseFlexion(
       nick: ['shoulder horizontal flexion'],
-      constraint:
-          "shoulder internally rotated (thumbs pointing towards each other or down)"),
+      constraint: "shoulder internally rotated (thumbs pointing towards each other or down)"),
   shoulderTransverseExtension(
-      nick: ['shoulder horizontal extension'],
-      constraint: "shoulder internally rotated"),
-  shoulderTransverseAbduction(
-      nick: [], constraint: "shoulder externally rotated (thumbs up)"),
+      nick: ['shoulder horizontal extension'], constraint: "shoulder internally rotated"),
+  shoulderTransverseAbduction(nick: [], constraint: "shoulder externally rotated (thumbs up)"),
   shoulderInternalRotation(nick: ['arm internal rotation'], constraint: null),
   shoulderExternalRotation(nick: ['arm external rotation'], constraint: null),
   shoulderFlexion(nick: [], constraint: null),
@@ -47,8 +42,7 @@ enum Articulation {
   kneeExternalRotation(nick: [], constraint: null),
   anklePlantarFlexion(nick: [], constraint: null),
   ankleDorsiFlexion(nick: [], constraint: null),
-  intraAbdominalPressure(
-      nick: ["IAP"], constraint: "not an actual articulation"),
+  intraAbdominalPressure(nick: ["IAP"], constraint: "not an actual articulation"),
   hipAbduction(nick: [], constraint: null),
   hipAdduction(nick: [], constraint: null),
   hipFlexion(nick: [], constraint: null),
@@ -191,18 +185,13 @@ final _articulationRelated = [
 // for the given articulation, return a tuple that has:
 // the directly related articulations (deepest level)
 // the indirectly related articulations (first level)
-(List<Articulation>, List<Articulation>) relatedArticulations(
-    Articulation articulation) {
+(List<Articulation>, List<Articulation>) relatedArticulations(Articulation articulation) {
   for (final group in _articulationRelated) {
     for (final subgroup in group) {
       if (subgroup.contains(articulation)) {
-        final direct =
-            subgroup.where((a) => a != articulation).toList(growable: false);
+        final direct = subgroup.where((a) => a != articulation).toList(growable: false);
 
-        final indirect = group
-            .where((g) => g != subgroup)
-            .expand((g) => g)
-            .toList(growable: false);
+        final indirect = group.where((g) => g != subgroup).expand((g) => g).toList(growable: false);
 
         return (direct, indirect);
       }

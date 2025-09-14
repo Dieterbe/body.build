@@ -29,8 +29,7 @@ class ProgramHeader extends ConsumerWidget {
     }
 
     void onSelect(String name, ProgramManagerState state) {
-      final entry =
-          state.programs.entries.firstWhere((e) => e.value.name == name);
+      final entry = state.programs.entries.firstWhere((e) => e.value.name == name);
       ref.read(programManagerProvider.notifier).selectProgram(entry.key);
     }
 
@@ -51,9 +50,7 @@ class ProgramHeader extends ConsumerWidget {
 
     dynamic onDelete(String name) {
       final state = programManagerState.value!;
-      ref
-          .read(programManagerProvider.notifier)
-          .deleteProgram(state.currentProgramId);
+      ref.read(programManagerProvider.notifier).deleteProgram(state.currentProgramId);
       return null;
     }
 
@@ -80,9 +77,7 @@ class ProgramHeader extends ConsumerWidget {
                   msg: 'No workouts yet. Add one!',
                   child: ElevatedButton(
                     onPressed: () async {
-                      ref
-                          .read(programManagerProvider.notifier)
-                          .addWorkout(const Workout());
+                      ref.read(programManagerProvider.notifier).addWorkout(const Workout());
                       await Posthog().capture(
                         eventName: 'AddWorkoutButtonClicked',
                         properties: {
@@ -105,20 +100,16 @@ class ProgramHeader extends ConsumerWidget {
                       // Create map of target recruitments from setup parameters
                       final target = <ProgramGroup, double>{};
                       for (final group in ProgramGroup.values) {
-                        target[group] = setup.paramFinal
-                                .getSetsPerWeekPerMuscleGroupFor(group) *
-                            1.0;
+                        target[group] =
+                            setup.paramFinal.getSetsPerWeekPerMuscleGroupFor(group) * 1.0;
                       }
 
                       // Create a workout to hold our evolving solution
                       var oldWorkout = const Workout();
-                      ref
-                          .read(programManagerProvider.notifier)
-                          .addWorkout(oldWorkout);
+                      ref.read(programManagerProvider.notifier).addWorkout(oldWorkout);
 
                       // Listen to stream of solutions and update the workout
-                      await for (final setGroup
-                          in generateOptimalSetGroup(target, setup)) {
+                      await for (final setGroup in generateOptimalSetGroup(target, setup)) {
                         final newWorkout = Workout(setGroups: [setGroup]);
                         ref
                             .read(programManagerProvider.notifier)
@@ -128,10 +119,7 @@ class ProgramHeader extends ConsumerWidget {
                       }
                     },
                     child: const Row(
-                      children: [
-                        Icon(Icons.auto_awesome),
-                        Text('generate workout')
-                      ],
+                      children: [Icon(Icons.auto_awesome), Text('generate workout')],
                     ),
                   );
                 },

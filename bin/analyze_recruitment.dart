@@ -8,8 +8,7 @@ void main() {
   // Go through all exercises
   for (final exercise in exes) {
     // Create all possible modifier combinations
-    final modifierCombinations =
-        _generateModifierCombinations(exercise.modifiers);
+    final modifierCombinations = _generateModifierCombinations(exercise.modifiers);
 
     // For each combination, check recruitment for all program groups
     for (final modifierOptions in modifierCombinations) {
@@ -33,8 +32,7 @@ void main() {
   }
 }
 
-List<Map<String, String>> _generateModifierCombinations(
-    List<Modifier> modifiers) {
+List<Map<String, String>> _generateModifierCombinations(List<Modifier> modifiers) {
   if (modifiers.isEmpty) return [<String, String>{}];
 
   final combinations = <Map<String, String>>[];

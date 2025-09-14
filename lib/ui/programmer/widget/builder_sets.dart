@@ -18,9 +18,7 @@ class BuilderSets extends ConsumerStatefulWidget {
   final bool hasNewComboButton;
   final Function(Sets? sgNew) onChange;
 
-  const BuilderSets(
-      this.setup, this.sets, this.hasNewComboButton, this.onChange,
-      {super.key});
+  const BuilderSets(this.setup, this.sets, this.hasNewComboButton, this.onChange, {super.key});
 
   @override
   ConsumerState<BuilderSets> createState() => _BuilderSetsState();
@@ -131,8 +129,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
               color: Theme.of(context).colorScheme.primary,
               size: MediaQuery.sizeOf(context).width / 60,
             ),
-            items: List.generate(10, (index) => index + 1)
-                .map<DropdownMenuItem<int>>((int value) {
+            items: List.generate(10, (index) => index + 1).map<DropdownMenuItem<int>>((int value) {
               return DropdownMenuItem<int>(
                 value: value,
                 child: Text(
@@ -158,15 +155,13 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
           alignment: Alignment.centerLeft,
           child: DropdownButton<int>(
             // if you go back and change the setup, we must reset the intensity to something that's allowed
-            value: (widget.setup.paramFinal.intensities
-                    .contains(widget.sets.intensity))
+            value: (widget.setup.paramFinal.intensities.contains(widget.sets.intensity))
                 ? widget.sets.intensity
                 : widget.setup.paramFinal.intensities.first,
             icon: Icon(Icons.arrow_drop_down,
                 color: Theme.of(context).colorScheme.primary,
                 size: MediaQuery.sizeOf(context).width / 60),
-            items: widget.setup.paramFinal.intensities
-                .map<DropdownMenuItem<int>>((int value) {
+            items: widget.setup.paramFinal.intensities.map<DropdownMenuItem<int>>((int value) {
               return DropdownMenuItem<int>(
                 value: value,
                 child: Text(
@@ -205,8 +200,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
               isExpanded ? Icons.expand_less : Icons.settings,
             ),
       style: IconButton.styleFrom(
-        backgroundColor:
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+        backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -249,8 +243,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                     if (setRatings.isNotEmpty) ...[
                       const SizedBox(width: 8),
                       IconButton(
-                        onPressed: () => showRatingsDialog(
-                            widget.sets.ex!.id, setRatings, context),
+                        onPressed: () => showRatingsDialog(widget.sets.ex!.id, setRatings, context),
                         icon: RatingIcon(
                           ratings: setRatings,
                           size: MediaQuery.sizeOf(context).width /
@@ -271,8 +264,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
           if (widget.sets.ex != null) ...[
             ...widget.sets.ex!.equipment.map((e) => Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child: EquipmentLabel(e,
-                      err: !widget.setup.availEquipment.contains(e)),
+                  child: EquipmentLabel(e, err: !widget.setup.availEquipment.contains(e)),
                 )),
           ],
           if (widget.hasNewComboButton)
@@ -317,8 +309,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                               widget.sets.ex == null
                                   ? 0
                                   : widget.sets.ex!
-                                      .recruitment(
-                                          g, widget.sets.modifierOptions)
+                                      .recruitment(g, widget.sets.modifierOptions)
                                       .volume,
                               context)),
                     ),

@@ -30,10 +30,7 @@ class LabelBar extends StatelessWidget {
           Expanded(child: Container()),
         ],
       ),
-      Divider(
-          height: 2,
-          thickness: 2,
-          color: Theme.of(context).colorScheme.secondaryContainer),
+      Divider(height: 2, thickness: 2, color: Theme.of(context).colorScheme.secondaryContainer),
       const SizedBox(height: 8),
     ]);
   }

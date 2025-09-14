@@ -31,14 +31,12 @@ mixin _$Parameters {
   /// Create a copy of Parameters
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ParametersCopyWith<Parameters> get copyWith =>
-      throw _privateConstructorUsedError;
+  $ParametersCopyWith<Parameters> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ParametersCopyWith<$Res> {
-  factory $ParametersCopyWith(
-          Parameters value, $Res Function(Parameters) then) =
+  factory $ParametersCopyWith(Parameters value, $Res Function(Parameters) then) =
       _$ParametersCopyWithImpl<$Res, Parameters>;
   @useResult
   $Res call(
@@ -48,8 +46,7 @@ abstract class $ParametersCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ParametersCopyWithImpl<$Res, $Val extends Parameters>
-    implements $ParametersCopyWith<$Res> {
+class _$ParametersCopyWithImpl<$Res, $Val extends Parameters> implements $ParametersCopyWith<$Res> {
   _$ParametersCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -75,8 +72,7 @@ class _$ParametersCopyWithImpl<$Res, $Val extends Parameters>
           ? _value.setsPerweekPerMuscleGroup
           : setsPerweekPerMuscleGroup // ignore: cast_nullable_to_non_nullable
               as int,
-      setsPerWeekPerMuscleGroupIndividual: null ==
-              setsPerWeekPerMuscleGroupIndividual
+      setsPerWeekPerMuscleGroupIndividual: null == setsPerWeekPerMuscleGroupIndividual
           ? _value.setsPerWeekPerMuscleGroupIndividual
           : setsPerWeekPerMuscleGroupIndividual // ignore: cast_nullable_to_non_nullable
               as List<MuscleGroupOverride>,
@@ -85,10 +81,8 @@ class _$ParametersCopyWithImpl<$Res, $Val extends Parameters>
 }
 
 /// @nodoc
-abstract class _$$ParametersImplCopyWith<$Res>
-    implements $ParametersCopyWith<$Res> {
-  factory _$$ParametersImplCopyWith(
-          _$ParametersImpl value, $Res Function(_$ParametersImpl) then) =
+abstract class _$$ParametersImplCopyWith<$Res> implements $ParametersCopyWith<$Res> {
+  factory _$$ParametersImplCopyWith(_$ParametersImpl value, $Res Function(_$ParametersImpl) then) =
       __$$ParametersImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -99,11 +93,9 @@ abstract class _$$ParametersImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ParametersImplCopyWithImpl<$Res>
-    extends _$ParametersCopyWithImpl<$Res, _$ParametersImpl>
+class __$$ParametersImplCopyWithImpl<$Res> extends _$ParametersCopyWithImpl<$Res, _$ParametersImpl>
     implements _$$ParametersImplCopyWith<$Res> {
-  __$$ParametersImplCopyWithImpl(
-      _$ParametersImpl _value, $Res Function(_$ParametersImpl) _then)
+  __$$ParametersImplCopyWithImpl(_$ParametersImpl _value, $Res Function(_$ParametersImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Parameters
@@ -124,8 +116,7 @@ class __$$ParametersImplCopyWithImpl<$Res>
           ? _value.setsPerweekPerMuscleGroup
           : setsPerweekPerMuscleGroup // ignore: cast_nullable_to_non_nullable
               as int,
-      setsPerWeekPerMuscleGroupIndividual: null ==
-              setsPerWeekPerMuscleGroupIndividual
+      setsPerWeekPerMuscleGroupIndividual: null == setsPerWeekPerMuscleGroupIndividual
           ? _value._setsPerWeekPerMuscleGroupIndividual
           : setsPerWeekPerMuscleGroupIndividual // ignore: cast_nullable_to_non_nullable
               as List<MuscleGroupOverride>,
@@ -139,15 +130,12 @@ class _$ParametersImpl extends _Parameters {
   _$ParametersImpl(
       {final List<int> intensities = const [],
       this.setsPerweekPerMuscleGroup = 0,
-      final List<MuscleGroupOverride> setsPerWeekPerMuscleGroupIndividual =
-          const []})
+      final List<MuscleGroupOverride> setsPerWeekPerMuscleGroupIndividual = const []})
       : _intensities = intensities,
-        _setsPerWeekPerMuscleGroupIndividual =
-            setsPerWeekPerMuscleGroupIndividual,
+        _setsPerWeekPerMuscleGroupIndividual = setsPerWeekPerMuscleGroupIndividual,
         super._();
 
-  factory _$ParametersImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ParametersImplFromJson(json);
+  factory _$ParametersImpl.fromJson(Map<String, dynamic> json) => _$$ParametersImplFromJson(json);
 
   final List<int> _intensities;
   @override
@@ -196,12 +184,10 @@ abstract class _Parameters extends Parameters {
   factory _Parameters(
       {final List<int> intensities,
       final int setsPerweekPerMuscleGroup,
-      final List<MuscleGroupOverride>
-          setsPerWeekPerMuscleGroupIndividual}) = _$ParametersImpl;
+      final List<MuscleGroupOverride> setsPerWeekPerMuscleGroupIndividual}) = _$ParametersImpl;
   _Parameters._() : super._();
 
-  factory _Parameters.fromJson(Map<String, dynamic> json) =
-      _$ParametersImpl.fromJson;
+  factory _Parameters.fromJson(Map<String, dynamic> json) = _$ParametersImpl.fromJson;
 
   @override
   List<int> get intensities;
@@ -214,6 +200,5 @@ abstract class _Parameters extends Parameters {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ParametersImplCopyWith<_$ParametersImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ParametersImplCopyWith<_$ParametersImpl> get copyWith => throw _privateConstructorUsedError;
 }

@@ -115,8 +115,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
                     flex: (volume * 1000).round(),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: bgColorForProgramGroup(group)
-                            .withValues(alpha: 0.8),
+                        color: bgColorForProgramGroup(group).withValues(alpha: 0.8),
                       ),
                     ),
                   );
@@ -153,8 +152,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
                       width: 8,
                       height: 8,
                       decoration: BoxDecoration(
-                        color: bgColorForProgramGroup(group)
-                            .withValues(alpha: 0.8),
+                        color: bgColorForProgramGroup(group).withValues(alpha: 0.8),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -187,10 +185,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primaryContainer
-                    .withValues(alpha: 0.3),
+                color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Row(

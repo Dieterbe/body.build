@@ -41,8 +41,7 @@ mixin _$Sets {
 
 /// @nodoc
 abstract class $SetsCopyWith<$Res> {
-  factory $SetsCopyWith(Sets value, $Res Function(Sets) then) =
-      _$SetsCopyWithImpl<$Res, Sets>;
+  factory $SetsCopyWith(Sets value, $Res Function(Sets) then) = _$SetsCopyWithImpl<$Res, Sets>;
   @useResult
   $Res call(
       {int intensity,
@@ -54,8 +53,7 @@ abstract class $SetsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SetsCopyWithImpl<$Res, $Val extends Sets>
-    implements $SetsCopyWith<$Res> {
+class _$SetsCopyWithImpl<$Res, $Val extends Sets> implements $SetsCopyWith<$Res> {
   _$SetsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -106,8 +104,7 @@ class _$SetsCopyWithImpl<$Res, $Val extends Sets>
 
 /// @nodoc
 abstract class _$$SetsImplCopyWith<$Res> implements $SetsCopyWith<$Res> {
-  factory _$$SetsImplCopyWith(
-          _$SetsImpl value, $Res Function(_$SetsImpl) then) =
+  factory _$$SetsImplCopyWith(_$SetsImpl value, $Res Function(_$SetsImpl) then) =
       __$$SetsImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -121,8 +118,7 @@ abstract class _$$SetsImplCopyWith<$Res> implements $SetsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SetsImplCopyWithImpl<$Res>
-    extends _$SetsCopyWithImpl<$Res, _$SetsImpl>
+class __$$SetsImplCopyWithImpl<$Res> extends _$SetsCopyWithImpl<$Res, _$SetsImpl>
     implements _$$SetsImplCopyWith<$Res> {
   __$$SetsImplCopyWithImpl(_$SetsImpl _value, $Res Function(_$SetsImpl) _then)
       : super(_value, _then);
@@ -181,8 +177,7 @@ class _$SetsImpl extends _Sets {
         _cueOptions = cueOptions,
         super._();
 
-  factory _$SetsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SetsImplFromJson(json);
+  factory _$SetsImpl.fromJson(Map<String, dynamic> json) => _$$SetsImplFromJson(json);
 
   @override
   final int intensity;
@@ -258,8 +253,7 @@ abstract class _Sets extends Sets {
   @JsonKey(includeToJson: false)
   bool get changeEx;
   @override
-  Map<String, String>
-      get modifierOptions; // Map of modifier name to selected option
+  Map<String, String> get modifierOptions; // Map of modifier name to selected option
   @override
   Map<String, bool> get cueOptions;
 
@@ -267,8 +261,7 @@ abstract class _Sets extends Sets {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SetsImplCopyWith<_$SetsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SetsImplCopyWith<_$SetsImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 SetGroup _$SetGroupFromJson(Map<String, dynamic> json) {
@@ -285,8 +278,7 @@ mixin _$SetGroup {
   /// Create a copy of SetGroup
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SetGroupCopyWith<SetGroup> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SetGroupCopyWith<SetGroup> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -298,8 +290,7 @@ abstract class $SetGroupCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SetGroupCopyWithImpl<$Res, $Val extends SetGroup>
-    implements $SetGroupCopyWith<$Res> {
+class _$SetGroupCopyWithImpl<$Res, $Val extends SetGroup> implements $SetGroupCopyWith<$Res> {
   _$SetGroupCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -324,10 +315,8 @@ class _$SetGroupCopyWithImpl<$Res, $Val extends SetGroup>
 }
 
 /// @nodoc
-abstract class _$$SetGroupImplCopyWith<$Res>
-    implements $SetGroupCopyWith<$Res> {
-  factory _$$SetGroupImplCopyWith(
-          _$SetGroupImpl value, $Res Function(_$SetGroupImpl) then) =
+abstract class _$$SetGroupImplCopyWith<$Res> implements $SetGroupCopyWith<$Res> {
+  factory _$$SetGroupImplCopyWith(_$SetGroupImpl value, $Res Function(_$SetGroupImpl) then) =
       __$$SetGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -335,11 +324,9 @@ abstract class _$$SetGroupImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SetGroupImplCopyWithImpl<$Res>
-    extends _$SetGroupCopyWithImpl<$Res, _$SetGroupImpl>
+class __$$SetGroupImplCopyWithImpl<$Res> extends _$SetGroupCopyWithImpl<$Res, _$SetGroupImpl>
     implements _$$SetGroupImplCopyWith<$Res> {
-  __$$SetGroupImplCopyWithImpl(
-      _$SetGroupImpl _value, $Res Function(_$SetGroupImpl) _then)
+  __$$SetGroupImplCopyWithImpl(_$SetGroupImpl _value, $Res Function(_$SetGroupImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of SetGroup
@@ -363,8 +350,7 @@ class __$$SetGroupImplCopyWithImpl<$Res>
 class _$SetGroupImpl implements _SetGroup {
   const _$SetGroupImpl(final List<Sets> sets) : _sets = sets;
 
-  factory _$SetGroupImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SetGroupImplFromJson(json);
+  factory _$SetGroupImpl.fromJson(Map<String, dynamic> json) => _$$SetGroupImplFromJson(json);
 
   final List<Sets> _sets;
   @override
@@ -398,8 +384,7 @@ class _$SetGroupImpl implements _SetGroup {
 abstract class _SetGroup implements SetGroup {
   const factory _SetGroup(final List<Sets> sets) = _$SetGroupImpl;
 
-  factory _SetGroup.fromJson(Map<String, dynamic> json) =
-      _$SetGroupImpl.fromJson;
+  factory _SetGroup.fromJson(Map<String, dynamic> json) = _$SetGroupImpl.fromJson;
 
   @override
   List<Sets> get sets;
@@ -408,6 +393,5 @@ abstract class _SetGroup implements SetGroup {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SetGroupImplCopyWith<_$SetGroupImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SetGroupImplCopyWith<_$SetGroupImpl> get copyWith => throw _privateConstructorUsedError;
 }

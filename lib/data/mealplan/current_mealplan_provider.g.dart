@@ -10,13 +10,11 @@ String _$currentMealplanHash() => r'05122757aba2fd4a426dfeb6c3e75d29a49f1814';
 
 /// See also [CurrentMealplan].
 @ProviderFor(CurrentMealplan)
-final currentMealplanProvider =
-    AutoDisposeAsyncNotifierProvider<CurrentMealplan, String>.internal(
+final currentMealplanProvider = AutoDisposeAsyncNotifierProvider<CurrentMealplan, String>.internal(
   CurrentMealplan.new,
   name: r'currentMealplanProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentMealplanHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$currentMealplanHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

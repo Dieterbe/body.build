@@ -41,12 +41,9 @@ to personal anatomy and preference.
 const flyThumbs = Modifier('thumbs', 'up', {
   'up': (
     {
-      ProgramGroup.lowerPecs:
-          Assign(1, 'full ROM horizontal shoulder adduction'),
-      ProgramGroup.upperPecs:
-          Assign(1, 'full ROM horizontal shoulder adduction'),
-      ProgramGroup.frontDelts:
-          Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
+      ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
+      ProgramGroup.upperPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
+      ProgramGroup.frontDelts: Assign(0.5, 'full ROM horizontal shoulder adduction (weak)'),
     },
     'shoulder externally rotated, recruits front delts less'
   ),
@@ -54,8 +51,7 @@ const flyThumbs = Modifier('thumbs', 'up', {
     {
       ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder flexion'),
       ProgramGroup.upperPecs: Assign(1, 'full ROM horizontal shoulder flexion'),
-      ProgramGroup.frontDelts:
-          Assign(1, 'full ROM horizontal shoulder flexion'),
+      ProgramGroup.frontDelts: Assign(1, 'full ROM horizontal shoulder flexion'),
     },
     'shoulders internally rotated, recruits front delts more'
   ),
@@ -87,9 +83,7 @@ const legCurlHipFlexion = Modifier('hip flexion', 'yes', {
     },
     ''
   ),
-},
-    desc:
-        '''Flexing the hip stretches the hamstrings and results in higher growth stimulus.  
+}, desc: '''Flexing the hip stretches the hamstrings and results in higher growth stimulus.  
         Study: [Greater Hamstrings Muscle Hypertrophy but Similar Damage Protection after Training at Long versus Short Muscle Lengths](https://pubmed.ncbi.nlm.nih.gov/33009197/)
 ''');
 
@@ -114,8 +108,7 @@ const bsqRearLeg = Modifier('rear leg', 'for balance', {
   'for balance': ({}, 'for stability. no contraction'),
   'active': (
     {
-      ProgramGroup.quadsRF:
-          Assign(1, 'knee extension while stretched (rear leg)'),
+      ProgramGroup.quadsRF: Assign(1, 'knee extension while stretched (rear leg)'),
     },
     '''rear leg actively pushes and contributes to the movement.  
   Great way to train the Rectus Femoris quadricep. (which is typically neglected in squats).  
@@ -129,15 +122,13 @@ const hipExtensionKneeFlexion = Modifier(
     {
       'yes': (
         {
-          ProgramGroup.quadsVasti:
-              Assign(0.5, 'knee extension during hip extension'),
+          ProgramGroup.quadsVasti: Assign(0.5, 'knee extension during hip extension'),
         },
         'adds 0.5 quadriceps recruitment'
       ),
       'no': (
         {
-          ProgramGroup.quadsVasti:
-              Assign(0.15, 'knee extension during hip extension'),
+          ProgramGroup.quadsVasti: Assign(0.15, 'knee extension during hip extension'),
         },
         'very minor quadriceps recruitment'
       ),
@@ -147,21 +138,17 @@ const hipExtensionKneeFlexion = Modifier(
 const legExtensionLean = Modifier('lean', 'upright', {
   'upright': (
     {
-      ProgramGroup.quadsRF:
-          Assign(0.25, 'knee extension, short length to active insufficency'),
+      ProgramGroup.quadsRF: Assign(0.25, 'knee extension, short length to active insufficency'),
     },
     ''
   ),
   'back': (
     {
-      ProgramGroup.quadsRF:
-          Assign(1.0, 'knee extension, medium to long length'),
+      ProgramGroup.quadsRF: Assign(1.0, 'knee extension, medium to long length'),
     },
     ''
   ),
-},
-    desc:
-        '''leaning back stretches the Rectus Femoris and triggers more growth.  
+}, desc: '''leaning back stretches the Rectus Femoris and triggers more growth.  
 See this RCT: [The effects of hip flexion angle on quadriceps femoris muscle hypertrophy in the leg extension exercise](https://pubmed.ncbi.nlm.nih.gov/39699974/)
 
 Menno Henselmans clarifies this study:
@@ -195,12 +182,11 @@ const deficit = Modifier('deficit', 'no', {
         '''Whether the exercise is performed without a deficit, with a small or large/max deficit.  
 Does not affect recruitment, but increases ROM and probably gains''');
 
-Modifier lateralRaiseShoulderRotation = const Modifier(
-    'wrist position', 'pinkie up', {
+Modifier lateralRaiseShoulderRotation = const Modifier('wrist position', 'pinkie up', {
   'pinkie up': (
     {
-      ProgramGroup.frontDelts: Assign(0.25,
-          'deactivation from shoulder abduction (due to internal rotation)'),
+      ProgramGroup.frontDelts:
+          Assign(0.25, 'deactivation from shoulder abduction (due to internal rotation)'),
     },
     ''
   ),
@@ -212,8 +198,7 @@ Modifier lateralRaiseShoulderRotation = const Modifier(
   ),
   'pinkie down': (
     {
-      ProgramGroup.frontDelts:
-          Assign(1, 'shoulder abduction (externally rotated)'),
+      ProgramGroup.frontDelts: Assign(1, 'shoulder abduction (externally rotated)'),
     },
     ''
   ),
@@ -266,64 +251,58 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       {
         '0°': (
           {
-            ProgramGroup.gluteMax: const Assign(
-                0.25, 'hip abduction at 0° hip flexion (upper fibers)'),
-            ProgramGroup.gluteMed:
-                const Assign(1.0, 'hip abduction at 0° hip flexion'),
+            ProgramGroup.gluteMax:
+                const Assign(0.25, 'hip abduction at 0° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMed: const Assign(1.0, 'hip abduction at 0° hip flexion'),
           },
           ''
         ),
         '15°': (
           {
-            ProgramGroup.gluteMax: const Assign(
-                0.375, 'hip abduction at 15° hip flexion (upper fibers)'),
-            ProgramGroup.gluteMed:
-                const Assign(0.917, 'hip abduction at 15° hip flexion'),
+            ProgramGroup.gluteMax:
+                const Assign(0.375, 'hip abduction at 15° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMed: const Assign(0.917, 'hip abduction at 15° hip flexion'),
           },
           ''
         ),
         '30°': (
           {
-            ProgramGroup.gluteMax: const Assign(
-                0.5, 'hip abduction at 30° hip flexion (upper fibers)'),
-            ProgramGroup.gluteMed:
-                const Assign(0.833, 'hip abduction at 30° hip flexion'),
+            ProgramGroup.gluteMax:
+                const Assign(0.5, 'hip abduction at 30° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMed: const Assign(0.833, 'hip abduction at 30° hip flexion'),
           },
           ''
         ),
         '45°': (
           {
-            ProgramGroup.gluteMax: const Assign(
-                0.625, 'hip abduction at 45° hip flexion (upper fibers)'),
-            ProgramGroup.gluteMed: const Assign(
-                0.75, 'hip abduction at 45° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMax:
+                const Assign(0.625, 'hip abduction at 45° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMed:
+                const Assign(0.75, 'hip abduction at 45° hip flexion (upper fibers)'),
           },
           ''
         ),
         '60°': (
           {
-            ProgramGroup.gluteMax: const Assign(
-                0.75, 'hip abduction at 60° hip flexion (upper fibers)'),
-            ProgramGroup.gluteMed:
-                const Assign(0.667, 'hip abduction at 60° hip flexion'),
+            ProgramGroup.gluteMax:
+                const Assign(0.75, 'hip abduction at 60° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMed: const Assign(0.667, 'hip abduction at 60° hip flexion'),
           },
           ''
         ),
         '75°': (
           {
-            ProgramGroup.gluteMax: const Assign(
-                0.875, 'hip abduction at 75° hip flexion (upper fibers)'),
-            ProgramGroup.gluteMed:
-                const Assign(0.583, 'hip abduction at 75° hip flexion'),
+            ProgramGroup.gluteMax:
+                const Assign(0.875, 'hip abduction at 75° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMed: const Assign(0.583, 'hip abduction at 75° hip flexion'),
           },
           ''
         ),
         '90°': (
           {
-            ProgramGroup.gluteMax: const Assign(
-                1.0, 'hip abduction at 90° hip flexion (upper fibers)'),
-            ProgramGroup.gluteMed:
-                const Assign(0.5, 'hip abduction at 90° hip flexion'),
+            ProgramGroup.gluteMax:
+                const Assign(1.0, 'hip abduction at 90° hip flexion (upper fibers)'),
+            ProgramGroup.gluteMed: const Assign(0.5, 'hip abduction at 90° hip flexion'),
           },
           ''
         ),

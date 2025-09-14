@@ -5,8 +5,7 @@ class EditableHeader extends StatelessWidget {
   final String? hintText;
   final VoidCallback? onDelete;
   final ValueChanged<String>? onTextChanged;
-  final ValueChanged<int>?
-      onNumChanged; // shows a number before the name. optional
+  final ValueChanged<int>? onNumChanged; // shows a number before the name. optional
   final int? n; // shows a number before the name. optional
 
   const EditableHeader({
@@ -50,8 +49,7 @@ class EditableHeader extends StatelessWidget {
                 }
               },
             ),
-          if (onNumChanged != null)
-            Text(' x ', style: Theme.of(context).textTheme.titleLarge),
+          if (onNumChanged != null) Text(' x ', style: Theme.of(context).textTheme.titleLarge),
           Expanded(
             child: TextField(
               controller: controller,
@@ -61,22 +59,15 @@ class EditableHeader extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurface,
               ),
               decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 hintText: hintText,
                 hintStyle: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 18,
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.5),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
                 filled: true,
-                fillColor: Theme.of(context)
-                    .colorScheme
-                    .primary
-                    .withValues(alpha: 0.05),
+                fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
@@ -88,10 +79,7 @@ class EditableHeader extends StatelessWidget {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withValues(alpha: 0.2),
+                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                     width: 2,
                   ),
                 ),

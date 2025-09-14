@@ -4,8 +4,7 @@ import 'package:bodybuild/data/anatomy/muscles.dart';
 import 'package:bodybuild/ui/anatomy/widget/articulation_button.dart';
 
 class InsufficiencyWidget extends StatelessWidget {
-  const InsufficiencyWidget(
-      {super.key, required this.insufficiency, this.articulation});
+  const InsufficiencyWidget({super.key, required this.insufficiency, this.articulation});
   final Insufficiency insufficiency;
   // the articulation we may be looking at, disables nav
   final Articulation? articulation;
@@ -15,13 +14,11 @@ class InsufficiencyWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Conditions:',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text('Conditions:', style: TextStyle(fontWeight: FontWeight.bold)),
         ...insufficiency.factors.map((i) => Row(
               children: [
                 Text(i.degrees == 361 ? 'max ° ' : '${i.degrees}° '),
-                ArticulationButton(i.articulation,
-                    nav: i.articulation != articulation),
+                ArticulationButton(i.articulation, nav: i.articulation != articulation),
               ],
             )),
         if (insufficiency.comment != null)

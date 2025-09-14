@@ -78,8 +78,7 @@ void _generateInIsolate(WorkoutGenerationParams params) {
   print('Workout generation (generateOptimalSetGroup) start');
   print('Available exercises: ${exercises.length}');
 
-  var bestSolution =
-      SolutionNode.initial(exercises, recruitments, params.targetRecruitment);
+  var bestSolution = SolutionNode.initial(exercises, recruitments, params.targetRecruitment);
   print('Best solution cost: ${bestSolution.cost}');
   var nodesExplored = 0;
 
@@ -94,8 +93,7 @@ void _generateInIsolate(WorkoutGenerationParams params) {
       await Future.delayed(const Duration(milliseconds: 10));
     }
     if (nodesExplored % 50000 == 0) {
-      print(
-          '${indent}Explored $nodesExplored nodes, best.cost: ${bestSolution.cost}');
+      print('${indent}Explored $nodesExplored nodes, best.cost: ${bestSolution.cost}');
     }
 
     final targets = current.findTargets();
@@ -149,8 +147,7 @@ void _generateInIsolate(WorkoutGenerationParams params) {
             improvedForTarget = true;
             if (newSolution.cost < bestSolution.cost) {
               bestSolution = newSolution;
-              print(
-                  '${indent}Found better solution with cost ${bestSolution.cost}:');
+              print('${indent}Found better solution with cost ${bestSolution.cost}:');
               // print(
               //   '${indent}Exercises: ${newSolution.exercises.map((e) => "${e.ex.id}:${newSolution.sets[newSolution.exercises.indexOf(e)]}").join(", ")}');
 

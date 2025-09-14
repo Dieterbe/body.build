@@ -15,8 +15,7 @@ Widget muscleMark(double recruitment, BuildContext context) {
   return Container(
     // padding: const EdgeInsets.all(2.0),
     decoration: BoxDecoration(
-      color:
-          Theme.of(context).colorScheme.primary.withValues(alpha: recruitment),
+      color: Theme.of(context).colorScheme.primary.withValues(alpha: recruitment),
       borderRadius: const BorderRadius.all(
         Radius.circular(3),
       ),
@@ -37,8 +36,8 @@ Widget pad8(Widget child) => Padding(
 Widget titleTextMedium(String title, BuildContext context) =>
     titleWidget(Text(title, style: ts100(context)), context);
 
-Widget titleTextLarge(String title, BuildContext context) => titleWidget(
-    Text(title, style: Theme.of(context).textTheme.titleLarge), context);
+Widget titleTextLarge(String title, BuildContext context) =>
+    titleWidget(Text(title, style: Theme.of(context).textTheme.titleLarge), context);
 
 // fixed with, for use in rows
 Widget titleWidget(Widget child, BuildContext context) => Expanded(

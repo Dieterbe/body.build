@@ -187,8 +187,7 @@ const ratingJNPecDeckHandGrip = Rating(
     ProgramGroup.lowerPecs,
     ProgramGroup.upperPecs,
   ],
-  comment:
-      '''big stretch, good tension across ROM. but path can can be restrictive
+  comment: '''big stretch, good tension across ROM. but path can can be restrictive
   Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=11m09s)
 ''',
 );
@@ -213,8 +212,7 @@ const ratingJNDips = Rating(
     ProgramGroup.lowerPecs,
     ProgramGroup.upperPecs,
   ],
-  comment:
-      '''massive stretch, high tension. can overload. shoulder risk maybe. doesn't feel smooth.
+  comment: '''massive stretch, high tension. can overload. shoulder risk maybe. doesn't feel smooth.
   Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m08s)
 ''',
 );
@@ -269,8 +267,7 @@ const ratingJNDBCurl = [
     source: Source.jeffNippard,
     score: 5 / 7,
     pg: [ProgramGroup.biceps],
-    comment:
-        '''tension mainly at the mid point. convenient. good against assymetries.
+    comment: '''tension mainly at the mid point. convenient. good against assymetries.
 better not alternate (too much rest)
       Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=3m37s)''',
     modifiers: {'grip': 'hammer to supinated'},
@@ -279,8 +276,7 @@ better not alternate (too much rest)
     source: Source.jeffNippard,
     score: 5 / 7,
     pg: [ProgramGroup.biceps],
-    comment:
-        '''favors a bit more brachialis over bicep - tension mainly at the mid point
+    comment: '''favors a bit more brachialis over bicep - tension mainly at the mid point
       Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=13m06s)''',
     modifiers: {'grip': 'hammer'},
   )

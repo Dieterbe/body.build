@@ -15,14 +15,13 @@ class MealplanPersistenceService {
     if (mealplansJson == null) return {};
 
     final Map<String, dynamic> mealplansMap = json.decode(mealplansJson);
-    return mealplansMap.map((key, value) =>
-        MapEntry(key, MealPlan.fromJson(value as Map<String, dynamic>)));
+    return mealplansMap
+        .map((key, value) => MapEntry(key, MealPlan.fromJson(value as Map<String, dynamic>)));
   }
 
   /// Helper method to save mealplans map to SharedPreferences
   Future<bool> _saveMealplans(Map<String, MealPlan> mealplans) {
-    final mealplansJson = json
-        .encode(mealplans.map((key, value) => MapEntry(key, value.toJson())));
+    final mealplansJson = json.encode(mealplans.map((key, value) => MapEntry(key, value.toJson())));
     return _prefs.setString(_mealplansKey, mealplansJson);
   }
 

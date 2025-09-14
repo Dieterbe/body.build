@@ -13,6 +13,5 @@ class Workout with _$Workout {
     @Default(1) int periodWeeks,
   }) = _Workout;
 
-  factory Workout.fromJson(Map<String, dynamic> json) =>
-      _$WorkoutFromJson(json);
+  factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
 }

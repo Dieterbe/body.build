@@ -33,8 +33,8 @@ class WorkoutsStats {
           if (set.ex != null) {
             // Count recruitment for each group
             for (var group in ProgramGroup.values) {
-              totalsWIP[group] = totalsWIP[group]! +
-                  set.recruitmentFiltered(group, cutoff) * weeklyFreq;
+              totalsWIP[group] =
+                  totalsWIP[group]! + set.recruitmentFiltered(group, cutoff) * weeklyFreq;
             }
             final img = set.involvedMuscleGroups();
             if (img != null) {

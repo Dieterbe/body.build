@@ -22,8 +22,7 @@ const wrist05 = {
 const vaGoodMorning = {
   ProgramGroup.spinalErectors: Assign(1, 'isometric'),
   ProgramGroup.hams: Assign(1, 'long length hip extension'),
-  ProgramGroup.gluteMax:
-      Assign(1, 'full ROM hip extension, less load when short & strongest'),
+  ProgramGroup.gluteMax: Assign(1, 'full ROM hip extension, less load when short & strongest'),
   ProgramGroup.abs: Assign(0.25),
   ...wrist025,
 };
@@ -37,11 +36,9 @@ final vaDeadliftRDL = {
 
 final vaDeadlift = {
   ...vaDeadliftRDL,
-  ProgramGroup.quadsVasti:
-      const Assign(0.5, 'knee extension (depends on technique and build)'),
+  ProgramGroup.quadsVasti: const Assign(0.5, 'knee extension (depends on technique and build)'),
   ProgramGroup.hams: const Assign(0.75, 'hip extension'),
-  ProgramGroup.gluteMax:
-      const Assign(1, 'hip extension, less load when short & strongest'),
+  ProgramGroup.gluteMax: const Assign(1, 'hip extension, less load when short & strongest'),
   ProgramGroup.soleus: const Assign(0.5),
 };
 
@@ -60,8 +57,7 @@ const vaPullThrough = {
 };
 
 const vaBackExtension = {
-  ProgramGroup.spinalErectors:
-      Assign(1, 'isometric or dynamic based on technique'),
+  ProgramGroup.spinalErectors: Assign(1, 'isometric or dynamic based on technique'),
   ProgramGroup.hams: Assign(1),
   ProgramGroup.gluteMax: Assign(1),
   ...wrist025,
@@ -102,8 +98,8 @@ const vaLegPressSquatHackSquatBelt = {
 const vaSquatBSQ = {
   ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
-  ProgramGroup.gluteMax: Assign(1,
-      'hip extension (from long to somewhat flexed still), less load when short & strongest'),
+  ProgramGroup.gluteMax: Assign(
+      1, 'hip extension (from long to somewhat flexed still), less load when short & strongest'),
   ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
   ProgramGroup.hams: Assign(0.3, 'hip extension'),
   ProgramGroup.abs: Assign(0.25),
@@ -136,8 +132,8 @@ final vaHipAbductionStraightHip = {
   ...hipAbductionHipFlexion('0°').opts['0°']!.$1,
 };
 const vaStandingCalfRaiseCalfJump = {
-  ProgramGroup.gastroc: Assign(
-      1, 'ankle plantarflexion (medium to long length, stretched at knee)'),
+  ProgramGroup.gastroc:
+      Assign(1, 'ankle plantarflexion (medium to long length, stretched at knee)'),
   ProgramGroup.soleus: Assign(1, 'ankle plantarflexion (full ROM)'),
 };
 const vaSeatedCalfRaise = {
@@ -150,8 +146,7 @@ wide grip pull down -> grip just outside shoulder width
 lat pull down -> not mentioned :?
 this explains why pull up goes together with wide grip pull down
 */
-const vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow =
-    {
+const vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow = {
   ProgramGroup.lowerPecs: Assign(0.25),
   ProgramGroup.rearDelts: Assign(1),
   ProgramGroup.lowerTraps: Assign(1),
@@ -192,19 +187,17 @@ const vaRowWithSpineIso = {
   ProgramGroup.gluteMax: Assign(0.25),
 };
 const vaPullOverLatPrayer = {
-  ProgramGroup.lowerPecs:
-      Assign(0.5, 'full ROM shoulder extension (sometimes)'),
+  ProgramGroup.lowerPecs: Assign(0.5, 'full ROM shoulder extension (sometimes)'),
   ProgramGroup.rearDelts: Assign(1, 'full ROM shoulder extension'),
   ProgramGroup.lats: Assign(1, 'full ROM shoulder extension'),
-  ProgramGroup.tricepsLongHead:
-      Assign(1, 'full ROM shoulder extension (short to medium length)'),
+  ProgramGroup.tricepsLongHead: Assign(1, 'full ROM shoulder extension (short to medium length)'),
   ...wrist03,
 };
 const vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull = {
   ProgramGroup.rearDelts: Assign(1,
       'full ROM shoulder transverse abduction'), // TODO: while true for rearDeltFly, didn't check the others
-  ProgramGroup.lowerTraps: Assign(1,
-      'scapular retraction (maybe: isometric scapular depression depending on technique)'),
+  ProgramGroup.lowerTraps: Assign(
+      1, 'scapular retraction (maybe: isometric scapular depression depending on technique)'),
   ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
   ...wrist03,
 };
@@ -218,8 +211,7 @@ const vaBenchPressBBChestPressMachineDip = {
 };
 const vaPushUp = {
   ProgramGroup.lowerPecs: Assign(1, 'horizontal shoulder adduction/flexion'),
-  ProgramGroup.upperPecs:
-      Assign(1, 'horizontal shoulder adduction/flexion + shoulder flexion'),
+  ProgramGroup.upperPecs: Assign(1, 'horizontal shoulder adduction/flexion + shoulder flexion'),
   ProgramGroup.frontDelts: Assign(1, 'horizontal shoulder flexion'),
   ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
   ProgramGroup.tricepsLongHead: Assign(0.25),
@@ -243,8 +235,7 @@ const vaPecDeckElbowPad = {
 };
 const vaOverheadPressBB = {
   ProgramGroup.upperPecs: Assign(0.25),
-  ProgramGroup.frontDelts:
-      Assign(0.8, 'some shoulder flexion/abduction, based on grip width'),
+  ProgramGroup.frontDelts: Assign(0.8, 'some shoulder flexion/abduction, based on grip width'),
   ProgramGroup.sideDelts: Assign(1, 'full ROM shoulder abduction'),
   ProgramGroup.lowerTraps: Assign(0.25),
   ProgramGroup.middleTraps: Assign(0.25),
@@ -268,8 +259,7 @@ const vaOverheadPressDB = {
 };
 const vaLateralRaise = {
   ProgramGroup.upperPecs: Assign(0.25),
-  ProgramGroup.sideDelts:
-      Assign(1, 'full ROM shoulder abduction with full loaded stretch'),
+  ProgramGroup.sideDelts: Assign(1, 'full ROM shoulder abduction with full loaded stretch'),
   ProgramGroup.lowerTraps: Assign(0.25),
   ProgramGroup.middleTraps: Assign(0.25),
   ProgramGroup.upperTraps: Assign(0.25),
@@ -287,8 +277,7 @@ const vaTricepExtension = {
 };
 const vaTricepExtensionOverhead = {
   ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
-  ProgramGroup.tricepsLongHead:
-      Assign(1, 'elbow extension (medium to long length)'),
+  ProgramGroup.tricepsLongHead: Assign(1, 'elbow extension (medium to long length)'),
   ...wrist025,
 };
 /* overhead 40% more growth than pushdown: https://pubmed.ncbi.nlm.nih.gov/35819335/
@@ -307,28 +296,26 @@ const vaTricepExtensionOverhead = {
   bicep short head is insufficient @ max stretch and full contraction
   */
 const vaBicepCurlAnatomic = {
-  ProgramGroup.biceps: Assign(1,
-      'elbow flexion with loading at mid-point, in anatomic position (strongest)'),
+  ProgramGroup.biceps:
+      Assign(1, 'elbow flexion with loading at mid-point, in anatomic position (strongest)'),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaBicepCurlBayesian = {
-  ProgramGroup.biceps: Assign(1,
-      'elbow flexion with loading on all lengths, in anatomic position (strongest)'),
+  ProgramGroup.biceps:
+      Assign(1, 'elbow flexion with loading on all lengths, in anatomic position (strongest)'),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaBicepCurlPreacher = {
-  ProgramGroup.biceps: Assign(1,
-      'elbow flexion with loading at longer length, but shortened (weakened)'),
+  ProgramGroup.biceps:
+      Assign(1, 'elbow flexion with loading at longer length, but shortened (weakened)'),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaBicepCurlConcentration = {
-  ProgramGroup.biceps: Assign(
-      1, 'elbow flexion with loading at mid-point, shortened (weakened)'),
+  ProgramGroup.biceps: Assign(1, 'elbow flexion with loading at mid-point, shortened (weakened)'),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaBicepCurlLying = {
-  ProgramGroup.biceps:
-      Assign(1, 'elbow flexion with loading at longer length, while stretched'),
+  ProgramGroup.biceps: Assign(1, 'elbow flexion with loading at longer length, while stretched'),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaAbCrunch = {

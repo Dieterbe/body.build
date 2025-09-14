@@ -33,8 +33,7 @@ final gluteMaximus = SingleHeadMuscle(
         rangeEnd: 50),
     const Movement(
       articulation: Articulation.hipAbduction,
-      strength:
-          4, // in this case - not bent at the hip - medius and minimus are primary
+      strength: 4, // in this case - not bent at the hip - medius and minimus are primary
       rangeStart: 0,
       rangeEnd: 50,
     ),

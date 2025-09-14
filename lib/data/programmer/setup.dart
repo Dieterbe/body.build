@@ -192,13 +192,11 @@ class Setup extends _$Setup {
   String? bodyFatValidator(String? value) => _bodyFatValidator(value).$1;
   String? energyBalanceValidator(String? v) => _energyBalanceValidator(v).$1;
   String? recoveryFactorValidator(String? v) => _recoveryFactorValidator(v).$1;
-  String? workoutsPerWeekValidator(String? v) =>
-      _workoutsPerWeekValidator(v).$1;
+  String? workoutsPerWeekValidator(String? v) => _workoutsPerWeekValidator(v).$1;
   String? intensitiesValidator(String? v) => _intensitiesValidator(v).$1;
   String? setsPerWeekPerMuscleGroupValidator(String? v) =>
       _setsPerWeekPerMuscleGroupValidator(v).$1;
-  String? workoutDurationValidator(String? v) =>
-      _workoutDurationValidator(v).$1;
+  String? workoutDurationValidator(String? v) => _workoutDurationValidator(v).$1;
   String? tefFactorValidator(String? value) => _tefFactorValidator(value).$1;
   String? atFactorValidator(String? value) => _atFactorValidator(value).$1;
 
@@ -374,9 +372,7 @@ class Setup extends _$Setup {
 
   Future<void> addMuscleGroupOverride(ProgramGroup group) async {
     final settings = await future;
-    final newOverrides = [
-      ...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual
-    ];
+    final newOverrides = [...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual];
     newOverrides.add(MuscleGroupOverride(group, 1));
 
     _updateState((s) => s.copyWith(
@@ -388,9 +384,7 @@ class Setup extends _$Setup {
 
   Future<void> removeMuscleGroupOverride(ProgramGroup group) async {
     final settings = await future;
-    final newOverrides = [
-      ...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual
-    ];
+    final newOverrides = [...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual];
     newOverrides.removeWhere((override) => override.group == group);
 
     _updateState((s) => s.copyWith(
@@ -400,16 +394,12 @@ class Setup extends _$Setup {
         ));
   }
 
-  Future<void> updateMuscleGroupOverride(
-      ProgramGroup group, String value) async {
+  Future<void> updateMuscleGroupOverride(ProgramGroup group, String value) async {
     final (msg, sets) = _setsPerWeekPerMuscleGroupValidator(value);
     if (msg == null && sets != null) {
       final settings = await future;
-      final newOverrides = [
-        ...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual
-      ];
-      final idx =
-          newOverrides.indexWhere((override) => override.group == group);
+      final newOverrides = [...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual];
+      final idx = newOverrides.indexWhere((override) => override.group == group);
       if (idx != -1) {
         newOverrides[idx] = MuscleGroupOverride(group, sets);
         _updateState((s) => s.copyWith(
@@ -423,13 +413,12 @@ class Setup extends _$Setup {
 
   /* EQUIPMENT MANAGEMENT */
   Future<void> addEquipment(Equipment equipment) async {
-    _updateState(
-        (s) => s.copyWith(availEquipment: {...s.availEquipment, equipment}));
+    _updateState((s) => s.copyWith(availEquipment: {...s.availEquipment, equipment}));
   }
 
   Future<void> removeEquipment(Equipment equipment) async {
-    _updateState((s) => s.copyWith(
-        availEquipment: s.availEquipment.where((e) => e != equipment).toSet()));
+    _updateState(
+        (s) => s.copyWith(availEquipment: s.availEquipment.where((e) => e != equipment).toSet()));
   }
 
   Future<void> setEquipment(Set<Equipment> equipment) async {

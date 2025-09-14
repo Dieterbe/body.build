@@ -110,8 +110,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Logo(height: 60),
-              Text('alpha (preview) version',
-                  style: TextStyle(fontWeight: FontWeight.w300)),
+              Text('alpha (preview) version', style: TextStyle(fontWeight: FontWeight.w300)),
             ],
           ),
         ),
@@ -170,23 +169,18 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
             color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               width: 2,
             ),
           ),
           labelStyle: ts100(context).copyWith(fontWeight: FontWeight.w500),
           unselectedLabelStyle: ts100(context),
           labelColor: Theme.of(context).colorScheme.primary,
-          unselectedLabelColor:
-              Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+          unselectedLabelColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
           overlayColor: WidgetStateProperty.resolveWith<Color?>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.hovered)) {
-                return Theme.of(context)
-                    .colorScheme
-                    .surface
-                    .withValues(alpha: 0.1);
+                return Theme.of(context).colorScheme.surface.withValues(alpha: 0.1);
               }
               return null;
             },
@@ -199,8 +193,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.fitness_center,
-                        size: MediaQuery.of(context).size.width / 70),
+                    Icon(Icons.fitness_center, size: MediaQuery.of(context).size.width / 70),
                     const SizedBox(width: 8),
                     const Text("Workout programmer"),
                   ],
@@ -214,8 +207,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.settings,
-                        size: MediaQuery.of(context).size.width / 70),
+                    Icon(Icons.settings, size: MediaQuery.of(context).size.width / 70),
                     const SizedBox(width: 8),
                     const Text("Set up"),
                   ],
@@ -230,8 +222,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
         children: [
           SingleChildScrollView(
             child: Padding(
-              padding:
-                  EdgeInsets.only(left: 8, right: 28), // to fix header overflow
+              padding: EdgeInsets.only(left: 8, right: 28), // to fix header overflow
               child: ProgrammerBuilder(),
             ),
           ),

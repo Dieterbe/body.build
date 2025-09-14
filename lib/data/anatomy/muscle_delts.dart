@@ -114,8 +114,7 @@ final deltoids = MultiHeadMuscle(
           // more flexion is less moment arm
 
           articulation: Articulation.shoulderHyperextension,
-          strength:
-              6, // primary mover. pecs/lats can't extend beyond anatomical
+          strength: 6, // primary mover. pecs/lats can't extend beyond anatomical
           rangeStart: 0,
           rangeEnd: -40,
         ),

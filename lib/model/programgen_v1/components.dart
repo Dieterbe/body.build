@@ -66,14 +66,11 @@ List<List<RankedExercise>> findExerciseComponents(
     final ignoredGroups = {...alwaysIgnoredGroups};
 
     // Add additional groups to ignore based on exercise type
-    ignoredGroups
-        .addAll(isLower ? lowerBodyIgnoredGroups : upperBodyIgnoredGroups);
+    ignoredGroups.addAll(isLower ? lowerBodyIgnoredGroups : upperBodyIgnoredGroups);
 
     exerciseGroups[ex] = ProgramGroup.values
         .where((pg) =>
-            !ignoredGroups.contains(pg) &&
-            ex.ex.recruitment(pg, {}).volume > 0 &&
-            targets[pg]! > 0)
+            !ignoredGroups.contains(pg) && ex.ex.recruitment(pg, {}).volume > 0 && targets[pg]! > 0)
         .toSet();
   }
 
@@ -88,8 +85,7 @@ List<List<RankedExercise>> findExerciseComponents(
     for (final other in exercises) {
       if (!visited.contains(other)) {
         // Check if exercises share any program groups
-        final sharedGroups =
-            exerciseGroups[start]!.intersection(exerciseGroups[other]!);
+        final sharedGroups = exerciseGroups[start]!.intersection(exerciseGroups[other]!);
         if (sharedGroups.isNotEmpty) {
           dfs(other, component);
         }

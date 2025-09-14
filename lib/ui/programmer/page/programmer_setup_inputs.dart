@@ -198,8 +198,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                           value: setup.sex,
                           isExpanded: true,
                           onChanged: notifier.setSex,
-                          items: Sex.values
-                              .map<DropdownMenuItem<Sex>>((Sex value) {
+                          items: Sex.values.map<DropdownMenuItem<Sex>>((Sex value) {
                             return DropdownMenuItem<Sex>(
                               value: value,
                               child: Text(value.name, style: ts100(context)),
@@ -271,8 +270,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                           items: ActivityLevel.values
                               .map((level) => DropdownMenuItem(
                                     value: level,
-                                    child: Text(level.displayName,
-                                        style: ts100(context)),
+                                    child: Text(level.displayName, style: ts100(context)),
                                   ))
                               .toList(),
                         ),
@@ -307,8 +305,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                           value: setup.level,
                           isExpanded: true,
                           onChanged: notifier.setLevel,
-                          items: Level.values
-                              .map<DropdownMenuItem<Level>>((Level value) {
+                          items: Level.values.map<DropdownMenuItem<Level>>((Level value) {
                             return DropdownMenuItem<Level>(
                               value: value,
                               child: Text(value.name, style: ts100(context)),
@@ -332,8 +329,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       ),
                       const SizedBox(height: 12),
                       KVRow(
-                        titleTextMedium(
-                            'Normalized\nWorkout Duration', context),
+                        titleTextMedium('Normalized\nWorkout Duration', context),
                         v: numInput(
                           _durationKey,
                           'min',

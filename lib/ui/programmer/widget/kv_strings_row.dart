@@ -9,8 +9,7 @@ class KVStringsRow extends StatelessWidget {
   final String? help;
   final Widget? helpWidget;
 
-  const KVStringsRow(this.title, this.val,
-      {this.help, this.helpWidget, super.key});
+  const KVStringsRow(this.title, this.val, {this.help, this.helpWidget, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -17,8 +17,7 @@ final bicepsBrachii = MultiHeadMuscle(
         articulation: Articulation.elbowFlexion,
         rangeStart: 0,
         rangeEnd: 150,
-        momentMax:
-            90, // and when supinated https://www.ncbi.nlm.nih.gov/pubmed/7775488
+        momentMax: 90, // and when supinated https://www.ncbi.nlm.nih.gov/pubmed/7775488
         // most tension in anatomic position (max length). short head loses 80% when shortening. long head barely active when fully shortened
         strength: 6,
       ),

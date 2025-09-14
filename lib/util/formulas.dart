@@ -8,12 +8,11 @@ import 'package:bodybuild/model/programmer/sex.dart';
 
 const double kJToKcal = 0.239006;
 
-double calcBMI(double weight, double length) =>
-    10000 * weight / (length * length);
+double calcBMI(double weight, double length) => 10000 * weight / (length * length);
 
 // implements Menno's suggested formula
-int calcOptimalSetsPerWeekPerMuscleGroupMH(Sex sex, Level level,
-    double recoveryFactor, double energyBalanceFactor, double workoutsPerWeek) {
+int calcOptimalSetsPerWeekPerMuscleGroupMH(Sex sex, Level level, double recoveryFactor,
+    double energyBalanceFactor, double workoutsPerWeek) {
   if (workoutsPerWeek >= 3) {
     workoutsPerWeek = 2.5;
   }
@@ -23,11 +22,9 @@ int calcOptimalSetsPerWeekPerMuscleGroupMH(Sex sex, Level level,
     Level.advanced => 3.0,
     Level.elite => 3.0,
   };
-  final result = (workoutsPerWeek * 5) *
-          energyBalanceFactor *
-          recoveryFactor *
-          sqrt(trainingStatusFactor) +
-      (sex == Sex.female ? 3 : 0);
+  final result =
+      (workoutsPerWeek * 5) * energyBalanceFactor * recoveryFactor * sqrt(trainingStatusFactor) +
+          (sex == Sex.female ? 3 : 0);
   return result.round();
 }
 

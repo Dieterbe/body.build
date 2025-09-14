@@ -15,8 +15,7 @@ class ExerciseRatingsDialog extends StatelessWidget {
   });
 
   double _calculateAverageRating() {
-    return ratings.fold<double>(0, (sum, rating) => sum + rating.score) /
-        ratings.length;
+    return ratings.fold<double>(0, (sum, rating) => sum + rating.score) / ratings.length;
   }
 
   Widget _buildCommentWithVideo(BuildContext context, String comment) {
@@ -58,8 +57,7 @@ class ExerciseRatingsDialog extends StatelessWidget {
                           'Source: ${rating.source.name.camelToSpace().capitalizeFirst()}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
-                        Text(
-                            'Score: ${(rating.score * 100).toStringAsFixed(1)}%'),
+                        Text('Score: ${(rating.score * 100).toStringAsFixed(1)}%'),
                         if (rating.comment.isNotEmpty)
                           _buildCommentWithVideo(context, rating.comment),
                         if (rating.modifiers.isNotEmpty) ...[
@@ -104,9 +102,7 @@ class ExerciseRatingsDialog extends StatelessWidget {
                                         group.name,
                                         style: TextStyle(
                                           fontSize: 12,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface,
+                                          color: Theme.of(context).colorScheme.onSurface,
                                         ),
                                       ),
                                     ))

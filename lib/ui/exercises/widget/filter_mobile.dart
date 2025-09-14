@@ -37,10 +37,8 @@ class FilterMobile extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
-              fillColor:
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             ),
           ),
           const SizedBox(height: 12),
@@ -52,16 +50,12 @@ class FilterMobile extends ConsumerWidget {
                 child: GestureDetector(
                   onTap: () => _showMuscleGroupPicker(context, ref),
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: Theme.of(context).dividerColor),
                       borderRadius: BorderRadius.circular(8),
                       color: filterState.selectedMuscleGroup != null
-                          ? Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.1)
+                          ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
                           : null,
                     ),
                     child: Row(
@@ -71,8 +65,7 @@ class FilterMobile extends ConsumerWidget {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            filterState.selectedMuscleGroup?.displayName ??
-                                'All muscles',
+                            filterState.selectedMuscleGroup?.displayName ?? 'All muscles',
                             style: const TextStyle(fontSize: 12),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -89,19 +82,14 @@ class FilterMobile extends ConsumerWidget {
                 child: GestureDetector(
                   onTap: () => _showEquipmentPicker(context, ref),
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: Theme.of(context).dividerColor),
                       borderRadius: BorderRadius.circular(8),
-                      color:
-                          filterState.selectedEquipmentCategories.isNotEmpty ||
-                                  filterState.selectedEquipment.isNotEmpty
-                              ? Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withValues(alpha: 0.1)
-                              : null,
+                      color: filterState.selectedEquipmentCategories.isNotEmpty ||
+                              filterState.selectedEquipment.isNotEmpty
+                          ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
+                          : null,
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -183,8 +171,7 @@ class FilterMobile extends ConsumerWidget {
 
   String _getEquipmentFilterText(ExerciseFilterState filterState) {
     final catBased = Equipment.values
-        .where((eq) =>
-            filterState.selectedEquipmentCategories.contains(eq.category))
+        .where((eq) => filterState.selectedEquipmentCategories.contains(eq.category))
         .length;
     final count = filterState.selectedEquipment.length + catBased;
 

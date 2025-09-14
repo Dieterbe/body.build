@@ -10,8 +10,8 @@ class ProgramBreakdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // pg -> modality -> Ex (hitting pg with recruitment >= 0.5) -> number of sets of that ex
-    final Map<ProgramGroup, Map<String, Map<Ex, int>>> tree = Map.fromEntries(
-        ProgramGroup.values.map((group) => MapEntry(group, {})));
+    final Map<ProgramGroup, Map<String, Map<Ex, int>>> tree =
+        Map.fromEntries(ProgramGroup.values.map((group) => MapEntry(group, {})));
 
     // Go through the program and build the structure
     for (final workout in program.workouts) {
@@ -97,14 +97,12 @@ class ProgramBreakdown extends StatelessWidget {
                   ...modalities.entries.map((modalityGroup) {
                     final description = modalityGroup.key;
                     final exerciseList = modalityGroup.value;
-                    final exerciseText = exerciseList.entries
-                        .map((e) => '${e.value}x ${e.key.id}')
-                        .join(', ');
+                    final exerciseText =
+                        exerciseList.entries.map((e) => '${e.value}x ${e.key.id}').join(', ');
 
                     return Container(
                       margin: const EdgeInsets.only(top: 4),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                       child: IntrinsicHeight(
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,18 +113,14 @@ class ProgramBreakdown extends StatelessWidget {
                               decoration: BoxDecoration(
                                 border: Border(
                                   right: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .outlineVariant,
+                                    color: Theme.of(context).colorScheme.outlineVariant,
                                   ),
                                 ),
                               ),
                               child: Text(
                                 description,
                                 style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 ),
                               ),
                             ),
@@ -136,8 +130,7 @@ class ProgramBreakdown extends StatelessWidget {
                                 child: Text(
                                   exerciseText,
                                   style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                   ),
                                 ),
                               ),

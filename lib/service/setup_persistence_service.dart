@@ -15,14 +15,13 @@ class SetupPersistenceService {
     if (profilesJson == null) return {};
 
     final Map<String, dynamic> profilesMap = json.decode(profilesJson);
-    return profilesMap.map((key, value) =>
-        MapEntry(key, Settings.fromJson(value as Map<String, dynamic>)));
+    return profilesMap
+        .map((key, value) => MapEntry(key, Settings.fromJson(value as Map<String, dynamic>)));
   }
 
   /// Helper method to save profiles map to SharedPreferences
   Future<bool> _saveProfiles(Map<String, Settings> profiles) {
-    final profilesJson = json
-        .encode(profiles.map((key, value) => MapEntry(key, value.toJson())));
+    final profilesJson = json.encode(profiles.map((key, value) => MapEntry(key, value.toJson())));
     return _prefs.setString(_setupProfilesKey, profilesJson);
   }
 

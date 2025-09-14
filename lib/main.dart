@@ -29,8 +29,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   // Note: making this key public is not an issue. it's write-only
-  final config =
-      PostHogConfig('phc_WC0LK9tiHgH0rMWV8KKYTUOnWJt9PRMny3Vw8dGG8bJ');
+  final config = PostHogConfig('phc_WC0LK9tiHgH0rMWV8KKYTUOnWJt9PRMny3Vw8dGG8bJ');
   config.debug = true;
   config.captureApplicationLifecycleEvents = true;
   config.host = 'https://eu.i.posthog.com';
@@ -93,8 +92,8 @@ class MyApp extends StatelessWidget {
               GoRoute(
                 name: ProgrammerScreen.routeName,
                 path: ProgrammerScreen.routeName,
-                builder: (context, state) => const DefaultTabController(
-                    length: 2, child: ProgrammerScreen()),
+                builder: (context, state) =>
+                    const DefaultTabController(length: 2, child: ProgrammerScreen()),
               ),
               GoRoute(
                 name: MealPlanScreen.routeName,
@@ -114,8 +113,7 @@ class MyApp extends StatelessWidget {
                       // TODO validation of id and modifiers
                       return ExercisesScreen(
                           exerciseId: parseExerciseId(id),
-                          modifierOptions:
-                              parseExerciseParams(state.uri.queryParameters));
+                          modifierOptions: parseExerciseParams(state.uri.queryParameters));
                     },
                   ),
                 ],

@@ -54,17 +54,12 @@ class ExerciseFilterState {
     return ExerciseFilterState(
       showFilters: showFilters ?? this.showFilters,
       query: query ?? this.query,
-      selectedMuscleGroup: clearSelectedMuscleGroup
-          ? null
-          : (selectedMuscleGroup ?? this.selectedMuscleGroup),
+      selectedMuscleGroup:
+          clearSelectedMuscleGroup ? null : (selectedMuscleGroup ?? this.selectedMuscleGroup),
       selectedEquipment: selectedEquipment ?? this.selectedEquipment,
-      selectedEquipmentCategories:
-          selectedEquipmentCategories ?? this.selectedEquipmentCategories,
-      selectedExercise: clearSelectedExercise
-          ? null
-          : (selectedExercise ?? this.selectedExercise),
-      selectedModifierOptions:
-          selectedModifierOptions ?? this.selectedModifierOptions,
+      selectedEquipmentCategories: selectedEquipmentCategories ?? this.selectedEquipmentCategories,
+      selectedExercise: clearSelectedExercise ? null : (selectedExercise ?? this.selectedExercise),
+      selectedModifierOptions: selectedModifierOptions ?? this.selectedModifierOptions,
       expandedExercises: expandedExercises ?? this.expandedExercises,
     );
   }
@@ -103,8 +98,7 @@ class ExerciseFilter extends _$ExerciseFilter {
   }
 
   void toggleEquipmentCategory(EquipmentCategory category, bool? selected) {
-    final newSelectedCategories =
-        Set<EquipmentCategory>.from(state.selectedEquipmentCategories);
+    final newSelectedCategories = Set<EquipmentCategory>.from(state.selectedEquipmentCategories);
     if (selected == true) {
       newSelectedCategories.add(category);
     } else {
@@ -127,8 +121,7 @@ class ExerciseFilter extends _$ExerciseFilter {
     );
   }
 
-  void setSelectedExercise(Ex? exercise,
-      {Map<String, String>? modifierOptions}) {
+  void setSelectedExercise(Ex? exercise, {Map<String, String>? modifierOptions}) {
     state = state.copyWith(
       selectedExercise: exercise,
       selectedModifierOptions: modifierOptions ?? {},
@@ -160,8 +153,7 @@ List<Ex> filteredExercises(FilteredExercisesRef ref) {
   // Apply search filter
   if (filterState.query.isNotEmpty) {
     exercises = exercises
-        .where((ex) =>
-            ex.id.toLowerCase().contains(filterState.query.toLowerCase()))
+        .where((ex) => ex.id.toLowerCase().contains(filterState.query.toLowerCase()))
         .toList();
   }
 

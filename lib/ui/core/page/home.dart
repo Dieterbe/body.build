@@ -74,8 +74,7 @@ class HomeScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color:
-                                    colorScheme.primary.withValues(alpha: 0.6),
+                                color: colorScheme.primary.withValues(alpha: 0.6),
                                 width: 2,
                               ),
                             ),
@@ -84,8 +83,7 @@ class HomeScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: colorScheme.primary
-                                      .withValues(alpha: 0.7),
+                                  color: colorScheme.primary.withValues(alpha: 0.7),
                                   width: 1.5,
                                 ),
                               ),
@@ -114,8 +112,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(20),
@@ -176,8 +173,7 @@ class HomeScreen extends StatelessWidget {
 
                           return ConstrainedBox(
                             constraints: BoxConstraints(
-                              maxWidth:
-                                  isTabletOrDesktop ? 800 : double.infinity,
+                              maxWidth: isTabletOrDesktop ? 800 : double.infinity,
                             ),
                             child: GridView.count(
                               shrinkWrap: true,
@@ -193,8 +189,8 @@ class HomeScreen extends StatelessWidget {
                                   subtitle: 'Explore exercise library',
                                   icon: Icons.fitness_center,
                                   color: colorScheme.primary,
-                                  onTap: () => _navigateQuickAccess(context,
-                                      ExercisesScreen.routeName, false),
+                                  onTap: () => _navigateQuickAccess(
+                                      context, ExercisesScreen.routeName, false),
                                 ),
                                 _buildQuickAccessCard(
                                   context: context,
@@ -202,8 +198,8 @@ class HomeScreen extends StatelessWidget {
                                   subtitle: 'Muscle recruitments (advanced)',
                                   icon: Icons.fitness_center,
                                   color: Colors.purple,
-                                  onTap: () => _navigateQuickAccess(
-                                      context, MusclesScreen.routeName, false),
+                                  onTap: () =>
+                                      _navigateQuickAccess(context, MusclesScreen.routeName, false),
                                 ),
                                 isTabletOrDesktop
                                     ? _buildQuickAccessCard(
@@ -237,8 +233,7 @@ class HomeScreen extends StatelessWidget {
                                   subtitle: 'View progress & stats',
                                   icon: Icons.analytics,
                                   color: Colors.orange,
-                                  onTap: () => _navigateQuickAccess(
-                                      context, 'analysis', true),
+                                  onTap: () => _navigateQuickAccess(context, 'analysis', true),
                                   showComingSoon: true,
                                 ),
                               ],
@@ -377,8 +372,7 @@ class HomeScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     const videoId = 'wOVZdZ9_jdE'; // Extract video ID from URL
-    const thumbnailUrl =
-        'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
+    const thumbnailUrl = 'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
 
     return Card(
       elevation: 2,
@@ -397,8 +391,7 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
               ),
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
@@ -473,8 +466,7 @@ class HomeScreen extends StatelessWidget {
                       top: 12,
                       right: 12,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(4),
@@ -539,8 +531,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void _navigateQuickAccess(
-      BuildContext context, String routeName, bool wip) async {
+  void _navigateQuickAccess(BuildContext context, String routeName, bool wip) async {
     await Posthog().capture(
       eventName: 'QuickAccessClicked',
       properties: {

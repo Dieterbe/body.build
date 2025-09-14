@@ -74,21 +74,18 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                               category.displayName,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize:
-                                    MediaQuery.sizeOf(context).width / 100,
+                                fontSize: MediaQuery.sizeOf(context).width / 100,
                               ),
                             ),
                             const SizedBox(height: 8),
                             ...Equipment.values
-                                .where((equipment) =>
-                                    equipment.category == category)
+                                .where((equipment) => equipment.category == category)
                                 .map((equipment) {
                               return Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Checkbox(
-                                    value: setup.availEquipment
-                                        .contains(equipment),
+                                    value: setup.availEquipment.contains(equipment),
                                     onChanged: (selected) {
                                       if (selected == true) {
                                         notifier.addEquipment(equipment);

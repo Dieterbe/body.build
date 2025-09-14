@@ -81,8 +81,7 @@ class ProgramManager extends _$ProgramManager {
 // caller should assure the name is not used yet
   Future<void> duplicateProgram(String newName) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
-    final newProgram =
-        state.value!.currentProgram.copyWith(name: newName, builtin: false);
+    final newProgram = state.value!.currentProgram.copyWith(name: newName, builtin: false);
     _createProgram(state.value!.programs, id, newProgram);
   }
 
@@ -163,8 +162,7 @@ class ProgramManager extends _$ProgramManager {
     ));
   }
 
-  Future<void> _updateCurrentProgram(
-      ProgramState Function(ProgramState) update) async {
+  Future<void> _updateCurrentProgram(ProgramState Function(ProgramState) update) async {
     final currentId = state.value!.currentProgramId;
     final updatedProgram = update(state.value!.currentProgram);
 

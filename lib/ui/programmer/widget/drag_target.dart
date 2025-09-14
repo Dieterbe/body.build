@@ -6,16 +6,12 @@ class DragTargetWidget extends StatelessWidget {
   final Workout workout;
   final int pos;
   final Sets? reject;
-  final Workout Function(Sets)
-      onDrop; // note: callbacks receive a *copy* of the original set
+  final Workout Function(Sets) onDrop; // note: callbacks receive a *copy* of the original set
   final Function(Workout) onChange;
   final DragTargetBuilder builder;
 
   const DragTargetWidget(this.workout, this.pos, this.reject,
-      {required this.onDrop,
-      required this.onChange,
-      required this.builder,
-      super.key});
+      {required this.onDrop, required this.onChange, required this.builder, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +31,7 @@ class DragTargetWidget extends StatelessWidget {
         onChange(
           workout.copyWith(
             setGroups: workout.setGroups
-                .map((sg) => sg.copyWith(
-                    sets: sg.sets.where((s) => s != draggedSet).toList()))
+                .map((sg) => sg.copyWith(sets: sg.sets.where((s) => s != draggedSet).toList()))
                 .where((sg) => sg.sets.isNotEmpty)
                 .toList(),
           ),

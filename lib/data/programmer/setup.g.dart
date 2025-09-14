@@ -13,8 +13,7 @@ String _$setupHash() => r'c645bfbaa32e6fb016deffdf9708a77c0f561a6c';
 final setupProvider = AsyncNotifierProvider<Setup, Settings>.internal(
   Setup.new,
   name: r'setupProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$setupHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$setupHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

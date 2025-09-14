@@ -14,8 +14,7 @@ class PulseWidget extends StatefulWidget {
   State<PulseWidget> createState() => _PulseWidgetState();
 }
 
-class _PulseWidgetState extends State<PulseWidget>
-    with SingleTickerProviderStateMixin {
+class _PulseWidgetState extends State<PulseWidget> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnimation;
 
@@ -53,8 +52,7 @@ class PulseMessageWidget extends StatelessWidget {
   final Widget child;
   final bool pulse;
   final String msg;
-  const PulseMessageWidget(
-      {super.key, required this.child, required this.msg, this.pulse = false});
+  const PulseMessageWidget({super.key, required this.child, required this.msg, this.pulse = false});
 
   @override
   Widget build(BuildContext context) {

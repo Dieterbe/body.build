@@ -39,16 +39,11 @@ abstract class $WorkoutCopyWith<$Res> {
   factory $WorkoutCopyWith(Workout value, $Res Function(Workout) then) =
       _$WorkoutCopyWithImpl<$Res, Workout>;
   @useResult
-  $Res call(
-      {String name,
-      List<SetGroup> setGroups,
-      int timesPerPeriod,
-      int periodWeeks});
+  $Res call({String name, List<SetGroup> setGroups, int timesPerPeriod, int periodWeeks});
 }
 
 /// @nodoc
-class _$WorkoutCopyWithImpl<$Res, $Val extends Workout>
-    implements $WorkoutCopyWith<$Res> {
+class _$WorkoutCopyWithImpl<$Res, $Val extends Workout> implements $WorkoutCopyWith<$Res> {
   _$WorkoutCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -89,24 +84,17 @@ class _$WorkoutCopyWithImpl<$Res, $Val extends Workout>
 
 /// @nodoc
 abstract class _$$WorkoutImplCopyWith<$Res> implements $WorkoutCopyWith<$Res> {
-  factory _$$WorkoutImplCopyWith(
-          _$WorkoutImpl value, $Res Function(_$WorkoutImpl) then) =
+  factory _$$WorkoutImplCopyWith(_$WorkoutImpl value, $Res Function(_$WorkoutImpl) then) =
       __$$WorkoutImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String name,
-      List<SetGroup> setGroups,
-      int timesPerPeriod,
-      int periodWeeks});
+  $Res call({String name, List<SetGroup> setGroups, int timesPerPeriod, int periodWeeks});
 }
 
 /// @nodoc
-class __$$WorkoutImplCopyWithImpl<$Res>
-    extends _$WorkoutCopyWithImpl<$Res, _$WorkoutImpl>
+class __$$WorkoutImplCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res, _$WorkoutImpl>
     implements _$$WorkoutImplCopyWith<$Res> {
-  __$$WorkoutImplCopyWithImpl(
-      _$WorkoutImpl _value, $Res Function(_$WorkoutImpl) _then)
+  __$$WorkoutImplCopyWithImpl(_$WorkoutImpl _value, $Res Function(_$WorkoutImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Workout
@@ -150,8 +138,7 @@ class _$WorkoutImpl implements _Workout {
       this.periodWeeks = 1})
       : _setGroups = setGroups;
 
-  factory _$WorkoutImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WorkoutImplFromJson(json);
+  factory _$WorkoutImpl.fromJson(Map<String, dynamic> json) => _$$WorkoutImplFromJson(json);
 
   @override
   @JsonKey()
@@ -215,6 +202,5 @@ abstract class _Workout implements Workout {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$WorkoutImplCopyWith<_$WorkoutImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$WorkoutImplCopyWith<_$WorkoutImpl> get copyWith => throw _privateConstructorUsedError;
 }

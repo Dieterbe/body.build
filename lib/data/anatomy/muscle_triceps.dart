@@ -13,8 +13,7 @@ final tricepsBrachii = MultiHeadMuscle(
       articulation: Articulation.elbowExtension,
       rangeStart: 145,
       rangeEnd: 0,
-      momentMax:
-          10, // "nearly straight", see https://www.ncbi.nlm.nih.gov/pubmed/20655050
+      momentMax: 10, // "nearly straight", see https://www.ncbi.nlm.nih.gov/pubmed/20655050
       // Leverage deteriorates with increasing elbow flexion up to around a 20% loss when the arms are fully bent.
       // The triceps can operate effectively over the full range of elbow extension with relatively little loss of force production capacity when stretched,
       // as it doesn’t change length much, at least when your arms are at your side in the case of the long head
@@ -75,8 +74,7 @@ final tricepsBrachii = MultiHeadMuscle(
         ],
       ),
       passiveInsufficiency: Insufficiency(
-        comment:
-            "arm bent overhead, but even during overhead extension you don't reach this",
+        comment: "arm bent overhead, but even during overhead extension you don't reach this",
         factors: [
           InsufficiencyFactor(Articulation.shoulderFlexion, 160),
           InsufficiencyFactor(Articulation.elbowFlexion, 150)

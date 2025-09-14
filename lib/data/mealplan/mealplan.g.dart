@@ -13,8 +13,7 @@ String _$mealplanHash() => r'538d94620710c01abee87ea2c7d05a09ed160097';
 final mealplanProvider = AsyncNotifierProvider<Mealplan, MealPlan>.internal(
   Mealplan.new,
   name: r'mealplanProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$mealplanHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$mealplanHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

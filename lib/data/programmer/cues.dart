@@ -8,10 +8,7 @@ const defaultCues = {
 
 const handSqueeze = {
   ...defaultCues,
-  "grip tight": (
-    false,
-    'squeezing hands tight might stimulate more arm growth'
-  ),
+  "grip tight": (false, 'squeezing hands tight might stimulate more arm growth'),
 };
 const standingCalfRaiseCues = {
   ...defaultCues,

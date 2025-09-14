@@ -45,8 +45,7 @@ class EquipmentFilter extends ConsumerWidget {
               style: const TextStyle(fontSize: 13),
             ),
             value: filterState.selectedEquipment.contains(equipment),
-            onChanged: (selected) =>
-                filterNotifier.toggleEquipment(equipment, selected),
+            onChanged: (selected) => filterNotifier.toggleEquipment(equipment, selected),
           );
         }),
 
@@ -66,8 +65,7 @@ class EquipmentFilter extends ConsumerWidget {
               style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
             ),
             value: filterState.selectedEquipmentCategories.contains(category),
-            onChanged: (selected) =>
-                filterNotifier.toggleEquipmentCategory(category, selected),
+            onChanged: (selected) => filterNotifier.toggleEquipmentCategory(category, selected),
           ),
         ),
       ],

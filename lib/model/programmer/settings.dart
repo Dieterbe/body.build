@@ -43,8 +43,7 @@ class Settings with _$Settings {
     required ParameterOverrides paramOverrides,
   }) = _Settings;
 
-  factory Settings.fromJson(Map<String, dynamic> json) =>
-      _$SettingsFromJson(json);
+  factory Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
   // this constructor sets paramSuggest correctly based on the settings
   // normally, we'd do this in the default constructor, but Freezed doesn't allow that
   factory Settings.defaults({
@@ -91,8 +90,7 @@ class Settings with _$Settings {
       bmrMethod: bmrMethod,
     );
 
-    return tempSettings.copyWith(
-        paramSuggest: Parameters.fromSettings(tempSettings));
+    return tempSettings.copyWith(paramSuggest: Parameters.fromSettings(tempSettings));
   }
 
   Parameters get paramFinal => paramSuggest.apply(paramOverrides);
@@ -134,15 +132,14 @@ class Settings with _$Settings {
 // during workouts twice.  Whereas for highly physically active people,
 // the displaced resting EE is rather significant, so we could account for it.
 // However, here in code, we can always do the more accurate thing
-  (double gross, double displaced, double epoc, double net) getTrainingEE(
-      int duration) {
+  (double gross, double displaced, double epoc, double net) getTrainingEE(int duration) {
     final grossTrainingEE = 0.1 * weight * duration;
     final displacedEE = getDisplacedEE(duration);
     // we know that "most workouts (pobably around 30sets)" have epoc of 50
     // and workouts of 50-60 sets have an epoc up to 115
     // therefore this seems reasonable:
-    final sets = duration /
-        2.5; // conditioned athletes actually will get more work done however, still
+    final sets =
+        duration / 2.5; // conditioned athletes actually will get more work done however, still
     final epoc = sets * 2;
     final netTrainingEE = grossTrainingEE - displacedEE + epoc;
 
@@ -154,8 +151,7 @@ class Settings with _$Settings {
   }
 }
 
-List<String> _equipmentSetToJson(Set<Equipment> equipment) =>
-    equipment.map((e) => e.name).toList();
+List<String> _equipmentSetToJson(Set<Equipment> equipment) => equipment.map((e) => e.name).toList();
 
 Set<Equipment> _equipmentSetFromJson(List<dynamic> json) =>
     json.map((e) => Equipment.values.firstWhere((eq) => eq.name == e)).toSet();

@@ -15,10 +15,8 @@ class MealPlanHeader extends ConsumerWidget {
 
     List<String> getOpts(String currentId, Map<String, MealPlan> plans) {
       final currentName = plans[currentId]!.name;
-      final otherNames = plans.entries
-          .where((e) => e.key != currentId)
-          .map((e) => e.value.name)
-          .toList();
+      final otherNames =
+          plans.entries.where((e) => e.key != currentId).map((e) => e.value.name).toList();
       return [currentName, ...otherNames];
     }
 

@@ -5,14 +5,10 @@ combinator(List<RankedExercise> exercises, int minExercises, int maxExercises,
     Function(List<RankedExercise>) callback) {
   var results = 0;
   var totalResults = 0;
-  for (var numExercises = minExercises;
-      numExercises <= maxExercises;
-      numExercises++) {
+  for (var numExercises = minExercises; numExercises <= maxExercises; numExercises++) {
     totalResults += unorderedUniqueCombinations(numExercises, exercises.length);
   }
-  for (var numExercises = minExercises;
-      numExercises <= maxExercises;
-      numExercises++) {
+  for (var numExercises = minExercises; numExercises <= maxExercises; numExercises++) {
     // Generate all unique combinations of exactly numExercises exercises
     // and call callback with each one
     void generateCombinations(List<RankedExercise> current, int start) {

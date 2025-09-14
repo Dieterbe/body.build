@@ -76,8 +76,8 @@ class _$MuscleGroupOverrideCopyWithImpl<$Res, $Val extends MuscleGroupOverride>
 /// @nodoc
 abstract class _$$MuscleGroupOverrideImplCopyWith<$Res>
     implements $MuscleGroupOverrideCopyWith<$Res> {
-  factory _$$MuscleGroupOverrideImplCopyWith(_$MuscleGroupOverrideImpl value,
-          $Res Function(_$MuscleGroupOverrideImpl) then) =
+  factory _$$MuscleGroupOverrideImplCopyWith(
+          _$MuscleGroupOverrideImpl value, $Res Function(_$MuscleGroupOverrideImpl) then) =
       __$$MuscleGroupOverrideImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -88,8 +88,8 @@ abstract class _$$MuscleGroupOverrideImplCopyWith<$Res>
 class __$$MuscleGroupOverrideImplCopyWithImpl<$Res>
     extends _$MuscleGroupOverrideCopyWithImpl<$Res, _$MuscleGroupOverrideImpl>
     implements _$$MuscleGroupOverrideImplCopyWith<$Res> {
-  __$$MuscleGroupOverrideImplCopyWithImpl(_$MuscleGroupOverrideImpl _value,
-      $Res Function(_$MuscleGroupOverrideImpl) _then)
+  __$$MuscleGroupOverrideImplCopyWithImpl(
+      _$MuscleGroupOverrideImpl _value, $Res Function(_$MuscleGroupOverrideImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of MuscleGroupOverride
@@ -137,8 +137,7 @@ class _$MuscleGroupOverrideImpl implements _MuscleGroupOverride {
   @override
   @pragma('vm:prefer-inline')
   _$$MuscleGroupOverrideImplCopyWith<_$MuscleGroupOverrideImpl> get copyWith =>
-      __$$MuscleGroupOverrideImplCopyWithImpl<_$MuscleGroupOverrideImpl>(
-          this, _$identity);
+      __$$MuscleGroupOverrideImplCopyWithImpl<_$MuscleGroupOverrideImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -201,8 +200,7 @@ abstract class $ParameterOverridesCopyWith<$Res> {
       {List<int>? intensities,
       int? setsPerWeekPerMuscleGroup,
       List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
-      @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
-      Set<Ex>? excludedExercises});
+      @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson) Set<Ex>? excludedExercises});
 }
 
 /// @nodoc
@@ -234,8 +232,7 @@ class _$ParameterOverridesCopyWithImpl<$Res, $Val extends ParameterOverrides>
           ? _value.setsPerWeekPerMuscleGroup
           : setsPerWeekPerMuscleGroup // ignore: cast_nullable_to_non_nullable
               as int?,
-      setsPerWeekPerMuscleGroupIndividual: freezed ==
-              setsPerWeekPerMuscleGroupIndividual
+      setsPerWeekPerMuscleGroupIndividual: freezed == setsPerWeekPerMuscleGroupIndividual
           ? _value.setsPerWeekPerMuscleGroupIndividual
           : setsPerWeekPerMuscleGroupIndividual // ignore: cast_nullable_to_non_nullable
               as List<MuscleGroupOverride>?,
@@ -250,8 +247,8 @@ class _$ParameterOverridesCopyWithImpl<$Res, $Val extends ParameterOverrides>
 /// @nodoc
 abstract class _$$ParameterOverridesImplCopyWith<$Res>
     implements $ParameterOverridesCopyWith<$Res> {
-  factory _$$ParameterOverridesImplCopyWith(_$ParameterOverridesImpl value,
-          $Res Function(_$ParameterOverridesImpl) then) =
+  factory _$$ParameterOverridesImplCopyWith(
+          _$ParameterOverridesImpl value, $Res Function(_$ParameterOverridesImpl) then) =
       __$$ParameterOverridesImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -259,16 +256,15 @@ abstract class _$$ParameterOverridesImplCopyWith<$Res>
       {List<int>? intensities,
       int? setsPerWeekPerMuscleGroup,
       List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
-      @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
-      Set<Ex>? excludedExercises});
+      @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson) Set<Ex>? excludedExercises});
 }
 
 /// @nodoc
 class __$$ParameterOverridesImplCopyWithImpl<$Res>
     extends _$ParameterOverridesCopyWithImpl<$Res, _$ParameterOverridesImpl>
     implements _$$ParameterOverridesImplCopyWith<$Res> {
-  __$$ParameterOverridesImplCopyWithImpl(_$ParameterOverridesImpl _value,
-      $Res Function(_$ParameterOverridesImpl) _then)
+  __$$ParameterOverridesImplCopyWithImpl(
+      _$ParameterOverridesImpl _value, $Res Function(_$ParameterOverridesImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ParameterOverrides
@@ -290,8 +286,7 @@ class __$$ParameterOverridesImplCopyWithImpl<$Res>
           ? _value.setsPerWeekPerMuscleGroup
           : setsPerWeekPerMuscleGroup // ignore: cast_nullable_to_non_nullable
               as int?,
-      setsPerWeekPerMuscleGroupIndividual: freezed ==
-              setsPerWeekPerMuscleGroupIndividual
+      setsPerWeekPerMuscleGroupIndividual: freezed == setsPerWeekPerMuscleGroupIndividual
           ? _value._setsPerWeekPerMuscleGroupIndividual
           : setsPerWeekPerMuscleGroupIndividual // ignore: cast_nullable_to_non_nullable
               as List<MuscleGroupOverride>?,
@@ -310,11 +305,9 @@ class _$ParameterOverridesImpl implements _ParameterOverrides {
       {final List<int>? intensities,
       this.setsPerWeekPerMuscleGroup,
       final List<MuscleGroupOverride>? setsPerWeekPerMuscleGroupIndividual,
-      @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson)
-      final Set<Ex>? excludedExercises})
+      @JsonKey(toJson: _exSetToJson, fromJson: _exSetFromJson) final Set<Ex>? excludedExercises})
       : _intensities = intensities,
-        _setsPerWeekPerMuscleGroupIndividual =
-            setsPerWeekPerMuscleGroupIndividual,
+        _setsPerWeekPerMuscleGroupIndividual = setsPerWeekPerMuscleGroupIndividual,
         _excludedExercises = excludedExercises;
 
   factory _$ParameterOverridesImpl.fromJson(Map<String, dynamic> json) =>
@@ -349,8 +342,7 @@ class _$ParameterOverridesImpl implements _ParameterOverrides {
   Set<Ex>? get excludedExercises {
     final value = _excludedExercises;
     if (value == null) return null;
-    if (_excludedExercises is EqualUnmodifiableSetView)
-      return _excludedExercises;
+    if (_excludedExercises is EqualUnmodifiableSetView) return _excludedExercises;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(value);
   }
@@ -366,8 +358,7 @@ class _$ParameterOverridesImpl implements _ParameterOverrides {
   @override
   @pragma('vm:prefer-inline')
   _$$ParameterOverridesImplCopyWith<_$ParameterOverridesImpl> get copyWith =>
-      __$$ParameterOverridesImplCopyWithImpl<_$ParameterOverridesImpl>(
-          this, _$identity);
+      __$$ParameterOverridesImplCopyWithImpl<_$ParameterOverridesImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {

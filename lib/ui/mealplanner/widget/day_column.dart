@@ -25,14 +25,12 @@ class DayColumn extends ConsumerWidget {
 
     return setup.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) =>
-          Center(child: Text('Error loading settings: $error')),
+      error: (error, stack) => Center(child: Text('Error loading settings: $error')),
       data: (setup) => _build(context, ref, notifier, setup),
     );
   }
 
-  Widget _build(
-      BuildContext context, WidgetRef ref, Mealplan notifier, Settings setup) {
+  Widget _build(BuildContext context, WidgetRef ref, Mealplan notifier, Settings setup) {
     return Container(
       width: 300,
       margin: const EdgeInsets.only(right: 16),
@@ -84,8 +82,7 @@ class DayColumn extends ConsumerWidget {
                         final List<Event> newEvents = List.from(day.events);
                         final Event item = newEvents.removeAt(oldIndex);
                         newEvents.insert(newIndex, item);
-                        notifier.updateDay(
-                            day, day.copyWith(events: newEvents));
+                        notifier.updateDay(day, day.copyWith(events: newEvents));
                       },
                       itemBuilder: (context, index) {
                         final event = day.events[index];
@@ -102,10 +99,8 @@ class DayColumn extends ConsumerWidget {
                             ),
                           ),
                           onDismissed: (direction) {
-                            final List<Event> newEvents = List.from(day.events)
-                              ..removeAt(index);
-                            notifier.updateDay(
-                                day, day.copyWith(events: newEvents));
+                            final List<Event> newEvents = List.from(day.events)..removeAt(index);
+                            notifier.updateDay(day, day.copyWith(events: newEvents));
                           },
                           child: Card(
                             margin: const EdgeInsets.symmetric(vertical: 4),
@@ -118,47 +113,33 @@ class DayColumn extends ConsumerWidget {
                                   Expanded(
                                     child: event.when(
                                       meal: (desc, targets) => Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             desc,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall,
+                                            style: Theme.of(context).textTheme.titleSmall,
                                           ),
                                           Text(
                                             'Kcal: ${targets.kCal.round()}'
                                             'P: ${targets.minProtein.round()}-${targets.maxProtein.round()}g '
                                             'C: ${targets.minCarbs.round()}-${targets.maxCarbs.round()}g '
                                             'F: ${targets.minFats.round()}-${targets.maxFats.round()}g',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
+                                            style: Theme.of(context).textTheme.bodySmall,
                                           ),
                                         ],
                                       ),
-                                      strengthWorkout: (desc, estimatedKcal) =>
-                                          Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      strengthWorkout: (desc, estimatedKcal) => Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             desc,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall
-                                                ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
+                                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                                  color: Theme.of(context).colorScheme.primary,
                                                 ),
                                           ),
                                           Text(
                                             'Estimated burn: ${estimatedKcal.round()} kcal',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
+                                            style: Theme.of(context).textTheme.bodySmall,
                                           ),
                                         ],
                                       ),
@@ -175,8 +156,7 @@ class DayColumn extends ConsumerWidget {
                   Center(
                     child: IconButton(
                       icon: const Icon(Icons.add_circle_outline),
-                      onPressed: () =>
-                          _showAddEventDialog(context, ref, day, notifier),
+                      onPressed: () => _showAddEventDialog(context, ref, day, notifier),
                       tooltip: 'Add Event',
                     ),
                   ),
@@ -223,10 +203,7 @@ class DayColumn extends ConsumerWidget {
                           Text('E ingest: ${totalKcalIn.round()} kcal'),
                           Text(
                             'Balance : ${balance.round()} kcal',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(color: color),
+                            style: Theme.of(context).textTheme.titleSmall?.copyWith(color: color),
                           )
                         ],
                       );
@@ -261,8 +238,7 @@ class DayColumn extends ConsumerWidget {
     );
   }
 
-  void _showAddEventDialog(
-      BuildContext context, WidgetRef ref, DayPlan day, Mealplan notifier) {
+  void _showAddEventDialog(BuildContext context, WidgetRef ref, DayPlan day, Mealplan notifier) {
     showDialog(
       context: context,
       builder: (context) {
@@ -299,9 +275,7 @@ class DayColumn extends ConsumerWidget {
                     if (eventType == 'workout') ...[
                       SegmentedButton<String>(
                         segments: const [
-                          ButtonSegment(
-                              value: 'existing',
-                              label: Text('Existing Workout')),
+                          ButtonSegment(value: 'existing', label: Text('Existing Workout')),
                           ButtonSegment(value: 'custom', label: Text('Custom')),
                         ],
                         selected: {workoutType},
@@ -328,8 +302,7 @@ class DayColumn extends ConsumerWidget {
                                 labelText: 'Select Workout',
                               ),
                               value: selectedWorkout,
-                              items: program.currentProgram.workouts
-                                  .map((workout) {
+                              items: program.currentProgram.workouts.map((workout) {
                                 return DropdownMenuItem(
                                   value: workout,
                                   child: Text(workout.name),
@@ -343,13 +316,10 @@ class DayColumn extends ConsumerWidget {
                                       0,
                                       (sum, group) =>
                                           sum +
-                                          group.sets.fold(0,
-                                              (setSum, set) => setSum + set.n));
+                                          group.sets.fold(0, (setSum, set) => setSum + set.n));
                                   final min = (totalSets * 2.5).round();
-                                  final setup =
-                                      await ref.read(setupProvider.future);
-                                  final (gross, displaced, epoc, net) =
-                                      setup.getTrainingEE(min);
+                                  final setup = await ref.read(setupProvider.future);
+                                  final (gross, displaced, epoc, net) = setup.getTrainingEE(min);
                                   setState(() {
                                     kcal = net;
                                   });

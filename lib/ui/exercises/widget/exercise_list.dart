@@ -40,9 +40,8 @@ class ExerciseList extends ConsumerWidget {
     ];
 
     modifierOptions.forEach((name, options) {
-      allCombinations = allCombinations
-          .expand((combo) => options.map((opt) => {...combo, name: opt}))
-          .toList();
+      allCombinations =
+          allCombinations.expand((combo) => options.map((opt) => {...combo, name: opt})).toList();
     });
 
     // Create a Sets object for each unique combination
@@ -59,8 +58,8 @@ class ExerciseList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filteredExercises = ref.watch(filteredExercisesProvider);
     final filterState = ref.watch(exerciseFilterProvider);
-    final selectedExercise = ref.watch(
-        exerciseFilterProvider.select((state) => state.selectedExercise));
+    final selectedExercise =
+        ref.watch(exerciseFilterProvider.select((state) => state.selectedExercise));
 
     return Column(
       children: [
@@ -88,10 +87,7 @@ class ExerciseList extends ConsumerWidget {
               Text(
                 '${filteredExercises.length} exercises',
                 style: TextStyle(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.7),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ],
@@ -103,8 +99,7 @@ class ExerciseList extends ConsumerWidget {
             itemBuilder: (context, index) {
               final exercise = filteredExercises[index];
               final variations = _generateExerciseVariations(exercise);
-              final isExpanded =
-                  filterState.expandedExercises.contains(exercise.id);
+              final isExpanded = filterState.expandedExercises.contains(exercise.id);
               final hasVariations = variations.length > 1;
 
               return Column(
@@ -113,16 +108,11 @@ class ExerciseList extends ConsumerWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: selectedExercise == exercise
-                          ? Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.1)
+                          ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
                           : null,
                       border: Border(
                         bottom: BorderSide(
-                          color: Theme.of(context)
-                              .dividerColor
-                              .withValues(alpha: 0.1),
+                          color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
                         ),
                       ),
                     ),
@@ -130,9 +120,7 @@ class ExerciseList extends ConsumerWidget {
                       leading: hasVariations
                           ? IconButton(
                               icon: Icon(
-                                isExpanded
-                                    ? Icons.expand_less
-                                    : Icons.expand_more,
+                                isExpanded ? Icons.expand_less : Icons.expand_more,
                                 color: Theme.of(context).colorScheme.primary,
                               ),
                               onPressed: () {
@@ -161,10 +149,7 @@ class ExerciseList extends ConsumerWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withValues(alpha: 0.1),
+                                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Text(
@@ -191,28 +176,24 @@ class ExerciseList extends ConsumerWidget {
                                           eq.displayName,
                                           style: const TextStyle(fontSize: 10),
                                         ),
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
+                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                         visualDensity: VisualDensity.compact,
                                       ))
                                   .toList(),
                             ),
                           ],
                           const SizedBox(height: 4),
-                          MuscleRecruitmentBar(
-                              exercise: exercise, setup: setupData),
+                          MuscleRecruitmentBar(exercise: exercise, setup: setupData),
                         ],
                       ),
                       trailing: exercise.ratings.isNotEmpty
                           ? RatingIcon(ratings: exercise.ratings)
                           : null,
                       onTap: () {
-                        final newSelection =
-                            selectedExercise == exercise ? null : exercise;
+                        final newSelection = selectedExercise == exercise ? null : exercise;
                         ref
                             .read(exerciseFilterProvider.notifier)
-                            .setSelectedExercise(newSelection,
-                                modifierOptions: {});
+                            .setSelectedExercise(newSelection, modifierOptions: {});
                       },
                     ),
                   ),
@@ -220,21 +201,13 @@ class ExerciseList extends ConsumerWidget {
                   if (isExpanded && hasVariations)
                     ...variations.map((variation) => Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withValues(alpha: 0.5),
+                            color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.5),
                             border: Border(
                               bottom: BorderSide(
-                                color: Theme.of(context)
-                                    .dividerColor
-                                    .withValues(alpha: 0.05),
+                                color: Theme.of(context).dividerColor.withValues(alpha: 0.05),
                               ),
                               left: BorderSide(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withValues(alpha: 0.3),
+                                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
                                 width: 3,
                               ),
                             ),
@@ -262,9 +235,7 @@ class ExerciseList extends ConsumerWidget {
                                     child: Wrap(
                                       spacing: 8,
                                       runSpacing: 4,
-                                      children: variation
-                                          .modifierOptions.entries
-                                          .map((entry) {
+                                      children: variation.modifierOptions.entries.map((entry) {
                                         return Container(
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 6,
@@ -275,8 +246,7 @@ class ExerciseList extends ConsumerWidget {
                                                 .colorScheme
                                                 .primary
                                                 .withValues(alpha: 0.1),
-                                            borderRadius:
-                                                BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(4),
                                             border: Border.all(
                                               color: Theme.of(context)
                                                   .colorScheme
@@ -289,9 +259,7 @@ class ExerciseList extends ConsumerWidget {
                                             '${entry.key}: ${entry.value}',
                                             style: TextStyle(
                                               fontSize: 10,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary,
+                                              color: Theme.of(context).colorScheme.primary,
                                             ),
                                           ),
                                         );
@@ -302,11 +270,9 @@ class ExerciseList extends ConsumerWidget {
                             ),
                             onTap: () {
                               // For variations, select the base exercise with the specific modifier options
-                              ref
-                                  .read(exerciseFilterProvider.notifier)
-                                  .setSelectedExercise(exercise,
-                                      modifierOptions:
-                                          variation.modifierOptions);
+                              ref.read(exerciseFilterProvider.notifier).setSelectedExercise(
+                                  exercise,
+                                  modifierOptions: variation.modifierOptions);
                             },
                           ),
                         )),

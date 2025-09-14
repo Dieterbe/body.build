@@ -9,13 +9,11 @@ String migrateModifierValue(String value) {
 
 /// Migrates a map of modifier options
 Map<String, String> migrateModifierOptions(Map<String, String> options) {
-  return options
-      .map((key, value) => MapEntry(key, migrateModifierValue(value)));
+  return options.map((key, value) => MapEntry(key, migrateModifierValue(value)));
 }
 
 /// Builds an exercise detail URL with encoded exercise ID and modifier options.
-String buildExerciseDetailUrl(
-    String exerciseId, Map<String, String> modifierOptions) {
+String buildExerciseDetailUrl(String exerciseId, Map<String, String> modifierOptions) {
   // Encode spaces as underscores in exercise ID
   final encodedExerciseId = exerciseId.replaceAll(' ', '_');
 

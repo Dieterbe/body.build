@@ -30,8 +30,7 @@ There are three different formulas for calculating Basal Metabolic Rate (BMR):
 * Works for: lean athletes.
 ''';
 
-Widget helpTrainingEEWidget(
-    double grossTrainingEE, displacedEE, epoc, netTrainingEE) {
+Widget helpTrainingEEWidget(double grossTrainingEE, displacedEE, epoc, netTrainingEE) {
   return SizedBox(
     width: 950,
     child: Column(
@@ -83,8 +82,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
               ),
             ),
           ),
-          v: Text(
-              '${value == null ? 'N/A' : value.round().toString()} (${method.displayName})',
+          v: Text('${value == null ? 'N/A' : value.round().toString()} (${method.displayName})',
               style: TextStyle(
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 fontSize: MediaQuery.sizeOf(context).width / 100,
@@ -116,20 +114,15 @@ class ProgrammerSetupFacts extends ConsumerWidget {
         data: (setup) {
           final bmi = calcBMI(setup.weight, setup.height);
 
-          final bmrCH = setup.bodyFat == null
-              ? null
-              : bmrCunningham(setup.weight, setup.bodyFat!);
+          final bmrCH = setup.bodyFat == null ? null : bmrCunningham(setup.weight, setup.bodyFat!);
           final bmrT = bmrTinsley(setup.weight);
-          final bmrTH =
-              bmrTenHaaf(setup.weight, setup.height, setup.age, setup.sex);
+          final bmrTH = bmrTenHaaf(setup.weight, setup.height, setup.age, setup.sex);
 
           final bmrMethods = [
             (
               BMRMethod.cunningham,
               bmrCH,
-              setup.bodyFat == null
-                  ? 'Enter body fat % to use this formula'
-                  : null,
+              setup.bodyFat == null ? 'Enter body fat % to use this formula' : null,
             ),
             (BMRMethod.tinsley, bmrT, null),
             (BMRMethod.tenHaaf, bmrTH, null),
@@ -141,12 +134,11 @@ class ProgrammerSetupFacts extends ConsumerWidget {
           final restingDayEE = setup.getDailyEE(0);
           final trainingDayEE = setup.getDailyEE(netTrainingEE);
 
-          final averageDayEE = (restingDayEE * (7 - setup.workoutsPerWeek) +
-                  trainingDayEE * setup.workoutsPerWeek) /
-              7;
+          final averageDayEE =
+              (restingDayEE * (7 - setup.workoutsPerWeek) + trainingDayEE * setup.workoutsPerWeek) /
+                  7;
           final targetIntake = averageDayEE * setup.energyBalance / 100;
-          final targetIntakeTraining =
-              trainingDayEE * setup.energyBalance / 100;
+          final targetIntakeTraining = trainingDayEE * setup.energyBalance / 100;
           final targetIntakeResting = restingDayEE * setup.energyBalance / 100;
           return Column(
             children: [
@@ -160,8 +152,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                       children: [
                         KVStringsRow('BMI', bmi.toStringAsFixed(2)),
                         const SizedBox(height: 20),
-                        const KVStringsRow('BMR', 'Choose formula',
-                            help: helpBMR),
+                        const KVStringsRow('BMR', 'Choose formula', help: helpBMR),
                         for (final (method, value, error) in bmrMethods) ...[
                           Center(
                             child: _buildBMRRow(
@@ -183,18 +174,15 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          KVStringsRow(
-                              'Training EE', '${netTrainingEE.round()} kcal',
-                              helpWidget: helpTrainingEEWidget(grossTrainingEE,
-                                  displacedEE, epoc, netTrainingEE)),
+                          KVStringsRow('Training EE', '${netTrainingEE.round()} kcal',
+                              helpWidget: helpTrainingEEWidget(
+                                  grossTrainingEE, displacedEE, epoc, netTrainingEE)),
                           const SizedBox(height: 20),
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color: Theme.of(context)
-                                    .dividerColor
-                                    .withValues(alpha: 0.3),
+                                color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
                                 width: 1,
                               ),
                             ),
@@ -203,9 +191,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                               defaultColumnWidth: const IntrinsicColumnWidth(),
                               border: TableBorder(
                                 horizontalInside: BorderSide(
-                                  color: Theme.of(context)
-                                      .dividerColor
-                                      .withValues(alpha: 0.2),
+                                  color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
                                   width: 1,
                                 ),
                               ),
@@ -219,39 +205,33 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                   ),
                                   children: [
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text('Day',
                                           style: ts100(context).copyWith(
                                             fontWeight: FontWeight.w500,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurfaceVariant,
+                                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                                           )),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text('EE',
                                           style: ts100(context).copyWith(
                                             fontWeight: FontWeight.w500,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurfaceVariant,
+                                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                                           )),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text('Target kcal intake',
                                           style: ts100(context).copyWith(
                                             fontWeight: FontWeight.w500,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurfaceVariant,
+                                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                                           )),
                                     ),
                                   ],
@@ -259,8 +239,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                 TableRow(
                                   children: [
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       child: Text('Resting',
                                           style: ts100(context).copyWith(
                                             color: Theme.of(context)
@@ -271,8 +251,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                           textAlign: TextAlign.left),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text(
                                         restingDayEE.round().toString(),
@@ -280,8 +260,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text(
                                         targetIntakeResting.round().toString(),
@@ -293,8 +273,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                 TableRow(
                                   children: [
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       child: Text('Training',
                                           style: ts100(context).copyWith(
                                             color: Theme.of(context)
@@ -305,8 +285,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                           textAlign: TextAlign.left),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text(
                                         trainingDayEE.round().toString(),
@@ -314,8 +294,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text(
                                         targetIntakeTraining.round().toString(),
@@ -327,8 +307,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                 TableRow(
                                   children: [
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       child: Text('Average',
                                           style: ts100(context).copyWith(
                                             color: Theme.of(context)
@@ -339,8 +319,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                           textAlign: TextAlign.left),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text(
                                         averageDayEE.round().toString(),
@@ -348,8 +328,8 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 12),
+                                      padding:
+                                          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                       alignment: Alignment.center,
                                       child: Text(
                                         targetIntake.round().toString(),

@@ -27,18 +27,14 @@ mixin _$Settings {
   double get weight => throw _privateConstructorUsedError;
   double get height => throw _privateConstructorUsedError;
   double? get bodyFat => throw _privateConstructorUsedError; // percentage
-  int get energyBalance =>
-      throw _privateConstructorUsedError; // percentage (100 = maintenance)
+  int get energyBalance => throw _privateConstructorUsedError; // percentage (100 = maintenance)
   double get recoveryFactor =>
       throw _privateConstructorUsedError; // Recovery quality factor (0.5 - 1.2)
-  double get tefFactor =>
-      throw _privateConstructorUsedError; // Thermic effect of food
-  double get atFactor =>
-      throw _privateConstructorUsedError; // Adaptive thermogenesis
+  double get tefFactor => throw _privateConstructorUsedError; // Thermic effect of food
+  double get atFactor => throw _privateConstructorUsedError; // Adaptive thermogenesis
   int get workoutsPerWeek => throw _privateConstructorUsedError;
   int get workoutDuration => throw _privateConstructorUsedError; // minutes
-  ActivityLevel get activityLevel =>
-      throw _privateConstructorUsedError; // other
+  ActivityLevel get activityLevel => throw _privateConstructorUsedError; // other
   BMRMethod get bmrMethod => throw _privateConstructorUsedError;
   @JsonKey(toJson: _equipmentSetToJson, fromJson: _equipmentSetFromJson)
   Set<Equipment> get availEquipment => throw _privateConstructorUsedError;
@@ -51,8 +47,7 @@ mixin _$Settings {
   /// Create a copy of Settings
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SettingsCopyWith<Settings> get copyWith =>
-      throw _privateConstructorUsedError;
+  $SettingsCopyWith<Settings> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -86,8 +81,7 @@ abstract class $SettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
-    implements $SettingsCopyWith<$Res> {
+class _$SettingsCopyWithImpl<$Res, $Val extends Settings> implements $SettingsCopyWith<$Res> {
   _$SettingsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -217,10 +211,8 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
 }
 
 /// @nodoc
-abstract class _$$SettingsImplCopyWith<$Res>
-    implements $SettingsCopyWith<$Res> {
-  factory _$$SettingsImplCopyWith(
-          _$SettingsImpl value, $Res Function(_$SettingsImpl) then) =
+abstract class _$$SettingsImplCopyWith<$Res> implements $SettingsCopyWith<$Res> {
+  factory _$$SettingsImplCopyWith(_$SettingsImpl value, $Res Function(_$SettingsImpl) then) =
       __$$SettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -252,11 +244,9 @@ abstract class _$$SettingsImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SettingsImplCopyWithImpl<$Res>
-    extends _$SettingsCopyWithImpl<$Res, _$SettingsImpl>
+class __$$SettingsImplCopyWithImpl<$Res> extends _$SettingsCopyWithImpl<$Res, _$SettingsImpl>
     implements _$$SettingsImplCopyWith<$Res> {
-  __$$SettingsImplCopyWithImpl(
-      _$SettingsImpl _value, $Res Function(_$SettingsImpl) _then)
+  __$$SettingsImplCopyWithImpl(_$SettingsImpl _value, $Res Function(_$SettingsImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Settings
@@ -386,8 +376,7 @@ class _$SettingsImpl extends _Settings {
       : _availEquipment = availEquipment,
         super._();
 
-  factory _$SettingsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SettingsImplFromJson(json);
+  factory _$SettingsImpl.fromJson(Map<String, dynamic> json) => _$$SettingsImplFromJson(json);
 
   @override
   @JsonKey()
@@ -500,8 +489,7 @@ abstract class _Settings extends Settings {
       required final ParameterOverrides paramOverrides}) = _$SettingsImpl;
   const _Settings._() : super._();
 
-  factory _Settings.fromJson(Map<String, dynamic> json) =
-      _$SettingsImpl.fromJson;
+  factory _Settings.fromJson(Map<String, dynamic> json) = _$SettingsImpl.fromJson;
 
   @override
   String get name; // Personal information
@@ -545,6 +533,5 @@ abstract class _Settings extends Settings {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith => throw _privateConstructorUsedError;
 }

@@ -20,17 +20,15 @@ List<RankedExercise> rankExercises(List<Ex> input) {
     // Format: "group1:value1,group2:value2,..."
     // when we hash out Assign "modalities" further, we need to consider whether
     // it should be part of the profile
-    final profile = ProgramGroup.values
-        .map((pg) => '${pg.name}:${ex.recruitment(pg, {}).volume}')
-        .join(',');
+    final profile =
+        ProgramGroup.values.map((pg) => '${pg.name}:${ex.recruitment(pg, {}).volume}').join(',');
 
     final rank = ex.totalRecruitment({});
     profileMap[profile] = RankedExercise(ex, rank);
   }
 
   // Convert map values to list and sort by rank
-  final ranks = profileMap.values.toList()
-    ..sort((a, b) => b.rank.compareTo(a.rank));
+  final ranks = profileMap.values.toList()..sort((a, b) => b.rank.compareTo(a.rank));
   print('ranker filter: ${ranks.length} / ${input.length}');
   return ranks;
 }

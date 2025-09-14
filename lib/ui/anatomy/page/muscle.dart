@@ -92,9 +92,7 @@ class MuscleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Center(
-          child:
-              Text(muscle.name, style: Theme.of(context).textTheme.titleLarge)),
+      Center(child: Text(muscle.name, style: Theme.of(context).textTheme.titleLarge)),
       table(
         rows: [
           if (muscle.nick.isNotEmpty)
@@ -107,14 +105,12 @@ class MuscleWidget extends StatelessWidget {
               const DataCell(Text('insertion')),
               DataCell(Text(muscle.insertion!.name.camelToTitle())),
             ]),
-          if (muscle is SingleHeadMuscle)
-            ...headRows((muscle as SingleHeadMuscle).wholeHead),
+          if (muscle is SingleHeadMuscle) ...headRows((muscle as SingleHeadMuscle).wholeHead),
         ],
       ),
       if (muscle.pseudo) const Text('note: this is a "pseudo" muscle'),
       const SizedBox(height: 16),
-      if (muscle is MultiHeadMuscle)
-        Text('Heads', style: Theme.of(context).textTheme.titleMedium),
+      if (muscle is MultiHeadMuscle) Text('Heads', style: Theme.of(context).textTheme.titleMedium),
       if (muscle is MultiHeadMuscle) const Divider(),
       if (muscle is MultiHeadMuscle) const SizedBox(height: 8),
       if (muscle is MultiHeadMuscle)
@@ -136,8 +132,8 @@ class MuscleWidget extends StatelessWidget {
           columnSpacing: 16,
           columns: [
             const DataColumn(label: Text('Articulation')),
-            ...muscle.heads.map((h) => DataColumn(
-                label: Text(h.name.camelToTitle().replaceAll(", ", "\n")))),
+            ...muscle.heads
+                .map((h) => DataColumn(label: Text(h.name.camelToTitle().replaceAll(", ", "\n")))),
           ],
           rows: muscle
               .getArticulations()
@@ -146,8 +142,7 @@ class MuscleWidget extends StatelessWidget {
                       ArticulationButton(a),
                     ),
                     ...muscle.heads.map(
-                      (h) => DataCell(
-                          Center(child: _checkmarkForHead(muscle, h, a))),
+                      (h) => DataCell(Center(child: _checkmarkForHead(muscle, h, a))),
                     )
                   ]))
               .toList(),
@@ -176,9 +171,7 @@ Movement? _movementForHead(Muscle muscle, Head head, Articulation a) {
 
 Widget _checkmarkForHead(Muscle muscle, Head head, Articulation a) {
   final m = _movementForHead(muscle, head, a);
-  return m != null
-      ? Icon(Icons.check, color: strengthColors[m.strength - 1])
-      : const Offstage();
+  return m != null ? Icon(Icons.check, color: strengthColors[m.strength - 1]) : const Offstage();
 }
 
 class MuscleHeadWidget extends StatelessWidget {

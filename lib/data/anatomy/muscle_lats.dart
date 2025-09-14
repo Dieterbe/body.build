@@ -27,8 +27,7 @@ final latissimusDorsi = SingleHeadMuscle(
         // see https://www.ncbi.nlm.nih.gov/pubmed/7498076
         rangeStart: 170,
         rangeEnd: 0,
-        momentMax:
-            75, // elbows just below shoulders. but considerably positive over entire ROM
+        momentMax: 75, // elbows just below shoulders. but considerably positive over entire ROM
         // second most important function
         // especially when shoulder is somewhat externally rotated,
         // e.g. during wide grip pull ups
@@ -80,12 +79,6 @@ final latissimusDorsi = SingleHeadMuscle(
       // but trivial compared to spinal erectors
       // https://www.ncbi.nlm.nih.gov/pubmed/11415812
     ],
-    origin: [
-      Bone.lowerSpine,
-      Bone.sacrum,
-      Bone.iliacCrest,
-      Bone.lowerRibs,
-      Bone.scapula
-    ]);
+    origin: [Bone.lowerSpine, Bone.sacrum, Bone.iliacCrest, Bone.lowerRibs, Bone.scapula]);
 // teres major is ignored. train lats well = train teres major well
 // teres major: shoulder extension, adduction, internal rotation

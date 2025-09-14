@@ -80,13 +80,11 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
 
     // Listen for exercise selection on mobile/tablet to show modal
     if (!isDesktop) {
-      ref.listen(
-          exerciseFilterProvider.select((state) => state.selectedExercise),
+      ref.listen(exerciseFilterProvider.select((state) => state.selectedExercise),
           (previous, selectedExercise) {
         if (selectedExercise != null && previous != selectedExercise) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            setup.whenData(
-                (setupData) => _showExerciseDetailModal(setupData, context));
+            setup.whenData((setupData) => _showExerciseDetailModal(setupData, context));
           });
         }
       });
@@ -107,16 +105,12 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             if (!isDesktop) ...[
               Consumer(
                 builder: (context, ref, child) {
-                  final showFilters = ref.watch(exerciseFilterProvider
-                      .select((state) => state.showFilters));
+                  final showFilters =
+                      ref.watch(exerciseFilterProvider.select((state) => state.showFilters));
                   return IconButton(
-                    icon: Icon(showFilters
-                        ? Icons.filter_list_off
-                        : Icons.filter_list),
+                    icon: Icon(showFilters ? Icons.filter_list_off : Icons.filter_list),
                     onPressed: () {
-                      ref
-                          .read(exerciseFilterProvider.notifier)
-                          .toggleShowFilters();
+                      ref.read(exerciseFilterProvider.notifier).toggleShowFilters();
                     },
                   );
                 },
@@ -159,8 +153,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         // Exercise Detail Panel
         Consumer(
           builder: (context, ref, child) {
-            final selectedExercise = ref.watch(exerciseFilterProvider
-                .select((state) => state.selectedExercise));
+            final selectedExercise =
+                ref.watch(exerciseFilterProvider.select((state) => state.selectedExercise));
             if (selectedExercise == null) return const SizedBox.shrink();
             return Container(
               width: 400,
@@ -169,8 +163,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                 color: Theme.of(context).colorScheme.surface,
                 border: Border(
                   left: BorderSide(
-                    color:
-                        Theme.of(context).dividerColor.withValues(alpha: 0.3),
+                    color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
                   ),
                 ),
               ),
@@ -189,8 +182,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         // Collapsible Filters Panel
         Consumer(
           builder: (context, ref, child) {
-            final showFilters = ref.watch(
-                exerciseFilterProvider.select((state) => state.showFilters));
+            final showFilters =
+                ref.watch(exerciseFilterProvider.select((state) => state.showFilters));
             if (!showFilters) return const SizedBox.shrink();
             return Container(
               width: 280,
@@ -199,8 +192,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                 color: Theme.of(context).colorScheme.surface,
                 border: Border(
                   right: BorderSide(
-                    color:
-                        Theme.of(context).dividerColor.withValues(alpha: 0.3),
+                    color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
                   ),
                 ),
               ),
@@ -221,8 +213,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
       children: [
         Consumer(
           builder: (context, ref, child) {
-            final showFilters = ref.watch(
-                exerciseFilterProvider.select((state) => state.showFilters));
+            final showFilters =
+                ref.watch(exerciseFilterProvider.select((state) => state.showFilters));
             if (!showFilters) return const SizedBox.shrink();
             return const FilterMobile();
           },

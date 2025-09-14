@@ -34,8 +34,7 @@ Widget headers() {
     child: HeaderLabel('Ham Long H. & semis'),
   );
   return Transform.translate(
-    offset: const Offset(
-        0, -10), // because we pivot around bottom center, raise text up a bit
+    offset: const Offset(0, -10), // because we pivot around bottom center, raise text up a bit
     child: Row(
         children: ProgramGroup.values
             .map((e) => Expanded(

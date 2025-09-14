@@ -13,9 +13,8 @@ String _$filteredExercisesHash() => r'8f2e4d1c3b5a6e9f0a1b2c3d4e5f6a7b8c9d0e1f';
 final filteredExercisesProvider = AutoDisposeProvider<List<Ex>>.internal(
   filteredExercises,
   name: r'filteredExercisesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$filteredExercisesHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$filteredExercisesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -29,9 +28,8 @@ final exerciseFilterProvider =
     AutoDisposeNotifierProvider<ExerciseFilter, ExerciseFilterState>.internal(
   ExerciseFilter.new,
   name: r'exerciseFilterProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$exerciseFilterHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$exerciseFilterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

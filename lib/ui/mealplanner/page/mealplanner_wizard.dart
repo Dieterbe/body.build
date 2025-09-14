@@ -16,12 +16,10 @@ class MealPlannerWizard extends ConsumerWidget {
 
     return setup.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) =>
-          Center(child: Text('Error loading settings: $error')),
+      error: (error, stack) => Center(child: Text('Error loading settings: $error')),
       data: (setup) => plan.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) =>
-            Center(child: Text('Error loading plan: $error')),
+        error: (error, stack) => Center(child: Text('Error loading plan: $error')),
         data: (plan) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 24,

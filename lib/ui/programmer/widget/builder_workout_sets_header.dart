@@ -154,8 +154,8 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
     for (final modifier in ex.modifiers) {
       bool hasRecruitmentVariation =
           modifier.opts.entries.any((entry) => entry.value.$1.containsKey(g));
-      bool hasRatingVariation = ex.ratings.any((rating) =>
-          rating.pg.contains(g) && rating.modifiers.containsKey(modifier.name));
+      bool hasRatingVariation = ex.ratings
+          .any((rating) => rating.pg.contains(g) && rating.modifiers.containsKey(modifier.name));
 
       if (hasRecruitmentVariation || hasRatingVariation) {
         modifierOptions[modifier.name] = modifier.opts.keys.toList();
@@ -178,9 +178,8 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
       {for (var entry in modifierOptions.entries) entry.key: entry.value.first}
     ];
     modifierOptions.forEach((name, options) {
-      allCombinations = allCombinations
-          .expand((combo) => options.map((opt) => {...combo, name: opt}))
-          .toList();
+      allCombinations =
+          allCombinations.expand((combo) => options.map((opt) => {...combo, name: opt})).toList();
     });
 
     // Create a Sets object for each unique combination
@@ -191,8 +190,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
         ));
   }
 
-  Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) =>
-      SimpleDialog(
+  Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) => SimpleDialog(
         contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,10 +205,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
             Text(
               'Exercises matching your equipment filter are shown in order of recruitment of the ${g.displayName}.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.7),
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
             ),
             const Divider(height: 24),
@@ -224,16 +219,16 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
               child: Autocomplete<Sets>(
                 optionsBuilder: (textEditingValue) {
                   final opts = setup.availableExercises
-                      .where((e) => e.id.toLowerCase().contains(
-                          textEditingValue.text.toLowerCase().toLowerCase()))
+                      .where((e) => e.id
+                          .toLowerCase()
+                          .contains(textEditingValue.text.toLowerCase().toLowerCase()))
                       .expand((e) => toSetsFor(e, setup.paramFinal, g))
                       .where((e) => e.recruitmentFiltered(g, 0) > 0)
                       .toList();
                   opts.sort((a, b) {
                     // First compare by recruitment value
-                    final recruitmentCompare = b
-                        .recruitmentFiltered(g, 0)
-                        .compareTo(a.recruitmentFiltered(g, 0));
+                    final recruitmentCompare =
+                        b.recruitmentFiltered(g, 0).compareTo(a.recruitmentFiltered(g, 0));
                     if (recruitmentCompare != 0) return recruitmentCompare;
 
                     // If recruitment is equal, compare by average rating
@@ -250,12 +245,10 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
 
                     final aAvg = aRatings.isEmpty
                         ? 0.0
-                        : aRatings.reduce((sum, score) => sum + score) /
-                            aRatings.length;
+                        : aRatings.reduce((sum, score) => sum + score) / aRatings.length;
                     final bAvg = bRatings.isEmpty
                         ? 0.0
-                        : bRatings.reduce((sum, score) => sum + score) /
-                            bRatings.length;
+                        : bRatings.reduce((sum, score) => sum + score) / bRatings.length;
 
                     final ratingCompare = bAvg.compareTo(aAvg);
                     if (ratingCompare != 0) return ratingCompare;
@@ -266,8 +259,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                   return opts;
                 },
                 displayStringForOption: (e) => e.ex!.id,
-                fieldViewBuilder:
-                    (context, controller, focusNode, onSubmitted) {
+                fieldViewBuilder: (context, controller, focusNode, onSubmitted) {
                   return TextField(
                     controller: controller,
                     focusNode: focusNode,
@@ -301,16 +293,14 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                             final volume = option.recruitmentFiltered(g, 0);
                             return ListTile(
                               dense: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               title: Row(
                                 children: [
                                   Text(
                                     option.ex!.id,
                                     style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).width /
-                                              110,
+                                      fontSize: MediaQuery.sizeOf(context).width / 110,
                                     ),
                                   ),
                                   if (option.modifierOptions.isNotEmpty) ...[
@@ -319,8 +309,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                       child: Wrap(
                                         spacing: 8,
                                         runSpacing: 4,
-                                        children: option.modifierOptions.entries
-                                            .map((entry) {
+                                        children: option.modifierOptions.entries.map((entry) {
                                           return Container(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 8,
@@ -331,8 +320,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                                   .colorScheme
                                                   .primary
                                                   .withValues(alpha: 0.1),
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
+                                              borderRadius: BorderRadius.circular(4),
                                               border: Border.all(
                                                 color: Theme.of(context)
                                                     .colorScheme
@@ -349,9 +337,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                                   style: TextStyle(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                    color: Theme.of(context).colorScheme.primary,
                                                   ),
                                                 ),
                                                 const SizedBox(width: 4),
@@ -359,9 +345,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                                   entry.value,
                                                   style: TextStyle(
                                                     fontSize: 12,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                    color: Theme.of(context).colorScheme.primary,
                                                   ),
                                                 ),
                                               ],
@@ -383,13 +367,10 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                   children: [
                                     if (relevantRatings.isNotEmpty) ...[
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8),
+                                        padding: const EdgeInsets.only(right: 8),
                                         child: RatingIcon(
                                           ratings: relevantRatings,
-                                          size:
-                                              MediaQuery.sizeOf(context).width /
-                                                  60,
+                                          size: MediaQuery.sizeOf(context).width / 60,
                                         ),
                                       ),
                                     ],
@@ -411,9 +392,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                           const SizedBox(width: 8),
                                           Text(
                                             '${(volume * 100).toStringAsFixed(0)}%',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
+                                            style: Theme.of(context).textTheme.bodySmall,
                                           ),
                                         ],
                                       ),

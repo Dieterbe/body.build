@@ -163,9 +163,7 @@ class DataManager extends StatelessWidget {
                               : Theme.of(context).colorScheme.error,
                         ),
                       ),
-                      tooltip: onDelete == null
-                          ? 'Builtin - cannot be deleted'
-                          : 'Delete',
+                      tooltip: onDelete == null ? 'Builtin - cannot be deleted' : 'Delete',
                       onPressed: () {
                         if (opts.isEmpty || onDelete == null) return;
                         _showDeleteDialog(context, opts.first);

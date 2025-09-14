@@ -17,17 +17,16 @@ class ExerciseDetailPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedExercise = ref.watch(
-        exerciseFilterProvider.select((state) => state.selectedExercise));
-    final selectedModifierOptions = ref.watch(exerciseFilterProvider
-        .select((state) => state.selectedModifierOptions));
+    final selectedExercise =
+        ref.watch(exerciseFilterProvider.select((state) => state.selectedExercise));
+    final selectedModifierOptions =
+        ref.watch(exerciseFilterProvider.select((state) => state.selectedModifierOptions));
 
     if (selectedExercise == null) return const SizedBox.shrink();
 
     return SingleChildScrollView(
       child: ExerciseDetailsDialog(
-        sets: Sets(1,
-            ex: selectedExercise, modifierOptions: selectedModifierOptions),
+        sets: Sets(1, ex: selectedExercise, modifierOptions: selectedModifierOptions),
         setup: setupData,
         onChangeModifiersCues: (sets) {
           // Update the selected exercise with new modifier options

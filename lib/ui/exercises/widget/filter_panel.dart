@@ -37,8 +37,7 @@ class FilterPanel extends ConsumerWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             filled: true,
-            fillColor:
-                Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+            fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
           ),
         ),
         const SizedBox(height: 24),

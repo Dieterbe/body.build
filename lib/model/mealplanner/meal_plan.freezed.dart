@@ -21,8 +21,7 @@ MealPlan _$MealPlanFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MealPlan {
   String get name => throw _privateConstructorUsedError;
-  List<DayPlan> get dayplans =>
-      throw _privateConstructorUsedError; // to support the wizard.
+  List<DayPlan> get dayplans => throw _privateConstructorUsedError; // to support the wizard.
   CalorieCyclingType get calorieCycling => throw _privateConstructorUsedError;
   int get mealsPerDay => throw _privateConstructorUsedError;
   int get trainingDaysPerWeek => throw _privateConstructorUsedError;
@@ -33,8 +32,7 @@ mixin _$MealPlan {
   /// Create a copy of MealPlan
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $MealPlanCopyWith<MealPlan> get copyWith =>
-      throw _privateConstructorUsedError;
+  $MealPlanCopyWith<MealPlan> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -51,8 +49,7 @@ abstract class $MealPlanCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MealPlanCopyWithImpl<$Res, $Val extends MealPlan>
-    implements $MealPlanCopyWith<$Res> {
+class _$MealPlanCopyWithImpl<$Res, $Val extends MealPlan> implements $MealPlanCopyWith<$Res> {
   _$MealPlanCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -97,10 +94,8 @@ class _$MealPlanCopyWithImpl<$Res, $Val extends MealPlan>
 }
 
 /// @nodoc
-abstract class _$$MealPlanImplCopyWith<$Res>
-    implements $MealPlanCopyWith<$Res> {
-  factory _$$MealPlanImplCopyWith(
-          _$MealPlanImpl value, $Res Function(_$MealPlanImpl) then) =
+abstract class _$$MealPlanImplCopyWith<$Res> implements $MealPlanCopyWith<$Res> {
+  factory _$$MealPlanImplCopyWith(_$MealPlanImpl value, $Res Function(_$MealPlanImpl) then) =
       __$$MealPlanImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -113,11 +108,9 @@ abstract class _$$MealPlanImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MealPlanImplCopyWithImpl<$Res>
-    extends _$MealPlanCopyWithImpl<$Res, _$MealPlanImpl>
+class __$$MealPlanImplCopyWithImpl<$Res> extends _$MealPlanCopyWithImpl<$Res, _$MealPlanImpl>
     implements _$$MealPlanImplCopyWith<$Res> {
-  __$$MealPlanImplCopyWithImpl(
-      _$MealPlanImpl _value, $Res Function(_$MealPlanImpl) _then)
+  __$$MealPlanImplCopyWithImpl(_$MealPlanImpl _value, $Res Function(_$MealPlanImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of MealPlan
@@ -167,8 +160,7 @@ class _$MealPlanImpl with DiagnosticableTreeMixin implements _MealPlan {
       this.trainingDaysPerWeek = 3})
       : _dayplans = dayplans;
 
-  factory _$MealPlanImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MealPlanImplFromJson(json);
+  factory _$MealPlanImpl.fromJson(Map<String, dynamic> json) => _$$MealPlanImplFromJson(json);
 
   @override
   final String name;
@@ -233,8 +225,7 @@ abstract class _MealPlan implements MealPlan {
       final int mealsPerDay,
       final int trainingDaysPerWeek}) = _$MealPlanImpl;
 
-  factory _MealPlan.fromJson(Map<String, dynamic> json) =
-      _$MealPlanImpl.fromJson;
+  factory _MealPlan.fromJson(Map<String, dynamic> json) = _$MealPlanImpl.fromJson;
 
   @override
   String get name;
@@ -251,8 +242,7 @@ abstract class _MealPlan implements MealPlan {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MealPlanImplCopyWith<_$MealPlanImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MealPlanImplCopyWith<_$MealPlanImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 DayPlan _$DayPlanFromJson(Map<String, dynamic> json) {
@@ -287,8 +277,7 @@ abstract class $DayPlanCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
-    implements $DayPlanCopyWith<$Res> {
+class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan> implements $DayPlanCopyWith<$Res> {
   _$DayPlanCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -339,8 +328,7 @@ class _$DayPlanCopyWithImpl<$Res, $Val extends DayPlan>
 
 /// @nodoc
 abstract class _$$DayPlanImplCopyWith<$Res> implements $DayPlanCopyWith<$Res> {
-  factory _$$DayPlanImplCopyWith(
-          _$DayPlanImpl value, $Res Function(_$DayPlanImpl) then) =
+  factory _$$DayPlanImplCopyWith(_$DayPlanImpl value, $Res Function(_$DayPlanImpl) then) =
       __$$DayPlanImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -351,11 +339,9 @@ abstract class _$$DayPlanImplCopyWith<$Res> implements $DayPlanCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$DayPlanImplCopyWithImpl<$Res>
-    extends _$DayPlanCopyWithImpl<$Res, _$DayPlanImpl>
+class __$$DayPlanImplCopyWithImpl<$Res> extends _$DayPlanCopyWithImpl<$Res, _$DayPlanImpl>
     implements _$$DayPlanImplCopyWith<$Res> {
-  __$$DayPlanImplCopyWithImpl(
-      _$DayPlanImpl _value, $Res Function(_$DayPlanImpl) _then)
+  __$$DayPlanImplCopyWithImpl(_$DayPlanImpl _value, $Res Function(_$DayPlanImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DayPlan
@@ -393,14 +379,10 @@ class __$$DayPlanImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DayPlanImpl with DiagnosticableTreeMixin implements _DayPlan {
   const _$DayPlanImpl(
-      {required this.desc,
-      required this.targets,
-      required final List<Event> events,
-      this.num = 1})
+      {required this.desc, required this.targets, required final List<Event> events, this.num = 1})
       : _events = events;
 
-  factory _$DayPlanImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DayPlanImplFromJson(json);
+  factory _$DayPlanImpl.fromJson(Map<String, dynamic> json) => _$$DayPlanImplFromJson(json);
 
   @override
   final String desc;
@@ -474,8 +456,7 @@ abstract class _DayPlan implements DayPlan {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DayPlanImplCopyWith<_$DayPlanImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DayPlanImplCopyWith<_$DayPlanImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 Event _$EventFromJson(Map<String, dynamic> json) {
@@ -486,8 +467,8 @@ Event _$EventFromJson(Map<String, dynamic> json) {
       return StrengthWorkoutEvent.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'Event',
-          'Invalid union type "${json['runtimeType']}"!');
+      throw CheckedFromJsonException(
+          json, 'runtimeType', 'Event', 'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
@@ -497,8 +478,7 @@ mixin _$Event {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String desc, Targets targets) meal,
-    required TResult Function(String desc, double estimatedKcal)
-        strengthWorkout,
+    required TResult Function(String desc, double estimatedKcal) strengthWorkout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -545,15 +525,13 @@ mixin _$Event {
 
 /// @nodoc
 abstract class $EventCopyWith<$Res> {
-  factory $EventCopyWith(Event value, $Res Function(Event) then) =
-      _$EventCopyWithImpl<$Res, Event>;
+  factory $EventCopyWith(Event value, $Res Function(Event) then) = _$EventCopyWithImpl<$Res, Event>;
   @useResult
   $Res call({String desc});
 }
 
 /// @nodoc
-class _$EventCopyWithImpl<$Res, $Val extends Event>
-    implements $EventCopyWith<$Res> {
+class _$EventCopyWithImpl<$Res, $Val extends Event> implements $EventCopyWith<$Res> {
   _$EventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -579,8 +557,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
 
 /// @nodoc
 abstract class _$$MealEventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
-  factory _$$MealEventImplCopyWith(
-          _$MealEventImpl value, $Res Function(_$MealEventImpl) then) =
+  factory _$$MealEventImplCopyWith(_$MealEventImpl value, $Res Function(_$MealEventImpl) then) =
       __$$MealEventImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -590,11 +567,9 @@ abstract class _$$MealEventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$MealEventImplCopyWithImpl<$Res>
-    extends _$EventCopyWithImpl<$Res, _$MealEventImpl>
+class __$$MealEventImplCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$MealEventImpl>
     implements _$$MealEventImplCopyWith<$Res> {
-  __$$MealEventImplCopyWithImpl(
-      _$MealEventImpl _value, $Res Function(_$MealEventImpl) _then)
+  __$$MealEventImplCopyWithImpl(_$MealEventImpl _value, $Res Function(_$MealEventImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Event
@@ -631,12 +606,10 @@ class __$$MealEventImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MealEventImpl with DiagnosticableTreeMixin implements MealEvent {
-  const _$MealEventImpl(
-      {required this.desc, required this.targets, final String? $type})
+  const _$MealEventImpl({required this.desc, required this.targets, final String? $type})
       : $type = $type ?? 'meal';
 
-  factory _$MealEventImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MealEventImplFromJson(json);
+  factory _$MealEventImpl.fromJson(Map<String, dynamic> json) => _$$MealEventImplFromJson(json);
 
   @override
   final String desc;
@@ -672,8 +645,7 @@ class _$MealEventImpl with DiagnosticableTreeMixin implements MealEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String desc, Targets targets) meal,
-    required TResult Function(String desc, double estimatedKcal)
-        strengthWorkout,
+    required TResult Function(String desc, double estimatedKcal) strengthWorkout,
   }) {
     return meal(desc, targets);
   }
@@ -740,12 +712,10 @@ class _$MealEventImpl with DiagnosticableTreeMixin implements MealEvent {
 }
 
 abstract class MealEvent implements Event {
-  const factory MealEvent(
-      {required final String desc,
-      required final Targets targets}) = _$MealEventImpl;
+  const factory MealEvent({required final String desc, required final Targets targets}) =
+      _$MealEventImpl;
 
-  factory MealEvent.fromJson(Map<String, dynamic> json) =
-      _$MealEventImpl.fromJson;
+  factory MealEvent.fromJson(Map<String, dynamic> json) = _$MealEventImpl.fromJson;
 
   @override
   String get desc;
@@ -755,15 +725,13 @@ abstract class MealEvent implements Event {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MealEventImplCopyWith<_$MealEventImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MealEventImplCopyWith<_$MealEventImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$StrengthWorkoutEventImplCopyWith<$Res>
-    implements $EventCopyWith<$Res> {
-  factory _$$StrengthWorkoutEventImplCopyWith(_$StrengthWorkoutEventImpl value,
-          $Res Function(_$StrengthWorkoutEventImpl) then) =
+abstract class _$$StrengthWorkoutEventImplCopyWith<$Res> implements $EventCopyWith<$Res> {
+  factory _$$StrengthWorkoutEventImplCopyWith(
+          _$StrengthWorkoutEventImpl value, $Res Function(_$StrengthWorkoutEventImpl) then) =
       __$$StrengthWorkoutEventImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -774,8 +742,8 @@ abstract class _$$StrengthWorkoutEventImplCopyWith<$Res>
 class __$$StrengthWorkoutEventImplCopyWithImpl<$Res>
     extends _$EventCopyWithImpl<$Res, _$StrengthWorkoutEventImpl>
     implements _$$StrengthWorkoutEventImplCopyWith<$Res> {
-  __$$StrengthWorkoutEventImplCopyWithImpl(_$StrengthWorkoutEventImpl _value,
-      $Res Function(_$StrengthWorkoutEventImpl) _then)
+  __$$StrengthWorkoutEventImplCopyWithImpl(
+      _$StrengthWorkoutEventImpl _value, $Res Function(_$StrengthWorkoutEventImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Event
@@ -801,9 +769,7 @@ class __$$StrengthWorkoutEventImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$StrengthWorkoutEventImpl
-    with DiagnosticableTreeMixin
-    implements StrengthWorkoutEvent {
+class _$StrengthWorkoutEventImpl with DiagnosticableTreeMixin implements StrengthWorkoutEvent {
   const _$StrengthWorkoutEventImpl(
       {required this.desc, required this.estimatedKcal, final String? $type})
       : $type = $type ?? 'strengthWorkout';
@@ -838,17 +804,14 @@ class _$StrengthWorkoutEventImpl
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$StrengthWorkoutEventImplCopyWith<_$StrengthWorkoutEventImpl>
-      get copyWith =>
-          __$$StrengthWorkoutEventImplCopyWithImpl<_$StrengthWorkoutEventImpl>(
-              this, _$identity);
+  _$$StrengthWorkoutEventImplCopyWith<_$StrengthWorkoutEventImpl> get copyWith =>
+      __$$StrengthWorkoutEventImplCopyWithImpl<_$StrengthWorkoutEventImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String desc, Targets targets) meal,
-    required TResult Function(String desc, double estimatedKcal)
-        strengthWorkout,
+    required TResult Function(String desc, double estimatedKcal) strengthWorkout,
   }) {
     return strengthWorkout(desc, estimatedKcal);
   }
@@ -930,8 +893,8 @@ abstract class StrengthWorkoutEvent implements Event {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$StrengthWorkoutEventImplCopyWith<_$StrengthWorkoutEventImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$StrengthWorkoutEventImplCopyWith<_$StrengthWorkoutEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Targets _$TargetsFromJson(Map<String, dynamic> json) {
@@ -973,8 +936,7 @@ abstract class $TargetsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TargetsCopyWithImpl<$Res, $Val extends Targets>
-    implements $TargetsCopyWith<$Res> {
+class _$TargetsCopyWithImpl<$Res, $Val extends Targets> implements $TargetsCopyWith<$Res> {
   _$TargetsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -1030,8 +992,7 @@ class _$TargetsCopyWithImpl<$Res, $Val extends Targets>
 
 /// @nodoc
 abstract class _$$TargetsImplCopyWith<$Res> implements $TargetsCopyWith<$Res> {
-  factory _$$TargetsImplCopyWith(
-          _$TargetsImpl value, $Res Function(_$TargetsImpl) then) =
+  factory _$$TargetsImplCopyWith(_$TargetsImpl value, $Res Function(_$TargetsImpl) then) =
       __$$TargetsImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -1046,11 +1007,9 @@ abstract class _$$TargetsImplCopyWith<$Res> implements $TargetsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$TargetsImplCopyWithImpl<$Res>
-    extends _$TargetsCopyWithImpl<$Res, _$TargetsImpl>
+class __$$TargetsImplCopyWithImpl<$Res> extends _$TargetsCopyWithImpl<$Res, _$TargetsImpl>
     implements _$$TargetsImplCopyWith<$Res> {
-  __$$TargetsImplCopyWithImpl(
-      _$TargetsImpl _value, $Res Function(_$TargetsImpl) _then)
+  __$$TargetsImplCopyWithImpl(_$TargetsImpl _value, $Res Function(_$TargetsImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Targets
@@ -1111,8 +1070,7 @@ class _$TargetsImpl with DiagnosticableTreeMixin implements _Targets {
       required this.maxFats,
       required this.kCal});
 
-  factory _$TargetsImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TargetsImplFromJson(json);
+  factory _$TargetsImpl.fromJson(Map<String, dynamic> json) => _$$TargetsImplFromJson(json);
 
   @override
   final double minProtein;
@@ -1195,6 +1153,5 @@ abstract class _Targets implements Targets {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TargetsImplCopyWith<_$TargetsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$TargetsImplCopyWith<_$TargetsImpl> get copyWith => throw _privateConstructorUsedError;
 }

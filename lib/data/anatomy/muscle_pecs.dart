@@ -23,8 +23,7 @@ final pectoralisMajor = MultiHeadMuscle(
         articulation: Articulation.shoulderTransverseAdduction,
         rangeStart: 0,
         rangeEnd: 90,
-        momentMax:
-            null, // not quite sure. probably similar, but less than transverseFlexion
+        momentMax: null, // not quite sure. probably similar, but less than transverseFlexion
         // secondary primary pec function
 
         strength: 5,

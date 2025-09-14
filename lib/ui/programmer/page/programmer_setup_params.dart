@@ -37,18 +37,16 @@ class ProgrammerSetupParams extends ConsumerWidget {
       error: (error, stack) => Center(child: Text('Error: $error')),
       data: (setup) {
         // Get the list of available program groups (those not already overridden)
-        final availableGroups =
-            setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual == null
-                ? ProgramGroup.values
-                : ProgramGroup.values.where((group) => !setup
-                    .paramOverrides.setsPerWeekPerMuscleGroupIndividual!
-                    .any((override) => override.group == group));
+        final availableGroups = setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual == null
+            ? ProgramGroup.values
+            : ProgramGroup.values.where((group) => !setup
+                .paramOverrides.setsPerWeekPerMuscleGroupIndividual!
+                .any((override) => override.group == group));
 
         return Column(
           children: [
             const LabelBar('Resulting Parameters'),
-            Text(
-                'these params are derived from your inputs. You may optionally override them',
+            Text('these params are derived from your inputs. You may optionally override them',
                 style: ts100(context)),
             Row(children: [
               Expanded(
@@ -62,16 +60,13 @@ class ProgrammerSetupParams extends ConsumerWidget {
                       key: keyIntensities,
                       initialValue: (setup.paramOverrides.intensities == null)
                           ? ''
-                          : setup.paramOverrides.intensities!
-                              .map((i) => i.toString())
-                              .join(','),
+                          : setup.paramOverrides.intensities!.map((i) => i.toString()).join(','),
                       keyboardType: TextInputType.number,
                       autovalidateMode: AutovalidateMode.always,
                       decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         isDense: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                       ),
                       validator: notifier.intensitiesValidator,
                       onChanged: notifier.setIntensitiesMaybe,
@@ -84,17 +79,14 @@ class ProgrammerSetupParams extends ConsumerWidget {
                         context),
                     v: TextFormField(
                       key: keyWeeklyVolume,
-                      initialValue: setup
-                              .paramOverrides.setsPerWeekPerMuscleGroup
-                              ?.toString() ??
-                          '',
+                      initialValue:
+                          setup.paramOverrides.setsPerWeekPerMuscleGroup?.toString() ?? '',
                       keyboardType: TextInputType.number,
                       autovalidateMode: AutovalidateMode.always,
                       decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
                         isDense: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                       ),
                       validator: notifier.setsPerWeekPerMuscleGroupValidator,
                       onChanged: notifier.setSetsPerWeekPerMuscleGroupMaybe,
@@ -119,8 +111,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                         items: availableGroups
                             .map((group) => DropdownMenuItem(
                                   value: group,
-                                  child: Text(group.displayName,
-                                      style: ts100(context)),
+                                  child: Text(group.displayName, style: ts100(context)),
                                 ))
                             .toList(),
                         onChanged: (group) {
@@ -131,21 +122,18 @@ class ProgrammerSetupParams extends ConsumerWidget {
                       ),
                     ),
                   ],
-                  if (setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual
-                          ?.isNotEmpty ==
+                  if (setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual?.isNotEmpty ==
                       true) ...[
                     const SizedBox(height: 10),
                     const SizedBox(height: 10),
-                    ...setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual!
-                        .map(
+                    ...setup.paramOverrides.setsPerWeekPerMuscleGroupIndividual!.map(
                       (override) => Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Row(
                           children: [
                             Expanded(
                               child: KVRow(
-                                titleTextMedium(
-                                    override.group.displayName, context),
+                                titleTextMedium(override.group.displayName, context),
                                 v: TextFormField(
                                   initialValue: override.sets.toString(),
                                   keyboardType: TextInputType.number,
@@ -153,21 +141,18 @@ class ProgrammerSetupParams extends ConsumerWidget {
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
                                     isDense: true,
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 8),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                                   ),
-                                  validator: notifier
-                                      .setsPerWeekPerMuscleGroupValidator,
+                                  validator: notifier.setsPerWeekPerMuscleGroupValidator,
                                   onChanged: (value) =>
-                                      notifier.updateMuscleGroupOverride(
-                                          override.group, value),
+                                      notifier.updateMuscleGroupOverride(override.group, value),
                                 ),
                               ),
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete),
-                              onPressed: () => notifier
-                                  .removeMuscleGroupOverride(override.group),
+                              onPressed: () => notifier.removeMuscleGroupOverride(override.group),
                             ),
                           ],
                         ),

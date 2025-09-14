@@ -98,9 +98,8 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
 
     return RatingIcon(
       ratings: ratings,
-      onTap: ratings.isEmpty
-          ? null
-          : () => {showRatingsDialog(widget.sets.ex!.id, ratings, context)},
+      onTap:
+          ratings.isEmpty ? null : () => {showRatingsDialog(widget.sets.ex!.id, ratings, context)},
     );
   }
 
@@ -230,9 +229,7 @@ In the future, you'll be able to add any cues you can come up with.
             displayStringForOption: (e) => e.id,
             optionsBuilder: (textEditingValue) {
               final filtered = widget.setup.availableExercises
-                  .where((e) => e.id
-                      .toLowerCase()
-                      .contains(textEditingValue.text.toLowerCase()))
+                  .where((e) => e.id.toLowerCase().contains(textEditingValue.text.toLowerCase()))
                   .toList();
               filtered.sort((a, b) => a.id.compareTo(b.id));
               return filtered;
@@ -251,15 +248,11 @@ In the future, you'll be able to add any cues you can come up with.
                 focusNode: focusNode,
                 onEditingComplete: onSubmitted,
                 decoration: InputDecoration(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   hintText: 'Search exercise...',
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
-                  fillColor: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.05),
+                  fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
@@ -321,10 +314,7 @@ In the future, you'll be able to add any cues you can come up with.
                                         Text(
                                           '(default)',
                                           style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                120,
+                                            fontSize: MediaQuery.of(context).size.width / 120,
                                             color: Theme.of(context).hintColor,
                                             fontStyle: FontStyle.italic,
                                           ),
@@ -333,15 +323,12 @@ In the future, you'll be able to add any cues you can come up with.
                                     ],
                                   ),
                                   value: opt.key,
-                                  groupValue: localSets
-                                          .modifierOptions[modifier.name] ??
+                                  groupValue: localSets.modifierOptions[modifier.name] ??
                                       modifier.defaultVal,
-                                  onChanged: widget.onChangeModifiersCues !=
-                                          null
+                                  onChanged: widget.onChangeModifiersCues != null
                                       ? (value) {
                                           if (value != null) {
-                                            onChangeModifiersCues(
-                                                localSets.copyWith(
+                                            onChangeModifiersCues(localSets.copyWith(
                                               modifierOptions: {
                                                 ...localSets.modifierOptions,
                                                 modifier.name: value
@@ -354,8 +341,7 @@ In the future, you'll be able to add any cues you can come up with.
                                 ),
                                 if (optionDesc.isNotEmpty)
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 56, bottom: 8),
+                                    padding: const EdgeInsets.only(left: 56, bottom: 8),
                                     child: markdown(optionDesc, context),
                                   ),
                               ],
@@ -388,8 +374,7 @@ In the future, you'll be able to add any cues you can come up with.
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ...localSets.ex!.cues.entries.map((entry) {
-                final isEnabled =
-                    localSets.cueOptions[entry.key] ?? entry.value.$1;
+                final isEnabled = localSets.cueOptions[entry.key] ?? entry.value.$1;
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

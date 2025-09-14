@@ -47,17 +47,12 @@ class _MusclesScreenState extends State<MusclesScreen> {
           Expanded(
             child: ListView.builder(
               itemCount: MuscleCategory.values
-                  .where((a) => a.name
-                      .camelToTitle()
-                      .toLowerCase()
-                      .contains(_filter.toLowerCase()))
+                  .where((a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()))
                   .length,
               itemBuilder: (context, index) {
                 final category = MuscleCategory.values
-                    .where((a) => a.name
-                        .camelToTitle()
-                        .toLowerCase()
-                        .contains(_filter.toLowerCase()))
+                    .where(
+                        (a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()))
                     .toList()[index];
                 return ListTile(
                   title: Row(

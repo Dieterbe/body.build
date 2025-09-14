@@ -8,8 +8,7 @@ class KVRow extends StatelessWidget {
   final String? help;
   final Widget? helpWidget;
   final String? helpTitle; // required if help or helpWidget != null
-  const KVRow(this.k,
-      {this.v, this.help, this.helpTitle, this.helpWidget, super.key});
+  const KVRow(this.k, {this.v, this.help, this.helpTitle, this.helpWidget, super.key});
 
   @override
   Widget build(BuildContext context) {

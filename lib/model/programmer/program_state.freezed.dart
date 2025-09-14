@@ -30,14 +30,12 @@ mixin _$ProgramState {
   /// Create a copy of ProgramState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProgramStateCopyWith<ProgramState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $ProgramStateCopyWith<ProgramState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ProgramStateCopyWith<$Res> {
-  factory $ProgramStateCopyWith(
-          ProgramState value, $Res Function(ProgramState) then) =
+  factory $ProgramStateCopyWith(ProgramState value, $Res Function(ProgramState) then) =
       _$ProgramStateCopyWithImpl<$Res, ProgramState>;
   @useResult
   $Res call({String name, List<Workout> workouts, bool builtin});
@@ -80,8 +78,7 @@ class _$ProgramStateCopyWithImpl<$Res, $Val extends ProgramState>
 }
 
 /// @nodoc
-abstract class _$$ProgramStateImplCopyWith<$Res>
-    implements $ProgramStateCopyWith<$Res> {
+abstract class _$$ProgramStateImplCopyWith<$Res> implements $ProgramStateCopyWith<$Res> {
   factory _$$ProgramStateImplCopyWith(
           _$ProgramStateImpl value, $Res Function(_$ProgramStateImpl) then) =
       __$$ProgramStateImplCopyWithImpl<$Res>;
@@ -175,12 +172,9 @@ class _$ProgramStateImpl implements _ProgramState {
 
 abstract class _ProgramState implements ProgramState {
   const factory _ProgramState(
-      {final String name,
-      final List<Workout> workouts,
-      final bool builtin}) = _$ProgramStateImpl;
+      {final String name, final List<Workout> workouts, final bool builtin}) = _$ProgramStateImpl;
 
-  factory _ProgramState.fromJson(Map<String, dynamic> json) =
-      _$ProgramStateImpl.fromJson;
+  factory _ProgramState.fromJson(Map<String, dynamic> json) = _$ProgramStateImpl.fromJson;
 
   @override
   String get name;

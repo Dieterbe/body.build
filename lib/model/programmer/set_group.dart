@@ -19,11 +19,8 @@ class Sets with _$Sets {
     Ex? ex,
     @Default(1) int n,
     @JsonKey(includeToJson: false) @Default(false) bool changeEx,
-    @Default({})
-    Map<String, String>
-        modifierOptions, // Map of modifier name to selected option
-    @Default({})
-    Map<String, bool> cueOptions, // Map of cue name to enabled state
+    @Default({}) Map<String, String> modifierOptions, // Map of modifier name to selected option
+    @Default({}) Map<String, bool> cueOptions, // Map of cue name to enabled state
   }) = _Sets;
 
   factory Sets.fromJson(Map<String, dynamic> json) {
@@ -45,8 +42,7 @@ class Sets with _$Sets {
 
     // Get all unique non-null isolationKeys from ProgramGroups with significant recruitment
     final img = ProgramGroup.values
-        .where((pg) =>
-            ex!.recruitmentFiltered(pg, modifierOptions, 0.5).volume > 0)
+        .where((pg) => ex!.recruitmentFiltered(pg, modifierOptions, 0.5).volume > 0)
         .map((pg) => pg.isolationKey)
         .toSet();
 
@@ -118,6 +114,5 @@ class SetGroup with _$SetGroup {
     List<Sets> sets,
   ) = _SetGroup;
 
-  factory SetGroup.fromJson(Map<String, dynamic> json) =>
-      _$SetGroupFromJson(json);
+  factory SetGroup.fromJson(Map<String, dynamic> json) => _$SetGroupFromJson(json);
 }

@@ -64,28 +64,12 @@ enum ProgramGroup {
   frontDelts('Front Delts', [MuscleId.deltoidsAnteriorHead], [], 'delts'),
   sideDelts('Side Delts', [MuscleId.deltoidsLateralHead], [], 'delts'),
   rearDelts('Rear Delts', [MuscleId.deltoidsPosteriorHead], [], 'delts'),
-  lowerTraps(
-      'Lower Traps',
-      [MuscleId.lowerTraps],
-      [
-        'middle and lower heads often get worked well with vertical pulls already'
-      ],
-      'traps'),
-  middleTraps(
-      'Middle Traps',
-      [MuscleId.middleTraps],
-      [
-        'middle and lower heads often get worked well with vertical pulls already'
-      ],
-      'traps'),
-  upperTraps(
-      'Upper Traps',
-      [MuscleId.upperTrapsLowerFibers, MuscleId.upperTrapsUpperFibers],
-      [
-        'deadlift, overhead press',
-        'for max growth, add a wide or overhead shrug'
-      ],
-      'traps'),
+  lowerTraps('Lower Traps', [MuscleId.lowerTraps],
+      ['middle and lower heads often get worked well with vertical pulls already'], 'traps'),
+  middleTraps('Middle Traps', [MuscleId.middleTraps],
+      ['middle and lower heads often get worked well with vertical pulls already'], 'traps'),
+  upperTraps('Upper Traps', [MuscleId.upperTrapsLowerFibers, MuscleId.upperTrapsUpperFibers],
+      ['deadlift, overhead press', 'for max growth, add a wide or overhead shrug'], 'traps'),
   lats(
       'Lats',
       [MuscleId.latissimusDorsi],
@@ -103,13 +87,9 @@ enum ProgramGroup {
       ],
       ['elbow flexion to the side', 'elbow flexion in front'],
       'biceps'), // as long as you do elbow flexion anyway, i think we can include all these
-  tricepsMedLatH(
-      'Triceps Med/Lat H.',
-      [MuscleId.tricepsBrachiiMedialHead, MuscleId.tricepsBrachiiLateralHead],
-      ['presses'],
-      'tris'),
-  tricepsLongHead('Triceps Long H.', [MuscleId.tricepsBrachiiLongHead],
-      ['any isolation'], 'tris'),
+  tricepsMedLatH('Triceps Med/Lat H.',
+      [MuscleId.tricepsBrachiiMedialHead, MuscleId.tricepsBrachiiLateralHead], ['presses'], 'tris'),
+  tricepsLongHead('Triceps Long H.', [MuscleId.tricepsBrachiiLongHead], ['any isolation'], 'tris'),
   abs('Abs', [MuscleId.rectusAbdominis, MuscleId.externalObliques],
       ['depends on goals (e.g. typically not for physique athletes)'], 'abs'),
 
@@ -123,27 +103,17 @@ enum ProgramGroup {
       'spine'),
   quadsVasti(
       'Quads Vasti',
-      [
-        MuscleId.vastusIntermedius,
-        MuscleId.vastusLateralis,
-        MuscleId.vastusMedialis
-      ],
+      [MuscleId.vastusIntermedius, MuscleId.vastusLateralis, MuscleId.vastusMedialis],
       ['squat', 'leg extension isolation: for full load across whole ROM'],
       'quads'),
-  quadsRF('Quads RF', [MuscleId.rectusFemoris], ['leg extension isolation'],
-      'quads'),
+  quadsRF('Quads RF', [MuscleId.rectusFemoris], ['leg extension isolation'], 'quads'),
 
   hams(
       'Ham Long H. & semis',
-      [
-        MuscleId.bicepsFemorisLongHead,
-        MuscleId.semimembranosus,
-        MuscleId.semitendinosus
-      ],
+      [MuscleId.bicepsFemorisLongHead, MuscleId.semimembranosus, MuscleId.semitendinosus],
       ['knee flexion', 'hip extension'],
       'hams'),
-  hamsShortHead('Ham Short H.', [MuscleId.bicepsFemorisShortHead],
-      ['knee flexion'], 'hams'),
+  hamsShortHead('Ham Short H.', [MuscleId.bicepsFemorisShortHead], ['knee flexion'], 'hams'),
   /*
       ### Gluteus maximus (and medius)
 needs a bent-knee and a straight-leg hip extension exercise such as hip
@@ -174,6 +144,5 @@ However, according to https://www.frontiersin.org/journals/physiology/articles/1
   // if 'forearm' appears, and also other muscle groups, you can just ignore the forearm, because it's usually just a small isometric load that nobody really counts as part of a larger compound
   //TODO: actually look at the volume assignment and see if it's isometric
   final String isolationKey;
-  const ProgramGroup(
-      this.displayName, this.muscles, this.recModalities, this.isolationKey);
+  const ProgramGroup(this.displayName, this.muscles, this.recModalities, this.isolationKey);
 }

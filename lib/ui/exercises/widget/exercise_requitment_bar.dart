@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 class MuscleRecruitmentBar extends StatelessWidget {
   final Ex exercise;
   final Settings setup;
-  const MuscleRecruitmentBar(
-      {super.key, required this.exercise, required this.setup});
+  const MuscleRecruitmentBar({super.key, required this.exercise, required this.setup});
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +37,7 @@ class MuscleRecruitmentBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(1),
               ),
               child: Tooltip(
-                message:
-                    '${group.displayName}: ${(volume * 100).toStringAsFixed(0)}%',
+                message: '${group.displayName}: ${(volume * 100).toStringAsFixed(0)}%',
                 child: Container(),
               ),
             ),

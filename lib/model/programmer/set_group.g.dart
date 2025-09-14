@@ -21,8 +21,7 @@ _$SetsImpl _$$SetsImplFromJson(Map<String, dynamic> json) => _$SetsImpl(
           const {},
     );
 
-Map<String, dynamic> _$$SetsImplToJson(_$SetsImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$SetsImplToJson(_$SetsImpl instance) => <String, dynamic>{
       'intensity': instance.intensity,
       'ex': _exToJson(instance.ex),
       'n': instance.n,
@@ -30,14 +29,10 @@ Map<String, dynamic> _$$SetsImplToJson(_$SetsImpl instance) =>
       'cueOptions': instance.cueOptions,
     };
 
-_$SetGroupImpl _$$SetGroupImplFromJson(Map<String, dynamic> json) =>
-    _$SetGroupImpl(
-      (json['sets'] as List<dynamic>)
-          .map((e) => Sets.fromJson(e as Map<String, dynamic>))
-          .toList(),
+_$SetGroupImpl _$$SetGroupImplFromJson(Map<String, dynamic> json) => _$SetGroupImpl(
+      (json['sets'] as List<dynamic>).map((e) => Sets.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
-Map<String, dynamic> _$$SetGroupImplToJson(_$SetGroupImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$SetGroupImplToJson(_$SetGroupImpl instance) => <String, dynamic>{
       'sets': instance.sets,
     };

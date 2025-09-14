@@ -16,10 +16,8 @@ class SetupProfileHeader extends ConsumerWidget {
     // returns all the keys of programs, the first one being currentId
     List<String> getOpts(String currentId, Map<String, Settings> profiles) {
       final currentName = profiles[currentId]!.name;
-      final otherNames = profiles.entries
-          .where((e) => e.key != currentId)
-          .map((e) => e.value.name)
-          .toList();
+      final otherNames =
+          profiles.entries.where((e) => e.key != currentId).map((e) => e.value.name).toList();
       return [currentName, ...otherNames];
     }
 
@@ -66,9 +64,7 @@ class SetupProfileHeader extends ConsumerWidget {
       int copyNumber = 1;
       String newName;
       do {
-        newName = copyNumber == 1
-            ? '$baseName (Copy)'
-            : '$baseName (Copy $copyNumber)';
+        newName = copyNumber == 1 ? '$baseName (Copy)' : '$baseName (Copy $copyNumber)';
         copyNumber++;
       } while (allProfiles.values.any((p) => p.name == newName));
 
@@ -103,9 +99,7 @@ class SetupProfileHeader extends ConsumerWidget {
         ref.read(currentSetupProfileProvider.notifier).select(newId);
       } else {
         // Select the first available profile
-        ref
-            .read(currentSetupProfileProvider.notifier)
-            .select(profiles.keys.first);
+        ref.read(currentSetupProfileProvider.notifier).select(profiles.keys.first);
       }
     }
 

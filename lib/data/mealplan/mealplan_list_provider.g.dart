@@ -10,8 +10,7 @@ String _$mealplanListHash() => r'78007c101b6ee9b97c4b460cac5845d05716cbfa';
 
 /// See also [mealplanList].
 @ProviderFor(mealplanList)
-final mealplanListProvider =
-    AutoDisposeFutureProvider<Map<String, MealPlan>>.internal(
+final mealplanListProvider = AutoDisposeFutureProvider<Map<String, MealPlan>>.internal(
   mealplanList,
   name: r'mealplanListProvider',
   debugGetCreateSourceHash:

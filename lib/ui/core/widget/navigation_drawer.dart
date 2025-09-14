@@ -40,20 +40,16 @@ class AppNavigationDrawer extends StatelessWidget {
                   children: [
                     Text(
                       'Body.build',
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Advanced workout planner',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimary
-                                .withValues(alpha: 0.9),
+                            color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.9),
                           ),
                     ),
                   ],
@@ -83,8 +79,7 @@ class AppNavigationDrawer extends StatelessWidget {
                   title: 'Exercise Browser',
                   routeName: ExercisesScreen.routeName,
                   currentRoute: currentRoute,
-                  onTap: () =>
-                      _navigateAndClose(context, ExercisesScreen.routeName),
+                  onTap: () => _navigateAndClose(context, ExercisesScreen.routeName),
                 ),
                 _buildNavigationItem(
                   context: context,
@@ -92,8 +87,7 @@ class AppNavigationDrawer extends StatelessWidget {
                   title: 'Workout Programmer',
                   routeName: ProgrammerScreen.routeName,
                   currentRoute: currentRoute,
-                  onTap: () =>
-                      _navigateAndClose(context, ProgrammerScreen.routeName),
+                  onTap: () => _navigateAndClose(context, ProgrammerScreen.routeName),
                 ),
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Anatomy'),
@@ -103,8 +97,7 @@ class AppNavigationDrawer extends StatelessWidget {
                   title: 'Muscles',
                   routeName: MusclesScreen.routeName,
                   currentRoute: currentRoute,
-                  onTap: () =>
-                      _navigateAndClose(context, MusclesScreen.routeName),
+                  onTap: () => _navigateAndClose(context, MusclesScreen.routeName),
                 ),
                 _buildNavigationItem(
                   context: context,
@@ -112,8 +105,7 @@ class AppNavigationDrawer extends StatelessWidget {
                   title: 'Articulations',
                   routeName: ArticulationsScreen.routeName,
                   currentRoute: currentRoute,
-                  onTap: () =>
-                      _navigateAndClose(context, ArticulationsScreen.routeName),
+                  onTap: () => _navigateAndClose(context, ArticulationsScreen.routeName),
                 ),
                 /*  const Divider(height: 1),
                 _buildSectionHeader(context, 'Nutrition'),
@@ -144,10 +136,7 @@ class AppNavigationDrawer extends StatelessWidget {
             child: Text(
               'Free • No ads • No signup',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withValues(alpha: 0.6),
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
               textAlign: TextAlign.center,
             ),
@@ -199,8 +188,7 @@ class AppNavigationDrawer extends StatelessWidget {
         ),
       ),
       selected: isSelected,
-      selectedTileColor:
-          Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+      selectedTileColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
       onTap: onTap,
     );
   }

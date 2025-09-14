@@ -18,8 +18,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
   final Settings setup;
   final Function(Workout? w) onChange;
 
-  const BuilderWorkoutWidget(this.setup, this.workout, this.onChange,
-      {super.key});
+  const BuilderWorkoutWidget(this.setup, this.workout, this.onChange, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +40,13 @@ class BuilderWorkoutWidget extends StatelessWidget {
         ],
       ),
       // looks like "around" the container
-      margin: const EdgeInsets.symmetric(
-          vertical: 8, horizontal: 4), // affects alignment
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4), // affects alignment
       child: Column(children: [
         Container(
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primary
-                    .withValues(alpha: 0.1),
+                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                 width: 1,
               ),
             ),
@@ -75,22 +70,15 @@ class BuilderWorkoutWidget extends StatelessWidget {
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           hintText: 'Workout name',
                           hintStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.5),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                           ),
                           filled: true,
-                          fillColor: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.05),
+                          fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -102,10 +90,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withValues(alpha: 0.2),
+                              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                               width: 2,
                             ),
                           ),
@@ -124,10 +109,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                   // Frequency settings
                   Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: 0.05),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -140,9 +122,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                                 child: Text(i.toString(),
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     )),
                               ))
                           .toList(),
@@ -157,18 +137,12 @@ class BuilderWorkoutWidget extends StatelessWidget {
                   Text('per',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withValues(alpha: 0.7),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                       )),
                   const SizedBox(width: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: 0.05),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -181,9 +155,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                                 child: Text(i == 1 ? 'week' : '$i weeks',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     )),
                               ))
                           .toList(),
@@ -202,13 +174,9 @@ class BuilderWorkoutWidget extends StatelessWidget {
                       icon: Icon(
                         Icons.info_outline,
                         size: 16,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withValues(alpha: 0.5),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                       ),
-                      constraints:
-                          const BoxConstraints(minWidth: 20, minHeight: 20),
+                      constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
                       padding: EdgeInsets.zero,
                       onPressed: () {},
                     ),
@@ -244,10 +212,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                     icon: Icon(
                       Icons.delete_outline,
                       size: 20,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .error
-                          .withValues(alpha: 0.8),
+                      color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
                     ),
                     style: IconButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -269,17 +234,13 @@ class BuilderWorkoutWidget extends StatelessWidget {
         //     const SizedBox(height: 3),
         //       const SizedBox(height: 3),
         ...workout.setGroups
-            .mapIndexed((i, sg) =>
-                setGroupSection(context, setup, sg, workout, onChange))
+            .mapIndexed((i, sg) => setGroupSection(context, setup, sg, workout, onChange))
             .insertBeforeBetweenAfter(
               // if you drop a set in between setgroups (or at the start or end),
               // it becomes a new setgroup
               (i) => DropBar(
                 // colorInactive: Colors.cyan,
-                colorActive: Theme.of(context)
-                    .colorScheme
-                    .secondary
-                    .withValues(alpha: 0.3),
+                colorActive: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.3),
                 workout,
                 onChange,
                 (Sets sNew) {
@@ -296,8 +257,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
         // const SizedBox(height: 3),
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
-          child: BuilderTotalsWidget(
-              [workout.copyWith(periodWeeks: 1, timesPerPeriod: 1)]),
+          child: BuilderTotalsWidget([workout.copyWith(periodWeeks: 1, timesPerPeriod: 1)]),
         ),
       ]),
     );
@@ -317,8 +277,8 @@ Widget setGroupSection(
     return ValueListenableBuilder<bool>(
       valueListenable: dragInProgressNotifier,
       builder: (context, isDragging, child) {
-        final widget = DraggableSets(setup, workout, sg, sg.sets.first,
-            isDragging && sg.sets.length == 1, onChange);
+        final widget = DraggableSets(
+            setup, workout, sg, sg.sets.first, isDragging && sg.sets.length == 1, onChange);
         if (isDragging && sg.sets.length == 1) {
           return DragTargetWidget(
             workout,
@@ -371,13 +331,10 @@ Widget setGroupSection(
         ),
         Column(
           children: sg.sets
-              .mapIndexed<Widget>((i, sets) =>
-                  DraggableSets(setup, workout, sg, sets, false, onChange))
+              .mapIndexed<Widget>(
+                  (i, sets) => DraggableSets(setup, workout, sg, sets, false, onChange))
               .insertBeforeBetweenAfter((i) => DropBar(
-                    colorActive: Theme.of(context)
-                        .colorScheme
-                        .secondary
-                        .withValues(alpha: 0.2),
+                    colorActive: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
                     workout,
                     onChange,
                     (Sets sNew) {

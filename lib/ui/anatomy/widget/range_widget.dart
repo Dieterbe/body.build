@@ -78,17 +78,13 @@ class RangeWidget extends StatelessWidget {
                   double? normMuscleMomentMax;
                   if (m.mo.momentMax != null) {
                     final muscleMomentMax = m.mo.momentMax! + offset;
-                    normMuscleMomentMax =
-                        normWidth * (muscleMomentMax / rangeEnd);
+                    normMuscleMomentMax = normWidth * (muscleMomentMax / rangeEnd);
                   }
                   final muscleRangeEnd = m.mo.rangeEnd! + offset;
                   final muscleRangeStart = m.mo.rangeStart! + offset;
-                  final normMuscleRangeEnd =
-                      normWidth * (muscleRangeEnd / rangeEnd);
-                  final normMuscleRangeStart =
-                      normWidth * (muscleRangeStart / rangeEnd);
-                  print(
-                      '> $normMuscleRangeStart - $normMuscleRangeEnd - $normWidth');
+                  final normMuscleRangeEnd = normWidth * (muscleRangeEnd / rangeEnd);
+                  final normMuscleRangeStart = normWidth * (muscleRangeStart / rangeEnd);
+                  print('> $normMuscleRangeStart - $normMuscleRangeEnd - $normWidth');
                   return Column(
                     children: [
                       // plot something like this, with $ indicating the range here
@@ -106,8 +102,7 @@ class RangeWidget extends StatelessWidget {
                           height: m.mo.strength * 6,
                           width: normWidth,
                           p1: normMuscleRangeStart,
-                          p2: (normMuscleRangeStart + normMuscleRangeEnd) /
-                              2, // estimate!
+                          p2: (normMuscleRangeStart + normMuscleRangeEnd) / 2, // estimate!
                           p3: normMuscleRangeEnd,
                         ),
                       if (m.mo.momentMax != null)
@@ -122,21 +117,14 @@ class RangeWidget extends StatelessWidget {
 
                       Stack(children: [
                         // onSecondaryFixedVariant is also nice, lighter
-                        segment(
-                            normWidth,
-                            Theme.of(context)
-                                .colorScheme
-                                .onSecondaryFixedVariant),
+                        segment(normWidth, Theme.of(context).colorScheme.onSecondaryFixedVariant),
                         segment(
                           normMuscleRangeEnd,
                           //  Theme.of(context).colorScheme.onSecondaryContainer
                           colorActive,
                         ),
-                        segment(
-                            normMuscleRangeStart,
-                            Theme.of(context)
-                                .colorScheme
-                                .onSecondaryFixedVariant),
+                        segment(normMuscleRangeStart,
+                            Theme.of(context).colorScheme.onSecondaryFixedVariant),
                       ]),
                       const SizedBox(height: 16),
                     ],
@@ -162,9 +150,7 @@ class RangeWidget extends StatelessWidget {
                         Container(
                             width: 16,
                             height: 16,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryFixedVariant),
+                            color: Theme.of(context).colorScheme.onSecondaryFixedVariant),
                         const SizedBox(width: 8),
                         const Text('muscle inactive'),
                       ],
@@ -180,8 +166,7 @@ class RangeWidget extends StatelessWidget {
                     const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ChartWidget(
-                            height: 16, width: 16, p1: 0, p2: 8, p3: 16),
+                        ChartWidget(height: 16, width: 16, p1: 0, p2: 8, p3: 16),
                         SizedBox(width: 8),
                         Text(
                           'muscle moment arm curve',

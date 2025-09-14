@@ -89,8 +89,7 @@ class BuilderTotalsWidget extends ConsumerWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text('Program Volume Score',
-                                    style: TextStyle(fontSize: 12)),
+                                const Text('Program Volume Score', style: TextStyle(fontSize: 12)),
                                 Text(
                                   '${(ws.score * 100).toStringAsFixed(1)}%',
                                   style: const TextStyle(
@@ -106,13 +105,11 @@ class BuilderTotalsWidget extends ConsumerWidget {
                             Text(
                               'Number of sets per number of involved muscle groups',
                               style: TextStyle(
-                                fontSize:
-                                    MediaQuery.sizeOf(context).width / 100,
+                                fontSize: MediaQuery.sizeOf(context).width / 100,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            helpTitle:
-                                'Number of sets per number of involved muscle groups',
+                            helpTitle: 'Number of sets per number of involved muscle groups',
                             help: '''
 Shows how many sets target 1 muscle group (isolations), how many hit 2, 3 etc (compounds).  
 This enables you to see and optimize the balance between isolation and compound exercises.
@@ -171,13 +168,9 @@ This enables you to see and optimize the balance between isolation and compound 
                                       Container(
                                         height: 40 *
                                             (ws.maxVal > limit
-                                                ? ws.totals[g]! /
-                                                    ws.maxVal *
-                                                    limit
+                                                ? ws.totals[g]! / ws.maxVal * limit
                                                 : ws.totals[g]!),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .tertiary,
+                                        color: Theme.of(context).colorScheme.tertiary,
                                       ),
                                     ],
                                   ),
@@ -197,16 +190,12 @@ This enables you to see and optimize the balance between isolation and compound 
                                         ws.totals[g]!.toStringAsFixed(1),
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              100,
+                                          fontSize: MediaQuery.of(context).size.width / 100,
                                           color: (setup == null)
                                               ? Colors.black
                                               : (ws.totals[g]! >=
                                                       setup!.paramFinal
-                                                          .getSetsPerWeekPerMuscleGroupFor(
-                                                              g)
+                                                          .getSetsPerWeekPerMuscleGroupFor(g)
                                                   ? Colors.green
                                                   : Colors.red),
                                         ),

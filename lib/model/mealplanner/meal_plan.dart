@@ -27,8 +27,7 @@ class MealPlan with _$MealPlan {
     @Default(3) int trainingDaysPerWeek,
   }) = _MealPlan;
 
-  factory MealPlan.fromJson(Map<String, dynamic> json) =>
-      _$MealPlanFromJson(json);
+  factory MealPlan.fromJson(Map<String, dynamic> json) => _$MealPlanFromJson(json);
 }
 
 @freezed
@@ -41,8 +40,7 @@ class DayPlan with _$DayPlan {
     @Default(1) int num,
   }) = _DayPlan;
 
-  factory DayPlan.fromJson(Map<String, dynamic> json) =>
-      _$DayPlanFromJson(json);
+  factory DayPlan.fromJson(Map<String, dynamic> json) => _$DayPlanFromJson(json);
 }
 
 @freezed
@@ -72,6 +70,5 @@ class Targets with _$Targets {
     required double kCal,
   }) = _Targets;
 
-  factory Targets.fromJson(Map<String, dynamic> json) =>
-      _$TargetsFromJson(json);
+  factory Targets.fromJson(Map<String, dynamic> json) => _$TargetsFromJson(json);
 }

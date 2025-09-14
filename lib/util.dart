@@ -8,8 +8,7 @@ extension StringExtension on String {
   }
 
   String camelToSpace() {
-    return replaceAllMapped(
-        RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}');
+    return replaceAllMapped(RegExp(r'([A-Z])'), (match) => ' ${match.group(0)}');
   }
 
   String camelToTitle() {

@@ -12,6 +12,5 @@ class ProgramState with _$ProgramState {
     @Default(false) bool builtin,
   }) = _ProgramState;
 
-  factory ProgramState.fromJson(Map<String, dynamic> json) =>
-      _$ProgramStateFromJson(json);
+  factory ProgramState.fromJson(Map<String, dynamic> json) => _$ProgramStateFromJson(json);
 }

@@ -13,8 +13,7 @@ class MealPlannerBuilder extends ConsumerWidget {
     final notifier = ref.watch(mealplanProvider.notifier);
 
     return plan.when(
-      error: (error, stack) =>
-          Center(child: Text('Error loading plan: $error')),
+      error: (error, stack) => Center(child: Text('Error loading plan: $error')),
       loading: () => const Center(child: CircularProgressIndicator()),
       data: (plan) => SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -55,9 +54,7 @@ class MealPlannerBuilder extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: plan.dayplans
-                    .map((day) => DayColumn(plan: plan, day: day))
-                    .toList(),
+                children: plan.dayplans.map((day) => DayColumn(plan: plan, day: day)).toList(),
               ),
             ),
           ],

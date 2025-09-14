@@ -26,8 +26,8 @@ class DropBar extends StatelessWidget {
           valueListenable: dragInProgressNotifier,
           builder: (context, isDragging, child) {
             final cInactive = colorInactive ?? Colors.transparent;
-            final cActive = colorActive ??
-                Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5);
+            final cActive =
+                colorActive ?? Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5);
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(

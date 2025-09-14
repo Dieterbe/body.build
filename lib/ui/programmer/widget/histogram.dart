@@ -19,19 +19,16 @@ class HistogramWidget extends StatelessWidget {
     if (data.isEmpty) return const SizedBox.shrink();
 
     final maxValue = data.values.reduce((a, b) => a > b ? a : b).toDouble();
-    final sortedEntries = data.entries.toList()
-      ..sort((a, b) => a.key.compareTo(b.key));
+    final sortedEntries = data.entries.toList()..sort((a, b) => a.key.compareTo(b.key));
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final availableHeight =
-            constraints.maxHeight - containerPadding.vertical;
+        final availableHeight = constraints.maxHeight - containerPadding.vertical;
 
 // if there's only 1 bar, we wouldn't want it to take up all vertical space, so for
 // height calculation purpose, pretend there's at least 2.5 bars
         final assumeNum = max(sortedEntries.length, 2.5);
-        final barHeight =
-            (availableHeight - (assumeNum) * rowPadding.vertical) / assumeNum;
+        final barHeight = (availableHeight - (assumeNum) * rowPadding.vertical) / assumeNum;
 
         // make sure text widget is not taller than the bar. this is a bit rough but seems to work
         final fontSize = 2 * barHeight / 3;
@@ -41,8 +38,7 @@ class HistogramWidget extends StatelessWidget {
 
         return Container(
           decoration: BoxDecoration(
-            color:
-                Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(8),
           ),
           padding: containerPadding,
@@ -72,13 +68,9 @@ class HistogramWidget extends StatelessWidget {
                       const SizedBox(width: 8),
                       Container(
                         height: barHeight,
-                        width: (constraints.maxWidth - textWidth - 40) *
-                            (e.value / maxValue),
+                        width: (constraints.maxWidth - textWidth - 40) * (e.value / maxValue),
                         decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withValues(alpha: 0.8),
+                          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),

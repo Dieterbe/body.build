@@ -17,8 +17,8 @@ class ProgrammerBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final program = ref.watch(
-        programManagerProvider.select((state) => state.value?.currentProgram));
+    final program =
+        ref.watch(programManagerProvider.select((state) => state.value?.currentProgram));
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(programManagerProvider.notifier);
 
@@ -34,8 +34,7 @@ class ProgrammerBuilder extends ConsumerWidget {
 
     return setup.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) =>
-          Center(child: Text('Error loading settings: $error')),
+      error: (error, stack) => Center(child: Text('Error loading settings: $error')),
       data: (setup) {
         if (program == null) {
           return const Center(child: CircularProgressIndicator());

@@ -20,8 +20,7 @@ class MatrixOptimizer {
             exs.length,
             (i) => List.generate(
               targets.length,
-              (j) =>
-                  exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
+              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
             ),
           ),
         ),
@@ -32,8 +31,7 @@ class MatrixOptimizer {
             exs.length,
             (i) => List.generate(
               targets.length,
-              (j) =>
-                  exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
+              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
             ),
           ),
         ).toList().map((row) => row.toList()).toList(),
@@ -69,8 +67,7 @@ class MatrixOptimizer {
         if (cost < bestCost) {
           bestCost = cost;
           bestSets = List.from(current);
-          print(
-              'Found better set combination with cost $cost: ${current.join(',')} sets');
+          print('Found better set combination with cost $cost: ${current.join(',')} sets');
         }
         return;
       }
@@ -82,8 +79,7 @@ class MatrixOptimizer {
     }
 
     generateCombinations(List.filled(exercises.length, 1), 0);
-    print(
-        'Finished optimizing sets. Best cost: $bestCost (tried $setCombosTried)');
+    print('Finished optimizing sets. Best cost: $bestCost (tried $setCombosTried)');
     setCombosTried = 0;
     print('Best set counts: ${bestSets.join(',')}');
 

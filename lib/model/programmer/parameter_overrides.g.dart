@@ -6,15 +6,13 @@ part of 'parameter_overrides.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MuscleGroupOverrideImpl _$$MuscleGroupOverrideImplFromJson(
-        Map<String, dynamic> json) =>
+_$MuscleGroupOverrideImpl _$$MuscleGroupOverrideImplFromJson(Map<String, dynamic> json) =>
     _$MuscleGroupOverrideImpl(
       $enumDecode(_$ProgramGroupEnumMap, json['group']),
       (json['sets'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$MuscleGroupOverrideImplToJson(
-        _$MuscleGroupOverrideImpl instance) =>
+Map<String, dynamic> _$$MuscleGroupOverrideImplToJson(_$MuscleGroupOverrideImpl instance) =>
     <String, dynamic>{
       'group': _$ProgramGroupEnumMap[instance.group]!,
       'sets': instance.sets,
@@ -47,27 +45,21 @@ const _$ProgramGroupEnumMap = {
   ProgramGroup.soleus: 'soleus',
 };
 
-_$ParameterOverridesImpl _$$ParameterOverridesImplFromJson(
-        Map<String, dynamic> json) =>
+_$ParameterOverridesImpl _$$ParameterOverridesImplFromJson(Map<String, dynamic> json) =>
     _$ParameterOverridesImpl(
-      intensities: (json['intensities'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList(),
-      setsPerWeekPerMuscleGroup:
-          (json['setsPerWeekPerMuscleGroup'] as num?)?.toInt(),
-      setsPerWeekPerMuscleGroupIndividual: (json[
-              'setsPerWeekPerMuscleGroupIndividual'] as List<dynamic>?)
-          ?.map((e) => MuscleGroupOverride.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      intensities: (json['intensities'] as List<dynamic>?)?.map((e) => (e as num).toInt()).toList(),
+      setsPerWeekPerMuscleGroup: (json['setsPerWeekPerMuscleGroup'] as num?)?.toInt(),
+      setsPerWeekPerMuscleGroupIndividual:
+          (json['setsPerWeekPerMuscleGroupIndividual'] as List<dynamic>?)
+              ?.map((e) => MuscleGroupOverride.fromJson(e as Map<String, dynamic>))
+              .toList(),
       excludedExercises: _exSetFromJson(json['excludedExercises'] as List?),
     );
 
-Map<String, dynamic> _$$ParameterOverridesImplToJson(
-        _$ParameterOverridesImpl instance) =>
+Map<String, dynamic> _$$ParameterOverridesImplToJson(_$ParameterOverridesImpl instance) =>
     <String, dynamic>{
       'intensities': instance.intensities,
       'setsPerWeekPerMuscleGroup': instance.setsPerWeekPerMuscleGroup,
-      'setsPerWeekPerMuscleGroupIndividual':
-          instance.setsPerWeekPerMuscleGroupIndividual,
+      'setsPerWeekPerMuscleGroupIndividual': instance.setsPerWeekPerMuscleGroupIndividual,
       'excludedExercises': _exSetToJson(instance.excludedExercises),
     };

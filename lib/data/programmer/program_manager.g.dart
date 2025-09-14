@@ -10,13 +10,11 @@ String _$programManagerHash() => r'e4047573ee49eed7a2cec83e350ef37228aa99bd';
 
 /// See also [ProgramManager].
 @ProviderFor(ProgramManager)
-final programManagerProvider =
-    AsyncNotifierProvider<ProgramManager, ProgramManagerState>.internal(
+final programManagerProvider = AsyncNotifierProvider<ProgramManager, ProgramManagerState>.internal(
   ProgramManager.new,
   name: r'programManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$programManagerHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$programManagerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -6,11 +6,9 @@ part of 'settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
-    _$SettingsImpl(
+_$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) => _$SettingsImpl(
       name: json['name'] as String? ?? 'unnamed profile',
-      level:
-          $enumDecodeNullable(_$LevelEnumMap, json['level']) ?? Level.beginner,
+      level: $enumDecodeNullable(_$LevelEnumMap, json['level']) ?? Level.beginner,
       sex: $enumDecodeNullable(_$SexEnumMap, json['sex']) ?? Sex.male,
       age: (json['age'] as num?)?.toDouble() ?? 30,
       weight: (json['weight'] as num?)?.toDouble() ?? 75,
@@ -22,22 +20,17 @@ _$SettingsImpl _$$SettingsImplFromJson(Map<String, dynamic> json) =>
       atFactor: (json['atFactor'] as num?)?.toDouble() ?? 1.0,
       workoutsPerWeek: (json['workoutsPerWeek'] as num?)?.toInt() ?? 3,
       workoutDuration: (json['workoutDuration'] as num?)?.toInt() ?? 60,
-      activityLevel:
-          $enumDecodeNullable(_$ActivityLevelEnumMap, json['activityLevel']) ??
-              ActivityLevel.sedentary,
-      bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ??
-          BMRMethod.tenHaaf,
+      activityLevel: $enumDecodeNullable(_$ActivityLevelEnumMap, json['activityLevel']) ??
+          ActivityLevel.sedentary,
+      bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ?? BMRMethod.tenHaaf,
       availEquipment: json['availEquipment'] == null
           ? const {}
           : _equipmentSetFromJson(json['availEquipment'] as List),
-      paramSuggest:
-          Parameters.fromJson(json['paramSuggest'] as Map<String, dynamic>),
-      paramOverrides: ParameterOverrides.fromJson(
-          json['paramOverrides'] as Map<String, dynamic>),
+      paramSuggest: Parameters.fromJson(json['paramSuggest'] as Map<String, dynamic>),
+      paramOverrides: ParameterOverrides.fromJson(json['paramOverrides'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$SettingsImplToJson(_$SettingsImpl instance) => <String, dynamic>{
       'name': instance.name,
       'level': _$LevelEnumMap[instance.level]!,
       'sex': _$SexEnumMap[instance.sex]!,

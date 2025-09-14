@@ -46,17 +46,12 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
           Expanded(
             child: ListView.builder(
               itemCount: Articulation.values
-                  .where((a) => a.name
-                      .camelToTitle()
-                      .toLowerCase()
-                      .contains(_filter.toLowerCase()))
+                  .where((a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()))
                   .length,
               itemBuilder: (context, index) {
                 final articulation = Articulation.values
-                    .where((a) => a.name
-                        .camelToTitle()
-                        .toLowerCase()
-                        .contains(_filter.toLowerCase()))
+                    .where(
+                        (a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()))
                     .toList()[index];
                 return ListTile(
                   title: Text(articulation.name.camelToTitle()),

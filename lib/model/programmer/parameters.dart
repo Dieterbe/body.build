@@ -19,8 +19,7 @@ class Parameters with _$Parameters {
     @Default([]) List<MuscleGroupOverride> setsPerWeekPerMuscleGroupIndividual,
   }) = _Parameters;
 
-  factory Parameters.fromJson(Map<String, dynamic> json) =>
-      _$ParametersFromJson(json);
+  factory Parameters.fromJson(Map<String, dynamic> json) => _$ParametersFromJson(json);
 
   static Parameters fromSettings(Settings s) {
     return Parameters(
@@ -32,11 +31,7 @@ class Parameters with _$Parameters {
         // TODO: age affects intensity
       },
       setsPerweekPerMuscleGroup: calcOptimalSetsPerWeekPerMuscleGroupMH(
-          s.sex,
-          s.level,
-          s.recoveryFactor,
-          s.energyBalance / 100,
-          s.workoutsPerWeek * 1.0),
+          s.sex, s.level, s.recoveryFactor, s.energyBalance / 100, s.workoutsPerWeek * 1.0),
       setsPerWeekPerMuscleGroupIndividual: [],
     );
   }
@@ -44,18 +39,14 @@ class Parameters with _$Parameters {
   Parameters apply(ParameterOverrides o) {
     return copyWith(
       intensities: o.intensities ?? intensities,
-      setsPerweekPerMuscleGroup:
-          o.setsPerWeekPerMuscleGroup ?? setsPerweekPerMuscleGroup,
+      setsPerweekPerMuscleGroup: o.setsPerWeekPerMuscleGroup ?? setsPerweekPerMuscleGroup,
       setsPerWeekPerMuscleGroupIndividual:
-          o.setsPerWeekPerMuscleGroupIndividual ??
-              setsPerWeekPerMuscleGroupIndividual,
+          o.setsPerWeekPerMuscleGroupIndividual ?? setsPerWeekPerMuscleGroupIndividual,
     );
   }
 
   int getSetsPerWeekPerMuscleGroupFor(ProgramGroup group) {
-    final override = setsPerWeekPerMuscleGroupIndividual
-        .where((e) => e.group == group)
-        .firstOrNull;
+    final override = setsPerWeekPerMuscleGroupIndividual.where((e) => e.group == group).firstOrNull;
     return override?.sets ?? setsPerweekPerMuscleGroup;
   }
 }

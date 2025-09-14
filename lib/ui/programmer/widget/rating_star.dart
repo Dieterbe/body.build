@@ -5,10 +5,8 @@ class RatingStars {
   static const double _defaultIconSize = 32.0;
 
   /// Returns a star icon with a number overlay (1-10)
-  static Widget star(int number, BuildContext context,
-      {double? size, Color? color}) {
-    assert(
-        number >= 1 && number <= 10, 'Rating number must be between 1 and 10');
+  static Widget star(int number, BuildContext context, {double? size, Color? color}) {
+    assert(number >= 1 && number <= 10, 'Rating number must be between 1 and 10');
     final colorBG = Theme.of(context).colorScheme.primary;
     final colorFG = Theme.of(context).colorScheme.onPrimary;
     return Stack(
@@ -32,8 +30,7 @@ class RatingStars {
   }
 
   /// Returns a star icon based on a rating score (0.0 to 1.0)
-  static Widget starFromScore(double score, BuildContext context,
-      {double? size}) {
+  static Widget starFromScore(double score, BuildContext context, {double? size}) {
     assert(score >= 0.0 && score <= 1.0, 'Score must be between 0.0 and 1.0');
     final number = (score * 10).round();
     if (number == 0) {

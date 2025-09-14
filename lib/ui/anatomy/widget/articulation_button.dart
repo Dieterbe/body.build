@@ -28,8 +28,7 @@ class ArticulationButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // const Iconify(IconParkOutline.muscle, size: 20),
-          Text(articulation.name.camelToTitle(),
-              style: TextStyle(fontSize: size)),
+          Text(articulation.name.camelToTitle(), style: TextStyle(fontSize: size)),
         ],
       ),
     );

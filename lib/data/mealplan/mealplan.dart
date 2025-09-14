@@ -29,24 +29,20 @@ class Mealplan extends _$Mealplan {
     return savedMealplan ?? const MealPlan(name: 'New Mealplan');
   }
 
-  void updateName(String name) =>
-      state = AsyncData(state.value!.copyWith(name: name));
+  void updateName(String name) => state = AsyncData(state.value!.copyWith(name: name));
 
   void updateTrainingDaysPerWeek(double trainingDaysPerWeek) =>
-      state = AsyncData(state.value!
-          .copyWith(trainingDaysPerWeek: trainingDaysPerWeek.round()));
+      state = AsyncData(state.value!.copyWith(trainingDaysPerWeek: trainingDaysPerWeek.round()));
 
-  void addDay(DayPlan day) => state = AsyncData(
-      state.value!.copyWith(dayplans: [...state.value!.dayplans, day]));
+  void addDay(DayPlan day) =>
+      state = AsyncData(state.value!.copyWith(dayplans: [...state.value!.dayplans, day]));
 
   void updateDay(DayPlan oldDay, DayPlan newDay) {
     print('called updateDay');
     print(oldDay);
     print(newDay);
     state = AsyncData(state.value!.copyWith(
-      dayplans: state.value!.dayplans
-          .map((e) => ((e == oldDay) ? newDay : e))
-          .toList(),
+      dayplans: state.value!.dayplans.map((e) => ((e == oldDay) ? newDay : e)).toList(),
     ));
   }
 

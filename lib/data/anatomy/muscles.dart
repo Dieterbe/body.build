@@ -184,9 +184,7 @@ sealed class Muscle {
     // name: Deltoids, head: MuscleId.deltoidsAnteriorHead -> print Deltoids (Anterior Head)
     // name: Pectoralis major, head:MuscleId.pectoralisMajorClavicularHead -> print Pectoralis major (Clavicular Head)
     return name +
-        (head != null
-            ? ' (${head.name.camelToTitle().replaceFirst(name + ' ', '')})'
-            : '');
+        (head != null ? ' (${head.name.camelToTitle().replaceFirst(name + ' ', '')})' : '');
   }
 }
 
@@ -262,8 +260,7 @@ class SingleHeadMuscle extends Muscle {
       .toList();
 
   @override
-  List<Articulation> getArticulations() =>
-      wholeHead.movements.map((m) => m.articulation).toList();
+  List<Articulation> getArticulations() => wholeHead.movements.map((m) => m.articulation).toList();
 }
 
 class Head {
