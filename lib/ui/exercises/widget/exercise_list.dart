@@ -2,8 +2,6 @@ import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/model/programmer/parameters.dart';
-import 'package:bodybuild/ui/exercises/widget/exercise_detail_panel.dart';
 import 'package:bodybuild/ui/exercises/widget/exercise_requitment_bar.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
@@ -215,12 +213,6 @@ class ExerciseList extends ConsumerWidget {
                             .read(exerciseFilterProvider.notifier)
                             .setSelectedExercise(newSelection,
                                 modifierOptions: {});
-
-                        // On mobile and tablet, show modal dialog
-                        if (MediaQuery.of(context).size.width <= 1024 &&
-                            newSelection != null) {
-                          _showExerciseDetailModal(setupData, context);
-                        }
                       },
                     ),
                   ),
@@ -315,11 +307,6 @@ class ExerciseList extends ConsumerWidget {
                                   .setSelectedExercise(exercise,
                                       modifierOptions:
                                           variation.modifierOptions);
-
-                              // On mobile and tablet, show modal dialog
-                              if (MediaQuery.of(context).size.width <= 1024) {
-                                _showExerciseDetailModal(setupData, context);
-                              }
                             },
                           ),
                         )),
@@ -329,20 +316,6 @@ class ExerciseList extends ConsumerWidget {
           ),
         ),
       ],
-    );
-  }
-
-  void _showExerciseDetailModal(Settings setupData, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => Dialog(
-        insetPadding: const EdgeInsets.all(20),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
-          padding: const EdgeInsets.all(16),
-          child: ExerciseDetailPanel(setupData: setupData, pop: dialogContext),
-        ),
-      ),
     );
   }
 }

@@ -84,6 +84,11 @@ The exercises are grouped by their "category". this isn't an exact science, sinc
 we try to add the exercise to the group which represent the larger muscles (e.g. pull-ups go in back exercises, not biceps)
 This categorization is only meant to make code navigation easier here and elsewhere (e.g. ratings files), it's not a concept within the app.
 */
+/*
+exercise id and modifier/cues names/values allowed chars: a-z, 0-9, °, -, space, (), >
+no '&' cause that would look ugly in URL encoding
+no '_' because it shouldn't be needed, and allows us to url encode space to '_' instead of %20 in the URL and instead of '+' in path parameters
+*/
 final List<Ex> exes = [
   const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell],
       [], handSqueeze),

@@ -2,8 +2,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/model/programmer/parameters.dart';
 
 part 'exercise_filter_provider.g.dart';
 

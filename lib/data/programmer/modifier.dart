@@ -178,7 +178,7 @@ const squatLowerLegMovement = Modifier('lower leg movement', 'still', {
     },
     'soleus inactive'
   ),
-  'back & forth': (
+  'back and forth': (
     {
       ProgramGroup.soleus: Assign(0.5, 'ankle plantarflexion in limited ROM'),
     },

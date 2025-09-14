@@ -8,17 +8,59 @@ import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 import 'package:bodybuild/ui/exercises/widget/filter_mobile.dart';
 import 'package:bodybuild/ui/exercises/widget/filter_panel.dart';
 import 'package:bodybuild/ui/exercises/widget/exercise_detail_panel.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/util/url.dart';
+import 'package:go_router/go_router.dart';
 
 class ExercisesScreen extends ConsumerStatefulWidget {
   static const String routeName = 'exercises';
+  final String? exerciseId;
+  final Map<String, String>? modifierOptions;
 
-  const ExercisesScreen({super.key});
+  const ExercisesScreen({
+    super.key,
+    this.exerciseId,
+    this.modifierOptions,
+  });
 
   @override
   ConsumerState<ExercisesScreen> createState() => _ExercisesScreenState();
 }
 
 class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Delay URL initialization until after build completes to avoid Riverpod error:
+    // "Tried to modify a provider while the widget tree was building"
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeFromUrl();
+    });
+  }
+
+  void _initializeFromUrl() {
+    if (widget.exerciseId != null) {
+      final exercise = exes.cast<Ex?>().firstWhere(
+            (ex) => ex?.id == widget.exerciseId,
+            orElse: () => null,
+          );
+      if (exercise != null) {
+        ref.read(exerciseFilterProvider.notifier).setSelectedExercise(
+              exercise,
+              modifierOptions: widget.modifierOptions ?? {},
+            );
+      }
+    }
+  }
+
+  void _updateUrl(Ex? exercise, Map<String, String> modifierOptions) {
+    if (exercise == null) {
+      context.go('/exercises');
+    } else {
+      context.go(buildExerciseDetailUrl(exercise.id, modifierOptions));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // for now, only used by the ExerciseDetailsDialog.
@@ -27,6 +69,28 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 1024;
     final isTablet = screenWidth > 768 && screenWidth <= 1024;
+
+    // Listen to exercise selection changes and update URL
+    ref.listen(exerciseFilterProvider, (previous, next) {
+      if (previous?.selectedExercise != next.selectedExercise ||
+          previous?.selectedModifierOptions != next.selectedModifierOptions) {
+        _updateUrl(next.selectedExercise, next.selectedModifierOptions);
+      }
+    });
+
+    // Listen for exercise selection on mobile/tablet to show modal
+    if (!isDesktop) {
+      ref.listen(
+          exerciseFilterProvider.select((state) => state.selectedExercise),
+          (previous, selectedExercise) {
+        if (selectedExercise != null && previous != selectedExercise) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            setup.whenData(
+                (setupData) => _showExerciseDetailModal(setupData, context));
+          });
+        }
+      });
+    }
 
     return setup.when(
       loading: () => const Scaffold(
@@ -168,5 +232,22 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         ),
       ],
     );
+  }
+
+  void _showExerciseDetailModal(Settings setupData, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => Dialog(
+        insetPadding: const EdgeInsets.all(20),
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
+          padding: const EdgeInsets.all(16),
+          child: ExerciseDetailPanel(setupData: setupData, pop: dialogContext),
+        ),
+      ),
+    ).then((_) {
+      // Clear selection when dialog is dismissed
+      ref.read(exerciseFilterProvider.notifier).setSelectedExercise(null);
+    });
   }
 }
