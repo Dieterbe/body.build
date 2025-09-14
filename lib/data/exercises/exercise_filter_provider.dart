@@ -27,6 +27,7 @@ class ExerciseFilterState {
   final Set<Equipment> selectedEquipment;
   final Set<EquipmentCategory> selectedEquipmentCategories;
   final Ex? selectedExercise;
+  final Map<String, String> selectedModifierOptions;
   final Set<String> expandedExercises;
 
   const ExerciseFilterState({
@@ -36,6 +37,7 @@ class ExerciseFilterState {
     this.selectedEquipment = const {},
     this.selectedEquipmentCategories = const {},
     this.selectedExercise,
+    this.selectedModifierOptions = const {},
     this.expandedExercises = const {},
   });
 
@@ -46,6 +48,7 @@ class ExerciseFilterState {
     Set<Equipment>? selectedEquipment,
     Set<EquipmentCategory>? selectedEquipmentCategories,
     Ex? selectedExercise,
+    Map<String, String>? selectedModifierOptions,
     Set<String>? expandedExercises,
     bool clearSelectedMuscleGroup = false,
     bool clearSelectedExercise = false,
@@ -62,6 +65,8 @@ class ExerciseFilterState {
       selectedExercise: clearSelectedExercise
           ? null
           : (selectedExercise ?? this.selectedExercise),
+      selectedModifierOptions:
+          selectedModifierOptions ?? this.selectedModifierOptions,
       expandedExercises: expandedExercises ?? this.expandedExercises,
     );
   }
@@ -124,9 +129,11 @@ class ExerciseFilter extends _$ExerciseFilter {
     );
   }
 
-  void setSelectedExercise(Ex? exercise) {
+  void setSelectedExercise(Ex? exercise,
+      {Map<String, String>? modifierOptions}) {
     state = state.copyWith(
       selectedExercise: exercise,
+      selectedModifierOptions: modifierOptions ?? {},
       clearSelectedExercise: exercise == null,
     );
   }

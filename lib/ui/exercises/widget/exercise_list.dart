@@ -213,7 +213,8 @@ class ExerciseList extends ConsumerWidget {
                             selectedExercise == exercise ? null : exercise;
                         ref
                             .read(exerciseFilterProvider.notifier)
-                            .setSelectedExercise(newSelection);
+                            .setSelectedExercise(newSelection,
+                                modifierOptions: {});
 
                         // On mobile and tablet, show modal dialog
                         if (MediaQuery.of(context).size.width <= 1024 &&
@@ -308,11 +309,12 @@ class ExerciseList extends ConsumerWidget {
                               ],
                             ),
                             onTap: () {
-                              // For variations, we still select the base exercise
-                              // but could potentially store the variation info
+                              // For variations, select the base exercise with the specific modifier options
                               ref
                                   .read(exerciseFilterProvider.notifier)
-                                  .setSelectedExercise(exercise);
+                                  .setSelectedExercise(exercise,
+                                      modifierOptions:
+                                          variation.modifierOptions);
 
                               // On mobile and tablet, show modal dialog
                               if (MediaQuery.of(context).size.width <= 1024) {

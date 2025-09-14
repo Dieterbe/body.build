@@ -39,6 +39,14 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     localSets = widget.sets;
   }
 
+  @override
+  void didUpdateWidget(ExerciseDetailsDialog oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.sets != widget.sets) {
+      localSets = widget.sets;
+    }
+  }
+
   Widget _buildRatingIcon({
     String? modifierName,
     String? modifierValue,
