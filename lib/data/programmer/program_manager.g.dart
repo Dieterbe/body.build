@@ -20,7 +20,7 @@ final class ProgramManagerProvider
         argument: null,
         retry: null,
         name: r'programManagerProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -33,7 +33,7 @@ final class ProgramManagerProvider
   ProgramManager create() => ProgramManager();
 }
 
-String _$programManagerHash() => r'e4047573ee49eed7a2cec83e350ef37228aa99bd';
+String _$programManagerHash() => r'1171c1907389a82c9261f011693b35651a66656c';
 
 abstract class _$ProgramManager extends $AsyncNotifier<ProgramManagerState> {
   FutureOr<ProgramManagerState> build();

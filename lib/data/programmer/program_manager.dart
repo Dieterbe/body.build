@@ -10,17 +10,11 @@ class ProgramManagerState {
   final Map<String, ProgramState> programs;
   final String currentProgramId;
 
-  const ProgramManagerState({
-    required this.programs,
-    required this.currentProgramId,
-  });
+  const ProgramManagerState({required this.programs, required this.currentProgramId});
 
   ProgramState get currentProgram => programs[currentProgramId]!;
 
-  ProgramManagerState copyWith({
-    Map<String, ProgramState>? programs,
-    String? currentProgramId,
-  }) {
+  ProgramManagerState copyWith({Map<String, ProgramState>? programs, String? currentProgramId}) {
     return ProgramManagerState(
       programs: programs ?? this.programs,
       currentProgramId: currentProgramId ?? this.currentProgramId,
@@ -28,7 +22,7 @@ class ProgramManagerState {
   }
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 class ProgramManager extends _$ProgramManager {
   @override
   Future<ProgramManagerState> build() async {
@@ -56,10 +50,7 @@ class ProgramManager extends _$ProgramManager {
       await service.saveLastProgramId(demo1ID);
     }
 
-    return ProgramManagerState(
-      programs: programs,
-      currentProgramId: currentId,
-    );
+    return ProgramManagerState(programs: programs, currentProgramId: currentId);
   }
 
   Future<void> selectProgram(String id) async {
@@ -71,14 +62,14 @@ class ProgramManager extends _$ProgramManager {
     state = AsyncData(state.value!.copyWith(currentProgramId: id));
   }
 
-// caller should assure the name is not used yet
+  // caller should assure the name is not used yet
   Future<void> createNewProgram(String name) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
     final newProgram = ProgramState(name: name);
     _createProgram(state.value!.programs, id, newProgram);
   }
 
-// caller should assure the name is not used yet
+  // caller should assure the name is not used yet
   Future<void> duplicateProgram(String newName) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
     final newProgram = state.value!.currentProgram.copyWith(name: newName, builtin: false);
@@ -104,10 +95,9 @@ class ProgramManager extends _$ProgramManager {
       // current ID is no longer valid and needs to be fixed
       final newCurrentId = updatedPrograms.keys.first;
       await service.saveLastProgramId(newCurrentId);
-      state = AsyncData(state.value!.copyWith(
-        programs: updatedPrograms,
-        currentProgramId: newCurrentId,
-      ));
+      state = AsyncData(
+        state.value!.copyWith(programs: updatedPrograms, currentProgramId: newCurrentId),
+      );
       return;
     }
     state = AsyncData(state.value!.copyWith(programs: updatedPrograms));
@@ -121,17 +111,13 @@ class ProgramManager extends _$ProgramManager {
 
   void addWorkout(Workout w) {
     _updateCurrentProgram((ProgramState p) {
-      return p.copyWith(
-        workouts: [...p.workouts, w],
-      );
+      return p.copyWith(workouts: [...p.workouts, w]);
     });
   }
 
   void removeWorkout(Workout w) {
     _updateCurrentProgram((ProgramState p) {
-      return p.copyWith(
-        workouts: p.workouts.where((e) => e != w).toList(),
-      );
+      return p.copyWith(workouts: p.workouts.where((e) => e != w).toList());
     });
   }
 
@@ -148,7 +134,10 @@ class ProgramManager extends _$ProgramManager {
   // create program and switch to it.
   // id must be new, and program must have a unique name
   Future<void> _createProgram(
-      Map<String, ProgramState> base, String id, ProgramState program) async {
+    Map<String, ProgramState> base,
+    String id,
+    ProgramState program,
+  ) async {
     final updatedPrograms = Map.of(base);
     updatedPrograms[id] = program;
 
@@ -156,10 +145,7 @@ class ProgramManager extends _$ProgramManager {
     await service.saveProgram(id, program);
     await service.saveLastProgramId(id);
 
-    state = AsyncData(state.value!.copyWith(
-      programs: updatedPrograms,
-      currentProgramId: id,
-    ));
+    state = AsyncData(state.value!.copyWith(programs: updatedPrograms, currentProgramId: id));
   }
 
   Future<void> _updateCurrentProgram(ProgramState Function(ProgramState) update) async {

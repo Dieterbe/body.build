@@ -14,7 +14,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'setup.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 class Setup extends _$Setup {
   @override
   Future<Settings> build() async {
@@ -40,9 +40,7 @@ class Setup extends _$Setup {
   Future<void> _updateState(Settings Function(Settings) update) async {
     final settings = await future;
     final newSettings = update(settings);
-    state = AsyncData(newSettings.copyWith(
-      paramSuggest: Parameters.fromSettings(newSettings),
-    ));
+    state = AsyncData(newSettings.copyWith(paramSuggest: Parameters.fromSettings(newSettings)));
     _saveCurrentProfile();
   }
 
@@ -83,7 +81,7 @@ class Setup extends _$Setup {
     return (null, weight);
   }
 
-// can be unset
+  // can be unset
   (String?, double?) _bodyFatValidator(String? value) {
     if (value == null || value.isEmpty) {
       return (null, null);
@@ -274,14 +272,14 @@ class Setup extends _$Setup {
     await _updateState((s) => s.copyWith(atFactor: value));
   }
 
-// special setters. used internally. i factored this out and was probably not useful
+  // special setters. used internally. i factored this out and was probably not useful
   Future<void> setIntensities(List<int>? intensities) async {
-    await _updateState((s) => s.copyWith(
-          paramOverrides: s.paramOverrides.copyWith(intensities: intensities),
-        ));
+    await _updateState(
+      (s) => s.copyWith(paramOverrides: s.paramOverrides.copyWith(intensities: intensities)),
+    );
   }
 
-// Conditional setters: set if passed value is valid
+  // Conditional setters: set if passed value is valid
   Future<void> setWorkoutDurationMaybe(String value) async {
     final (msg, duration) = _workoutDurationValidator(value);
     if (msg == null) {
@@ -362,11 +360,11 @@ class Setup extends _$Setup {
   Future<void> setSetsPerWeekPerMuscleGroupMaybe(String value) async {
     final (msg, volume) = _setsPerWeekPerMuscleGroupValidator(value);
     if (msg == null) {
-      await _updateState((s) => s.copyWith(
-            paramOverrides: s.paramOverrides.copyWith(
-              setsPerWeekPerMuscleGroup: volume,
-            ),
-          ));
+      await _updateState(
+        (s) => s.copyWith(
+          paramOverrides: s.paramOverrides.copyWith(setsPerWeekPerMuscleGroup: volume),
+        ),
+      );
     }
   }
 
@@ -375,11 +373,13 @@ class Setup extends _$Setup {
     final newOverrides = [...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual];
     newOverrides.add(MuscleGroupOverride(group, 1));
 
-    _updateState((s) => s.copyWith(
-          paramOverrides: s.paramOverrides.copyWith(
-            setsPerWeekPerMuscleGroupIndividual: newOverrides,
-          ),
-        ));
+    _updateState(
+      (s) => s.copyWith(
+        paramOverrides: s.paramOverrides.copyWith(
+          setsPerWeekPerMuscleGroupIndividual: newOverrides,
+        ),
+      ),
+    );
   }
 
   Future<void> removeMuscleGroupOverride(ProgramGroup group) async {
@@ -387,11 +387,13 @@ class Setup extends _$Setup {
     final newOverrides = [...?settings.paramOverrides.setsPerWeekPerMuscleGroupIndividual];
     newOverrides.removeWhere((override) => override.group == group);
 
-    _updateState((s) => s.copyWith(
-          paramOverrides: s.paramOverrides.copyWith(
-            setsPerWeekPerMuscleGroupIndividual: newOverrides,
-          ),
-        ));
+    _updateState(
+      (s) => s.copyWith(
+        paramOverrides: s.paramOverrides.copyWith(
+          setsPerWeekPerMuscleGroupIndividual: newOverrides,
+        ),
+      ),
+    );
   }
 
   Future<void> updateMuscleGroupOverride(ProgramGroup group, String value) async {
@@ -402,11 +404,13 @@ class Setup extends _$Setup {
       final idx = newOverrides.indexWhere((override) => override.group == group);
       if (idx != -1) {
         newOverrides[idx] = MuscleGroupOverride(group, sets);
-        _updateState((s) => s.copyWith(
-              paramOverrides: s.paramOverrides.copyWith(
-                setsPerWeekPerMuscleGroupIndividual: newOverrides,
-              ),
-            ));
+        _updateState(
+          (s) => s.copyWith(
+            paramOverrides: s.paramOverrides.copyWith(
+              setsPerWeekPerMuscleGroupIndividual: newOverrides,
+            ),
+          ),
+        );
       }
     }
   }
@@ -418,7 +422,8 @@ class Setup extends _$Setup {
 
   Future<void> removeEquipment(Equipment equipment) async {
     _updateState(
-        (s) => s.copyWith(availEquipment: s.availEquipment.where((e) => e != equipment).toSet()));
+      (s) => s.copyWith(availEquipment: s.availEquipment.where((e) => e != equipment).toSet()),
+    );
   }
 
   Future<void> setEquipment(Set<Equipment> equipment) async {
@@ -430,11 +435,7 @@ class Setup extends _$Setup {
     _updateState((s) {
       final excl = Set<Ex>.from(s.paramOverrides.excludedExercises ?? {});
       if (excl.add(exercise)) {
-        return s.copyWith(
-          paramOverrides: s.paramOverrides.copyWith(
-            excludedExercises: excl,
-          ),
-        );
+        return s.copyWith(paramOverrides: s.paramOverrides.copyWith(excludedExercises: excl));
       }
       return s;
     });
@@ -444,11 +445,7 @@ class Setup extends _$Setup {
     _updateState((s) {
       final excl = Set<Ex>.from(s.paramOverrides.excludedExercises ?? {});
       if (excl.remove(exercise)) {
-        return s.copyWith(
-          paramOverrides: s.paramOverrides.copyWith(
-            excludedExercises: excl,
-          ),
-        );
+        return s.copyWith(paramOverrides: s.paramOverrides.copyWith(excludedExercises: excl));
       }
       return s;
     });

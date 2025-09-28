@@ -19,7 +19,7 @@ final class SetupProvider extends $AsyncNotifierProvider<Setup, Settings> {
         argument: null,
         retry: null,
         name: r'setupProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -32,7 +32,7 @@ final class SetupProvider extends $AsyncNotifierProvider<Setup, Settings> {
   Setup create() => Setup();
 }
 
-String _$setupHash() => r'c645bfbaa32e6fb016deffdf9708a77c0f561a6c';
+String _$setupHash() => r'1b1624fcf1e0cf3ce223479a6f3020bd01e9a75a';
 
 abstract class _$Setup extends $AsyncNotifier<Settings> {
   FutureOr<Settings> build();

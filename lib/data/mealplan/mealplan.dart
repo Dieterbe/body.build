@@ -5,7 +5,7 @@ import 'package:bodybuild/data/mealplan/current_mealplan_provider.dart';
 
 part 'mealplan.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 class Mealplan extends _$Mealplan {
   @override
   Future<MealPlan> build() async {
@@ -41,14 +41,16 @@ class Mealplan extends _$Mealplan {
     print('called updateDay');
     print(oldDay);
     print(newDay);
-    state = AsyncData(state.value!.copyWith(
-      dayplans: state.value!.dayplans.map((e) => ((e == oldDay) ? newDay : e)).toList(),
-    ));
+    state = AsyncData(
+      state.value!.copyWith(
+        dayplans: state.value!.dayplans.map((e) => ((e == oldDay) ? newDay : e)).toList(),
+      ),
+    );
   }
 
   void deleteDay(DayPlan day) {
-    state = AsyncData(state.value!.copyWith(
-      dayplans: state.value!.dayplans.where((e) => e != day).toList(),
-    ));
+    state = AsyncData(
+      state.value!.copyWith(dayplans: state.value!.dayplans.where((e) => e != day).toList()),
+    );
   }
 }

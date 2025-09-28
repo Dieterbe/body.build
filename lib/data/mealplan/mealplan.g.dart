@@ -20,7 +20,7 @@ final class MealplanProvider
         argument: null,
         retry: null,
         name: r'mealplanProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -33,7 +33,7 @@ final class MealplanProvider
   Mealplan create() => Mealplan();
 }
 
-String _$mealplanHash() => r'debb4a8aa610dc7aac798f56a24658243e70d04f';
+String _$mealplanHash() => r'3ca7213e111b6f302aff89568c60c17311baa116';
 
 abstract class _$Mealplan extends $AsyncNotifier<MealPlan> {
   FutureOr<MealPlan> build();
