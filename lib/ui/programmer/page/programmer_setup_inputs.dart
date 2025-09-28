@@ -204,7 +204,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Age', context),
                         v: numInput(
-                          const ValueKey('age'),
                           'years',
                           setup.age.toString(),
                           context,
@@ -216,7 +215,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Weight', context),
                         v: numInput(
-                          const ValueKey('weight'),
                           'kg',
                           setup.weight.toString(),
                           context,
@@ -228,7 +226,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Height', context),
                         v: numInput(
-                          const ValueKey('height'),
                           'cm',
                           setup.height.toString(),
                           context,
@@ -240,7 +237,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Body Fat', context),
                         v: numInput(
-                          const ValueKey('bodyFat'),
                           '%',
                           setup.bodyFat?.toStringAsFixed(1) ?? '',
                           context,
@@ -277,7 +273,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Recovery Factor', context),
                         v: numInput(
-                          const ValueKey('recoveryFactor'),
                           '',
                           setup.recoveryFactor.toStringAsFixed(1),
                           context,
@@ -315,7 +310,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Workouts', context),
                         v: numInput(
-                          const ValueKey('workoutsPerWeek'),
                           'per week',
                           setup.workoutsPerWeek.toString(),
                           context,
@@ -327,7 +321,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Normalized\nWorkout Duration', context),
                         v: numInput(
-                          const ValueKey('workoutDuration'),
                           'min',
                           setup.workoutDuration.toString(),
                           context,
@@ -341,7 +334,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('Energy balance', context),
                         v: numInput(
-                          const ValueKey('energyBalance'),
                           '%',
                           setup.energyBalance.toString(),
                           context,
@@ -355,7 +347,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('TEF multiplier', context),
                         v: numInput(
-                          const ValueKey('tefFactor'),
                           '',
                           setup.tefFactor.toStringAsFixed(2),
                           context,
@@ -369,7 +360,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       KVRow(
                         titleTextMedium('AT multiplier', context),
                         v: numInput(
-                          const ValueKey('atFactor'),
                           '',
                           setup.atFactor.toStringAsFixed(2),
                           context,
@@ -394,7 +384,6 @@ class ProgrammerSetupInputs extends ConsumerWidget {
 }
 
 Widget numInput(
-  Key key,
   String suffix,
   String value,
   BuildContext context, {
@@ -402,7 +391,6 @@ Widget numInput(
   required void Function(String)? onChanged,
 }) => TextFormField(
   style: ts100(context),
-  key: key,
   keyboardType: TextInputType.number,
   decoration: InputDecoration(
     isDense: true,
