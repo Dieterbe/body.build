@@ -15,24 +15,21 @@ class MealPlanHeader extends ConsumerWidget {
 
     List<String> getOpts(String currentId, Map<String, MealPlan> plans) {
       final currentName = plans[currentId]!.name;
-      final otherNames =
-          plans.entries.where((e) => e.key != currentId).map((e) => e.value.name).toList();
+      final otherNames = plans.entries
+          .where((e) => e.key != currentId)
+          .map((e) => e.value.name)
+          .toList();
       return [currentName, ...otherNames];
     }
 
     onSelect(String name, Map<String, MealPlan> plans) {
-      final entry = plans.entries.firstWhere(
-        (e) => e.value.name == name,
-      );
+      final entry = plans.entries.firstWhere((e) => e.value.name == name);
       ref.read(currentMealplanProvider.notifier).select(entry.key);
     }
 
     onCreate(String id, String name) async {
       final service = await ref.read(mealplanPersistenceProvider.future);
-      final newPlan = MealPlan(
-        name: name,
-        dayplans: [],
-      );
+      final newPlan = MealPlan(name: name, dayplans: []);
       await service.saveMealplan(id, newPlan);
       ref.invalidate(mealplanListProvider);
       await ref.read(mealplanListProvider.future).then((_) {
@@ -46,10 +43,7 @@ class MealPlanHeader extends ConsumerWidget {
       final plans = await service.loadMealplans();
       final plan = plans.entries.firstWhere((p) => p.value.name == oldName);
 
-      await service.saveMealplan(
-        plan.key,
-        plan.value.copyWith(name: newName),
-      );
+      await service.saveMealplan(plan.key, plan.value.copyWith(name: newName));
       ref.invalidate(mealplanListProvider);
       // Wait for the plan list to be reloaded
       await ref.read(mealplanListProvider.future);
@@ -60,9 +54,7 @@ class MealPlanHeader extends ConsumerWidget {
       final plans = await service.loadMealplans();
 
       final plan = plans.entries.firstWhere((p) => p.value.name == nameOld);
-      final newPlan = plan.value.copyWith(
-        name: nameNew,
-      );
+      final newPlan = plan.value.copyWith(name: nameNew);
       final newId = DateTime.now().millisecondsSinceEpoch.toString();
 
       await service.saveMealplan(newId, newPlan);
@@ -86,10 +78,7 @@ class MealPlanHeader extends ConsumerWidget {
       // If no plans exist, create a new default one
       if (plans.isEmpty) {
         final newId = DateTime.now().millisecondsSinceEpoch.toString();
-        await service.saveMealplan(
-          newId,
-          const MealPlan(name: "default name mealplan"),
-        );
+        await service.saveMealplan(newId, const MealPlan(name: "default name mealplan"));
         ref.invalidate(mealplanListProvider);
         ref.read(currentMealplanProvider.notifier).select(newId);
       } else {
@@ -101,7 +90,9 @@ class MealPlanHeader extends ConsumerWidget {
     return currentMealPlanId.when(
       loading: () => const CircularProgressIndicator(),
       error: (error, stack) => Text('Error: $error'),
-      data: (currentId) => ref.watch(mealplanListProvider).when(
+      data: (currentId) => ref
+          .watch(mealplanListProvider)
+          .when(
             loading: () => const CircularProgressIndicator(),
             error: (error, stack) => Text('Error: $error'),
             data: (plans) => DataManager(

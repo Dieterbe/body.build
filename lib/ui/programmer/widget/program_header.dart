@@ -60,19 +60,20 @@ class ProgramHeader extends ConsumerWidget {
       data: (setup) => programManagerState.when(
         loading: () => const CircularProgressIndicator(),
         error: (error, stack) => Text('Error: $error'),
-        data: (state) => Column(children: [
-          DataManager(
-            opts: getOpts(state),
-            onSelect: (name) => onSelect(name, state),
-            onCreate: onCreate,
-            onRename: onRename,
-            onDuplicate: (_, name) => onDuplicate(name),
-            onDelete: state.currentProgram.builtin ? null : onDelete,
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              PulseMessageWidget(
+        data: (state) => Column(
+          children: [
+            DataManager(
+              opts: getOpts(state),
+              onSelect: (name) => onSelect(name, state),
+              onCreate: onCreate,
+              onRename: onRename,
+              onDuplicate: (_, name) => onDuplicate(name),
+              onDelete: state.currentProgram.builtin ? null : onDelete,
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                PulseMessageWidget(
                   pulse: state.currentProgram.workouts.isEmpty,
                   msg: 'No workouts yet. Add one!',
                   child: ElevatedButton(
@@ -80,53 +81,51 @@ class ProgramHeader extends ConsumerWidget {
                       ref.read(programManagerProvider.notifier).addWorkout(const Workout());
                       await Posthog().capture(
                         eventName: 'AddWorkoutButtonClicked',
-                        properties: {
-                          'workouts': state.currentProgram.workouts.length + 1,
-                        },
+                        properties: {'workouts': state.currentProgram.workouts.length + 1},
                       );
                     },
-                    child: const Row(
-                      children: [Icon(Icons.add), Text('add workout')],
-                    ),
-                  )),
-              const SizedBox(width: 10),
-              Consumer(
-                builder: (context, ref, child) {
-                  final isDevMode = ref.watch(developerModeProvider);
-                  if (!isDevMode) return const SizedBox.shrink();
+                    child: const Row(children: [Icon(Icons.add), Text('add workout')]),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Consumer(
+                  builder: (context, ref, child) {
+                    final isDevMode = ref.watch(developerModeProvider);
+                    if (!isDevMode) return const SizedBox.shrink();
 
-                  return ElevatedButton(
-                    onPressed: () async {
-                      // Create map of target recruitments from setup parameters
-                      final target = <ProgramGroup, double>{};
-                      for (final group in ProgramGroup.values) {
-                        target[group] =
-                            setup.paramFinal.getSetsPerWeekPerMuscleGroupFor(group) * 1.0;
-                      }
+                    return ElevatedButton(
+                      onPressed: () async {
+                        // Create map of target recruitments from setup parameters
+                        final target = <ProgramGroup, double>{};
+                        for (final group in ProgramGroup.values) {
+                          target[group] =
+                              setup.paramFinal.getSetsPerWeekPerMuscleGroupFor(group) * 1.0;
+                        }
 
-                      // Create a workout to hold our evolving solution
-                      var oldWorkout = const Workout();
-                      ref.read(programManagerProvider.notifier).addWorkout(oldWorkout);
+                        // Create a workout to hold our evolving solution
+                        var oldWorkout = const Workout();
+                        ref.read(programManagerProvider.notifier).addWorkout(oldWorkout);
 
-                      // Listen to stream of solutions and update the workout
-                      await for (final setGroup in generateOptimalSetGroup(target, setup)) {
-                        final newWorkout = Workout(setGroups: [setGroup]);
-                        ref
-                            .read(programManagerProvider.notifier)
-                            .updateWorkout(oldWorkout, newWorkout);
-                        await Future.delayed(const Duration(milliseconds: 100));
-                        oldWorkout = newWorkout;
-                      }
-                    },
-                    child: const Row(
-                      children: [Icon(Icons.auto_awesome), Text('generate workout')],
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ]),
+                        // Listen to stream of solutions and update the workout
+                        await for (final setGroup in generateOptimalSetGroup(target, setup)) {
+                          final newWorkout = Workout(setGroups: [setGroup]);
+                          ref
+                              .read(programManagerProvider.notifier)
+                              .updateWorkout(oldWorkout, newWorkout);
+                          await Future.delayed(const Duration(milliseconds: 100));
+                          oldWorkout = newWorkout;
+                        }
+                      },
+                      child: const Row(
+                        children: [Icon(Icons.auto_awesome), Text('generate workout')],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
