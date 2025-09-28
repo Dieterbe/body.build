@@ -6,21 +6,46 @@ part of 'setup_profile_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$setupProfileListHash() => r'dfd5c91af354b116f8e2f17031dba0f76c731374';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [setupProfileList].
 @ProviderFor(setupProfileList)
-final setupProfileListProvider = AutoDisposeFutureProvider<Map<String, Settings>>.internal(
-  setupProfileList,
-  name: r'setupProfileListProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$setupProfileListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const setupProfileListProvider = SetupProfileListProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SetupProfileListRef = AutoDisposeFutureProviderRef<Map<String, Settings>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class SetupProfileListProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Map<String, Settings>>,
+          Map<String, Settings>,
+          FutureOr<Map<String, Settings>>
+        >
+    with
+        $FutureModifier<Map<String, Settings>>,
+        $FutureProvider<Map<String, Settings>> {
+  const SetupProfileListProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'setupProfileListProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$setupProfileListHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<Map<String, Settings>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Map<String, Settings>> create(Ref ref) {
+    return setupProfileList(ref);
+  }
+}
+
+String _$setupProfileListHash() => r'dfd5c91af354b116f8e2f17031dba0f76c731374';

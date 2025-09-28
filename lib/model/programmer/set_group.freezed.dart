@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,389 +9,540 @@ part of 'set_group.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Sets _$SetsFromJson(Map<String, dynamic> json) {
-  return _Sets.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Sets {
-  int get intensity => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _exToJson, fromJson: _exFromJson)
-  Ex? get ex => throw _privateConstructorUsedError;
-  int get n => throw _privateConstructorUsedError;
-  @JsonKey(includeToJson: false)
-  bool get changeEx => throw _privateConstructorUsedError;
-  Map<String, String> get modifierOptions =>
-      throw _privateConstructorUsedError; // Map of modifier name to selected option
-  Map<String, bool> get cueOptions => throw _privateConstructorUsedError;
+
+ int get intensity;@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? get ex; int get n;@JsonKey(includeToJson: false) bool get changeEx; Map<String, String> get modifierOptions;// Map of modifier name to selected option
+ Map<String, bool> get cueOptions;
+/// Create a copy of Sets
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SetsCopyWith<Sets> get copyWith => _$SetsCopyWithImpl<Sets>(this as Sets, _$identity);
 
   /// Serializes this Sets to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Sets
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SetsCopyWith<Sets> get copyWith => throw _privateConstructorUsedError;
+
+
+
+@override
+String toString() {
+  return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, modifierOptions: $modifierOptions, cueOptions: $cueOptions)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SetsCopyWith<$Res> {
-  factory $SetsCopyWith(Sets value, $Res Function(Sets) then) = _$SetsCopyWithImpl<$Res, Sets>;
-  @useResult
-  $Res call(
-      {int intensity,
-      @JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex,
-      int n,
-      @JsonKey(includeToJson: false) bool changeEx,
-      Map<String, String> modifierOptions,
-      Map<String, bool> cueOptions});
+abstract mixin class $SetsCopyWith<$Res>  {
+  factory $SetsCopyWith(Sets value, $Res Function(Sets) _then) = _$SetsCopyWithImpl;
+@useResult
+$Res call({
+ int intensity,@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex, int n,@JsonKey(includeToJson: false) bool changeEx, Map<String, String> modifierOptions, Map<String, bool> cueOptions
+});
+
+
+
+
+}
+/// @nodoc
+class _$SetsCopyWithImpl<$Res>
+    implements $SetsCopyWith<$Res> {
+  _$SetsCopyWithImpl(this._self, this._then);
+
+  final Sets _self;
+  final $Res Function(Sets) _then;
+
+/// Create a copy of Sets
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? intensity = null,Object? ex = freezed,Object? n = null,Object? changeEx = null,Object? modifierOptions = null,Object? cueOptions = null,}) {
+  return _then(_self.copyWith(
+intensity: null == intensity ? _self.intensity : intensity // ignore: cast_nullable_to_non_nullable
+as int,ex: freezed == ex ? _self.ex : ex // ignore: cast_nullable_to_non_nullable
+as Ex?,n: null == n ? _self.n : n // ignore: cast_nullable_to_non_nullable
+as int,changeEx: null == changeEx ? _self.changeEx : changeEx // ignore: cast_nullable_to_non_nullable
+as bool,modifierOptions: null == modifierOptions ? _self.modifierOptions : modifierOptions // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,cueOptions: null == cueOptions ? _self.cueOptions : cueOptions // ignore: cast_nullable_to_non_nullable
+as Map<String, bool>,
+  ));
 }
 
-/// @nodoc
-class _$SetsCopyWithImpl<$Res, $Val extends Sets> implements $SetsCopyWith<$Res> {
-  _$SetsCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Sets
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? intensity = null,
-    Object? ex = freezed,
-    Object? n = null,
-    Object? changeEx = null,
-    Object? modifierOptions = null,
-    Object? cueOptions = null,
-  }) {
-    return _then(_value.copyWith(
-      intensity: null == intensity
-          ? _value.intensity
-          : intensity // ignore: cast_nullable_to_non_nullable
-              as int,
-      ex: freezed == ex
-          ? _value.ex
-          : ex // ignore: cast_nullable_to_non_nullable
-              as Ex?,
-      n: null == n
-          ? _value.n
-          : n // ignore: cast_nullable_to_non_nullable
-              as int,
-      changeEx: null == changeEx
-          ? _value.changeEx
-          : changeEx // ignore: cast_nullable_to_non_nullable
-              as bool,
-      modifierOptions: null == modifierOptions
-          ? _value.modifierOptions
-          : modifierOptions // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      cueOptions: null == cueOptions
-          ? _value.cueOptions
-          : cueOptions // ignore: cast_nullable_to_non_nullable
-              as Map<String, bool>,
-    ) as $Val);
-  }
 }
 
-/// @nodoc
-abstract class _$$SetsImplCopyWith<$Res> implements $SetsCopyWith<$Res> {
-  factory _$$SetsImplCopyWith(_$SetsImpl value, $Res Function(_$SetsImpl) then) =
-      __$$SetsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int intensity,
-      @JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex,
-      int n,
-      @JsonKey(includeToJson: false) bool changeEx,
-      Map<String, String> modifierOptions,
-      Map<String, bool> cueOptions});
+
+/// Adds pattern-matching-related methods to [Sets].
+extension SetsPatterns on Sets {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Sets value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Sets() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Sets value)  $default,){
+final _that = this;
+switch (_that) {
+case _Sets():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Sets value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Sets() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> modifierOptions,  Map<String, bool> cueOptions)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Sets() when $default != null:
+return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOptions,_that.cueOptions);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> modifierOptions,  Map<String, bool> cueOptions)  $default,) {final _that = this;
+switch (_that) {
+case _Sets():
+return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOptions,_that.cueOptions);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> modifierOptions,  Map<String, bool> cueOptions)?  $default,) {final _that = this;
+switch (_that) {
+case _Sets() when $default != null:
+return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOptions,_that.cueOptions);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$SetsImplCopyWithImpl<$Res> extends _$SetsCopyWithImpl<$Res, _$SetsImpl>
-    implements _$$SetsImplCopyWith<$Res> {
-  __$$SetsImplCopyWithImpl(_$SetsImpl _value, $Res Function(_$SetsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Sets
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? intensity = null,
-    Object? ex = freezed,
-    Object? n = null,
-    Object? changeEx = null,
-    Object? modifierOptions = null,
-    Object? cueOptions = null,
-  }) {
-    return _then(_$SetsImpl(
-      null == intensity
-          ? _value.intensity
-          : intensity // ignore: cast_nullable_to_non_nullable
-              as int,
-      ex: freezed == ex
-          ? _value.ex
-          : ex // ignore: cast_nullable_to_non_nullable
-              as Ex?,
-      n: null == n
-          ? _value.n
-          : n // ignore: cast_nullable_to_non_nullable
-              as int,
-      changeEx: null == changeEx
-          ? _value.changeEx
-          : changeEx // ignore: cast_nullable_to_non_nullable
-              as bool,
-      modifierOptions: null == modifierOptions
-          ? _value._modifierOptions
-          : modifierOptions // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      cueOptions: null == cueOptions
-          ? _value._cueOptions
-          : cueOptions // ignore: cast_nullable_to_non_nullable
-              as Map<String, bool>,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$SetsImpl extends _Sets {
-  const _$SetsImpl(this.intensity,
-      {@JsonKey(toJson: _exToJson, fromJson: _exFromJson) this.ex,
-      this.n = 1,
-      @JsonKey(includeToJson: false) this.changeEx = false,
-      final Map<String, String> modifierOptions = const {},
-      final Map<String, bool> cueOptions = const {}})
-      : _modifierOptions = modifierOptions,
-        _cueOptions = cueOptions,
-        super._();
 
-  factory _$SetsImpl.fromJson(Map<String, dynamic> json) => _$$SetsImplFromJson(json);
+class _Sets extends Sets {
+  const _Sets(this.intensity, {@JsonKey(toJson: _exToJson, fromJson: _exFromJson) this.ex, this.n = 1, @JsonKey(includeToJson: false) this.changeEx = false, final  Map<String, String> modifierOptions = const {}, final  Map<String, bool> cueOptions = const {}}): _modifierOptions = modifierOptions,_cueOptions = cueOptions,super._();
+  factory _Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json);
 
-  @override
-  final int intensity;
-  @override
-  @JsonKey(toJson: _exToJson, fromJson: _exFromJson)
-  final Ex? ex;
-  @override
-  @JsonKey()
-  final int n;
-  @override
-  @JsonKey(includeToJson: false)
-  final bool changeEx;
-  final Map<String, String> _modifierOptions;
-  @override
-  @JsonKey()
-  Map<String, String> get modifierOptions {
-    if (_modifierOptions is EqualUnmodifiableMapView) return _modifierOptions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_modifierOptions);
-  }
+@override final  int intensity;
+@override@JsonKey(toJson: _exToJson, fromJson: _exFromJson) final  Ex? ex;
+@override@JsonKey() final  int n;
+@override@JsonKey(includeToJson: false) final  bool changeEx;
+ final  Map<String, String> _modifierOptions;
+@override@JsonKey() Map<String, String> get modifierOptions {
+  if (_modifierOptions is EqualUnmodifiableMapView) return _modifierOptions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_modifierOptions);
+}
 
 // Map of modifier name to selected option
-  final Map<String, bool> _cueOptions;
+ final  Map<String, bool> _cueOptions;
 // Map of modifier name to selected option
-  @override
-  @JsonKey()
-  Map<String, bool> get cueOptions {
-    if (_cueOptions is EqualUnmodifiableMapView) return _cueOptions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_cueOptions);
-  }
-
-  @override
-  String toString() {
-    return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, modifierOptions: $modifierOptions, cueOptions: $cueOptions)';
-  }
-
-  /// Create a copy of Sets
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SetsImplCopyWith<_$SetsImpl> get copyWith =>
-      __$$SetsImplCopyWithImpl<_$SetsImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SetsImplToJson(
-      this,
-    );
-  }
+@override@JsonKey() Map<String, bool> get cueOptions {
+  if (_cueOptions is EqualUnmodifiableMapView) return _cueOptions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_cueOptions);
 }
 
-abstract class _Sets extends Sets {
-  const factory _Sets(final int intensity,
-      {@JsonKey(toJson: _exToJson, fromJson: _exFromJson) final Ex? ex,
-      final int n,
-      @JsonKey(includeToJson: false) final bool changeEx,
-      final Map<String, String> modifierOptions,
-      final Map<String, bool> cueOptions}) = _$SetsImpl;
-  const _Sets._() : super._();
 
-  factory _Sets.fromJson(Map<String, dynamic> json) = _$SetsImpl.fromJson;
+/// Create a copy of Sets
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SetsCopyWith<_Sets> get copyWith => __$SetsCopyWithImpl<_Sets>(this, _$identity);
 
-  @override
-  int get intensity;
-  @override
-  @JsonKey(toJson: _exToJson, fromJson: _exFromJson)
-  Ex? get ex;
-  @override
-  int get n;
-  @override
-  @JsonKey(includeToJson: false)
-  bool get changeEx;
-  @override
-  Map<String, String> get modifierOptions; // Map of modifier name to selected option
-  @override
-  Map<String, bool> get cueOptions;
-
-  /// Create a copy of Sets
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SetsImplCopyWith<_$SetsImpl> get copyWith => throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$SetsToJson(this, );
 }
 
-SetGroup _$SetGroupFromJson(Map<String, dynamic> json) {
-  return _SetGroup.fromJson(json);
+
+
+@override
+String toString() {
+  return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, modifierOptions: $modifierOptions, cueOptions: $cueOptions)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SetsCopyWith<$Res> implements $SetsCopyWith<$Res> {
+  factory _$SetsCopyWith(_Sets value, $Res Function(_Sets) _then) = __$SetsCopyWithImpl;
+@override @useResult
+$Res call({
+ int intensity,@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex, int n,@JsonKey(includeToJson: false) bool changeEx, Map<String, String> modifierOptions, Map<String, bool> cueOptions
+});
+
+
+
+
+}
+/// @nodoc
+class __$SetsCopyWithImpl<$Res>
+    implements _$SetsCopyWith<$Res> {
+  __$SetsCopyWithImpl(this._self, this._then);
+
+  final _Sets _self;
+  final $Res Function(_Sets) _then;
+
+/// Create a copy of Sets
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? intensity = null,Object? ex = freezed,Object? n = null,Object? changeEx = null,Object? modifierOptions = null,Object? cueOptions = null,}) {
+  return _then(_Sets(
+null == intensity ? _self.intensity : intensity // ignore: cast_nullable_to_non_nullable
+as int,ex: freezed == ex ? _self.ex : ex // ignore: cast_nullable_to_non_nullable
+as Ex?,n: null == n ? _self.n : n // ignore: cast_nullable_to_non_nullable
+as int,changeEx: null == changeEx ? _self.changeEx : changeEx // ignore: cast_nullable_to_non_nullable
+as bool,modifierOptions: null == modifierOptions ? _self._modifierOptions : modifierOptions // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,cueOptions: null == cueOptions ? _self._cueOptions : cueOptions // ignore: cast_nullable_to_non_nullable
+as Map<String, bool>,
+  ));
+}
+
+
+}
+
 
 /// @nodoc
 mixin _$SetGroup {
-  List<Sets> get sets => throw _privateConstructorUsedError;
+
+ List<Sets> get sets;
+/// Create a copy of SetGroup
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SetGroupCopyWith<SetGroup> get copyWith => _$SetGroupCopyWithImpl<SetGroup>(this as SetGroup, _$identity);
 
   /// Serializes this SetGroup to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of SetGroup
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SetGroupCopyWith<SetGroup> get copyWith => throw _privateConstructorUsedError;
+
+
+
+@override
+String toString() {
+  return 'SetGroup(sets: $sets)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SetGroupCopyWith<$Res> {
-  factory $SetGroupCopyWith(SetGroup value, $Res Function(SetGroup) then) =
-      _$SetGroupCopyWithImpl<$Res, SetGroup>;
-  @useResult
-  $Res call({List<Sets> sets});
+abstract mixin class $SetGroupCopyWith<$Res>  {
+  factory $SetGroupCopyWith(SetGroup value, $Res Function(SetGroup) _then) = _$SetGroupCopyWithImpl;
+@useResult
+$Res call({
+ List<Sets> sets
+});
+
+
+
+
+}
+/// @nodoc
+class _$SetGroupCopyWithImpl<$Res>
+    implements $SetGroupCopyWith<$Res> {
+  _$SetGroupCopyWithImpl(this._self, this._then);
+
+  final SetGroup _self;
+  final $Res Function(SetGroup) _then;
+
+/// Create a copy of SetGroup
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? sets = null,}) {
+  return _then(_self.copyWith(
+sets: null == sets ? _self.sets : sets // ignore: cast_nullable_to_non_nullable
+as List<Sets>,
+  ));
 }
 
-/// @nodoc
-class _$SetGroupCopyWithImpl<$Res, $Val extends SetGroup> implements $SetGroupCopyWith<$Res> {
-  _$SetGroupCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of SetGroup
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? sets = null,
-  }) {
-    return _then(_value.copyWith(
-      sets: null == sets
-          ? _value.sets
-          : sets // ignore: cast_nullable_to_non_nullable
-              as List<Sets>,
-    ) as $Val);
-  }
 }
 
-/// @nodoc
-abstract class _$$SetGroupImplCopyWith<$Res> implements $SetGroupCopyWith<$Res> {
-  factory _$$SetGroupImplCopyWith(_$SetGroupImpl value, $Res Function(_$SetGroupImpl) then) =
-      __$$SetGroupImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({List<Sets> sets});
+
+/// Adds pattern-matching-related methods to [SetGroup].
+extension SetGroupPatterns on SetGroup {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SetGroup value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SetGroup() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SetGroup value)  $default,){
+final _that = this;
+switch (_that) {
+case _SetGroup():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SetGroup value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SetGroup() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Sets> sets)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SetGroup() when $default != null:
+return $default(_that.sets);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Sets> sets)  $default,) {final _that = this;
+switch (_that) {
+case _SetGroup():
+return $default(_that.sets);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Sets> sets)?  $default,) {final _that = this;
+switch (_that) {
+case _SetGroup() when $default != null:
+return $default(_that.sets);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$SetGroupImplCopyWithImpl<$Res> extends _$SetGroupCopyWithImpl<$Res, _$SetGroupImpl>
-    implements _$$SetGroupImplCopyWith<$Res> {
-  __$$SetGroupImplCopyWithImpl(_$SetGroupImpl _value, $Res Function(_$SetGroupImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of SetGroup
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? sets = null,
-  }) {
-    return _then(_$SetGroupImpl(
-      null == sets
-          ? _value._sets
-          : sets // ignore: cast_nullable_to_non_nullable
-              as List<Sets>,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$SetGroupImpl implements _SetGroup {
-  const _$SetGroupImpl(final List<Sets> sets) : _sets = sets;
 
-  factory _$SetGroupImpl.fromJson(Map<String, dynamic> json) => _$$SetGroupImplFromJson(json);
+class _SetGroup implements SetGroup {
+  const _SetGroup(final  List<Sets> sets): _sets = sets;
+  factory _SetGroup.fromJson(Map<String, dynamic> json) => _$SetGroupFromJson(json);
 
-  final List<Sets> _sets;
-  @override
-  List<Sets> get sets {
-    if (_sets is EqualUnmodifiableListView) return _sets;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_sets);
-  }
-
-  @override
-  String toString() {
-    return 'SetGroup(sets: $sets)';
-  }
-
-  /// Create a copy of SetGroup
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SetGroupImplCopyWith<_$SetGroupImpl> get copyWith =>
-      __$$SetGroupImplCopyWithImpl<_$SetGroupImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SetGroupImplToJson(
-      this,
-    );
-  }
+ final  List<Sets> _sets;
+@override List<Sets> get sets {
+  if (_sets is EqualUnmodifiableListView) return _sets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_sets);
 }
 
-abstract class _SetGroup implements SetGroup {
-  const factory _SetGroup(final List<Sets> sets) = _$SetGroupImpl;
 
-  factory _SetGroup.fromJson(Map<String, dynamic> json) = _$SetGroupImpl.fromJson;
+/// Create a copy of SetGroup
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SetGroupCopyWith<_SetGroup> get copyWith => __$SetGroupCopyWithImpl<_SetGroup>(this, _$identity);
 
-  @override
-  List<Sets> get sets;
-
-  /// Create a copy of SetGroup
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SetGroupImplCopyWith<_$SetGroupImpl> get copyWith => throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$SetGroupToJson(this, );
 }
+
+
+
+@override
+String toString() {
+  return 'SetGroup(sets: $sets)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SetGroupCopyWith<$Res> implements $SetGroupCopyWith<$Res> {
+  factory _$SetGroupCopyWith(_SetGroup value, $Res Function(_SetGroup) _then) = __$SetGroupCopyWithImpl;
+@override @useResult
+$Res call({
+ List<Sets> sets
+});
+
+
+
+
+}
+/// @nodoc
+class __$SetGroupCopyWithImpl<$Res>
+    implements _$SetGroupCopyWith<$Res> {
+  __$SetGroupCopyWithImpl(this._self, this._then);
+
+  final _SetGroup _self;
+  final $Res Function(_SetGroup) _then;
+
+/// Create a copy of SetGroup
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? sets = null,}) {
+  return _then(_SetGroup(
+null == sets ? _self._sets : sets // ignore: cast_nullable_to_non_nullable
+as List<Sets>,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -6,20 +6,51 @@ part of 'current_setup_profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentSetupProfileHash() => r'f94cd48ad7904c5720cf9296f1af0d6723d370f8';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [CurrentSetupProfile].
 @ProviderFor(CurrentSetupProfile)
-final currentSetupProfileProvider =
-    AutoDisposeAsyncNotifierProvider<CurrentSetupProfile, String>.internal(
-  CurrentSetupProfile.new,
-  name: r'currentSetupProfileProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$currentSetupProfileHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const currentSetupProfileProvider = CurrentSetupProfileProvider._();
 
-typedef _$CurrentSetupProfile = AutoDisposeAsyncNotifier<String>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class CurrentSetupProfileProvider
+    extends $AsyncNotifierProvider<CurrentSetupProfile, String> {
+  const CurrentSetupProfileProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'currentSetupProfileProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$currentSetupProfileHash();
+
+  @$internal
+  @override
+  CurrentSetupProfile create() => CurrentSetupProfile();
+}
+
+String _$currentSetupProfileHash() =>
+    r'f94cd48ad7904c5720cf9296f1af0d6723d370f8';
+
+abstract class _$CurrentSetupProfile extends $AsyncNotifier<String> {
+  FutureOr<String> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<String>, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<String>, String>,
+              AsyncValue<String>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

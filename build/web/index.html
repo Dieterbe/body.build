@@ -1,150 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Body.build: Optimize Your Lifting</title>
-  <link rel="stylesheet" href="css/style.css">
-<script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-         // Note: making this key public is not an issue. it's write-only
-   posthog.init('phc_WC0LK9tiHgH0rMWV8KKYTUOnWJt9PRMny3Vw8dGG8bJ', {api_host: 'https://eu.i.posthog.com'})
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Body.build nutrition and workout planner for advanced weight lifters and coaches">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="body.build: advanced workout planner for coaches and lifters">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>body.build: advanced workout planner for coaches and lifters</title>
+  <link rel="manifest" href="manifest.json">
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+      // Note: making this key public is not an issue. it's write-only
+    posthog.init('phc_WC0LK9tiHgH0rMWV8KKYTUOnWJt9PRMny3Vw8dGG8bJ', {
+        api_host: 'https://eu.i.posthog.com',
+        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+    })
 </script>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Body.build: Optimize Your Weight Training</h1>
-      <p>With the world's most advanced, evidence-based programming tool.</p>
-      <p><em>Created for free by a top Menno Henselmans course graduate — no strings attached.</em></p>
-      <a href="/app" class="cta">Launch the App</a>
-    </div>
-  </header>
-
-  <div class="container">
-    <section>
-      <div class="section-content">
-        <h2>Explore the best exercise techniques</h2>
-        <ul>
-          <li>Extensive catalog of exercises with technique tweaks and cues</li>
-          <li>Links to relevant scientific studies and the best social media content</li>
-          <li>Ratings and quotes from respected coaches and creators</li>
-        </ul>
-      </div>
-      <div class="section-image">
-        <img src="img/body.build-modifiers.png" alt="Exercise technique and modifier options interface">
-      </div>
-    </section>
-    <section>
-      <div class="section-content">
-        <h2>Scientifically Optimized Programming</h2>
-        <ul>
-          <li>Use fractional volume counting for precise volume balancing</li>
-          <li>Detect antagonist supersets and non-overlapping-musculature sets for improved time efficiency and gains</li>
-          <li>Visual guidance for muscle targeting and time-efficient training</li>
-        </ul>
-      </div>
-      <div class="section-image">
-        <img src="img/body.build-program-builder.png" alt="Program builder interface showing exercise selection and visual fractional volume counting">
-      </div>
-    </section>
-    <section>
-      <div class="section-content">
-        <h2>Complete Muscle Coverage</h2>
-        <ul>
-          <li>Ensure all major muscles are trained with appropriate tension and ranges</li>
-          <li>Target all muscle lengths and movement patterns</li>
-        </ul>
-      </div>
-      <div class="section-image">
-        <img src="img/body.build-advanced-coverage.png" alt="Advanced muscle coverage analysis interface">
-      </div>
-    </section>
-    <section>
-      <div class="section-content">
-        <h2>Personalized Weekly Volume</h2>
-        <ul>
-          <li>Based on your body & lifestyle, nutrition and training stats and goals</li>
-          <li>Per-muscle-group recommendations based on latest evidence</li>
-        </ul>
-      </div>
-      <div class="section-image">
-        <img src="img/body.build-volume-targets.png" alt="Weekly volume targets and recommendations interface">
-      </div>
-    </section>
-    <section>
-      <div class="section-content">
-        <h2>100% Free.  No strings attached</h2>
-        <ul>
-          <li>No payment, no ads, no sign-up</li>
-          <li>No personal data collection, no credit card details</li>
-        </ul>
-        <blockquote class="personal-quote">
-          <p>I took the <a href="https://mennohenselmans.com/online-pt-course/">Menno Henselmans Personal Training Course</a> — the most in-depth science-based personal trainer course in the world — and graduated <em>Magna cum laude</em> in 2025.  Now I just want to make an awesome service that anyone can freely use. Like Wikipedia, but for lifting.</p>
-        </blockquote>
-      </div>
-      <div class="section-image">
-          <img src="/docs/assets/images/dieter-menno-f89418d879626e6792eaf76e6f73d166.jpg" alt="Dieter & Menno">
-      </div>
-    </section>
-    <section>
-      <div class="section-content">
-        <h2>How It Works</h2>
-        <ul>
-          <li><strong>Exercises library</strong> available on web and mobile</li>
-          <li><strong>Workout Programmer</strong> web only right now. Programmer tab to build, setup tab to personalize</li>
-          <li><strong>Anatomy section</strong> (joint articulations and muscle details) for advanced targetting (web + mobile)</li>
-         <li><strong>Gym progress tracking & analysis</strong> coming soon</li>
-          <li>Check out the introduction video or the <a href="/docs">documentation pages</a></li>
-        </ul>
-      </div>
-       <div class="section-video">
-          <iframe 
-            src="https://www.youtube.com/embed/wOVZdZ9_jdE" 
-            title="Body.build Introduction Video" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-          </iframe>
-      </div>
-    </section>
-  </div>
-
-  <a href="/app" class="cta">Launch the App</a>
-
-  <div class="lightbox" onclick="this.classList.remove('active')">
-    <img src="" alt="Fullsize preview">
-  </div>
-
-  <div class="footer">
-    <p>
-      <strong>Email:</strong> <a href="#" id="email-link" data-name="info" data-domain="body.build">info [at] body.build</a> • <strong>Twitter/X</strong> <a href="https://x.com/bodydotbuild">@bodydotbuild</a> • <strong>Discord</strong> <a href="https://discord.com/invite/YUcS6btXYD">body.build</a>
-      <br/>Get in touch! 👋
-    </p>
-    </div>
-
-  <script>
-    // Email protection
-    const emailLink = document.getElementById('email-link');
-    if (emailLink) {
-      const name = emailLink.getAttribute('data-name');
-      const domain = emailLink.getAttribute('data-domain');
-      const email = `${name}@${domain}`;
-      emailLink.href = `mailto:${email}`;
-      emailLink.textContent = email;
-    }
-
-    // Lightbox functionality
-    if (window.innerWidth > 768) {
-      document.querySelectorAll('.section-image img').forEach(img => {
-        img.addEventListener('click', function() {
-          const lightbox = document.querySelector('.lightbox');
-          const lightboxImg = lightbox.querySelector('img');
-          lightboxImg.src = this.src;
-          lightboxImg.alt = this.alt;
-          lightbox.classList.add('active');
-        });
-      });
-    }
-  </script>
+  <script src="flutter_bootstrap.js" async></script>
 </body>
+<!--
+buildVersion unknown
+buildTime unknown
+-->
 </html>

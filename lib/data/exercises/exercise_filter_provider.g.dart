@@ -6,34 +6,99 @@ part of 'exercise_filter_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filteredExercisesHash() => r'8f2e4d1c3b5a6e9f0a1b2c3d4e5f6a7b8c9d0e1f';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [filteredExercises].
-@ProviderFor(filteredExercises)
-final filteredExercisesProvider = AutoDisposeProvider<List<Ex>>.internal(
-  filteredExercises,
-  name: r'filteredExercisesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$filteredExercisesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef FilteredExercisesRef = AutoDisposeProviderRef<List<Ex>>;
-String _$exerciseFilterHash() => r'1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b';
-
-/// See also [ExerciseFilter].
 @ProviderFor(ExerciseFilter)
-final exerciseFilterProvider =
-    AutoDisposeNotifierProvider<ExerciseFilter, ExerciseFilterState>.internal(
-  ExerciseFilter.new,
-  name: r'exerciseFilterProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$exerciseFilterHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const exerciseFilterProvider = ExerciseFilterProvider._();
 
-typedef _$ExerciseFilter = AutoDisposeNotifier<ExerciseFilterState>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class ExerciseFilterProvider
+    extends $NotifierProvider<ExerciseFilter, ExerciseFilterState> {
+  const ExerciseFilterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'exerciseFilterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$exerciseFilterHash();
+
+  @$internal
+  @override
+  ExerciseFilter create() => ExerciseFilter();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ExerciseFilterState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ExerciseFilterState>(value),
+    );
+  }
+}
+
+String _$exerciseFilterHash() => r'15809543491672141c1af31f91989183dc61e4d2';
+
+abstract class _$ExerciseFilter extends $Notifier<ExerciseFilterState> {
+  ExerciseFilterState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<ExerciseFilterState, ExerciseFilterState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ExerciseFilterState, ExerciseFilterState>,
+              ExerciseFilterState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(filteredExercises)
+const filteredExercisesProvider = FilteredExercisesProvider._();
+
+final class FilteredExercisesProvider
+    extends $FunctionalProvider<List<Ex>, List<Ex>, List<Ex>>
+    with $Provider<List<Ex>> {
+  const FilteredExercisesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'filteredExercisesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$filteredExercisesHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<Ex>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<Ex> create(Ref ref) {
+    return filteredExercises(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Ex> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Ex>>(value),
+    );
+  }
+}
+
+String _$filteredExercisesHash() => r'88589636da74157e68500c083f2944f1b4b3b53d';

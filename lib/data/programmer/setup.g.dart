@@ -6,18 +6,49 @@ part of 'setup.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(Setup)
+const setupProvider = SetupProvider._();
+
+final class SetupProvider extends $AsyncNotifierProvider<Setup, Settings> {
+  const SetupProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'setupProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$setupHash();
+
+  @$internal
+  @override
+  Setup create() => Setup();
+}
+
 String _$setupHash() => r'c645bfbaa32e6fb016deffdf9708a77c0f561a6c';
 
-/// See also [Setup].
-@ProviderFor(Setup)
-final setupProvider = AsyncNotifierProvider<Setup, Settings>.internal(
-  Setup.new,
-  name: r'setupProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$setupHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$Setup = AsyncNotifier<Settings>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$Setup extends $AsyncNotifier<Settings> {
+  FutureOr<Settings> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<Settings>, Settings>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<Settings>, Settings>,
+              AsyncValue<Settings>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

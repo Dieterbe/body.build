@@ -6,18 +6,50 @@ part of 'mealplan.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mealplanHash() => r'538d94620710c01abee87ea2c7d05a09ed160097';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [Mealplan].
 @ProviderFor(Mealplan)
-final mealplanProvider = AsyncNotifierProvider<Mealplan, MealPlan>.internal(
-  Mealplan.new,
-  name: r'mealplanProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$mealplanHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const mealplanProvider = MealplanProvider._();
 
-typedef _$Mealplan = AsyncNotifier<MealPlan>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class MealplanProvider
+    extends $AsyncNotifierProvider<Mealplan, MealPlan> {
+  const MealplanProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mealplanProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$mealplanHash();
+
+  @$internal
+  @override
+  Mealplan create() => Mealplan();
+}
+
+String _$mealplanHash() => r'debb4a8aa610dc7aac798f56a24658243e70d04f';
+
+abstract class _$Mealplan extends $AsyncNotifier<MealPlan> {
+  FutureOr<MealPlan> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<MealPlan>, MealPlan>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<MealPlan>, MealPlan>,
+              AsyncValue<MealPlan>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

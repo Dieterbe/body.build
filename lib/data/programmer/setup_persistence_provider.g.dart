@@ -6,21 +6,46 @@ part of 'setup_persistence_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$setupPersistenceHash() => r'4ce12784964cf69d3f1f74e2d5df86a54f8e3ca9';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [setupPersistence].
 @ProviderFor(setupPersistence)
-final setupPersistenceProvider = AutoDisposeFutureProvider<SetupPersistenceService>.internal(
-  setupPersistence,
-  name: r'setupPersistenceProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$setupPersistenceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const setupPersistenceProvider = SetupPersistenceProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SetupPersistenceRef = AutoDisposeFutureProviderRef<SetupPersistenceService>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class SetupPersistenceProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<SetupPersistenceService>,
+          SetupPersistenceService,
+          FutureOr<SetupPersistenceService>
+        >
+    with
+        $FutureModifier<SetupPersistenceService>,
+        $FutureProvider<SetupPersistenceService> {
+  const SetupPersistenceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'setupPersistenceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$setupPersistenceHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<SetupPersistenceService> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<SetupPersistenceService> create(Ref ref) {
+    return setupPersistence(ref);
+  }
+}
+
+String _$setupPersistenceHash() => r'4ce12784964cf69d3f1f74e2d5df86a54f8e3ca9';
