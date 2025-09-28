@@ -12,8 +12,7 @@ part of 'mealplan.dart';
 @ProviderFor(Mealplan)
 const mealplanProvider = MealplanProvider._();
 
-final class MealplanProvider
-    extends $AsyncNotifierProvider<Mealplan, MealPlan> {
+final class MealplanProvider extends $AsyncNotifierProvider<Mealplan, MealPlan> {
   const MealplanProvider._()
     : super(
         from: null,

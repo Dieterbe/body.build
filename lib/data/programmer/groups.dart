@@ -25,7 +25,7 @@ class Assign {
       (null, null) => null,
       (String value, null) => value,
       (null, String value) => value,
-      (String a, String b) => '$a, $b'
+      (String a, String b) => '$a, $b',
     };
     double newVolume;
     bool newMultiplied;
@@ -51,10 +51,18 @@ class Assign {
 enum ProgramGroup {
   wristFlexors("Wrist Flexors", [MuscleId.wristFlexors], [], 'forearm'),
   wristExtensors('Wrist Extensors', [MuscleId.wristExtensors], [], 'forearm'),
-  lowerPecs('Lower Pecs', [MuscleId.pectoralisMajorSternalHead],
-      ['transverse adduction OR flexion', 'shoulder extension'], 'pecs'),
-  upperPecs('Upper Pecs', [MuscleId.pectoralisMajorClavicularHead],
-      ['transverse adduction OR flexion', 'shoulder flexion'], 'pecs'),
+  lowerPecs(
+    'Lower Pecs',
+    [MuscleId.pectoralisMajorSternalHead],
+    ['transverse adduction OR flexion', 'shoulder extension'],
+    'pecs',
+  ),
+  upperPecs(
+    'Upper Pecs',
+    [MuscleId.pectoralisMajorClavicularHead],
+    ['transverse adduction OR flexion', 'shoulder flexion'],
+    'pecs',
+  ),
   /*
       ### Delts
 * front head: rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it’s more likely to be overworked than understimulated.
@@ -64,55 +72,80 @@ enum ProgramGroup {
   frontDelts('Front Delts', [MuscleId.deltoidsAnteriorHead], [], 'delts'),
   sideDelts('Side Delts', [MuscleId.deltoidsLateralHead], [], 'delts'),
   rearDelts('Rear Delts', [MuscleId.deltoidsPosteriorHead], [], 'delts'),
-  lowerTraps('Lower Traps', [MuscleId.lowerTraps],
-      ['middle and lower heads often get worked well with vertical pulls already'], 'traps'),
-  middleTraps('Middle Traps', [MuscleId.middleTraps],
-      ['middle and lower heads often get worked well with vertical pulls already'], 'traps'),
-  upperTraps('Upper Traps', [MuscleId.upperTrapsLowerFibers, MuscleId.upperTrapsUpperFibers],
-      ['deadlift, overhead press', 'for max growth, add a wide or overhead shrug'], 'traps'),
+  lowerTraps(
+    'Lower Traps',
+    [MuscleId.lowerTraps],
+    ['middle and lower heads often get worked well with vertical pulls already'],
+    'traps',
+  ),
+  middleTraps(
+    'Middle Traps',
+    [MuscleId.middleTraps],
+    ['middle and lower heads often get worked well with vertical pulls already'],
+    'traps',
+  ),
+  upperTraps(
+    'Upper Traps',
+    [MuscleId.upperTrapsLowerFibers, MuscleId.upperTrapsUpperFibers],
+    ['deadlift, overhead press', 'for max growth, add a wide or overhead shrug'],
+    'traps',
+  ),
   lats(
-      'Lats',
-      [MuscleId.latissimusDorsi],
-      [
-        'for non-novice trainees, >=2 different angle pulling exercises: shoulder extension & shoulder adduction'
-      ],
-      'lats'),
+    'Lats',
+    [MuscleId.latissimusDorsi],
+    [
+      'for non-novice trainees, >=2 different angle pulling exercises: shoulder extension & shoulder adduction',
+    ],
+    'lats',
+  ),
   biceps(
-      'Biceps',
-      [
-        MuscleId.bicepsBrachiiShortHead,
-        MuscleId.bicepsBrachiiLongHead,
-        MuscleId.brachialis,
-        MuscleId.brachioradialis
-      ],
-      ['elbow flexion to the side', 'elbow flexion in front'],
-      'biceps'), // as long as you do elbow flexion anyway, i think we can include all these
-  tricepsMedLatH('Triceps Med/Lat H.',
-      [MuscleId.tricepsBrachiiMedialHead, MuscleId.tricepsBrachiiLateralHead], ['presses'], 'tris'),
+    'Biceps',
+    [
+      MuscleId.bicepsBrachiiShortHead,
+      MuscleId.bicepsBrachiiLongHead,
+      MuscleId.brachialis,
+      MuscleId.brachioradialis,
+    ],
+    ['elbow flexion to the side', 'elbow flexion in front'],
+    'biceps',
+  ), // as long as you do elbow flexion anyway, i think we can include all these
+  tricepsMedLatH(
+    'Triceps Med/Lat H.',
+    [MuscleId.tricepsBrachiiMedialHead, MuscleId.tricepsBrachiiLateralHead],
+    ['presses'],
+    'tris',
+  ),
   tricepsLongHead('Triceps Long H.', [MuscleId.tricepsBrachiiLongHead], ['any isolation'], 'tris'),
-  abs('Abs', [MuscleId.rectusAbdominis, MuscleId.externalObliques],
-      ['depends on goals (e.g. typically not for physique athletes)'], 'abs'),
+  abs(
+    'Abs',
+    [MuscleId.rectusAbdominis, MuscleId.externalObliques],
+    ['depends on goals (e.g. typically not for physique athletes)'],
+    'abs',
+  ),
 
   spinalErectors(
-      'Spinal Erectors',
-      [MuscleId.spinalis, MuscleId.longissimus, MuscleId.iliocostalis],
-      [
-        'base: squats/DLs',
-        'if injury risk is low and maximum growth is desired, add a high-rep back extension'
-      ],
-      'spine'),
+    'Spinal Erectors',
+    [MuscleId.spinalis, MuscleId.longissimus, MuscleId.iliocostalis],
+    [
+      'base: squats/DLs',
+      'if injury risk is low and maximum growth is desired, add a high-rep back extension',
+    ],
+    'spine',
+  ),
   quadsVasti(
-      'Quads Vasti',
-      [MuscleId.vastusIntermedius, MuscleId.vastusLateralis, MuscleId.vastusMedialis],
-      ['squat', 'leg extension isolation: for full load across whole ROM'],
-      'quads'),
+    'Quads Vasti',
+    [MuscleId.vastusIntermedius, MuscleId.vastusLateralis, MuscleId.vastusMedialis],
+    ['squat', 'leg extension isolation: for full load across whole ROM'],
+    'quads',
+  ),
   quadsRF('Quads RF', [MuscleId.rectusFemoris], ['leg extension isolation'], 'quads'),
 
   hams(
-      'Ham Long H. & semis',
-      [MuscleId.bicepsFemorisLongHead, MuscleId.semimembranosus, MuscleId.semitendinosus],
-      ['knee flexion', 'hip extension'],
-      'hams'),
+    'Ham Long H. & semis',
+    [MuscleId.bicepsFemorisLongHead, MuscleId.semimembranosus, MuscleId.semitendinosus],
+    ['knee flexion', 'hip extension'],
+    'hams',
+  ),
   hamsShortHead('Ham Short H.', [MuscleId.bicepsFemorisShortHead], ['knee flexion'], 'hams'),
   /*
       ### Gluteus maximus (and medius)

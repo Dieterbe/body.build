@@ -38,10 +38,7 @@ class EditableHeader extends StatelessWidget {
             DropdownButton<int>(
               value: n,
               items: List.generate(10, (i) => i + 1).map((int value) {
-                return DropdownMenuItem<int>(
-                  value: value,
-                  child: Text('$value'),
-                );
+                return DropdownMenuItem<int>(value: value, child: Text('$value'));
               }).toList(),
               onChanged: (int? value) {
                 if (value != null) {
@@ -89,10 +86,7 @@ class EditableHeader extends StatelessWidget {
           ),
           if (onDelete != null) ...[
             const SizedBox(width: 8),
-            IconButton(
-              icon: const Icon(Icons.delete_outline),
-              onPressed: onDelete,
-            ),
+            IconButton(icon: const Icon(Icons.delete_outline), onPressed: onDelete),
           ],
         ],
       ),

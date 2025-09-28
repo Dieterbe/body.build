@@ -6,9 +6,11 @@ import 'package:bodybuild/data/programmer/exercises.dart';
 part 'exercise_filter_provider.g.dart';
 
 final allEquipment = Equipment.values
-    .where((eq) =>
-        eq.category == EquipmentCategory.nonMachine ||
-        eq.category == EquipmentCategory.generalMachines)
+    .where(
+      (eq) =>
+          eq.category == EquipmentCategory.nonMachine ||
+          eq.category == EquipmentCategory.generalMachines,
+    )
     .toSet();
 
 const allCategories = {
@@ -54,8 +56,9 @@ class ExerciseFilterState {
     return ExerciseFilterState(
       showFilters: showFilters ?? this.showFilters,
       query: query ?? this.query,
-      selectedMuscleGroup:
-          clearSelectedMuscleGroup ? null : (selectedMuscleGroup ?? this.selectedMuscleGroup),
+      selectedMuscleGroup: clearSelectedMuscleGroup
+          ? null
+          : (selectedMuscleGroup ?? this.selectedMuscleGroup),
       selectedEquipment: selectedEquipment ?? this.selectedEquipment,
       selectedEquipmentCategories: selectedEquipmentCategories ?? this.selectedEquipmentCategories,
       selectedExercise: clearSelectedExercise ? null : (selectedExercise ?? this.selectedExercise),
@@ -81,10 +84,7 @@ class ExerciseFilter extends _$ExerciseFilter {
   }
 
   void setMuscleGroup(ProgramGroup? group) {
-    state = state.copyWith(
-      selectedMuscleGroup: group,
-      clearSelectedMuscleGroup: group == null,
-    );
+    state = state.copyWith(selectedMuscleGroup: group, clearSelectedMuscleGroup: group == null);
   }
 
   void toggleEquipment(Equipment equipment, bool? selected) {

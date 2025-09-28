@@ -41,14 +41,15 @@ class MealPlannerWizard extends ConsumerWidget {
   }
 
   Widget _buildTrainingDaysInput(
-      BuildContext context, WidgetRef ref, MealPlan plan, Mealplan notifier) {
+    BuildContext context,
+    WidgetRef ref,
+    MealPlan plan,
+    Mealplan notifier,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Training Days per Week',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text('Training Days per Week', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         Row(
           children: [
@@ -71,21 +72,19 @@ class MealPlannerWizard extends ConsumerWidget {
   }
 
   Widget _buildMealsPerDayInput(
-      BuildContext context, WidgetRef ref, MealPlan plan, Mealplan notifier) {
+    BuildContext context,
+    WidgetRef ref,
+    MealPlan plan,
+    Mealplan notifier,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Meals per Day',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text('Meals per Day', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         Row(
           children: [
-            Text(
-              plan.mealsPerDay.toString(),
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text(plan.mealsPerDay.toString(), style: Theme.of(context).textTheme.titleLarge),
             Slider(
               value: 2, // plan.mealsPerDay.toDouble(),
               min: 1,
@@ -101,14 +100,15 @@ class MealPlannerWizard extends ConsumerWidget {
   }
 
   Widget _buildWeeklyKcalInput(
-      BuildContext context, WidgetRef ref, MealPlan plan, Mealplan notifier) {
+    BuildContext context,
+    WidgetRef ref,
+    MealPlan plan,
+    Mealplan notifier,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Weekly Calories',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text('Weekly Calories', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         Row(
           children: [
@@ -116,13 +116,9 @@ class MealPlannerWizard extends ConsumerWidget {
               child: TextFormField(
                 initialValue: plan.dayplans.isEmpty
                     ? '14000' // Default to 2000 kcal/day
-                    : (plan.dayplans.fold<double>(
-                              0,
-                              (sum, day) => sum + day.targets.kCal,
-                            ) *
-                            7)
-                        .round()
-                        .toString(),
+                    : (plan.dayplans.fold<double>(0, (sum, day) => sum + day.targets.kCal) * 7)
+                          .round()
+                          .toString(),
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Enter weekly calories',
@@ -138,35 +134,27 @@ class MealPlannerWizard extends ConsumerWidget {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }
 
   Widget _buildCalorieCyclingSelector(
-      BuildContext context, WidgetRef ref, MealPlan plan, Mealplan notifier) {
+    BuildContext context,
+    WidgetRef ref,
+    MealPlan plan,
+    Mealplan notifier,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Calorie Cycling',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text('Calorie Cycling', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         SegmentedButton<CalorieCyclingType>(
           segments: const [
-            ButtonSegment(
-              value: CalorieCyclingType.off,
-              label: Text('Off'),
-            ),
-            ButtonSegment(
-              value: CalorieCyclingType.on,
-              label: Text('On'),
-            ),
-            ButtonSegment(
-              value: CalorieCyclingType.psmf,
-              label: Text('PSMF Days'),
-            ),
+            ButtonSegment(value: CalorieCyclingType.off, label: Text('Off')),
+            ButtonSegment(value: CalorieCyclingType.on, label: Text('On')),
+            ButtonSegment(value: CalorieCyclingType.psmf, label: Text('PSMF Days')),
           ],
           selected: {plan.calorieCycling},
           onSelectionChanged: (Set<CalorieCyclingType> selected) async {

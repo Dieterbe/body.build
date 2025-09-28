@@ -15,8 +15,9 @@ class ProgramPersistenceService {
     if (programsJson == null) return {};
 
     final Map<String, dynamic> programsMap = json.decode(programsJson);
-    return programsMap
-        .map((key, value) => MapEntry(key, ProgramState.fromJson(value as Map<String, dynamic>)));
+    return programsMap.map(
+      (key, value) => MapEntry(key, ProgramState.fromJson(value as Map<String, dynamic>)),
+    );
   }
 
   /// Helper method to save programs map to SharedPreferences

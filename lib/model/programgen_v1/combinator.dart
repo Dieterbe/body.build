@@ -1,8 +1,12 @@
 import 'package:bodybuild/model/programgen_v1/rank.dart';
 import 'package:bodybuild/model/programgen_v1/util.dart';
 
-combinator(List<RankedExercise> exercises, int minExercises, int maxExercises,
-    Function(List<RankedExercise>) callback) {
+combinator(
+  List<RankedExercise> exercises,
+  int minExercises,
+  int maxExercises,
+  Function(List<RankedExercise>) callback,
+) {
   var results = 0;
   var totalResults = 0;
   for (var numExercises = minExercises; numExercises <= maxExercises; numExercises++) {

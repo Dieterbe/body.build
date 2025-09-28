@@ -33,10 +33,7 @@ class _MusclesScreenState extends State<MusclesScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'filter',
-              ),
+              decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'filter'),
               onChanged: (value) {
                 setState(() {
                   _filter = value;
@@ -52,7 +49,8 @@ class _MusclesScreenState extends State<MusclesScreen> {
               itemBuilder: (context, index) {
                 final category = MuscleCategory.values
                     .where(
-                        (a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()))
+                      (a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()),
+                    )
                     .toList()[index];
                 return ListTile(
                   title: Row(

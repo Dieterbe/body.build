@@ -19,12 +19,12 @@ class EquipmentLabel extends StatelessWidget {
       child: Text(
         e.displayName.replaceAll(' Machine', ''),
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: MediaQuery.sizeOf(context).width / 140,
-              color: err
-                  ? Theme.of(context).colorScheme.onError
-                  : Theme.of(context).colorScheme.onTertiaryContainer,
-              fontWeight: FontWeight.bold,
-            ),
+          fontSize: MediaQuery.sizeOf(context).width / 140,
+          color: err
+              ? Theme.of(context).colorScheme.onError
+              : Theme.of(context).colorScheme.onTertiaryContainer,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

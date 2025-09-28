@@ -21,16 +21,18 @@ final gluteMaximus = SingleHeadMuscle(
       // most force in anatomic position, decreases with flex
     ),
     const Movement(
-        // likely mainly upper fibers
-        articulation: Articulation.hipExternalRotation,
-        strength: 4,
-        rangeStart: 0,
-        rangeEnd: 45),
+      // likely mainly upper fibers
+      articulation: Articulation.hipExternalRotation,
+      strength: 4,
+      rangeStart: 0,
+      rangeEnd: 45,
+    ),
     const Movement(
-        articulation: Articulation.hipTransverseAbduction,
-        strength: 6, // primary when hip is flexed
-        rangeStart: 0,
-        rangeEnd: 50),
+      articulation: Articulation.hipTransverseAbduction,
+      strength: 6, // primary when hip is flexed
+      rangeStart: 0,
+      rangeEnd: 50,
+    ),
     const Movement(
       articulation: Articulation.hipAbduction,
       strength: 4, // in this case - not bent at the hip - medius and minimus are primary
@@ -54,7 +56,7 @@ final gluteMaximus = SingleHeadMuscle(
 final gluteMedius = SingleHeadMuscle(
   id: MuscleId.gluteMedius,
   categories: [MuscleCategory.glutes],
-// wide hips
+  // wide hips
   insertion: Bone.femur,
   // note: rotations are impractical to train, so just focus on hip abduction in extension position
   movements: [
@@ -67,9 +69,9 @@ final gluteMedius = SingleHeadMuscle(
       rangeStart: 0,
       rangeEnd: 90,
     ),
-// during parts of hip abduction
+    // during parts of hip abduction
     const Movement(articulation: Articulation.hipExternalRotation, strength: 4),
-// most anterior fibers only. so hopefully something else does this stronger
+    // most anterior fibers only. so hopefully something else does this stronger
     const Movement(articulation: Articulation.hipInternalRotation, strength: 4),
   ],
   origin: [Bone.iliacCrest],
@@ -82,8 +84,9 @@ final gluteMinimus = SingleHeadMuscle(
   movements: [
     const Movement(articulation: Articulation.hipAbduction, strength: 6),
     const Movement(
-        articulation: Articulation.hipInternalRotation,
-        strength: 4), // during abduction only. strange movement pattern
+      articulation: Articulation.hipInternalRotation,
+      strength: 4,
+    ), // during abduction only. strange movement pattern
   ],
   origin: [Bone.iliacCrest],
 );

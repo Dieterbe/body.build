@@ -6,12 +6,13 @@ class SmallScreen extends StatelessWidget {
   final String title;
   final String description;
   final String instructions;
-  const SmallScreen(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.description,
-      required this.instructions});
+  const SmallScreen({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.instructions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,35 +34,31 @@ class SmallScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                icon,
-                size: 64,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              Icon(icon, size: 64, color: Theme.of(context).colorScheme.primary),
               const SizedBox(height: 24),
               Text(
                 title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 16),
               Text(
                 description,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 instructions,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
-                    ),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                ),
               ),
             ],
           ),

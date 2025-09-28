@@ -12,11 +12,7 @@ class RatingStars {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Icon(
-          Icons.star,
-          size: size ?? _defaultIconSize,
-          color: colorBG,
-        ),
+        Icon(Icons.star, size: size ?? _defaultIconSize, color: colorBG),
         Text(
           number.toString(),
           style: TextStyle(

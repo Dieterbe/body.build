@@ -9,18 +9,16 @@ class ExerciseDetailPanel extends ConsumerWidget {
   final Settings setupData;
   final BuildContext? pop;
 
-  const ExerciseDetailPanel({
-    super.key,
-    required this.setupData,
-    this.pop,
-  });
+  const ExerciseDetailPanel({super.key, required this.setupData, this.pop});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedExercise =
-        ref.watch(exerciseFilterProvider.select((state) => state.selectedExercise));
-    final selectedModifierOptions =
-        ref.watch(exerciseFilterProvider.select((state) => state.selectedModifierOptions));
+    final selectedExercise = ref.watch(
+      exerciseFilterProvider.select((state) => state.selectedExercise),
+    );
+    final selectedModifierOptions = ref.watch(
+      exerciseFilterProvider.select((state) => state.selectedModifierOptions),
+    );
 
     if (selectedExercise == null) return const SizedBox.shrink();
 
@@ -30,10 +28,9 @@ class ExerciseDetailPanel extends ConsumerWidget {
         setup: setupData,
         onChangeModifiersCues: (sets) {
           // Update the selected exercise with new modifier options
-          ref.read(exerciseFilterProvider.notifier).setSelectedExercise(
-                sets.ex,
-                modifierOptions: sets.modifierOptions,
-              );
+          ref
+              .read(exerciseFilterProvider.notifier)
+              .setSelectedExercise(sets.ex, modifierOptions: sets.modifierOptions);
         },
         onClose: () {
           ref.read(exerciseFilterProvider.notifier).setSelectedExercise(null);

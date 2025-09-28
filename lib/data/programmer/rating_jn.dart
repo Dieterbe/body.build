@@ -46,10 +46,7 @@ unimplemented ones:
 const ratingJNRowChestSupported = Rating(
   source: Source.jeffNippard,
   score: 7 / 7,
-  pg: [
-    ProgramGroup.lats,
-    ProgramGroup.middleTraps,
-  ],
+  pg: [ProgramGroup.lats, ProgramGroup.middleTraps],
   comment: '''
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=8m53s)
 and then upgrades it [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=11m33s) to special+ ranking''',
@@ -57,10 +54,7 @@ and then upgrades it [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=11m33s
 const ratingJNRowCable = Rating(
   source: Source.jeffNippard,
   score: 6 / 7,
-  pg: [
-    ProgramGroup.lats,
-    ProgramGroup.middleTraps,
-  ],
+  pg: [ProgramGroup.lats, ProgramGroup.middleTraps],
   comment: '''
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=9m22s)''',
   modifiers: {'spine': 'dynamic'},
@@ -99,18 +93,16 @@ https://www.youtube.com/watch?v=fGm-ef-4PVk
 13:09 - Floor Press - for max BP strength. great for tricep. no full stretch.  3/7
 */
 
-final ratingJNBBBenchPress = benchPressBenchAngle.opts.keys.map((e) => Rating(
-      source: Source.jeffNippard,
-      score: switch (e) {
-        '-15' => 4 / 7,
-        '-30' => 4 / 7,
-        _ => 5 / 7,
-      },
-      pg: [
-        ProgramGroup.lowerPecs,
-        ProgramGroup.upperPecs,
-      ],
-      comment: '''
+final ratingJNBBBenchPress = benchPressBenchAngle.opts.keys.map(
+  (e) => Rating(
+    source: Source.jeffNippard,
+    score: switch (e) {
+      '-15' => 4 / 7,
+      '-30' => 4 / 7,
+      _ => 5 / 7,
+    },
+    pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
+    comment: '''
 all barbell bench presses allow high tension but limited ROM/tension in deepest stretch, they're overloadable.  
 not always stimulating well however.
 incline variants should stimulate a bit more upper pecs (while keeping the same mid/lower)
@@ -119,20 +111,19 @@ See his discussion of the exercises:
 * [the flat barbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=1m47s)
 * [the incline barbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=2m33s)
 * [the decline barbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=2m56s)''',
-      modifiers: {'bench angle': e},
-    ));
-final ratingJNDBBenchPress = benchPressBenchAngle.opts.keys.map((e) => Rating(
-      source: Source.jeffNippard,
-      score: switch (e) {
-        '-15' => 4 / 7,
-        '-30' => 4 / 7,
-        _ => 5 / 7,
-      },
-      pg: [
-        ProgramGroup.lowerPecs,
-        ProgramGroup.upperPecs,
-      ],
-      comment: '''
+    modifiers: {'bench angle': e},
+  ),
+);
+final ratingJNDBBenchPress = benchPressBenchAngle.opts.keys.map(
+  (e) => Rating(
+    source: Source.jeffNippard,
+    score: switch (e) {
+      '-15' => 4 / 7,
+      '-30' => 4 / 7,
+      _ => 5 / 7,
+    },
+    pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
+    comment: '''
 Dumbbell presses allow deeper stretch than BB. less commonly injurious.  
 Overloadable but may run into dumbbell limits when you're very strong.
 Similar to barbell presses: the incline variants may allow more upper pec growth while keeping the same mid/lower pec growth.
@@ -142,15 +133,13 @@ See his discussion of the exercises:
 * [the flat dumbbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=3m35s)
 * [the incline dumbbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=4m16s)
 * [the decline dumbbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=4m25s)''',
-      modifiers: {'bench angle': e},
-    ));
+    modifiers: {'bench angle': e},
+  ),
+);
 const ratingJNMachineChestPress = Rating(
   source: Source.jeffNippard,
   score: 7 / 7,
-  pg: [
-    ProgramGroup.lowerPecs,
-    ProgramGroup.upperPecs,
-  ],
+  pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
   comment: '''
 Deep stretch, high tension throughout ROM. locked in for more focus. safer than freeweights.  
 (but all depends on machine)
@@ -159,10 +148,7 @@ Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=4m3
 const ratingJNPushUp = Rating(
   source: Source.jeffNippard,
   score: 3 / 7,
-  pg: [
-    ProgramGroup.lowerPecs,
-    ProgramGroup.upperPecs,
-  ],
+  pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
   comment: '''
 no equipment needed. Can get too easy when you're strong. can't overload well. limited ROM.
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m52s)''',
@@ -171,10 +157,7 @@ Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m5
 const ratingJNPushUpDeficit = Rating(
   source: Source.jeffNippard,
   score: 5 / 7,
-  pg: [
-    ProgramGroup.lowerPecs,
-    ProgramGroup.upperPecs,
-  ],
+  pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
   comment: '''
 more deep stretch. best type of pushup 
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=6m45s)''',
@@ -183,10 +166,7 @@ Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=6m4
 const ratingJNPecDeckHandGrip = Rating(
   source: Source.jeffNippard,
   score: 5 / 7,
-  pg: [
-    ProgramGroup.lowerPecs,
-    ProgramGroup.upperPecs,
-  ],
+  pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
   comment: '''big stretch, good tension across ROM. but path can can be restrictive
   Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=11m09s)
 ''',
@@ -194,10 +174,7 @@ const ratingJNPecDeckHandGrip = Rating(
 const ratingJNDumbbellFly = Rating(
   source: Source.jeffNippard,
   score: 5 / 7,
-  pg: [
-    ProgramGroup.lowerPecs,
-    ProgramGroup.upperPecs,
-  ],
+  pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
   comment: '''
 big stretch, not as smooth as cable fly's. because you lose tension at the top (contraction), jeff
 suggests doing lengthened partial reps.
@@ -208,10 +185,7 @@ suggests doing lengthened partial reps.
 const ratingJNDips = Rating(
   source: Source.jeffNippard,
   score: 5 / 7,
-  pg: [
-    ProgramGroup.lowerPecs,
-    ProgramGroup.upperPecs,
-  ],
+  pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
   comment: '''massive stretch, high tension. can overload. shoulder risk maybe. doesn't feel smooth.
   Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m08s)
 ''',
@@ -279,30 +253,33 @@ better not alternate (too much rest)
     comment: '''favors a bit more brachialis over bicep - tension mainly at the mid point
       Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=13m06s)''',
     modifiers: {'grip': 'hammer'},
-  )
+  ),
 ];
 const ratingJNCableCurl = [
   Rating(
-      source: Source.jeffNippard,
-      score: 5 / 7,
-      pg: [ProgramGroup.biceps],
-      comment:
-          '''jeff says "even tension throughout ROM". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m12s)''', // TODO: disagree
-      modifiers: {'style': 'standard'}),
+    source: Source.jeffNippard,
+    score: 5 / 7,
+    pg: [ProgramGroup.biceps],
+    comment:
+        '''jeff says "even tension throughout ROM". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m12s)''', // TODO: disagree
+    modifiers: {'style': 'standard'},
+  ),
   Rating(
-      source: Source.jeffNippard,
-      score: 7 / 7,
-      pg: [ProgramGroup.biceps],
-      comment:
-          '''jeff says "even tension throughout ROM, but now with maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m28s)''', // TODO: disagree
-      modifiers: {'style': 'bayesian with arms behind'}),
+    source: Source.jeffNippard,
+    score: 7 / 7,
+    pg: [ProgramGroup.biceps],
+    comment:
+        '''jeff says "even tension throughout ROM, but now with maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m28s)''', // TODO: disagree
+    modifiers: {'style': 'bayesian with arms behind'},
+  ),
   Rating(
-      source: Source.jeffNippard,
-      score: 5 / 7,
-      pg: [ProgramGroup.biceps],
-      comment:
-          '''jeff says "max tension at maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=11m11s)''', // TODO: also not such a consistent tension curve
-      modifiers: {'style': 'bayesian with arms behind and up'})
+    source: Source.jeffNippard,
+    score: 5 / 7,
+    pg: [ProgramGroup.biceps],
+    comment:
+        '''jeff says "max tension at maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=11m11s)''', // TODO: also not such a consistent tension curve
+    modifiers: {'style': 'bayesian with arms behind and up'},
+  ),
 ];
 
 /// *

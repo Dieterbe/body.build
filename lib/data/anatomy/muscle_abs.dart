@@ -16,10 +16,7 @@ final rectusAbdominis = SingleHeadMuscle(
       rangeStart: 0,
       rangeEnd: 85,
     ),
-    const Movement(
-      articulation: Articulation.intraAbdominalPressure,
-      strength: 4,
-    ),
+    const Movement(articulation: Articulation.intraAbdominalPressure, strength: 4),
   ],
   //name: 'rectus abdominis',
   // inserts into sternum
@@ -49,10 +46,7 @@ final externalObliques = SingleHeadMuscle(
       rangeStart: 0,
       rangeEnd: 40,
     ),
-    const Movement(
-      articulation: Articulation.intraAbdominalPressure,
-      strength: 6,
-    ),
+    const Movement(articulation: Articulation.intraAbdominalPressure, strength: 6),
   ],
   // the below 2 are inner, invisible
   // name: 'external obliques',

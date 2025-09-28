@@ -8,11 +8,7 @@ class ExerciseRatingsDialog extends StatelessWidget {
   final String exerciseId;
   final List<Rating> ratings;
 
-  const ExerciseRatingsDialog({
-    super.key,
-    required this.exerciseId,
-    required this.ratings,
-  });
+  const ExerciseRatingsDialog({super.key, required this.exerciseId, required this.ratings});
 
   double _calculateAverageRating() {
     return ratings.fold<double>(0, (sum, rating) => sum + rating.score) / ratings.length;
@@ -21,9 +17,7 @@ class ExerciseRatingsDialog extends StatelessWidget {
   Widget _buildCommentWithVideo(BuildContext context, String comment) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        markdown(comment, context),
-      ],
+      children: [markdown(comment, context)],
     );
   }
 
@@ -48,79 +42,79 @@ class ExerciseRatingsDialog extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
-              ...ratings.map((rating) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Source: ${rating.source.name.camelToSpace().capitalizeFirst()}',
-                          style: const TextStyle(fontWeight: FontWeight.w500),
+              ...ratings.map(
+                (rating) => Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Source: ${rating.source.name.camelToSpace().capitalizeFirst()}',
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      Text('Score: ${(rating.score * 100).toStringAsFixed(1)}%'),
+                      if (rating.comment.isNotEmpty)
+                        _buildCommentWithVideo(context, rating.comment),
+                      if (rating.modifiers.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        const Text(
+                          'Assuming you uset hese exercise modifiers:',
+                          style: TextStyle(fontWeight: FontWeight.w500),
                         ),
-                        Text('Score: ${(rating.score * 100).toStringAsFixed(1)}%'),
-                        if (rating.comment.isNotEmpty)
-                          _buildCommentWithVideo(context, rating.comment),
-                        if (rating.modifiers.isNotEmpty) ...[
-                          const SizedBox(height: 4),
-                          const Text(
-                            'Assuming you uset hese exercise modifiers:',
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                        const SizedBox(height: 4),
+                        ...rating.modifiers.entries.map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Text('${e.key}: ${e.value}'),
                           ),
-                          const SizedBox(height: 4),
-                          ...rating.modifiers.entries.map((e) => Padding(
-                                padding: const EdgeInsets.only(left: 16),
-                                child: Text('${e.key}: ${e.value}'),
-                              )),
-                        ],
-                        if (rating.cues.isNotEmpty) ...[
-                          const SizedBox(height: 4),
-                          const Text(
-                            'Assuming you use these exercise cues:',
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(height: 4),
-                          ...rating.cues.map((cue) => Padding(
-                                padding: const EdgeInsets.only(left: 16),
-                                child: Text(cue),
-                              )),
-                        ],
-                        if (rating.pg.isNotEmpty) ...[
-                          const SizedBox(height: 4),
-                          Wrap(
-                            spacing: 4,
-                            children: rating.pg
-                                .map((group) => Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 6,
-                                        vertical: 2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: bgColorForProgramGroup(group),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Text(
-                                        group.name,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Theme.of(context).colorScheme.onSurface,
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
-                        ],
+                        ),
                       ],
-                    ),
-                  )),
+                      if (rating.cues.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        const Text(
+                          'Assuming you use these exercise cues:',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 4),
+                        ...rating.cues.map(
+                          (cue) =>
+                              Padding(padding: const EdgeInsets.only(left: 16), child: Text(cue)),
+                        ),
+                      ],
+                      if (rating.pg.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Wrap(
+                          spacing: 4,
+                          children: rating.pg
+                              .map(
+                                (group) => Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: bgColorForProgramGroup(group),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    group.name,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Theme.of(context).colorScheme.onSurface,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Close'),
-        ),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Close')),
       ],
     );
   }
@@ -129,9 +123,6 @@ class ExerciseRatingsDialog extends StatelessWidget {
 void showRatingsDialog(String id, List<Rating> ratings, BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) => ExerciseRatingsDialog(
-      exerciseId: id,
-      ratings: ratings,
-    ),
+    builder: (context) => ExerciseRatingsDialog(exerciseId: id, ratings: ratings),
   );
 }

@@ -81,23 +81,23 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                             ...Equipment.values
                                 .where((equipment) => equipment.category == category)
                                 .map((equipment) {
-                              return Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Checkbox(
-                                    value: setup.availEquipment.contains(equipment),
-                                    onChanged: (selected) {
-                                      if (selected == true) {
-                                        notifier.addEquipment(equipment);
-                                        return;
-                                      }
-                                      notifier.removeEquipment(equipment);
-                                    },
-                                  ),
-                                  EquipmentLabel(equipment),
-                                ],
-                              );
-                            }),
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Checkbox(
+                                        value: setup.availEquipment.contains(equipment),
+                                        onChanged: (selected) {
+                                          if (selected == true) {
+                                            notifier.addEquipment(equipment);
+                                            return;
+                                          }
+                                          notifier.removeEquipment(equipment);
+                                        },
+                                      ),
+                                      EquipmentLabel(equipment),
+                                    ],
+                                  );
+                                }),
                           ],
                         ),
                       ),

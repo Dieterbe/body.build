@@ -10,8 +10,9 @@ class ProgramBreakdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // pg -> modality -> Ex (hitting pg with recruitment >= 0.5) -> number of sets of that ex
-    final Map<ProgramGroup, Map<String, Map<Ex, int>>> tree =
-        Map.fromEntries(ProgramGroup.values.map((group) => MapEntry(group, {})));
+    final Map<ProgramGroup, Map<String, Map<Ex, int>>> tree = Map.fromEntries(
+      ProgramGroup.values.map((group) => MapEntry(group, {})),
+    );
 
     // Go through the program and build the structure
     for (final workout in program.workouts) {
@@ -44,19 +45,20 @@ class ProgramBreakdown extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Muscle modalities",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          Text("Muscle modalities", style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 4),
           const Text(
-              'Note: the purpose is understanding the different ways in which the muscle is stimulated'),
+            'Note: the purpose is understanding the different ways in which the muscle is stimulated',
+          ),
           const Text(
-              'for a given muscle, only the relevant articulations of used exercises are shown'),
+            'for a given muscle, only the relevant articulations of used exercises are shown',
+          ),
           const Text(
-              'this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc'),
+            'this section is a WORK IN PROGRESS. does not include many details yet like leverage curve, unilateral vs bilateral, eccentric overloading, etc',
+          ),
           const Text(
-              'For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis'),
+            'For this to make any sense, make sure to have added several sets of exercises. Note. many exercises are not added yet to this analysis',
+          ),
           const SizedBox(height: 16),
           ...ProgramGroup.values.map((group) {
             final modalities = tree[group]!;
@@ -97,8 +99,9 @@ class ProgramBreakdown extends StatelessWidget {
                   ...modalities.entries.map((modalityGroup) {
                     final description = modalityGroup.key;
                     final exerciseList = modalityGroup.value;
-                    final exerciseText =
-                        exerciseList.entries.map((e) => '${e.value}x ${e.key.id}').join(', ');
+                    final exerciseText = exerciseList.entries
+                        .map((e) => '${e.value}x ${e.key.id}')
+                        .join(', ');
 
                     return Container(
                       margin: const EdgeInsets.only(top: 4),
@@ -129,9 +132,7 @@ class ProgramBreakdown extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 16),
                                 child: Text(
                                   exerciseText,
-                                  style: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface,
-                                  ),
+                                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                                 ),
                               ),
                             ),

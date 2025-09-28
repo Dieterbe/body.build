@@ -17,33 +17,25 @@ extension StringExtension on String {
 
   /// Converts camelCase to snake_case for URL paths
   String camelToSnake() {
-    return replaceAllMapped(
-      RegExp(r'[A-Z]'),
-      (match) => '_${match.group(0)!.toLowerCase()}',
-    );
+    return replaceAllMapped(RegExp(r'[A-Z]'), (match) => '_${match.group(0)!.toLowerCase()}');
   }
 
   /// Converts snake_case to camelCase for parsing URL paths
   String snakeToCamel() {
-    return replaceAllMapped(
-      RegExp(r'_([a-z])'),
-      (match) => match.group(1)!.toUpperCase(),
-    );
+    return replaceAllMapped(RegExp(r'_([a-z])'), (match) => match.group(1)!.toUpperCase());
   }
 }
 
 extension IterableExtension<T> on Iterable<T> {
   /// Insert any item<T> inBetween the list items
   Iterable<T> insertBetween(T item) => expand((e) sync* {
-        yield item;
-        yield e;
-      }).skip(1);
+    yield item;
+    yield e;
+  }).skip(1);
 
-// insertBetween will be called with index 0 up until iterable.length
-// (i.o.w iterable.length + 1 times)
-  Iterable<T> insertBeforeBetweenAfter(
-    T Function(int index) insert,
-  ) sync* {
+  // insertBetween will be called with index 0 up until iterable.length
+  // (i.o.w iterable.length + 1 times)
+  Iterable<T> insertBeforeBetweenAfter(T Function(int index) insert) sync* {
     for (final (i, element) in indexed) {
       yield insert(i);
       yield element;

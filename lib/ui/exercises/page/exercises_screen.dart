@@ -17,11 +17,7 @@ class ExercisesScreen extends ConsumerStatefulWidget {
   final String? exerciseId;
   final Map<String, String>? modifierOptions;
 
-  const ExercisesScreen({
-    super.key,
-    this.exerciseId,
-    this.modifierOptions,
-  });
+  const ExercisesScreen({super.key, this.exerciseId, this.modifierOptions});
 
   @override
   ConsumerState<ExercisesScreen> createState() => _ExercisesScreenState();
@@ -41,14 +37,13 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   void _initializeFromUrl() {
     if (widget.exerciseId != null) {
       final exercise = exes.cast<Ex?>().firstWhere(
-            (ex) => ex?.id == widget.exerciseId,
-            orElse: () => null,
-          );
+        (ex) => ex?.id == widget.exerciseId,
+        orElse: () => null,
+      );
       if (exercise != null) {
-        ref.read(exerciseFilterProvider.notifier).setSelectedExercise(
-              exercise,
-              modifierOptions: widget.modifierOptions ?? {},
-            );
+        ref
+            .read(exerciseFilterProvider.notifier)
+            .setSelectedExercise(exercise, modifierOptions: widget.modifierOptions ?? {});
       }
     }
   }
@@ -80,8 +75,10 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
 
     // Listen for exercise selection on mobile/tablet to show modal
     if (!isDesktop) {
-      ref.listen(exerciseFilterProvider.select((state) => state.selectedExercise),
-          (previous, selectedExercise) {
+      ref.listen(exerciseFilterProvider.select((state) => state.selectedExercise), (
+        previous,
+        selectedExercise,
+      ) {
         if (selectedExercise != null && previous != selectedExercise) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             setup.whenData((setupData) => _showExerciseDetailModal(setupData, context));
@@ -91,12 +88,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     }
 
     return setup.when(
-      loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
-      error: (error, stack) => Scaffold(
-        body: Center(child: Text('Error: $error')),
-      ),
+      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      error: (error, stack) => Scaffold(body: Center(child: Text('Error: $error'))),
       data: (setupData) => Scaffold(
         appBar: AppBar(
           title: const Text('Exercise Browser'),
@@ -105,8 +98,9 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             if (!isDesktop) ...[
               Consumer(
                 builder: (context, ref, child) {
-                  final showFilters =
-                      ref.watch(exerciseFilterProvider.select((state) => state.showFilters));
+                  final showFilters = ref.watch(
+                    exerciseFilterProvider.select((state) => state.showFilters),
+                  );
                   return IconButton(
                     icon: Icon(showFilters ? Icons.filter_list_off : Icons.filter_list),
                     onPressed: () {
@@ -122,8 +116,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         body: isDesktop
             ? _buildDesktopLayout(setupData)
             : isTablet
-                ? _buildTabletLayout(setupData)
-                : _buildMobileLayout(setupData),
+            ? _buildTabletLayout(setupData)
+            : _buildMobileLayout(setupData),
       ),
     );
   }
@@ -138,23 +132,19 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             border: Border(
-              right: BorderSide(
-                color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-              ),
+              right: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
             ),
           ),
           child: const FilterPanel(),
         ),
         // Exercise List
-        Expanded(
-          flex: 2,
-          child: ExerciseList(setupData),
-        ),
+        Expanded(flex: 2, child: ExerciseList(setupData)),
         // Exercise Detail Panel
         Consumer(
           builder: (context, ref, child) {
-            final selectedExercise =
-                ref.watch(exerciseFilterProvider.select((state) => state.selectedExercise));
+            final selectedExercise = ref.watch(
+              exerciseFilterProvider.select((state) => state.selectedExercise),
+            );
             if (selectedExercise == null) return const SizedBox.shrink();
             return Container(
               width: 400,
@@ -162,9 +152,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 border: Border(
-                  left: BorderSide(
-                    color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-                  ),
+                  left: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
                 ),
               ),
               alignment: Alignment.topCenter,
@@ -182,8 +170,9 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         // Collapsible Filters Panel
         Consumer(
           builder: (context, ref, child) {
-            final showFilters =
-                ref.watch(exerciseFilterProvider.select((state) => state.showFilters));
+            final showFilters = ref.watch(
+              exerciseFilterProvider.select((state) => state.showFilters),
+            );
             if (!showFilters) return const SizedBox.shrink();
             return Container(
               width: 280,
@@ -191,9 +180,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface,
                 border: Border(
-                  right: BorderSide(
-                    color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-                  ),
+                  right: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
                 ),
               ),
               child: const FilterPanel(),
@@ -201,9 +188,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           },
         ),
         // Exercise List
-        Expanded(
-          child: ExerciseList(setupData),
-        ),
+        Expanded(child: ExerciseList(setupData)),
       ],
     );
   }
@@ -213,15 +198,14 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
       children: [
         Consumer(
           builder: (context, ref, child) {
-            final showFilters =
-                ref.watch(exerciseFilterProvider.select((state) => state.showFilters));
+            final showFilters = ref.watch(
+              exerciseFilterProvider.select((state) => state.showFilters),
+            );
             if (!showFilters) return const SizedBox.shrink();
             return const FilterMobile();
           },
         ),
-        Expanded(
-          child: ExerciseList(setupData),
-        ),
+        Expanded(child: ExerciseList(setupData)),
       ],
     );
   }

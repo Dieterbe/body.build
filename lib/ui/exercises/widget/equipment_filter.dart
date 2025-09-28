@@ -4,9 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 
 class EquipmentFilter extends ConsumerWidget {
-  const EquipmentFilter({
-    super.key,
-  });
+  const EquipmentFilter({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,36 +16,29 @@ class EquipmentFilter extends ConsumerWidget {
         // Presets
         Row(
           children: [
-            ElevatedButton(
-              onPressed: filterNotifier.setAllEquipment,
-              child: const Text('All'),
-            ),
+            ElevatedButton(onPressed: filterNotifier.setAllEquipment, child: const Text('All')),
             const SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: filterNotifier.setNoEquipment,
-              child: const Text('None'),
-            ),
+            ElevatedButton(onPressed: filterNotifier.setNoEquipment, child: const Text('None')),
           ],
         ),
         const SizedBox(height: 12),
 
         // Individual Non-machine and General Machine equipment
         ...Equipment.values
-            .where((eq) =>
-                eq.category == EquipmentCategory.nonMachine ||
-                eq.category == EquipmentCategory.generalMachines)
+            .where(
+              (eq) =>
+                  eq.category == EquipmentCategory.nonMachine ||
+                  eq.category == EquipmentCategory.generalMachines,
+            )
             .map((equipment) {
-          return CheckboxListTile(
-            dense: true,
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              equipment.displayName,
-              style: const TextStyle(fontSize: 13),
-            ),
-            value: filterState.selectedEquipment.contains(equipment),
-            onChanged: (selected) => filterNotifier.toggleEquipment(equipment, selected),
-          );
-        }),
+              return CheckboxListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                title: Text(equipment.displayName, style: const TextStyle(fontSize: 13)),
+                value: filterState.selectedEquipment.contains(equipment),
+                onChanged: (selected) => filterNotifier.toggleEquipment(equipment, selected),
+              );
+            }),
 
         const SizedBox(height: 12),
 

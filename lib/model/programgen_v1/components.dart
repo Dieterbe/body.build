@@ -11,12 +11,11 @@ import 'package:bodybuild/model/programgen_v1/rank.dart';
 // if we have 1 big component it was 286M total combos
 // 2 separate components -> 9k and 220k combos
 List<List<RankedExercise>> findExerciseComponents(
-    Iterable<RankedExercise> exercises, Map<ProgramGroup, double> targets) {
+  Iterable<RankedExercise> exercises,
+  Map<ProgramGroup, double> targets,
+) {
   // Always ignore these groups when finding components
-  final alwaysIgnoredGroups = {
-    ProgramGroup.wristFlexors,
-    ProgramGroup.wristExtensors,
-  };
+  final alwaysIgnoredGroups = {ProgramGroup.wristFlexors, ProgramGroup.wristExtensors};
 
   // Groups to ignore for upper/lower body exercises
   final upperBodyIgnoredGroups = {
@@ -26,10 +25,7 @@ List<List<RankedExercise>> findExerciseComponents(
     ProgramGroup.spinalErectors,
   };
 
-  final lowerBodyIgnoredGroups = {
-    ProgramGroup.upperTraps,
-    ProgramGroup.lats,
-  };
+  final lowerBodyIgnoredGroups = {ProgramGroup.upperTraps, ProgramGroup.lats};
 
   // Helper to determine if exercise is primarily lower body
   bool isLowerBodyExercise(Ex ex) {
@@ -69,8 +65,12 @@ List<List<RankedExercise>> findExerciseComponents(
     ignoredGroups.addAll(isLower ? lowerBodyIgnoredGroups : upperBodyIgnoredGroups);
 
     exerciseGroups[ex] = ProgramGroup.values
-        .where((pg) =>
-            !ignoredGroups.contains(pg) && ex.ex.recruitment(pg, {}).volume > 0 && targets[pg]! > 0)
+        .where(
+          (pg) =>
+              !ignoredGroups.contains(pg) &&
+              ex.ex.recruitment(pg, {}).volume > 0 &&
+              targets[pg]! > 0,
+        )
         .toSet();
   }
 

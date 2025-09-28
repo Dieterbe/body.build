@@ -28,7 +28,7 @@ final hamstrings = MultiHeadMuscle(
       // leg curls -> avoid full hip extension
       // hip extension -> avoid knees bent
       //
-    )
+    ),
   ],
   headsMap: {
     MuscleId.bicepsFemorisShortHead: const Head(
@@ -106,6 +106,6 @@ final hamstrings = MultiHeadMuscle(
           rangeEnd: 10,
         ),
       ],
-    )
+    ),
   },
 );

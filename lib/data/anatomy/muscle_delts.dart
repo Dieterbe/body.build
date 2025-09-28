@@ -25,7 +25,7 @@ final deltoids = MultiHeadMuscle(
         Movement(
           articulation: Articulation.shoulderTransverseFlexion,
           strength: 5,
-// best leverage horizontal 0 -45degrees, then its pecs
+          // best leverage horizontal 0 -45degrees, then its pecs
           rangeStart: 0,
           rangeEnd: 90,
         ),
@@ -46,11 +46,11 @@ final deltoids = MultiHeadMuscle(
           // (when shoulder is externally rotated)
           articulation: Articulation.shoulderAbduction,
           strength: 4,
-        )
+        ),
       ],
     ),
     // standard U length-tension relation. optimum at middle
-// weakest at full contraction
+    // weakest at full contraction
     MuscleId.deltoidsLateralHead: const Head(
       id: MuscleId.deltoidsLateralHead,
       name: 'lateral head',
@@ -81,7 +81,7 @@ final deltoids = MultiHeadMuscle(
       origin: [Bone.scapula],
     ),
     // max length is most strong
-// weak when shortened
+    // weak when shortened
     MuscleId.deltoidsPosteriorHead: const Head(
       id: MuscleId.deltoidsPosteriorHead,
       name: 'posterior head',
@@ -101,18 +101,18 @@ final deltoids = MultiHeadMuscle(
           rangeEnd: 45,
         ),
         Movement(
-            // best leverage at side or behind back
-            // http://doi.org/10.1111/joa.12903
-            // more flexion is less moment arm
-            articulation: Articulation.shoulderExtension,
-            strength: 4,
-            rangeStart: 170,
-            rangeEnd: 0),
+          // best leverage at side or behind back
+          // http://doi.org/10.1111/joa.12903
+          // more flexion is less moment arm
+          articulation: Articulation.shoulderExtension,
+          strength: 4,
+          rangeStart: 170,
+          rangeEnd: 0,
+        ),
         Movement(
           // best leverage at side or behind back
-// http://doi.org/10.1111/joa.12903
+          // http://doi.org/10.1111/joa.12903
           // more flexion is less moment arm
-
           articulation: Articulation.shoulderHyperextension,
           strength: 6, // primary mover. pecs/lats can't extend beyond anatomical
           rangeStart: 0,

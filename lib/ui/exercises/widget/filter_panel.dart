@@ -5,9 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 
 class FilterPanel extends ConsumerWidget {
-  const FilterPanel({
-    super.key,
-  });
+  const FilterPanel({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,9 +31,7 @@ class FilterPanel extends ConsumerWidget {
           decoration: InputDecoration(
             hintText: 'Search exercises...',
             prefixIcon: const Icon(Icons.search),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             filled: true,
             fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
           ),
@@ -69,10 +65,9 @@ class FilterPanel extends ConsumerWidget {
                   value: null,
                   child: Text('All muscle groups'),
                 ),
-                ...ProgramGroup.values.map((group) => DropdownMenuItem(
-                      value: group,
-                      child: Text(group.displayName),
-                    )),
+                ...ProgramGroup.values.map(
+                  (group) => DropdownMenuItem(value: group, child: Text(group.displayName)),
+                ),
               ],
               onChanged: filterNotifier.setMuscleGroup,
             ),
@@ -91,11 +86,7 @@ class FilterPanel extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 8),
-        const Expanded(
-          child: SingleChildScrollView(
-            child: EquipmentFilter(),
-          ),
-        ),
+        const Expanded(child: SingleChildScrollView(child: EquipmentFilter())),
       ],
     );
   }

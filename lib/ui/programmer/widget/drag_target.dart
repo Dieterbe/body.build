@@ -10,8 +10,15 @@ class DragTargetWidget extends StatelessWidget {
   final Function(Workout) onChange;
   final DragTargetBuilder builder;
 
-  const DragTargetWidget(this.workout, this.pos, this.reject,
-      {required this.onDrop, required this.onChange, required this.builder, super.key});
+  const DragTargetWidget(
+    this.workout,
+    this.pos,
+    this.reject, {
+    required this.onDrop,
+    required this.onChange,
+    required this.builder,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -9,11 +9,7 @@ import 'package:bodybuild/ui/anatomy/page/muscle.dart';
 class MuscleButton extends StatelessWidget {
   final Muscle muscle;
   final MuscleId? head;
-  const MuscleButton({
-    super.key,
-    required this.muscle,
-    this.head,
-  });
+  const MuscleButton({super.key, required this.muscle, this.head});
 
   @override
   Widget build(BuildContext context) {

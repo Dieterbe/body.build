@@ -99,7 +99,9 @@ const vaSquatBSQ = {
   ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
   ProgramGroup.gluteMax: Assign(
-      1, 'hip extension (from long to somewhat flexed still), less load when short & strongest'),
+    1,
+    'hip extension (from long to somewhat flexed still), less load when short & strongest',
+  ),
   ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
   ProgramGroup.hams: Assign(0.3, 'hip extension'),
   ProgramGroup.abs: Assign(0.25),
@@ -123,23 +125,20 @@ const vaSquatPistolSissyAssistedSpanish = {
 const vaLegExtensionReverseNordicHamCurlSquatSissy = {
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
 };
-const vaHipThrustGluteKickback = {
-  ProgramGroup.gluteMax: Assign(1),
-};
+const vaHipThrustGluteKickback = {ProgramGroup.gluteMax: Assign(1)};
 
 final vaHipAbductionStraightHip = {
   // for exercises that use this EBase but don't use the modifier, we assume straight hip
   ...hipAbductionHipFlexion('0°').opts['0°']!.$1,
 };
 const vaStandingCalfRaiseCalfJump = {
-  ProgramGroup.gastroc:
-      Assign(1, 'ankle plantarflexion (medium to long length, stretched at knee)'),
+  ProgramGroup.gastroc: Assign(
+    1,
+    'ankle plantarflexion (medium to long length, stretched at knee)',
+  ),
   ProgramGroup.soleus: Assign(1, 'ankle plantarflexion (full ROM)'),
 };
-const vaSeatedCalfRaise = {
-  ProgramGroup.gastroc: Assign(0.25),
-  ProgramGroup.soleus: Assign(1),
-};
+const vaSeatedCalfRaise = {ProgramGroup.gastroc: Assign(0.25), ProgramGroup.soleus: Assign(1)};
 /* Note, in the PTC course exercise library:
 pull up -> grip just outside shoulder width
 wide grip pull down -> grip just outside shoulder width
@@ -175,10 +174,7 @@ const vaRow = {
   ProgramGroup.tricepsLongHead: Assign(0.25),
   ...wrist05,
 };
-const vaRowWithoutSpine = {
-  ...vaRow,
-  ProgramGroup.lats: Assign(1, 'not full stretch'),
-};
+const vaRowWithoutSpine = {...vaRow, ProgramGroup.lats: Assign(1, 'not full stretch')};
 // specifically, this is for standing rows where you hip hinge forward
 const vaRowWithSpineIso = {
   ...vaRowWithoutSpine,
@@ -194,10 +190,14 @@ const vaPullOverLatPrayer = {
   ...wrist03,
 };
 const vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull = {
-  ProgramGroup.rearDelts: Assign(1,
-      'full ROM shoulder transverse abduction'), // TODO: while true for rearDeltFly, didn't check the others
+  ProgramGroup.rearDelts: Assign(
+    1,
+    'full ROM shoulder transverse abduction',
+  ), // TODO: while true for rearDeltFly, didn't check the others
   ProgramGroup.lowerTraps: Assign(
-      1, 'scapular retraction (maybe: isometric scapular depression depending on technique)'),
+    1,
+    'scapular retraction (maybe: isometric scapular depression depending on technique)',
+  ),
   ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
   ...wrist03,
 };
@@ -240,8 +240,10 @@ const vaOverheadPressBB = {
   ProgramGroup.lowerTraps: Assign(0.25),
   ProgramGroup.middleTraps: Assign(0.25),
   ProgramGroup.upperTraps: Assign(0.25),
-  ProgramGroup.tricepsMedLatH: Assign(0.75,
-      'elbow extension'), // TODO: normally should be 1 but i think i read somewhere they don't activate well for most people
+  ProgramGroup.tricepsMedLatH: Assign(
+    0.75,
+    'elbow extension',
+  ), // TODO: normally should be 1 but i think i read somewhere they don't activate well for most people
   ProgramGroup.tricepsLongHead: Assign(0.25),
   ProgramGroup.abs: Assign(0.25),
   ...wrist025,
@@ -265,10 +267,7 @@ const vaLateralRaise = {
   ProgramGroup.upperTraps: Assign(0.25),
   ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
 };
-const vaShrug = {
-  ProgramGroup.upperTraps: Assign(1, 'scapular elevation'),
-  ...wrist05,
-};
+const vaShrug = {ProgramGroup.upperTraps: Assign(1, 'scapular elevation'), ...wrist05};
 // TODO: classify based on shoulder position?
 const vaTricepExtension = {
   ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
@@ -296,18 +295,24 @@ const vaTricepExtensionOverhead = {
   bicep short head is insufficient @ max stretch and full contraction
   */
 const vaBicepCurlAnatomic = {
-  ProgramGroup.biceps:
-      Assign(1, 'elbow flexion with loading at mid-point, in anatomic position (strongest)'),
+  ProgramGroup.biceps: Assign(
+    1,
+    'elbow flexion with loading at mid-point, in anatomic position (strongest)',
+  ),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaBicepCurlBayesian = {
-  ProgramGroup.biceps:
-      Assign(1, 'elbow flexion with loading on all lengths, in anatomic position (strongest)'),
+  ProgramGroup.biceps: Assign(
+    1,
+    'elbow flexion with loading on all lengths, in anatomic position (strongest)',
+  ),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaBicepCurlPreacher = {
-  ProgramGroup.biceps:
-      Assign(1, 'elbow flexion with loading at longer length, but shortened (weakened)'),
+  ProgramGroup.biceps: Assign(
+    1,
+    'elbow flexion with loading at longer length, but shortened (weakened)',
+  ),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
 const vaBicepCurlConcentration = {
@@ -318,18 +323,10 @@ const vaBicepCurlLying = {
   ProgramGroup.biceps: Assign(1, 'elbow flexion with loading at longer length, while stretched'),
   ProgramGroup.wristFlexors: Assign(0.25, 'isometric'),
 };
-const vaAbCrunch = {
-  ProgramGroup.abs: Assign(1, 'full ROM'),
-};
-const vaAbIsometric = {
-  ProgramGroup.abs: Assign(1, 'isometric'),
-};
-const vaWristExtension = {
-  ProgramGroup.wristExtensors: Assign(1, 'active ROM'),
-};
-const vaWristFlexion = {
-  ProgramGroup.wristFlexors: Assign(1, 'active ROM'),
-};
+const vaAbCrunch = {ProgramGroup.abs: Assign(1, 'full ROM')};
+const vaAbIsometric = {ProgramGroup.abs: Assign(1, 'isometric')};
+const vaWristExtension = {ProgramGroup.wristExtensors: Assign(1, 'active ROM')};
+const vaWristFlexion = {ProgramGroup.wristFlexors: Assign(1, 'active ROM')};
 
 // why no seperation in lats activation for rows vs prayers. various triceps extensions
 

@@ -52,7 +52,8 @@ class ArticulationMovements {
     }
     for (var m in moves) {
       print(
-          '${articulation.name} ${m.muscle.name} -> ${m.mo.rangeStart} - ${m.mo.momentMax} - ${m.mo.rangeEnd}');
+        '${articulation.name} ${m.muscle.name} -> ${m.mo.rangeStart} - ${m.mo.momentMax} - ${m.mo.rangeEnd}',
+      );
     }
     final rangeStarts = moves.map((m) => m.mo.rangeStart).whereType<int>().toList();
     final rangeEnds = moves.map((m) => m.mo.rangeEnd).whereType<int>().toList();

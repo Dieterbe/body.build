@@ -58,10 +58,7 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
 
     // Get ratings for current configuration
     final currentRatings = localSets
-        .getApplicableRatingsForConfig(
-          localSets.modifierOptions,
-          localSets.cueOptions,
-        )
+        .getApplicableRatingsForConfig(localSets.modifierOptions, localSets.cueOptions)
         .toList();
 
     // Create a copy of current configuration
@@ -77,12 +74,7 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     }
 
     // Get ratings for this configuration
-    final ratings = localSets
-        .getApplicableRatingsForConfig(
-          modifierConfig,
-          cueConfig,
-        )
-        .toList();
+    final ratings = localSets.getApplicableRatingsForConfig(modifierConfig, cueConfig).toList();
 
     // Only show rating icon if this option changes the ratings
     if (ratings.length == currentRatings.length) {
@@ -98,8 +90,9 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
 
     return RatingIcon(
       ratings: ratings,
-      onTap:
-          ratings.isEmpty ? null : () => {showRatingsDialog(widget.sets.ex!.id, ratings, context)},
+      onTap: ratings.isEmpty
+          ? null
+          : () => {showRatingsDialog(widget.sets.ex!.id, ratings, context)},
     );
   }
 
@@ -134,9 +127,9 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
           children: [
             Text(
               'Exercise Details',
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineLarge?.copyWith(color: Theme.of(context).colorScheme.primary),
             ),
             const SizedBox(width: 8),
             IconButton(
@@ -175,10 +168,7 @@ They are in this application such that:
 In the future, you'll be able to add any cues you can come up with.
 ''', context),
                     actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('OK'),
-                      ),
+                      TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
                     ],
                   ),
                 );
@@ -198,9 +188,9 @@ In the future, you'll be able to add any cues you can come up with.
         const SizedBox(height: 16),
         Text(
           'Exercise',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
         const SizedBox(height: 12),
         if (localSets.ex != null && !localSets.changeEx) ...[
@@ -235,12 +225,14 @@ In the future, you'll be able to add any cues you can come up with.
               return filtered;
             },
             onSelected: (Ex selection) {
-              onChangeEx(localSets.copyWith(
-                ex: selection,
-                changeEx: false,
-                modifierOptions: {},
-                cueOptions: {},
-              ));
+              onChangeEx(
+                localSets.copyWith(
+                  ex: selection,
+                  changeEx: false,
+                  modifierOptions: {},
+                  cueOptions: {},
+                ),
+              );
             },
             fieldViewBuilder: (context, controller, focusNode, onSubmitted) {
               return TextField(
@@ -272,102 +264,104 @@ In the future, you'll be able to add any cues you can come up with.
           const SizedBox(height: 24),
         ],
         if (localSets.ex?.modifiers.isEmpty == false) ...[
-          ...localSets.ex!.modifiers.map((modifier) => Padding(
-                padding: const EdgeInsets.only(bottom: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Modifier: ${modifier.name.capitalizeFirstOnly()}",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
+          ...localSets.ex!.modifiers.map(
+            (modifier) => Padding(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Modifier: ${modifier.name.capitalizeFirstOnly()}",
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                    const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          ...(modifier.opts.entries.toList()
-                                ..sort((a, b) => a.key.compareTo(b.key)))
-                              .map((opt) {
-                            final optionDesc = opt.value.$2;
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                RadioListTile<String>(
-                                  title: Row(
-                                    children: [
-                                      Text(opt.key),
-                                      const SizedBox(width: 8),
-                                      _buildRatingIcon(
-                                        modifierName: modifier.name,
-                                        modifierValue: opt.key,
-                                        context: context,
-                                      ),
-                                      if (opt.key == modifier.defaultVal) ...[
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          '(default)',
-                                          style: TextStyle(
-                                            fontSize: MediaQuery.of(context).size.width / 120,
-                                            color: Theme.of(context).hintColor,
-                                            fontStyle: FontStyle.italic,
-                                          ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ...(modifier.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key)))
+                            .map((opt) {
+                              final optionDesc = opt.value.$2;
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RadioListTile<String>(
+                                    title: Row(
+                                      children: [
+                                        Text(opt.key),
+                                        const SizedBox(width: 8),
+                                        _buildRatingIcon(
+                                          modifierName: modifier.name,
+                                          modifierValue: opt.key,
+                                          context: context,
                                         ),
+                                        if (opt.key == modifier.defaultVal) ...[
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            '(default)',
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context).size.width / 120,
+                                              color: Theme.of(context).hintColor,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                          ),
+                                        ],
                                       ],
-                                    ],
-                                  ),
-                                  value: opt.key,
-                                  groupValue: localSets.modifierOptions[modifier.name] ??
-                                      modifier.defaultVal,
-                                  onChanged: widget.onChangeModifiersCues != null
-                                      ? (value) {
-                                          if (value != null) {
-                                            onChangeModifiersCues(localSets.copyWith(
-                                              modifierOptions: {
-                                                ...localSets.modifierOptions,
-                                                modifier.name: value
-                                              },
-                                            ));
+                                    ),
+                                    value: opt.key,
+                                    groupValue:
+                                        localSets.modifierOptions[modifier.name] ??
+                                        modifier.defaultVal,
+                                    onChanged: widget.onChangeModifiersCues != null
+                                        ? (value) {
+                                            if (value != null) {
+                                              onChangeModifiersCues(
+                                                localSets.copyWith(
+                                                  modifierOptions: {
+                                                    ...localSets.modifierOptions,
+                                                    modifier.name: value,
+                                                  },
+                                                ),
+                                              );
+                                            }
                                           }
-                                        }
-                                      : null,
-                                  contentPadding: EdgeInsets.zero,
-                                ),
-                                if (optionDesc.isNotEmpty)
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 56, bottom: 8),
-                                    child: markdown(optionDesc, context),
+                                        : null,
+                                    contentPadding: EdgeInsets.zero,
                                   ),
-                              ],
-                            );
-                          }),
-                          if (modifier.desc != null) ...[
-                            const SizedBox(height: 16),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2),
-                              child: markdown(modifier.desc!, context),
-                            ),
-                          ],
+                                  if (optionDesc.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 56, bottom: 8),
+                                      child: markdown(optionDesc, context),
+                                    ),
+                                ],
+                              );
+                            }),
+                        if (modifier.desc != null) ...[
+                          const SizedBox(height: 16),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 2),
+                            child: markdown(modifier.desc!, context),
+                          ),
                         ],
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
         if (localSets.ex?.cues.isEmpty == false) ...[
           if (localSets.ex!.modifiers.isNotEmpty) const SizedBox(height: 24),
           Text(
             'Cues',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
           const SizedBox(height: 12),
           Column(
@@ -383,9 +377,7 @@ In the future, you'll be able to add any cues you can come up with.
                         Expanded(
                           child: Row(
                             children: [
-                              Text(
-                                entry.key,
-                              ),
+                              Text(entry.key),
                               const SizedBox(width: 8),
                               _buildRatingIcon(
                                 cueName: entry.key,
@@ -399,12 +391,11 @@ In the future, you'll be able to add any cues you can come up with.
                           value: isEnabled,
                           onChanged: widget.onChangeModifiersCues != null
                               ? (value) {
-                                  onChangeModifiersCues(localSets.copyWith(
-                                    cueOptions: {
-                                      ...localSets.cueOptions,
-                                      entry.key: value,
-                                    },
-                                  ));
+                                  onChangeModifiersCues(
+                                    localSets.copyWith(
+                                      cueOptions: {...localSets.cueOptions, entry.key: value},
+                                    ),
+                                  );
                                 }
                               : null,
                         ),
@@ -412,10 +403,7 @@ In the future, you'll be able to add any cues you can come up with.
                     ),
                     if (entry.value.$2.isNotEmpty) ...[
                       const SizedBox(height: 8),
-                      markdown(
-                        entry.value.$2,
-                        context,
-                      ),
+                      markdown(entry.value.$2, context),
                     ],
                   ],
                 );

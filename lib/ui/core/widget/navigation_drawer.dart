@@ -41,16 +41,16 @@ class AppNavigationDrawer extends StatelessWidget {
                     Text(
                       'Body.build',
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Advanced workout planner',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.9),
-                          ),
+                        color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.9),
+                      ),
                     ),
                   ],
                 ),
@@ -128,16 +128,14 @@ class AppNavigationDrawer extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               border: Border(
-                top: BorderSide(
-                  color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-                ),
+                top: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
               ),
             ),
             child: Text(
               'Free • No ads • No signup',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                  ),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -152,10 +150,10 @@ class AppNavigationDrawer extends StatelessWidget {
       child: Text(
         title.toUpperCase(),
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1.2,
-            ),
+          color: Theme.of(context).colorScheme.primary,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1.2,
+        ),
       ),
     );
   }
@@ -168,7 +166,8 @@ class AppNavigationDrawer extends StatelessWidget {
     required String currentRoute,
     required VoidCallback onTap,
   }) {
-    final isSelected = currentRoute.contains('/$routeName') ||
+    final isSelected =
+        currentRoute.contains('/$routeName') ||
         (routeName == HomeScreen.routeName && currentRoute == '/');
 
     return ListTile(

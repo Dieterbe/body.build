@@ -17,8 +17,9 @@ class ProgrammerBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final program =
-        ref.watch(programManagerProvider.select((state) => state.value?.currentProgram));
+    final program = ref.watch(
+      programManagerProvider.select((state) => state.value?.currentProgram),
+    );
     final setup = ref.watch(setupProvider);
     final notifier = ref.read(programManagerProvider.notifier);
 
@@ -47,13 +48,11 @@ class ProgrammerBuilder extends ConsumerWidget {
               children: [
                 const SizedBox(width: 20),
                 const Flexible(flex: 45, child: ProgramHeader()),
-                Flexible(
-                  flex: 55,
-                  child: program.workouts.isEmpty ? Container() : headers(),
-                ),
+                Flexible(flex: 55, child: program.workouts.isEmpty ? Container() : headers()),
                 const SizedBox(width: 20),
               ],
             ),
+
             // visual aid for debugging
             /*    Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -79,18 +78,15 @@ class ProgrammerBuilder extends ConsumerWidget {
               ],
             ),
             */
-
-            ...program.workouts.map((w) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: BuilderWorkoutWidget(setup, w, (Workout? wNew) {
-                    notifier.updateWorkout(w, wNew);
-                  }),
-                )),
-            if (program.workouts.isNotEmpty)
-              BuilderTotalsWidget(
-                program.workouts,
-                setup: setup,
+            ...program.workouts.map(
+              (w) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: BuilderWorkoutWidget(setup, w, (Workout? wNew) {
+                  notifier.updateWorkout(w, wNew);
+                }),
               ),
+            ),
+            if (program.workouts.isNotEmpty) BuilderTotalsWidget(program.workouts, setup: setup),
             if (program.workouts.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),

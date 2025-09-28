@@ -31,7 +31,12 @@ abstract class Parameters with _$Parameters {
         // TODO: age affects intensity
       },
       setsPerweekPerMuscleGroup: calcOptimalSetsPerWeekPerMuscleGroupMH(
-          s.sex, s.level, s.recoveryFactor, s.energyBalance / 100, s.workoutsPerWeek * 1.0),
+        s.sex,
+        s.level,
+        s.recoveryFactor,
+        s.energyBalance / 100,
+        s.workoutsPerWeek * 1.0,
+      ),
       setsPerWeekPerMuscleGroupIndividual: [],
     );
   }

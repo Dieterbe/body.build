@@ -37,7 +37,7 @@ final longissimus = SingleHeadMuscle(
       strength: 2,
       rangeStart: 0,
       rangeEnd: 80,
-    )
+    ),
   ],
   //name: 'longissimus',
   origin: [Bone.spine],
@@ -59,7 +59,7 @@ final iliocostalis = SingleHeadMuscle(
       strength: 2,
       rangeStart: 0,
       rangeEnd: 80,
-    )
+    ),
   ],
   // name: 'iliocostalis',
   origin: [Bone.iliacCrest],
@@ -83,7 +83,7 @@ final spinalis = SingleHeadMuscle(
       strength: 2,
       rangeStart: 0,
       rangeEnd: 80,
-    )
+    ),
   ],
   //name: 'spinalis',
   origin: [Bone.spine],

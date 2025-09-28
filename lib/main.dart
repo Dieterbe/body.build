@@ -18,7 +18,7 @@ import 'package:posthog_flutter/posthog_flutter.dart';
 void main() async {
   // disabled for now. not all that useful actually..
   // WidgetsFlutterBinding.ensureInitialized();
-//  loadKaos();
+  //  loadKaos();
 
   // *without* this flag, behavior is like so:
   // go -> uses proper URL, but overrides 'back' stack, goes straight back to home
@@ -49,10 +49,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       title: 'Body.build: advanced workout planner for coaches and lifters',
       //     darkTheme: ThemeData.dark(),
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: colorSeed),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: colorSeed), useMaterial3: true),
       routerConfig: GoRouter(
         initialLocation: '/',
         routes: [
@@ -69,9 +66,8 @@ class MyApp extends StatelessWidget {
                   GoRoute(
                     name: ArticulationScreen.routeName,
                     path: '/:id',
-                    builder: (context, state) => ArticulationScreen(
-                      id: state.pathParameters['id']!.snakeToCamel(),
-                    ),
+                    builder: (context, state) =>
+                        ArticulationScreen(id: state.pathParameters['id']!.snakeToCamel()),
                   ),
                 ],
               ),
@@ -83,9 +79,8 @@ class MyApp extends StatelessWidget {
                   GoRoute(
                     name: MuscleScreen.routeName,
                     path: '/:id',
-                    builder: (context, state) => MuscleScreen(
-                      id: state.pathParameters['id']!.snakeToCamel(),
-                    ),
+                    builder: (context, state) =>
+                        MuscleScreen(id: state.pathParameters['id']!.snakeToCamel()),
                   ),
                 ],
               ),
@@ -112,12 +107,13 @@ class MyApp extends StatelessWidget {
 
                       // TODO validation of id and modifiers
                       return ExercisesScreen(
-                          exerciseId: parseExerciseId(id),
-                          modifierOptions: parseExerciseParams(state.uri.queryParameters));
+                        exerciseId: parseExerciseId(id),
+                        modifierOptions: parseExerciseParams(state.uri.queryParameters),
+                      );
                     },
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ],

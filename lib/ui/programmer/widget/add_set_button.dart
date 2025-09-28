@@ -19,26 +19,16 @@ class AddSetButton extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
           foregroundColor: Theme.of(context).colorScheme.primary,
           elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.add_circle_outline,
-              size: 18,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            Icon(Icons.add_circle_outline, size: 18, color: Theme.of(context).colorScheme.primary),
             const SizedBox(width: 8),
             const Text(
               'Add Set',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                letterSpacing: 0.3,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, letterSpacing: 0.3),
             ),
           ],
         ),

@@ -17,14 +17,15 @@ class HomeScreen extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Body.build'),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-        ),
-        drawer: const AppNavigationDrawer(),
-        body: SingleChildScrollView(
-          child: Column(children: [
+      appBar: AppBar(
+        title: const Text('Body.build'),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      drawer: const AppNavigationDrawer(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
             // Hero Section
             Container(
               width: double.infinity,
@@ -32,10 +33,7 @@ class HomeScreen extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    colorScheme.primary.withValues(alpha: 0.1),
-                    Colors.transparent,
-                  ],
+                  colors: [colorScheme.primary.withValues(alpha: 0.1), Colors.transparent],
                 ),
               ),
               child: Padding(
@@ -190,7 +188,10 @@ class HomeScreen extends StatelessWidget {
                                   icon: Icons.fitness_center,
                                   color: colorScheme.primary,
                                   onTap: () => _navigateQuickAccess(
-                                      context, ExercisesScreen.routeName, false),
+                                    context,
+                                    ExercisesScreen.routeName,
+                                    false,
+                                  ),
                                 ),
                                 _buildQuickAccessCard(
                                   context: context,
@@ -220,11 +221,8 @@ class HomeScreen extends StatelessWidget {
                                         subtitle: 'Begin training session',
                                         icon: Icons.play_arrow,
                                         color: Colors.green,
-                                        onTap: () => _navigateQuickAccess(
-                                          context,
-                                          'start_workout',
-                                          true,
-                                        ),
+                                        onTap: () =>
+                                            _navigateQuickAccess(context, 'start_workout', true),
                                         showComingSoon: true,
                                       ),
                                 _buildQuickAccessCard(
@@ -245,7 +243,6 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 32),
 
                       // YouTube Video Section
-
                       Text(
                         'Help',
                         style: theme.textTheme.headlineSmall?.copyWith(
@@ -265,8 +262,10 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ]),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildQuickAccessCard({
@@ -301,11 +300,7 @@ class HomeScreen extends StatelessWidget {
                       color: color.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(
-                      icon,
-                      color: color,
-                      size: 28,
-                    ),
+                    child: Icon(icon, color: color, size: 28),
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -412,9 +407,7 @@ class HomeScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                          child: const Center(child: CircularProgressIndicator()),
                         );
                       },
                       errorBuilder: (context, error, stackTrace) {
@@ -439,10 +432,7 @@ class HomeScreen extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withValues(alpha: 0.3),
-                          ],
+                          colors: [Colors.transparent, Colors.black.withValues(alpha: 0.3)],
                         ),
                       ),
                     ),
@@ -454,11 +444,7 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.black.withValues(alpha: 0.7),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: 40,
-                        ),
+                        child: const Icon(Icons.play_arrow, color: Colors.white, size: 40),
                       ),
                     ),
                     // YouTube logo in corner
@@ -507,11 +493,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      Icon(
-                        Icons.play_circle_outline,
-                        color: colorScheme.primary,
-                        size: 20,
-                      ),
+                      Icon(Icons.play_circle_outline, color: colorScheme.primary, size: 20),
                       const SizedBox(width: 8),
                       Text(
                         'Watch Introduction',
@@ -532,12 +514,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _navigateQuickAccess(BuildContext context, String routeName, bool wip) async {
-    await Posthog().capture(
-      eventName: 'QuickAccessClicked',
-      properties: {
-        'route': routeName,
-      },
-    );
+    await Posthog().capture(eventName: 'QuickAccessClicked', properties: {'route': routeName});
 
     if (context.mounted) {
       if (wip) {
@@ -559,10 +536,7 @@ class HomeScreen extends StatelessWidget {
 
     await Posthog().capture(
       eventName: 'YouTubeVideoClicked',
-      properties: {
-        'source': 'home_screen',
-        'video_url': youtubeUrl,
-      },
+      properties: {'source': 'home_screen', 'video_url': youtubeUrl},
     );
 
     final uri = Uri.parse(youtubeUrl);
@@ -570,11 +544,7 @@ class HomeScreen extends StatelessWidget {
       // Try to launch with external application mode first
       // this seems to work well on web, but not android, which shows
       // component name for https://www.youtube.com/watch?v=wOVZdZ9_jdE is null"
-      await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-        webOnlyWindowName: '_blank',
-      );
+      await launchUrl(uri, mode: LaunchMode.externalApplication, webOnlyWindowName: '_blank');
     } catch (e) {
       // Fallback: try with platform default mode
       try {

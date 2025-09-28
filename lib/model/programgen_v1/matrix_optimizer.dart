@@ -13,29 +13,29 @@ class MatrixOptimizer {
   int setCombosTried = 0;
 
   MatrixOptimizer(List<RankedExercise> exs, Map<ProgramGroup, double> targets)
-      : exercises = exs,
-        programGroups = targets.keys.toList(),
-        recruitmentMatrix = Matrix.fromList(
-          List.generate(
-            exs.length,
-            (i) => List.generate(
-              targets.length,
-              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
-            ),
+    : exercises = exs,
+      programGroups = targets.keys.toList(),
+      recruitmentMatrix = Matrix.fromList(
+        List.generate(
+          exs.length,
+          (i) => List.generate(
+            targets.length,
+            (j) => exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
           ),
         ),
-        targetVector = Vector.fromList(targets.values.toList()),
-        // Cache the data as lists for faster access
-        recruitmentData = Matrix.fromList(
-          List.generate(
-            exs.length,
-            (i) => List.generate(
-              targets.length,
-              (j) => exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
-            ),
+      ),
+      targetVector = Vector.fromList(targets.values.toList()),
+      // Cache the data as lists for faster access
+      recruitmentData = Matrix.fromList(
+        List.generate(
+          exs.length,
+          (i) => List.generate(
+            targets.length,
+            (j) => exs[i].ex.recruitment(targets.keys.elementAt(j), {}).volume,
           ),
-        ).toList().map((row) => row.toList()).toList(),
-        targetData = targets.values.toList();
+        ),
+      ).toList().map((row) => row.toList()).toList(),
+      targetData = targets.values.toList();
 
   // Calculate cost for a given set combination (vector of setcounts per exercise)
   double calculateCost(List<int> setCounts) {
@@ -84,10 +84,7 @@ class MatrixOptimizer {
     print('Best set counts: ${bestSets.join(',')}');
 
     return SetGroup(
-      List.generate(
-        exercises.length,
-        (i) => Sets(60, ex: exercises[i].ex, n: bestSets[i]),
-      ),
+      List.generate(exercises.length, (i) => Sets(60, ex: exercises[i].ex, n: bestSets[i])),
     );
   }
 }

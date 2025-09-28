@@ -44,22 +44,24 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
               bottomRight: isExpanded ? Radius.zero : const Radius.circular(8),
             ),
           ),
-          child: Row(children: [
-            Flexible(
-              flex: 45,
-              child: Row(
-                children: [
-                  Flexible(flex: 15, child: _numSetsButton(context)),
-                  Flexible(flex: 15, child: _intensityButton(context)),
-                  Flexible(flex: 15, child: _exerciseEditButton(context)),
-                  Flexible(flex: 10, child: _deleteButton(context)),
-                  Flexible(flex: 70, child: _exerciseName(setRatings, context)),
-                  Flexible(flex: 35, child: _equipment(context)),
-                ],
+          child: Row(
+            children: [
+              Flexible(
+                flex: 45,
+                child: Row(
+                  children: [
+                    Flexible(flex: 15, child: _numSetsButton(context)),
+                    Flexible(flex: 15, child: _intensityButton(context)),
+                    Flexible(flex: 15, child: _exerciseEditButton(context)),
+                    Flexible(flex: 10, child: _deleteButton(context)),
+                    Flexible(flex: 70, child: _exerciseName(setRatings, context)),
+                    Flexible(flex: 35, child: _equipment(context)),
+                  ],
+                ),
               ),
-            ),
-            Flexible(flex: 55, child: _recruitmentMarkers(context)),
-          ]),
+              Flexible(flex: 55, child: _recruitmentMarkers(context)),
+            ],
+          ),
         ),
         if (isExpanded) ...[
           // if the menu is expanded we wouldn't want any clicking, swiping etc in the expanded menu
@@ -98,10 +100,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                 builder: (context, value, child) {
                   return Opacity(
                     opacity: value,
-                    child: Transform.translate(
-                      offset: Offset(0, 8 * (1 - value)),
-                      child: child,
-                    ),
+                    child: Transform.translate(offset: Offset(0, 8 * (1 - value)), child: child),
                   );
                 },
                 child: ExerciseDetailsDialog(
@@ -120,67 +119,69 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
   }
 
   Widget _numSetsButton(BuildContext context) => DropdownButtonHideUnderline(
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: DropdownButton<int>(
-            value: widget.sets.n,
-            icon: Icon(
-              Icons.arrow_drop_down,
-              color: Theme.of(context).colorScheme.primary,
-              size: MediaQuery.sizeOf(context).width / 60,
-            ),
-            items: List.generate(10, (index) => index + 1).map<DropdownMenuItem<int>>((int value) {
-              return DropdownMenuItem<int>(
-                value: value,
-                child: Text(
-                  value.toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: MediaQuery.sizeOf(context).width / 80,
-                  ),
-                ),
-              );
-            }).toList(),
-            onChanged: (int? newValue) {
-              if (newValue == null) return;
-              widget.onChange(widget.sets.copyWith(n: newValue));
-            },
-          ),
+    child: Align(
+      alignment: Alignment.centerLeft,
+      child: DropdownButton<int>(
+        value: widget.sets.n,
+        icon: Icon(
+          Icons.arrow_drop_down,
+          color: Theme.of(context).colorScheme.primary,
+          size: MediaQuery.sizeOf(context).width / 60,
         ),
-      );
+        items: List.generate(10, (index) => index + 1).map<DropdownMenuItem<int>>((int value) {
+          return DropdownMenuItem<int>(
+            value: value,
+            child: Text(
+              value.toString(),
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: MediaQuery.sizeOf(context).width / 80,
+              ),
+            ),
+          );
+        }).toList(),
+        onChanged: (int? newValue) {
+          if (newValue == null) return;
+          widget.onChange(widget.sets.copyWith(n: newValue));
+        },
+      ),
+    ),
+  );
 
   Widget _intensityButton(BuildContext context) => DropdownButtonHideUnderline(
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: DropdownButton<int>(
-            // if you go back and change the setup, we must reset the intensity to something that's allowed
-            value: (widget.setup.paramFinal.intensities.contains(widget.sets.intensity))
-                ? widget.sets.intensity
-                : widget.setup.paramFinal.intensities.first,
-            icon: Icon(Icons.arrow_drop_down,
-                color: Theme.of(context).colorScheme.primary,
-                size: MediaQuery.sizeOf(context).width / 60),
-            items: widget.setup.paramFinal.intensities.map<DropdownMenuItem<int>>((int value) {
-              return DropdownMenuItem<int>(
-                value: value,
-                child: Text(
-                  value.toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: MediaQuery.sizeOf(context).width / 80,
-                  ),
-                ),
-              );
-            }).toList(),
-            onChanged: (int? newValue) {
-              if (newValue == null) return;
-              widget.onChange(widget.sets.copyWith(intensity: newValue));
-            },
-          ),
+    child: Align(
+      alignment: Alignment.centerLeft,
+      child: DropdownButton<int>(
+        // if you go back and change the setup, we must reset the intensity to something that's allowed
+        value: (widget.setup.paramFinal.intensities.contains(widget.sets.intensity))
+            ? widget.sets.intensity
+            : widget.setup.paramFinal.intensities.first,
+        icon: Icon(
+          Icons.arrow_drop_down,
+          color: Theme.of(context).colorScheme.primary,
+          size: MediaQuery.sizeOf(context).width / 60,
         ),
-      );
+        items: widget.setup.paramFinal.intensities.map<DropdownMenuItem<int>>((int value) {
+          return DropdownMenuItem<int>(
+            value: value,
+            child: Text(
+              value.toString(),
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: MediaQuery.sizeOf(context).width / 80,
+              ),
+            ),
+          );
+        }).toList(),
+        onChanged: (int? newValue) {
+          if (newValue == null) return;
+          widget.onChange(widget.sets.copyWith(intensity: newValue));
+        },
+      ),
+    ),
+  );
 
   Widget _exerciseEditButton(BuildContext context) {
     return IconButton(
@@ -192,129 +193,123 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
       icon: widget.sets.ex == null
           ? PulseWidget(
               pulse: !isExpanded,
-              child: Icon(
-                isExpanded ? Icons.expand_less : Icons.settings,
-              ),
+              child: Icon(isExpanded ? Icons.expand_less : Icons.settings),
             )
-          : Icon(
-              isExpanded ? Icons.expand_less : Icons.settings,
-            ),
+          : Icon(isExpanded ? Icons.expand_less : Icons.settings),
       style: IconButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
 
   Widget _deleteButton(BuildContext context) => IconButton(
-        onPressed: () {
-          widget.onChange(null);
-        },
-        icon: Icon(
-          Icons.delete_outline,
-          size: MediaQuery.sizeOf(context).width / 60,
-          color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
-        ),
-        style: IconButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      );
+    onPressed: () {
+      widget.onChange(null);
+    },
+    icon: Icon(
+      Icons.delete_outline,
+      size: MediaQuery.sizeOf(context).width / 60,
+      color: Theme.of(context).colorScheme.error.withValues(alpha: 0.8),
+    ),
+    style: IconButton.styleFrom(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
+  );
 
   Widget _exerciseName(List<Rating> setRatings, BuildContext context) => Align(
-        alignment: Alignment.centerLeft,
-        child: (widget.sets.ex != null)
-            ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Row(
-                  children: [
-                    Text(
-                      widget.sets.ex!.id,
-                      style: TextStyle(
-                        fontSize: MediaQuery.sizeOf(context).width / 110,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.3,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
+    alignment: Alignment.centerLeft,
+    child: (widget.sets.ex != null)
+        ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                Text(
+                  widget.sets.ex!.id,
+                  style: TextStyle(
+                    fontSize: MediaQuery.sizeOf(context).width / 110,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.3,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                if (setRatings.isNotEmpty) ...[
+                  const SizedBox(width: 8),
+                  IconButton(
+                    onPressed: () => showRatingsDialog(widget.sets.ex!.id, setRatings, context),
+                    icon: RatingIcon(
+                      ratings: setRatings,
+                      size:
+                          MediaQuery.sizeOf(context).width /
+                          60, // made up number, should probably find something more elegant
                     ),
-                    if (setRatings.isNotEmpty) ...[
-                      const SizedBox(width: 8),
-                      IconButton(
-                        onPressed: () => showRatingsDialog(widget.sets.ex!.id, setRatings, context),
-                        icon: RatingIcon(
-                          ratings: setRatings,
-                          size: MediaQuery.sizeOf(context).width /
-                              60, // made up number, should probably find something more elegant
-                        ),
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                        splashRadius: 20,
-                      ),
-                    ],
-                  ],
-                ))
-            : Container(),
-      );
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    splashRadius: 20,
+                  ),
+                ],
+              ],
+            ),
+          )
+        : Container(),
+  );
 
   Widget _equipment(BuildContext context) => Row(
-        children: [
-          if (widget.sets.ex != null) ...[
-            ...widget.sets.ex!.equipment.map((e) => Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: EquipmentLabel(e, err: !widget.setup.availEquipment.contains(e)),
-                )),
-          ],
-          if (widget.hasNewComboButton)
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.blue.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.merge_type, size: 16, color: Colors.blue),
-                    SizedBox(width: 4),
-                    Text('New ComboSet', style: TextStyle(color: Colors.blue)),
-                  ],
-                ),
-              ),
+    children: [
+      if (widget.sets.ex != null) ...[
+        ...widget.sets.ex!.equipment.map(
+          (e) => Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: EquipmentLabel(e, err: !widget.setup.availEquipment.contains(e)),
+          ),
+        ),
+      ],
+      if (widget.hasNewComboButton)
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.blue.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
             ),
-        ],
-      );
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.merge_type, size: 16, color: Colors.blue),
+                SizedBox(width: 4),
+                Text('New ComboSet', style: TextStyle(color: Colors.blue)),
+              ],
+            ),
+          ),
+        ),
+    ],
+  );
 
   Widget _recruitmentMarkers(BuildContext context) => Row(
-        children:
-            // muscle recruitment values
-            ProgramGroup.values
-                .map(
-                  (g) => Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: bgColorForProgramGroup(g),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: muscleMark(
-                              widget.sets.ex == null
-                                  ? 0
-                                  : widget.sets.ex!
-                                      .recruitment(g, widget.sets.modifierOptions)
-                                      .volume,
-                              context)),
+    children:
+        // muscle recruitment values
+        ProgramGroup.values
+            .map(
+              (g) => Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: bgColorForProgramGroup(g),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: muscleMark(
+                      widget.sets.ex == null
+                          ? 0
+                          : widget.sets.ex!.recruitment(g, widget.sets.modifierOptions).volume,
+                      context,
                     ),
                   ),
-                )
-                .toList(),
-      );
+                ),
+              ),
+            )
+            .toList(),
+  );
 }

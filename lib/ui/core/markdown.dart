@@ -6,9 +6,7 @@ Widget markdown(String body, BuildContext context) {
   return MarkdownBody(
     data: body,
     styleSheet: MarkdownStyleSheet(
-      p: TextStyle(
-        color: Theme.of(context).hintColor,
-      ),
+      p: TextStyle(color: Theme.of(context).hintColor),
       a: TextStyle(
         color: Theme.of(context).colorScheme.primary,
         decoration: TextDecoration.none,

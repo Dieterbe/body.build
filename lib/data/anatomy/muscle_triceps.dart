@@ -70,14 +70,14 @@ final tricepsBrachii = MultiHeadMuscle(
         comment: "arm extended behind body",
         factors: [
           InsufficiencyFactor(Articulation.elbowExtension, 0),
-          InsufficiencyFactor(Articulation.shoulderFlexion, 20)
+          InsufficiencyFactor(Articulation.shoulderFlexion, 20),
         ],
       ),
       passiveInsufficiency: Insufficiency(
         comment: "arm bent overhead, but even during overhead extension you don't reach this",
         factors: [
           InsufficiencyFactor(Articulation.shoulderFlexion, 160),
-          InsufficiencyFactor(Articulation.elbowFlexion, 150)
+          InsufficiencyFactor(Articulation.elbowFlexion, 150),
         ],
       ),
     ),

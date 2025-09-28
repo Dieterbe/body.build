@@ -7,12 +7,7 @@ class RatingIcon extends StatelessWidget {
   final double? size;
   final VoidCallback? onTap;
 
-  const RatingIcon({
-    super.key,
-    required this.ratings,
-    this.size,
-    this.onTap,
-  });
+  const RatingIcon({super.key, required this.ratings, this.size, this.onTap});
 
   double _calculateAverageRating() {
     if (ratings.isEmpty) return 0;
@@ -24,17 +19,10 @@ class RatingIcon extends StatelessWidget {
     if (ratings.isEmpty) return const SizedBox.shrink();
 
     final avgRating = _calculateAverageRating();
-    final iconWidget = RatingStars.starFromScore(
-      avgRating,
-      context,
-      size: size,
-    );
+    final iconWidget = RatingStars.starFromScore(avgRating, context, size: size);
 
     if (onTap == null) return iconWidget;
 
-    return InkWell(
-      onTap: onTap,
-      child: iconWidget,
-    );
+    return InkWell(onTap: onTap, child: iconWidget);
   }
 }

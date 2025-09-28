@@ -92,10 +92,7 @@ class BuilderTotalsWidget extends ConsumerWidget {
                                 const Text('Program Volume Score', style: TextStyle(fontSize: 12)),
                                 Text(
                                   '${(ws.score * 100).toStringAsFixed(1)}%',
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -120,13 +117,11 @@ This enables you to see and optimize the balance between isolation and compound 
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          right:
-                              8), // a bit of a hack, to create some space against the viz on the right
+                        right: 8,
+                      ), // a bit of a hack, to create some space against the viz on the right
                       child: SizedBox(
                         height: 40 + 40 * max(1, min(ws.maxVal, limit)),
-                        child: HistogramWidget(
-                          data: ws.setsHisto,
-                        ),
+                        child: HistogramWidget(data: ws.setsHisto),
                       ),
                     ),
                   ],
@@ -157,24 +152,27 @@ This enables you to see and optimize the balance between isolation and compound 
                       height: 40 * max(1, min(ws.maxVal, limit)),
                       child: Row(
                         children: ProgramGroup.values
-                            .map((g) => Expanded(
-                                  child: Stack(
-                                    alignment: Alignment.bottomCenter,
-                                    children: [
-                                      Container(
-                                        height: double.infinity,
-                                        color: bgColorForProgramGroup(g),
-                                      ),
-                                      Container(
-                                        height: 40 *
-                                            (ws.maxVal > limit
-                                                ? ws.totals[g]! / ws.maxVal * limit
-                                                : ws.totals[g]!),
-                                        color: Theme.of(context).colorScheme.tertiary,
-                                      ),
-                                    ],
-                                  ),
-                                ))
+                            .map(
+                              (g) => Expanded(
+                                child: Stack(
+                                  alignment: Alignment.bottomCenter,
+                                  children: [
+                                    Container(
+                                      height: double.infinity,
+                                      color: bgColorForProgramGroup(g),
+                                    ),
+                                    Container(
+                                      height:
+                                          40 *
+                                          (ws.maxVal > limit
+                                              ? ws.totals[g]! / ws.maxVal * limit
+                                              : ws.totals[g]!),
+                                      color: Theme.of(context).colorScheme.tertiary,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
                             .toList(),
                       ),
                     ),
@@ -182,27 +180,29 @@ This enables you to see and optimize the balance between isolation and compound 
                       height: 40,
                       child: Row(
                         children: ProgramGroup.values
-                            .map((g) => Expanded(
-                                  child: Container(
-                                    color: bgColorForProgramGroup(g),
-                                    child: Center(
-                                      child: Text(
-                                        ws.totals[g]!.toStringAsFixed(1),
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: MediaQuery.of(context).size.width / 100,
-                                          color: (setup == null)
-                                              ? Colors.black
-                                              : (ws.totals[g]! >=
+                            .map(
+                              (g) => Expanded(
+                                child: Container(
+                                  color: bgColorForProgramGroup(g),
+                                  child: Center(
+                                    child: Text(
+                                      ws.totals[g]!.toStringAsFixed(1),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: MediaQuery.of(context).size.width / 100,
+                                        color: (setup == null)
+                                            ? Colors.black
+                                            : (ws.totals[g]! >=
                                                       setup!.paramFinal
                                                           .getSetsPerWeekPerMuscleGroupFor(g)
                                                   ? Colors.green
                                                   : Colors.red),
-                                        ),
                                       ),
                                     ),
                                   ),
-                                ))
+                                ),
+                              ),
+                            )
                             .toList(),
                       ),
                     ),

@@ -22,12 +22,20 @@ class SolutionNode implements Comparable<SolutionNode> {
   SolutionNode(this.sets, this.targets, this.cost, this.recruitments, this.exercises);
 
   /// Creates initial empty solution with given targets
-  factory SolutionNode.initial(List<RankedExercise> exercises,
-      List<Map<ProgramGroup, double>> recruitments, Map<ProgramGroup, double> targets) {
+  factory SolutionNode.initial(
+    List<RankedExercise> exercises,
+    List<Map<ProgramGroup, double>> recruitments,
+    Map<ProgramGroup, double> targets,
+  ) {
     print('targets.entries: ${targets.entries}');
     // initial cost is 1.0 for each muscle group as there is 0 recruitment
     return SolutionNode(
-        List.filled(exercises.length, 0), targets, targets.length * 1.0, recruitments, exercises);
+      List.filled(exercises.length, 0),
+      targets,
+      targets.length * 1.0,
+      recruitments,
+      exercises,
+    );
   }
 
   /// Get current recruitment for a program group
@@ -78,11 +86,11 @@ class SolutionNode implements Comparable<SolutionNode> {
 
   /// Converts solution to final SetGroup format
   SetGroup toSetGroup() => SetGroup(
-        List.generate(exercises.length, (i) => (exercises[i], sets[i]))
-            .where((tuple) => tuple.$2 > 0)
-            .map((tuple) => Sets(60, ex: tuple.$1.ex, n: tuple.$2))
-            .toList(),
-      );
+    List.generate(exercises.length, (i) => (exercises[i], sets[i]))
+        .where((tuple) => tuple.$2 > 0)
+        .map((tuple) => Sets(60, ex: tuple.$1.ex, n: tuple.$2))
+        .toList(),
+  );
 
   @override
   int compareTo(SolutionNode other) => cost.compareTo(other.cost);

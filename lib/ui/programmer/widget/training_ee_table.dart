@@ -13,10 +13,7 @@ class TrainingEETable extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-          width: 1,
-        ),
+        border: Border.all(color: Theme.of(context).dividerColor.withValues(alpha: 0.3), width: 1),
       ),
       clipBehavior: Clip.antiAlias,
       child: Table(
@@ -40,29 +37,35 @@ class TrainingEETable extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 alignment: Alignment.center,
-                child: Text('Type',
-                    style: ts100(context).copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    )),
+                child: Text(
+                  'Type',
+                  style: ts100(context).copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 alignment: Alignment.center,
-                child: Text('kcal',
-                    style: ts100(context).copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    )),
+                child: Text(
+                  'kcal',
+                  style: ts100(context).copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 alignment: Alignment.center,
-                child: Text('Information',
-                    style: ts100(context).copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    )),
+                child: Text(
+                  'Information',
+                  style: ts100(context).copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
             ],
           ),
@@ -70,28 +73,28 @@ class TrainingEETable extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Text('Gross',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                alignment: Alignment.center,
                 child: Text(
-                  gross.round().toString(),
-                  style: ts100(context),
+                  'Gross',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                alignment: Alignment.center,
+                child: Text(gross.round().toString(), style: ts100(context)),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Text(
-                    'Calories expended during resistance training, including your normal BMR. Assumes sufficiently high intensiveness. Derived from body weight and session duration.',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
+                  'Calories expended during resistance training, including your normal BMR. Assumes sufficiently high intensiveness. Derived from body weight and session duration.',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
+                ),
               ),
             ],
           ),
@@ -99,28 +102,28 @@ class TrainingEETable extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Text('Displaced BMR',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                alignment: Alignment.center,
                 child: Text(
-                  '- ${displaced.round()}',
-                  style: ts100(context),
+                  'Displaced BMR',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                alignment: Alignment.center,
+                child: Text('- ${displaced.round()}', style: ts100(context)),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Text(
-                    'The Energy Expenditure that would normally have occured as part of your normal BMR and daily physical activity, which has now been replaced by weight lifting.',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
+                  'The Energy Expenditure that would normally have occured as part of your normal BMR and daily physical activity, which has now been replaced by weight lifting.',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
+                ),
               ),
             ],
           ),
@@ -128,28 +131,28 @@ class TrainingEETable extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Text('EPOC',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                alignment: Alignment.center,
                 child: Text(
-                  ' + ${epoc.round()}',
-                  style: ts100(context),
+                  'EPOC',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                alignment: Alignment.center,
+                child: Text(' + ${epoc.round()}', style: ts100(context)),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Text(
-                    'Temporary additional metabolic Energy Expenditure after the weight lifting session has ended.',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
+                  'Temporary additional metabolic Energy Expenditure after the weight lifting session has ended.',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
+                ),
               ),
             ],
           ),
@@ -157,28 +160,28 @@ class TrainingEETable extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Text('Net',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                alignment: Alignment.center,
                 child: Text(
-                  '= ${net.round()}',
-                  style: ts100(context),
+                  'Net',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                alignment: Alignment.center,
+                child: Text('= ${net.round()}', style: ts100(context)),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Text(
-                    'Net incremental Energy Expenditure due to the weight lifting, in comparison to a resting day which only has your typical physical activity.',
-                    style: ts100(context).copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.left),
+                  'Net incremental Energy Expenditure due to the weight lifting, in comparison to a resting day which only has your typical physical activity.',
+                  style: ts100(
+                    context,
+                  ).copyWith(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  textAlign: TextAlign.left,
+                ),
               ),
             ],
           ),

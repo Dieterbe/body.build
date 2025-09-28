@@ -13,11 +13,7 @@ class GroupedExercise {
     this.isExpanded = false,
   });
 
-  GroupedExercise copyWith({
-    Ex? baseExercise,
-    List<Sets>? variations,
-    bool? isExpanded,
-  }) {
+  GroupedExercise copyWith({Ex? baseExercise, List<Sets>? variations, bool? isExpanded}) {
     return GroupedExercise(
       baseExercise: baseExercise ?? this.baseExercise,
       variations: variations ?? this.variations,

@@ -95,9 +95,9 @@ abstract class Settings with _$Settings {
 
   Parameters get paramFinal => paramSuggest.apply(paramOverrides);
   List<Ex> get availableExercises => getAvailableExercises(
-        excludedExercises: paramOverrides.excludedExercises,
-        availEquipment: availEquipment,
-      );
+    excludedExercises: paramOverrides.excludedExercises,
+    availEquipment: availEquipment,
+  );
 
   double getPAL() {
     switch (activityLevel) {
@@ -127,11 +127,11 @@ abstract class Settings with _$Settings {
     return (getBMR() * getPAL() * atFactor) / (24 * 60) * duration;
   }
 
-// In the PTC course, we learned that for most people, not counting the EPOC is
-// okay because we count the basal expenditure
-// during workouts twice.  Whereas for highly physically active people,
-// the displaced resting EE is rather significant, so we could account for it.
-// However, here in code, we can always do the more accurate thing
+  // In the PTC course, we learned that for most people, not counting the EPOC is
+  // okay because we count the basal expenditure
+  // during workouts twice.  Whereas for highly physically active people,
+  // the displaced resting EE is rather significant, so we could account for it.
+  // However, here in code, we can always do the more accurate thing
   (double gross, double displaced, double epoc, double net) getTrainingEE(int duration) {
     final grossTrainingEE = 0.1 * weight * duration;
     final displacedEE = getDisplacedEE(duration);

@@ -14,10 +14,7 @@ _MealPlan _$MealPlanFromJson(Map<String, dynamic> json) => _MealPlan(
           .toList() ??
       const <DayPlan>[],
   calorieCycling:
-      $enumDecodeNullable(
-        _$CalorieCyclingTypeEnumMap,
-        json['calorieCycling'],
-      ) ??
+      $enumDecodeNullable(_$CalorieCyclingTypeEnumMap, json['calorieCycling']) ??
       CalorieCyclingType.off,
   mealsPerDay: (json['mealsPerDay'] as num?)?.toInt() ?? 4,
   trainingDaysPerWeek: (json['trainingDaysPerWeek'] as num?)?.toInt() ?? 3,
@@ -65,21 +62,19 @@ Map<String, dynamic> _$MealEventToJson(MealEvent instance) => <String, dynamic>{
   'runtimeType': instance.$type,
 };
 
-StrengthWorkoutEvent _$StrengthWorkoutEventFromJson(
-  Map<String, dynamic> json,
-) => StrengthWorkoutEvent(
-  desc: json['desc'] as String,
-  estimatedKcal: (json['estimatedKcal'] as num).toDouble(),
-  $type: json['runtimeType'] as String?,
-);
+StrengthWorkoutEvent _$StrengthWorkoutEventFromJson(Map<String, dynamic> json) =>
+    StrengthWorkoutEvent(
+      desc: json['desc'] as String,
+      estimatedKcal: (json['estimatedKcal'] as num).toDouble(),
+      $type: json['runtimeType'] as String?,
+    );
 
-Map<String, dynamic> _$StrengthWorkoutEventToJson(
-  StrengthWorkoutEvent instance,
-) => <String, dynamic>{
-  'desc': instance.desc,
-  'estimatedKcal': instance.estimatedKcal,
-  'runtimeType': instance.$type,
-};
+Map<String, dynamic> _$StrengthWorkoutEventToJson(StrengthWorkoutEvent instance) =>
+    <String, dynamic>{
+      'desc': instance.desc,
+      'estimatedKcal': instance.estimatedKcal,
+      'runtimeType': instance.$type,
+    };
 
 _Targets _$TargetsFromJson(Map<String, dynamic> json) => _Targets(
   minProtein: (json['minProtein'] as num).toDouble(),

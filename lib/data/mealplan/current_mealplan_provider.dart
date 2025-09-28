@@ -30,10 +30,7 @@ class CurrentMealplan extends _$CurrentMealplan {
 
     if (mealplans.isEmpty) {
       final newId = DateTime.now().millisecondsSinceEpoch.toString();
-      await service.saveMealplan(
-        newId,
-        const MealPlan(name: 'New Mealplan'),
-      );
+      await service.saveMealplan(newId, const MealPlan(name: 'New Mealplan'));
       await service.saveLastMealplanId(newId);
       return newId;
     }

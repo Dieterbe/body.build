@@ -30,10 +30,7 @@ class CurrentSetupProfile extends _$CurrentSetupProfile {
 
     if (profiles.isEmpty) {
       final newId = DateTime.now().millisecondsSinceEpoch.toString();
-      await service.saveProfile(
-        newId,
-        Settings.defaults(),
-      );
+      await service.saveProfile(newId, Settings.defaults());
       await service.saveLastProfileId(newId);
       return newId;
     }

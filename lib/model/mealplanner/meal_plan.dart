@@ -4,11 +4,7 @@ import 'package:flutter/foundation.dart';
 part 'meal_plan.freezed.dart';
 part 'meal_plan.g.dart';
 
-enum CalorieCyclingType {
-  off,
-  on,
-  psmf,
-}
+enum CalorieCyclingType { off, on, psmf }
 
 /*
 no weekly targets because:
@@ -21,7 +17,7 @@ abstract class MealPlan with _$MealPlan {
     required String name,
     @Default(<DayPlan>[]) List<DayPlan> dayplans,
 
-// to support the wizard.
+    // to support the wizard.
     @Default(CalorieCyclingType.off) CalorieCyclingType calorieCycling,
     @Default(4) int mealsPerDay,
     @Default(3) int trainingDaysPerWeek,
@@ -45,15 +41,10 @@ abstract class DayPlan with _$DayPlan {
 
 @freezed
 sealed class Event with _$Event {
-  const factory Event.meal({
-    required String desc,
-    required Targets targets,
-  }) = MealEvent;
+  const factory Event.meal({required String desc, required Targets targets}) = MealEvent;
 
-  const factory Event.strengthWorkout({
-    required String desc,
-    required double estimatedKcal,
-  }) = StrengthWorkoutEvent;
+  const factory Event.strengthWorkout({required String desc, required double estimatedKcal}) =
+      StrengthWorkoutEvent;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 }

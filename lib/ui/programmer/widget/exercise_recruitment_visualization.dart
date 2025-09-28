@@ -34,25 +34,15 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: Theme.of(context).dividerColor,
-            width: 1,
-          ),
+          border: Border.all(color: Theme.of(context).dividerColor, width: 1),
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.info_outline,
-              size: 16,
-              color: Theme.of(context).hintColor,
-            ),
+            Icon(Icons.info_outline, size: 16, color: Theme.of(context).hintColor),
             const SizedBox(width: 8),
             Text(
               'No muscle recruitment data available',
-              style: TextStyle(
-                color: Theme.of(context).hintColor,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Theme.of(context).hintColor, fontSize: 14),
             ),
           ],
         ),
@@ -68,28 +58,21 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Theme.of(context).dividerColor,
-          width: 1,
-        ),
+        border: Border.all(color: Theme.of(context).dividerColor, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.fitness_center,
-                size: 18,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              Icon(Icons.fitness_center, size: 18, color: Theme.of(context).colorScheme.primary),
               const SizedBox(width: 8),
               Text(
                 'Muscle Recruitment',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           ),
@@ -100,10 +83,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
             height: 12,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: Theme.of(context).dividerColor,
-                width: 1,
-              ),
+              border: Border.all(color: Theme.of(context).dividerColor, width: 1),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
@@ -190,11 +170,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.tune,
-                    size: 14,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                  Icon(Icons.tune, size: 14, color: Theme.of(context).colorScheme.primary),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(

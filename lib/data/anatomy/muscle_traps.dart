@@ -7,12 +7,7 @@ import 'package:bodybuild/model/anatomy/movements.dart';
 import 'package:bodybuild/data/anatomy/muscles.dart';
 
 const upperTrapeziusSharedMovements = [
-  Movement(
-    articulation: Articulation.scapularElevation,
-    strength: 6,
-    rangeStart: 0,
-    rangeEnd: 40,
-  ),
+  Movement(articulation: Articulation.scapularElevation, strength: 6, rangeStart: 0, rangeEnd: 40),
 ];
 final trapezius = MultiHeadMuscle(
   id: MuscleId.trapezius,
@@ -23,32 +18,34 @@ final trapezius = MultiHeadMuscle(
       id: MuscleId.upperTrapsUpperFibers,
       name: 'upper traps, upper fibers',
       insertion: Bone.clavicle,
-      origin: [
-        Bone.skull,
-      ],
+      origin: [Bone.skull],
       articular: 2,
       movements: [
         ...upperTrapeziusSharedMovements,
         Movement(
-            articulation: Articulation.cervicalSpineLateralFlexion,
-            strength: 1, // weak for growth
-            rangeStart: 0,
-            rangeEnd: 35),
+          articulation: Articulation.cervicalSpineLateralFlexion,
+          strength: 1, // weak for growth
+          rangeStart: 0,
+          rangeEnd: 35,
+        ),
         Movement(
-            articulation: Articulation.cervicalSpineExtension,
-            strength: 1, // weak for growth
-            rangeStart: 65,
-            rangeEnd: 0),
+          articulation: Articulation.cervicalSpineExtension,
+          strength: 1, // weak for growth
+          rangeStart: 65,
+          rangeEnd: 0,
+        ),
         Movement(
-            articulation: Articulation.cervicalSpineHyperextension,
-            strength: 1, // weak for growth
-            rangeStart: 0,
-            rangeEnd: -40),
+          articulation: Articulation.cervicalSpineHyperextension,
+          strength: 1, // weak for growth
+          rangeStart: 0,
+          rangeEnd: -40,
+        ),
         Movement(
-            articulation: Articulation.cervicalSpineRotation,
-            strength: 2, // weak
-            rangeStart: 0,
-            rangeEnd: 30),
+          articulation: Articulation.cervicalSpineRotation,
+          strength: 2, // weak
+          rangeStart: 0,
+          rangeEnd: 30,
+        ),
       ],
       activeInsufficiency: Insufficiency(
         comment: """contracted at both neck and shoulder (technically, also a bit lower fibers).
@@ -62,7 +59,7 @@ keep head forward during shrugs""",
         comment: "stretched at both neck and shoulder (technically, also a bit lower fibers)",
         factors: [
           InsufficiencyFactor(Articulation.cervicalSpineFlexion, 361),
-          InsufficiencyFactor(Articulation.scapularDepression, 361)
+          InsufficiencyFactor(Articulation.scapularDepression, 361),
         ],
       ),
     ),
@@ -88,10 +85,11 @@ keep head forward during shrugs""",
       insertion: Bone.scapula,
       movements: [
         Movement(
-            articulation: Articulation.scapularRetraction, // main function
-            strength: 4,
-            rangeStart: 0,
-            rangeEnd: 25),
+          articulation: Articulation.scapularRetraction, // main function
+          strength: 4,
+          rangeStart: 0,
+          rangeEnd: 25,
+        ),
         Movement(
           articulation: Articulation.scapularElevation,
           strength: 2, // very weak. don't count it
@@ -102,7 +100,8 @@ keep head forward during shrugs""",
           // don't typically target this with training. occurs during overhead pressing
           articulation: Articulation.scapularUpwardRotation,
           strength: 4,
-          rangeStart: 0, rangeEnd: 60,
+          rangeStart: 0,
+          rangeEnd: 60,
         ),
       ],
       origin: [Bone.spineC7T1],
@@ -113,15 +112,17 @@ keep head forward during shrugs""",
       insertion: Bone.scapula,
       movements: [
         Movement(
-            articulation: Articulation.scapularDepression,
-            strength: 4,
-            rangeStart: 0,
-            rangeEnd: 10),
+          articulation: Articulation.scapularDepression,
+          strength: 4,
+          rangeStart: 0,
+          rangeEnd: 10,
+        ),
         Movement(
-            articulation: Articulation.scapularRetraction,
-            strength: 4,
-            rangeStart: 0,
-            rangeEnd: 25),
+          articulation: Articulation.scapularRetraction,
+          strength: 4,
+          rangeStart: 0,
+          rangeEnd: 25,
+        ),
         Movement(
           articulation: Articulation.scapularUpwardRotation,
           strength: 4,
@@ -130,6 +131,6 @@ keep head forward during shrugs""",
         ),
       ],
       origin: [Bone.spineThoracic],
-    )
+    ),
   },
 );

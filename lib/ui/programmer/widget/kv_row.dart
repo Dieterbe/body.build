@@ -15,10 +15,7 @@ class KVRow extends StatelessWidget {
     final spacer = MediaQuery.sizeOf(context).width / 150;
     Widget? hw;
     if (helpWidget != null) {
-      hw = InfoButton(
-        title: helpTitle!,
-        child: helpWidget!,
-      );
+      hw = InfoButton(title: helpTitle!, child: helpWidget!);
     } else if (help != null) {
       hw = InfoButton(
         title: helpTitle!,

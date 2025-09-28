@@ -25,8 +25,8 @@ class HistogramWidget extends StatelessWidget {
       builder: (context, constraints) {
         final availableHeight = constraints.maxHeight - containerPadding.vertical;
 
-// if there's only 1 bar, we wouldn't want it to take up all vertical space, so for
-// height calculation purpose, pretend there's at least 2.5 bars
+        // if there's only 1 bar, we wouldn't want it to take up all vertical space, so for
+        // height calculation purpose, pretend there's at least 2.5 bars
         final assumeNum = max(sortedEntries.length, 2.5);
         final barHeight = (availableHeight - (assumeNum) * rowPadding.vertical) / assumeNum;
 
@@ -58,10 +58,7 @@ class HistogramWidget extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: Text(
                             '${e.value} sets of ${e.key}',
-                            style: TextStyle(
-                              fontSize: fontSize,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),

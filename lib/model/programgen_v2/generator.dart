@@ -12,25 +12,19 @@ class WorkoutGenerationParams {
   final Settings setup;
   final SendPort sendPort;
 
-  const WorkoutGenerationParams(
-    this.targetRecruitment,
-    this.setup,
-    this.sendPort,
-  );
+  const WorkoutGenerationParams(this.targetRecruitment, this.setup, this.sendPort);
 }
 
 /// Generates an optimized SetGroup that matches the desired recruitment targets
 /// for each ProgramGroup as closely as possible while minimizing overshoot.
 /// Returns a stream of solutions, with each new solution being better than the last.
 Stream<SetGroup> generateOptimalSetGroup(
-    Map<ProgramGroup, double> targetRecruitment, Settings setup) async* {
+  Map<ProgramGroup, double> targetRecruitment,
+  Settings setup,
+) async* {
   final receivePort = ReceivePort();
 
-  final params = WorkoutGenerationParams(
-    targetRecruitment,
-    setup,
-    receivePort.sendPort,
-  );
+  final params = WorkoutGenerationParams(targetRecruitment, setup, receivePort.sendPort);
 
   await Isolate.spawn(_generateInIsolate, params);
 
@@ -62,15 +56,15 @@ void _generateInIsolate(WorkoutGenerationParams params) {
     (i) => Map.fromEntries(
       ProgramGroup.values.map(
         (group) => MapEntry(
-            group,
-            exercises[i]
-                .ex
-                .recruitmentFiltered(
-                  group,
-                  {},
-                  0.5, // TODO: we don't support modifiers yet
-                )
-                .volume),
+          group,
+          exercises[i].ex
+              .recruitmentFiltered(
+                group,
+                {},
+                0.5, // TODO: we don't support modifiers yet
+              )
+              .volume,
+        ),
       ),
     ),
   );
@@ -129,8 +123,8 @@ void _generateInIsolate(WorkoutGenerationParams params) {
           // Try adding one set for this exercise
           var newSolution = current.addSetFor(i);
 
-// -- the whole comment below is from before we changed cost calculation to be relative to target --
-// -- i don't remember/understand where the 0.7 came from --
+          // -- the whole comment below is from before we changed cost calculation to be relative to target --
+          // -- i don't remember/understand where the 0.7 came from --
           // All children that sufficiently improve upon their parent, are worth exploring.
           // even if e.g. the 2nd child does not improve upon the first child
           // if an exercise has total recruitment of, say 5, to be considered a good addition,

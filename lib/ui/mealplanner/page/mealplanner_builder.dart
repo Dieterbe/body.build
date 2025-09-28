@@ -21,29 +21,28 @@ class MealPlannerBuilder extends ConsumerWidget {
           children: [
             Row(
               children: [
-                Text(
-                  'Days',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+                Text('Days', style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(width: 16),
                 IconButton(
                   icon: const Icon(Icons.add),
                   onPressed: () {
-                    notifier.addDay(DayPlan(
-                      desc: 'New Day',
-                      targets: plan.dayplans.isEmpty
-                          ? const Targets(
-                              minProtein: 150,
-                              maxProtein: 200,
-                              minCarbs: 200,
-                              maxCarbs: 300,
-                              minFats: 50,
-                              maxFats: 80,
-                              kCal: 2000,
-                            )
-                          : plan.dayplans.last.targets,
-                      events: [],
-                    ));
+                    notifier.addDay(
+                      DayPlan(
+                        desc: 'New Day',
+                        targets: plan.dayplans.isEmpty
+                            ? const Targets(
+                                minProtein: 150,
+                                maxProtein: 200,
+                                minCarbs: 200,
+                                maxCarbs: 300,
+                                minFats: 50,
+                                maxFats: 80,
+                                kCal: 2000,
+                              )
+                            : plan.dayplans.last.targets,
+                        events: [],
+                      ),
+                    );
                   },
                   tooltip: 'Add Day',
                 ),

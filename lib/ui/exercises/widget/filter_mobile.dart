@@ -6,9 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 
 class FilterMobile extends ConsumerWidget {
-  const FilterMobile({
-    super.key,
-  });
+  const FilterMobile({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,9 +17,7 @@ class FilterMobile extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-          ),
+          bottom: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
         ),
       ),
       child: Column(
@@ -33,9 +29,7 @@ class FilterMobile extends ConsumerWidget {
             decoration: InputDecoration(
               hintText: 'Search exercises...',
               prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               filled: true,
               fillColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.05),
               contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -86,7 +80,8 @@ class FilterMobile extends ConsumerWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: Theme.of(context).dividerColor),
                       borderRadius: BorderRadius.circular(8),
-                      color: filterState.selectedEquipmentCategories.isNotEmpty ||
+                      color:
+                          filterState.selectedEquipmentCategories.isNotEmpty ||
                               filterState.selectedEquipment.isNotEmpty
                           ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
                           : null,
@@ -130,13 +125,15 @@ class FilterMobile extends ConsumerWidget {
             },
             child: const Text('All muscle groups'),
           ),
-          ...ProgramGroup.values.map((group) => SimpleDialogOption(
-                onPressed: () {
-                  filterNotifier.setMuscleGroup(group);
-                  Navigator.pop(context);
-                },
-                child: Text(group.displayName),
-              )),
+          ...ProgramGroup.values.map(
+            (group) => SimpleDialogOption(
+              onPressed: () {
+                filterNotifier.setMuscleGroup(group);
+                Navigator.pop(context);
+              },
+              child: Text(group.displayName),
+            ),
+          ),
         ],
       ),
     );
@@ -153,18 +150,11 @@ class FilterMobile extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               // Equipment list
-              Flexible(
-                child: EquipmentFilter(),
-              ),
+              Flexible(child: EquipmentFilter()),
             ],
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Done'),
-          ),
-        ],
+        actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Done'))],
       ),
     );
   }

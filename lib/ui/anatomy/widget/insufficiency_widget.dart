@@ -15,12 +15,14 @@ class InsufficiencyWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Conditions:', style: TextStyle(fontWeight: FontWeight.bold)),
-        ...insufficiency.factors.map((i) => Row(
-              children: [
-                Text(i.degrees == 361 ? 'max ° ' : '${i.degrees}° '),
-                ArticulationButton(i.articulation, nav: i.articulation != articulation),
-              ],
-            )),
+        ...insufficiency.factors.map(
+          (i) => Row(
+            children: [
+              Text(i.degrees == 361 ? 'max ° ' : '${i.degrees}° '),
+              ArticulationButton(i.articulation, nav: i.articulation != articulation),
+            ],
+          ),
+        ),
         if (insufficiency.comment != null)
           const Text('Comment', style: TextStyle(fontWeight: FontWeight.bold)),
         if (insufficiency.comment != null) Text('(${insufficiency.comment!})'),

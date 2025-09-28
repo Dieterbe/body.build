@@ -150,9 +150,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                         Flexible(
                           child: Scrollbar(
                             thumbVisibility: true,
-                            child: SingleChildScrollView(
-                              child: markdown(helpProgrammer, context),
-                            ),
+                            child: SingleChildScrollView(child: markdown(helpProgrammer, context)),
                           ),
                         ),
                       ],
@@ -177,14 +175,12 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           unselectedLabelStyle: ts100(context),
           labelColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-          overlayColor: WidgetStateProperty.resolveWith<Color?>(
-            (Set<WidgetState> states) {
-              if (states.contains(WidgetState.hovered)) {
-                return Theme.of(context).colorScheme.surface.withValues(alpha: 0.1);
-              }
-              return null;
-            },
-          ),
+          overlayColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+            if (states.contains(WidgetState.hovered)) {
+              return Theme.of(context).colorScheme.surface.withValues(alpha: 0.1);
+            }
+            return null;
+          }),
           tabs: [
             Tab(
               height: 44,
@@ -226,9 +222,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
               child: ProgrammerBuilder(),
             ),
           ),
-          SingleChildScrollView(
-            child: ProgrammerSetup(),
-          ),
+          SingleChildScrollView(child: ProgrammerSetup()),
           //  SingleChildScrollView(
           //   child: MealPlanScreen(),
           // ),

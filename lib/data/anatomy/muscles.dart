@@ -207,19 +207,24 @@ class MultiHeadMuscle extends Muscle {
   List<Head> get heads => headsMap.values.toList();
 
   @override
-  List<MovementStruct> getMovements(Articulation a) => movements
-      .where((mo) => mo.articulation == a)
-      .map((mo) => MovementStruct(this, null, mo))
-      .toList()
-    ..addAll(headsMap.entries.expand((entry) => entry.value.movements
-        .where((mo) => mo.articulation == a)
-        .map((mo) => MovementStruct(this, entry.key, mo))));
+  List<MovementStruct> getMovements(Articulation a) =>
+      movements
+          .where((mo) => mo.articulation == a)
+          .map((mo) => MovementStruct(this, null, mo))
+          .toList()
+        ..addAll(
+          headsMap.entries.expand(
+            (entry) => entry.value.movements
+                .where((mo) => mo.articulation == a)
+                .map((mo) => MovementStruct(this, entry.key, mo)),
+          ),
+        );
 
   @override
   List<Articulation> getArticulations() => <Articulation>{
-        ...movements.map((m) => m.articulation),
-        ...headsMap.values.expand((h) => h.movements.map((m) => m.articulation))
-      }.toList();
+    ...movements.map((m) => m.articulation),
+    ...headsMap.values.expand((h) => h.movements.map((m) => m.articulation)),
+  }.toList();
 }
 
 class SingleHeadMuscle extends Muscle {

@@ -8,10 +8,7 @@ part 'parameter_overrides.g.dart';
 
 @freezed
 abstract class MuscleGroupOverride with _$MuscleGroupOverride {
-  const factory MuscleGroupOverride(
-    ProgramGroup group,
-    int sets,
-  ) = _MuscleGroupOverride;
+  const factory MuscleGroupOverride(ProgramGroup group, int sets) = _MuscleGroupOverride;
 
   factory MuscleGroupOverride.fromJson(Map<String, dynamic> json) =>
       _$MuscleGroupOverrideFromJson(json);

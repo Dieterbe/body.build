@@ -10,8 +10,14 @@ class DropBar extends StatelessWidget {
   final Workout workout;
   final Color? colorInactive;
   final Color? colorActive;
-  const DropBar(this.workout, this.onChange, this.onDrop,
-      {super.key, this.colorInactive, this.colorActive});
+  const DropBar(
+    this.workout,
+    this.onChange,
+    this.onDrop, {
+    super.key,
+    this.colorInactive,
+    this.colorActive,
+  });
 
   @override
   Widget build(BuildContext context) {

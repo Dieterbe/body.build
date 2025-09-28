@@ -15,12 +15,7 @@ class InfoButton extends StatelessWidget {
           builder: (context) => AlertDialog(
             title: Text(title),
             content: child,
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('OK'),
-              ),
-            ],
+            actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))],
           ),
         );
       },

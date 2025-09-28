@@ -11,13 +11,17 @@ enum Articulation {
   scapularElevation(nick: [], constraint: null),
   scapularUpwardRotation(nick: [], constraint: null),
   shoulderTransverseAdduction(
-      nick: ['shoulder horizontal adduction'],
-      constraint: "shoulder externally rotated (thumbs up)"),
+    nick: ['shoulder horizontal adduction'],
+    constraint: "shoulder externally rotated (thumbs up)",
+  ),
   shoulderTransverseFlexion(
-      nick: ['shoulder horizontal flexion'],
-      constraint: "shoulder internally rotated (thumbs pointing towards each other or down)"),
+    nick: ['shoulder horizontal flexion'],
+    constraint: "shoulder internally rotated (thumbs pointing towards each other or down)",
+  ),
   shoulderTransverseExtension(
-      nick: ['shoulder horizontal extension'], constraint: "shoulder internally rotated"),
+    nick: ['shoulder horizontal extension'],
+    constraint: "shoulder internally rotated",
+  ),
   shoulderTransverseAbduction(nick: [], constraint: "shoulder externally rotated (thumbs up)"),
   shoulderInternalRotation(nick: ['arm internal rotation'], constraint: null),
   shoulderExternalRotation(nick: ['arm external rotation'], constraint: null),
@@ -54,10 +58,7 @@ enum Articulation {
   hipTransverseAbduction(nick: [], constraint: "hip flexed"),
   hipTransverseAdduction(nick: [], constraint: "hip flexed");
 
-  const Articulation({
-    required this.nick,
-    required this.constraint,
-  });
+  const Articulation({required this.nick, required this.constraint});
 
   final List<String> nick;
   final String? constraint;
@@ -76,110 +77,47 @@ final _articulationRelated = [
       Articulation.cervicalSpineExtension,
       Articulation.cervicalSpineHyperextension,
     ],
-    [
-      Articulation.spineFlexion,
-      Articulation.spinalExtension,
-      Articulation.spinalHyperextension,
-    ],
-    [
-      Articulation.cervicalSpineLateralFlexion,
-      Articulation.cervicalSpineRotation,
-    ],
-    [
-      Articulation.lumbarThoracicSpineRotation,
-      Articulation.spineLateralFlexion,
-    ]
+    [Articulation.spineFlexion, Articulation.spinalExtension, Articulation.spinalHyperextension],
+    [Articulation.cervicalSpineLateralFlexion, Articulation.cervicalSpineRotation],
+    [Articulation.lumbarThoracicSpineRotation, Articulation.spineLateralFlexion],
   ],
   [
-    [
-      Articulation.scapularProtraction,
-      Articulation.scapularRetraction,
-    ],
-    [
-      Articulation.scapularElevation,
-      Articulation.scapularDepression,
-    ],
-    [
-      Articulation.scapularDownardRotation,
-      Articulation.scapularUpwardRotation,
-    ],
+    [Articulation.scapularProtraction, Articulation.scapularRetraction],
+    [Articulation.scapularElevation, Articulation.scapularDepression],
+    [Articulation.scapularDownardRotation, Articulation.scapularUpwardRotation],
   ],
   [
-    [
-      Articulation.shoulderTransverseAdduction,
-      Articulation.shoulderTransverseAbduction,
-    ],
-    [
-      Articulation.shoulderTransverseFlexion,
-      Articulation.shoulderTransverseExtension,
-    ],
-    [
-      Articulation.shoulderInternalRotation,
-      Articulation.shoulderExternalRotation,
-    ],
+    [Articulation.shoulderTransverseAdduction, Articulation.shoulderTransverseAbduction],
+    [Articulation.shoulderTransverseFlexion, Articulation.shoulderTransverseExtension],
+    [Articulation.shoulderInternalRotation, Articulation.shoulderExternalRotation],
     [
       Articulation.shoulderFlexion,
       Articulation.shoulderExtension,
       Articulation.shoulderHyperextension,
     ],
-    [
-      Articulation.shoulderAdduction,
-      Articulation.shoulderAbduction,
-    ],
+    [Articulation.shoulderAdduction, Articulation.shoulderAbduction],
   ],
   [
-    [
-      Articulation.elbowFlexion,
-      Articulation.elbowExtension,
-    ],
-    [
-      Articulation.forearmPronation,
-      Articulation.forearmSupination,
-    ],
-    [
-      Articulation.wristExtension,
-      Articulation.wristFlexion,
-    ],
+    [Articulation.elbowFlexion, Articulation.elbowExtension],
+    [Articulation.forearmPronation, Articulation.forearmSupination],
+    [Articulation.wristExtension, Articulation.wristFlexion],
   ],
   [
-    [
-      Articulation.kneeFlexion,
-      Articulation.kneeExtension,
-    ],
-    [
-      Articulation.kneeInternalRotation,
-      Articulation.kneeExternalRotation,
-    ],
+    [Articulation.kneeFlexion, Articulation.kneeExtension],
+    [Articulation.kneeInternalRotation, Articulation.kneeExternalRotation],
   ],
   [
-    [
-      Articulation.anklePlantarFlexion,
-      Articulation.ankleDorsiFlexion,
-    ],
+    [Articulation.anklePlantarFlexion, Articulation.ankleDorsiFlexion],
   ],
   [
-    [
-      Articulation.hipAbduction,
-      Articulation.hipAdduction,
-    ],
-    [
-      Articulation.hipFlexion,
-      Articulation.hipExtension,
-    ],
-    [
-      Articulation.hipInternalRotation,
-      Articulation.hipExternalRotation,
-    ],
-    [
-      Articulation.hipTransverseAbduction,
-      Articulation.hipTransverseAdduction,
-    ],
+    [Articulation.hipAbduction, Articulation.hipAdduction],
+    [Articulation.hipFlexion, Articulation.hipExtension],
+    [Articulation.hipInternalRotation, Articulation.hipExternalRotation],
+    [Articulation.hipTransverseAbduction, Articulation.hipTransverseAdduction],
   ],
   [
-    [
-      Articulation.intraAbdominalPressure,
-    ]
-  ]
+    [Articulation.intraAbdominalPressure],
+  ],
 ];
 
 // for the given articulation, return a tuple that has:

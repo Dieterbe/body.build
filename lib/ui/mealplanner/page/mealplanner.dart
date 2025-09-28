@@ -27,17 +27,11 @@ class _MealPlanScreenState extends ConsumerState<MealPlanScreen> {
         children: [
           Expanded(
             flex: 1,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: MealPlannerWizard(),
-            ),
+            child: Padding(padding: EdgeInsets.all(16.0), child: MealPlannerWizard()),
           ),
           Expanded(
             flex: 3,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: MealPlannerBuilder(),
-            ),
+            child: Padding(padding: EdgeInsets.all(16.0), child: MealPlannerBuilder()),
           ),
         ],
       ),

@@ -39,9 +39,10 @@ enum Equipment {
   preacherCurlMachine("Preacher Curl Machine", EquipmentCategory.upperBodyMachines),
   bicepCurlMachine("Biceps Curl Machine", EquipmentCategory.upperBodyMachines),
   assistedPullUpMachine(
-      // TODO: not used yet in exercises
-      "Assisted Pull-up Machine",
-      EquipmentCategory.upperBodyMachines),
+    // TODO: not used yet in exercises
+    "Assisted Pull-up Machine",
+    EquipmentCategory.upperBodyMachines,
+  ),
   assistedDipMachine("Assisted Dip Machine", EquipmentCategory.upperBodyMachines),
   // Core and glute machines
   abCrunchMachine("Ab Crunch Machine", EquipmentCategory.coreAndGluteMachines),
@@ -52,7 +53,9 @@ enum Equipment {
   gluteKickbackMachine("Glute Kickback Machine", EquipmentCategory.coreAndGluteMachines),
   pendulumGluteKickback("Pendulum Kickback", EquipmentCategory.coreAndGluteMachines),
   hipAdductionAbductionMachine(
-      "Hip (Add/Abd)uction Machine", EquipmentCategory.coreAndGluteMachines),
+    "Hip (Add/Abd)uction Machine",
+    EquipmentCategory.coreAndGluteMachines,
+  ),
 
   // Lower body machines
 

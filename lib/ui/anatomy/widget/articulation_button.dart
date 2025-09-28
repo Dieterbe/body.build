@@ -8,12 +8,7 @@ class ArticulationButton extends StatelessWidget {
   final Articulation articulation;
   final double size;
   final bool nav;
-  const ArticulationButton(
-    this.articulation, {
-    this.size = 14,
-    super.key,
-    this.nav = true,
-  });
+  const ArticulationButton(this.articulation, {this.size = 14, super.key, this.nav = true});
 
   @override
   Widget build(BuildContext context) {

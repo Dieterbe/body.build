@@ -35,10 +35,7 @@ class _ChartWidgetState extends State<ChartWidget> {
     return CustomPaint(
       //size: Size(MediaQuery.of(context).size.width, widget.height),
       size: Size(widget.width, widget.height),
-      painter: PathPainter(
-        color: colorActive,
-        path: drawPath(),
-      ),
+      painter: PathPainter(color: colorActive, path: drawPath()),
     );
   }
 }

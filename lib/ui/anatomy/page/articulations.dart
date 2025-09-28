@@ -32,10 +32,7 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'filter',
-              ),
+              decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'filter'),
               onChanged: (value) {
                 setState(() {
                   _filter = value;
@@ -51,12 +48,14 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
               itemBuilder: (context, index) {
                 final articulation = Articulation.values
                     .where(
-                        (a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()))
+                      (a) => a.name.camelToTitle().toLowerCase().contains(_filter.toLowerCase()),
+                    )
                     .toList()[index];
                 return ListTile(
                   title: Text(articulation.name.camelToTitle()),
                   subtitle: Text(
-                      '${ArticulationMovements(articulation).moves.length} known muscle/head movements'),
+                    '${ArticulationMovements(articulation).moves.length} known muscle/head movements',
+                  ),
                   onTap: () => context.pushNamed(
                     ArticulationScreen.routeName,
                     pathParameters: {"id": articulation.name.camelToSnake()},
@@ -64,7 +63,7 @@ class _ArticulationsScreenState extends State<ArticulationsScreen> {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

@@ -18,13 +18,7 @@ class ExerciseList extends ConsumerWidget {
   List<Sets> _generateExerciseVariations(Ex exercise) {
     // If no modifiers create variations, return a single Sets with default values
     if (exercise.modifiers.isEmpty) {
-      return [
-        Sets(
-          80,
-          ex: exercise,
-          modifierOptions: {},
-        )
-      ];
+      return [Sets(80, ex: exercise, modifierOptions: {})];
     }
 
     // Collect all modifier options that affect any program group
@@ -36,21 +30,18 @@ class ExerciseList extends ConsumerWidget {
 
     // Generate all possible combinations of modifier options
     var allCombinations = [
-      {for (var entry in modifierOptions.entries) entry.key: entry.value.first}
+      {for (var entry in modifierOptions.entries) entry.key: entry.value.first},
     ];
 
     modifierOptions.forEach((name, options) {
-      allCombinations =
-          allCombinations.expand((combo) => options.map((opt) => {...combo, name: opt})).toList();
+      allCombinations = allCombinations
+          .expand((combo) => options.map((opt) => {...combo, name: opt}))
+          .toList();
     });
 
     // Create a Sets object for each unique combination
     return allCombinations
-        .map((modifiers) => Sets(
-              80,
-              ex: exercise,
-              modifierOptions: modifiers,
-            ))
+        .map((modifiers) => Sets(80, ex: exercise, modifierOptions: modifiers))
         .toList();
   }
 
@@ -58,8 +49,9 @@ class ExerciseList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filteredExercises = ref.watch(filteredExercisesProvider);
     final filterState = ref.watch(exerciseFilterProvider);
-    final selectedExercise =
-        ref.watch(exerciseFilterProvider.select((state) => state.selectedExercise));
+    final selectedExercise = ref.watch(
+      exerciseFilterProvider.select((state) => state.selectedExercise),
+    );
 
     return Column(
       children: [
@@ -68,9 +60,7 @@ class ExerciseList extends ConsumerWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             border: Border(
-              bottom: BorderSide(
-                color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
-              ),
+              bottom: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
             ),
           ),
           child: Row(
@@ -144,10 +134,7 @@ class ExerciseList extends ConsumerWidget {
                           ),
                           if (hasVariations)
                             Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 2,
-                              ),
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(12),
@@ -171,14 +158,16 @@ class ExerciseList extends ConsumerWidget {
                             Wrap(
                               spacing: 4,
                               children: exercise.equipment
-                                  .map((eq) => Chip(
-                                        label: Text(
-                                          eq.displayName,
-                                          style: const TextStyle(fontSize: 10),
-                                        ),
-                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        visualDensity: VisualDensity.compact,
-                                      ))
+                                  .map(
+                                    (eq) => Chip(
+                                      label: Text(
+                                        eq.displayName,
+                                        style: const TextStyle(fontSize: 10),
+                                      ),
+                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      visualDensity: VisualDensity.compact,
+                                    ),
+                                  )
                                   .toList(),
                             ),
                           ],
@@ -199,83 +188,86 @@ class ExerciseList extends ConsumerWidget {
                   ),
                   // Variations (shown when expanded)
                   if (isExpanded && hasVariations)
-                    ...variations.map((variation) => Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.5),
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Theme.of(context).dividerColor.withValues(alpha: 0.05),
-                              ),
-                              left: BorderSide(
-                                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
-                                width: 3,
-                              ),
+                    ...variations.map(
+                      (variation) => Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.5),
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Theme.of(context).dividerColor.withValues(alpha: 0.05),
+                            ),
+                            left: BorderSide(
+                              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                              width: 3,
                             ),
                           ),
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.only(
-                              left: 72, // Indent for variations
-                              right: 16,
-                              top: 8,
-                              bottom: 8,
-                            ),
-                            title: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    exercise.id,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                        ),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.only(
+                            left: 72, // Indent for variations
+                            right: 16,
+                            top: 8,
+                            bottom: 8,
+                          ),
+                          title: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  exercise.id,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
-                                if (variation.modifierOptions.isNotEmpty)
-                                  Expanded(
-                                    child: Wrap(
-                                      spacing: 8,
-                                      runSpacing: 4,
-                                      children: variation.modifierOptions.entries.map((entry) {
-                                        return Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 6,
-                                            vertical: 2,
+                              ),
+                              if (variation.modifierOptions.isNotEmpty)
+                                Expanded(
+                                  child: Wrap(
+                                    spacing: 8,
+                                    runSpacing: 4,
+                                    children: variation.modifierOptions.entries.map((entry) {
+                                      return Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 6,
+                                          vertical: 2,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary.withValues(alpha: 0.1),
+                                          borderRadius: BorderRadius.circular(4),
+                                          border: Border.all(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.primary.withValues(alpha: 0.3),
+                                            width: 1,
                                           ),
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary
-                                                .withValues(alpha: 0.1),
-                                            borderRadius: BorderRadius.circular(4),
-                                            border: Border.all(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary
-                                                  .withValues(alpha: 0.3),
-                                              width: 1,
-                                            ),
+                                        ),
+                                        child: Text(
+                                          '${entry.key}: ${entry.value}',
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: Theme.of(context).colorScheme.primary,
                                           ),
-                                          child: Text(
-                                            '${entry.key}: ${entry.value}',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              color: Theme.of(context).colorScheme.primary,
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
+                                        ),
+                                      );
+                                    }).toList(),
                                   ),
-                              ],
-                            ),
-                            onTap: () {
-                              // For variations, select the base exercise with the specific modifier options
-                              ref.read(exerciseFilterProvider.notifier).setSelectedExercise(
-                                  exercise,
-                                  modifierOptions: variation.modifierOptions);
-                            },
+                                ),
+                            ],
                           ),
-                        )),
+                          onTap: () {
+                            // For variations, select the base exercise with the specific modifier options
+                            ref
+                                .read(exerciseFilterProvider.notifier)
+                                .setSelectedExercise(
+                                  exercise,
+                                  modifierOptions: variation.modifierOptions,
+                                );
+                          },
+                        ),
+                      ),
+                    ),
                 ],
               );
             },

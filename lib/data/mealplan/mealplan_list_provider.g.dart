@@ -19,9 +19,7 @@ final class MealplanListProvider
           Map<String, MealPlan>,
           FutureOr<Map<String, MealPlan>>
         >
-    with
-        $FutureModifier<Map<String, MealPlan>>,
-        $FutureProvider<Map<String, MealPlan>> {
+    with $FutureModifier<Map<String, MealPlan>>, $FutureProvider<Map<String, MealPlan>> {
   const MealplanListProvider._()
     : super(
         from: null,
@@ -38,9 +36,8 @@ final class MealplanListProvider
 
   @$internal
   @override
-  $FutureProviderElement<Map<String, MealPlan>> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $FutureProviderElement<Map<String, MealPlan>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<Map<String, MealPlan>> create(Ref ref) {

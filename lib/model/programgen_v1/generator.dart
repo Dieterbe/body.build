@@ -21,15 +21,17 @@ SetGroup generateOptimalSetGroup(Map<ProgramGroup, double> targetRecruitment) {
   final compounds = rankedExercises.where((ranked) => ranked.rank > 1.25);
   // final isolations = rankedExercises.where((ranked) => ranked.rank <= 1.25);
 
-// now we need to explore the space of possible setGroups, where setGroups are combinations
-// of sets for a given exercise (from compounds only) and given `n' factor,
-// in such as way that calculateCost() is the smallest amount possible.
+  // now we need to explore the space of possible setGroups, where setGroups are combinations
+  // of sets for a given exercise (from compounds only) and given `n' factor,
+  // in such as way that calculateCost() is the smallest amount possible.
 
   return generateLowestCostSetGroup(compounds, targetRecruitment);
 }
 
 SetGroup generateLowestCostSetGroup(
-    Iterable<RankedExercise> compounds, Map<ProgramGroup, double> targetRecruitment) {
+  Iterable<RankedExercise> compounds,
+  Map<ProgramGroup, double> targetRecruitment,
+) {
   print('\n# Starting workout generation:');
 
   // Find disjoint components
@@ -46,8 +48,9 @@ SetGroup generateLowestCostSetGroup(
     // Create component-specific targets
     final componentTargets = Map.of(targetRecruitment);
     // Zero out targets for program groups not affected by this component
-    final componentProgramGroups = ProgramGroup.values.where((pg) =>
-        component.any((ex) => ex.ex.recruitment(pg, {}).volume > 0)); // we don't support modifiers
+    final componentProgramGroups = ProgramGroup.values.where(
+      (pg) => component.any((ex) => ex.ex.recruitment(pg, {}).volume > 0),
+    ); // we don't support modifiers
 
     // Zero out targets for program groups not affected by this component
     for (final pg in ProgramGroup.values) {
@@ -81,14 +84,16 @@ SetGroup generateLowestCostSetGroup(
 
 // Process a single component using matrix optimization
 SetGroup _generateComponentSetGroup(
-    List<RankedExercise> compounds, Map<ProgramGroup, double> targetRecruitment) {
+  List<RankedExercise> compounds,
+  Map<ProgramGroup, double> targetRecruitment,
+) {
   final numSignificantGroups = targetRecruitment.entries.where((entry) => entry.value > 0.5).length;
 
   print('\nOptimizing component:');
   print('Number of significant groups: $numSignificantGroups');
   print('Available exercises: ${compounds.length}');
-// We probably need approximately half as many distinct exercises as significant groups
-// this is a crude optimization
+  // We probably need approximately half as many distinct exercises as significant groups
+  // this is a crude optimization
   final minExercises = (numSignificantGroups / 2).ceil();
   print('Will try combinations of $minExercises to ${minExercises + 2} exercises');
 
@@ -105,7 +110,9 @@ SetGroup _generateComponentSetGroup(
     final optimizer = MatrixOptimizer(selectedExercises, targetRecruitment);
     final setGroup = optimizer.findOptimalSetGroup();
     final cost = calculateCost(
-        targetRecruitment, setGroup); // todo: can probably use the cost from the optimizer
+      targetRecruitment,
+      setGroup,
+    ); // todo: can probably use the cost from the optimizer
 
     if (cost < bestCost) {
       bestCost = cost;

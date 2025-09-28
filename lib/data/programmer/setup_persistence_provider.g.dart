@@ -19,9 +19,7 @@ final class SetupPersistenceProvider
           SetupPersistenceService,
           FutureOr<SetupPersistenceService>
         >
-    with
-        $FutureModifier<SetupPersistenceService>,
-        $FutureProvider<SetupPersistenceService> {
+    with $FutureModifier<SetupPersistenceService>, $FutureProvider<SetupPersistenceService> {
   const SetupPersistenceProvider._()
     : super(
         from: null,
@@ -38,9 +36,8 @@ final class SetupPersistenceProvider
 
   @$internal
   @override
-  $FutureProviderElement<SetupPersistenceService> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $FutureProviderElement<SetupPersistenceService> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<SetupPersistenceService> create(Ref ref) {

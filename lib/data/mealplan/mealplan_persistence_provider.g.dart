@@ -19,9 +19,7 @@ final class MealplanPersistenceProvider
           MealplanPersistenceService,
           FutureOr<MealplanPersistenceService>
         >
-    with
-        $FutureModifier<MealplanPersistenceService>,
-        $FutureProvider<MealplanPersistenceService> {
+    with $FutureModifier<MealplanPersistenceService>, $FutureProvider<MealplanPersistenceService> {
   const MealplanPersistenceProvider._()
     : super(
         from: null,
@@ -38,9 +36,8 @@ final class MealplanPersistenceProvider
 
   @$internal
   @override
-  $FutureProviderElement<MealplanPersistenceService> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $FutureProviderElement<MealplanPersistenceService> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<MealplanPersistenceService> create(Ref ref) {
@@ -48,5 +45,4 @@ final class MealplanPersistenceProvider
   }
 }
 
-String _$mealplanPersistenceHash() =>
-    r'852bf09a98954f680a4c4fb8ef02639f6f9c90e3';
+String _$mealplanPersistenceHash() => r'852bf09a98954f680a4c4fb8ef02639f6f9c90e3';
