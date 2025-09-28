@@ -17,7 +17,7 @@ class Mealplan extends _$Mealplan {
     final currentMealplan = await ref.watch(currentMealplanProvider.future);
 
     // Listen to state changes and save automatically
-    ref.listenSelf((previous, next) async {
+    listenSelf((previous, next) async {
       if (next.value == null) return;
       final service = await ref.read(mealplanPersistenceProvider.future);
       await service.saveMealplan(currentMealplan, next.value!);

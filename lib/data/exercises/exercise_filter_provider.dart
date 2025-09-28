@@ -146,7 +146,7 @@ class ExerciseFilter extends _$ExerciseFilter {
 
 // Provider for filtered exercises
 @riverpod
-List<Ex> filteredExercises(FilteredExercisesRef ref) {
+List<Ex> filteredExercises(Ref ref) {
   final filterState = ref.watch(exerciseFilterProvider);
   List<Ex> exercises = List.from(exes);
 

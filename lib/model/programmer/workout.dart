@@ -5,7 +5,7 @@ part 'workout.freezed.dart';
 part 'workout.g.dart';
 
 @freezed
-class Workout with _$Workout {
+abstract class Workout with _$Workout {
   const factory Workout({
     @Default('unnamed workout') String name,
     @Default([]) List<SetGroup> setGroups,

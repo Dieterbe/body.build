@@ -5,7 +5,7 @@ part 'program_state.freezed.dart';
 part 'program_state.g.dart';
 
 @freezed
-class ProgramState with _$ProgramState {
+abstract class ProgramState with _$ProgramState {
   const factory ProgramState({
     @Default('unnamed program') String name,
     @Default([]) List<Workout> workouts,

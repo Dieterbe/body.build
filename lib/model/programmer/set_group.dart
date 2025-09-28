@@ -8,15 +8,11 @@ part 'set_group.freezed.dart';
 part 'set_group.g.dart';
 
 @freezed
-class Sets with _$Sets {
+abstract class Sets with _$Sets {
   const Sets._(); // to support custom methods
   const factory Sets(
     int intensity, {
-    @JsonKey(
-      toJson: _exToJson,
-      fromJson: _exFromJson,
-    )
-    Ex? ex,
+    @JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex,
     @Default(1) int n,
     @JsonKey(includeToJson: false) @Default(false) bool changeEx,
     @Default({}) Map<String, String> modifierOptions, // Map of modifier name to selected option
@@ -25,18 +21,19 @@ class Sets with _$Sets {
 
   factory Sets.fromJson(Map<String, dynamic> json) {
     final sets = _$SetsFromJson(json);
-    return sets.copyWith(
-      modifierOptions: migrateModifierOptions(sets.modifierOptions),
-    );
+    return sets.copyWith(modifierOptions: migrateModifierOptions(sets.modifierOptions));
   }
+
+  @override
+  Map<String, dynamic> toJson() => _$SetsToJson(this as _Sets);
 
   double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;
     return ex!.recruitmentFiltered(pg, modifierOptions, cutoff).volume * n;
   }
 
-// note: this isn't quite the same as programgroups.
-// e.g. lower pecs, upper pecs are counted as one, gastroc and soleus are counted as one, etc
+  // note: this isn't quite the same as programgroups.
+  // e.g. lower pecs, upper pecs are counted as one, gastroc and soleus are counted as one, etc
   int? involvedMuscleGroups() {
     if (ex == null) return null;
 
@@ -80,7 +77,8 @@ class Sets with _$Sets {
     return ratings.where((rating) {
       // Check if all required modifiers are configured correctly
       for (final entry in rating.modifiers.entries) {
-        final selectedOption = modifierConfig[entry.key] ??
+        final selectedOption =
+            modifierConfig[entry.key] ??
             ex!.modifiers.firstWhere((m) => m.name == entry.key).defaultVal;
         if (selectedOption != entry.value) return false;
       }
@@ -109,10 +107,8 @@ Ex? _exFromJson(String? id) {
 }
 
 @freezed
-class SetGroup with _$SetGroup {
-  const factory SetGroup(
-    List<Sets> sets,
-  ) = _SetGroup;
+abstract class SetGroup with _$SetGroup {
+  const factory SetGroup(List<Sets> sets) = _SetGroup;
 
   factory SetGroup.fromJson(Map<String, dynamic> json) => _$SetGroupFromJson(json);
 }

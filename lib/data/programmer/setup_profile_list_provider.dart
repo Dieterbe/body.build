@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/data/programmer/setup_persistence_provider.dart';

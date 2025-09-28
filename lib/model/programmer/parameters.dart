@@ -10,7 +10,7 @@ part 'parameters.g.dart';
 
 // 37 ⋮    │TODO: implement ceiling of max sets per workout per MG: research says 6. but depends on factors such as genetics, closeness to failure, and rest intervals
 @freezed
-class Parameters with _$Parameters {
+abstract class Parameters with _$Parameters {
   Parameters._(); // Private constructor for methods
 
   factory Parameters({

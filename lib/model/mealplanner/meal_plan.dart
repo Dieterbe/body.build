@@ -16,7 +16,7 @@ no weekly targets because:
 - what matters is the per day amounts, as those correspond to workouts
 */
 @freezed
-class MealPlan with _$MealPlan {
+abstract class MealPlan with _$MealPlan {
   const factory MealPlan({
     required String name,
     @Default(<DayPlan>[]) List<DayPlan> dayplans,
@@ -31,7 +31,7 @@ class MealPlan with _$MealPlan {
 }
 
 @freezed
-class DayPlan with _$DayPlan {
+abstract class DayPlan with _$DayPlan {
   const factory DayPlan({
     required String desc,
     required Targets targets,
@@ -44,7 +44,7 @@ class DayPlan with _$DayPlan {
 }
 
 @freezed
-class Event with _$Event {
+sealed class Event with _$Event {
   const factory Event.meal({
     required String desc,
     required Targets targets,
@@ -59,7 +59,7 @@ class Event with _$Event {
 }
 
 @freezed
-class Targets with _$Targets {
+abstract class Targets with _$Targets {
   const factory Targets({
     required double minProtein,
     required double maxProtein,

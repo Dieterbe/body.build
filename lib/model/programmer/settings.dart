@@ -13,7 +13,7 @@ part 'settings.freezed.dart';
 part 'settings.g.dart';
 
 @freezed
-class Settings with _$Settings {
+abstract class Settings with _$Settings {
   const Settings._(); // Private constructor for custom methods
 
   // This is the main constructor, for Freezed.

@@ -7,7 +7,7 @@ part 'parameter_overrides.freezed.dart';
 part 'parameter_overrides.g.dart';
 
 @freezed
-class MuscleGroupOverride with _$MuscleGroupOverride {
+abstract class MuscleGroupOverride with _$MuscleGroupOverride {
   const factory MuscleGroupOverride(
     ProgramGroup group,
     int sets,
@@ -18,7 +18,7 @@ class MuscleGroupOverride with _$MuscleGroupOverride {
 }
 
 @freezed
-class ParameterOverrides with _$ParameterOverrides {
+abstract class ParameterOverrides with _$ParameterOverrides {
   const factory ParameterOverrides({
     final List<int>? intensities,
     final int? setsPerWeekPerMuscleGroup,
