@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
+import 'package:bodybuild/data/programmer/current_setup_profile_provider.dart';
 
 const String helpSetsPerWeekPerMuscleGroup = '''
 Number of sets per week per muscle group.  
@@ -22,14 +23,12 @@ Practical tips:
 ''';
 
 class ProgrammerSetupParams extends ConsumerWidget {
-  ProgrammerSetupParams({super.key});
-  // keys for TextFormField's that don't use Form. see TextFormField docs
-  final keyIntensities = GlobalKey<FormFieldState>();
-  final keyWeeklyVolume = GlobalKey<FormFieldState>();
+  const ProgrammerSetupParams({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final setup = ref.watch(setupProvider);
+    final currentProfileId = ref.watch(currentSetupProfileProvider);
     final notifier = ref.read(setupProvider.notifier);
 
     return setup.when(
@@ -44,6 +43,11 @@ class ProgrammerSetupParams extends ConsumerWidget {
                 .any((override) => override.group == group));
 
         return Column(
+          // re-initialize all values when we switch profiles
+          key: currentProfileId.maybeWhen(
+            data: (profileId) => ValueKey('setup_params_$profileId'),
+            orElse: () => null,
+          ),
           children: [
             const LabelBar('Resulting Parameters'),
             Text('these params are derived from your inputs. You may optionally override them',
@@ -57,7 +61,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                         'Intensity: ${setup.paramSuggest.intensities.map((i) => i.toString()).join(',')}',
                         context),
                     v: TextFormField(
-                      key: keyIntensities,
+                      key: const ValueKey('intensities'),
                       initialValue: (setup.paramOverrides.intensities == null)
                           ? ''
                           : setup.paramOverrides.intensities!.map((i) => i.toString()).join(','),
@@ -78,7 +82,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                         'Sets /week/muscle: ${setup.paramSuggest.setsPerweekPerMuscleGroup.toStringAsFixed(0)}',
                         context),
                     v: TextFormField(
-                      key: keyWeeklyVolume,
+                      key: const ValueKey('weeklyVolume'),
                       initialValue:
                           setup.paramOverrides.setsPerWeekPerMuscleGroup?.toString() ?? '',
                       keyboardType: TextInputType.number,
@@ -135,6 +139,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                               child: KVRow(
                                 titleTextMedium(override.group.displayName, context),
                                 v: TextFormField(
+                                  key: ValueKey('muscle_${override.group.name}'),
                                   initialValue: override.sets.toString(),
                                   keyboardType: TextInputType.number,
                                   autovalidateMode: AutovalidateMode.always,
