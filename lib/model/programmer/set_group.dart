@@ -1,11 +1,16 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
-import 'package:bodybuild/util/url.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'set_group.freezed.dart';
 part 'set_group.g.dart';
+
+/// Migrates a map of modifier options
+/// at some point we stopped allowing '&' in modifier options, so they encode easier into json
+Map<String, String> migrateModifierOptions(Map<String, String> options) {
+  return options.map((key, value) => MapEntry(key, value.replaceFirst('&', 'and')));
+}
 
 @freezed
 abstract class Sets with _$Sets {
@@ -19,13 +24,12 @@ abstract class Sets with _$Sets {
     @Default({}) Map<String, bool> cueOptions, // Map of cue name to enabled state
   }) = _Sets;
 
-  factory Sets.fromJson(Map<String, dynamic> json) {
-    final sets = _$SetsFromJson(json);
-    return sets.copyWith(modifierOptions: migrateModifierOptions(sets.modifierOptions));
-  }
+  factory Sets.fromJson(Map<String, dynamic> json) =>
+      _$SetsFromJson(json)._migrateModifierOptions();
 
-  @override
-  Map<String, dynamic> toJson() => _$SetsToJson(this as _Sets);
+  Sets _migrateModifierOptions() {
+    return copyWith(modifierOptions: migrateModifierOptions(modifierOptions));
+  }
 
   double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;

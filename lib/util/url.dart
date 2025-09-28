@@ -1,16 +1,6 @@
-/// URL encoding and decoding utilities for exercise IDs and modifier options.
+/// URL encoding and decoding utilities for exercise IDs
 /// see exercises.dart for detailed character rules of the various fields
 /// most importantly, '_' is not allowed, so we can use them in the URL
-
-/// Migrates old modifier values by replacing '&' with ' and '
-String migrateModifierValue(String value) {
-  return value.replaceFirst('&', 'and');
-}
-
-/// Migrates a map of modifier options
-Map<String, String> migrateModifierOptions(Map<String, String> options) {
-  return options.map((key, value) => MapEntry(key, migrateModifierValue(value)));
-}
 
 /// Builds an exercise detail URL with encoded exercise ID and modifier options.
 String buildExerciseDetailUrl(String exerciseId, Map<String, String> modifierOptions) {
@@ -29,10 +19,7 @@ String buildExerciseDetailUrl(String exerciseId, Map<String, String> modifierOpt
     queryParams['mod_$encodedKey'] = encodedValue;
   });
 
-  final uri = Uri(
-    path: '/exercises/$encodedExerciseId',
-    queryParameters: queryParams,
-  );
+  final uri = Uri(path: '/exercises/$encodedExerciseId', queryParameters: queryParams);
 
   return uri.toString();
 }
