@@ -12,11 +12,7 @@ class DayColumn extends ConsumerWidget {
   final MealPlan plan;
   final DayPlan day;
 
-  const DayColumn({
-    super.key,
-    required this.plan,
-    required this.day,
-  });
+  const DayColumn({super.key, required this.plan, required this.day});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -61,15 +57,10 @@ class DayColumn extends ConsumerWidget {
                 children: [
                   _buildMacroTargetsRow(context, day.targets),
                   const SizedBox(height: 16),
-                  Text(
-                    'Events',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  Text('Events', style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 8),
                   if (day.events.isEmpty)
-                    const Center(
-                      child: Text('No events yet'),
-                    )
+                    const Center(child: Text('No events yet'))
                   else
                     ReorderableListView.builder(
                       shrinkWrap: true,
@@ -93,10 +84,7 @@ class DayColumn extends ConsumerWidget {
                             color: Theme.of(context).colorScheme.error,
                             alignment: Alignment.centerRight,
                             padding: const EdgeInsets.only(right: 16.0),
-                            child: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.onError,
-                            ),
+                            child: Icon(Icons.delete, color: Theme.of(context).colorScheme.onError),
                           ),
                           onDismissed: (direction) {
                             final List<Event> newEvents = List.from(day.events)..removeAt(index);
@@ -115,10 +103,7 @@ class DayColumn extends ConsumerWidget {
                                       meal: (desc, targets) => Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            desc,
-                                            style: Theme.of(context).textTheme.titleSmall,
-                                          ),
+                                          Text(desc, style: Theme.of(context).textTheme.titleSmall),
                                           Text(
                                             'Kcal: ${targets.kCal.round()}'
                                             'P: ${targets.minProtein.round()}-${targets.maxProtein.round()}g '
@@ -134,8 +119,8 @@ class DayColumn extends ConsumerWidget {
                                           Text(
                                             desc,
                                             style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                                  color: Theme.of(context).colorScheme.primary,
-                                                ),
+                                              color: Theme.of(context).colorScheme.primary,
+                                            ),
                                           ),
                                           Text(
                                             'Estimated burn: ${estimatedKcal.round()} kcal',
@@ -169,10 +154,7 @@ class DayColumn extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Energy Balance',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  Text('Energy Balance', style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 8),
                   Builder(
                     builder: (context) {
@@ -204,7 +186,7 @@ class DayColumn extends ConsumerWidget {
                           Text(
                             'Balance : ${balance.round()} kcal',
                             style: Theme.of(context).textTheme.titleSmall?.copyWith(color: color),
-                          )
+                          ),
                         ],
                       );
                     },
@@ -230,12 +212,7 @@ class DayColumn extends ConsumerWidget {
   }
 
   Widget _buildMacroColumn(String name, double min, double max) {
-    return Column(
-      children: [
-        Text(name),
-        Text('${min.round()}-${max.round()}g'),
-      ],
-    );
+    return Column(children: [Text(name), Text('${min.round()}-${max.round()}g')]);
   }
 
   void _showAddEventDialog(BuildContext context, WidgetRef ref, DayPlan day, Mealplan notifier) {
@@ -295,28 +272,24 @@ class DayColumn extends ConsumerWidget {
                           data: (program) {
                             if (program.currentProgram.workouts.isEmpty) {
                               return const Text(
-                                  'No workouts available. Create workouts in the Program Builder first.');
+                                'No workouts available. Create workouts in the Program Builder first.',
+                              );
                             }
                             return DropdownButtonFormField<Workout>(
-                              decoration: const InputDecoration(
-                                labelText: 'Select Workout',
-                              ),
-                              value: selectedWorkout,
+                              decoration: const InputDecoration(labelText: 'Select Workout'),
+                              initialValue: selectedWorkout,
                               items: program.currentProgram.workouts.map((workout) {
-                                return DropdownMenuItem(
-                                  value: workout,
-                                  child: Text(workout.name),
-                                );
+                                return DropdownMenuItem(value: workout, child: Text(workout.name));
                               }).toList(),
                               onChanged: (Workout? value) async {
                                 selectedWorkout = value;
                                 if (value != null) {
                                   description = value.name;
                                   int totalSets = value.setGroups.fold(
-                                      0,
-                                      (sum, group) =>
-                                          sum +
-                                          group.sets.fold(0, (setSum, set) => setSum + set.n));
+                                    0,
+                                    (sum, group) =>
+                                        sum + group.sets.fold(0, (setSum, set) => setSum + set.n),
+                                  );
                                   final min = (totalSets * 2.5).round();
                                   final setup = await ref.read(setupProvider.future);
                                   final (gross, displaced, epoc, net) = setup.getTrainingEE(min);
@@ -362,9 +335,7 @@ class DayColumn extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: 'Min Protein',
-                              ),
+                              decoration: const InputDecoration(labelText: 'Min Protein'),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 targets ??= const Targets(
@@ -385,9 +356,7 @@ class DayColumn extends ConsumerWidget {
                           const SizedBox(width: 8),
                           Expanded(
                             child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: 'Max Protein',
-                              ),
+                              decoration: const InputDecoration(labelText: 'Max Protein'),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 targets ??= const Targets(
@@ -412,9 +381,7 @@ class DayColumn extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: 'Min Carbs',
-                              ),
+                              decoration: const InputDecoration(labelText: 'Min Carbs'),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 targets ??= const Targets(
@@ -426,18 +393,14 @@ class DayColumn extends ConsumerWidget {
                                   maxFats: 0,
                                   kCal: 0,
                                 );
-                                targets = targets!.copyWith(
-                                  minCarbs: double.tryParse(value) ?? 0,
-                                );
+                                targets = targets!.copyWith(minCarbs: double.tryParse(value) ?? 0);
                               },
                             ),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: 'Max Carbs',
-                              ),
+                              decoration: const InputDecoration(labelText: 'Max Carbs'),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 targets ??= const Targets(
@@ -449,9 +412,7 @@ class DayColumn extends ConsumerWidget {
                                   maxFats: 0,
                                   kCal: 0,
                                 );
-                                targets = targets!.copyWith(
-                                  maxCarbs: double.tryParse(value) ?? 0,
-                                );
+                                targets = targets!.copyWith(maxCarbs: double.tryParse(value) ?? 0);
                               },
                             ),
                           ),
@@ -462,9 +423,7 @@ class DayColumn extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: 'Min Fats',
-                              ),
+                              decoration: const InputDecoration(labelText: 'Min Fats'),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 targets ??= const Targets(
@@ -476,18 +435,14 @@ class DayColumn extends ConsumerWidget {
                                   maxFats: 0,
                                   kCal: 0,
                                 );
-                                targets = targets!.copyWith(
-                                  minFats: double.tryParse(value) ?? 0,
-                                );
+                                targets = targets!.copyWith(minFats: double.tryParse(value) ?? 0);
                               },
                             ),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: 'Max Fats',
-                              ),
+                              decoration: const InputDecoration(labelText: 'Max Fats'),
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 targets ??= const Targets(
@@ -499,9 +454,7 @@ class DayColumn extends ConsumerWidget {
                                   maxFats: 0,
                                   kCal: 0,
                                 );
-                                targets = targets!.copyWith(
-                                  maxFats: double.tryParse(value) ?? 0,
-                                );
+                                targets = targets!.copyWith(maxFats: double.tryParse(value) ?? 0);
                               },
                             ),
                           ),
@@ -509,9 +462,7 @@ class DayColumn extends ConsumerWidget {
                       ),
                       const SizedBox(height: 8),
                       TextField(
-                        decoration: const InputDecoration(
-                          labelText: 'Target Calories',
-                        ),
+                        decoration: const InputDecoration(labelText: 'Target Calories'),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
                           targets ??= const Targets(
@@ -523,9 +474,7 @@ class DayColumn extends ConsumerWidget {
                             maxFats: 0,
                             kCal: 0,
                           );
-                          targets = targets!.copyWith(
-                            kCal: double.tryParse(value) ?? 0,
-                          );
+                          targets = targets!.copyWith(kCal: double.tryParse(value) ?? 0);
                         },
                       ),
                     ],
@@ -535,10 +484,7 @@ class DayColumn extends ConsumerWidget {
             },
           ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
-            ),
+            TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
             TextButton(
               onPressed: () {
                 if (description.isEmpty) {
@@ -550,18 +496,12 @@ class DayColumn extends ConsumerWidget {
                   if (targets == null) {
                     return;
                   }
-                  newEvent = Event.meal(
-                    desc: description,
-                    targets: targets!,
-                  );
+                  newEvent = Event.meal(desc: description, targets: targets!);
                 } else {
                   if (kcal == null) {
                     return;
                   }
-                  newEvent = Event.strengthWorkout(
-                    desc: description,
-                    estimatedKcal: kcal!,
-                  );
+                  newEvent = Event.strengthWorkout(desc: description, estimatedKcal: kcal!);
                 }
 
                 final updatedEvents = [...day.events, newEvent];

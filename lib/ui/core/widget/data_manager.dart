@@ -50,41 +50,30 @@ class DataManager extends StatelessWidget {
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 400),
                   child: DropdownButtonFormField<String>(
-                    value: opts.isEmpty ? null : opts.first,
+                    initialValue: opts.isEmpty ? null : opts.first,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
+                        borderSide: BorderSide(color: Theme.of(context).colorScheme.outline),
                       ),
                       filled: true,
                       fillColor: Theme.of(context).colorScheme.surface,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
-                    icon: Icon(
-                      Icons.arrow_drop_down,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                    icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).colorScheme.primary),
                     style: Theme.of(context).textTheme.bodyLarge,
                     items: opts
-                        .map((name) => DropdownMenuItem(
-                              value: name,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      name,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ))
+                        .map(
+                          (name) => DropdownMenuItem(
+                            value: name,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(child: Text(name, overflow: TextOverflow.ellipsis)),
+                              ],
+                            ),
+                          ),
+                        )
                         .toList(),
                     onChanged: (id) {
                       if (id != null) {
@@ -98,10 +87,7 @@ class DataManager extends StatelessWidget {
               // Item management buttons
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.outlineVariant,
-                    width: 1,
-                  ),
+                  border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
@@ -112,10 +98,7 @@ class DataManager extends StatelessWidget {
                         shape: const RoundedRectangleBorder(),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      icon: Icon(
-                        Icons.edit,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                      icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.primary),
                       tooltip: 'Rename',
                       onPressed: () {
                         if (opts.isEmpty) return;
@@ -127,10 +110,7 @@ class DataManager extends StatelessWidget {
                         shape: const RoundedRectangleBorder(),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      icon: Icon(
-                        Icons.copy,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                      icon: Icon(Icons.copy, color: Theme.of(context).colorScheme.primary),
                       tooltip: 'Duplicate',
                       onPressed: () {
                         if (opts.isEmpty) return;
@@ -142,10 +122,7 @@ class DataManager extends StatelessWidget {
                         shape: const RoundedRectangleBorder(),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      icon: Icon(
-                        Icons.add,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                      icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
                       tooltip: 'New',
                       onPressed: () => _showAddDialog(context),
                     ),
@@ -179,9 +156,7 @@ class DataManager extends StatelessWidget {
     );
   }
 
-  Future<void> _showAddDialog(
-    BuildContext context,
-  ) async {
+  Future<void> _showAddDialog(BuildContext context) async {
     final controller = TextEditingController();
     final formKey = GlobalKey<FormFieldState>();
 
@@ -210,10 +185,7 @@ class DataManager extends StatelessWidget {
           autofocus: true,
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
           FilledButton(
             onPressed: () {
               if (formKey.currentState?.validate() ?? false) {
@@ -260,10 +232,7 @@ class DataManager extends StatelessWidget {
           autofocus: true,
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
           FilledButton(
             onPressed: () {
               if (formKey.currentState?.validate() ?? false) {
@@ -310,10 +279,7 @@ class DataManager extends StatelessWidget {
           autofocus: true,
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
           FilledButton(
             onPressed: () {
               if (formKey.currentState?.validate() ?? false) {
@@ -338,14 +304,8 @@ class DataManager extends StatelessWidget {
         title: const Text('Delete'),
         content: Text('Are you sure you want to delete "$item"?'),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Delete'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Delete')),
         ],
       ),
     );

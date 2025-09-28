@@ -10,7 +10,7 @@ class ProgrammerSetup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -18,30 +18,19 @@ class ProgrammerSetup extends StatelessWidget {
           children: [
             Expanded(
               flex: 10,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ProgrammerSetupInputs(),
-              ),
+              child: Padding(padding: EdgeInsets.all(8.0), child: ProgrammerSetupInputs()),
             ),
             Expanded(
               flex: 10,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    const ProgrammerSetupFacts(),
-                    ProgrammerSetupParams(),
-                  ],
-                ),
+                padding: EdgeInsets.all(8.0),
+                child: Column(children: [ProgrammerSetupFacts(), ProgrammerSetupParams()]),
               ),
             ),
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: ProgrammerSetupFilters(),
-        ),
-        const VersionWidget(),
+        Padding(padding: EdgeInsets.all(8.0), child: ProgrammerSetupFilters()),
+        VersionWidget(),
       ],
     );
   }
