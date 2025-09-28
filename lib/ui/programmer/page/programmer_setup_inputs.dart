@@ -11,6 +11,7 @@ import 'package:bodybuild/ui/programmer/widget/setup_profile_header.dart';
 import 'package:bodybuild/util/formulas.dart';
 
 import '../../../data/programmer/setup.dart';
+import '../../../data/programmer/current_setup_profile_provider.dart';
 
 const String helpTraineeLevel = '''
 Use the strength-based Kilgore-Rippetoe-Pendlay strength standards.  
@@ -155,22 +156,12 @@ The effect of current inergy intake is minor.
 ''';
 
 class ProgrammerSetupInputs extends ConsumerWidget {
-  ProgrammerSetupInputs({super.key});
-  // keys for TextFormField's that don't use Form. see TextFormField docs
-  final keyAge = GlobalKey<FormFieldState>();
-  final keyWeight = GlobalKey<FormFieldState>();
-  final keyHeight = GlobalKey<FormFieldState>();
-  final keyBodyFat = GlobalKey<FormFieldState>();
-  final keyEnergyBalance = GlobalKey<FormFieldState>();
-  final keyRecoveryFactor = GlobalKey<FormFieldState>();
-  final keyWorkoutsPerWeek = GlobalKey<FormFieldState>();
-  final _durationKey = GlobalKey<FormFieldState>();
-  final keyTefFactor = GlobalKey<FormFieldState>();
-  final keyAtFactor = GlobalKey<FormFieldState>();
+  const ProgrammerSetupInputs({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final setupAsync = ref.watch(setupProvider);
+    final currentProfileId = ref.watch(currentSetupProfileProvider);
 
     return setupAsync.when(
       data: (setup) {
@@ -209,49 +200,65 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Age', context),
-                        v: numInput(
-                          keyAge,
-                          'years',
-                          setup.age.toString(),
-                          context,
-                          validator: notifier.ageValidator,
-                          onChanged: notifier.setAgeMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('age_$profileId'),
+                            'years',
+                            setup.age.toString(),
+                            context,
+                            validator: notifier.ageValidator,
+                            onChanged: notifier.setAgeMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                       ),
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Weight', context),
-                        v: numInput(
-                          keyWeight,
-                          'kg',
-                          setup.weight.toString(),
-                          context,
-                          validator: notifier.weightValidator,
-                          onChanged: notifier.setWeightMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('weight_$profileId'),
+                            'kg',
+                            setup.weight.toString(),
+                            context,
+                            validator: notifier.weightValidator,
+                            onChanged: notifier.setWeightMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                       ),
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Height', context),
-                        v: numInput(
-                          keyHeight,
-                          'cm',
-                          setup.height.toString(),
-                          context,
-                          validator: notifier.heightValidator,
-                          onChanged: notifier.setHeightMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('height_$profileId'),
+                            'cm',
+                            setup.height.toString(),
+                            context,
+                            validator: notifier.heightValidator,
+                            onChanged: notifier.setHeightMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                       ),
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Body Fat', context),
-                        v: numInput(
-                          keyBodyFat,
-                          '%',
-                          setup.bodyFat?.toStringAsFixed(1) ?? '',
-                          context,
-                          validator: notifier.bodyFatValidator,
-                          onChanged: notifier.setBodyFatMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('bodyFat_$profileId'),
+                            '%',
+                            setup.bodyFat?.toStringAsFixed(1) ?? '',
+                            context,
+                            validator: notifier.bodyFatValidator,
+                            onChanged: notifier.setBodyFatMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                         help: helpBodyFat(bfDeur),
                         helpTitle: 'Body Fat',
@@ -280,13 +287,17 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Recovery Factor', context),
-                        v: numInput(
-                          keyRecoveryFactor,
-                          '',
-                          setup.recoveryFactor.toStringAsFixed(1),
-                          context,
-                          validator: notifier.recoveryFactorValidator,
-                          onChanged: notifier.setRecoveryFactorMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('recoveryFactor_$profileId'),
+                            '',
+                            setup.recoveryFactor.toStringAsFixed(1),
+                            context,
+                            validator: notifier.recoveryFactorValidator,
+                            onChanged: notifier.setRecoveryFactorMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                         help: helpRecoveryFactor,
                         helpTitle: 'Recovery Factor',
@@ -318,25 +329,33 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Workouts', context),
-                        v: numInput(
-                          keyWorkoutsPerWeek,
-                          'per week',
-                          setup.workoutsPerWeek.toString(),
-                          context,
-                          validator: notifier.workoutsPerWeekValidator,
-                          onChanged: notifier.setWorkoutsPerWeekMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('workoutsPerWeek_$profileId'),
+                            'per week',
+                            setup.workoutsPerWeek.toString(),
+                            context,
+                            validator: notifier.workoutsPerWeekValidator,
+                            onChanged: notifier.setWorkoutsPerWeekMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                       ),
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Normalized\nWorkout Duration', context),
-                        v: numInput(
-                          _durationKey,
-                          'min',
-                          setup.workoutDuration.toString(),
-                          context,
-                          validator: notifier.workoutDurationValidator,
-                          onChanged: notifier.setWorkoutDurationMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('workoutDuration_$profileId'),
+                            'min',
+                            setup.workoutDuration.toString(),
+                            context,
+                            validator: notifier.workoutDurationValidator,
+                            onChanged: notifier.setWorkoutDurationMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                         help: helpWorkoutDuration,
                         helpTitle: 'Normalized Workout Duration',
@@ -344,13 +363,17 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('Energy balance', context),
-                        v: numInput(
-                          keyEnergyBalance,
-                          '%',
-                          setup.energyBalance.toString(),
-                          context,
-                          validator: notifier.energyBalanceValidator,
-                          onChanged: notifier.setEnergyBalanceMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('energyBalance_$profileId'),
+                            '%',
+                            setup.energyBalance.toString(),
+                            context,
+                            validator: notifier.energyBalanceValidator,
+                            onChanged: notifier.setEnergyBalanceMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                         help: helpEnergyBalance,
                         helpTitle: 'Energy balance',
@@ -358,13 +381,17 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('TEF multiplier', context),
-                        v: numInput(
-                          keyTefFactor,
-                          '',
-                          setup.tefFactor.toStringAsFixed(2),
-                          context,
-                          validator: notifier.tefFactorValidator,
-                          onChanged: notifier.setTefFactorMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('tefFactor_$profileId'),
+                            '',
+                            setup.tefFactor.toStringAsFixed(2),
+                            context,
+                            validator: notifier.tefFactorValidator,
+                            onChanged: notifier.setTefFactorMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                         help: helpTefFactor,
                         helpTitle: 'TEF multiplier',
@@ -372,13 +399,17 @@ class ProgrammerSetupInputs extends ConsumerWidget {
                       const SizedBox(height: 12),
                       KVRow(
                         titleTextMedium('AT multiplier', context),
-                        v: numInput(
-                          keyAtFactor,
-                          '',
-                          setup.atFactor.toStringAsFixed(2),
-                          context,
-                          validator: notifier.atFactorValidator,
-                          onChanged: notifier.setAtFactorMaybe,
+                        v: currentProfileId.when(
+                          data: (profileId) => numInput(
+                            ValueKey('atFactor_$profileId'),
+                            '',
+                            setup.atFactor.toStringAsFixed(2),
+                            context,
+                            validator: notifier.atFactorValidator,
+                            onChanged: notifier.setAtFactorMaybe,
+                          ),
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stack) => Text('Error: $error'),
                         ),
                         help: helpAtFactor,
                         helpTitle: 'AT multiplier',
@@ -398,7 +429,7 @@ class ProgrammerSetupInputs extends ConsumerWidget {
 }
 
 Widget numInput(
-  GlobalKey key,
+  Key key,
   String suffix,
   String value,
   BuildContext context, {
