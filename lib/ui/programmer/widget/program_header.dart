@@ -43,7 +43,7 @@ class ProgramHeader extends ConsumerWidget {
       return null;
     }
 
-    dynamic onDuplicate(String name) {
+    dynamic onDuplicate(_, String name) {
       ref.read(programManagerProvider.notifier).duplicateProgram(name);
       return null;
     }
@@ -67,7 +67,7 @@ class ProgramHeader extends ConsumerWidget {
               onSelect: (name) => onSelect(name, state),
               onCreate: onCreate,
               onRename: onRename,
-              onDuplicate: (_, name) => onDuplicate(name),
+              onDuplicate: onDuplicate,
               onDelete: state.currentProgram.builtin ? null : onDelete,
             ),
             const SizedBox(height: 20),

@@ -16,15 +16,15 @@ class SetupProfileHeader extends ConsumerWidget {
     // returns all the keys of programs, the first one being currentId
     List<String> getOpts(String currentId, Map<String, Settings> profiles) {
       final currentName = profiles[currentId]!.name;
-      final otherNames =
-          profiles.entries.where((e) => e.key != currentId).map((e) => e.value.name).toList();
+      final otherNames = profiles.entries
+          .where((e) => e.key != currentId)
+          .map((e) => e.value.name)
+          .toList();
       return [currentName, ...otherNames];
     }
 
     onSelect(String name, Map<String, Settings> profiles) {
-      final profile = profiles.entries.firstWhere(
-        (e) => e.value.name == name,
-      );
+      final profile = profiles.entries.firstWhere((e) => e.value.name == name);
       ref.read(currentSetupProfileProvider.notifier).select(profile.key);
     }
 
@@ -43,10 +43,7 @@ class SetupProfileHeader extends ConsumerWidget {
       final service = await ref.read(setupPersistenceProvider.future);
       final profiles = await service.loadProfiles();
       final entry = profiles.entries.firstWhere((e) => e.value.name == oldName);
-      await service.saveProfile(
-        entry.key,
-        entry.value.copyWith(name: newName),
-      );
+      await service.saveProfile(entry.key, entry.value.copyWith(name: newName));
       ref.invalidate(setupProfileListProvider);
       // Wait for the profile list to be reloaded
       await ref.read(setupProfileListProvider.future);
@@ -58,21 +55,8 @@ class SetupProfileHeader extends ConsumerWidget {
       final currentProfile = await service.loadProfile(currentId);
       if (currentProfile == null) return;
 
-      // Find the next available copy number
-      final baseName = currentProfile.name;
-      final allProfiles = await ref.read(setupProfileListProvider.future);
-      int copyNumber = 1;
-      String newName;
-      do {
-        newName = copyNumber == 1 ? '$baseName (Copy)' : '$baseName (Copy $copyNumber)';
-        copyNumber++;
-      } while (allProfiles.values.any((p) => p.name == newName));
-
       final newId = DateTime.now().millisecondsSinceEpoch.toString();
-      await service.saveProfile(
-        newId,
-        currentProfile.copyWith(name: newName),
-      );
+      await service.saveProfile(newId, currentProfile.copyWith(name: newName));
       ref.invalidate(setupProfileListProvider);
       await ref.read(setupProfileListProvider.future);
       // Then switch to the new profile
@@ -84,17 +68,14 @@ class SetupProfileHeader extends ConsumerWidget {
       final currentId = await ref.read(currentSetupProfileProvider.future);
       await service.deleteProfile(currentId);
 
-// Get updated program list
+      // Get updated program list
       final profiles = await service.loadProfiles();
       ref.invalidate(setupProfileListProvider);
 
-// If no profiles exist, create a new default one
+      // If no profiles exist, create a new default one
       if (profiles.isEmpty) {
         final newId = DateTime.now().millisecondsSinceEpoch.toString();
-        await service.saveProfile(
-          newId,
-          Settings.defaults(),
-        );
+        await service.saveProfile(newId, Settings.defaults());
         ref.invalidate(setupProfileListProvider);
         ref.read(currentSetupProfileProvider.notifier).select(newId);
       } else {
@@ -103,23 +84,23 @@ class SetupProfileHeader extends ConsumerWidget {
       }
     }
 
-    return ref.watch(setupProfileListProvider).when(
-        loading: () => const SizedBox(
-              width: 200,
-              child: LinearProgressIndicator(),
+    return ref
+        .watch(setupProfileListProvider)
+        .when(
+          loading: () => const SizedBox(width: 200, child: LinearProgressIndicator()),
+          error: (error, stack) => Text('Error: $error'),
+          data: (profiles) => currentSetupId.when(
+            loading: () => const CircularProgressIndicator(),
+            error: (error, stack) => Text('Error: $error'),
+            data: (currentId) => DataManager(
+              opts: getOpts(currentId, profiles),
+              onSelect: (name) => onSelect(name, profiles),
+              onCreate: onCreate,
+              onRename: onRename,
+              onDuplicate: onDuplicate,
+              onDelete: onDelete,
             ),
-        error: (error, stack) => Text('Error: $error'),
-        data: (profiles) => currentSetupId.when(
-              loading: () => const CircularProgressIndicator(),
-              error: (error, stack) => Text('Error: $error'),
-              data: (currentId) => DataManager(
-                opts: getOpts(currentId, profiles),
-                onSelect: (name) => onSelect(name, profiles),
-                onCreate: onCreate,
-                onRename: onRename,
-                onDuplicate: onDuplicate,
-                onDelete: onDelete,
-              ),
-            ));
+          ),
+        );
   }
 }

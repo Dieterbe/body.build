@@ -254,7 +254,7 @@ class DataManager extends StatelessWidget {
     final controller = TextEditingController(text: '$item (Copy)');
     final formKey = GlobalKey<FormFieldState>();
 
-    final result = await showDialog<String>(
+    final nameNew = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Duplicate'),
@@ -292,8 +292,8 @@ class DataManager extends StatelessWidget {
       ),
     );
 
-    if (result != null && result.isNotEmpty) {
-      onDuplicate(item, result);
+    if (nameNew != null && nameNew.isNotEmpty) {
+      onDuplicate(item, nameNew);
     }
   }
 
