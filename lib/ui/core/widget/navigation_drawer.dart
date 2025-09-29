@@ -1,9 +1,12 @@
+import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
+import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/anatomy/page/articulations.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
+import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
@@ -73,6 +76,24 @@ class AppNavigationDrawer extends StatelessWidget {
                 ),
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Training'),
+                if (isMobileApp())
+                  _buildNavigationItem(
+                    context: context,
+                    icon: Icons.play_arrow,
+                    title: 'Start Workout',
+                    routeName: 'workouts/new',
+                    currentRoute: currentRoute,
+                    onTap: () => _navigateAndClose(context, WorkoutScreen.routeNameNew),
+                  ),
+                if (isMobileApp())
+                  _buildNavigationItem(
+                    context: context,
+                    icon: Icons.history,
+                    title: 'Workout History',
+                    routeName: WorkoutsScreen.routeName,
+                    currentRoute: currentRoute,
+                    onTap: () => _navigateAndClose(context, WorkoutsScreen.routeName),
+                  ),
                 _buildNavigationItem(
                   context: context,
                   icon: Icons.fitness_center,
@@ -81,14 +102,15 @@ class AppNavigationDrawer extends StatelessWidget {
                   currentRoute: currentRoute,
                   onTap: () => _navigateAndClose(context, ExercisesScreen.routeName),
                 ),
-                _buildNavigationItem(
-                  context: context,
-                  icon: Icons.schedule,
-                  title: 'Workout Programmer',
-                  routeName: ProgrammerScreen.routeName,
-                  currentRoute: currentRoute,
-                  onTap: () => _navigateAndClose(context, ProgrammerScreen.routeName),
-                ),
+                if (isTabletOrDesktop(context))
+                  _buildNavigationItem(
+                    context: context,
+                    icon: Icons.schedule,
+                    title: 'Workout Programmer',
+                    routeName: ProgrammerScreen.routeName,
+                    currentRoute: currentRoute,
+                    onTap: () => _navigateAndClose(context, ProgrammerScreen.routeName),
+                  ),
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Anatomy'),
                 _buildNavigationItem(

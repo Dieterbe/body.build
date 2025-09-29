@@ -12,6 +12,8 @@ import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
+import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
+import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/util/url.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
@@ -111,6 +113,23 @@ class MyApp extends StatelessWidget {
                         modifierOptions: parseExerciseParams(state.uri.queryParameters),
                       );
                     },
+                  ),
+                ],
+              ),
+              GoRoute(
+                name: WorkoutsScreen.routeName,
+                path: WorkoutsScreen.routeName,
+                builder: (context, state) => const WorkoutsScreen(),
+                routes: [
+                  GoRoute(
+                    path: '/new',
+                    name: WorkoutScreen.routeNameNew,
+                    builder: (context, state) => const WorkoutScreen(workoutId: 'new'),
+                  ),
+                  GoRoute(
+                    path: '/:id',
+                    builder: (context, state) =>
+                        WorkoutScreen(workoutId: state.pathParameters['id']!),
                   ),
                 ],
               ),

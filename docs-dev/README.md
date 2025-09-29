@@ -8,9 +8,9 @@
 ## File organization
 
 - directories:
-  - **lib/data/{feature}**: ephemeral state (riverpod), persisted state (riverpod) and hardcoded data (and supporting enums)
+  - **lib/data/{feature}**: ephemeral state (riverpod), persisted state (riverpod), drift database&tables, and hardcoded data (and supporting enums)
   - **lib/model/{feature}**: domain models
-  - **lib/service**: services
+  - **lib/service**: services which interface with sharedPrefs or drift, and are accessed via providers
   - **lib/util**: various utilities
   - **lib/ui/{feature}/page** for main screens and huge widgets that make up large parts of a page
   - **lib/ui/{feature}/widget** for smaller widgets

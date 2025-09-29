@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
 extension StringExtension on String {
   String capitalizeFirstOnly() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
@@ -42,4 +45,14 @@ extension IterableExtension<T> on Iterable<T> {
     }
     yield insert(length);
   }
+}
+
+bool isMobileApp() {
+  if (kIsWeb) return false; // not sure if needed
+  return (defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.iOS);
+}
+
+bool isTabletOrDesktop(BuildContext context) {
+  return MediaQuery.of(context).size.width > 768;
 }

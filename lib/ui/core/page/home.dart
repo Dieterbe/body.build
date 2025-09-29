@@ -1,6 +1,9 @@
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
+import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
+import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
+import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
@@ -165,13 +168,12 @@ class HomeScreen extends StatelessWidget {
                       // Quick Access Cards Grid
                       LayoutBuilder(
                         builder: (context, constraints) {
-                          final screenWidth = MediaQuery.of(context).size.width;
-                          final isTabletOrDesktop = screenWidth > 768;
-                          final crossAxisCount = isTabletOrDesktop ? 4 : 2;
+                          final tabletOrDesktop = isTabletOrDesktop(context);
+                          final crossAxisCount = tabletOrDesktop ? 4 : 2;
 
                           return ConstrainedBox(
                             constraints: BoxConstraints(
-                              maxWidth: isTabletOrDesktop ? 800 : double.infinity,
+                              maxWidth: tabletOrDesktop ? 800 : double.infinity,
                             ),
                             child: GridView.count(
                               shrinkWrap: true,
@@ -179,8 +181,47 @@ class HomeScreen extends StatelessWidget {
                               crossAxisCount: crossAxisCount,
                               crossAxisSpacing: 12,
                               mainAxisSpacing: 12,
-                              childAspectRatio: isTabletOrDesktop ? 1.1 : 1.4,
+                              childAspectRatio: tabletOrDesktop ? 1.1 : 1.4,
                               children: [
+                                if (tabletOrDesktop)
+                                  _buildQuickAccessCard(
+                                    context: context,
+                                    title: 'Workout Programmer',
+                                    subtitle: 'Build training programs',
+                                    icon: Icons.build,
+                                    color: Colors.green,
+                                    onTap: () => _navigateQuickAccess(
+                                      context,
+                                      ProgrammerScreen.routeName,
+                                      false,
+                                    ),
+                                  ),
+                                _buildQuickAccessCard(
+                                  context: context,
+                                  title: 'Start Workout',
+                                  subtitle: 'Track a workout session',
+                                  icon: Icons.play_arrow,
+                                  color: Colors.green,
+                                  showAppOnly: !isMobileApp(),
+                                  onTap: () => _navigateQuickAccess(
+                                    context,
+                                    WorkoutScreen.routeNameNew,
+                                    false,
+                                  ),
+                                ),
+                                _buildQuickAccessCard(
+                                  context: context,
+                                  title: 'Workout history',
+                                  subtitle: 'Track a workout session',
+                                  icon: Icons.history,
+                                  color: Colors.green,
+                                  showAppOnly: !isMobileApp(),
+                                  onTap: () => _navigateQuickAccess(
+                                    context,
+                                    WorkoutsScreen.routeName,
+                                    false,
+                                  ),
+                                ),
                                 _buildQuickAccessCard(
                                   context: context,
                                   title: 'Browse Exercises',
@@ -202,29 +243,6 @@ class HomeScreen extends StatelessWidget {
                                   onTap: () =>
                                       _navigateQuickAccess(context, MusclesScreen.routeName, false),
                                 ),
-                                isTabletOrDesktop
-                                    ? _buildQuickAccessCard(
-                                        context: context,
-                                        title: 'Workout Programmer',
-                                        subtitle: 'Build training programs',
-                                        icon: Icons.build,
-                                        color: Colors.green,
-                                        onTap: () => _navigateQuickAccess(
-                                          context,
-                                          ProgrammerScreen.routeName,
-                                          false,
-                                        ),
-                                      )
-                                    : _buildQuickAccessCard(
-                                        context: context,
-                                        title: 'Start Workout',
-                                        subtitle: 'Begin training session',
-                                        icon: Icons.play_arrow,
-                                        color: Colors.green,
-                                        onTap: () =>
-                                            _navigateQuickAccess(context, 'start_workout', true),
-                                        showComingSoon: true,
-                                      ),
                                 _buildQuickAccessCard(
                                   context: context,
                                   title: 'Analysis',
@@ -275,7 +293,8 @@ class HomeScreen extends StatelessWidget {
     required IconData icon,
     required Color color,
     required VoidCallback onTap,
-    bool showComingSoon = false,
+    bool showComingSoon = false, // either coming soon or 'app only', not both
+    bool showAppOnly = false, // either coming soon or 'app only', not both
   }) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -331,7 +350,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           // Coming Soon Banner
-          if (showComingSoon)
+          if (showComingSoon || showAppOnly)
             Positioned(
               top: 8,
               right: 8,
@@ -349,7 +368,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  'Coming Soon',
+                  showAppOnly ? 'Use Mobile App' : 'Coming Soon',
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
