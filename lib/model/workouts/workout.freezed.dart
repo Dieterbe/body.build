@@ -579,4 +579,295 @@ as int,
 
 }
 
+
+/// @nodoc
+mixin _$WorkoutState {
+
+ List<Workout> get allWorkouts; Workout? get activeWorkout; List<Workout> get completedWorkouts;
+/// Create a copy of WorkoutState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WorkoutStateCopyWith<WorkoutState> get copyWith => _$WorkoutStateCopyWithImpl<WorkoutState>(this as WorkoutState, _$identity);
+
+  /// Serializes this WorkoutState to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'WorkoutState(allWorkouts: $allWorkouts, activeWorkout: $activeWorkout, completedWorkouts: $completedWorkouts)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $WorkoutStateCopyWith<$Res>  {
+  factory $WorkoutStateCopyWith(WorkoutState value, $Res Function(WorkoutState) _then) = _$WorkoutStateCopyWithImpl;
+@useResult
+$Res call({
+ List<Workout> allWorkouts, Workout? activeWorkout, List<Workout> completedWorkouts
+});
+
+
+$WorkoutCopyWith<$Res>? get activeWorkout;
+
+}
+/// @nodoc
+class _$WorkoutStateCopyWithImpl<$Res>
+    implements $WorkoutStateCopyWith<$Res> {
+  _$WorkoutStateCopyWithImpl(this._self, this._then);
+
+  final WorkoutState _self;
+  final $Res Function(WorkoutState) _then;
+
+/// Create a copy of WorkoutState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? allWorkouts = null,Object? activeWorkout = freezed,Object? completedWorkouts = null,}) {
+  return _then(_self.copyWith(
+allWorkouts: null == allWorkouts ? _self.allWorkouts : allWorkouts // ignore: cast_nullable_to_non_nullable
+as List<Workout>,activeWorkout: freezed == activeWorkout ? _self.activeWorkout : activeWorkout // ignore: cast_nullable_to_non_nullable
+as Workout?,completedWorkouts: null == completedWorkouts ? _self.completedWorkouts : completedWorkouts // ignore: cast_nullable_to_non_nullable
+as List<Workout>,
+  ));
+}
+/// Create a copy of WorkoutState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WorkoutCopyWith<$Res>? get activeWorkout {
+    if (_self.activeWorkout == null) {
+    return null;
+  }
+
+  return $WorkoutCopyWith<$Res>(_self.activeWorkout!, (value) {
+    return _then(_self.copyWith(activeWorkout: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [WorkoutState].
+extension WorkoutStatePatterns on WorkoutState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WorkoutState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WorkoutState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WorkoutState value)  $default,){
+final _that = this;
+switch (_that) {
+case _WorkoutState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WorkoutState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WorkoutState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Workout> allWorkouts,  Workout? activeWorkout,  List<Workout> completedWorkouts)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WorkoutState() when $default != null:
+return $default(_that.allWorkouts,_that.activeWorkout,_that.completedWorkouts);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Workout> allWorkouts,  Workout? activeWorkout,  List<Workout> completedWorkouts)  $default,) {final _that = this;
+switch (_that) {
+case _WorkoutState():
+return $default(_that.allWorkouts,_that.activeWorkout,_that.completedWorkouts);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Workout> allWorkouts,  Workout? activeWorkout,  List<Workout> completedWorkouts)?  $default,) {final _that = this;
+switch (_that) {
+case _WorkoutState() when $default != null:
+return $default(_that.allWorkouts,_that.activeWorkout,_that.completedWorkouts);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _WorkoutState extends WorkoutState {
+  const _WorkoutState({required final  List<Workout> allWorkouts, this.activeWorkout, required final  List<Workout> completedWorkouts}): _allWorkouts = allWorkouts,_completedWorkouts = completedWorkouts,super._();
+  factory _WorkoutState.fromJson(Map<String, dynamic> json) => _$WorkoutStateFromJson(json);
+
+ final  List<Workout> _allWorkouts;
+@override List<Workout> get allWorkouts {
+  if (_allWorkouts is EqualUnmodifiableListView) return _allWorkouts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_allWorkouts);
+}
+
+@override final  Workout? activeWorkout;
+ final  List<Workout> _completedWorkouts;
+@override List<Workout> get completedWorkouts {
+  if (_completedWorkouts is EqualUnmodifiableListView) return _completedWorkouts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_completedWorkouts);
+}
+
+
+/// Create a copy of WorkoutState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WorkoutStateCopyWith<_WorkoutState> get copyWith => __$WorkoutStateCopyWithImpl<_WorkoutState>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$WorkoutStateToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'WorkoutState(allWorkouts: $allWorkouts, activeWorkout: $activeWorkout, completedWorkouts: $completedWorkouts)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WorkoutStateCopyWith<$Res> implements $WorkoutStateCopyWith<$Res> {
+  factory _$WorkoutStateCopyWith(_WorkoutState value, $Res Function(_WorkoutState) _then) = __$WorkoutStateCopyWithImpl;
+@override @useResult
+$Res call({
+ List<Workout> allWorkouts, Workout? activeWorkout, List<Workout> completedWorkouts
+});
+
+
+@override $WorkoutCopyWith<$Res>? get activeWorkout;
+
+}
+/// @nodoc
+class __$WorkoutStateCopyWithImpl<$Res>
+    implements _$WorkoutStateCopyWith<$Res> {
+  __$WorkoutStateCopyWithImpl(this._self, this._then);
+
+  final _WorkoutState _self;
+  final $Res Function(_WorkoutState) _then;
+
+/// Create a copy of WorkoutState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? allWorkouts = null,Object? activeWorkout = freezed,Object? completedWorkouts = null,}) {
+  return _then(_WorkoutState(
+allWorkouts: null == allWorkouts ? _self._allWorkouts : allWorkouts // ignore: cast_nullable_to_non_nullable
+as List<Workout>,activeWorkout: freezed == activeWorkout ? _self.activeWorkout : activeWorkout // ignore: cast_nullable_to_non_nullable
+as Workout?,completedWorkouts: null == completedWorkouts ? _self._completedWorkouts : completedWorkouts // ignore: cast_nullable_to_non_nullable
+as List<Workout>,
+  ));
+}
+
+/// Create a copy of WorkoutState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WorkoutCopyWith<$Res>? get activeWorkout {
+    if (_self.activeWorkout == null) {
+    return null;
+  }
+
+  return $WorkoutCopyWith<$Res>(_self.activeWorkout!, (value) {
+    return _then(_self.copyWith(activeWorkout: value));
+  });
+}
+}
+
 // dart format on

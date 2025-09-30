@@ -67,3 +67,17 @@ abstract class WorkoutSet with _$WorkoutSet {
     return Map<String, bool>.from(decoded);
   }
 }
+
+/// State container for all workout data
+@freezed
+abstract class WorkoutState with _$WorkoutState {
+  const WorkoutState._();
+
+  const factory WorkoutState({
+    required List<Workout> allWorkouts,
+    Workout? activeWorkout,
+    required List<Workout> completedWorkouts,
+  }) = _WorkoutState;
+
+  factory WorkoutState.fromJson(Map<String, dynamic> json) => _$WorkoutStateFromJson(json);
+}

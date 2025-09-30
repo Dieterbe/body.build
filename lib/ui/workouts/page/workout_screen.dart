@@ -39,7 +39,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   void _handleNewWorkout() async {
     try {
       // Check if there's already an active workout
-      final activeWorkout = await ref.read(activeWorkoutProvider.future);
+      final workoutState = await ref.read(workoutManagerProvider.future);
+      final activeWorkout = workoutState.activeWorkout;
       if (activeWorkout != null && mounted) {
         print('switching view to active workout ${activeWorkout.id}');
 
@@ -49,8 +50,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       }
 
       // Create new workout
-      final activeWorkoutNotifier = ref.read(activeWorkoutProvider.notifier);
-      final workoutId = await activeWorkoutNotifier.startWorkout();
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      final workoutId = await workoutManager.startWorkout();
 
       if (mounted) {
         print('switching view to new workout $workoutId');
@@ -299,8 +300,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     if (setData == null) return;
 
     try {
-      final activeWorkoutNotifier = ref.read(activeWorkoutProvider.notifier);
-      await activeWorkoutNotifier.addSet(
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      await workoutManager.addSet(
         workoutId: widget.workoutId,
         exerciseId: exerciseId,
         modifiers: modifiers,
@@ -310,9 +311,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         rir: setData['rir'] as int?,
         comments: setData['comments'] as String?,
       );
-
-      // Refresh workout data
-      ref.invalidate(workoutByIdProvider(widget.workoutId));
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set added')));
@@ -328,8 +326,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   void _updateSet(model.WorkoutSet updatedSet) async {
     try {
-      final workoutOperations = ref.read(workoutOperationsProvider.notifier);
-      await workoutOperations.updateSet(widget.workoutId, updatedSet);
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      await workoutManager.updateSet(widget.workoutId, updatedSet);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set updated')));
@@ -345,8 +343,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   void _deleteSet(String setId) async {
     try {
-      final workoutOperations = ref.read(workoutOperationsProvider.notifier);
-      await workoutOperations.deleteSet(widget.workoutId, setId);
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      await workoutManager.deleteSet(widget.workoutId, setId);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set deleted')));
@@ -410,13 +408,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   void _updateWorkoutNotes(String notes) async {
     try {
-      final activeWorkoutNotifier = ref.read(activeWorkoutProvider.notifier);
-      await activeWorkoutNotifier.updateWorkoutNotes(
-        widget.workoutId,
-        notes.isEmpty ? null : notes,
-      );
-
-      ref.invalidate(workoutByIdProvider(widget.workoutId));
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      await workoutManager.updateWorkoutNotes(widget.workoutId, notes.isEmpty ? null : notes);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Notes updated')));
@@ -452,8 +445,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   void _endWorkout() async {
     try {
-      final activeWorkoutNotifier = ref.read(activeWorkoutProvider.notifier);
-      await activeWorkoutNotifier.endWorkout(widget.workoutId);
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      await workoutManager.endWorkout(widget.workoutId);
 
       if (mounted) {
         ScaffoldMessenger.of(
@@ -492,8 +485,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   void _deleteWorkout() async {
     try {
-      final activeWorkoutNotifier = ref.read(workoutHistoryProvider.notifier);
-      await activeWorkoutNotifier.deleteWorkout(widget.workoutId);
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      await workoutManager.deleteWorkout(widget.workoutId);
 
       if (mounted) {
         ScaffoldMessenger.of(

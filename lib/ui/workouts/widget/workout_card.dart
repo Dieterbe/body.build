@@ -108,7 +108,7 @@ class WorkoutCard extends ConsumerWidget {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              ref.read(workoutsAllProvider.notifier).deleteWorkout(workout.id);
+              ref.read(workoutManagerProvider.notifier).deleteWorkout(workout.id);
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(const SnackBar(content: Text('Workout deleted')));

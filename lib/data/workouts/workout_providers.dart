@@ -18,20 +18,31 @@ WorkoutPersistenceService workoutPersistenceService(Ref ref) {
   return WorkoutPersistenceService(database);
 }
 
-// Active workout provider
+/// Unified workout manager - single source of truth for all workout state
 @riverpod
-class ActiveWorkout extends _$ActiveWorkout {
+class WorkoutManager extends _$WorkoutManager {
   @override
-  Future<model.Workout?> build() async {
+  Future<model.WorkoutState> build() async {
     final service = ref.watch(workoutPersistenceServiceProvider);
-    return service.getActiveWorkout();
+    final allWorkouts = await service.getAllWorkouts();
+
+    final activeWorkout = allWorkouts.where((w) => w.isActive).firstOrNull;
+    final completedWorkouts = allWorkouts.where((w) => !w.isActive).toList();
+
+    return model.WorkoutState(
+      allWorkouts: allWorkouts,
+      activeWorkout: activeWorkout,
+      completedWorkouts: completedWorkouts,
+    );
   }
 
   Future<String> startWorkout({DateTime? startTime, String? notes}) async {
     final service = ref.read(workoutPersistenceServiceProvider);
 
     // Check for existing active workout
-    final existing = await service.getActiveWorkout();
+    final currentState = await future;
+    final existing = currentState.activeWorkout;
+
     if (existing != null) {
       final lastSetTime = await service.getLastSetTime(existing.id);
       final now = DateTime.now();
@@ -55,9 +66,6 @@ class ActiveWorkout extends _$ActiveWorkout {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.endWorkout(workoutId, endTime: endTime);
     ref.invalidateSelf();
-
-    // Also invalidate workout history
-    ref.invalidate(workoutHistoryProvider);
   }
 
   Future<String> addSet({
@@ -86,6 +94,18 @@ class ActiveWorkout extends _$ActiveWorkout {
     return setId;
   }
 
+  Future<void> updateSet(String workoutId, model.WorkoutSet workoutSet) async {
+    final service = ref.read(workoutPersistenceServiceProvider);
+    await service.updateWorkoutSet(workoutSet);
+    ref.invalidateSelf();
+  }
+
+  Future<void> deleteSet(String workoutId, String setId) async {
+    final service = ref.read(workoutPersistenceServiceProvider);
+    await service.deleteWorkoutSet(setId);
+    ref.invalidateSelf();
+  }
+
   Future<void> updateWorkoutNotes(String workoutId, String? notes) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     final workout = await service.getWorkoutById(workoutId);
@@ -94,16 +114,6 @@ class ActiveWorkout extends _$ActiveWorkout {
       ref.invalidateSelf();
     }
   }
-}
-
-// Workout history provider
-@riverpod
-class WorkoutHistory extends _$WorkoutHistory {
-  @override
-  Future<List<model.Workout>> build() async {
-    final service = ref.watch(workoutPersistenceServiceProvider);
-    return service.getCompletedWorkouts();
-  }
 
   Future<void> deleteWorkout(String workoutId) async {
     final service = ref.read(workoutPersistenceServiceProvider);
@@ -112,63 +122,9 @@ class WorkoutHistory extends _$WorkoutHistory {
   }
 }
 
-// All Workouts provider
-// TODO: unify with WorkoutHistory, or get rid of it. cause if you invalidate either, it should invalidate the other
-@riverpod
-class WorkoutsAll extends _$WorkoutsAll {
-  @override
-  Future<List<model.Workout>> build() async {
-    final service = ref.watch(workoutPersistenceServiceProvider);
-    return service.getAllWorkouts();
-  }
-
-  Future<void> deleteWorkout(String workoutId) async {
-    final service = ref.read(workoutPersistenceServiceProvider);
-    await service.deleteWorkout(workoutId);
-    ref.invalidateSelf();
-  }
-}
-
-// Individual workout provider
+/// Derived provider - gets specific workout by ID from the unified state
 @riverpod
 Future<model.Workout?> workoutById(Ref ref, String workoutId) async {
-  final service = ref.watch(workoutPersistenceServiceProvider);
-  return service.getWorkoutById(workoutId);
-}
-
-// Workout operations provider
-@riverpod
-class WorkoutOperations extends _$WorkoutOperations {
-  @override
-  void build() {
-    // No initial state needed
-  }
-
-  Future<void> updateSet(String workoutId, model.WorkoutSet workoutSet) async {
-    final service = ref.read(workoutPersistenceServiceProvider);
-    await service.updateWorkoutSet(workoutSet);
-
-    // Invalidate the specific workout
-    ref.invalidate(workoutByIdProvider(workoutId));
-
-    // Also invalidate active workout if this is the active one
-    final activeWorkout = await ref.read(activeWorkoutProvider.future);
-    if (activeWorkout?.id == workoutId) {
-      ref.invalidate(activeWorkoutProvider);
-    }
-  }
-
-  Future<void> deleteSet(String workoutId, String setId) async {
-    final service = ref.read(workoutPersistenceServiceProvider);
-    await service.deleteWorkoutSet(setId);
-
-    // Invalidate the specific workout
-    ref.invalidate(workoutByIdProvider(workoutId));
-
-    // Also invalidate active workout if this is the active one
-    final activeWorkout = await ref.read(activeWorkoutProvider.future);
-    if (activeWorkout?.id == workoutId) {
-      ref.invalidate(activeWorkoutProvider);
-    }
-  }
+  final state = await ref.watch(workoutManagerProvider.future);
+  return state.allWorkouts.where((w) => w.id == workoutId).firstOrNull;
 }

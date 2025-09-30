@@ -20,8 +20,7 @@ class WorkoutsScreen extends ConsumerWidget {
       return const MobileAppOnly(title: 'Workouts');
     }
 
-    final workoutsAllAsync = ref.watch(workoutsAllProvider);
-    final activeWorkoutAsync = ref.watch(activeWorkoutProvider);
+    final workoutStateAsync = ref.watch(workoutManagerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,8 +28,9 @@ class WorkoutsScreen extends ConsumerWidget {
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       drawer: const AppNavigationDrawer(),
-      body: workoutsAllAsync.when(
-        data: (workouts) => workouts.isEmpty ? const WorkoutsListEmpty() : WorkoutsList(workouts),
+      body: workoutStateAsync.when(
+        data: (state) =>
+            state.allWorkouts.isEmpty ? const WorkoutsListEmpty() : WorkoutsList(state.allWorkouts),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(
           child: Column(
@@ -41,15 +41,15 @@ class WorkoutsScreen extends ConsumerWidget {
               Text('Error loading workouts: $error'),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () => ref.invalidate(workoutsAllProvider),
+                onPressed: () => ref.invalidate(workoutManagerProvider),
                 child: const Text('Retry'),
               ),
             ],
           ),
         ),
       ),
-      floatingActionButton: activeWorkoutAsync.when(
-        data: (activeWorkout) => activeWorkout != null
+      floatingActionButton: workoutStateAsync.when(
+        data: (state) => state.activeWorkout != null
             ? null
             : FloatingActionButton.extended(
                 onPressed: () {

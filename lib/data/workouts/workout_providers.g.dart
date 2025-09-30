@@ -13,7 +13,8 @@ part of 'workout_providers.dart';
 const workoutDatabaseProvider = WorkoutDatabaseProvider._();
 
 final class WorkoutDatabaseProvider
-    extends $FunctionalProvider<WorkoutDatabase, WorkoutDatabase, WorkoutDatabase>
+    extends
+        $FunctionalProvider<WorkoutDatabase, WorkoutDatabase, WorkoutDatabase>
     with $Provider<WorkoutDatabase> {
   const WorkoutDatabaseProvider._()
     : super(
@@ -77,8 +78,9 @@ final class WorkoutPersistenceServiceProvider
 
   @$internal
   @override
-  $ProviderElement<WorkoutPersistenceService> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<WorkoutPersistenceService> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   WorkoutPersistenceService create(Ref ref) {
@@ -94,45 +96,54 @@ final class WorkoutPersistenceServiceProvider
   }
 }
 
-String _$workoutPersistenceServiceHash() => r'0ef3cc59820baa9c3221f2bfe30c9b63ff3399bf';
+String _$workoutPersistenceServiceHash() =>
+    r'0ef3cc59820baa9c3221f2bfe30c9b63ff3399bf';
 
-@ProviderFor(ActiveWorkout)
-const activeWorkoutProvider = ActiveWorkoutProvider._();
+/// Unified workout manager - single source of truth for all workout state
 
-final class ActiveWorkoutProvider extends $AsyncNotifierProvider<ActiveWorkout, model.Workout?> {
-  const ActiveWorkoutProvider._()
+@ProviderFor(WorkoutManager)
+const workoutManagerProvider = WorkoutManagerProvider._();
+
+/// Unified workout manager - single source of truth for all workout state
+final class WorkoutManagerProvider
+    extends $AsyncNotifierProvider<WorkoutManager, model.WorkoutState> {
+  /// Unified workout manager - single source of truth for all workout state
+  const WorkoutManagerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'activeWorkoutProvider',
+        name: r'workoutManagerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$activeWorkoutHash();
+  String debugGetCreateSourceHash() => _$workoutManagerHash();
 
   @$internal
   @override
-  ActiveWorkout create() => ActiveWorkout();
+  WorkoutManager create() => WorkoutManager();
 }
 
-String _$activeWorkoutHash() => r'd4e23c1093203768cf640b43325af3dd94e98148';
+String _$workoutManagerHash() => r'521dae260cbd74ffdb2e8b483d62e905f586d8c2';
 
-abstract class _$ActiveWorkout extends $AsyncNotifier<model.Workout?> {
-  FutureOr<model.Workout?> build();
+/// Unified workout manager - single source of truth for all workout state
+
+abstract class _$WorkoutManager extends $AsyncNotifier<model.WorkoutState> {
+  FutureOr<model.WorkoutState> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<model.Workout?>, model.Workout?>;
+    final ref =
+        this.ref as $Ref<AsyncValue<model.WorkoutState>, model.WorkoutState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<model.Workout?>, model.Workout?>,
-              AsyncValue<model.Workout?>,
+              AnyNotifier<AsyncValue<model.WorkoutState>, model.WorkoutState>,
+              AsyncValue<model.WorkoutState>,
               Object?,
               Object?
             >;
@@ -140,102 +151,22 @@ abstract class _$ActiveWorkout extends $AsyncNotifier<model.Workout?> {
   }
 }
 
-@ProviderFor(WorkoutHistory)
-const workoutHistoryProvider = WorkoutHistoryProvider._();
-
-final class WorkoutHistoryProvider
-    extends $AsyncNotifierProvider<WorkoutHistory, List<model.Workout>> {
-  const WorkoutHistoryProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'workoutHistoryProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$workoutHistoryHash();
-
-  @$internal
-  @override
-  WorkoutHistory create() => WorkoutHistory();
-}
-
-String _$workoutHistoryHash() => r'35aa0385ee4b19b25d0cf309a3e3b031df5f41f7';
-
-abstract class _$WorkoutHistory extends $AsyncNotifier<List<model.Workout>> {
-  FutureOr<List<model.Workout>> build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final created = build();
-    final ref = this.ref as $Ref<AsyncValue<List<model.Workout>>, List<model.Workout>>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<model.Workout>>, List<model.Workout>>,
-              AsyncValue<List<model.Workout>>,
-              Object?,
-              Object?
-            >;
-    element.handleValue(ref, created);
-  }
-}
-
-@ProviderFor(WorkoutsAll)
-const workoutsAllProvider = WorkoutsAllProvider._();
-
-final class WorkoutsAllProvider extends $AsyncNotifierProvider<WorkoutsAll, List<model.Workout>> {
-  const WorkoutsAllProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'workoutsAllProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$workoutsAllHash();
-
-  @$internal
-  @override
-  WorkoutsAll create() => WorkoutsAll();
-}
-
-String _$workoutsAllHash() => r'969c4be95d014983ad0067757d782509477426cd';
-
-abstract class _$WorkoutsAll extends $AsyncNotifier<List<model.Workout>> {
-  FutureOr<List<model.Workout>> build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    final created = build();
-    final ref = this.ref as $Ref<AsyncValue<List<model.Workout>>, List<model.Workout>>;
-    final element =
-        ref.element
-            as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<model.Workout>>, List<model.Workout>>,
-              AsyncValue<List<model.Workout>>,
-              Object?,
-              Object?
-            >;
-    element.handleValue(ref, created);
-  }
-}
+/// Derived provider - gets specific workout by ID from the unified state
 
 @ProviderFor(workoutById)
 const workoutByIdProvider = WorkoutByIdFamily._();
 
+/// Derived provider - gets specific workout by ID from the unified state
+
 final class WorkoutByIdProvider
     extends
-        $FunctionalProvider<AsyncValue<model.Workout?>, model.Workout?, FutureOr<model.Workout?>>
+        $FunctionalProvider<
+          AsyncValue<model.Workout?>,
+          model.Workout?,
+          FutureOr<model.Workout?>
+        >
     with $FutureModifier<model.Workout?>, $FutureProvider<model.Workout?> {
+  /// Derived provider - gets specific workout by ID from the unified state
   const WorkoutByIdProvider._({
     required WorkoutByIdFamily super.from,
     required String super.argument,
@@ -259,8 +190,9 @@ final class WorkoutByIdProvider
 
   @$internal
   @override
-  $FutureProviderElement<model.Workout?> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<model.Workout?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<model.Workout?> create(Ref ref) {
@@ -279,7 +211,9 @@ final class WorkoutByIdProvider
   }
 }
 
-String _$workoutByIdHash() => r'46c154e78454fd90e8a4325ba5cc95cfa0390853';
+String _$workoutByIdHash() => r'f4b5cfd66c39ca15b6d2892701602c8c81e330e1';
+
+/// Derived provider - gets specific workout by ID from the unified state
 
 final class WorkoutByIdFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<model.Workout?>, String> {
@@ -292,52 +226,11 @@ final class WorkoutByIdFamily extends $Family
         isAutoDispose: true,
       );
 
+  /// Derived provider - gets specific workout by ID from the unified state
+
   WorkoutByIdProvider call(String workoutId) =>
       WorkoutByIdProvider._(argument: workoutId, from: this);
 
   @override
   String toString() => r'workoutByIdProvider';
-}
-
-@ProviderFor(WorkoutOperations)
-const workoutOperationsProvider = WorkoutOperationsProvider._();
-
-final class WorkoutOperationsProvider extends $NotifierProvider<WorkoutOperations, void> {
-  const WorkoutOperationsProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'workoutOperationsProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$workoutOperationsHash();
-
-  @$internal
-  @override
-  WorkoutOperations create() => WorkoutOperations();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(void value) {
-    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<void>(value));
-  }
-}
-
-String _$workoutOperationsHash() => r'd8157f233291338c6865ed740074df1fcbcc6c68';
-
-abstract class _$WorkoutOperations extends $Notifier<void> {
-  void build();
-  @$mustCallSuper
-  @override
-  void runBuild() {
-    build();
-    final ref = this.ref as $Ref<void, void>;
-    final element =
-        ref.element as $ClassProviderElement<AnyNotifier<void, void>, void, Object?, Object?>;
-    element.handleValue(ref, null);
-  }
 }
