@@ -59,15 +59,22 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
   // Workout queries
   Future<List<Workout>> getAllWorkouts() => select(workouts).get();
+  Stream<List<Workout>> watchAllWorkouts() => select(workouts).watch();
 
   Future<List<Workout>> getCompletedWorkouts() =>
       (select(workouts)..where((w) => w.endTime.isNotNull())).get();
+  Stream<List<Workout>> watchCompletedWorkouts() =>
+      (select(workouts)..where((w) => w.endTime.isNotNull())).watch();
 
   Future<Workout?> getActiveWorkout() =>
       (select(workouts)..where((w) => w.endTime.isNull())).getSingleOrNull();
+  Stream<Workout?> watchActiveWorkout() =>
+      (select(workouts)..where((w) => w.endTime.isNull())).watchSingleOrNull();
 
   Future<Workout?> getWorkoutById(String id) =>
       (select(workouts)..where((w) => w.id.equals(id))).getSingleOrNull();
+  Stream<Workout?> watchWorkoutById(String id) =>
+      (select(workouts)..where((w) => w.id.equals(id))).watchSingleOrNull();
 
   Future<int> insertWorkout(WorkoutsCompanion workout) => into(workouts).insert(workout);
 
@@ -81,6 +88,11 @@ class WorkoutDatabase extends _$WorkoutDatabase {
             ..where((s) => s.workoutId.equals(workoutId))
             ..orderBy([(s) => OrderingTerm(expression: s.setOrder)]))
           .get();
+  Stream<List<WorkoutSet>> watchWorkoutSets(String workoutId) =>
+      (select(workoutSets)
+            ..where((s) => s.workoutId.equals(workoutId))
+            ..orderBy([(s) => OrderingTerm(expression: s.setOrder)]))
+          .watch();
 
   Future<WorkoutSet?> getLastSetForWorkout(String workoutId) =>
       (select(workoutSets)

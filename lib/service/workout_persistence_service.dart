@@ -15,6 +15,12 @@ class WorkoutPersistenceService {
     return Future.wait(workouts.map(_workoutWithSets));
   }
 
+  Stream<List<model.Workout>> watchAllWorkouts() {
+    return _database.watchAllWorkouts().asyncMap((workouts) async {
+      return Future.wait(workouts.map(_workoutWithSets));
+    });
+  }
+
   Future<List<model.Workout>> getCompletedWorkouts() async {
     final workouts = await _database.getCompletedWorkouts();
     return Future.wait(workouts.map(_workoutWithSets));

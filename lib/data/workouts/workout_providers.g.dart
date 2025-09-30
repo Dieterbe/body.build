@@ -100,14 +100,17 @@ String _$workoutPersistenceServiceHash() =>
     r'0ef3cc59820baa9c3221f2bfe30c9b63ff3399bf';
 
 /// Unified workout manager - single source of truth for all workout state
+/// Uses Drift streams to automatically update when workout data changes
 
 @ProviderFor(WorkoutManager)
 const workoutManagerProvider = WorkoutManagerProvider._();
 
 /// Unified workout manager - single source of truth for all workout state
+/// Uses Drift streams to automatically update when workout data changes
 final class WorkoutManagerProvider
-    extends $AsyncNotifierProvider<WorkoutManager, model.WorkoutState> {
+    extends $StreamNotifierProvider<WorkoutManager, model.WorkoutState> {
   /// Unified workout manager - single source of truth for all workout state
+  /// Uses Drift streams to automatically update when workout data changes
   const WorkoutManagerProvider._()
     : super(
         from: null,
@@ -127,12 +130,13 @@ final class WorkoutManagerProvider
   WorkoutManager create() => WorkoutManager();
 }
 
-String _$workoutManagerHash() => r'521dae260cbd74ffdb2e8b483d62e905f586d8c2';
+String _$workoutManagerHash() => r'c5bb93b9d3343346f8ab271eee35695b9abf9f91';
 
 /// Unified workout manager - single source of truth for all workout state
+/// Uses Drift streams to automatically update when workout data changes
 
-abstract class _$WorkoutManager extends $AsyncNotifier<model.WorkoutState> {
-  FutureOr<model.WorkoutState> build();
+abstract class _$WorkoutManager extends $StreamNotifier<model.WorkoutState> {
+  Stream<model.WorkoutState> build();
   @$mustCallSuper
   @override
   void runBuild() {

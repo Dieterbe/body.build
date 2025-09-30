@@ -19,20 +19,19 @@ WorkoutPersistenceService workoutPersistenceService(Ref ref) {
 }
 
 /// Unified workout manager - single source of truth for all workout state
+/// Uses Drift streams to automatically update when workout data changes
 @riverpod
 class WorkoutManager extends _$WorkoutManager {
   @override
-  Future<model.WorkoutState> build() async {
+  Stream<model.WorkoutState> build() {
     final service = ref.watch(workoutPersistenceServiceProvider);
-    final allWorkouts = await service.getAllWorkouts();
 
-    final activeWorkout = allWorkouts.where((w) => w.isActive).firstOrNull;
-    final completedWorkouts = allWorkouts.where((w) => !w.isActive).toList();
-
-    return model.WorkoutState(
-      allWorkouts: allWorkouts,
-      activeWorkout: activeWorkout,
-      completedWorkouts: completedWorkouts,
+    return service.watchAllWorkouts().map(
+      (allWorkouts) => model.WorkoutState(
+        allWorkouts: allWorkouts,
+        activeWorkout: allWorkouts.where((w) => w.isActive).firstOrNull,
+        completedWorkouts: allWorkouts.where((w) => !w.isActive).toList(),
+      ),
     );
   }
 
@@ -56,16 +55,12 @@ class WorkoutManager extends _$WorkoutManager {
       }
     }
 
-    // Create new workout
-    final workoutId = await service.createWorkout(startTime: startTime, notes: notes);
-    ref.invalidateSelf();
-    return workoutId;
+    return await service.createWorkout(startTime: startTime, notes: notes);
   }
 
   Future<void> endWorkout(String workoutId, {DateTime? endTime}) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.endWorkout(workoutId, endTime: endTime);
-    ref.invalidateSelf();
   }
 
   Future<String> addSet({
@@ -89,21 +84,17 @@ class WorkoutManager extends _$WorkoutManager {
       rir: rir,
       comments: comments,
     );
-
-    ref.invalidateSelf();
     return setId;
   }
 
   Future<void> updateSet(String workoutId, model.WorkoutSet workoutSet) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.updateWorkoutSet(workoutSet);
-    ref.invalidateSelf();
   }
 
   Future<void> deleteSet(String workoutId, String setId) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.deleteWorkoutSet(setId);
-    ref.invalidateSelf();
   }
 
   Future<void> updateWorkoutNotes(String workoutId, String? notes) async {
@@ -111,14 +102,12 @@ class WorkoutManager extends _$WorkoutManager {
     final workout = await service.getWorkoutById(workoutId);
     if (workout != null) {
       await service.updateWorkout(workout.copyWith(notes: notes));
-      ref.invalidateSelf();
     }
   }
 
   Future<void> deleteWorkout(String workoutId) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.deleteWorkout(workoutId);
-    ref.invalidateSelf();
   }
 }
 
