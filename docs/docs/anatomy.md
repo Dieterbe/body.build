@@ -1,6 +1,6 @@
 # Anatomy (articulations and muscles)
 
-Based on the information from the PTC anatomy module, some interpretation, and other sources.
+Based on the information from the PT course anatomy module, some interpretation, and other sources.
 
 You can look up:
 * muscle's common functions and other details (e.g. insufficiency)
@@ -14,5 +14,6 @@ The best example of my current progress would be the **shoulder flexion**.
 To see it, hit the "articulations" button, and then click on "shoulder flexion".
 
 ### DISCLAIMER:
+
 * use any information here at your own risk
 * the **information is incomplete**, i need to add more data.

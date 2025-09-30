@@ -1,9 +1,8 @@
 # Anatomy
 
-This module is disabled in the UI because:
-
-* this app was originally just to explore anatomy (muscles, articulations, movements). since then it's become of secondary importance compared to the diet & workout planning, and needs to be re-integrated
-* it was a bit crude (e.g. had simplified graphs of how moment arms/strength changes over muscle lengths)
+Allows exploring muscles, joint articulations (movements), and the relations between them.
+Probably less relevant to most users, but useful for die-hards.
+It is a bit crude (e.g. simplified graphs of how moment arms/strength changes over muscle lengths)
 
 ## Goals & non-goals
 1) an easier way for a human to recall information (e.g. which muscles cause shoulder extension again?) etc.
