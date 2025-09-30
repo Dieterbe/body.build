@@ -20,7 +20,10 @@ WorkoutPersistenceService workoutPersistenceService(Ref ref) {
 
 /// Unified workout manager - single source of truth for all workout state
 /// Uses Drift streams to automatically update when workout data changes
-@riverpod
+/// Need to stay alive because we check for active workout and navigate to different screen
+/// Otherwise we get errors when the screen unmounts, provider disposes while the stream is loading
+/// (e.g. when navigating from the articulations screen to 'start new workout')
+@Riverpod(keepAlive: true)
 class WorkoutManager extends _$WorkoutManager {
   @override
   Stream<model.WorkoutState> build() {

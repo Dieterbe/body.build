@@ -13,8 +13,7 @@ part of 'workout_providers.dart';
 const workoutDatabaseProvider = WorkoutDatabaseProvider._();
 
 final class WorkoutDatabaseProvider
-    extends
-        $FunctionalProvider<WorkoutDatabase, WorkoutDatabase, WorkoutDatabase>
+    extends $FunctionalProvider<WorkoutDatabase, WorkoutDatabase, WorkoutDatabase>
     with $Provider<WorkoutDatabase> {
   const WorkoutDatabaseProvider._()
     : super(
@@ -78,9 +77,8 @@ final class WorkoutPersistenceServiceProvider
 
   @$internal
   @override
-  $ProviderElement<WorkoutPersistenceService> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<WorkoutPersistenceService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   WorkoutPersistenceService create(Ref ref) {
@@ -96,8 +94,7 @@ final class WorkoutPersistenceServiceProvider
   }
 }
 
-String _$workoutPersistenceServiceHash() =>
-    r'0ef3cc59820baa9c3221f2bfe30c9b63ff3399bf';
+String _$workoutPersistenceServiceHash() => r'0ef3cc59820baa9c3221f2bfe30c9b63ff3399bf';
 
 /// Unified workout manager - single source of truth for all workout state
 /// Uses Drift streams to automatically update when workout data changes
@@ -117,7 +114,7 @@ final class WorkoutManagerProvider
         argument: null,
         retry: null,
         name: r'workoutManagerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -130,7 +127,7 @@ final class WorkoutManagerProvider
   WorkoutManager create() => WorkoutManager();
 }
 
-String _$workoutManagerHash() => r'c5bb93b9d3343346f8ab271eee35695b9abf9f91';
+String _$workoutManagerHash() => r'faa6123c0d5cc06ed5b690329cbcc41016b898d0';
 
 /// Unified workout manager - single source of truth for all workout state
 /// Uses Drift streams to automatically update when workout data changes
@@ -141,8 +138,7 @@ abstract class _$WorkoutManager extends $StreamNotifier<model.WorkoutState> {
   @override
   void runBuild() {
     final created = build();
-    final ref =
-        this.ref as $Ref<AsyncValue<model.WorkoutState>, model.WorkoutState>;
+    final ref = this.ref as $Ref<AsyncValue<model.WorkoutState>, model.WorkoutState>;
     final element =
         ref.element
             as $ClassProviderElement<
@@ -164,11 +160,7 @@ const workoutByIdProvider = WorkoutByIdFamily._();
 
 final class WorkoutByIdProvider
     extends
-        $FunctionalProvider<
-          AsyncValue<model.Workout?>,
-          model.Workout?,
-          FutureOr<model.Workout?>
-        >
+        $FunctionalProvider<AsyncValue<model.Workout?>, model.Workout?, FutureOr<model.Workout?>>
     with $FutureModifier<model.Workout?>, $FutureProvider<model.Workout?> {
   /// Derived provider - gets specific workout by ID from the unified state
   const WorkoutByIdProvider._({
@@ -194,9 +186,8 @@ final class WorkoutByIdProvider
 
   @$internal
   @override
-  $FutureProviderElement<model.Workout?> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $FutureProviderElement<model.Workout?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<model.Workout?> create(Ref ref) {

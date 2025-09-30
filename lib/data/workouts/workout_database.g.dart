@@ -17,9 +17,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _startTimeMeta = const VerificationMeta(
-    'startTime',
-  );
+  static const VerificationMeta _startTimeMeta = const VerificationMeta('startTime');
   @override
   late final GeneratedColumn<DateTime> startTime = GeneratedColumn<DateTime>(
     'start_time',
@@ -28,9 +26,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _endTimeMeta = const VerificationMeta(
-    'endTime',
-  );
+  static const VerificationMeta _endTimeMeta = const VerificationMeta('endTime');
   @override
   late final GeneratedColumn<DateTime> endTime = GeneratedColumn<DateTime>(
     'end_time',
@@ -48,9 +44,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta(
-    'createdAt',
-  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
     'created_at',
@@ -59,9 +53,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
-    'updatedAt',
-  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
   @override
   late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
     'updated_at',
@@ -71,24 +63,14 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    startTime,
-    endTime,
-    notes,
-    createdAt,
-    updatedAt,
-  ];
+  List<GeneratedColumn> get $columns => [id, startTime, endTime, notes, createdAt, updatedAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'workouts';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Workout> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Workout> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -105,16 +87,10 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
       context.missing(_startTimeMeta);
     }
     if (data.containsKey('end_time')) {
-      context.handle(
-        _endTimeMeta,
-        endTime.isAcceptableOrUnknown(data['end_time']!, _endTimeMeta),
-      );
+      context.handle(_endTimeMeta, endTime.isAcceptableOrUnknown(data['end_time']!, _endTimeMeta));
     }
     if (data.containsKey('notes')) {
-      context.handle(
-        _notesMeta,
-        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
-      );
+      context.handle(_notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
     }
     if (data.containsKey('created_at')) {
       context.handle(
@@ -141,10 +117,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
   Workout map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Workout(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       startTime: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}start_time'],
@@ -209,21 +182,14 @@ class Workout extends DataClass implements Insertable<Workout> {
     return WorkoutsCompanion(
       id: Value(id),
       startTime: Value(startTime),
-      endTime: endTime == null && nullToAbsent
-          ? const Value.absent()
-          : Value(endTime),
-      notes: notes == null && nullToAbsent
-          ? const Value.absent()
-          : Value(notes),
+      endTime: endTime == null && nullToAbsent ? const Value.absent() : Value(endTime),
+      notes: notes == null && nullToAbsent ? const Value.absent() : Value(notes),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
   }
 
-  factory Workout.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Workout.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Workout(
       id: serializer.fromJson<String>(json['id']),
@@ -287,8 +253,7 @@ class Workout extends DataClass implements Insertable<Workout> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, startTime, endTime, notes, createdAt, updatedAt);
+  int get hashCode => Object.hash(id, startTime, endTime, notes, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -412,8 +377,7 @@ class WorkoutsCompanion extends UpdateCompanion<Workout> {
   }
 }
 
-class $WorkoutSetsTable extends WorkoutSets
-    with TableInfo<$WorkoutSetsTable, WorkoutSet> {
+class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, WorkoutSet> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -427,9 +391,7 @@ class $WorkoutSetsTable extends WorkoutSets
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _workoutIdMeta = const VerificationMeta(
-    'workoutId',
-  );
+  static const VerificationMeta _workoutIdMeta = const VerificationMeta('workoutId');
   @override
   late final GeneratedColumn<String> workoutId = GeneratedColumn<String>(
     'workout_id',
@@ -437,13 +399,9 @@ class $WorkoutSetsTable extends WorkoutSets
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES workouts (id)',
-    ),
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES workouts (id)'),
   );
-  static const VerificationMeta _exerciseIdMeta = const VerificationMeta(
-    'exerciseId',
-  );
+  static const VerificationMeta _exerciseIdMeta = const VerificationMeta('exerciseId');
   @override
   late final GeneratedColumn<String> exerciseId = GeneratedColumn<String>(
     'exercise_id',
@@ -452,9 +410,7 @@ class $WorkoutSetsTable extends WorkoutSets
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _modifiersMeta = const VerificationMeta(
-    'modifiers',
-  );
+  static const VerificationMeta _modifiersMeta = const VerificationMeta('modifiers');
   @override
   late final GeneratedColumn<String> modifiers = GeneratedColumn<String>(
     'modifiers',
@@ -499,9 +455,7 @@ class $WorkoutSetsTable extends WorkoutSets
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _commentsMeta = const VerificationMeta(
-    'comments',
-  );
+  static const VerificationMeta _commentsMeta = const VerificationMeta('comments');
   @override
   late final GeneratedColumn<String> comments = GeneratedColumn<String>(
     'comments',
@@ -510,9 +464,7 @@ class $WorkoutSetsTable extends WorkoutSets
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _timestampMeta = const VerificationMeta(
-    'timestamp',
-  );
+  static const VerificationMeta _timestampMeta = const VerificationMeta('timestamp');
   @override
   late final GeneratedColumn<DateTime> timestamp = GeneratedColumn<DateTime>(
     'timestamp',
@@ -521,9 +473,7 @@ class $WorkoutSetsTable extends WorkoutSets
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _setOrderMeta = const VerificationMeta(
-    'setOrder',
-  );
+  static const VerificationMeta _setOrderMeta = const VerificationMeta('setOrder');
   @override
   late final GeneratedColumn<int> setOrder = GeneratedColumn<int>(
     'set_order',
@@ -588,30 +538,18 @@ class $WorkoutSetsTable extends WorkoutSets
       context.missing(_modifiersMeta);
     }
     if (data.containsKey('cues')) {
-      context.handle(
-        _cuesMeta,
-        cues.isAcceptableOrUnknown(data['cues']!, _cuesMeta),
-      );
+      context.handle(_cuesMeta, cues.isAcceptableOrUnknown(data['cues']!, _cuesMeta));
     } else if (isInserting) {
       context.missing(_cuesMeta);
     }
     if (data.containsKey('weight')) {
-      context.handle(
-        _weightMeta,
-        weight.isAcceptableOrUnknown(data['weight']!, _weightMeta),
-      );
+      context.handle(_weightMeta, weight.isAcceptableOrUnknown(data['weight']!, _weightMeta));
     }
     if (data.containsKey('reps')) {
-      context.handle(
-        _repsMeta,
-        reps.isAcceptableOrUnknown(data['reps']!, _repsMeta),
-      );
+      context.handle(_repsMeta, reps.isAcceptableOrUnknown(data['reps']!, _repsMeta));
     }
     if (data.containsKey('rir')) {
-      context.handle(
-        _rirMeta,
-        rir.isAcceptableOrUnknown(data['rir']!, _rirMeta),
-      );
+      context.handle(_rirMeta, rir.isAcceptableOrUnknown(data['rir']!, _rirMeta));
     }
     if (data.containsKey('comments')) {
       context.handle(
@@ -644,10 +582,7 @@ class $WorkoutSetsTable extends WorkoutSets
   WorkoutSet map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return WorkoutSet(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       workoutId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}workout_id'],
@@ -660,22 +595,13 @@ class $WorkoutSetsTable extends WorkoutSets
         DriftSqlType.string,
         data['${effectivePrefix}modifiers'],
       )!,
-      cues: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}cues'],
-      )!,
+      cues: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}cues'])!,
       weight: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}weight'],
       ),
-      reps: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}reps'],
-      ),
-      rir: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}rir'],
-      ),
+      reps: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}reps']),
+      rir: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}rir']),
       comments: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}comments'],
@@ -754,23 +680,16 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       exerciseId: Value(exerciseId),
       modifiers: Value(modifiers),
       cues: Value(cues),
-      weight: weight == null && nullToAbsent
-          ? const Value.absent()
-          : Value(weight),
+      weight: weight == null && nullToAbsent ? const Value.absent() : Value(weight),
       reps: reps == null && nullToAbsent ? const Value.absent() : Value(reps),
       rir: rir == null && nullToAbsent ? const Value.absent() : Value(rir),
-      comments: comments == null && nullToAbsent
-          ? const Value.absent()
-          : Value(comments),
+      comments: comments == null && nullToAbsent ? const Value.absent() : Value(comments),
       timestamp: Value(timestamp),
       setOrder: Value(setOrder),
     );
   }
 
-  factory WorkoutSet.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory WorkoutSet.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return WorkoutSet(
       id: serializer.fromJson<String>(json['id']),
@@ -833,9 +752,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     return WorkoutSet(
       id: data.id.present ? data.id.value : this.id,
       workoutId: data.workoutId.present ? data.workoutId.value : this.workoutId,
-      exerciseId: data.exerciseId.present
-          ? data.exerciseId.value
-          : this.exerciseId,
+      exerciseId: data.exerciseId.present ? data.exerciseId.value : this.exerciseId,
       modifiers: data.modifiers.present ? data.modifiers.value : this.modifiers,
       cues: data.cues.present ? data.cues.value : this.cues,
       weight: data.weight.present ? data.weight.value : this.weight,
@@ -1102,8 +1019,9 @@ final class $$WorkoutsTableReferences
     extends BaseReferences<_$WorkoutDatabase, $WorkoutsTable, Workout> {
   $$WorkoutsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$WorkoutSetsTable, List<WorkoutSet>>
-  _workoutSetsRefsTable(_$WorkoutDatabase db) => MultiTypedResultKey.fromTable(
+  static MultiTypedResultKey<$WorkoutSetsTable, List<WorkoutSet>> _workoutSetsRefsTable(
+    _$WorkoutDatabase db,
+  ) => MultiTypedResultKey.fromTable(
     db.workoutSets,
     aliasName: $_aliasNameGenerator(db.workouts.id, db.workoutSets.workoutId),
   );
@@ -1115,14 +1033,11 @@ final class $$WorkoutsTableReferences
     ).filter((f) => f.workoutId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_workoutSetsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
-class $$WorkoutsTableFilterComposer
-    extends Composer<_$WorkoutDatabase, $WorkoutsTable> {
+class $$WorkoutsTableFilterComposer extends Composer<_$WorkoutDatabase, $WorkoutsTable> {
   $$WorkoutsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -1130,35 +1045,23 @@ class $$WorkoutsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get startTime => $composableBuilder(
-    column: $table.startTime,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get startTime =>
+      $composableBuilder(column: $table.startTime, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get endTime => $composableBuilder(
-    column: $table.endTime,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get endTime =>
+      $composableBuilder(column: $table.endTime, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get notes => $composableBuilder(
-    column: $table.notes,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
 
   Expression<bool> workoutSetsRefs(
     Expression<bool> Function($$WorkoutSetsTableFilterComposer f) f,
@@ -1168,26 +1071,20 @@ class $$WorkoutsTableFilterComposer
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.workoutSets,
       getReferencedColumn: (t) => t.workoutId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$WorkoutSetsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkoutSetsTableFilterComposer(
             $db: $db,
             $table: $db.workoutSets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $$WorkoutsTableOrderingComposer
-    extends Composer<_$WorkoutDatabase, $WorkoutsTable> {
+class $$WorkoutsTableOrderingComposer extends Composer<_$WorkoutDatabase, $WorkoutsTable> {
   $$WorkoutsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -1195,39 +1092,26 @@ class $$WorkoutsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get startTime => $composableBuilder(
-    column: $table.startTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get startTime =>
+      $composableBuilder(column: $table.startTime, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get endTime => $composableBuilder(
-    column: $table.endTime,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get endTime =>
+      $composableBuilder(column: $table.endTime, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get notes => $composableBuilder(
-    column: $table.notes,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
-    column: $table.createdAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
-    column: $table.updatedAt,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
 }
 
-class $$WorkoutsTableAnnotationComposer
-    extends Composer<_$WorkoutDatabase, $WorkoutsTable> {
+class $$WorkoutsTableAnnotationComposer extends Composer<_$WorkoutDatabase, $WorkoutsTable> {
   $$WorkoutsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -1261,18 +1145,13 @@ class $$WorkoutsTableAnnotationComposer
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.workoutSets,
       getReferencedColumn: (t) => t.workoutId,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$WorkoutSetsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkoutSetsTableAnnotationComposer(
             $db: $db,
             $table: $db.workoutSets,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -1299,10 +1178,8 @@ class $$WorkoutsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$WorkoutsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$WorkoutsTableOrderingComposer($db: db, $table: table),
+          createFilteringComposer: () => $$WorkoutsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$WorkoutsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$WorkoutsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
@@ -1341,14 +1218,8 @@ class $$WorkoutsTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$WorkoutsTableReferences(db, table, e),
-                ),
-              )
-              .toList(),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), $$WorkoutsTableReferences(db, table, e))).toList(),
           prefetchHooksCallback: ({workoutSetsRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -1357,19 +1228,11 @@ class $$WorkoutsTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (workoutSetsRefs)
-                    await $_getPrefetchedData<
-                      Workout,
-                      $WorkoutsTable,
-                      WorkoutSet
-                    >(
+                    await $_getPrefetchedData<Workout, $WorkoutsTable, WorkoutSet>(
                       currentTable: table,
-                      referencedTable: $$WorkoutsTableReferences
-                          ._workoutSetsRefsTable(db),
-                      managerFromTypedResult: (p0) => $$WorkoutsTableReferences(
-                        db,
-                        table,
-                        p0,
-                      ).workoutSetsRefs,
+                      referencedTable: $$WorkoutsTableReferences._workoutSetsRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$WorkoutsTableReferences(db, table, p0).workoutSetsRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
                           referencedItems.where((e) => e.workoutId == item.id),
                       typedResults: items,
@@ -1432,9 +1295,7 @@ final class $$WorkoutSetsTableReferences
   $$WorkoutSetsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $WorkoutsTable _workoutIdTable(_$WorkoutDatabase db) =>
-      db.workouts.createAlias(
-        $_aliasNameGenerator(db.workoutSets.workoutId, db.workouts.id),
-      );
+      db.workouts.createAlias($_aliasNameGenerator(db.workoutSets.workoutId, db.workouts.id));
 
   $$WorkoutsTableProcessedTableManager get workoutId {
     final $_column = $_itemColumn<String>('workout_id')!;
@@ -1445,14 +1306,11 @@ final class $$WorkoutSetsTableReferences
     ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_workoutIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 }
 
-class $$WorkoutSetsTableFilterComposer
-    extends Composer<_$WorkoutDatabase, $WorkoutSetsTable> {
+class $$WorkoutSetsTableFilterComposer extends Composer<_$WorkoutDatabase, $WorkoutSetsTable> {
   $$WorkoutSetsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -1460,55 +1318,35 @@ class $$WorkoutSetsTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get exerciseId => $composableBuilder(
-    column: $table.exerciseId,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get exerciseId =>
+      $composableBuilder(column: $table.exerciseId, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get modifiers => $composableBuilder(
-    column: $table.modifiers,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get modifiers =>
+      $composableBuilder(column: $table.modifiers, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get cues => $composableBuilder(
-    column: $table.cues,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get cues =>
+      $composableBuilder(column: $table.cues, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<double> get weight => $composableBuilder(
-    column: $table.weight,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<double> get weight =>
+      $composableBuilder(column: $table.weight, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get reps => $composableBuilder(
-    column: $table.reps,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get reps =>
+      $composableBuilder(column: $table.reps, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get rir => $composableBuilder(
-    column: $table.rir,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get rir =>
+      $composableBuilder(column: $table.rir, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get comments => $composableBuilder(
-    column: $table.comments,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get comments =>
+      $composableBuilder(column: $table.comments, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get timestamp => $composableBuilder(
-    column: $table.timestamp,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<DateTime> get timestamp =>
+      $composableBuilder(column: $table.timestamp, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get setOrder => $composableBuilder(
-    column: $table.setOrder,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get setOrder =>
+      $composableBuilder(column: $table.setOrder, builder: (column) => ColumnFilters(column));
 
   $$WorkoutsTableFilterComposer get workoutId {
     final $$WorkoutsTableFilterComposer composer = $composerBuilder(
@@ -1516,26 +1354,20 @@ class $$WorkoutSetsTableFilterComposer
       getCurrentColumn: (t) => t.workoutId,
       referencedTable: $db.workouts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$WorkoutsTableFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkoutsTableFilterComposer(
             $db: $db,
             $table: $db.workouts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$WorkoutSetsTableOrderingComposer
-    extends Composer<_$WorkoutDatabase, $WorkoutSetsTable> {
+class $$WorkoutSetsTableOrderingComposer extends Composer<_$WorkoutDatabase, $WorkoutSetsTable> {
   $$WorkoutSetsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -1543,55 +1375,35 @@ class $$WorkoutSetsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get exerciseId => $composableBuilder(
-    column: $table.exerciseId,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get exerciseId =>
+      $composableBuilder(column: $table.exerciseId, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get modifiers => $composableBuilder(
-    column: $table.modifiers,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get modifiers =>
+      $composableBuilder(column: $table.modifiers, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get cues => $composableBuilder(
-    column: $table.cues,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get cues =>
+      $composableBuilder(column: $table.cues, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<double> get weight => $composableBuilder(
-    column: $table.weight,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<double> get weight =>
+      $composableBuilder(column: $table.weight, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get reps => $composableBuilder(
-    column: $table.reps,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get reps =>
+      $composableBuilder(column: $table.reps, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get rir => $composableBuilder(
-    column: $table.rir,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get rir =>
+      $composableBuilder(column: $table.rir, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get comments => $composableBuilder(
-    column: $table.comments,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get comments =>
+      $composableBuilder(column: $table.comments, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get timestamp => $composableBuilder(
-    column: $table.timestamp,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<DateTime> get timestamp =>
+      $composableBuilder(column: $table.timestamp, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get setOrder => $composableBuilder(
-    column: $table.setOrder,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get setOrder =>
+      $composableBuilder(column: $table.setOrder, builder: (column) => ColumnOrderings(column));
 
   $$WorkoutsTableOrderingComposer get workoutId {
     final $$WorkoutsTableOrderingComposer composer = $composerBuilder(
@@ -1599,26 +1411,20 @@ class $$WorkoutSetsTableOrderingComposer
       getCurrentColumn: (t) => t.workoutId,
       referencedTable: $db.workouts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$WorkoutsTableOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkoutsTableOrderingComposer(
             $db: $db,
             $table: $db.workouts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $$WorkoutSetsTableAnnotationComposer
-    extends Composer<_$WorkoutDatabase, $WorkoutSetsTable> {
+class $$WorkoutSetsTableAnnotationComposer extends Composer<_$WorkoutDatabase, $WorkoutSetsTable> {
   $$WorkoutSetsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -1629,10 +1435,8 @@ class $$WorkoutSetsTableAnnotationComposer
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get exerciseId => $composableBuilder(
-    column: $table.exerciseId,
-    builder: (column) => column,
-  );
+  GeneratedColumn<String> get exerciseId =>
+      $composableBuilder(column: $table.exerciseId, builder: (column) => column);
 
   GeneratedColumn<String> get modifiers =>
       $composableBuilder(column: $table.modifiers, builder: (column) => column);
@@ -1664,18 +1468,13 @@ class $$WorkoutSetsTableAnnotationComposer
       getCurrentColumn: (t) => t.workoutId,
       referencedTable: $db.workouts,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $$WorkoutsTableAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkoutsTableAnnotationComposer(
             $db: $db,
             $table: $db.workouts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -1702,10 +1501,8 @@ class $$WorkoutSetsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $$WorkoutSetsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$WorkoutSetsTableOrderingComposer($db: db, $table: table),
+          createFilteringComposer: () => $$WorkoutSetsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$WorkoutSetsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$WorkoutSetsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
@@ -1765,12 +1562,7 @@ class $$WorkoutSetsTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable(table),
-                  $$WorkoutSetsTableReferences(db, table, e),
-                ),
-              )
+              .map((e) => (e.readTable(table), $$WorkoutSetsTableReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: ({workoutId = false}) {
             return PrefetchHooks(
@@ -1797,8 +1589,7 @@ class $$WorkoutSetsTableTableManager
                           state.withJoin(
                                 currentTable: table,
                                 currentColumn: table.workoutId,
-                                referencedTable: $$WorkoutSetsTableReferences
-                                    ._workoutIdTable(db),
+                                referencedTable: $$WorkoutSetsTableReferences._workoutIdTable(db),
                                 referencedColumn: $$WorkoutSetsTableReferences
                                     ._workoutIdTable(db)
                                     .id,
@@ -1835,8 +1626,7 @@ typedef $$WorkoutSetsTableProcessedTableManager =
 class $WorkoutDatabaseManager {
   final _$WorkoutDatabase _db;
   $WorkoutDatabaseManager(this._db);
-  $$WorkoutsTableTableManager get workouts =>
-      $$WorkoutsTableTableManager(_db, _db.workouts);
+  $$WorkoutsTableTableManager get workouts => $$WorkoutsTableTableManager(_db, _db.workouts);
   $$WorkoutSetsTableTableManager get workoutSets =>
       $$WorkoutSetsTableTableManager(_db, _db.workoutSets);
 }
