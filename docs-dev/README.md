@@ -4,6 +4,8 @@
 - For state management, use Riverpod 3.0; don't use deprecated syntax like AutoDispose, Family or "<Name>Ref" (just use Ref)
 - Use freezed only for models that can really benefit from it (e.g. immutable and needing json persistence)
 - Refer to routes in dart by <widget>.routeName, this is the only place where we hardcode route strings (with the exception of the initial home route)
+- Use the existing directories named `core` and `util` to store reusable components and functions, and find existing code to use.
+- Avoid writing duplicate or similar code, always look for opportunities to make code reusable.
 
 ## File organization
 
