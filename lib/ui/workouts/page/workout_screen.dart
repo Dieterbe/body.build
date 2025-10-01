@@ -141,13 +141,15 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     return Column(
       children: [
         WorkoutHeader(workout: workout),
-        Expanded(child: workout.sets.isEmpty ? _buildEmptyState() : _buildSetsList(workout.sets)),
+        Expanded(
+          child: workout.sets.isEmpty ? _buildEmptyState(workout) : _buildSetsList(workout.sets),
+        ),
         WorkoutFooter(workout: workout),
       ],
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(model.Workout workout) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -161,14 +163,17 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              'No Sets Yet',
+              workout.isActive ? 'No Sets Yet' : 'No Sets in this workout',
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
+
             Text(
-              'Log your first exercise set with the button below',
+              workout.isActive
+                  ? 'Log your first exercise set with the button below'
+                  : 'What a shame.',
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),

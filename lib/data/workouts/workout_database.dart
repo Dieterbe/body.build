@@ -80,6 +80,9 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
   Future<bool> updateWorkout(WorkoutsCompanion workout) => update(workouts).replace(workout);
 
+  Future<int> updateWorkoutFields(String id, WorkoutsCompanion workout) =>
+      (update(workouts)..where((w) => w.id.equals(id))).write(workout);
+
   Future<int> deleteWorkout(String id) => (delete(workouts)..where((w) => w.id.equals(id))).go();
 
   // Workout set queries

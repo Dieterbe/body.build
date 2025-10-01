@@ -69,19 +69,21 @@ class WorkoutPersistenceService {
   }
 
   Future<void> endWorkout(String workoutId, {DateTime? endTime}) async {
-    final workout = await _database.getWorkoutById(workoutId);
-    if (workout == null) return;
-
     final companion = WorkoutsCompanion(
-      id: Value(workoutId),
-      startTime: Value(workout.startTime),
       endTime: Value(endTime ?? DateTime.now()),
-      notes: Value(workout.notes),
-      createdAt: Value(workout.createdAt),
       updatedAt: Value(DateTime.now()),
     );
 
-    await _database.updateWorkout(companion);
+    await _database.updateWorkoutFields(workoutId, companion);
+  }
+
+  Future<void> resumeWorkout(String workoutId) async {
+    final companion = WorkoutsCompanion(
+      endTime: const Value(null), // Remove end time to make it active again
+      updatedAt: Value(DateTime.now()),
+    );
+
+    await _database.updateWorkoutFields(workoutId, companion);
   }
 
   Future<void> deleteWorkout(String id) async {

@@ -14,6 +14,9 @@ class WorkoutPopupMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bool canResume =
+        workout.endTime != null && DateTime.now().difference(workout.endTime!).inHours < 1;
+
     return PopupMenuButton<String>(
       itemBuilder: (context) => [
         const PopupMenuItem(
@@ -24,6 +27,11 @@ class WorkoutPopupMenu extends ConsumerWidget {
           const PopupMenuItem(
             value: 'finish',
             child: Row(spacing: 8, children: [Icon(Icons.check_circle), Text('Finish Workout')]),
+          ),
+        if (canResume)
+          const PopupMenuItem(
+            value: 'resume',
+            child: Row(spacing: 8, children: [Icon(Icons.play_arrow), Text('Resume Workout')]),
           ),
         const PopupMenuItem(
           value: 'delete',
@@ -39,6 +47,7 @@ class WorkoutPopupMenu extends ConsumerWidget {
       onSelected: (value) => switch (value) {
         'notes' => _showEditWorkoutNotesDialog(context, ref),
         'finish' => _showFinishWorkoutConfirmationDialog(context, ref),
+        'resume' => _showResumeWorkoutConfirmationDialog(context, ref),
         'delete' => _showDeleteWorkoutConfirmationDialog(context, ref),
         _ => null,
       },
@@ -61,6 +70,22 @@ class WorkoutPopupMenu extends ConsumerWidget {
         ).showSnackBar(const SnackBar(content: Text('Workout finished')));
         if (reRoute == null) return;
         context.go(reRoute!);
+      },
+    );
+  }
+
+  void _showResumeWorkoutConfirmationDialog(BuildContext context, WidgetRef ref) {
+    showConfirmationDialog(
+      context: context,
+      title: 'Resume Workout',
+      content: 'So you decided to do some more sets in this workout? Right on!',
+      confirmText: 'Resume',
+      onConfirm: () {
+        ref.read(workoutManagerProvider.notifier).resumeWorkout(workout.id);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Workout resumed')));
+        context.go('/workouts/${workout.id}');
       },
     );
   }

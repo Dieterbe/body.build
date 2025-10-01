@@ -112,6 +112,11 @@ class WorkoutManager extends _$WorkoutManager {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.deleteWorkout(workoutId);
   }
+
+  Future<void> resumeWorkout(String workoutId) async {
+    final service = ref.read(workoutPersistenceServiceProvider);
+    await service.resumeWorkout(workoutId);
+  }
 }
 
 /// Derived provider - gets specific workout by ID from the unified state
