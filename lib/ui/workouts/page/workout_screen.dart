@@ -327,7 +327,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   void _updateSet(model.WorkoutSet updatedSet) async {
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.updateSet(widget.workoutId, updatedSet);
+      await workoutManager.updateSet(updatedSet);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set updated')));
@@ -344,7 +344,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   void _deleteSet(String setId) async {
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.deleteSet(widget.workoutId, setId);
+      await workoutManager.deleteSet(setId);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set deleted')));

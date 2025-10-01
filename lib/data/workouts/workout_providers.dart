@@ -7,7 +7,7 @@ part 'workout_providers.g.dart';
 
 // Database provider - singleton to avoid multiple instances
 @Riverpod(keepAlive: true)
-WorkoutDatabase workoutDatabase(Ref ref) {
+WorkoutDatabase workoutDatabase(Ref _) {
   return WorkoutDatabase();
 }
 
@@ -90,12 +90,12 @@ class WorkoutManager extends _$WorkoutManager {
     return setId;
   }
 
-  Future<void> updateSet(String workoutId, model.WorkoutSet workoutSet) async {
+  Future<void> updateSet(model.WorkoutSet workoutSet) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.updateWorkoutSet(workoutSet);
   }
 
-  Future<void> deleteSet(String workoutId, String setId) async {
+  Future<void> deleteSet(String setId) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     await service.deleteWorkoutSet(setId);
   }

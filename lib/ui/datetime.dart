@@ -6,9 +6,8 @@ String formatHumanDateTimeMinutely(DateTime dateTime) {
     return 'Today ${formatHumanTimeMinutely(dateTime)}';
   } else if (difference.inDays == 1) {
     return 'Yesterday ${formatHumanTimeMinutely(dateTime)}';
-  } else {
-    return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${formatHumanTimeMinutely(dateTime)}';
   }
+  return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${formatHumanTimeMinutely(dateTime)}';
 }
 
 String formatHumanTimeMinutely(DateTime date) {
@@ -35,7 +34,6 @@ String formatHumanDuration2(Duration duration) {
 
   if (hours > 0) {
     return '${hours}h ${minutes}m';
-  } else {
-    return '${minutes}m';
   }
+  return '${minutes}m';
 }
