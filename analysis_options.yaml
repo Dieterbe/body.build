@@ -35,3 +35,12 @@ linter:
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+dart_code_metrics:
+  extends:
+    - recommended
+  rules:
+    - prefer-declaring-const-constructor: false # goes against drift guide
+    - no-empty-block: false # empty blocks allow me to be explicitly remind of callbacks/options without using them
+  formatter:
+    line-length: 100
