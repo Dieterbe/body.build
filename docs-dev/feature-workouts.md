@@ -30,6 +30,7 @@ So we tell the user to use the mobile app on a phone or tablet to use these feat
   - /workout shows the currently active workout, creating a new one if needed
 
 ## Mobile exercise selector
+TODO: re-use with exercise library
 user input (all optional):
 * text search
 * selection dropdown to involve one or more muscles (Program Groups)

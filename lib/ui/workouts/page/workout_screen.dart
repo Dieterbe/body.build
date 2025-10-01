@@ -27,6 +27,7 @@ class WorkoutScreen extends ConsumerStatefulWidget {
 
 class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   final TextEditingController _notesController = TextEditingController();
+  model.Workout? workout;
 
   @override
   void initState() {
@@ -60,11 +61,14 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     if (widget.workoutId != null) {
       final workoutAsync = ref.watch(workoutByIdProvider(widget.workoutId!));
       return workoutAsync.when(
-        data: (workout) => workout == null
-            // we don't support web where people can craft custom URL's
-            // on mobile apps we should always have the correct ID and be able to load it
-            ? Text('Error loading workout ${widget.workoutId!}!')
-            : _buildForWorkout(context, workout),
+        data: (w) {
+          workout = w;
+          return (workout == null)
+              // we don't support web where people can craft custom URL's
+              // on mobile apps we should always have the correct ID and be able to load it
+              ? Text('Error loading workout ${widget.workoutId!}!')
+              : _buildForWorkout(context);
+        },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, __) => const Center(child: Text('Error loading the requested workout')),
       );
@@ -76,7 +80,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       data: (state) {
         final activeWorkout = state.activeWorkout;
         if (activeWorkout != null) {
-          return _buildForWorkout(context, activeWorkout);
+          workout = activeWorkout;
+          return _buildForWorkout(context);
         }
         // No active workout: show loading state until initState() has completed creating one
         return _buildNewWorkoutLoading(context);
@@ -86,18 +91,19 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
   }
 
-  Widget _buildForWorkout(BuildContext context, model.Workout workout) {
+  // relies on this.workout being set to non-null
+  Widget _buildForWorkout(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workout'),
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
-          if (workout.isActive == true)
+          if (workout!.isActive == true)
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child: Center(child: Stopwatch(start: workout.startTime)),
+              child: Center(child: Stopwatch(start: workout!.startTime)),
             ),
-          WorkoutPopupMenu(workout, reRoute: '/workouts'),
+          WorkoutPopupMenu(workout!, reRoute: '/workouts'),
         ],
       ),
       // this screen is used in two ways:
@@ -106,14 +112,12 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       drawer: widget.workoutId == null ? const AppNavigationDrawer() : null,
       body: Column(
         children: [
-          WorkoutHeader(workout: workout),
-          Expanded(
-            child: workout.sets.isEmpty ? _buildEmptyState(workout) : _buildSetsList(workout.sets),
-          ),
-          WorkoutFooter(workout: workout),
+          WorkoutHeader(workout: workout!),
+          Expanded(child: workout!.sets.isEmpty ? _buildEmptyState() : _buildSetsList()),
+          WorkoutFooter(workout: workout!),
         ],
       ),
-      floatingActionButton: !workout.isActive
+      floatingActionButton: !workout!.isActive
           ? null
           : FloatingActionButton.extended(
               onPressed: () => _showExercisePicker(context),
@@ -123,7 +127,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
   }
 
-  Widget _buildEmptyState(model.Workout workout) {
+  Widget _buildEmptyState() {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -137,7 +141,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              workout.isActive ? 'No Sets Yet' : 'No Sets in this workout',
+              workout!.isActive ? 'No Sets Yet' : 'No Sets in this workout',
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -145,7 +149,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             const SizedBox(height: 16),
 
             Text(
-              workout.isActive
+              workout!.isActive
                   ? 'Log your first exercise set with the button below'
                   : 'What a shame.',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -157,10 +161,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
   }
 
-  Widget _buildSetsList(List<model.WorkoutSet> sets) {
+  Widget _buildSetsList() {
     // Group sets by exercise, modifiers, and cues
     final groupedSets = <String, List<model.WorkoutSet>>{};
-    for (final set in sets) {
+    for (final set in workout!.sets) {
       // Create a composite key that includes exercise ID, modifiers, and cues
       final modifiersKey = set.modifiers.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
       final cuesKey =
@@ -262,7 +266,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
       await workoutManager.addSet(
-        workoutId: widget.workoutId!,
+        workoutId: workout!.id,
         exerciseId: exerciseId,
         modifiers: modifiers,
         cues: cues,
@@ -271,10 +275,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         rir: setData['rir'] as int?,
         comments: setData['comments'] as String?,
       );
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set added')));
-      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -288,10 +288,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
       await workoutManager.updateSet(updatedSet);
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set updated')));
-      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -305,10 +301,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
       await workoutManager.deleteSet(setId);
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Set deleted')));
-      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

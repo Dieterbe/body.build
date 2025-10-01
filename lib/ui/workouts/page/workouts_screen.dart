@@ -58,7 +58,7 @@ class WorkoutsScreen extends ConsumerWidget {
                 icon: const Icon(Icons.play_arrow),
                 label: const Text('Start Workout'),
               ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => null,
         error: (error, stack) => null,
       ),
     );

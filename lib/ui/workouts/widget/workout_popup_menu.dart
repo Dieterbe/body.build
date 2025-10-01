@@ -65,9 +65,6 @@ class WorkoutPopupMenu extends ConsumerWidget {
       confirmText: 'Finish',
       onConfirm: () {
         ref.read(workoutManagerProvider.notifier).endWorkout(workout.id);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Workout finished')));
         if (reRoute == null) return;
         context.go(reRoute!);
       },
@@ -82,9 +79,6 @@ class WorkoutPopupMenu extends ConsumerWidget {
       confirmText: 'Resume',
       onConfirm: () {
         ref.read(workoutManagerProvider.notifier).resumeWorkout(workout.id);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Workout resumed')));
         context.go('/workouts/${workout.id}');
       },
     );
@@ -101,9 +95,6 @@ class WorkoutPopupMenu extends ConsumerWidget {
       isDestructive: true,
       onConfirm: () {
         ref.read(workoutManagerProvider.notifier).deleteWorkout(workout.id);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Workout deleted')));
         if (reRoute == null) return;
         context.go(reRoute!);
       },
