@@ -113,10 +113,13 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
           WorkoutFooter(workout: workout),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showExercisePicker(context),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: !workout.isActive
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: () => _showExercisePicker(context),
+              icon: const Icon(Icons.add),
+              label: const Text('Log Set'),
+            ),
     );
   }
 
