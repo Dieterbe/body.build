@@ -24,14 +24,10 @@ So we tell the user to use the mobile app on a phone or tablet to use these feat
 * offline-only. no network usage.
 * use drift as database. cues&modifiers are stored as json
 * workout end datetime is null for active workouts
-* pages: /workouts/ displays all past workouts, /workouts/:id displays a specific workout (either the current active one, or a past one) and allows to modify it.
-* streamlined navigation:
-  - "start workout" button in the UI navigates to /workouts/new
-  - /workouts/new checks if there is an active workout
-    * if there is, and its last set was less than 30 min ago, it can simply be resumed
-    * if there is, and its last set was more than 30 min ago, set its end datetime to that of its last set + 5 min, and create a new active workout
-    * if there isn't, create a new active workout
-    * navigate to /workouts/:id
+* pages:
+  - /workouts/ displays all workouts
+  - /workouts/:id displays a specific workout (either the current active one, or a past one)
+  - /workout shows the currently active workout, creating a new one if needed
 
 ## Future Enhancements
 

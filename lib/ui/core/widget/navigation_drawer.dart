@@ -80,10 +80,10 @@ class AppNavigationDrawer extends StatelessWidget {
                   _buildNavigationItem(
                     context: context,
                     icon: Icons.play_arrow,
-                    title: 'Start Workout',
-                    routeName: 'workouts/new',
+                    title: 'Start/Resume Workout',
+                    routeName: WorkoutScreen.routeNameActive,
                     currentRoute: currentRoute,
-                    onTap: () => _navigateAndClose(context, WorkoutScreen.routeNameNew),
+                    onTap: () => _navigateAndClose(context, WorkoutScreen.routeNameActive),
                   ),
                 if (isMobileApp())
                   _buildNavigationItem(

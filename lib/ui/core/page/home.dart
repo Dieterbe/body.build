@@ -198,14 +198,14 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 _buildQuickAccessCard(
                                   context: context,
-                                  title: 'Start Workout',
+                                  title: 'Start/Resume Workout',
                                   subtitle: 'Track a workout session',
                                   icon: Icons.play_arrow,
                                   color: Colors.green,
                                   showAppOnly: !isMobileApp(),
                                   onTap: () => _navigateQuickAccess(
                                     context,
-                                    WorkoutScreen.routeNameNew,
+                                    WorkoutScreen.routeNameActive,
                                     false,
                                   ),
                                 ),

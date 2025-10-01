@@ -7,17 +7,19 @@ import 'package:bodybuild/ui/workouts/widget/set_log_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
-import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
+import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
+/// This screen is used as both:
+/// - a top level screen (for the curently active workout)
+/// - a detail view when coming from WorkoutsScreen (for any historical or current active workout)
 class WorkoutScreen extends ConsumerStatefulWidget {
-  final String workoutId;
-  static const String routeNameNew = 'workouts/new';
-  const WorkoutScreen({super.key, required this.workoutId});
+  final String? workoutId; // null for currently active workout, creating it if needed
+  static const String routeNameActive = 'workout';
+  const WorkoutScreen({super.key, this.workoutId});
 
   @override
   ConsumerState<WorkoutScreen> createState() => _WorkoutScreenState();
@@ -29,44 +31,16 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   @override
   void initState() {
     super.initState();
-    // Handle "new" workout case
-    if (isMobileApp() && widget.workoutId == 'new') {
+    // If no workoutId provided, we need to ensure an active workout exists
+    if (widget.workoutId == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _handleNewWorkout();
+        final workoutStateAsync = ref.read(workoutManagerProvider);
+        workoutStateAsync.whenData((workoutState) {
+          if (workoutState.activeWorkout == null) {
+            ref.read(workoutManagerProvider.notifier).startWorkout();
+          }
+        });
       });
-    }
-  }
-
-  void _handleNewWorkout() async {
-    try {
-      // Check if there's already an active workout
-      final workoutState = await ref.read(workoutManagerProvider.future);
-      final activeWorkout = workoutState.activeWorkout;
-      if (activeWorkout != null && mounted) {
-        print('switching view to active workout ${activeWorkout.id}');
-
-        // Resume existing active workout - replace current route to avoid back navigation issues
-        context.replace('/${WorkoutsScreen.routeName}/${activeWorkout.id}');
-        return;
-      }
-
-      // Create new workout
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      final workoutId = await workoutManager.startWorkout();
-
-      if (mounted) {
-        print('switching view to new workout $workoutId');
-        // Replace current route to avoid back navigation issues
-        context.replace('/${WorkoutsScreen.routeName}/$workoutId');
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error starting workout: $e'), backgroundColor: Colors.red),
-        );
-        // Fallback to workouts list
-        context.goNamed(WorkoutsScreen.routeName);
-      }
     }
   }
 
@@ -79,73 +53,70 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     if (!isMobileApp()) {
-      return const MobileAppOnly(title: 'Workout tracking');
-    }
-    // Handle "new" workout case - show loading while we determine the actual workout ID
-    if (widget.workoutId == 'new') {
-      return _buildNewWorkoutLoading(context);
+      return const MobileAppOnly(title: 'Workout tracking & viewing');
     }
 
-    final workoutAsync = ref.watch(workoutByIdProvider(widget.workoutId));
+    // If workoutId is provided, show that specific workout
+    if (widget.workoutId != null) {
+      final workoutAsync = ref.watch(workoutByIdProvider(widget.workoutId!));
+      return workoutAsync.when(
+        data: (workout) => workout == null
+            // we don't support web where people can craft custom URL's
+            // on mobile apps we should always have the correct ID and be able to load it
+            ? Text('Error loading workout ${widget.workoutId!}!')
+            : _buildForWorkout(context, workout),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (_, __) => const Center(child: Text('Error loading the requested workout')),
+      );
+    }
 
+    // No workoutId provided - show the active workout, creating one if needed
+    final workoutState = ref.watch(workoutManagerProvider);
+    return workoutState.when(
+      data: (state) {
+        final activeWorkout = state.activeWorkout;
+        if (activeWorkout != null) {
+          return _buildForWorkout(context, activeWorkout);
+        }
+        // No active workout: show loading state until initState() has completed creating one
+        return _buildNewWorkoutLoading(context);
+      },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (_, __) => const Center(child: Text('Error loading workout state')),
+    );
+  }
+
+  Widget _buildForWorkout(BuildContext context, model.Workout workout) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Workout'),
         backgroundColor: Theme.of(context).colorScheme.surface,
-        actions: workoutAsync.when(
-          data: (workout) => [
-            if (workout?.isActive == true)
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: Center(child: Stopwatch(start: workout!.startTime)),
-              ),
-            if (workout != null) WorkoutPopupMenu(workout, reRoute: '/workouts'),
-          ],
-          loading: () => null,
-          error: (_, __) => null,
-        ),
+        actions: [
+          if (workout.isActive == true)
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Center(child: Stopwatch(start: workout.startTime)),
+            ),
+          WorkoutPopupMenu(workout, reRoute: '/workouts'),
+        ],
       ),
-      body: workoutAsync.when(
-        data: (workout) {
-          if (workout == null) {
-            return const Center(child: Text('Workout not found'));
-          }
-
-          return _buildWorkoutContent(workout);
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error, size: 64, color: Colors.red),
-              const SizedBox(height: 16),
-              Text('Error loading workout: $error'),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => ref.invalidate(workoutByIdProvider(widget.workoutId)),
-                child: const Text('Retry'),
-              ),
-            ],
+      // this screen is used in two ways:
+      // - top level screen needs a hamburger menu
+      // - nested screen needs a back arrow
+      drawer: widget.workoutId == null ? const AppNavigationDrawer() : null,
+      body: Column(
+        children: [
+          WorkoutHeader(workout: workout),
+          Expanded(
+            child: workout.sets.isEmpty ? _buildEmptyState(workout) : _buildSetsList(workout.sets),
           ),
-        ),
+          WorkoutFooter(workout: workout),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showExercisePicker(context),
         child: const Icon(Icons.add),
       ),
-    );
-  }
-
-  Widget _buildWorkoutContent(model.Workout workout) {
-    return Column(
-      children: [
-        WorkoutHeader(workout: workout),
-        Expanded(
-          child: workout.sets.isEmpty ? _buildEmptyState(workout) : _buildSetsList(workout.sets),
-        ),
-        WorkoutFooter(workout: workout),
-      ],
     );
   }
 
@@ -288,7 +259,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
       await workoutManager.addSet(
-        workoutId: widget.workoutId,
+        workoutId: widget.workoutId!,
         exerciseId: exerciseId,
         modifiers: modifiers,
         cues: cues,
@@ -345,22 +316,12 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   }
 
   // this goes normally so fast that it's imperceptible
+  // that's why we don't put too much content here, it would cause too much flickering
   Widget _buildNewWorkoutLoading(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Starting Workout...'),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            Text('Preparing your workout...'),
-          ],
-        ),
-      ),
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.surface),
+      drawer: const AppNavigationDrawer(),
+      body: const Center(child: CircularProgressIndicator()),
     );
   }
 }

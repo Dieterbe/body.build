@@ -117,15 +117,15 @@ class MyApp extends StatelessWidget {
                 ],
               ),
               GoRoute(
+                name: WorkoutScreen.routeNameActive,
+                path: WorkoutScreen.routeNameActive,
+                builder: (context, state) => const WorkoutScreen(),
+              ),
+              GoRoute(
                 name: WorkoutsScreen.routeName,
                 path: WorkoutsScreen.routeName,
                 builder: (context, state) => const WorkoutsScreen(),
                 routes: [
-                  GoRoute(
-                    path: '/new',
-                    name: WorkoutScreen.routeNameNew,
-                    builder: (context, state) => const WorkoutScreen(workoutId: 'new'),
-                  ),
                   GoRoute(
                     path: '/:id',
                     builder: (context, state) =>

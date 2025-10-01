@@ -53,7 +53,7 @@ class WorkoutsScreen extends ConsumerWidget {
             ? null
             : FloatingActionButton.extended(
                 onPressed: () {
-                  context.goNamed(WorkoutScreen.routeNameNew);
+                  context.goNamed(WorkoutScreen.routeNameActive);
                 },
                 icon: const Icon(Icons.play_arrow),
                 label: const Text('Start Workout'),

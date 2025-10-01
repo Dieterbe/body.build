@@ -29,6 +29,8 @@ class WorkoutManager extends _$WorkoutManager {
   Stream<model.WorkoutState> build() {
     final service = ref.watch(workoutPersistenceServiceProvider);
 
+    // TODO: this is probably the best place to assure any stale active workouts
+    // are terminated, but i can't be bothered to implement that here right now.
     return service.watchAllWorkouts().map(
       (allWorkouts) => model.WorkoutState(
         allWorkouts: allWorkouts,
