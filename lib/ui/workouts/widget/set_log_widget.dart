@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/core/confirmation_dialog.dart';
 import 'package:bodybuild/ui/datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -278,23 +279,13 @@ class _SetLogWidgetState extends State<SetLogWidget> {
   }
 
   void _showDeleteConfirmation() {
-    showDialog(
+    showConfirmationDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Set'),
-        content: Text('Are you sure you want to delete Set ${widget.workoutSet.setOrder}?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              widget.onDelete();
-            },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
+      title: 'Delete Set',
+      content: 'Are you sure you want to delete Set ${widget.workoutSet.setOrder}?',
+      confirmText: 'Delete',
+      isDestructive: true,
+      onConfirm: widget.onDelete,
     );
   }
 }

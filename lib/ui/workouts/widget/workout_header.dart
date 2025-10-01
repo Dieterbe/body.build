@@ -31,7 +31,7 @@ class WorkoutHeader extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                workout.isActive ? 'Active Workout' : 'Completed Workout',
+                workout.isActive ? 'Active Workout' : 'Finished Workout',
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),

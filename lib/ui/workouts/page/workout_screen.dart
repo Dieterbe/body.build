@@ -8,6 +8,7 @@ import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
+import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
 import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -91,38 +92,18 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       appBar: AppBar(
         title: const Text('Workout'),
         backgroundColor: Theme.of(context).colorScheme.surface,
-        actions: [
-          // Workout duration stopwatch - only show for active workouts
-          workoutAsync.when(
-            data: (workout) => workout?.isActive == true
-                ? Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Center(child: Stopwatch(start: workout!.startTime)),
-                  )
-                : const SizedBox.shrink(),
-            loading: () => const SizedBox.shrink(),
-            error: (_, __) => const SizedBox.shrink(),
-          ),
-          PopupMenuButton<String>(
-            onSelected: (value) => _handleMenuAction(value),
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'notes',
-                child: Row(children: [Icon(Icons.note_add), SizedBox(width: 8), Text('Add Notes')]),
+        actions: workoutAsync.when(
+          data: (workout) => [
+            if (workout?.isActive == true)
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Center(child: Stopwatch(start: workout!.startTime)),
               ),
-              const PopupMenuItem(
-                value: 'end',
-                child: Row(children: [Icon(Icons.stop), SizedBox(width: 8), Text('End Workout')]),
-              ),
-              const PopupMenuItem(
-                value: 'delete',
-                child: Row(
-                  children: [Icon(Icons.delete), SizedBox(width: 8), Text('Delete Workout')],
-                ),
-              ),
-            ],
-          ),
-        ],
+            if (workout != null) WorkoutPopupMenu(workout, reRoute: '/workouts'),
+          ],
+          loading: () => null,
+          error: (_, __) => null,
+        ),
       ),
       body: workoutAsync.when(
         data: (workout) {
@@ -353,151 +334,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error deleting set: $e'), backgroundColor: Colors.red),
-        );
-      }
-    }
-  }
-
-  void _handleMenuAction(String action) {
-    switch (action) {
-      case 'notes':
-        _showNotesDialog();
-        break;
-      case 'end':
-        _showEndWorkoutDialog();
-        break;
-      case 'delete':
-        _showDeleteWorkoutDialog();
-        break;
-    }
-  }
-
-  void _showNotesDialog() async {
-    final workout = await ref.read(workoutByIdProvider(widget.workoutId).future);
-    if (workout == null) return;
-
-    _notesController.text = workout.notes ?? '';
-
-    if (mounted) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Workout Notes'),
-          content: TextField(
-            controller: _notesController,
-            decoration: const InputDecoration(
-              hintText: 'Add notes about this workout...',
-              border: OutlineInputBorder(),
-            ),
-            maxLines: 4,
-          ),
-          actions: [
-            TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _updateWorkoutNotes(_notesController.text.trim());
-              },
-              child: const Text('Save'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
-  void _updateWorkoutNotes(String notes) async {
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.updateWorkoutNotes(widget.workoutId, notes.isEmpty ? null : notes);
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Notes updated')));
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error updating notes: $e'), backgroundColor: Colors.red),
-        );
-      }
-    }
-  }
-
-  void _showEndWorkoutDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('End Workout'),
-        content: const Text('Are you sure you want to end this workout?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _endWorkout();
-            },
-            child: const Text('End Workout'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _endWorkout() async {
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.endWorkout(widget.workoutId);
-
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Workout completed!')));
-        context.go('/workouts');
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error ending workout: $e'), backgroundColor: Colors.red),
-        );
-      }
-    }
-  }
-
-  void _showDeleteWorkoutDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Workout'),
-        content: const Text('Are you sure you want to delete this workout?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _deleteWorkout();
-            },
-            child: const Text('Delete Workout'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _deleteWorkout() async {
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.deleteWorkout(widget.workoutId);
-
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Workout deleted')));
-        context.go('/workouts');
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error deleting workout: $e'), backgroundColor: Colors.red),
         );
       }
     }

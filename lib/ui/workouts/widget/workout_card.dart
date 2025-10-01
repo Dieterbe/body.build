@@ -1,7 +1,7 @@
-import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/ui/datetime.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
+import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -68,55 +68,8 @@ class WorkoutCard extends ConsumerWidget {
             ],
           ],
         ),
-        trailing: PopupMenuButton<String>(
-          onSelected: (value) {
-            switch (value) {
-              case 'delete':
-                _showDeleteConfirmation(context, ref, workout);
-                break;
-            }
-          },
-          itemBuilder: (context) => [
-            const PopupMenuItem(
-              value: 'delete',
-              child: Row(
-                children: [
-                  Icon(Icons.delete, color: Colors.red),
-                  SizedBox(width: 8),
-                  Text('Delete'),
-                ],
-              ),
-            ),
-          ],
-        ),
+        trailing: WorkoutPopupMenu(workout),
         onTap: () => context.go('/${WorkoutsScreen.routeName}/${workout.id}'),
-      ),
-    );
-  }
-
-  void _showDeleteConfirmation(BuildContext context, WidgetRef ref, model.Workout workout) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Workout'),
-        content: Text(
-          'Are you sure you want to delete the workout from ${formatHumanDateTimeMinutely(workout.startTime)}? '
-          'This action cannot be undone.',
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              ref.read(workoutManagerProvider.notifier).deleteWorkout(workout.id);
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const SnackBar(content: Text('Workout deleted')));
-            },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
-          ),
-        ],
       ),
     );
   }
