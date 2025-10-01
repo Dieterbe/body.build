@@ -4,6 +4,8 @@ import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
+import 'package:bodybuild/ui/programmer/util_groups.dart';
 
 class ExercisePickerSheet extends ConsumerStatefulWidget {
   final Function(String exerciseId) onExerciseSelected;
@@ -84,27 +86,31 @@ class _ExercisePickerSheetState extends ConsumerState<ExercisePickerSheet> {
           ),
           const SizedBox(height: 16),
 
-          // Muscle group filter
-          SizedBox(
-            height: 40,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                _buildFilterChip('All', _selectedMuscleGroup == null),
-                const SizedBox(width: 8),
-                ...ProgramGroup.values.map(
-                  (group) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: _buildFilterChip(
-                      group.name,
-                      _selectedMuscleGroup == group,
-                      onTap: () => setState(() {
-                        _selectedMuscleGroup = _selectedMuscleGroup == group ? null : group;
-                      }),
-                    ),
+          // Muscle group filter (single-select dropdown)
+          InputDecorator(
+            decoration: const InputDecoration(
+              labelText: 'Filter by muscle group',
+              border: OutlineInputBorder(),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<ProgramGroup>(
+                value: _selectedMuscleGroup,
+                isExpanded: true,
+                items: [
+                  const DropdownMenuItem<ProgramGroup>(
+                    value: null,
+                    child: Text('All muscle groups'),
                   ),
-                ),
-              ],
+                  ...ProgramGroup.values.map((group) {
+                    return DropdownMenuItem(value: group, child: Text(group.displayNameShort));
+                  }),
+                ],
+                onChanged: (group) {
+                  setState(() {
+                    _selectedMuscleGroup = group;
+                  });
+                },
+              ),
             ),
           ),
           const SizedBox(height: 16),
@@ -123,20 +129,6 @@ class _ExercisePickerSheetState extends ConsumerState<ExercisePickerSheet> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildFilterChip(String label, bool isSelected, {VoidCallback? onTap}) {
-    return FilterChip(
-      label: Text(label),
-      selected: isSelected,
-      onSelected: onTap != null
-          ? (_) => onTap()
-          : (_) => setState(() {
-              _selectedMuscleGroup = null;
-            }),
-      selectedColor: Theme.of(context).colorScheme.primaryContainer,
-      checkmarkColor: Theme.of(context).colorScheme.onPrimaryContainer,
     );
   }
 
@@ -165,42 +157,158 @@ class _ExercisePickerSheetState extends ConsumerState<ExercisePickerSheet> {
   }
 
   Widget _buildExerciseItem(Ex exercise, Settings setup) {
-    final primaryMuscles = ProgramGroup.values
-        .where((group) => exercise.recruitmentFiltered(group, {}, 0.7).volume > 0)
-        .take(3)
-        .map((group) => group.name)
-        .join(', ');
+    // Get all muscles with recruitment > 0.5
+    final recruitedMuscles = ProgramGroup.values
+        .where((group) => exercise.recruitmentFiltered(group, {}, 0.5).volume > 0.5)
+        .toList();
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: ListTile(
-        title: Text(exercise.id, style: const TextStyle(fontWeight: FontWeight.w600)),
-        subtitle: Column(
+    // Get ratings for this exercise
+    final ratings = exercise.ratings;
+
+    return InkWell(
+      onTap: () => widget.onExerciseSelected(exercise.id),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 4),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
+              width: 1,
+            ),
+          ),
+        ),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (primaryMuscles.isNotEmpty) ...[
-              const SizedBox(height: 4),
-              Text(
-                'Primary: $primaryMuscles',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+            // Exercise name with ratings
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    exercise.id,
+                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
                 ),
+                if (ratings.isNotEmpty) RatingIcon(ratings: ratings, size: 20),
+              ],
+            ),
+            const SizedBox(height: 8),
+
+            // Modifiers
+            if (exercise.modifiers.isNotEmpty) ...[
+              Wrap(
+                spacing: 6,
+                runSpacing: 4,
+                children: exercise.modifiers.map((modifier) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      modifier.name,
+                      style: TextStyle(fontSize: 11, color: Theme.of(context).colorScheme.primary),
+                    ),
+                  );
+                }).toList(),
               ),
+              const SizedBox(height: 8),
             ],
-            if (exercise.equipment.isNotEmpty) ...[
-              const SizedBox(height: 2),
-              Text(
-                'Equipment: ${exercise.equipment.map((e) => e.toString()).join(', ')}',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                  fontSize: 12,
-                ),
+
+            // Cues
+            if (exercise.cues.isNotEmpty) ...[
+              Wrap(
+                spacing: 6,
+                runSpacing: 4,
+                children: exercise.cues.entries.map((cue) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      cue.key,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 8),
+            ],
+
+            // Muscle recruitment visualization
+            if (recruitedMuscles.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                children: recruitedMuscles.map((group) {
+                  final recruitment = exercise.recruitmentFiltered(group, {}, 0.5).volume;
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: bgColorForProgramGroup(group).withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          group.name,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Container(
+                          width: 40,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          child: FractionallySizedBox(
+                            alignment: Alignment.centerLeft,
+                            widthFactor: recruitment,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: bgColorForProgramGroup(group),
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${(recruitment * 100).toStringAsFixed(0)}%',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
               ),
             ],
           ],
         ),
-        trailing: const Icon(Icons.add_circle_outline),
-        onTap: () => widget.onExerciseSelected(exercise.id),
       ),
     );
   }
@@ -219,7 +327,7 @@ class _ExercisePickerSheetState extends ConsumerState<ExercisePickerSheet> {
     if (_selectedMuscleGroup != null) {
       filtered = filtered
           .where(
-            (exercise) => exercise.recruitmentFiltered(_selectedMuscleGroup!, {}, 0.5).volume > 0,
+            (exercise) => exercise.recruitmentFiltered(_selectedMuscleGroup!, {}, 0.5).volume > 0.5,
           )
           .toList();
     }

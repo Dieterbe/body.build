@@ -37,7 +37,7 @@ class MuscleRecruitmentBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(1),
               ),
               child: Tooltip(
-                message: '${group.displayName}: ${(volume * 100).toStringAsFixed(0)}%',
+                message: '${group.displayNameShort}: ${(volume * 100).toStringAsFixed(0)}%',
                 child: Container(),
               ),
             ),

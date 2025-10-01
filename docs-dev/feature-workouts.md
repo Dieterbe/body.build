@@ -29,6 +29,15 @@ So we tell the user to use the mobile app on a phone or tablet to use these feat
   - /workouts/:id displays a specific workout (either the current active one, or a past one)
   - /workout shows the currently active workout, creating a new one if needed
 
+## Mobile exercise selector
+user input (all optional):
+* text search
+* selection dropdown to involve one or more muscles (Program Groups)
+
+option tiles:
+* display exercise name, ratings, modifiers and cues (similar to the "Add set For" dialog)
+* display muscle recruitments of all muscles with recruitment > 0.5, this visualization should be clear and concise
+
 ## Future Enhancements
 
 - **Workout Templates**: Pre-defined workout structures and those made with the programmer

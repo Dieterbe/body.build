@@ -59,7 +59,7 @@ class FilterMobile extends ConsumerWidget {
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            filterState.selectedMuscleGroup?.displayName ?? 'All muscles',
+                            filterState.selectedMuscleGroup?.displayNameShort ?? 'All muscles',
                             style: const TextStyle(fontSize: 12),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -131,7 +131,7 @@ class FilterMobile extends ConsumerWidget {
                 filterNotifier.setMuscleGroup(group);
                 Navigator.pop(context);
               },
-              child: Text(group.displayName),
+              child: Text(group.displayNameLong),
             ),
           ),
         ],

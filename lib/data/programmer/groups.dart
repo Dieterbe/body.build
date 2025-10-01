@@ -49,49 +49,55 @@ class Assign {
 }
 
 enum ProgramGroup {
-  wristFlexors("Wrist Flexors", [MuscleId.wristFlexors], [], 'forearm'),
-  wristExtensors('Wrist Extensors', [MuscleId.wristExtensors], [], 'forearm'),
+  wristFlexors("Wrist Flexors", "Wrist Flexors", [MuscleId.wristFlexors], [], 'forearm'),
+  wristExtensors('Wrist Extensors', 'Wrist Extensors', [MuscleId.wristExtensors], [], 'forearm'),
   lowerPecs(
     'Lower Pecs',
+    'Lower Pectoral',
     [MuscleId.pectoralisMajorSternalHead],
     ['transverse adduction OR flexion', 'shoulder extension'],
     'pecs',
   ),
   upperPecs(
     'Upper Pecs',
+    'Upper Pectoral',
     [MuscleId.pectoralisMajorClavicularHead],
     ['transverse adduction OR flexion', 'shoulder flexion'],
     'pecs',
   ),
   /*
       ### Delts
-* front head: rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it’s more likely to be overworked than understimulated.
+* front head: rarely ever needs isolation work, as it is stimulated by all horizontal and vertical presses, so it's more likely to be overworked than understimulated.
 * lateral head: needs a lateral raise or overhead press variant to emphasize shoulder abduction rather than flexion. wide grip, even better arguably, dumbbells activate the lateral delts more effectively than a barbell for most people (in menno's experience, i believe). Standing also activates the sides of the shoulders better than sitting, as with sitting you often end up with a high-incline press. Plus, the bench restricts your natural scapular movement.
-* posterior head is effectively trained with most pulling movements, but many of these don’t achieve full ROM, so an added reverse fly or high row variant is advisable
+* posterior head is effectively trained with most pulling movements, but many of these don't achieve full ROM, so an added reverse fly or high row variant is advisable
 */
-  frontDelts('Front Delts', [MuscleId.deltoidsAnteriorHead], [], 'delts'),
-  sideDelts('Side Delts', [MuscleId.deltoidsLateralHead], [], 'delts'),
-  rearDelts('Rear Delts', [MuscleId.deltoidsPosteriorHead], [], 'delts'),
+  frontDelts('Front Delts', 'Front Deltoids', [MuscleId.deltoidsAnteriorHead], [], 'delts'),
+  sideDelts('Side Delts', 'Side Deltoids', [MuscleId.deltoidsLateralHead], [], 'delts'),
+  rearDelts('Rear Delts', 'Rear Deltoids', [MuscleId.deltoidsPosteriorHead], [], 'delts'),
   lowerTraps(
     'Lower Traps',
+    'Lower Trapezius',
     [MuscleId.lowerTraps],
     ['middle and lower heads often get worked well with vertical pulls already'],
     'traps',
   ),
   middleTraps(
     'Middle Traps',
+    'Middle Trapezius',
     [MuscleId.middleTraps],
     ['middle and lower heads often get worked well with vertical pulls already'],
     'traps',
   ),
   upperTraps(
     'Upper Traps',
+    'Upper Trapezius',
     [MuscleId.upperTrapsLowerFibers, MuscleId.upperTrapsUpperFibers],
     ['deadlift, overhead press', 'for max growth, add a wide or overhead shrug'],
     'traps',
   ),
   lats(
     'Lats',
+    'Latissimus Dorsi',
     [MuscleId.latissimusDorsi],
     [
       'for non-novice trainees, >=2 different angle pulling exercises: shoulder extension & shoulder adduction',
@@ -99,6 +105,7 @@ enum ProgramGroup {
     'lats',
   ),
   biceps(
+    'Biceps',
     'Biceps',
     [
       MuscleId.bicepsBrachiiShortHead,
@@ -111,12 +118,20 @@ enum ProgramGroup {
   ), // as long as you do elbow flexion anyway, i think we can include all these
   tricepsMedLatH(
     'Triceps Med/Lat H.',
+    'Triceps Medial/Lateral Head',
     [MuscleId.tricepsBrachiiMedialHead, MuscleId.tricepsBrachiiLateralHead],
     ['presses'],
     'tris',
   ),
-  tricepsLongHead('Triceps Long H.', [MuscleId.tricepsBrachiiLongHead], ['any isolation'], 'tris'),
+  tricepsLongHead(
+    'Triceps Long H.',
+    'Triceps Long Head',
+    [MuscleId.tricepsBrachiiLongHead],
+    ['any isolation'],
+    'tris',
+  ),
   abs(
+    'Abs',
     'Abs',
     [MuscleId.rectusAbdominis, MuscleId.externalObliques],
     ['depends on goals (e.g. typically not for physique athletes)'],
@@ -124,6 +139,7 @@ enum ProgramGroup {
   ),
 
   spinalErectors(
+    'Spinal Erectors',
     'Spinal Erectors',
     [MuscleId.spinalis, MuscleId.longissimus, MuscleId.iliocostalis],
     [
@@ -134,38 +150,53 @@ enum ProgramGroup {
   ),
   quadsVasti(
     'Quads Vasti',
+    'Quads Vasti',
     [MuscleId.vastusIntermedius, MuscleId.vastusLateralis, MuscleId.vastusMedialis],
     ['squat', 'leg extension isolation: for full load across whole ROM'],
     'quads',
   ),
-  quadsRF('Quads RF', [MuscleId.rectusFemoris], ['leg extension isolation'], 'quads'),
+  quadsRF(
+    'Quads RF',
+    'Quads Rectus Femoris',
+    [MuscleId.rectusFemoris],
+    ['leg extension isolation'],
+    'quads',
+  ),
 
   hams(
     'Ham Long H. & semis',
+    'Hamstring Long Head & semi heads',
     [MuscleId.bicepsFemorisLongHead, MuscleId.semimembranosus, MuscleId.semitendinosus],
     ['knee flexion', 'hip extension'],
     'hams',
   ),
-  hamsShortHead('Ham Short H.', [MuscleId.bicepsFemorisShortHead], ['knee flexion'], 'hams'),
+  hamsShortHead(
+    'Ham Short H.',
+    'Hamstring Short Head',
+    [MuscleId.bicepsFemorisShortHead],
+    ['knee flexion'],
+    'hams',
+  ),
   /*
       ### Gluteus maximus (and medius)
 needs a bent-knee and a straight-leg hip extension exercise such as hip
 thrusts and Romanian deadlifts. // Dieter note: BSQ is probably a good bent knee hip extension too!
 glute med -> anti-adduction force during squats, especially unilateral squats, may suffice. otherwise hip abduction
 */
-  gluteMax('Glute Max', [MuscleId.gluteMaximus], [], 'glutes'),
-  gluteMed('Glute Med', [MuscleId.gluteMedius], [], 'glutes'),
+  gluteMax('Glute Max', 'Glute Maximus', [MuscleId.gluteMaximus], [], 'glutes'),
+  gluteMed('Glute Med', 'Glute Medius', [MuscleId.gluteMedius], [], 'glutes'),
   /*
   ### Calves
 Menno says you need at least one straight-leg plantarflexion (calf raise) exercise in addition to one
 bent-knee plantarflexion (seated calf raise) exercise for the soleus.
-However, according to https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2023.1272106/full a standing calf raise gives nearly the same stimulus to the soleus as the seated one does, while also stimulating the gastrocs well. While the study is only on untrained people, I (Dieter) find it a compelling argument to not program seated calf raises, in addition to standing ones, especially for a muscle that’s hidden under the gastroc. Dr. Mike also made a youtube video about this saying basically the same.
+However, according to https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2023.1272106/full a standing calf raise gives nearly the same stimulus to the soleus as the seated one does, while also stimulating the gastrocs well. While the study is only on untrained people, I (Dieter) find it a compelling argument to not program seated calf raises, in addition to standing ones, especially for a muscle that's hidden under the gastroc. Dr. Mike also made a youtube video about this saying basically the same.
 */
-  gastroc('Gastroc', [MuscleId.gastrocnemius], [], 'calves'),
-  soleus('Soleus', [MuscleId.soleus], [], 'calves');
+  gastroc('Gastroc', 'Gastrocnemius', [MuscleId.gastrocnemius], [], 'calves'),
+  soleus('Soleus', 'Soleus', [MuscleId.soleus], [], 'calves');
 
   final List<MuscleId> muscles;
-  final String displayName;
+  final String displayNameShort;
+  final String displayNameLong;
   // recommended modalities:
   // work in progress feature. idea is to show to which extent a program covers all modalities well
   // however, not sure if this is the right approach, instead of hardcoding this information,
@@ -177,5 +208,11 @@ However, according to https://www.frontiersin.org/journals/physiology/articles/1
   // if 'forearm' appears, and also other muscle groups, you can just ignore the forearm, because it's usually just a small isometric load that nobody really counts as part of a larger compound
   //TODO: actually look at the volume assignment and see if it's isometric
   final String isolationKey;
-  const ProgramGroup(this.displayName, this.muscles, this.recModalities, this.isolationKey);
+  const ProgramGroup(
+    this.displayNameShort,
+    this.displayNameLong,
+    this.muscles,
+    this.recModalities,
+    this.isolationKey,
+  );
 }

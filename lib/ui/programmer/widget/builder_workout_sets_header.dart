@@ -180,12 +180,12 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Add set for: ${g.displayName}',
+          'Add set for: ${g.displayNameShort}',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         Text(
-          'Exercises matching your equipment filter are shown in order of recruitment of the ${g.displayName}.',
+          'Exercises matching your equipment filter are shown in order of recruitment of the ${g.displayNameShort}.',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
           ),
