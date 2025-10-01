@@ -144,6 +144,10 @@ class WorkoutPersistenceService {
     );
 
     await _database.insertWorkoutSet(companion);
+
+    // Update workout timestamp to trigger stream updates
+    await _database.updateWorkoutFields(workoutId, WorkoutsCompanion(updatedAt: Value(now)));
+
     return id;
   }
 
@@ -163,10 +167,29 @@ class WorkoutPersistenceService {
     );
 
     await _database.updateWorkoutSet(companion);
+
+    // Update workout timestamp to trigger stream updates
+    await _database.updateWorkoutFields(
+      workoutSet.workoutId,
+      WorkoutsCompanion(updatedAt: Value(DateTime.now())),
+    );
   }
 
   Future<void> deleteWorkoutSet(String id) async {
+    // Get the workout ID before deleting
+    final set = await (_database.select(
+      _database.workoutSets,
+    )..where((s) => s.id.equals(id))).getSingleOrNull();
+
     await _database.deleteWorkoutSet(id);
+
+    // Update workout timestamp to trigger stream updates
+    if (set != null) {
+      await _database.updateWorkoutFields(
+        set.workoutId,
+        WorkoutsCompanion(updatedAt: Value(DateTime.now())),
+      );
+    }
   }
 
   Future<DateTime?> getLastSetTime(String workoutId) async {
