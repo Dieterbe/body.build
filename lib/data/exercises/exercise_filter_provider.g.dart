@@ -12,7 +12,8 @@ part of 'exercise_filter_provider.dart';
 @ProviderFor(ExerciseFilter)
 const exerciseFilterProvider = ExerciseFilterProvider._();
 
-final class ExerciseFilterProvider extends $NotifierProvider<ExerciseFilter, ExerciseFilterState> {
+final class ExerciseFilterProvider
+    extends $NotifierProvider<ExerciseFilter, ExerciseFilterState> {
   const ExerciseFilterProvider._()
     : super(
         from: null,
@@ -64,7 +65,8 @@ abstract class _$ExerciseFilter extends $Notifier<ExerciseFilterState> {
 @ProviderFor(filteredExercises)
 const filteredExercisesProvider = FilteredExercisesProvider._();
 
-final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List<Ex>, List<Ex>>
+final class FilteredExercisesProvider
+    extends $FunctionalProvider<List<Ex>, List<Ex>, List<Ex>>
     with $Provider<List<Ex>> {
   const FilteredExercisesProvider._()
     : super(
@@ -82,7 +84,8 @@ final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List
 
   @$internal
   @override
-  $ProviderElement<List<Ex>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
+  $ProviderElement<List<Ex>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   List<Ex> create(Ref ref) {
@@ -91,7 +94,10 @@ final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<Ex> value) {
-    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<List<Ex>>(value));
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Ex>>(value),
+    );
   }
 }
 

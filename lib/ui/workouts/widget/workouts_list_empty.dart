@@ -1,6 +1,4 @@
-import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class WorkoutsListEmpty extends StatelessWidget {
   const WorkoutsListEmpty({super.key});

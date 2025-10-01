@@ -13,7 +13,8 @@ part of 'workout_providers.dart';
 const workoutDatabaseProvider = WorkoutDatabaseProvider._();
 
 final class WorkoutDatabaseProvider
-    extends $FunctionalProvider<WorkoutDatabase, WorkoutDatabase, WorkoutDatabase>
+    extends
+        $FunctionalProvider<WorkoutDatabase, WorkoutDatabase, WorkoutDatabase>
     with $Provider<WorkoutDatabase> {
   const WorkoutDatabaseProvider._()
     : super(
@@ -48,7 +49,7 @@ final class WorkoutDatabaseProvider
   }
 }
 
-String _$workoutDatabaseHash() => r'66604033a8e04e047a1a5a60ee7fc6ef269a9482';
+String _$workoutDatabaseHash() => r'9f0d334cc49e7b9ae3fefd687f78c16cccf32143';
 
 @ProviderFor(workoutPersistenceService)
 const workoutPersistenceServiceProvider = WorkoutPersistenceServiceProvider._();
@@ -77,8 +78,9 @@ final class WorkoutPersistenceServiceProvider
 
   @$internal
   @override
-  $ProviderElement<WorkoutPersistenceService> $createElement($ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+  $ProviderElement<WorkoutPersistenceService> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   WorkoutPersistenceService create(Ref ref) {
@@ -94,20 +96,30 @@ final class WorkoutPersistenceServiceProvider
   }
 }
 
-String _$workoutPersistenceServiceHash() => r'0ef3cc59820baa9c3221f2bfe30c9b63ff3399bf';
+String _$workoutPersistenceServiceHash() =>
+    r'0ef3cc59820baa9c3221f2bfe30c9b63ff3399bf';
 
 /// Unified workout manager - single source of truth for all workout state
 /// Uses Drift streams to automatically update when workout data changes
+/// Need to stay alive because we check for active workout and navigate to different screen
+/// Otherwise we get errors when the screen unmounts, provider disposes while the stream is loading
+/// (e.g. when navigating from the articulations screen to 'start new workout')
 
 @ProviderFor(WorkoutManager)
 const workoutManagerProvider = WorkoutManagerProvider._();
 
 /// Unified workout manager - single source of truth for all workout state
 /// Uses Drift streams to automatically update when workout data changes
+/// Need to stay alive because we check for active workout and navigate to different screen
+/// Otherwise we get errors when the screen unmounts, provider disposes while the stream is loading
+/// (e.g. when navigating from the articulations screen to 'start new workout')
 final class WorkoutManagerProvider
     extends $StreamNotifierProvider<WorkoutManager, model.WorkoutState> {
   /// Unified workout manager - single source of truth for all workout state
   /// Uses Drift streams to automatically update when workout data changes
+  /// Need to stay alive because we check for active workout and navigate to different screen
+  /// Otherwise we get errors when the screen unmounts, provider disposes while the stream is loading
+  /// (e.g. when navigating from the articulations screen to 'start new workout')
   const WorkoutManagerProvider._()
     : super(
         from: null,
@@ -127,10 +139,13 @@ final class WorkoutManagerProvider
   WorkoutManager create() => WorkoutManager();
 }
 
-String _$workoutManagerHash() => r'faa6123c0d5cc06ed5b690329cbcc41016b898d0';
+String _$workoutManagerHash() => r'8196063380b2d833243b5a978559758657b19d74';
 
 /// Unified workout manager - single source of truth for all workout state
 /// Uses Drift streams to automatically update when workout data changes
+/// Need to stay alive because we check for active workout and navigate to different screen
+/// Otherwise we get errors when the screen unmounts, provider disposes while the stream is loading
+/// (e.g. when navigating from the articulations screen to 'start new workout')
 
 abstract class _$WorkoutManager extends $StreamNotifier<model.WorkoutState> {
   Stream<model.WorkoutState> build();
@@ -138,7 +153,8 @@ abstract class _$WorkoutManager extends $StreamNotifier<model.WorkoutState> {
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<model.WorkoutState>, model.WorkoutState>;
+    final ref =
+        this.ref as $Ref<AsyncValue<model.WorkoutState>, model.WorkoutState>;
     final element =
         ref.element
             as $ClassProviderElement<
@@ -160,7 +176,11 @@ const workoutByIdProvider = WorkoutByIdFamily._();
 
 final class WorkoutByIdProvider
     extends
-        $FunctionalProvider<AsyncValue<model.Workout?>, model.Workout?, FutureOr<model.Workout?>>
+        $FunctionalProvider<
+          AsyncValue<model.Workout?>,
+          model.Workout?,
+          FutureOr<model.Workout?>
+        >
     with $FutureModifier<model.Workout?>, $FutureProvider<model.Workout?> {
   /// Derived provider - gets specific workout by ID from the unified state
   const WorkoutByIdProvider._({
@@ -186,8 +206,9 @@ final class WorkoutByIdProvider
 
   @$internal
   @override
-  $FutureProviderElement<model.Workout?> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<model.Workout?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<model.Workout?> create(Ref ref) {
