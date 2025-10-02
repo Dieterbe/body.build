@@ -1,5 +1,4 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/exercises/widget/exercise_requitment_bar.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
@@ -7,33 +6,47 @@ import 'package:flutter/material.dart';
 
 class ExerciseTileList extends StatelessWidget {
   final List<Ex> exercises;
-  final Settings setup;
   final Function(String exerciseId, Map<String, String> modifiers) onExerciseSelected;
   final Set<String> expandedExercises;
   final Function(String exerciseId)? onToggleExpansion;
   final String? emptyMessage;
 
+  /// Optional: ID of the currently selected exercise for highlighting
+  final String? selectedExerciseId;
+
+  /// Optional: Show header with exercise count
+  final bool showHeader;
+
+  /// Optional: Exercise count for header (defaults to exercises.length)
+  final int? exerciseCount;
+
   const ExerciseTileList({
     super.key,
     required this.exercises,
-    required this.setup,
     required this.onExerciseSelected,
     this.expandedExercises = const {},
     this.onToggleExpansion,
     this.emptyMessage,
+    this.selectedExerciseId,
+    this.showHeader = false,
+    this.exerciseCount,
   });
 
-  /// Generate all variations for an exercise
+  /// Generate all variations for an exercise, similar to the "add set for" dialog
+  /// but not specific to a PG, and not using "real" parameters for user
+  /// this is just to display variations of an exercise in a generic way
   List<Sets> _generateExerciseVariations(Ex exercise) {
+    // If no modifiers create variations, return a single Sets with default values
     if (exercise.modifiers.isEmpty) {
       return [Sets(80, ex: exercise, modifierOptions: {})];
     }
 
+    // Collect all modifier options that affect any program group
     Map<String, List<String>> modifierOptions = {};
     for (final modifier in exercise.modifiers) {
       modifierOptions[modifier.name] = modifier.opts.keys.toList();
     }
-
+    // Generate all possible combinations of modifier options
     var allCombinations = [
       {for (var entry in modifierOptions.entries) entry.key: entry.value.first},
     ];
@@ -43,7 +56,7 @@ class ExerciseTileList extends StatelessWidget {
           .expand((combo) => options.map((opt) => {...combo, name: opt}))
           .toList();
     });
-
+    // Create a Sets object for each unique combination
     return allCombinations
         .map((modifiers) => Sets(80, ex: exercise, modifierOptions: modifiers))
         .toList();
@@ -55,7 +68,7 @@ class ExerciseTileList extends StatelessWidget {
       return _buildEmptyState(context);
     }
 
-    return ListView.builder(
+    final listView = ListView.builder(
       itemCount: exercises.length,
       itemBuilder: (context, index) {
         final exercise = exercises[index];
@@ -71,6 +84,46 @@ class ExerciseTileList extends StatelessWidget {
           ],
         );
       },
+    );
+
+    if (!showHeader) {
+      return listView;
+    }
+
+    return Column(
+      children: [
+        _buildHeader(context),
+        Expanded(child: listView),
+      ],
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(
+          bottom: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
+        ),
+      ),
+      child: Row(
+        children: [
+          Text(
+            'Exercises',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+          const Spacer(),
+          Text(
+            '${exerciseCount ?? exercises.length} exercises',
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
+          ),
+        ],
+      ),
     );
   }
 
@@ -107,11 +160,14 @@ class ExerciseTileList extends StatelessWidget {
     bool hasVariations,
     bool isExpanded,
   ) {
+    final isSelected = selectedExerciseId == exercise.id;
+
     return InkWell(
       onTap: () => onExerciseSelected(exercise.id, {}),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
+          color: isSelected ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1) : null,
           border: Border(
             bottom: BorderSide(
               color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
@@ -147,7 +203,10 @@ class ExerciseTileList extends StatelessWidget {
                       Expanded(
                         child: Text(
                           exercise.id,
-                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                          style: TextStyle(
+                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                            fontSize: 16, // TODO: needed?
+                          ),
                         ),
                       ),
                       if (hasVariations)
@@ -203,7 +262,7 @@ class ExerciseTileList extends StatelessWidget {
                   ],
 
                   // Muscle recruitment bar
-                  MuscleRecruitmentBar(exercise: exercise, setup: setup),
+                  MuscleRecruitmentBar(exercise: exercise),
                 ],
               ),
             ),

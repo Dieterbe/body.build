@@ -97,4 +97,4 @@ final class WorkoutFilteredExercisesProvider
   }
 }
 
-String _$workoutFilteredExercisesHash() => r'a3d72b10123ecf8b585db1e2d5b009d5a012236d';
+String _$workoutFilteredExercisesHash() => r'86e63f0cccc6c736265316f6d31a15e94317e390';

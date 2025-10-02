@@ -116,8 +116,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         body: isDesktop
             ? _buildDesktopLayout(setupData)
             : isTablet
-            ? _buildTabletLayout(setupData)
-            : _buildMobileLayout(setupData),
+            ? _buildTabletLayout()
+            : _buildMobileLayout(),
       ),
     );
   }
@@ -138,7 +138,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           child: const FilterPanel(),
         ),
         // Exercise List
-        Expanded(flex: 2, child: ExerciseList(setupData)),
+        const Expanded(flex: 2, child: ExerciseList()),
         // Exercise Detail Panel
         Consumer(
           builder: (context, ref, child) {
@@ -164,7 +164,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     );
   }
 
-  Widget _buildTabletLayout(Settings setupData) {
+  Widget _buildTabletLayout() {
     return Row(
       children: [
         // Collapsible Filters Panel
@@ -188,12 +188,12 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           },
         ),
         // Exercise List
-        Expanded(child: ExerciseList(setupData)),
+        const Expanded(child: ExerciseList()),
       ],
     );
   }
 
-  Widget _buildMobileLayout(Settings setupData) {
+  Widget _buildMobileLayout() {
     return Column(
       children: [
         Consumer(
@@ -205,7 +205,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             return const FilterMobile();
           },
         ),
-        Expanded(child: ExerciseList(setupData)),
+        const Expanded(child: ExerciseList()),
       ],
     );
   }

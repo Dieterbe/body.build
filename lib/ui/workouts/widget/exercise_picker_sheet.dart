@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
-import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/data/workouts/workout_exercise_filter_provider.dart';
 import 'package:bodybuild/ui/core/exercise_search_bar.dart';
 import 'package:bodybuild/ui/core/muscle_group_selector.dart';
@@ -20,7 +19,7 @@ class ExercisePickerSheet extends ConsumerWidget {
     final filteredExercises = ref.watch(workoutFilteredExercisesProvider);
 
     return settings.when(
-      data: (setup) => _buildContent(context, ref, setup, filterState, filteredExercises),
+      data: (setup) => _buildContent(context, ref, filterState, filteredExercises),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error loading exercises: $error')),
     );
@@ -29,7 +28,6 @@ class ExercisePickerSheet extends ConsumerWidget {
   Widget _buildContent(
     BuildContext context,
     WidgetRef ref,
-    Settings setup,
     WorkoutExerciseFilterState filterState,
     List<Ex> filteredExercises,
   ) {
@@ -80,7 +78,6 @@ class ExercisePickerSheet extends ConsumerWidget {
           Expanded(
             child: ExerciseTileList(
               exercises: filteredExercises,
-              setup: setup,
               expandedExercises: filterState.expandedExercises,
               onToggleExpansion: (exerciseId) {
                 ref
