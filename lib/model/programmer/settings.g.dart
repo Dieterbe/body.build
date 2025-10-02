@@ -21,20 +21,13 @@ _Settings _$SettingsFromJson(Map<String, dynamic> json) => _Settings(
   workoutsPerWeek: (json['workoutsPerWeek'] as num?)?.toInt() ?? 3,
   workoutDuration: (json['workoutDuration'] as num?)?.toInt() ?? 60,
   activityLevel:
-      $enumDecodeNullable(_$ActivityLevelEnumMap, json['activityLevel']) ??
-      ActivityLevel.sedentary,
-  bmrMethod:
-      $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ??
-      BMRMethod.tenHaaf,
+      $enumDecodeNullable(_$ActivityLevelEnumMap, json['activityLevel']) ?? ActivityLevel.sedentary,
+  bmrMethod: $enumDecodeNullable(_$BMRMethodEnumMap, json['bmrMethod']) ?? BMRMethod.tenHaaf,
   availEquipment: json['availEquipment'] == null
       ? const {}
       : _equipmentSetFromJson(json['availEquipment'] as List),
-  paramSuggest: Parameters.fromJson(
-    json['paramSuggest'] as Map<String, dynamic>,
-  ),
-  paramOverrides: ParameterOverrides.fromJson(
-    json['paramOverrides'] as Map<String, dynamic>,
-  ),
+  paramSuggest: Parameters.fromJson(json['paramSuggest'] as Map<String, dynamic>),
+  paramOverrides: ParameterOverrides.fromJson(json['paramOverrides'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$SettingsToJson(_Settings instance) => <String, dynamic>{

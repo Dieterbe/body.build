@@ -1,5 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/setup.dart';
 
 part 'workout_exercise_filter_provider.g.dart';
 
@@ -60,4 +62,20 @@ class WorkoutExerciseFilter extends _$WorkoutExerciseFilter {
   void reset() {
     state = const WorkoutExerciseFilterState();
   }
+}
+
+// Provider for filtered exercises in workout context
+@riverpod
+List<Ex> workoutFilteredExercises(Ref ref) {
+  final filterState = ref.watch(workoutExerciseFilterProvider);
+  final settings = ref.watch(setupProvider);
+
+  return settings.when(
+    data: (setup) => setup.getAvailableExercises(
+      query: filterState.query,
+      muscleGroup: filterState.selectedMuscleGroup,
+    ),
+    loading: () => <Ex>[],
+    error: (_, __) => <Ex>[],
+  );
 }

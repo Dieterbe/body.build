@@ -144,29 +144,15 @@ class ExerciseFilter extends _$ExerciseFilter {
   }
 }
 
-// Provider for filtered exercises
+// Provider for filtered exercises, notably ignoring 'setup' because we want to explore the whole library
 @riverpod
 List<Ex> filteredExercises(Ref ref) {
   final filterState = ref.watch(exerciseFilterProvider);
-  List<Ex> exercises = List.from(exes);
 
-  // Apply search filter
-  if (filterState.query.isNotEmpty) {
-    exercises = exercises
-        .where((ex) => ex.id.toLowerCase().contains(filterState.query.toLowerCase()))
-        .toList();
-  }
-
-  // Apply muscle group filter
-  if (filterState.selectedMuscleGroup != null) {
-    exercises = exercises.where((ex) {
-      final recruitment = ex.recruitment(filterState.selectedMuscleGroup!, {});
-      return recruitment.volume > 0;
-    }).toList();
-  }
-
-  // Apply equipment filter
-  exercises = exercises.where((ex) {
+  return getFilteredExercises(
+    query: filterState.query,
+    muscleGroup: filterState.selectedMuscleGroup,
+  ).where((ex) {
     for (final eq in ex.equipment) {
       if (!filterState.selectedEquipment.contains(eq) &&
           !filterState.selectedEquipmentCategories.contains(eq.category)) {
@@ -175,9 +161,4 @@ List<Ex> filteredExercises(Ref ref) {
     }
     return true;
   }).toList();
-
-  // Sort exercises alphabetically
-  exercises.sort((a, b) => a.id.compareTo(b.id));
-
-  return exercises;
 }

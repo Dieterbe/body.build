@@ -200,12 +200,8 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Autocomplete<Sets>(
             optionsBuilder: (textEditingValue) {
-              final opts = setup.availableExercises
-                  .where(
-                    (e) => e.id.toLowerCase().contains(
-                      textEditingValue.text.toLowerCase().toLowerCase(),
-                    ),
-                  )
+              final opts = setup
+                  .getAvailableExercises(query: textEditingValue.text)
                   .expand((e) => toSetsFor(e, setup.paramFinal, g))
                   .where((e) => e.recruitmentFiltered(g, 0) > 0)
                   .toList();

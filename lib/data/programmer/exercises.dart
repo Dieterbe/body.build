@@ -817,18 +817,38 @@ final List<Ex> exes = [
   const Ex(vaWristExtension, "dumbbell wrist extension", [Equipment.dumbbell]),
 ];
 
-/// Returns a filtered list of exercises based on various criteria:
-/// - Excludes exercises specified in [excludedExercises]
-/// - Excludes exercises with base types in [excludedBases]
-/// - If [availEquipment] is provided, only includes exercises that use available equipment
-List<Ex> getAvailableExercises({Set<Ex>? excludedExercises, Set<Equipment>? availEquipment}) {
-  return exes.where((e) {
+/// Returns a filtered list of exercises based on various criteria and sorts by ID
+List<Ex> getFilteredExercises({
+  Set<Ex>? excludedExercises,
+  Set<Equipment>? availEquipment,
+  String? query,
+  ProgramGroup? muscleGroup,
+}) {
+  var exercises = exes.where((e) {
     if (excludedExercises?.contains(e) ?? false) return false;
     if (availEquipment != null && !e.equipment.every(availEquipment.contains)) {
       return false;
     }
+
+    if (query != null && query.isNotEmpty) {
+      if (!e.id.toLowerCase().contains(query.toLowerCase())) {
+        return false;
+      }
+    }
+
+    if (muscleGroup != null) {
+      final recruitment = e.recruitmentFiltered(muscleGroup, {}, 0.5);
+      if (recruitment.volume <= 0.5) {
+        return false;
+      }
+    }
+
     return true;
   }).toList();
+
+  // Sort exercises alphabetically
+  exercises.sort((a, b) => a.id.compareTo(b.id));
+  return exercises;
 }
 
 /*

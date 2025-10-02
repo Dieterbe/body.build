@@ -17,9 +17,10 @@ class ExercisePickerSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(setupProvider);
     final filterState = ref.watch(workoutExerciseFilterProvider);
+    final filteredExercises = ref.watch(workoutFilteredExercisesProvider);
 
     return settings.when(
-      data: (setup) => _buildContent(context, ref, setup, filterState),
+      data: (setup) => _buildContent(context, ref, setup, filterState, filteredExercises),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error loading exercises: $error')),
     );
@@ -30,13 +31,8 @@ class ExercisePickerSheet extends ConsumerWidget {
     WidgetRef ref,
     Settings setup,
     WorkoutExerciseFilterState filterState,
+    List<Ex> filteredExercises,
   ) {
-    final availableExercises = getAvailableExercises(
-      excludedExercises: setup.paramOverrides.excludedExercises,
-      availEquipment: setup.availEquipment,
-    );
-    final filteredExercises = _filterExercises(availableExercises, filterState);
-
     return Container(
       height: MediaQuery.of(context).size.height * 0.8,
       padding: const EdgeInsets.all(16),
@@ -99,32 +95,5 @@ class ExercisePickerSheet extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  List<Ex> _filterExercises(List<Ex> exercises, WorkoutExerciseFilterState filterState) {
-    var filtered = exercises;
-
-    // Filter by search query
-    if (filterState.query.isNotEmpty) {
-      filtered = filtered
-          .where((exercise) => exercise.id.toLowerCase().contains(filterState.query.toLowerCase()))
-          .toList();
-    }
-
-    // Filter by muscle group
-    if (filterState.selectedMuscleGroup != null) {
-      filtered = filtered
-          .where(
-            (exercise) =>
-                exercise.recruitmentFiltered(filterState.selectedMuscleGroup!, {}, 0.5).volume >
-                0.5,
-          )
-          .toList();
-    }
-
-    // Sort by id
-    filtered.sort((a, b) => a.id.compareTo(b.id));
-
-    return filtered;
   }
 }
