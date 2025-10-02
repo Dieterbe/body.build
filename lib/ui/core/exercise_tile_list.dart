@@ -4,6 +4,21 @@ import 'package:bodybuild/ui/exercises/widget/exercise_requitment_bar.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
 
+// advantages of having the expandable/collapsablie variations here:
+// 1. main results immediatey show more breadth of exercise library
+// 2. can search "into" an exercise, e.g. user might type "incline bench" and we could take them
+//    into the corresponding variation(s) directly, not showing the rest
+// 3. we wouldn't want to show all variations as distinct search hits, that gets excessive
+//    due to many small tweaks like bench angles etc
+// However this system also has definite downsides:
+// 1. when you select an exercise, you can change all modifiers/cues anyway
+//    (and we will have more room to visualize their recruitments)
+// 2. for different variations, we would ideally also show their different
+//    recruitments here, but space is already cramped.
+// 3. navigation/selection behavior is a bit broken on desktop/web, e.g.
+//    selecting different variations doesn't update the UI properly, it unselects
+// 4. the dropdown button needs a lot of space on mobile
+
 class ExerciseTileList extends StatelessWidget {
   final List<Ex> exercises;
   final Function(String exerciseId, Map<String, String> modifiers) onExerciseSelected;
@@ -165,7 +180,7 @@ class ExerciseTileList extends StatelessWidget {
     return InkWell(
       onTap: () => onExerciseSelected(exercise.id, {}),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: isSelected ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1) : null,
           border: Border(
@@ -188,6 +203,18 @@ class ExerciseTileList extends StatelessWidget {
                 onPressed: () => onToggleExpansion!(exercise.id),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
+                // without this, material will use:
+                // - 48x48 on mobile (need sufficiently large touch target),
+                // - 24x24 on desktop (mouse pointers are more precise)
+                // we enforce the same style everywhere so we can give non-expandable tiles
+                // the same padding to align to the expandable ones
+                style: IconButton.styleFrom(
+                  // Flutter 3.7+ (Material 3)
+                  minimumSize: const Size.square(48), // or 48 for strict Material
+                  tapTargetSize:
+                      MaterialTapTargetSize.shrinkWrap, // optional, to avoid auto-48 on touch
+                  padding: EdgeInsets.zero, // makes the size driven by minimumSize
+                ),
               )
             else
               const SizedBox(width: 48),
