@@ -19,7 +19,10 @@ const allCategories = {
   EquipmentCategory.coreAndGluteMachines,
 };
 
-// Filter state class
+/// Filter state class.
+/// For filtering equipment, we group upperbody, lowerbody, and core/glute into their categories
+/// (as to not overwhelm) whereas for for general machines and non machine equipment, we list them
+/// individually.
 class ExerciseFilterState {
   final bool showFilters;
   final String query;
@@ -145,6 +148,7 @@ class ExerciseFilter extends _$ExerciseFilter {
 }
 
 // Provider for filtered exercises, notably ignoring 'setup' because we want to explore the whole library
+// and using the custom equipment filters that use equipment categories
 @riverpod
 List<Ex> filteredExercises(Ref ref) {
   final filterState = ref.watch(exerciseFilterProvider);
@@ -152,13 +156,7 @@ List<Ex> filteredExercises(Ref ref) {
   return getFilteredExercises(
     query: filterState.query,
     muscleGroup: filterState.selectedMuscleGroup,
-  ).where((ex) {
-    for (final eq in ex.equipment) {
-      if (!filterState.selectedEquipment.contains(eq) &&
-          !filterState.selectedEquipmentCategories.contains(eq.category)) {
-        return false;
-      }
-    }
-    return true;
-  }).toList();
+    availEquipment: filterState.selectedEquipment,
+    availEquipmentCategories: filterState.selectedEquipmentCategories,
+  );
 }

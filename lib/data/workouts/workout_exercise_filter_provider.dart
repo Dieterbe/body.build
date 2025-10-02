@@ -5,7 +5,9 @@ import 'package:bodybuild/data/programmer/setup.dart';
 
 part 'workout_exercise_filter_provider.g.dart';
 
-// Simple filter state for workout exercise picker
+/// Simple filter state for workout exercise picker
+/// note: this is quite similar to [ExerciseFilterState],
+/// perhaps one day these two filters (and their providers) can be unified
 class WorkoutExerciseFilterState {
   final String query;
   final ProgramGroup? selectedMuscleGroup;
