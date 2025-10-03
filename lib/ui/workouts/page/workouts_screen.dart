@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:flutter/foundation.dart';
 
 class WorkoutsScreen extends ConsumerWidget {
   static const String routeName = 'workouts';
@@ -32,21 +33,25 @@ class WorkoutsScreen extends ConsumerWidget {
         data: (state) =>
             state.allWorkouts.isEmpty ? const WorkoutsListEmpty() : WorkoutsList(state.allWorkouts),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.error, size: 64, color: Colors.red),
-              const SizedBox(height: 16),
-              Text('Error loading workouts: $error'),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => ref.invalidate(workoutManagerProvider),
-                child: const Text('Retry'),
-              ),
-            ],
-          ),
-        ),
+        error: (error, stack) {
+          debugPrint('WorkoutsScreen error: $error');
+          debugPrintStack(stackTrace: stack);
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error, size: 64, color: Colors.red),
+                const SizedBox(height: 16),
+                Text('Error loading workouts: $error'),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => ref.invalidate(workoutManagerProvider),
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          );
+        },
       ),
       floatingActionButton: workoutStateAsync.when(
         data: (state) => state.activeWorkout != null
