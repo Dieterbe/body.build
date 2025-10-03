@@ -31,7 +31,7 @@ class Ex {
     this.ratings = const [],
   ]);
 
-  // calculate recruitment for a given PG & tweak options. HERE DONE.
+  // calculate recruitment for a given PG & tweak options.
   // tweakOptions is a subset of the exercise' tweak options; if not specified, we use the default
   Assign recruitment(ProgramGroup pg, Map<String, String?> tweakOptions) {
     // establish base recruitment:

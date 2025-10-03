@@ -162,7 +162,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   }
 
   Widget _buildSetsList() {
-    /// HERE
     // Group sets by exercise and tweaks
     final groupedSets = <String, List<model.WorkoutSet>>{};
     for (final set in workout!.sets) {
@@ -186,7 +185,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   // sets is guaranteed to be non-empty, and all sets have the same exerciseId and tweaks
   Widget _buildExerciseGroup(List<model.WorkoutSet> sets) {
-    // HERE
     final exerciseId = sets.first.exerciseId;
     final tweaks = sets.first.tweaks;
     return Card(

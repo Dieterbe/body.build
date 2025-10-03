@@ -50,7 +50,6 @@ class ExerciseTileList extends StatelessWidget {
   /// Generate all variations for an exercise, similar to the "add set for" dialog
   /// but not specific to a PG, and not using "real" parameters for user
   /// this is just to display variations of an exercise in a generic way
-  /// HERE generate variations
   List<Sets> _generateExerciseVariations(Ex exercise) {
     // If no tweaks create variations, return a single Sets with default values
     if (exercise.tweaks.isEmpty) {

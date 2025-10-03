@@ -137,7 +137,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
     // For each tweak that affects this program group, collect all its options
     Map<String, List<String>> tweakOptions = {};
 
-    // First pass: identify tweaks that cause variations in recruitment or ratings for this program group HERE
+    // First pass: identify tweaks that cause variations in recruitment or ratings for this program group
     // Note: different tweaks may not actually result in different recruitment or ratings numbers, but them being included is
     // a good clue that they probably do differ.
     for (final tweak in ex.tweaks) {

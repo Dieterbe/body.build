@@ -9,7 +9,6 @@ void main() {
   for (final exercise in exes) {
     // Create all possible tweak combinations
     final tweakCombos = _generateTweakCombinations(exercise.tweaks);
-    // HERE analysis DONE
     // For each combination, check recruitment for all program groups
     for (final tweakOptions in tweakCombos) {
       // Check recruitment for each program group
