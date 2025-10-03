@@ -249,7 +249,7 @@ In the future, you'll be able to add any cues you can come up with.
             },
           ),
         const SizedBox(height: 24),
-        if (widget.showRecruitmentViz) ...[
+        if (widget.showRecruitmentViz && localSets.ex != null) ...[
           ExerciseRecruitmentVisualization(
             exercise: localSets.ex!,
             modifierOptions: localSets.modifierOptions,
