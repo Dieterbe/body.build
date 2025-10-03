@@ -768,7 +768,6 @@ final List<Ex> exes = [
     [Equipment.bicepCurlMachine],
     [rom, gripSqueeze],
   ),
-  const Ex(vaBicepCurlBayesian, "bayesian curl", [Equipment.cableTower], [rom, gripSqueeze]),
   const Ex(
     vaBicepCurlConcentration,
     "concentration curl",
