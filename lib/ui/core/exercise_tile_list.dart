@@ -151,12 +151,9 @@ class ExerciseTileList extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: exercise.ratings
-                              .map(
-                                (rating) => Padding(
-                                  padding: const EdgeInsets.only(left: 4),
-                                  child: RatingIcon(ratings: [rating], size: 16),
-                                ),
-                              )
+                              .map((r) => r.score)
+                              .toSet()
+                              .map((score) => RatingIcon(score: score))
                               .toList(),
                         ),
                     ],

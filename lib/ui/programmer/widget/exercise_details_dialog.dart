@@ -4,7 +4,7 @@ import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualizatio
 import 'package:bodybuild/util.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 
@@ -76,7 +76,7 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
       if (sameRatings) return const SizedBox.shrink();
     }
 
-    return RatingIcon(
+    return RatingIconMulti(
       ratings: ratings,
       onTap: ratings.isEmpty
           ? null
