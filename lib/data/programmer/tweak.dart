@@ -17,6 +17,63 @@ class Tweak {
   const Tweak(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
+const rom = Tweak(
+  "ROM",
+  "fullTEST", // TODO does this break
+  {
+    "full": ({}, 'full range of motion'),
+    "full with extra time at stretch": ({}, 'full range of motion with extra time at stretch'),
+    "full with extra time at contraction": (
+      {},
+      'full range of motion with extra time at contraction',
+    ),
+    "lengthened partials": (
+      {},
+      'only the long muscle length ("bottom") half of the ROM',
+    ), // TODO: this only make sense for exercises that load under stretch
+    "shortened partials": (
+      {},
+      'only the short muscle length ("top") half of the ROM',
+    ), // TODO: this only make sense for exercises that load at the shortest
+    "mid-range partials": (
+      {},
+      'only the mid-range of the ROM',
+    ), // TODO: this only make sense for exercises that load at the mid-range
+  },
+);
+
+final romCalfRaise = Tweak("ROM", "full", {
+  ...rom.opts,
+  'full + lengthened partials beyond failure': (
+    {},
+    "go until you can't move the weight. (don't count the partials) should stimulate more gastroc growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)",
+  ),
+});
+
+const calfRaiseToes = Tweak("toes", "neutral", {
+  "neutral": ({}, 'point toes forward. The standard'),
+  "in": ({}, 'point toes in, stimulates more outer calf growth'),
+  "out": ({}, 'point toes out, stimulates more inner calf growth'),
+  "alternating": (
+    {},
+    'alternate between in and out between sets. might stimulate more growth [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)',
+  ),
+}, desc: "  [Research paper](https://pubmed.ncbi.nlm.nih.gov/32735428/)");
+
+const gripSqueeze = Tweak('grip squeeze', 'normal', {
+  'normal': ({}, 'only as hard as needed to maintain grip'),
+  'extra': ({}, 'squeezing hands tighter might stimulate more (fore)arm growth'),
+  'max': ({}, 'squeeze as hard as possible to maximally emphasize (fore)arms'),
+});
+
+const legExtensionPullOnHandles = Tweak('pull on handles', 'no', {
+  'yes': (
+    {},
+    "pull on the handles to maybe get more tension on the quads.  [It's also Jeff Nippard's number 1 leg extension tip](https://www.instagram.com/jeffnippard/reel/CvUz7JyIMtQ/i-meant-to-say-pull-yourself-down-by-pulling-up-on-the-handles-my-badmy-number-1/)",
+  ),
+  'no': ({}, ''),
+});
+
 const benchPressBenchAngle = Tweak(
   'bench angle',
   '0',
