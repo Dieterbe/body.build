@@ -9,6 +9,7 @@ const defaultCues = {
 const handSqueeze = {
   ...defaultCues,
   "grip tight": (false, 'squeezing hands tight might stimulate more arm growth'),
+  // could expand: grip: normal, harder, extreme
 };
 const standingCalfRaiseCues = {
   ...defaultCues,
@@ -17,6 +18,8 @@ const standingCalfRaiseCues = {
     "go until you can't move the weight. should stimulate more gastroc growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)",
   ),
   // he also says point toes out -> more inner growth, and vice versa, that's more of a potential future recruitment finetuning
+  // toes: in (more outer calf), out (more inner calf), alternate between sets: best overall growth
+  // paper is here https://pubmed.ncbi.nlm.nih.gov/32735428/
   'alternate toes in and toes out between sets': (
     false,
     "might stimulate more growth [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)",

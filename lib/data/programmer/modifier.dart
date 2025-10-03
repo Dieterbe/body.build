@@ -116,7 +116,7 @@ The higher the bar placement, the less weight you need and the more you can targ
 );
 
 const bsqRearLeg = Modifier('rear leg', 'for balance', {
-  'for balance': ({}, 'for stability. no contraction'),
+  'for balance': ({}, 'for stability. no contraction. Most coaches recommend this'),
   'active': (
     {ProgramGroup.quadsRF: Assign(1, 'knee extension while stretched (rear leg)')},
     '''rear leg actively pushes and contributes to the movement.  
