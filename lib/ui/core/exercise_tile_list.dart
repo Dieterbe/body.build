@@ -4,21 +4,6 @@ import 'package:bodybuild/ui/exercises/widget/exercise_requitment_bar.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
 
-// advantages of having the expandable/collapsablie variations here:
-// 1. main results immediatey show more breadth of exercise library
-// 2. can search "into" an exercise, e.g. user might type "incline bench" and we could take them
-//    into the corresponding variation(s) directly, not showing the rest
-// 3. we wouldn't want to show all variations as distinct search hits, that gets excessive
-//    due to many small tweaks like bench angles etc
-// However this system also has definite downsides:
-// 1. when you select an exercise, you can change all tweaks anyway
-//    (and we will have more room to visualize their recruitments)
-// 2. for different variations, we would ideally also show their different
-//    recruitments here, but space is already cramped.
-// 3. navigation/selection behavior is a bit broken on desktop/web, e.g.
-//    selecting different variations doesn't update the UI properly, it unselects
-// 4. the dropdown button needs a lot of space on mobile
-
 class ExerciseTileList extends StatelessWidget {
   final List<Ex> exercises;
   final Function(String exerciseId, Map<String, String> tweaks) onExerciseSelected;
