@@ -78,13 +78,7 @@ class ExercisePickerSheet extends ConsumerWidget {
           Expanded(
             child: ExerciseTileList(
               exercises: filteredExercises,
-              expandedExercises: filterState.expandedExercises,
-              onToggleExpansion: (exerciseId) {
-                ref
-                    .read(workoutExerciseFilterProvider.notifier)
-                    .toggleExerciseExpansion(exerciseId);
-              },
-              onExerciseSelected: (exerciseId, tweaks) {
+              onExerciseSelected: (exerciseId) {
                 onExerciseSelected(exerciseId);
               },
             ),

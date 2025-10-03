@@ -31,7 +31,6 @@ class ExerciseFilterState {
   final Set<EquipmentCategory> selectedEquipmentCategories;
   final Ex? selectedExercise;
   final Map<String, String> selectedTweakOptions;
-  final Set<String> expandedExercises;
 
   const ExerciseFilterState({
     this.showFilters = false,
@@ -41,7 +40,6 @@ class ExerciseFilterState {
     this.selectedEquipmentCategories = const {},
     this.selectedExercise,
     this.selectedTweakOptions = const {},
-    this.expandedExercises = const {},
   });
 
   ExerciseFilterState copyWith({
@@ -52,7 +50,6 @@ class ExerciseFilterState {
     Set<EquipmentCategory>? selectedEquipmentCategories,
     Ex? selectedExercise,
     Map<String, String>? selectedTweakOptions,
-    Set<String>? expandedExercises,
     bool clearSelectedMuscleGroup = false,
     bool clearSelectedExercise = false,
   }) {
@@ -66,7 +63,6 @@ class ExerciseFilterState {
       selectedEquipmentCategories: selectedEquipmentCategories ?? this.selectedEquipmentCategories,
       selectedExercise: clearSelectedExercise ? null : (selectedExercise ?? this.selectedExercise),
       selectedTweakOptions: selectedTweakOptions ?? this.selectedTweakOptions,
-      expandedExercises: expandedExercises ?? this.expandedExercises,
     );
   }
 }
@@ -134,16 +130,6 @@ class ExerciseFilter extends _$ExerciseFilter {
 
   void toggleShowFilters() {
     state = state.copyWith(showFilters: !state.showFilters);
-  }
-
-  void toggleExerciseExpansion(String exerciseId) {
-    final newExpanded = Set<String>.from(state.expandedExercises);
-    if (newExpanded.contains(exerciseId)) {
-      newExpanded.remove(exerciseId);
-    } else {
-      newExpanded.add(exerciseId);
-    }
-    state = state.copyWith(expandedExercises: newExpanded);
   }
 }
 
