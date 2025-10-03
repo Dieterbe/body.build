@@ -43,5 +43,7 @@ dart_code_metrics:
     - prefer-declaring-const-constructor: false # goes against drift guide
     - no-empty-block: false # empty blocks allow me to be explicitly reminded of callbacks/options without using them
     - prefer-prefixed-global-constants: false # i don't like having to put 'k' prefix before my own constants
+    - avoid-missing-enum-constant-in-map: false # it's very common (e.g. effects of tweaks on volumeAssignments) to not mention all possible enum values
+    - avoid-duplicate-constant-values: false # programgroups sometimes have the same short and long name
   formatter:
     line-length: 100
