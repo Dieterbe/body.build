@@ -138,7 +138,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      group.displayName,
+                      group.displayNameShort,
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,

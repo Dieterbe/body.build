@@ -1,13 +1,11 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:flutter/material.dart';
 
 class MuscleRecruitmentBar extends StatelessWidget {
   final Ex exercise;
-  final Settings setup;
-  const MuscleRecruitmentBar({super.key, required this.exercise, required this.setup});
+  const MuscleRecruitmentBar({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class MuscleRecruitmentBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(1),
               ),
               child: Tooltip(
-                message: '${group.displayName}: ${(volume * 100).toStringAsFixed(0)}%',
+                message: '${group.displayNameShort}: ${(volume * 100).toStringAsFixed(0)}%',
                 child: Container(),
               ),
             ),

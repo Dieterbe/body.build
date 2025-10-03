@@ -44,7 +44,7 @@ Stream<SetGroup> generateOptimalSetGroup(
 void _generateInIsolate(WorkoutGenerationParams params) {
   print('Workout generation (generateOptimalSetGroup) start');
 
-  final exercises = rankExercises(params.setup.availableExercises);
+  final exercises = rankExercises(params.setup.getAvailableExercises());
 
   print('Available exercises: ${exercises.length}');
   // caches to save CPU at runtime..

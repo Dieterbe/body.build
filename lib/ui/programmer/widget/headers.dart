@@ -45,7 +45,7 @@ Widget headers() {
                     color: bgColorForProgramGroup(e),
                     child: Padding(
                       padding: const EdgeInsets.all(2),
-                      child: Stack(children: [HeaderLabel(e.displayName), dummy]),
+                      child: Stack(children: [HeaderLabel(e.displayNameShort), dummy]),
                     ),
                   ),
                 ),

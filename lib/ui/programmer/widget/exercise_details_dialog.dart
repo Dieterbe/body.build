@@ -214,16 +214,11 @@ In the future, you'll be able to add any cues you can come up with.
                 ),
             ],
           ),
-        ] else ...[
+        ] else
           Autocomplete<Ex>(
             displayStringForOption: (e) => e.id,
-            optionsBuilder: (textEditingValue) {
-              final filtered = widget.setup.availableExercises
-                  .where((e) => e.id.toLowerCase().contains(textEditingValue.text.toLowerCase()))
-                  .toList();
-              filtered.sort((a, b) => a.id.compareTo(b.id));
-              return filtered;
-            },
+            optionsBuilder: (textEditingValue) =>
+                widget.setup.getAvailableExercises(query: textEditingValue.text).toList(),
             onSelected: (Ex selection) {
               onChangeEx(
                 localSets.copyWith(
@@ -253,9 +248,8 @@ In the future, you'll be able to add any cues you can come up with.
               );
             },
           ),
-        ],
         const SizedBox(height: 24),
-        if (widget.showRecruitmentViz) ...[
+        if (widget.showRecruitmentViz && localSets.ex != null) ...[
           ExerciseRecruitmentVisualization(
             exercise: localSets.ex!,
             modifierOptions: localSets.modifierOptions,

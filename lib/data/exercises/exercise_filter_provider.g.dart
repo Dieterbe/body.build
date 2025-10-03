@@ -95,4 +95,4 @@ final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List
   }
 }
 
-String _$filteredExercisesHash() => r'88589636da74157e68500c083f2944f1b4b3b53d';
+String _$filteredExercisesHash() => r'367bc968ad0c3ebe1d1468ca5bd1683689bdc998';

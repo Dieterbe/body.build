@@ -10,6 +10,13 @@
             "type": "dart"
         },
         {
+            "name": "bodybuild (debug, linux)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId": "linux"
+        },
+        {
             "name": "bodybuild (profile mode)",
             "request": "launch",
             "type": "dart",

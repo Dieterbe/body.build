@@ -19,7 +19,7 @@ void main() {
         // If recruitment has volume > 0 and merged non-zero values
         if (result.volume > 0 && result.multiplied) {
           print('Exercise: ${exercise.id}');
-          print('Program Group: ${group.displayName}');
+          print('Program Group: ${group.displayNameShort}');
           print('Modifiers: ${_formatModifierOptions(modifierOptions)}');
           print('Recruitment: ${result.volume}');
           if (result.modality != null) {

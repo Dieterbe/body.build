@@ -63,7 +63,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             ],
           ),
         ),
-        if (isExpanded) ...[
+        if (isExpanded)
           // if the menu is expanded we wouldn't want any clicking, swiping etc in the expanded menu
           // and trigger a drag event on the parent widget (Draggable)
           // therefore we need to catch and ignore many events here
@@ -113,7 +113,6 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
               ),
             ),
           ),
-        ],
       ],
     );
   }

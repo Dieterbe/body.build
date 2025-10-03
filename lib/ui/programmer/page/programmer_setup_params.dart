@@ -126,7 +126,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                                 .map(
                                   (group) => DropdownMenuItem(
                                     value: group,
-                                    child: Text(group.displayName, style: ts100(context)),
+                                    child: Text(group.displayNameShort, style: ts100(context)),
                                   ),
                                 )
                                 .toList(),
@@ -149,7 +149,7 @@ class ProgrammerSetupParams extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: KVRow(
-                                    titleTextMedium(override.group.displayName, context),
+                                    titleTextMedium(override.group.displayNameShort, context),
                                     v: TextFormField(
                                       initialValue: override.sets.toString(),
                                       keyboardType: TextInputType.number,

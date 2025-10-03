@@ -35,3 +35,13 @@ linter:
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+dart_code_metrics:
+  extends:
+    - recommended
+  rules:
+    - prefer-declaring-const-constructor: false # goes against drift guide
+    - no-empty-block: false # empty blocks allow me to be explicitly reminded of callbacks/options without using them
+    - prefer-prefixed-global-constants: false # i don't like having to put 'k' prefix before my own constants
+  formatter:
+    line-length: 100

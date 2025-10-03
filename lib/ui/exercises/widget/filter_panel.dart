@@ -66,7 +66,7 @@ class FilterPanel extends ConsumerWidget {
                   child: Text('All muscle groups'),
                 ),
                 ...ProgramGroup.values.map(
-                  (group) => DropdownMenuItem(value: group, child: Text(group.displayName)),
+                  (group) => DropdownMenuItem(value: group, child: Text(group.displayNameShort)),
                 ),
               ],
               onChanged: filterNotifier.setMuscleGroup,

@@ -1,5 +1,6 @@
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/model/programmer/activity_level.dart';
 import 'package:bodybuild/model/programmer/bmr_method.dart';
 import 'package:bodybuild/model/programmer/level.dart';
@@ -94,10 +95,13 @@ abstract class Settings with _$Settings {
   }
 
   Parameters get paramFinal => paramSuggest.apply(paramOverrides);
-  List<Ex> get availableExercises => getAvailableExercises(
-    excludedExercises: paramOverrides.excludedExercises,
-    availEquipment: availEquipment,
-  );
+  List<Ex> getAvailableExercises({String? query, ProgramGroup? muscleGroup}) =>
+      getFilteredExercises(
+        excludedExercises: paramOverrides.excludedExercises,
+        availEquipment: availEquipment,
+        query: query,
+        muscleGroup: muscleGroup,
+      );
 
   double getPAL() {
     switch (activityLevel) {
