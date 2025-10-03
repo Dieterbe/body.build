@@ -29,3 +29,4 @@ Right now it's still an early version focused on exploring exercises and constru
 - [Quick Start](quick-start.md) - Get up and running in minutes
 - [Backstory](backstory.md) - The story behind body.build
 - [FAQ](faq.md) - Frequently Asked Questions
+<!-- anatomy module link not public because it's the least interesting feature to most -->
