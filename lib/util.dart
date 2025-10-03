@@ -6,6 +6,14 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 
+  String capitalizeFirstOnlyButKeepAcronym() {
+    // If string is all uppercase, keep it as-is (e.g., "ROM" stays "ROM")
+    if (this == toUpperCase()) {
+      return this;
+    }
+    return capitalizeFirstOnly();
+  }
+
   String capitalizeFirst() {
     return "${this[0].toUpperCase()}${substring(1)}";
   }

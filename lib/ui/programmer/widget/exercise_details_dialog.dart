@@ -237,6 +237,7 @@ In the future, you'll be able to add your own custom tweaks as well.
           const SizedBox(height: 24),
         ],
         if (localSets.ex?.tweaks.isEmpty == false)
+          // ignore: prefer-null-aware-spread
           ...localSets.ex!.tweaks.map(
             (tweak) => Padding(
               padding: const EdgeInsets.only(bottom: 24),
@@ -244,7 +245,7 @@ In the future, you'll be able to add your own custom tweaks as well.
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Tweak: ${tweak.name.capitalizeFirstOnly()}",
+                    "Tweak: ${tweak.name.capitalizeFirstOnlyButKeepAcronym()}",
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
