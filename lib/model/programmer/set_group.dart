@@ -79,6 +79,7 @@ abstract class Sets with _$Sets {
     Map<String, bool> cueConfig,
   ) {
     return ratings.where((rating) {
+      // HERE get rating
       // Check if all required modifiers are configured correctly
       for (final entry in rating.modifiers.entries) {
         final selectedOption =

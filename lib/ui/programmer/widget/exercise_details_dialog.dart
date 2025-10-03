@@ -257,6 +257,7 @@ In the future, you'll be able to add any cues you can come up with.
           ),
           const SizedBox(height: 24),
         ],
+        // HERE edit modifiers
         if (localSets.ex?.modifiers.isEmpty == false) ...[
           ...localSets.ex!.modifiers.map(
             (modifier) => Padding(
@@ -350,6 +351,7 @@ In the future, you'll be able to add any cues you can come up with.
           ),
         ],
         if (localSets.ex?.cues.isEmpty == false) ...[
+          // HERE modify cues
           if (localSets.ex!.modifiers.isNotEmpty) const SizedBox(height: 24),
           Text(
             'Cues',

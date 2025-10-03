@@ -137,7 +137,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
     // For each modifier that affects this program group, collect all its options
     Map<String, List<String>> modifierOptions = {};
 
-    // First pass: identify modifiers that cause variations in recruitment or ratings for this program group
+    // First pass: identify modifiers that cause variations in recruitment or ratings for this program group HERE
     // Note: different modifiers may not actually result in different recruitment or ratings numbers, but them being included is
     // a good clue that they probably do differ.
     for (final modifier in ex.modifiers) {

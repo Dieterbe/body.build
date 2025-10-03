@@ -9,7 +9,7 @@ void main() {
   for (final exercise in exes) {
     // Create all possible modifier combinations
     final modifierCombinations = _generateModifierCombinations(exercise.modifiers);
-
+    // HERE analysis
     // For each combination, check recruitment for all program groups
     for (final modifierOptions in modifierCombinations) {
       // Check recruitment for each program group
