@@ -17,30 +17,26 @@ class Tweak {
   const Tweak(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
-const rom = Tweak(
-  "ROM",
-  "fullTEST", // TODO does this break
-  {
-    "full": ({}, 'full range of motion'),
-    "full with extra time at stretch": ({}, 'full range of motion with extra time at stretch'),
-    "full with extra time at contraction": (
-      {},
-      'full range of motion with extra time at contraction',
-    ),
-    "lengthened partials": (
-      {},
-      'only the long muscle length ("bottom") half of the ROM',
-    ), // TODO: this only make sense for exercises that load under stretch
-    "shortened partials": (
-      {},
-      'only the short muscle length ("top") half of the ROM',
-    ), // TODO: this only make sense for exercises that load at the shortest
-    "mid-range partials": (
-      {},
-      'only the mid-range of the ROM',
-    ), // TODO: this only make sense for exercises that load at the mid-range
-  },
-);
+const rom = Tweak("ROM", "full", {
+  "full": ({}, 'full range of motion'),
+  "full with extra time at stretch": ({}, 'full range of motion with extra time at stretch'),
+  "full with extra time at contraction": (
+    {},
+    'full range of motion with extra time at contraction',
+  ),
+  "lengthened partials": (
+    {},
+    'only the long muscle length ("bottom") half of the ROM',
+  ), // TODO: this only make sense for exercises that load under stretch
+  "shortened partials": (
+    {},
+    'only the short muscle length ("top") half of the ROM',
+  ), // TODO: this only make sense for exercises that load at the shortest
+  "mid-range partials": (
+    {},
+    'only the mid-range of the ROM',
+  ), // TODO: this only make sense for exercises that load at the mid-range
+});
 
 final romCalfRaise = Tweak("ROM", "full", {
   ...rom.opts,

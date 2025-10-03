@@ -21,7 +21,6 @@ abstract class Sets with _$Sets {
     @Default(1) int n,
     @JsonKey(includeToJson: false) @Default(false) bool changeEx,
     @Default({}) Map<String, String> tweakOptions, // Map of tweak name to selected option
-    @Default({}) Map<String, bool> cueOptions, // Map of cue name to enabled state
   }) = _Sets;
 
   factory Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json)._migrateTweakOptions();
@@ -59,41 +58,26 @@ abstract class Sets with _$Sets {
   // Filter ratings that are compatible with current set configuration
   Iterable<Rating> getApplicableRatings() {
     if (ex == null) return [];
-    return _getApplicableRatings(ex!.ratings, tweakOptions, cueOptions);
+    return _getApplicableRatings(ex!.ratings, tweakOptions);
   }
 
   // Get applicable ratings for a specific configuration
-  Iterable<Rating> getApplicableRatingsForConfig(
-    Map<String, String> tweakConfig,
-    Map<String, bool> cueConfig,
-  ) {
+  Iterable<Rating> getApplicableRatingsForConfig(Map<String, String> tweakConfig) {
     if (ex == null) return [];
-    return _getApplicableRatings(ex!.ratings, tweakConfig, cueConfig);
+    return _getApplicableRatings(ex!.ratings, tweakConfig);
   }
 
-  // Helper method to filter ratings based on configuration
-  Iterable<Rating> _getApplicableRatings(
-    List<Rating> ratings,
-    Map<String, String> tweakConfig,
-    Map<String, bool> cueConfig,
-  ) {
-    return ratings.where((rating) {
-      // HERE get rating
-      // Check if all required tweaks are configured correctly
-      for (final entry in rating.tweaks.entries) {
-        final selectedOption =
-            tweakConfig[entry.key] ?? ex!.tweaks.firstWhere((m) => m.name == entry.key).defaultVal;
-        if (selectedOption != entry.value) return false;
-      }
-
-      // Check if all required cues are enabled
-      for (final cue in rating.cues) {
-        final isEnabled = cueConfig[cue] ?? ex!.cues[cue]!.$1;
-        if (!isEnabled) return false;
-      }
-
-      return true;
-    });
+  // Helper method to filter ratings based on those we're in "compliance" with.
+  // compliance meaning the ratings' specified tweaks are in our tweakConfig or in the defaults
+  Iterable<Rating> _getApplicableRatings(List<Rating> ratings, Map<String, String> tweakConfig) {
+    return ratings.where(
+      (rating) => rating.tweaks.entries.every(
+        (tweak) =>
+            tweak.value ==
+            (tweakConfig[tweak.key] ??
+                ex!.tweaks.firstWhere((m) => m.name == tweak.key).defaultVal),
+      ),
+    );
   }
 }
 

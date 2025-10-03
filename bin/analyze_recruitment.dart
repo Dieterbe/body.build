@@ -9,7 +9,7 @@ void main() {
   for (final exercise in exes) {
     // Create all possible tweak combinations
     final tweakCombos = _generateTweakCombinations(exercise.tweaks);
-    // HERE analysis
+    // HERE analysis DONE
     // For each combination, check recruitment for all program groups
     for (final tweakOptions in tweakCombos) {
       // Check recruitment for each program group
@@ -32,19 +32,19 @@ void main() {
   }
 }
 
+// generate a list of all posibble combinations of tweak settings
 List<Map<String, String>> _generateTweakCombinations(List<Tweak> tweaks) {
-  if (tweaks.isEmpty) return [<String, String>{}];
+  if (tweaks.isEmpty) return [{}];
 
-  final combinations = <Map<String, String>>[];
   final first = tweaks.first;
   final rest = tweaks.sublist(1);
 
   // Get combinations for the rest of the tweaks
   final subCombinations = _generateTweakCombinations(rest);
 
-  // For each option of the first tweak
+  // Combine all values of our first tweak with all combinations of the rest
+  final combinations = <Map<String, String>>[];
   for (final option in first.opts.keys) {
-    // Combine with each sub-combination
     for (final subCombo in subCombinations) {
       final newCombo = Map<String, String>.from(subCombo);
       newCombo[first.name] = option;

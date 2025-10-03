@@ -58,7 +58,7 @@ class ExerciseRatingsDialog extends StatelessWidget {
                       if (rating.tweaks.isNotEmpty) ...[
                         const SizedBox(height: 4),
                         const Text(
-                          'Assuming you uset hese exercise tweaks:',
+                          'Assuming you use these exercise tweaks:',
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(height: 4),
@@ -67,18 +67,6 @@ class ExerciseRatingsDialog extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 16),
                             child: Text('${e.key}: ${e.value}'),
                           ),
-                        ),
-                      ],
-                      if (rating.cues.isNotEmpty) ...[
-                        const SizedBox(height: 4),
-                        const Text(
-                          'Assuming you use these exercise cues:',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(height: 4),
-                        ...rating.cues.map(
-                          (cue) =>
-                              Padding(padding: const EdgeInsets.only(left: 16), child: Text(cue)),
                         ),
                       ],
                       if (rating.pg.isNotEmpty) ...[

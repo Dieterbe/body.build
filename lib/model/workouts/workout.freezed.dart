@@ -290,7 +290,7 @@ as List<WorkoutSet>,
 /// @nodoc
 mixin _$WorkoutSet {
 
- String get id; String get workoutId; String get exerciseId; Map<String, String> get tweaks; Map<String, bool> get cues; double? get weight; int? get reps; int? get rir;// Reps in Reserve
+ String get id; String get workoutId; String get exerciseId; Map<String, String> get tweaks; double? get weight; int? get reps; int? get rir;// Reps in Reserve
  String? get comments; DateTime get timestamp; int get setOrder;
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
@@ -306,7 +306,7 @@ $WorkoutSetCopyWith<WorkoutSet> get copyWith => _$WorkoutSetCopyWithImpl<Workout
 
 @override
 String toString() {
-  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, cues: $cues, weight: $weight, reps: $reps, rir: $rir, comments: $comments, timestamp: $timestamp, setOrder: $setOrder)';
+  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, timestamp: $timestamp, setOrder: $setOrder)';
 }
 
 
@@ -317,7 +317,7 @@ abstract mixin class $WorkoutSetCopyWith<$Res>  {
   factory $WorkoutSetCopyWith(WorkoutSet value, $Res Function(WorkoutSet) _then) = _$WorkoutSetCopyWithImpl;
 @useResult
 $Res call({
- String id, String workoutId, String exerciseId, Map<String, String> tweaks, Map<String, bool> cues, double? weight, int? reps, int? rir, String? comments, DateTime timestamp, int setOrder
+ String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, DateTime timestamp, int setOrder
 });
 
 
@@ -334,14 +334,13 @@ class _$WorkoutSetCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? cues = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? timestamp = null,Object? setOrder = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? timestamp = null,Object? setOrder = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
 as String,exerciseId: null == exerciseId ? _self.exerciseId : exerciseId // ignore: cast_nullable_to_non_nullable
 as String,tweaks: null == tweaks ? _self.tweaks : tweaks // ignore: cast_nullable_to_non_nullable
-as Map<String, String>,cues: null == cues ? _self.cues : cues // ignore: cast_nullable_to_non_nullable
-as Map<String, bool>,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as double?,reps: freezed == reps ? _self.reps : reps // ignore: cast_nullable_to_non_nullable
 as int?,rir: freezed == rir ? _self.rir : rir // ignore: cast_nullable_to_non_nullable
 as int?,comments: freezed == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable
@@ -432,10 +431,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  Map<String, bool> cues,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WorkoutSet() when $default != null:
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.cues,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
   return orElse();
 
 }
@@ -453,10 +452,10 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.cue
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  Map<String, bool> cues,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutSet():
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.cues,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -473,10 +472,10 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.cue
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  Map<String, bool> cues,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)?  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutSet() when $default != null:
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.cues,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
   return null;
 
 }
@@ -488,7 +487,7 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.cue
 @JsonSerializable()
 
 class _WorkoutSet extends WorkoutSet {
-  const _WorkoutSet({required this.id, required this.workoutId, required this.exerciseId, final  Map<String, String> tweaks = const {}, final  Map<String, bool> cues = const {}, this.weight, this.reps, this.rir, this.comments, required this.timestamp, required this.setOrder}): _tweaks = tweaks,_cues = cues,super._();
+  const _WorkoutSet({required this.id, required this.workoutId, required this.exerciseId, final  Map<String, String> tweaks = const {}, this.weight, this.reps, this.rir, this.comments, required this.timestamp, required this.setOrder}): _tweaks = tweaks,super._();
   factory _WorkoutSet.fromJson(Map<String, dynamic> json) => _$WorkoutSetFromJson(json);
 
 @override final  String id;
@@ -499,13 +498,6 @@ class _WorkoutSet extends WorkoutSet {
   if (_tweaks is EqualUnmodifiableMapView) return _tweaks;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_tweaks);
-}
-
- final  Map<String, bool> _cues;
-@override@JsonKey() Map<String, bool> get cues {
-  if (_cues is EqualUnmodifiableMapView) return _cues;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_cues);
 }
 
 @override final  double? weight;
@@ -531,7 +523,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, cues: $cues, weight: $weight, reps: $reps, rir: $rir, comments: $comments, timestamp: $timestamp, setOrder: $setOrder)';
+  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, timestamp: $timestamp, setOrder: $setOrder)';
 }
 
 
@@ -542,7 +534,7 @@ abstract mixin class _$WorkoutSetCopyWith<$Res> implements $WorkoutSetCopyWith<$
   factory _$WorkoutSetCopyWith(_WorkoutSet value, $Res Function(_WorkoutSet) _then) = __$WorkoutSetCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String workoutId, String exerciseId, Map<String, String> tweaks, Map<String, bool> cues, double? weight, int? reps, int? rir, String? comments, DateTime timestamp, int setOrder
+ String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, DateTime timestamp, int setOrder
 });
 
 
@@ -559,14 +551,13 @@ class __$WorkoutSetCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? cues = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? timestamp = null,Object? setOrder = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? timestamp = null,Object? setOrder = null,}) {
   return _then(_WorkoutSet(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
 as String,exerciseId: null == exerciseId ? _self.exerciseId : exerciseId // ignore: cast_nullable_to_non_nullable
 as String,tweaks: null == tweaks ? _self._tweaks : tweaks // ignore: cast_nullable_to_non_nullable
-as Map<String, String>,cues: null == cues ? _self._cues : cues // ignore: cast_nullable_to_non_nullable
-as Map<String, bool>,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as double?,reps: freezed == reps ? _self.reps : reps // ignore: cast_nullable_to_non_nullable
 as int?,rir: freezed == rir ? _self.rir : rir // ignore: cast_nullable_to_non_nullable
 as int?,comments: freezed == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable

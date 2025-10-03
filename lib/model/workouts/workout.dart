@@ -40,7 +40,6 @@ abstract class WorkoutSet with _$WorkoutSet {
     required String workoutId,
     required String exerciseId,
     @Default({}) Map<String, String> tweaks,
-    @Default({}) Map<String, bool> cues,
     double? weight,
     int? reps,
     int? rir, // Reps in Reserve
@@ -51,20 +50,12 @@ abstract class WorkoutSet with _$WorkoutSet {
 
   factory WorkoutSet.fromJson(Map<String, dynamic> json) => _$WorkoutSetFromJson(json);
 
-  // Helper methods for JSON serialization of tweaks/cues
   String get tweaksJson => json.encode(tweaks);
-  String get cuesJson => json.encode(cues);
 
   static Map<String, String> tweaksFromJson(String jsonStr) {
     if (jsonStr.isEmpty) return {};
     final decoded = json.decode(jsonStr);
     return Map<String, String>.from(decoded);
-  }
-
-  static Map<String, bool> cuesFromJson(String jsonStr) {
-    if (jsonStr.isEmpty) return {};
-    final decoded = json.decode(jsonStr);
-    return Map<String, bool>.from(decoded);
   }
 }
 

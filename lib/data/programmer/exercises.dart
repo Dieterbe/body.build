@@ -31,6 +31,8 @@ class Ex {
     this.ratings = const [],
   ]);
 
+  // calculate recruitment for a given PG & tweak options. HERE DONE.
+  // tweakOptions is a subset of the exercise' tweak options; if not specified, we use the default
   Assign recruitment(ProgramGroup pg, Map<String, String?> tweakOptions) {
     // establish base recruitment:
     var r = volumeAssignment[pg] ?? const Assign(0);
@@ -39,7 +41,8 @@ class Ex {
     for (final tweak in tweaks) {
       final selectedOption = tweakOptions[tweak.name] ?? tweak.defaultVal;
       if (!tweak.opts.containsKey(selectedOption)) {
-        print('tweak ${tweak.name} has no option $selectedOption'); // TODO: SHOULD NEVER HAPPEN :]
+        // This should never happen. this would be a bug in the tweaks definition
+        print('tweak ${tweak.name} has no option $selectedOption');
       }
       final optEffects = tweak.opts[selectedOption]!.$1;
       if (optEffects.containsKey(pg)) {
@@ -55,6 +58,7 @@ class Ex {
     return raw.volume >= cutoff ? raw : const Assign(0);
   }
 
+  // calculate total recruitment for all PG's combined, for the given tweakOptions
   double totalRecruitment(Map<String, String> tweakOptions) =>
       ProgramGroup.values.fold(0.0, (sum, group) => sum + recruitment(group, tweakOptions).volume);
 
@@ -78,7 +82,7 @@ we try to add the exercise to the group which represent the larger muscles (e.g.
 This categorization is only meant to make code navigation easier here and elsewhere (e.g. ratings files), it's not a concept within the app.
 */
 /*
-exercise id and tweak/cues names/values allowed chars: a-z, 0-9, °, -, space, (), >
+exercise id and tweak names/values allowed chars: a-z, 0-9, °, -, space, (), >
 no '&' cause that would look ugly in URL encoding
 no '_' because it shouldn't be needed, and allows us to url encode space to '_' instead of %20 in the URL and instead of '+' in path parameters
 */

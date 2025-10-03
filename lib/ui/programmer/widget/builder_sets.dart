@@ -107,7 +107,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                   sets: widget.sets,
                   setup: widget.setup,
                   onChangeEx: widget.onChange,
-                  onChangeTweaksCues: widget.onChange,
+                  onChangeTweaks: widget.onChange,
                   showRecruitmentViz: true,
                 ),
               ),

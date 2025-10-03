@@ -12,7 +12,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
   final Sets sets;
   final Settings setup;
   final Function(Sets)? onChangeEx; // allow editng exercise name?
-  final Function(Sets)? onChangeTweaksCues; // allow editng tweaks/cues?
+  final Function(Sets)? onChangeTweaks; // allow editng tweaks?
   final Function()? onClose; // if set, puts a close button
   final bool showRecruitmentViz;
 
@@ -21,7 +21,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
     required this.sets,
     required this.setup,
     this.onChangeEx,
-    this.onChangeTweaksCues,
+    this.onChangeTweaks,
     this.onClose,
     this.showRecruitmentViz = true,
   });
@@ -47,34 +47,22 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     }
   }
 
-  Widget _buildRatingIcon({
-    String? tweakName,
-    String? tweakValue,
-    String? cueName,
-    bool? cueEnabled,
-    required BuildContext context,
-  }) {
+  Widget _buildRatingIcon({String? tweakName, String? tweakValue, required BuildContext context}) {
     if (localSets.ex == null) return const SizedBox.shrink();
 
     // Get ratings for current configuration
-    final currentRatings = localSets
-        .getApplicableRatingsForConfig(localSets.tweakOptions, localSets.cueOptions)
-        .toList();
+    final currentRatings = localSets.getApplicableRatingsForConfig(localSets.tweakOptions).toList();
 
     // Create a copy of current configuration
-    final tweakConfig = Map<String, String>.from(localSets.tweakOptions);
-    final cueConfig = Map<String, bool>.from(localSets.cueOptions);
+    final tweakConfig = Map<String, String>.of(localSets.tweakOptions);
 
     // Apply the specific option we're showing the rating for
     if (tweakName != null && tweakValue != null) {
       tweakConfig[tweakName] = tweakValue;
     }
-    if (cueName != null && cueEnabled != null) {
-      cueConfig[cueName] = cueEnabled;
-    }
 
     // Get ratings for this configuration
-    final ratings = localSets.getApplicableRatingsForConfig(tweakConfig, cueConfig).toList();
+    final ratings = localSets.getApplicableRatingsForConfig(tweakConfig).toList();
 
     // Only show rating icon if this option changes the ratings
     if (ratings.length == currentRatings.length) {
@@ -106,10 +94,10 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     });
   }
 
-  void onChangeTweaksCues(Sets newSets) {
-    if (widget.onChangeTweaksCues == null) return;
+  void onChangeTweaks(Sets newSets) {
+    if (widget.onChangeTweaks == null) return;
     // update parent widget(s) which are in the background of our dialog
-    widget.onChangeTweaksCues!(newSets);
+    widget.onChangeTweaks!(newSets);
     // update our local state (which isn't automatically updated after our parent has launched the dialog)
     setState(() {
       localSets = newSets;
@@ -150,8 +138,7 @@ This dialog lets you customize your exercise and how it's performed.
 
 You can:
 * Change the exercise
-* Modify how the exercise is performed (affects muscle recruitment)
-* Add cues to help with form and technique
+* Apply tweaks to the exercise.  They modify how the exercise is performed 
 
 Tweaks may affect:
 * muscle recruitment level (reflected in volume counts)
@@ -160,12 +147,11 @@ Tweaks may affect:
 * technique
 * development of secondary goals such as mobility, grip, core stability, etc
 
-Cues don't affect muscle recruitment but may affect activation (and therefore strength and size gains).  
-They are in this application such that:
-* you are reminded of your cues in the gym
-* you will be able to analyze your stats separately based on cues, to see if any particular cues helped with your gains.
+By applying tweaks you are effectively creating a modified exercise, which is presented
+as such in the gym tracking app, as well as the upcoming analysis feature, which will
+help you understand if any particular tweaks helped with your gains.
 
-In the future, you'll be able to add any cues you can come up with.
+In the future, you'll be able to add your own custom tweaks as well.
 ''', context),
                     actions: [
                       TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
@@ -220,14 +206,7 @@ In the future, you'll be able to add any cues you can come up with.
             optionsBuilder: (textEditingValue) =>
                 widget.setup.getAvailableExercises(query: textEditingValue.text).toList(),
             onSelected: (Ex selection) {
-              onChangeEx(
-                localSets.copyWith(
-                  ex: selection,
-                  changeEx: false,
-                  tweakOptions: {},
-                  cueOptions: {},
-                ),
-              );
+              onChangeEx(localSets.copyWith(ex: selection, changeEx: false, tweakOptions: {}));
             },
             fieldViewBuilder: (context, controller, focusNode, onSubmitted) {
               return TextField(
@@ -258,7 +237,7 @@ In the future, you'll be able to add any cues you can come up with.
           const SizedBox(height: 24),
         ],
         // HERE edit tweaks
-        if (localSets.ex?.tweaks.isEmpty == false) ...[
+        if (localSets.ex?.tweaks.isEmpty == false)
           ...localSets.ex!.tweaks.map(
             (tweak) => Padding(
               padding: const EdgeInsets.only(bottom: 24),
@@ -310,10 +289,10 @@ In the future, you'll be able to add any cues you can come up with.
                                     value: opt.key,
                                     groupValue:
                                         localSets.tweakOptions[tweak.name] ?? tweak.defaultVal,
-                                    onChanged: widget.onChangeTweaksCues != null
+                                    onChanged: widget.onChangeTweaks != null
                                         ? (value) {
                                             if (value != null) {
-                                              onChangeTweaksCues(
+                                              onChangeTweaks(
                                                 localSets.copyWith(
                                                   tweakOptions: {
                                                     ...localSets.tweakOptions,
@@ -348,64 +327,6 @@ In the future, you'll be able to add any cues you can come up with.
               ),
             ),
           ),
-        ],
-        if (localSets.ex?.cues.isEmpty == false) ...[
-          // HERE modify cues
-          if (localSets.ex!.tweaks.isNotEmpty) const SizedBox(height: 24),
-          Text(
-            'Cues',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
-          ),
-          const SizedBox(height: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ...localSets.ex!.cues.entries.map((entry) {
-                final isEnabled = localSets.cueOptions[entry.key] ?? entry.value.$1;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Text(entry.key),
-                              const SizedBox(width: 8),
-                              _buildRatingIcon(
-                                cueName: entry.key,
-                                cueEnabled: isEnabled,
-                                context: context,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Switch(
-                          value: isEnabled,
-                          onChanged: widget.onChangeTweaksCues != null
-                              ? (value) {
-                                  onChangeTweaksCues(
-                                    localSets.copyWith(
-                                      cueOptions: {...localSets.cueOptions, entry.key: value},
-                                    ),
-                                  );
-                                }
-                              : null,
-                        ),
-                      ],
-                    ),
-                    if (entry.value.$2.isNotEmpty) ...[
-                      const SizedBox(height: 8),
-                      markdown(entry.value.$2, context),
-                    ],
-                  ],
-                );
-              }),
-            ],
-          ),
-        ],
       ],
     );
   }

@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 // 3. we wouldn't want to show all variations as distinct search hits, that gets excessive
 //    due to many small tweaks like bench angles etc
 // However this system also has definite downsides:
-// 1. when you select an exercise, you can change all tweaks/cues anyway
+// 1. when you select an exercise, you can change all tweaks anyway
 //    (and we will have more room to visualize their recruitments)
 // 2. for different variations, we would ideally also show their different
 //    recruitments here, but space is already cramped.

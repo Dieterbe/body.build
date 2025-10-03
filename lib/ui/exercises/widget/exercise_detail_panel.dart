@@ -26,7 +26,7 @@ class ExerciseDetailPanel extends ConsumerWidget {
       child: ExerciseDetailsDialog(
         sets: Sets(1, ex: selectedExercise, tweakOptions: selectedTweakOptions),
         setup: setupData,
-        onChangeTweaksCues: (sets) {
+        onChangeTweaks: (sets) {
           // Update the selected exercise with new tweak options
           ref
               .read(exerciseFilterProvider.notifier)
