@@ -17,6 +17,7 @@ class Tweak {
   const Tweak(this.name, this.defaultVal, this.opts, {this.desc});
 }
 
+// BEWARE: tweak names and option names go into URL's, so don't use special chars
 const rom = Tweak("ROM", "full", {
   "full": ({}, 'full range of motion'),
   "full with extra time at stretch": ({}, 'full range of motion with extra time at stretch'),
@@ -40,7 +41,7 @@ const rom = Tweak("ROM", "full", {
 
 final romCalfRaise = Tweak("ROM", "full", {
   ...rom.opts,
-  'full + lengthened partials beyond failure': (
+  'full with lengthened partials beyond failure': (
     {},
     "go until you can't move the weight. (don't count the partials) should stimulate more gastroc growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)",
   ),
@@ -295,17 +296,17 @@ way up - lose some tension at the top, but higher contraction. if shoulder can t
 */
 
 Tweak hipAbductionHipFlexion(String defaultValue) => Tweak(
-  'hip flexion',
+  'hip flexion angle',
   defaultValue,
   {
-    '0°': (
+    '0': (
       {
         ProgramGroup.gluteMax: const Assign(0.25, 'hip abduction at 0° hip flexion (upper fibers)'),
         ProgramGroup.gluteMed: const Assign(1.0, 'hip abduction at 0° hip flexion'),
       },
       '',
     ),
-    '15°': (
+    '15': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.375,
@@ -315,14 +316,14 @@ Tweak hipAbductionHipFlexion(String defaultValue) => Tweak(
       },
       '',
     ),
-    '30°': (
+    '30': (
       {
         ProgramGroup.gluteMax: const Assign(0.5, 'hip abduction at 30° hip flexion (upper fibers)'),
         ProgramGroup.gluteMed: const Assign(0.833, 'hip abduction at 30° hip flexion'),
       },
       '',
     ),
-    '45°': (
+    '45': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.625,
@@ -335,7 +336,7 @@ Tweak hipAbductionHipFlexion(String defaultValue) => Tweak(
       },
       '',
     ),
-    '60°': (
+    '60': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.75,
@@ -345,7 +346,7 @@ Tweak hipAbductionHipFlexion(String defaultValue) => Tweak(
       },
       '',
     ),
-    '75°': (
+    '75': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.875,
@@ -355,7 +356,7 @@ Tweak hipAbductionHipFlexion(String defaultValue) => Tweak(
       },
       '',
     ),
-    '90°': (
+    '90': (
       {
         ProgramGroup.gluteMax: const Assign(1.0, 'hip abduction at 90° hip flexion (upper fibers)'),
         ProgramGroup.gluteMed: const Assign(0.5, 'hip abduction at 90° hip flexion'),

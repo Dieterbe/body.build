@@ -29,7 +29,7 @@ final demo1 = ProgramState(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'dumbbell standing calf raise'),
-            tweakOptions: {'ROM': 'full + lengthened partials beyond failure'},
+            tweakOptions: {'ROM': 'full with lengthened partials beyond failure'},
           ),
           Sets(1, ex: exes.firstWhere((e) => e.id == 'dumbbell overhead tricep extension')),
           Sets(1, ex: exes.firstWhere((e) => e.id == 'lying dumbbell bicep curl')),

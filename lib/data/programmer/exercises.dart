@@ -283,13 +283,13 @@ final List<Ex> exes = [
     {},
     "hip abduction machine",
     [Equipment.hipAdductionAbductionMachine],
-    [rom, hipAbductionHipFlexion('90°')],
+    [rom, hipAbductionHipFlexion('90')],
   ),
   Ex(
     {},
     "standing cable hip abduction",
     [Equipment.cableTower],
-    [rom, hipAbductionHipFlexion('0°')],
+    [rom, hipAbductionHipFlexion('0')],
   ),
   Ex(vaHipAbductionStraightHip, "lying cable hip abduction", [Equipment.cableTower], [rom]),
   // TODO: unilateral tweaks and other forms
