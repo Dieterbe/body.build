@@ -41,7 +41,7 @@ option tiles:
 ## Future Enhancements
 
 - **Workout Templates**: Pre-defined workout structures and those made with the programmer
-- **analytics** (performance progress, 1RM estimations, comparisons which modifiers work better, etc)
+- **analytics** (performance progress, 1RM estimations, comparisons which tweak work better, etc)
 - **Export Functionality**: Data export for external analysis
 - **Plate Calculator**: Weight calculation assistance
 - **Background Sync**: Cloud backup when network available

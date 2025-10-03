@@ -16,7 +16,7 @@ String buildExerciseDetailUrl(String exerciseId, Map<String, String> tweakOption
     // Encode spaces as underscores in both keys and values
     final encodedKey = key.replaceAll(' ', '_');
     final encodedValue = value.replaceAll(' ', '_');
-    queryParams['mod_$encodedKey'] = encodedValue;
+    queryParams['t_$encodedKey'] = encodedValue;
   });
 
   final uri = Uri(path: '/exercises/$encodedExerciseId', queryParameters: queryParams);
@@ -25,14 +25,14 @@ String buildExerciseDetailUrl(String exerciseId, Map<String, String> tweakOption
 }
 
 /// Parses tweak options from URL query parameters.
-/// Strips 'mod_' prefix and decodes underscores back to spaces.
+/// Strips 't_' prefix and decodes underscores back to spaces.
 Map<String, String> parseExerciseParams(Map<String, String> queryParameters) {
   final tweakOptions = <String, String>{};
 
   queryParameters.forEach((key, value) {
-    if (key.startsWith('mod_')) {
-      // Strip 'mod_' prefix and decode underscores to spaces
-      final decodedKey = key.substring(4).replaceAll('_', ' ');
+    if (key.startsWith('t_')) {
+      // Strip 't_' prefix and decode underscores to spaces
+      final decodedKey = key.substring(2).replaceAll('_', ' ');
       final decodedValue = value.replaceAll('_', ' ');
       tweakOptions[decodedKey] = decodedValue;
     }
