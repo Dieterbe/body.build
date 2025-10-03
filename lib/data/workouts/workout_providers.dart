@@ -71,7 +71,7 @@ class WorkoutManager extends _$WorkoutManager {
   Future<String> addSet({
     required String workoutId,
     required String exerciseId,
-    Map<String, String> modifiers = const {},
+    Map<String, String> tweaks = const {},
     Map<String, bool> cues = const {},
     double? weight,
     int? reps,
@@ -82,7 +82,7 @@ class WorkoutManager extends _$WorkoutManager {
     final setId = await service.addWorkoutSet(
       workoutId: workoutId,
       exerciseId: exerciseId,
-      modifiers: modifiers,
+      tweaks: tweaks,
       cues: cues,
       weight: weight,
       reps: reps,

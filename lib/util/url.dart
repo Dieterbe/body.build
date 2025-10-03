@@ -2,17 +2,17 @@
 /// see exercises.dart for detailed character rules of the various fields
 /// most importantly, '_' is not allowed, so we can use them in the URL
 
-/// Builds an exercise detail URL with encoded exercise ID and modifier options.
-String buildExerciseDetailUrl(String exerciseId, Map<String, String> modifierOptions) {
+/// Builds an exercise detail URL with encoded exercise ID and tweak options.
+String buildExerciseDetailUrl(String exerciseId, Map<String, String> tweakOptions) {
   // Encode spaces as underscores in exercise ID
   final encodedExerciseId = exerciseId.replaceAll(' ', '_');
 
-  if (modifierOptions.isEmpty) {
+  if (tweakOptions.isEmpty) {
     return '/exercises/$encodedExerciseId';
   }
 
   final queryParams = <String, String>{};
-  modifierOptions.forEach((key, value) {
+  tweakOptions.forEach((key, value) {
     // Encode spaces as underscores in both keys and values
     final encodedKey = key.replaceAll(' ', '_');
     final encodedValue = value.replaceAll(' ', '_');
@@ -24,21 +24,21 @@ String buildExerciseDetailUrl(String exerciseId, Map<String, String> modifierOpt
   return uri.toString();
 }
 
-/// Parses modifier options from URL query parameters.
+/// Parses tweak options from URL query parameters.
 /// Strips 'mod_' prefix and decodes underscores back to spaces.
 Map<String, String> parseExerciseParams(Map<String, String> queryParameters) {
-  final modifierOptions = <String, String>{};
+  final tweakOptions = <String, String>{};
 
   queryParameters.forEach((key, value) {
     if (key.startsWith('mod_')) {
       // Strip 'mod_' prefix and decode underscores to spaces
       final decodedKey = key.substring(4).replaceAll('_', ' ');
       final decodedValue = value.replaceAll('_', ' ');
-      modifierOptions[decodedKey] = decodedValue;
+      tweakOptions[decodedKey] = decodedValue;
     }
   });
 
-  return modifierOptions;
+  return tweakOptions;
 }
 
 String parseExerciseId(String path) {

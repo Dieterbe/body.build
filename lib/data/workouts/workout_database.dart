@@ -21,7 +21,7 @@ class WorkoutSets extends Table {
   TextColumn get id => text()();
   TextColumn get workoutId => text().references(Workouts, #id)();
   TextColumn get exerciseId => text()();
-  TextColumn get modifiers => text()(); // JSON string
+  TextColumn get tweaks => text()(); // JSON string
   TextColumn get cues => text()(); // JSON string
   RealColumn get weight => real().nullable()();
   IntColumn get reps => integer().nullable()();

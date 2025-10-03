@@ -15,9 +15,9 @@ import 'package:go_router/go_router.dart';
 class ExercisesScreen extends ConsumerStatefulWidget {
   static const String routeName = 'exercises';
   final String? exerciseId;
-  final Map<String, String>? modifierOptions;
+  final Map<String, String>? tweakOptions;
 
-  const ExercisesScreen({super.key, this.exerciseId, this.modifierOptions});
+  const ExercisesScreen({super.key, this.exerciseId, this.tweakOptions});
 
   @override
   ConsumerState<ExercisesScreen> createState() => _ExercisesScreenState();
@@ -43,16 +43,16 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
       if (exercise != null) {
         ref
             .read(exerciseFilterProvider.notifier)
-            .setSelectedExercise(exercise, modifierOptions: widget.modifierOptions ?? {});
+            .setSelectedExercise(exercise, tweakOptions: widget.tweakOptions ?? {});
       }
     }
   }
 
-  void _updateUrl(Ex? exercise, Map<String, String> modifierOptions) {
+  void _updateUrl(Ex? exercise, Map<String, String> tweakOptions) {
     if (exercise == null) {
       context.go('/exercises');
     } else {
-      context.go(buildExerciseDetailUrl(exercise.id, modifierOptions));
+      context.go(buildExerciseDetailUrl(exercise.id, tweakOptions));
     }
   }
 
@@ -68,8 +68,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     // Listen to exercise selection changes and update URL
     ref.listen(exerciseFilterProvider, (previous, next) {
       if (previous?.selectedExercise != next.selectedExercise ||
-          previous?.selectedModifierOptions != next.selectedModifierOptions) {
-        _updateUrl(next.selectedExercise, next.selectedModifierOptions);
+          previous?.selectedTweakOptions != next.selectedTweakOptions) {
+        _updateUrl(next.selectedExercise, next.selectedTweakOptions);
       }
     });
 

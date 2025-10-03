@@ -40,7 +40,7 @@ final class ExerciseFilterProvider extends $NotifierProvider<ExerciseFilter, Exe
   }
 }
 
-String _$exerciseFilterHash() => r'15809543491672141c1af31f91989183dc61e4d2';
+String _$exerciseFilterHash() => r'a18e362b1058074975444ca4facd6b631fb5050a';
 
 abstract class _$ExerciseFilter extends $Notifier<ExerciseFilterState> {
   ExerciseFilterState build();
@@ -95,4 +95,4 @@ final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List
   }
 }
 
-String _$filteredExercisesHash() => r'367bc968ad0c3ebe1d1468ca5bd1683689bdc998';
+String _$filteredExercisesHash() => r'fe9f99a94657a46c8c36b7b1b7c0db313a54be29';

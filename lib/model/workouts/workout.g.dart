@@ -34,8 +34,8 @@ _WorkoutSet _$WorkoutSetFromJson(Map<String, dynamic> json) => _WorkoutSet(
   id: json['id'] as String,
   workoutId: json['workoutId'] as String,
   exerciseId: json['exerciseId'] as String,
-  modifiers:
-      (json['modifiers'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)) ??
+  tweaks:
+      (json['tweaks'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)) ??
       const {},
   cues: (json['cues'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as bool)) ?? const {},
   weight: (json['weight'] as num?)?.toDouble(),
@@ -50,7 +50,7 @@ Map<String, dynamic> _$WorkoutSetToJson(_WorkoutSet instance) => <String, dynami
   'id': instance.id,
   'workoutId': instance.workoutId,
   'exerciseId': instance.exerciseId,
-  'modifiers': instance.modifiers,
+  'tweaks': instance.tweaks,
   'cues': instance.cues,
   'weight': instance.weight,
   'reps': instance.reps,

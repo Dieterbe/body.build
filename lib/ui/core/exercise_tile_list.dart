@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 // 3. we wouldn't want to show all variations as distinct search hits, that gets excessive
 //    due to many small tweaks like bench angles etc
 // However this system also has definite downsides:
-// 1. when you select an exercise, you can change all modifiers/cues anyway
+// 1. when you select an exercise, you can change all tweaks/cues anyway
 //    (and we will have more room to visualize their recruitments)
 // 2. for different variations, we would ideally also show their different
 //    recruitments here, but space is already cramped.
@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 
 class ExerciseTileList extends StatelessWidget {
   final List<Ex> exercises;
-  final Function(String exerciseId, Map<String, String> modifiers) onExerciseSelected;
+  final Function(String exerciseId, Map<String, String> tweaks) onExerciseSelected;
   final Set<String> expandedExercises;
   final Function(String exerciseId)? onToggleExpansion;
   final String? emptyMessage;
@@ -52,30 +52,28 @@ class ExerciseTileList extends StatelessWidget {
   /// this is just to display variations of an exercise in a generic way
   /// HERE generate variations
   List<Sets> _generateExerciseVariations(Ex exercise) {
-    // If no modifiers create variations, return a single Sets with default values
-    if (exercise.modifiers.isEmpty) {
-      return [Sets(80, ex: exercise, modifierOptions: {})];
+    // If no tweaks create variations, return a single Sets with default values
+    if (exercise.tweaks.isEmpty) {
+      return [Sets(80, ex: exercise, tweakOptions: {})];
     }
 
-    // Collect all modifier options that affect any program group
-    Map<String, List<String>> modifierOptions = {};
-    for (final modifier in exercise.modifiers) {
-      modifierOptions[modifier.name] = modifier.opts.keys.toList();
+    // Collect all tweak options that affect any program group
+    Map<String, List<String>> tweakOptions = {};
+    for (final tweak in exercise.tweaks) {
+      tweakOptions[tweak.name] = tweak.opts.keys.toList();
     }
-    // Generate all possible combinations of modifier options
+    // Generate all possible combinations of tweak options
     var allCombinations = [
-      {for (var entry in modifierOptions.entries) entry.key: entry.value.first},
+      {for (var entry in tweakOptions.entries) entry.key: entry.value.first},
     ];
 
-    modifierOptions.forEach((name, options) {
+    tweakOptions.forEach((name, options) {
       allCombinations = allCombinations
           .expand((combo) => options.map((opt) => {...combo, name: opt}))
           .toList();
     });
     // Create a Sets object for each unique combination
-    return allCombinations
-        .map((modifiers) => Sets(80, ex: exercise, modifierOptions: modifiers))
-        .toList();
+    return allCombinations.map((tweaks) => Sets(80, ex: exercise, tweakOptions: tweaks)).toList();
   }
 
   @override
@@ -302,7 +300,7 @@ class ExerciseTileList extends StatelessWidget {
 
   Widget _buildVariationTile(BuildContext context, Ex exercise, Sets variation) {
     return InkWell(
-      onTap: () => onExerciseSelected(exercise.id, variation.modifierOptions),
+      onTap: () => onExerciseSelected(exercise.id, variation.tweakOptions),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
@@ -328,12 +326,12 @@ class ExerciseTileList extends StatelessWidget {
                       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
                     ),
                   ),
-                  if (variation.modifierOptions.isNotEmpty)
+                  if (variation.tweakOptions.isNotEmpty)
                     Expanded(
                       child: Wrap(
                         spacing: 8,
                         runSpacing: 4,
-                        children: variation.modifierOptions.entries.map((entry) {
+                        children: variation.tweakOptions.entries.map((entry) {
                           return Container(
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(

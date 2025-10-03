@@ -84,7 +84,7 @@ class ExercisePickerSheet extends ConsumerWidget {
                     .read(workoutExerciseFilterProvider.notifier)
                     .toggleExerciseExpansion(exerciseId);
               },
-              onExerciseSelected: (exerciseId, modifiers) {
+              onExerciseSelected: (exerciseId, tweaks) {
                 onExerciseSelected(exerciseId);
               },
             ),

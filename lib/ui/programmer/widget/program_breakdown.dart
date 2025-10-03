@@ -20,7 +20,7 @@ class ProgramBreakdown extends StatelessWidget {
         for (final sets in setGroup.sets) {
           if (sets.ex != null) {
             for (final group in ProgramGroup.values) {
-              final r = sets.ex!.recruitment(group, sets.modifierOptions);
+              final r = sets.ex!.recruitment(group, sets.tweakOptions);
               final modality = r.modality ?? 'UNKNOWN';
               if (r.volume >= 0.5) {
                 tree[group]![modality] ??= {};

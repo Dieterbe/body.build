@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 
 class ExerciseRecruitmentVisualization extends StatelessWidget {
   final Ex exercise;
-  final Map<String, String> modifierOptions;
+  final Map<String, String> tweakOptions;
   final Settings setup;
 
   const ExerciseRecruitmentVisualization({
     super.key,
     required this.exercise,
-    required this.modifierOptions,
+    required this.tweakOptions,
     required this.setup,
   });
 
@@ -20,9 +20,9 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
   Widget build(BuildContext context) {
     final recruitmentData = <ProgramGroup, double>{};
 
-    // Calculate recruitment for each muscle group with current modifiers
+    // Calculate recruitment for each muscle group with current tweaks
     for (final group in ProgramGroup.values) {
-      final recruitment = exercise.recruitment(group, modifierOptions);
+      final recruitment = exercise.recruitment(group, tweakOptions);
       if (recruitment.volume > 0) {
         recruitmentData[group] = recruitment.volume;
       }
@@ -160,7 +160,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
             }).toList(),
           ),
 
-          if (modifierOptions.isNotEmpty) ...[
+          if (tweakOptions.isNotEmpty) ...[
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(8),
@@ -174,7 +174,7 @@ class ExerciseRecruitmentVisualization extends StatelessWidget {
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
-                      'Recruitment shown with current modifier settings',
+                      'Recruitment shown with current tweak settings',
                       style: TextStyle(
                         fontSize: 11,
                         color: Theme.of(context).colorScheme.primary,

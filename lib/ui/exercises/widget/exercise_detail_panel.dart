@@ -16,21 +16,21 @@ class ExerciseDetailPanel extends ConsumerWidget {
     final selectedExercise = ref.watch(
       exerciseFilterProvider.select((state) => state.selectedExercise),
     );
-    final selectedModifierOptions = ref.watch(
-      exerciseFilterProvider.select((state) => state.selectedModifierOptions),
+    final selectedTweakOptions = ref.watch(
+      exerciseFilterProvider.select((state) => state.selectedTweakOptions),
     );
 
     if (selectedExercise == null) return const SizedBox.shrink();
 
     return SingleChildScrollView(
       child: ExerciseDetailsDialog(
-        sets: Sets(1, ex: selectedExercise, modifierOptions: selectedModifierOptions),
+        sets: Sets(1, ex: selectedExercise, tweakOptions: selectedTweakOptions),
         setup: setupData,
-        onChangeModifiersCues: (sets) {
-          // Update the selected exercise with new modifier options
+        onChangeTweaksCues: (sets) {
+          // Update the selected exercise with new tweak options
           ref
               .read(exerciseFilterProvider.notifier)
-              .setSelectedExercise(sets.ex, modifierOptions: sets.modifierOptions);
+              .setSelectedExercise(sets.ex, tweakOptions: sets.tweakOptions);
         },
         onClose: () {
           ref.read(exerciseFilterProvider.notifier).setSelectedExercise(null);

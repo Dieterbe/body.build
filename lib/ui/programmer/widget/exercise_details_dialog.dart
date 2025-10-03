@@ -12,7 +12,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
   final Sets sets;
   final Settings setup;
   final Function(Sets)? onChangeEx; // allow editng exercise name?
-  final Function(Sets)? onChangeModifiersCues; // allow editng modifiers/cues?
+  final Function(Sets)? onChangeTweaksCues; // allow editng tweaks/cues?
   final Function()? onClose; // if set, puts a close button
   final bool showRecruitmentViz;
 
@@ -21,7 +21,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
     required this.sets,
     required this.setup,
     this.onChangeEx,
-    this.onChangeModifiersCues,
+    this.onChangeTweaksCues,
     this.onClose,
     this.showRecruitmentViz = true,
   });
@@ -48,8 +48,8 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
   }
 
   Widget _buildRatingIcon({
-    String? modifierName,
-    String? modifierValue,
+    String? tweakName,
+    String? tweakValue,
     String? cueName,
     bool? cueEnabled,
     required BuildContext context,
@@ -58,23 +58,23 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
 
     // Get ratings for current configuration
     final currentRatings = localSets
-        .getApplicableRatingsForConfig(localSets.modifierOptions, localSets.cueOptions)
+        .getApplicableRatingsForConfig(localSets.tweakOptions, localSets.cueOptions)
         .toList();
 
     // Create a copy of current configuration
-    final modifierConfig = Map<String, String>.from(localSets.modifierOptions);
+    final tweakConfig = Map<String, String>.from(localSets.tweakOptions);
     final cueConfig = Map<String, bool>.from(localSets.cueOptions);
 
     // Apply the specific option we're showing the rating for
-    if (modifierName != null && modifierValue != null) {
-      modifierConfig[modifierName] = modifierValue;
+    if (tweakName != null && tweakValue != null) {
+      tweakConfig[tweakName] = tweakValue;
     }
     if (cueName != null && cueEnabled != null) {
       cueConfig[cueName] = cueEnabled;
     }
 
     // Get ratings for this configuration
-    final ratings = localSets.getApplicableRatingsForConfig(modifierConfig, cueConfig).toList();
+    final ratings = localSets.getApplicableRatingsForConfig(tweakConfig, cueConfig).toList();
 
     // Only show rating icon if this option changes the ratings
     if (ratings.length == currentRatings.length) {
@@ -106,10 +106,10 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     });
   }
 
-  void onChangeModifiersCues(Sets newSets) {
-    if (widget.onChangeModifiersCues == null) return;
+  void onChangeTweaksCues(Sets newSets) {
+    if (widget.onChangeTweaksCues == null) return;
     // update parent widget(s) which are in the background of our dialog
-    widget.onChangeModifiersCues!(newSets);
+    widget.onChangeTweaksCues!(newSets);
     // update our local state (which isn't automatically updated after our parent has launched the dialog)
     setState(() {
       localSets = newSets;
@@ -153,7 +153,7 @@ You can:
 * Modify how the exercise is performed (affects muscle recruitment)
 * Add cues to help with form and technique
 
-Modifiers may affect:
+Tweaks may affect:
 * muscle recruitment level (reflected in volume counts)
 * muscle activation & growth stimulus
 * equipment used
@@ -224,7 +224,7 @@ In the future, you'll be able to add any cues you can come up with.
                 localSets.copyWith(
                   ex: selection,
                   changeEx: false,
-                  modifierOptions: {},
+                  tweakOptions: {},
                   cueOptions: {},
                 ),
               );
@@ -252,21 +252,21 @@ In the future, you'll be able to add any cues you can come up with.
         if (widget.showRecruitmentViz && localSets.ex != null) ...[
           ExerciseRecruitmentVisualization(
             exercise: localSets.ex!,
-            modifierOptions: localSets.modifierOptions,
+            tweakOptions: localSets.tweakOptions,
             setup: widget.setup,
           ),
           const SizedBox(height: 24),
         ],
-        // HERE edit modifiers
-        if (localSets.ex?.modifiers.isEmpty == false) ...[
-          ...localSets.ex!.modifiers.map(
-            (modifier) => Padding(
+        // HERE edit tweaks
+        if (localSets.ex?.tweaks.isEmpty == false) ...[
+          ...localSets.ex!.tweaks.map(
+            (tweak) => Padding(
               padding: const EdgeInsets.only(bottom: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Modifier: ${modifier.name.capitalizeFirstOnly()}",
+                    "Tweak: ${tweak.name.capitalizeFirstOnly()}",
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
@@ -278,7 +278,7 @@ In the future, you'll be able to add any cues you can come up with.
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        ...(modifier.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key)))
+                        ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key)))
                             .map((opt) {
                               final optionDesc = opt.value.$2;
                               return Column(
@@ -290,11 +290,11 @@ In the future, you'll be able to add any cues you can come up with.
                                         Text(opt.key),
                                         const SizedBox(width: 8),
                                         _buildRatingIcon(
-                                          modifierName: modifier.name,
-                                          modifierValue: opt.key,
+                                          tweakName: tweak.name,
+                                          tweakValue: opt.key,
                                           context: context,
                                         ),
-                                        if (opt.key == modifier.defaultVal) ...[
+                                        if (opt.key == tweak.defaultVal) ...[
                                           const SizedBox(width: 4),
                                           Text(
                                             '(default)',
@@ -309,16 +309,15 @@ In the future, you'll be able to add any cues you can come up with.
                                     ),
                                     value: opt.key,
                                     groupValue:
-                                        localSets.modifierOptions[modifier.name] ??
-                                        modifier.defaultVal,
-                                    onChanged: widget.onChangeModifiersCues != null
+                                        localSets.tweakOptions[tweak.name] ?? tweak.defaultVal,
+                                    onChanged: widget.onChangeTweaksCues != null
                                         ? (value) {
                                             if (value != null) {
-                                              onChangeModifiersCues(
+                                              onChangeTweaksCues(
                                                 localSets.copyWith(
-                                                  modifierOptions: {
-                                                    ...localSets.modifierOptions,
-                                                    modifier.name: value,
+                                                  tweakOptions: {
+                                                    ...localSets.tweakOptions,
+                                                    tweak.name: value,
                                                   },
                                                 ),
                                               );
@@ -335,11 +334,11 @@ In the future, you'll be able to add any cues you can come up with.
                                 ],
                               );
                             }),
-                        if (modifier.desc != null) ...[
+                        if (tweak.desc != null) ...[
                           const SizedBox(height: 16),
                           Padding(
                             padding: const EdgeInsets.only(left: 2),
-                            child: markdown(modifier.desc!, context),
+                            child: markdown(tweak.desc!, context),
                           ),
                         ],
                       ],
@@ -352,7 +351,7 @@ In the future, you'll be able to add any cues you can come up with.
         ],
         if (localSets.ex?.cues.isEmpty == false) ...[
           // HERE modify cues
-          if (localSets.ex!.modifiers.isNotEmpty) const SizedBox(height: 24),
+          if (localSets.ex!.tweaks.isNotEmpty) const SizedBox(height: 24),
           Text(
             'Cues',
             style: Theme.of(
@@ -385,9 +384,9 @@ In the future, you'll be able to add any cues you can come up with.
                         ),
                         Switch(
                           value: isEnabled,
-                          onChanged: widget.onChangeModifiersCues != null
+                          onChanged: widget.onChangeTweaksCues != null
                               ? (value) {
-                                  onChangeModifiersCues(
+                                  onChangeTweaksCues(
                                     localSets.copyWith(
                                       cueOptions: {...localSets.cueOptions, entry.key: value},
                                     ),

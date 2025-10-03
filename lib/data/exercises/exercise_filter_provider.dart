@@ -30,7 +30,7 @@ class ExerciseFilterState {
   final Set<Equipment> selectedEquipment;
   final Set<EquipmentCategory> selectedEquipmentCategories;
   final Ex? selectedExercise;
-  final Map<String, String> selectedModifierOptions;
+  final Map<String, String> selectedTweakOptions;
   final Set<String> expandedExercises;
 
   const ExerciseFilterState({
@@ -40,7 +40,7 @@ class ExerciseFilterState {
     this.selectedEquipment = const {},
     this.selectedEquipmentCategories = const {},
     this.selectedExercise,
-    this.selectedModifierOptions = const {},
+    this.selectedTweakOptions = const {},
     this.expandedExercises = const {},
   });
 
@@ -51,7 +51,7 @@ class ExerciseFilterState {
     Set<Equipment>? selectedEquipment,
     Set<EquipmentCategory>? selectedEquipmentCategories,
     Ex? selectedExercise,
-    Map<String, String>? selectedModifierOptions,
+    Map<String, String>? selectedTweakOptions,
     Set<String>? expandedExercises,
     bool clearSelectedMuscleGroup = false,
     bool clearSelectedExercise = false,
@@ -65,7 +65,7 @@ class ExerciseFilterState {
       selectedEquipment: selectedEquipment ?? this.selectedEquipment,
       selectedEquipmentCategories: selectedEquipmentCategories ?? this.selectedEquipmentCategories,
       selectedExercise: clearSelectedExercise ? null : (selectedExercise ?? this.selectedExercise),
-      selectedModifierOptions: selectedModifierOptions ?? this.selectedModifierOptions,
+      selectedTweakOptions: selectedTweakOptions ?? this.selectedTweakOptions,
       expandedExercises: expandedExercises ?? this.expandedExercises,
     );
   }
@@ -124,10 +124,10 @@ class ExerciseFilter extends _$ExerciseFilter {
     );
   }
 
-  void setSelectedExercise(Ex? exercise, {Map<String, String>? modifierOptions}) {
+  void setSelectedExercise(Ex? exercise, {Map<String, String>? tweakOptions}) {
     state = state.copyWith(
       selectedExercise: exercise,
-      selectedModifierOptions: modifierOptions ?? {},
+      selectedTweakOptions: tweakOptions ?? {},
       clearSelectedExercise: exercise == null,
     );
   }

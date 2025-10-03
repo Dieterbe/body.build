@@ -1,5 +1,5 @@
 import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
 
 /*
@@ -57,7 +57,7 @@ const ratingJNRowCable = Rating(
   pg: [ProgramGroup.lats, ProgramGroup.middleTraps],
   comment: '''
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=jLvqKgW-_G8&t=9m22s)''',
-  modifiers: {'spine': 'dynamic'},
+  tweaks: {'spine': 'dynamic'},
 );
 
 /*
@@ -111,7 +111,7 @@ See his discussion of the exercises:
 * [the flat barbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=1m47s)
 * [the incline barbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=2m33s)
 * [the decline barbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=2m56s)''',
-    modifiers: {'bench angle': e},
+    tweaks: {'bench angle': e},
   ),
 );
 final ratingJNDBBenchPress = benchPressBenchAngle.opts.keys.map(
@@ -133,7 +133,7 @@ See his discussion of the exercises:
 * [the flat dumbbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=3m35s)
 * [the incline dumbbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=4m16s)
 * [the decline dumbbell bench press](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=4m25s)''',
-    modifiers: {'bench angle': e},
+    tweaks: {'bench angle': e},
   ),
 );
 const ratingJNMachineChestPress = Rating(
@@ -152,7 +152,7 @@ const ratingJNPushUp = Rating(
   comment: '''
 no equipment needed. Can get too easy when you're strong. can't overload well. limited ROM.
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=5m52s)''',
-  modifiers: {'deficit': 'no'},
+  tweaks: {'deficit': 'no'},
 );
 const ratingJNPushUpDeficit = Rating(
   source: Source.jeffNippard,
@@ -161,7 +161,7 @@ const ratingJNPushUpDeficit = Rating(
   comment: '''
 more deep stretch. best type of pushup 
 Jeff ranks the exercise [here](https://www.youtube.com/watch?v=fGm-ef-4PVk&t=6m45s)''',
-  modifiers: {'deficit': 'max'},
+  tweaks: {'deficit': 'max'},
 );
 const ratingJNPecDeckHandGrip = Rating(
   source: Source.jeffNippard,
@@ -244,7 +244,7 @@ const ratingJNDBCurl = [
     comment: '''tension mainly at the mid point. convenient. good against assymetries.
 better not alternate (too much rest)
       Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=3m37s)''',
-    modifiers: {'grip': 'hammer to supinated'},
+    tweaks: {'grip': 'hammer to supinated'},
   ),
   Rating(
     source: Source.jeffNippard,
@@ -252,7 +252,7 @@ better not alternate (too much rest)
     pg: [ProgramGroup.biceps],
     comment: '''favors a bit more brachialis over bicep - tension mainly at the mid point
       Jeff ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=13m06s)''',
-    modifiers: {'grip': 'hammer'},
+    tweaks: {'grip': 'hammer'},
   ),
 ];
 const ratingJNCableCurl = [
@@ -262,7 +262,7 @@ const ratingJNCableCurl = [
     pg: [ProgramGroup.biceps],
     comment:
         '''jeff says "even tension throughout ROM". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m12s)''', // TODO: disagree
-    modifiers: {'style': 'standard'},
+    tweaks: {'style': 'standard'},
   ),
   Rating(
     source: Source.jeffNippard,
@@ -270,7 +270,7 @@ const ratingJNCableCurl = [
     pg: [ProgramGroup.biceps],
     comment:
         '''jeff says "even tension throughout ROM, but now with maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=10m28s)''', // TODO: disagree
-    modifiers: {'style': 'bayesian with arms behind'},
+    tweaks: {'style': 'bayesian with arms behind'},
   ),
   Rating(
     source: Source.jeffNippard,
@@ -278,7 +278,7 @@ const ratingJNCableCurl = [
     pg: [ProgramGroup.biceps],
     comment:
         '''jeff says "max tension at maximum stretch". He ranks the exercise [here](https://www.youtube.com/watch?v=GNO4OtYoCYk&t=11m11s)''', // TODO: also not such a consistent tension curve
-    modifiers: {'style': 'bayesian with arms behind and up'},
+    tweaks: {'style': 'bayesian with arms behind and up'},
   ),
 ];
 

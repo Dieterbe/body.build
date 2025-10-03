@@ -1,7 +1,7 @@
 import 'package:bodybuild/data/programmer/cues.dart';
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/data/programmer/rating_jn.dart';
 import 'package:bodybuild/data/programmer/rating_mh.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
@@ -20,7 +20,7 @@ import 'rating.dart';
 class Ex {
   final VolumeAssignment volumeAssignment;
   final List<Equipment> equipment;
-  final List<Modifier> modifiers;
+  final List<Tweak> tweaks;
   final Cues cues;
   final List<Rating> ratings;
   final String id; // identifier to match to kaos exercise. does not need to be human friendly
@@ -29,24 +29,22 @@ class Ex {
     this.volumeAssignment,
     this.id,
     this.equipment, [
-    this.modifiers = const [],
+    this.tweaks = const [],
     this.cues = defaultCues,
     this.ratings = const [],
   ]);
 
-  Assign recruitment(ProgramGroup pg, Map<String, String?> modifierOptions) {
+  Assign recruitment(ProgramGroup pg, Map<String, String?> tweakOptions) {
     // establish base recruitment:
     var r = volumeAssignment[pg] ?? const Assign(0);
 
-    // Apply any modifiers that apply
-    for (final modifier in modifiers) {
-      final selectedOption = modifierOptions[modifier.name] ?? modifier.defaultVal;
-      if (!modifier.opts.containsKey(selectedOption)) {
-        print(
-          'modifier ${modifier.name} has no option $selectedOption',
-        ); // TODO: SHOULD NEVER HAPPEN :]
+    // Apply any tweaks that apply
+    for (final tweak in tweaks) {
+      final selectedOption = tweakOptions[tweak.name] ?? tweak.defaultVal;
+      if (!tweak.opts.containsKey(selectedOption)) {
+        print('tweak ${tweak.name} has no option $selectedOption'); // TODO: SHOULD NEVER HAPPEN :]
       }
-      final optEffects = modifier.opts[selectedOption]!.$1;
+      final optEffects = tweak.opts[selectedOption]!.$1;
       if (optEffects.containsKey(pg)) {
         r = r.merge(optEffects[pg]!);
       }
@@ -55,25 +53,21 @@ class Ex {
     return r;
   }
 
-  Assign recruitmentFiltered(ProgramGroup pg, Map<String, String?> modifierOptions, double cutoff) {
-    final raw = recruitment(pg, modifierOptions);
+  Assign recruitmentFiltered(ProgramGroup pg, Map<String, String?> tweakOptions, double cutoff) {
+    final raw = recruitment(pg, tweakOptions);
     return raw.volume >= cutoff ? raw : const Assign(0);
   }
 
-  double totalRecruitment(Map<String, String> modifierOptions) => ProgramGroup.values.fold(
-    0.0,
-    (sum, group) => sum + recruitment(group, modifierOptions).volume,
-  );
+  double totalRecruitment(Map<String, String> tweakOptions) =>
+      ProgramGroup.values.fold(0.0, (sum, group) => sum + recruitment(group, tweakOptions).volume);
 
-  double totalRecruitmentFiltered(double cutoff, Map<String, String> modifierOptions) =>
-      ProgramGroup.values.fold(
-        0.0,
-        (sum, group) => sum + recruitmentFiltered(group, modifierOptions, cutoff).volume,
-      );
+  double totalRecruitmentFiltered(double cutoff, Map<String, String> tweakOptions) => ProgramGroup
+      .values
+      .fold(0.0, (sum, group) => sum + recruitmentFiltered(group, tweakOptions, cutoff).volume);
 }
 
 // TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
-// form modifiers like unilateral concentrics, unilateral, e.g. for leg ext, leg curls, calf raises
+// form tweaks like unilateral concentrics, unilateral, e.g. for leg ext, leg curls, calf raises
 // important: id's should not change! perhaps we should introduce seperate human friendly naming
 // TODO: annotate which exercises are 'preferred' by way of menno's recommendations, also those that are deficit or have larger ROM
 // and also which are complimentary (e.g. bicep curls and rows to train at different lengths)
@@ -87,7 +81,7 @@ we try to add the exercise to the group which represent the larger muscles (e.g.
 This categorization is only meant to make code navigation easier here and elsewhere (e.g. ratings files), it's not a concept within the app.
 */
 /*
-exercise id and modifier/cues names/values allowed chars: a-z, 0-9, °, -, space, (), >
+exercise id and tweak/cues names/values allowed chars: a-z, 0-9, °, -, space, (), >
 no '&' cause that would look ugly in URL encoding
 no '_' because it shouldn't be needed, and allows us to url encode space to '_' instead of %20 in the URL and instead of '+' in path parameters
 */
@@ -276,7 +270,7 @@ final List<Ex> exes = [
   ),
   Ex({}, "standing cable hip abduction", [Equipment.cableTower], [hipAbductionHipFlexion('0°')]),
   Ex(vaHipAbductionStraightHip, "lying cable hip abduction", [Equipment.cableTower]),
-  // TODO: unilateral modifiers and other forms
+  // TODO: unilateral tweaks and other forms
   const Ex(
     vaStandingCalfRaiseCalfJump,
     "standing calf raise machine",
@@ -414,7 +408,7 @@ final List<Ex> exes = [
     "seated cable row",
     [Equipment.cableRowMachine],
     [
-      Modifier('spine', 'still', {
+      Tweak('spine', 'still', {
         'still': (
           {
             ProgramGroup.lats: Assign(1, 'not full stretch'),
@@ -432,7 +426,7 @@ final List<Ex> exes = [
             Also called 'flexion row'""",
         ),
       }),
-      Modifier('grip width', 'shoulder', {
+      Tweak('grip width', 'shoulder', {
         'shoulder': ({}, ''),
         'wide': (
           {

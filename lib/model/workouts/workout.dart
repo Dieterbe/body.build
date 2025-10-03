@@ -39,7 +39,7 @@ abstract class WorkoutSet with _$WorkoutSet {
     required String id,
     required String workoutId,
     required String exerciseId,
-    @Default({}) Map<String, String> modifiers,
+    @Default({}) Map<String, String> tweaks,
     @Default({}) Map<String, bool> cues,
     double? weight,
     int? reps,
@@ -51,11 +51,11 @@ abstract class WorkoutSet with _$WorkoutSet {
 
   factory WorkoutSet.fromJson(Map<String, dynamic> json) => _$WorkoutSetFromJson(json);
 
-  // Helper methods for JSON serialization of modifiers/cues
-  String get modifiersJson => json.encode(modifiers);
+  // Helper methods for JSON serialization of tweaks/cues
+  String get tweaksJson => json.encode(tweaks);
   String get cuesJson => json.encode(cues);
 
-  static Map<String, String> modifiersFromJson(String jsonStr) {
+  static Map<String, String> tweaksFromJson(String jsonStr) {
     if (jsonStr.isEmpty) return {};
     final decoded = json.decode(jsonStr);
     return Map<String, String>.from(decoded);

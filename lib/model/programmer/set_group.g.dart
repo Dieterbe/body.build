@@ -11,8 +11,8 @@ _Sets _$SetsFromJson(Map<String, dynamic> json) => _Sets(
   ex: _exFromJson(json['ex'] as String?),
   n: (json['n'] as num?)?.toInt() ?? 1,
   changeEx: json['changeEx'] as bool? ?? false,
-  modifierOptions:
-      (json['modifierOptions'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)) ??
+  tweakOptions:
+      (json['tweakOptions'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)) ??
       const {},
   cueOptions:
       (json['cueOptions'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as bool)) ??
@@ -23,7 +23,7 @@ Map<String, dynamic> _$SetsToJson(_Sets instance) => <String, dynamic>{
   'intensity': instance.intensity,
   'ex': _exToJson(instance.ex),
   'n': instance.n,
-  'modifierOptions': instance.modifierOptions,
+  'tweakOptions': instance.tweakOptions,
   'cueOptions': instance.cueOptions,
 };
 

@@ -107,7 +107,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                   sets: widget.sets,
                   setup: widget.setup,
                   onChangeEx: widget.onChange,
-                  onChangeModifiersCues: widget.onChange,
+                  onChangeTweaksCues: widget.onChange,
                   showRecruitmentViz: true,
                 ),
               ),
@@ -302,7 +302,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                     child: muscleMark(
                       widget.sets.ex == null
                           ? 0
-                          : widget.sets.ex!.recruitment(g, widget.sets.modifierOptions).volume,
+                          : widget.sets.ex!.recruitment(g, widget.sets.tweakOptions).volume,
                       context,
                     ),
                   ),

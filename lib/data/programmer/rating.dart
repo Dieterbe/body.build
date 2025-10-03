@@ -14,14 +14,14 @@ class Rating {
   final double score;
   final List<ProgramGroup> pg;
   final String comment;
-  final Map<String, String> modifiers;
+  final Map<String, String> tweaks;
   final Set<String> cues;
   const Rating({
     required this.source,
     required this.score,
     required this.pg,
     required this.comment,
-    this.modifiers = const {},
+    this.tweaks = const {},
     this.cues = const {},
   });
 }

@@ -17,7 +17,7 @@ class ExerciseList extends ConsumerWidget {
 
     return ExerciseTileList(
       exercises: filteredExercises,
-      onExerciseSelected: (exerciseId, modifiers) {
+      onExerciseSelected: (exerciseId, tweaks) {
         final exercise = filteredExercises.firstWhereOrNull((ex) => ex.id == exerciseId);
         if (exercise == null) return;
 
@@ -25,7 +25,7 @@ class ExerciseList extends ConsumerWidget {
         final newSelection = selectedExercise?.id == exerciseId ? null : exercise;
         ref
             .read(exerciseFilterProvider.notifier)
-            .setSelectedExercise(newSelection, modifierOptions: modifiers);
+            .setSelectedExercise(newSelection, tweakOptions: tweaks);
       },
       expandedExercises: filterState.expandedExercises,
       onToggleExpansion: (exerciseId) {

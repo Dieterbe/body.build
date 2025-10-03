@@ -134,35 +134,35 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
   );
 
   Iterable<Sets> toSetsFor(Ex ex, Parameters params, ProgramGroup g) {
-    // For each modifier that affects this program group, collect all its options
-    Map<String, List<String>> modifierOptions = {};
+    // For each tweak that affects this program group, collect all its options
+    Map<String, List<String>> tweakOptions = {};
 
-    // First pass: identify modifiers that cause variations in recruitment or ratings for this program group HERE
-    // Note: different modifiers may not actually result in different recruitment or ratings numbers, but them being included is
+    // First pass: identify tweaks that cause variations in recruitment or ratings for this program group HERE
+    // Note: different tweaks may not actually result in different recruitment or ratings numbers, but them being included is
     // a good clue that they probably do differ.
-    for (final modifier in ex.modifiers) {
-      bool hasRecruitmentVariation = modifier.opts.entries.any(
+    for (final tweak in ex.tweaks) {
+      bool hasRecruitmentVariation = tweak.opts.entries.any(
         (entry) => entry.value.$1.containsKey(g),
       );
       bool hasRatingVariation = ex.ratings.any(
-        (rating) => rating.pg.contains(g) && rating.modifiers.containsKey(modifier.name),
+        (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
       );
 
       if (hasRecruitmentVariation || hasRatingVariation) {
-        modifierOptions[modifier.name] = modifier.opts.keys.toList();
+        tweakOptions[tweak.name] = tweak.opts.keys.toList();
       }
     }
 
-    // If no modifiers affect this group's recruitment or ratings, return a single Sets with default values
-    if (modifierOptions.isEmpty) {
-      return [Sets(params.intensities.first, ex: ex, modifierOptions: {})];
+    // If no tweaks affect this group's recruitment or ratings, return a single Sets with default values
+    if (tweakOptions.isEmpty) {
+      return [Sets(params.intensities.first, ex: ex, tweakOptions: {})];
     }
 
-    // Generate all possible combinations of modifier options
+    // Generate all possible combinations of tweak options
     var allCombinations = [
-      {for (var entry in modifierOptions.entries) entry.key: entry.value.first},
+      {for (var entry in tweakOptions.entries) entry.key: entry.value.first},
     ];
-    modifierOptions.forEach((name, options) {
+    tweakOptions.forEach((name, options) {
       allCombinations = allCombinations
           .expand((combo) => options.map((opt) => {...combo, name: opt}))
           .toList();
@@ -170,7 +170,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
 
     // Create a Sets object for each unique combination
     return allCombinations.map(
-      (modifiers) => Sets(params.intensities.first, ex: ex, modifierOptions: modifiers),
+      (tweaks) => Sets(params.intensities.first, ex: ex, tweakOptions: tweaks),
     );
   }
 
@@ -276,13 +276,13 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                 option.ex!.id,
                                 style: TextStyle(fontSize: MediaQuery.sizeOf(context).width / 110),
                               ),
-                              if (option.modifierOptions.isNotEmpty) ...[
+                              if (option.tweakOptions.isNotEmpty) ...[
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Wrap(
                                     spacing: 8,
                                     runSpacing: 4,
-                                    children: option.modifierOptions.entries.map((entry) {
+                                    children: option.tweakOptions.entries.map((entry) {
                                       return Container(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 8,

@@ -7,5 +7,5 @@ const ratingMhCableCurl = Rating(
   pg: [ProgramGroup.biceps],
   comment:
       '''According to Menno, who named the exercise the "Bayesian bicep curl", it is the "perfect bicep exercise, because it allows to keep maximum tension on the bicep at all times.". [Menno's scientific arguments here](https://mennohenselmans.com/bayesian-curls/)''',
-  modifiers: {'style': 'bayesian'},
+  tweaks: {'style': 'bayesian'},
 );

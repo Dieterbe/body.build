@@ -162,11 +162,11 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   }
 
   Widget _buildSetsList() {
-    // Group sets by exercise, modifiers, and cues
+    // Group sets by exercise, tweaks, and cues
     final groupedSets = <String, List<model.WorkoutSet>>{};
     for (final set in workout!.sets) {
-      // Create a composite key that includes exercise ID, modifiers, and cues
-      final modifiersKey = set.modifiers.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
+      // Create a composite key that includes exercise ID, tweaks, and cues
+      final tweaksKey = set.tweaks.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
       final cuesKey =
           set.cues.entries
               .where((e) => e.value) // Only include enabled cues
@@ -174,7 +174,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
               .toList()
             ..sort();
 
-      final groupKey = '${set.exerciseId}|${modifiersKey.join(',')}|${cuesKey.join(',')}';
+      final groupKey = '${set.exerciseId}|${tweaksKey.join(',')}|${cuesKey.join(',')}';
       groupedSets.putIfAbsent(groupKey, () => []).add(set);
     }
 
@@ -190,11 +190,11 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
   }
 
-  // sets is guaranteed to be non-empty, and all sets have the same exerciseId, cues and modifiers
+  // sets is guaranteed to be non-empty, and all sets have the same exerciseId, cues and tweaks
   Widget _buildExerciseGroup(List<model.WorkoutSet> sets) {
     final exerciseId = sets.first.exerciseId;
     final cues = sets.first.cues;
-    final modifiers = sets.first.modifiers;
+    final tweaks = sets.first.tweaks;
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -213,7 +213,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () => _addSetForExercise(exerciseId, cues, modifiers),
+                  onPressed: () => _addSetForExercise(exerciseId, cues, tweaks),
                   icon: const Icon(Icons.add, size: 16),
                   label: const Text('Add Set'),
                   style: TextButton.styleFrom(
@@ -252,7 +252,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   void _addSetForExercise(
     String exerciseId,
     Map<String, bool> cues,
-    Map<String, String> modifiers,
+    Map<String, String> tweaks,
   ) async {
     // Show dialog to get set data
     final setData = await showDialog<Map<String, dynamic>>(
@@ -268,7 +268,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       await workoutManager.addSet(
         workoutId: workout!.id,
         exerciseId: exerciseId,
-        modifiers: modifiers,
+        tweaks: tweaks,
         cues: cues,
         weight: setData['weight'] as double?,
         reps: setData['reps'] as int?,

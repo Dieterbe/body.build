@@ -6,9 +6,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'set_group.freezed.dart';
 part 'set_group.g.dart';
 
-/// Migrates a map of modifier options
-/// at some point we stopped allowing '&' in modifier options, so they encode easier into json
-Map<String, String> migrateModifierOptions(Map<String, String> options) {
+/// Migrates a map of tweak options
+/// at some point we stopped allowing '&' in tweak options, so they encode easier into json
+Map<String, String> migrateTweakOptions(Map<String, String> options) {
   return options.map((key, value) => MapEntry(key, value.replaceFirst('&', 'and')));
 }
 
@@ -20,20 +20,19 @@ abstract class Sets with _$Sets {
     @JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex,
     @Default(1) int n,
     @JsonKey(includeToJson: false) @Default(false) bool changeEx,
-    @Default({}) Map<String, String> modifierOptions, // Map of modifier name to selected option
+    @Default({}) Map<String, String> tweakOptions, // Map of tweak name to selected option
     @Default({}) Map<String, bool> cueOptions, // Map of cue name to enabled state
   }) = _Sets;
 
-  factory Sets.fromJson(Map<String, dynamic> json) =>
-      _$SetsFromJson(json)._migrateModifierOptions();
+  factory Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json)._migrateTweakOptions();
 
-  Sets _migrateModifierOptions() {
-    return copyWith(modifierOptions: migrateModifierOptions(modifierOptions));
+  Sets _migrateTweakOptions() {
+    return copyWith(tweakOptions: migrateTweakOptions(tweakOptions));
   }
 
   double recruitmentFiltered(ProgramGroup pg, double cutoff) {
     if (ex == null) return 0.0;
-    return ex!.recruitmentFiltered(pg, modifierOptions, cutoff).volume * n;
+    return ex!.recruitmentFiltered(pg, tweakOptions, cutoff).volume * n;
   }
 
   // note: this isn't quite the same as programgroups.
@@ -43,7 +42,7 @@ abstract class Sets with _$Sets {
 
     // Get all unique non-null isolationKeys from ProgramGroups with significant recruitment
     final img = ProgramGroup.values
-        .where((pg) => ex!.recruitmentFiltered(pg, modifierOptions, 0.5).volume > 0)
+        .where((pg) => ex!.recruitmentFiltered(pg, tweakOptions, 0.5).volume > 0)
         .map((pg) => pg.isolationKey)
         .toSet();
 
@@ -60,31 +59,30 @@ abstract class Sets with _$Sets {
   // Filter ratings that are compatible with current set configuration
   Iterable<Rating> getApplicableRatings() {
     if (ex == null) return [];
-    return _getApplicableRatings(ex!.ratings, modifierOptions, cueOptions);
+    return _getApplicableRatings(ex!.ratings, tweakOptions, cueOptions);
   }
 
   // Get applicable ratings for a specific configuration
   Iterable<Rating> getApplicableRatingsForConfig(
-    Map<String, String> modifierConfig,
+    Map<String, String> tweakConfig,
     Map<String, bool> cueConfig,
   ) {
     if (ex == null) return [];
-    return _getApplicableRatings(ex!.ratings, modifierConfig, cueConfig);
+    return _getApplicableRatings(ex!.ratings, tweakConfig, cueConfig);
   }
 
   // Helper method to filter ratings based on configuration
   Iterable<Rating> _getApplicableRatings(
     List<Rating> ratings,
-    Map<String, String> modifierConfig,
+    Map<String, String> tweakConfig,
     Map<String, bool> cueConfig,
   ) {
     return ratings.where((rating) {
       // HERE get rating
-      // Check if all required modifiers are configured correctly
-      for (final entry in rating.modifiers.entries) {
+      // Check if all required tweaks are configured correctly
+      for (final entry in rating.tweaks.entries) {
         final selectedOption =
-            modifierConfig[entry.key] ??
-            ex!.modifiers.firstWhere((m) => m.name == entry.key).defaultVal;
+            tweakConfig[entry.key] ?? ex!.tweaks.firstWhere((m) => m.name == entry.key).defaultVal;
         if (selectedOption != entry.value) return false;
       }
 
