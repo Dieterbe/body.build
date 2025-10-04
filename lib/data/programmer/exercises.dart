@@ -65,6 +65,22 @@ class Ex {
   double totalRecruitmentFiltered(double cutoff, Map<String, String> tweakOptions) => ProgramGroup
       .values
       .fold(0.0, (sum, group) => sum + recruitmentFiltered(group, tweakOptions, cutoff).volume);
+
+  /// Returns tweaks that may affect recruitment or ratings for the target muscle group
+  /// For each tweak, include all its options. Only some may actually affect recruitment/rating
+  Map<String, List<String>> getRelevantTweaks(ProgramGroup g) {
+    return Map.fromEntries(
+      tweaks
+          .where((tweak) {
+            final affectsRecruitment = tweak.opts.entries.any((opt) => opt.value.$1.containsKey(g));
+            final affectsRating = ratings.any(
+              (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
+            );
+            return affectsRecruitment || affectsRating;
+          })
+          .map((tweak) => MapEntry(tweak.name, tweak.opts.keys.toList())),
+    );
+  }
 }
 
 // TODO add pullup negatives. this is not eccentric overloads (those still have concentric)

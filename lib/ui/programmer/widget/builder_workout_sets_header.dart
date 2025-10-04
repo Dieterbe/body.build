@@ -133,49 +133,6 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
         .toList(),
   );
 
-  Iterable<Sets> toDifferingRecruitmentOrRatingSets(Ex ex, Parameters params, ProgramGroup g) {
-    final relevantTweaks = _getRelevantTweaks(ex, g);
-
-    if (relevantTweaks.isEmpty) {
-      return [Sets(params.intensities.first, ex: ex, tweakOptions: {})];
-    }
-
-    final combinations = _generateTweakCombinations(relevantTweaks);
-
-    return combinations.map(
-      (tweakOptions) => Sets(params.intensities.first, ex: ex, tweakOptions: tweakOptions),
-    );
-  }
-
-  /// Returns tweaks that may affect recruitment or ratings for the target muscle group
-  /// For each tweak, include all its options. Only some may actually affect recruitment/rating
-  Map<String, List<String>> _getRelevantTweaks(Ex ex, ProgramGroup g) {
-    return Map.fromEntries(
-      ex.tweaks
-          .where((tweak) {
-            final affectsRecruitment = tweak.opts.entries.any((opt) => opt.value.$1.containsKey(g));
-            final affectsRating = ex.ratings.any(
-              (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
-            );
-            return affectsRecruitment || affectsRating;
-          })
-          .map((tweak) => MapEntry(tweak.name, tweak.opts.keys.toList())),
-    );
-  }
-
-  /// Generates cartesian product of tweak options
-  /// Example: {ROM: [full, partial], grip: [normal, extra]}
-  ///       → [{ROM: full, grip: normal}, {ROM: full, grip: extra}, ...]
-  List<Map<String, String>> _generateTweakCombinations(Map<String, List<String>> tweakOptions) {
-    return tweakOptions.entries.fold<List<Map<String, String>>>(
-      [{}],
-      (combinations, tweakOpts) => [
-        for (final combo in combinations)
-          for (final val in tweakOpts.value) {...combo, tweakOpts.key: val},
-      ],
-    );
-  }
-
   Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) => SimpleDialog(
     contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
     title: Column(
@@ -204,7 +161,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
             optionsBuilder: (textEditingValue) {
               final opts = setup
                   .getAvailableExercises(query: textEditingValue.text)
-                  .expand((e) => toDifferingRecruitmentOrRatingSets(e, setup.paramFinal, g))
+                  .expand((e) => Sets.toDifferingRecruitmentOrRatingSets(e, setup.paramFinal, g))
                   .where((e) => e.recruitmentFiltered(g, 0) > 0)
                   .toList();
               opts.sort((a, b) {

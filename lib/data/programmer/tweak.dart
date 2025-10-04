@@ -15,6 +15,19 @@ class Tweak {
   final String? desc;
 
   const Tweak(this.name, this.defaultVal, this.opts, {this.desc});
+
+  /// Generates cartesian product of tweak options
+  /// Example: {ROM: [full, partial], grip: [normal, extra]}
+  ///       → [{ROM: full, grip: normal}, {ROM: full, grip: extra}, ...]
+  static List<Map<String, String>> generateCombinations(Map<String, List<String>> tweakOptions) {
+    return tweakOptions.entries.fold<List<Map<String, String>>>(
+      [{}],
+      (combinations, tweakOpts) => [
+        for (final combo in combinations)
+          for (final val in tweakOpts.value) {...combo, tweakOpts.key: val},
+      ],
+    );
+  }
 }
 
 // BEWARE: tweak names and option names go into URL's, so don't use special chars

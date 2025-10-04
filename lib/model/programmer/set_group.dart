@@ -1,6 +1,8 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
+import 'package:bodybuild/data/programmer/tweak.dart' as Tweak;
+import 'package:bodybuild/model/programmer/parameters.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'set_group.freezed.dart';
@@ -77,6 +79,24 @@ abstract class Sets with _$Sets {
             (tweakConfig[tweak.key] ??
                 ex!.tweaks.firstWhere((m) => m.name == tweak.key).defaultVal),
       ),
+    );
+  }
+
+  static Iterable<Sets> toDifferingRecruitmentOrRatingSets(
+    Ex ex,
+    Parameters params,
+    ProgramGroup g,
+  ) {
+    final relevantTweaks = ex.getRelevantTweaks(g);
+
+    if (relevantTweaks.isEmpty) {
+      return [Sets(params.intensities.first, ex: ex, tweakOptions: {})];
+    }
+
+    final combinations = Tweak.generateCombinations(relevantTweaks);
+
+    return combinations.map(
+      (tweakOptions) => Sets(params.intensities.first, ex: ex, tweakOptions: tweakOptions),
     );
   }
 }
