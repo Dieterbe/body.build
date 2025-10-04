@@ -2,7 +2,6 @@ import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list_empty.dart';
-import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

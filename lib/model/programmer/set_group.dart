@@ -1,7 +1,7 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
-import 'package:bodybuild/data/programmer/tweak.dart' as Tweak;
+import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/model/programmer/parameters.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
