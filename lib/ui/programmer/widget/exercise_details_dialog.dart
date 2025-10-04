@@ -236,97 +236,101 @@ In the future, you'll be able to add your own custom tweaks as well.
           ),
           const SizedBox(height: 24),
         ],
-        if (localSets.ex?.tweaks.isEmpty == false)
-          // ignore: prefer-null-aware-spread
-          ...localSets.ex!.tweaks.map(
-            (tweak) => Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Tweak: ${tweak.name.capitalizeFirstOnlyButKeepAcronym()}",
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key)))
-                            .map((opt) {
-                              final optionDesc = opt.value.$2;
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+        Text(
+          'Tweaks',
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
+        ),
+        ...?localSets.ex?.tweaks.map(
+          (tweak) => Padding(
+            padding: const EdgeInsets.only(bottom: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  tweak.name.capitalizeFirstOnlyButKeepAcronym(),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((
+                        opt,
+                      ) {
+                        final optionDesc = opt.value.$2;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RadioListTile<String>(
+                              title: Row(
                                 children: [
-                                  RadioListTile<String>(
-                                    title: Row(
-                                      children: [
-                                        Text(opt.key),
-                                        const SizedBox(width: 8),
-                                        _buildRatingIcon(
-                                          tweakName: tweak.name,
-                                          tweakValue: opt.key,
-                                          context: context,
-                                        ),
-                                        if (opt.key == tweak.defaultVal) ...[
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            '(default)',
-                                            style: TextStyle(
-                                              fontSize: MediaQuery.of(context).size.width / 120,
-                                              color: Theme.of(context).hintColor,
-                                              fontStyle: FontStyle.italic,
-                                            ),
-                                          ),
-                                        ],
-                                      ],
-                                    ),
-                                    value: opt.key,
-                                    groupValue:
-                                        localSets.tweakOptions[tweak.name] ?? tweak.defaultVal,
-                                    onChanged: widget.onChangeTweaks != null
-                                        ? (value) {
-                                            if (value != null) {
-                                              onChangeTweaks(
-                                                localSets.copyWith(
-                                                  tweakOptions: {
-                                                    ...localSets.tweakOptions,
-                                                    tweak.name: value,
-                                                  },
-                                                ),
-                                              );
-                                            }
-                                          }
-                                        : null,
-                                    contentPadding: EdgeInsets.zero,
+                                  Text(opt.key),
+                                  const SizedBox(width: 8),
+                                  _buildRatingIcon(
+                                    tweakName: tweak.name,
+                                    tweakValue: opt.key,
+                                    context: context,
                                   ),
-                                  if (optionDesc.isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 56, bottom: 8),
-                                      child: markdown(optionDesc, context),
+                                  if (opt.key == tweak.defaultVal) ...[
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      '(default)',
+                                      style: TextStyle(
+                                        fontSize: MediaQuery.of(context).size.width / 120,
+                                        color: Theme.of(context).hintColor,
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     ),
+                                  ],
                                 ],
-                              );
-                            }),
-                        if (tweak.desc != null) ...[
-                          const SizedBox(height: 16),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 2),
-                            child: markdown(tweak.desc!, context),
-                          ),
-                        ],
+                              ),
+                              value: opt.key,
+                              groupValue: localSets.tweakOptions[tweak.name] ?? tweak.defaultVal,
+                              onChanged: widget.onChangeTweaks != null
+                                  ? (value) {
+                                      if (value != null) {
+                                        onChangeTweaks(
+                                          localSets.copyWith(
+                                            tweakOptions: {
+                                              ...localSets.tweakOptions,
+                                              tweak.name: value,
+                                            },
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  : null,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                            if (optionDesc.isNotEmpty)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 56, bottom: 8),
+                                child: markdown(optionDesc, context),
+                              ),
+                          ],
+                        );
+                      }),
+                      if (tweak.desc != null) ...[
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2),
+                          child: markdown(tweak.desc!, context),
+                        ),
                       ],
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
+        ),
       ],
     );
   }
