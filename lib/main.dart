@@ -1,4 +1,4 @@
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/ui/anatomy/page/articulation.dart';
@@ -107,10 +107,10 @@ class MyApp extends StatelessWidget {
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
 
-                      // TODO validation of id and modifiers
+                      // TODO validation of id and tweaks
                       return ExercisesScreen(
                         exerciseId: parseExerciseId(id),
-                        modifierOptions: parseExerciseParams(state.uri.queryParameters),
+                        tweakOptions: parseExerciseParams(state.uri.queryParameters),
                       );
                     },
                   ),

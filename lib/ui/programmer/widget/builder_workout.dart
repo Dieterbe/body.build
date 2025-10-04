@@ -1,4 +1,5 @@
 import 'package:bodybuild/ui/programmer/widget/add_set_button.dart';
+import 'package:bodybuild/util/iterable_extension.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
@@ -10,7 +11,6 @@ import 'package:bodybuild/ui/programmer/widget/builder_workout_sets_header.dart'
 import 'package:bodybuild/ui/programmer/widget/drag_target.dart';
 import 'package:bodybuild/ui/programmer/widget/draggable_setgroup.dart';
 import 'package:bodybuild/ui/programmer/widget/drop_bar.dart';
-import 'package:bodybuild/util.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 class BuilderWorkoutWidget extends StatelessWidget {

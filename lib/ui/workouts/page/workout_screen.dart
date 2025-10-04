@@ -9,7 +9,7 @@ import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -162,19 +162,12 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   }
 
   Widget _buildSetsList() {
-    // Group sets by exercise, modifiers, and cues
+    // Group sets by exercise and tweaks
     final groupedSets = <String, List<model.WorkoutSet>>{};
     for (final set in workout!.sets) {
-      // Create a composite key that includes exercise ID, modifiers, and cues
-      final modifiersKey = set.modifiers.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
-      final cuesKey =
-          set.cues.entries
-              .where((e) => e.value) // Only include enabled cues
-              .map((e) => e.key)
-              .toList()
-            ..sort();
-
-      final groupKey = '${set.exerciseId}|${modifiersKey.join(',')}|${cuesKey.join(',')}';
+      // Create a composite key that includes exercise ID and tweaks
+      final tweaksKey = set.tweaks.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
+      final groupKey = '${set.exerciseId}|${tweaksKey.join(',')}}';
       groupedSets.putIfAbsent(groupKey, () => []).add(set);
     }
 
@@ -190,11 +183,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
   }
 
-  // sets is guaranteed to be non-empty, and all sets have the same exerciseId, cues and modifiers
+  // sets is guaranteed to be non-empty, and all sets have the same exerciseId and tweaks
   Widget _buildExerciseGroup(List<model.WorkoutSet> sets) {
     final exerciseId = sets.first.exerciseId;
-    final cues = sets.first.cues;
-    final modifiers = sets.first.modifiers;
+    final tweaks = sets.first.tweaks;
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -213,7 +205,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () => _addSetForExercise(exerciseId, cues, modifiers),
+                  onPressed: () => _addSetForExercise(exerciseId, tweaks),
                   icon: const Icon(Icons.add, size: 16),
                   label: const Text('Add Set'),
                   style: TextButton.styleFrom(
@@ -243,17 +235,13 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       builder: (context) => ExercisePickerSheet(
         onExerciseSelected: (exerciseId) {
           Navigator.of(context).pop();
-          _addSetForExercise(exerciseId, {}, {});
+          _addSetForExercise(exerciseId, {});
         },
       ),
     );
   }
 
-  void _addSetForExercise(
-    String exerciseId,
-    Map<String, bool> cues,
-    Map<String, String> modifiers,
-  ) async {
+  void _addSetForExercise(String exerciseId, Map<String, String> tweaks) async {
     // Show dialog to get set data
     final setData = await showDialog<Map<String, dynamic>>(
       context: context,
@@ -268,8 +256,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       await workoutManager.addSet(
         workoutId: workout!.id,
         exerciseId: exerciseId,
-        modifiers: modifiers,
-        cues: cues,
+        tweaks: tweaks,
         weight: setData['weight'] as double?,
         reps: setData['reps'] as int?,
         rir: setData['rir'] as int?,

@@ -5,7 +5,7 @@ import 'package:bodybuild/ui/anatomy/page/muscle.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_outline.dart';
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 
 class MusclesScreen extends StatefulWidget {
   static const routeName = 'muscles';

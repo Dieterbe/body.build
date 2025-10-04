@@ -11,7 +11,7 @@ The exercise browser implements routable exercise details with variation groupin
 ### Base Routes
 - `/exercises` - Exercise browser with filters and list
 - `/exercises/{exercise-id}` - Exercise browser with specific exercise selected
-- `/exercises/{exercise-id}?mod_{key}={value}` - Exercise with modifier options
+- `/exercises/{exercise-id}?t_{key}={value}` - Exercise with tweak options
 
 ### URL Encoding Rules
 Following character restrictions in `exercises.dart`:
@@ -22,7 +22,7 @@ Following character restrictions in `exercises.dart`:
 ### Examples
 ```
 /exercises/standing_barbell_squat
-/exercises/standing_barbell_squat?mod_stance=wide&mod_grip=overhand
+/exercises/standing_barbell_squat?t_stance=wide&t_grip=overhand
 ```
 
 ## Architecture
@@ -48,25 +48,25 @@ Following character restrictions in `exercises.dart`:
 ### Display Logic
 - Base exercises show with expand/collapse functionality
 - Variation count badges indicate total variations available
-- Modifier options displayed as chips for each variation
-- Clicking variations selects base exercise with specific modifier options
+- Tweak options displayed as chips for each variation
+- Clicking variations selects base exercise with specific tweak options
 
 ### Variation Generation
-Uses `_generateExerciseVariations()` to create all possible combinations of exercise modifiers for display purposes (not actual workout parameters).
+Uses `_generateExerciseVariations()` to create all possible combinations of exercise tweaks for display purposes (not actual workout parameters).
 
 ## URL Utility Functions
 
 Located in `/lib/util/url.dart`:
 
 ### Core Functions
-- `buildExerciseDetailUrl(exerciseId, modifierOptions)` - Builds encoded URLs
-- `parseExerciseParams(queryParameters)` - Parses modifier options from URLs
+- `buildExerciseDetailUrl(exerciseId, tweakOptions)` - Builds encoded URLs
+- `parseExerciseParams(queryParameters)` - Parses tweak options from URLs
 - `parseExerciseId(pathId)` - Decodes exercise ID from URL path
 
 ### Encoding/Decoding
 - **Encoding**: Spaces → underscores before URL construction
 - **Decoding**: Underscores → spaces after URL parsing
-- **Modifier Prefix**: `mod_` prefix added/stripped during URL processing
+- **Tweak Prefix**: `t_` prefix added/stripped during URL processing
 
 ## Routing Implementation
 
@@ -83,7 +83,7 @@ GoRoute(
         final id = state.pathParameters['id']!;
         return ExercisesScreen(
           exerciseId: parseExerciseId(id),
-          modifierOptions: parseExerciseParams(state.uri.queryParameters)
+          tweakOptions: parseExerciseParams(state.uri.queryParameters)
         );
       },
     ),

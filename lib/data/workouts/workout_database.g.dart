@@ -410,19 +410,10 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _modifiersMeta = const VerificationMeta('modifiers');
+  static const VerificationMeta _tweaksMeta = const VerificationMeta('tweaks');
   @override
-  late final GeneratedColumn<String> modifiers = GeneratedColumn<String>(
-    'modifiers',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _cuesMeta = const VerificationMeta('cues');
-  @override
-  late final GeneratedColumn<String> cues = GeneratedColumn<String>(
-    'cues',
+  late final GeneratedColumn<String> tweaks = GeneratedColumn<String>(
+    'tweaks',
     aliasedName,
     false,
     type: DriftSqlType.string,
@@ -487,8 +478,7 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
     id,
     workoutId,
     exerciseId,
-    modifiers,
-    cues,
+    tweaks,
     weight,
     reps,
     rir,
@@ -529,18 +519,10 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
     } else if (isInserting) {
       context.missing(_exerciseIdMeta);
     }
-    if (data.containsKey('modifiers')) {
-      context.handle(
-        _modifiersMeta,
-        modifiers.isAcceptableOrUnknown(data['modifiers']!, _modifiersMeta),
-      );
+    if (data.containsKey('tweaks')) {
+      context.handle(_tweaksMeta, tweaks.isAcceptableOrUnknown(data['tweaks']!, _tweaksMeta));
     } else if (isInserting) {
-      context.missing(_modifiersMeta);
-    }
-    if (data.containsKey('cues')) {
-      context.handle(_cuesMeta, cues.isAcceptableOrUnknown(data['cues']!, _cuesMeta));
-    } else if (isInserting) {
-      context.missing(_cuesMeta);
+      context.missing(_tweaksMeta);
     }
     if (data.containsKey('weight')) {
       context.handle(_weightMeta, weight.isAcceptableOrUnknown(data['weight']!, _weightMeta));
@@ -591,11 +573,10 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
         DriftSqlType.string,
         data['${effectivePrefix}exercise_id'],
       )!,
-      modifiers: attachedDatabase.typeMapping.read(
+      tweaks: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}modifiers'],
+        data['${effectivePrefix}tweaks'],
       )!,
-      cues: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}cues'])!,
       weight: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}weight'],
@@ -627,8 +608,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
   final String id;
   final String workoutId;
   final String exerciseId;
-  final String modifiers;
-  final String cues;
+  final String tweaks;
   final double? weight;
   final int? reps;
   final int? rir;
@@ -639,8 +619,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     required this.id,
     required this.workoutId,
     required this.exerciseId,
-    required this.modifiers,
-    required this.cues,
+    required this.tweaks,
     this.weight,
     this.reps,
     this.rir,
@@ -654,8 +633,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     map['id'] = Variable<String>(id);
     map['workout_id'] = Variable<String>(workoutId);
     map['exercise_id'] = Variable<String>(exerciseId);
-    map['modifiers'] = Variable<String>(modifiers);
-    map['cues'] = Variable<String>(cues);
+    map['tweaks'] = Variable<String>(tweaks);
     if (!nullToAbsent || weight != null) {
       map['weight'] = Variable<double>(weight);
     }
@@ -678,8 +656,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       id: Value(id),
       workoutId: Value(workoutId),
       exerciseId: Value(exerciseId),
-      modifiers: Value(modifiers),
-      cues: Value(cues),
+      tweaks: Value(tweaks),
       weight: weight == null && nullToAbsent ? const Value.absent() : Value(weight),
       reps: reps == null && nullToAbsent ? const Value.absent() : Value(reps),
       rir: rir == null && nullToAbsent ? const Value.absent() : Value(rir),
@@ -695,8 +672,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       id: serializer.fromJson<String>(json['id']),
       workoutId: serializer.fromJson<String>(json['workoutId']),
       exerciseId: serializer.fromJson<String>(json['exerciseId']),
-      modifiers: serializer.fromJson<String>(json['modifiers']),
-      cues: serializer.fromJson<String>(json['cues']),
+      tweaks: serializer.fromJson<String>(json['tweaks']),
       weight: serializer.fromJson<double?>(json['weight']),
       reps: serializer.fromJson<int?>(json['reps']),
       rir: serializer.fromJson<int?>(json['rir']),
@@ -712,8 +688,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       'id': serializer.toJson<String>(id),
       'workoutId': serializer.toJson<String>(workoutId),
       'exerciseId': serializer.toJson<String>(exerciseId),
-      'modifiers': serializer.toJson<String>(modifiers),
-      'cues': serializer.toJson<String>(cues),
+      'tweaks': serializer.toJson<String>(tweaks),
       'weight': serializer.toJson<double?>(weight),
       'reps': serializer.toJson<int?>(reps),
       'rir': serializer.toJson<int?>(rir),
@@ -727,8 +702,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     String? id,
     String? workoutId,
     String? exerciseId,
-    String? modifiers,
-    String? cues,
+    String? tweaks,
     Value<double?> weight = const Value.absent(),
     Value<int?> reps = const Value.absent(),
     Value<int?> rir = const Value.absent(),
@@ -739,8 +713,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     id: id ?? this.id,
     workoutId: workoutId ?? this.workoutId,
     exerciseId: exerciseId ?? this.exerciseId,
-    modifiers: modifiers ?? this.modifiers,
-    cues: cues ?? this.cues,
+    tweaks: tweaks ?? this.tweaks,
     weight: weight.present ? weight.value : this.weight,
     reps: reps.present ? reps.value : this.reps,
     rir: rir.present ? rir.value : this.rir,
@@ -753,8 +726,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       id: data.id.present ? data.id.value : this.id,
       workoutId: data.workoutId.present ? data.workoutId.value : this.workoutId,
       exerciseId: data.exerciseId.present ? data.exerciseId.value : this.exerciseId,
-      modifiers: data.modifiers.present ? data.modifiers.value : this.modifiers,
-      cues: data.cues.present ? data.cues.value : this.cues,
+      tweaks: data.tweaks.present ? data.tweaks.value : this.tweaks,
       weight: data.weight.present ? data.weight.value : this.weight,
       reps: data.reps.present ? data.reps.value : this.reps,
       rir: data.rir.present ? data.rir.value : this.rir,
@@ -770,8 +742,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
           ..write('id: $id, ')
           ..write('workoutId: $workoutId, ')
           ..write('exerciseId: $exerciseId, ')
-          ..write('modifiers: $modifiers, ')
-          ..write('cues: $cues, ')
+          ..write('tweaks: $tweaks, ')
           ..write('weight: $weight, ')
           ..write('reps: $reps, ')
           ..write('rir: $rir, ')
@@ -787,8 +758,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     id,
     workoutId,
     exerciseId,
-    modifiers,
-    cues,
+    tweaks,
     weight,
     reps,
     rir,
@@ -803,8 +773,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
           other.id == this.id &&
           other.workoutId == this.workoutId &&
           other.exerciseId == this.exerciseId &&
-          other.modifiers == this.modifiers &&
-          other.cues == this.cues &&
+          other.tweaks == this.tweaks &&
           other.weight == this.weight &&
           other.reps == this.reps &&
           other.rir == this.rir &&
@@ -817,8 +786,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
   final Value<String> id;
   final Value<String> workoutId;
   final Value<String> exerciseId;
-  final Value<String> modifiers;
-  final Value<String> cues;
+  final Value<String> tweaks;
   final Value<double?> weight;
   final Value<int?> reps;
   final Value<int?> rir;
@@ -830,8 +798,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     this.id = const Value.absent(),
     this.workoutId = const Value.absent(),
     this.exerciseId = const Value.absent(),
-    this.modifiers = const Value.absent(),
-    this.cues = const Value.absent(),
+    this.tweaks = const Value.absent(),
     this.weight = const Value.absent(),
     this.reps = const Value.absent(),
     this.rir = const Value.absent(),
@@ -844,8 +811,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     required String id,
     required String workoutId,
     required String exerciseId,
-    required String modifiers,
-    required String cues,
+    required String tweaks,
     this.weight = const Value.absent(),
     this.reps = const Value.absent(),
     this.rir = const Value.absent(),
@@ -856,16 +822,14 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
   }) : id = Value(id),
        workoutId = Value(workoutId),
        exerciseId = Value(exerciseId),
-       modifiers = Value(modifiers),
-       cues = Value(cues),
+       tweaks = Value(tweaks),
        timestamp = Value(timestamp),
        setOrder = Value(setOrder);
   static Insertable<WorkoutSet> custom({
     Expression<String>? id,
     Expression<String>? workoutId,
     Expression<String>? exerciseId,
-    Expression<String>? modifiers,
-    Expression<String>? cues,
+    Expression<String>? tweaks,
     Expression<double>? weight,
     Expression<int>? reps,
     Expression<int>? rir,
@@ -878,8 +842,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
       if (id != null) 'id': id,
       if (workoutId != null) 'workout_id': workoutId,
       if (exerciseId != null) 'exercise_id': exerciseId,
-      if (modifiers != null) 'modifiers': modifiers,
-      if (cues != null) 'cues': cues,
+      if (tweaks != null) 'tweaks': tweaks,
       if (weight != null) 'weight': weight,
       if (reps != null) 'reps': reps,
       if (rir != null) 'rir': rir,
@@ -894,8 +857,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     Value<String>? id,
     Value<String>? workoutId,
     Value<String>? exerciseId,
-    Value<String>? modifiers,
-    Value<String>? cues,
+    Value<String>? tweaks,
     Value<double?>? weight,
     Value<int?>? reps,
     Value<int?>? rir,
@@ -908,8 +870,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
       id: id ?? this.id,
       workoutId: workoutId ?? this.workoutId,
       exerciseId: exerciseId ?? this.exerciseId,
-      modifiers: modifiers ?? this.modifiers,
-      cues: cues ?? this.cues,
+      tweaks: tweaks ?? this.tweaks,
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       rir: rir ?? this.rir,
@@ -932,11 +893,8 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     if (exerciseId.present) {
       map['exercise_id'] = Variable<String>(exerciseId.value);
     }
-    if (modifiers.present) {
-      map['modifiers'] = Variable<String>(modifiers.value);
-    }
-    if (cues.present) {
-      map['cues'] = Variable<String>(cues.value);
+    if (tweaks.present) {
+      map['tweaks'] = Variable<String>(tweaks.value);
     }
     if (weight.present) {
       map['weight'] = Variable<double>(weight.value);
@@ -968,8 +926,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
           ..write('id: $id, ')
           ..write('workoutId: $workoutId, ')
           ..write('exerciseId: $exerciseId, ')
-          ..write('modifiers: $modifiers, ')
-          ..write('cues: $cues, ')
+          ..write('tweaks: $tweaks, ')
           ..write('weight: $weight, ')
           ..write('reps: $reps, ')
           ..write('rir: $rir, ')
@@ -1264,8 +1221,7 @@ typedef $$WorkoutSetsTableCreateCompanionBuilder =
       required String id,
       required String workoutId,
       required String exerciseId,
-      required String modifiers,
-      required String cues,
+      required String tweaks,
       Value<double?> weight,
       Value<int?> reps,
       Value<int?> rir,
@@ -1279,8 +1235,7 @@ typedef $$WorkoutSetsTableUpdateCompanionBuilder =
       Value<String> id,
       Value<String> workoutId,
       Value<String> exerciseId,
-      Value<String> modifiers,
-      Value<String> cues,
+      Value<String> tweaks,
       Value<double?> weight,
       Value<int?> reps,
       Value<int?> rir,
@@ -1324,11 +1279,8 @@ class $$WorkoutSetsTableFilterComposer extends Composer<_$WorkoutDatabase, $Work
   ColumnFilters<String> get exerciseId =>
       $composableBuilder(column: $table.exerciseId, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get modifiers =>
-      $composableBuilder(column: $table.modifiers, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get cues =>
-      $composableBuilder(column: $table.cues, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get tweaks =>
+      $composableBuilder(column: $table.tweaks, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<double> get weight =>
       $composableBuilder(column: $table.weight, builder: (column) => ColumnFilters(column));
@@ -1381,11 +1333,8 @@ class $$WorkoutSetsTableOrderingComposer extends Composer<_$WorkoutDatabase, $Wo
   ColumnOrderings<String> get exerciseId =>
       $composableBuilder(column: $table.exerciseId, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get modifiers =>
-      $composableBuilder(column: $table.modifiers, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get cues =>
-      $composableBuilder(column: $table.cues, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get tweaks =>
+      $composableBuilder(column: $table.tweaks, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<double> get weight =>
       $composableBuilder(column: $table.weight, builder: (column) => ColumnOrderings(column));
@@ -1438,11 +1387,8 @@ class $$WorkoutSetsTableAnnotationComposer extends Composer<_$WorkoutDatabase, $
   GeneratedColumn<String> get exerciseId =>
       $composableBuilder(column: $table.exerciseId, builder: (column) => column);
 
-  GeneratedColumn<String> get modifiers =>
-      $composableBuilder(column: $table.modifiers, builder: (column) => column);
-
-  GeneratedColumn<String> get cues =>
-      $composableBuilder(column: $table.cues, builder: (column) => column);
+  GeneratedColumn<String> get tweaks =>
+      $composableBuilder(column: $table.tweaks, builder: (column) => column);
 
   GeneratedColumn<double> get weight =>
       $composableBuilder(column: $table.weight, builder: (column) => column);
@@ -1510,8 +1456,7 @@ class $$WorkoutSetsTableTableManager
                 Value<String> id = const Value.absent(),
                 Value<String> workoutId = const Value.absent(),
                 Value<String> exerciseId = const Value.absent(),
-                Value<String> modifiers = const Value.absent(),
-                Value<String> cues = const Value.absent(),
+                Value<String> tweaks = const Value.absent(),
                 Value<double?> weight = const Value.absent(),
                 Value<int?> reps = const Value.absent(),
                 Value<int?> rir = const Value.absent(),
@@ -1523,8 +1468,7 @@ class $$WorkoutSetsTableTableManager
                 id: id,
                 workoutId: workoutId,
                 exerciseId: exerciseId,
-                modifiers: modifiers,
-                cues: cues,
+                tweaks: tweaks,
                 weight: weight,
                 reps: reps,
                 rir: rir,
@@ -1538,8 +1482,7 @@ class $$WorkoutSetsTableTableManager
                 required String id,
                 required String workoutId,
                 required String exerciseId,
-                required String modifiers,
-                required String cues,
+                required String tweaks,
                 Value<double?> weight = const Value.absent(),
                 Value<int?> reps = const Value.absent(),
                 Value<int?> rir = const Value.absent(),
@@ -1551,8 +1494,7 @@ class $$WorkoutSetsTableTableManager
                 id: id,
                 workoutId: workoutId,
                 exerciseId: exerciseId,
-                modifiers: modifiers,
-                cues: cues,
+                tweaks: tweaks,
                 weight: weight,
                 reps: reps,
                 rir: rir,

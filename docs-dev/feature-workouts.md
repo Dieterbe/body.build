@@ -4,7 +4,7 @@
 
 The Body.build mobile app includes a workout feature that allows users to track
 their training sessions while at the gym, logging sets
-(along with their exercise, modifiers/cues, weight, reps, RIR, and comments)
+(along with their exercise, tweaks, weight, reps, RIR, and comments)
 
 Note: it could technically work on web and other platforms, but we don't want the support burden.
 So we tell the user to use the mobile app on a phone or tablet to use these features.
@@ -22,7 +22,7 @@ So we tell the user to use the mobile app on a phone or tablet to use these feat
 ## Implementation details
 
 * offline-only. no network usage.
-* use drift as database. cues&modifiers are stored as json
+* use drift as database. tweaks are stored as json
 * workout end datetime is null for active workouts
 * pages:
   - /workouts/ displays all workouts
@@ -35,13 +35,13 @@ user input (all optional):
 * selection dropdown to involve one or more muscles (Program Groups)
 
 option tiles:
-* display exercise name, ratings, modifiers and cues (similar to the "Add set For" dialog)
+* display exercise name, ratings and tweaks (similar to the "Add set For" dialog)
 * display muscle recruitments of all muscles with recruitment > 0.5, this visualization should be clear and concise
 
 ## Future Enhancements
 
 - **Workout Templates**: Pre-defined workout structures and those made with the programmer
-- **analytics** (performance progress, 1RM estimations, comparisons which modifiers work better, etc)
+- **analytics** (performance progress, 1RM estimations, comparisons which tweak work better, etc)
 - **Export Functionality**: Data export for external analysis
 - **Plate Calculator**: Weight calculation assistance
 - **Background Sync**: Cloud backup when network available

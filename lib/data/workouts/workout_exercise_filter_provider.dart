@@ -11,18 +11,12 @@ part 'workout_exercise_filter_provider.g.dart';
 class WorkoutExerciseFilterState {
   final String query;
   final ProgramGroup? selectedMuscleGroup;
-  final Set<String> expandedExercises;
 
-  const WorkoutExerciseFilterState({
-    this.query = '',
-    this.selectedMuscleGroup,
-    this.expandedExercises = const {},
-  });
+  const WorkoutExerciseFilterState({this.query = '', this.selectedMuscleGroup});
 
   WorkoutExerciseFilterState copyWith({
     String? query,
     ProgramGroup? selectedMuscleGroup,
-    Set<String>? expandedExercises,
     bool clearSelectedMuscleGroup = false,
   }) {
     return WorkoutExerciseFilterState(
@@ -30,7 +24,6 @@ class WorkoutExerciseFilterState {
       selectedMuscleGroup: clearSelectedMuscleGroup
           ? null
           : (selectedMuscleGroup ?? this.selectedMuscleGroup),
-      expandedExercises: expandedExercises ?? this.expandedExercises,
     );
   }
 }
@@ -49,16 +42,6 @@ class WorkoutExerciseFilter extends _$WorkoutExerciseFilter {
 
   void setMuscleGroup(ProgramGroup? group) {
     state = state.copyWith(selectedMuscleGroup: group, clearSelectedMuscleGroup: group == null);
-  }
-
-  void toggleExerciseExpansion(String exerciseId) {
-    final newExpanded = Set<String>.from(state.expandedExercises);
-    if (newExpanded.contains(exerciseId)) {
-      newExpanded.remove(exerciseId);
-    } else {
-      newExpanded.add(exerciseId);
-    }
-    state = state.copyWith(expandedExercises: newExpanded);
   }
 
   void reset() {

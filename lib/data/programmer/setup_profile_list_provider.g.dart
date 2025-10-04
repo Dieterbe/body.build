@@ -19,7 +19,9 @@ final class SetupProfileListProvider
           Map<String, Settings>,
           FutureOr<Map<String, Settings>>
         >
-    with $FutureModifier<Map<String, Settings>>, $FutureProvider<Map<String, Settings>> {
+    with
+        $FutureModifier<Map<String, Settings>>,
+        $FutureProvider<Map<String, Settings>> {
   const SetupProfileListProvider._()
     : super(
         from: null,
@@ -36,8 +38,9 @@ final class SetupProfileListProvider
 
   @$internal
   @override
-  $FutureProviderElement<Map<String, Settings>> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<Map<String, Settings>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<Map<String, Settings>> create(Ref ref) {

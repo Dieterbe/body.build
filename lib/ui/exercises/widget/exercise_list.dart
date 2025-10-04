@@ -10,26 +10,19 @@ class ExerciseList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filteredExercises = ref.watch(filteredExercisesProvider);
-    final filterState = ref.watch(exerciseFilterProvider);
     final selectedExercise = ref.watch(
       exerciseFilterProvider.select((state) => state.selectedExercise),
     );
 
     return ExerciseTileList(
       exercises: filteredExercises,
-      onExerciseSelected: (exerciseId, modifiers) {
+      onExerciseSelected: (exerciseId) {
         final exercise = filteredExercises.firstWhereOrNull((ex) => ex.id == exerciseId);
         if (exercise == null) return;
 
         // Toggle selection: if already selected, deselect
         final newSelection = selectedExercise?.id == exerciseId ? null : exercise;
-        ref
-            .read(exerciseFilterProvider.notifier)
-            .setSelectedExercise(newSelection, modifierOptions: modifiers);
-      },
-      expandedExercises: filterState.expandedExercises,
-      onToggleExpansion: (exerciseId) {
-        ref.read(exerciseFilterProvider.notifier).toggleExerciseExpansion(exerciseId);
+        ref.read(exerciseFilterProvider.notifier).setSelectedExercise(newSelection);
       },
       selectedExerciseId: selectedExercise?.id,
       showHeader: true,

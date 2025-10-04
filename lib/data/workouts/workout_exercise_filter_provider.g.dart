@@ -13,7 +13,8 @@ part of 'workout_exercise_filter_provider.dart';
 const workoutExerciseFilterProvider = WorkoutExerciseFilterProvider._();
 
 final class WorkoutExerciseFilterProvider
-    extends $NotifierProvider<WorkoutExerciseFilter, WorkoutExerciseFilterState> {
+    extends
+        $NotifierProvider<WorkoutExerciseFilter, WorkoutExerciseFilterState> {
   const WorkoutExerciseFilterProvider._()
     : super(
         from: null,
@@ -41,19 +42,26 @@ final class WorkoutExerciseFilterProvider
   }
 }
 
-String _$workoutExerciseFilterHash() => r'e2fee5333450e9660fe3144a8b75e8797920a603';
+String _$workoutExerciseFilterHash() =>
+    r'8e667aca2e10524aef5f73109effb5c661f2f114';
 
-abstract class _$WorkoutExerciseFilter extends $Notifier<WorkoutExerciseFilterState> {
+abstract class _$WorkoutExerciseFilter
+    extends $Notifier<WorkoutExerciseFilterState> {
   WorkoutExerciseFilterState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<WorkoutExerciseFilterState, WorkoutExerciseFilterState>;
+    final ref =
+        this.ref
+            as $Ref<WorkoutExerciseFilterState, WorkoutExerciseFilterState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<WorkoutExerciseFilterState, WorkoutExerciseFilterState>,
+              AnyNotifier<
+                WorkoutExerciseFilterState,
+                WorkoutExerciseFilterState
+              >,
               WorkoutExerciseFilterState,
               Object?,
               Object?
@@ -84,7 +92,8 @@ final class WorkoutFilteredExercisesProvider
 
   @$internal
   @override
-  $ProviderElement<List<Ex>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
+  $ProviderElement<List<Ex>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   List<Ex> create(Ref ref) {
@@ -93,8 +102,12 @@ final class WorkoutFilteredExercisesProvider
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<Ex> value) {
-    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<List<Ex>>(value));
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Ex>>(value),
+    );
   }
 }
 
-String _$workoutFilteredExercisesHash() => r'86e63f0cccc6c736265316f6d31a15e94317e390';
+String _$workoutFilteredExercisesHash() =>
+    r'86e63f0cccc6c736265316f6d31a15e94317e390';

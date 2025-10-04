@@ -12,7 +12,8 @@ part of 'exercise_filter_provider.dart';
 @ProviderFor(ExerciseFilter)
 const exerciseFilterProvider = ExerciseFilterProvider._();
 
-final class ExerciseFilterProvider extends $NotifierProvider<ExerciseFilter, ExerciseFilterState> {
+final class ExerciseFilterProvider
+    extends $NotifierProvider<ExerciseFilter, ExerciseFilterState> {
   const ExerciseFilterProvider._()
     : super(
         from: null,
@@ -40,7 +41,7 @@ final class ExerciseFilterProvider extends $NotifierProvider<ExerciseFilter, Exe
   }
 }
 
-String _$exerciseFilterHash() => r'15809543491672141c1af31f91989183dc61e4d2';
+String _$exerciseFilterHash() => r'dd5fcb92bae5888bddd445834aea2bfea40cf84b';
 
 abstract class _$ExerciseFilter extends $Notifier<ExerciseFilterState> {
   ExerciseFilterState build();
@@ -64,7 +65,8 @@ abstract class _$ExerciseFilter extends $Notifier<ExerciseFilterState> {
 @ProviderFor(filteredExercises)
 const filteredExercisesProvider = FilteredExercisesProvider._();
 
-final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List<Ex>, List<Ex>>
+final class FilteredExercisesProvider
+    extends $FunctionalProvider<List<Ex>, List<Ex>, List<Ex>>
     with $Provider<List<Ex>> {
   const FilteredExercisesProvider._()
     : super(
@@ -82,7 +84,8 @@ final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List
 
   @$internal
   @override
-  $ProviderElement<List<Ex>> $createElement($ProviderPointer pointer) => $ProviderElement(pointer);
+  $ProviderElement<List<Ex>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   List<Ex> create(Ref ref) {
@@ -91,8 +94,11 @@ final class FilteredExercisesProvider extends $FunctionalProvider<List<Ex>, List
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(List<Ex> value) {
-    return $ProviderOverride(origin: this, providerOverride: $SyncValueProvider<List<Ex>>(value));
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Ex>>(value),
+    );
   }
 }
 
-String _$filteredExercisesHash() => r'367bc968ad0c3ebe1d1468ca5bd1683689bdc998';
+String _$filteredExercisesHash() => r'fe9f99a94657a46c8c36b7b1b7c0db313a54be29';

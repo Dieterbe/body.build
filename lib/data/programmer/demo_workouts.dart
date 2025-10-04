@@ -3,7 +3,7 @@ import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 
-// TODO: need good tracking, ex not found -> posthog error. cue/modifier not found -> error, right now it's ignored
+// TODO: need good tracking, ex not found -> posthog error. tweak not found -> error, right now it's ignored
 const demo1ID = 'demo1';
 final demo1 = ProgramState(
   name: 'Demo Program 1 - Full body',
@@ -18,7 +18,7 @@ final demo1 = ProgramState(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'seated leg extension machine'),
-            modifierOptions: {'lean': 'back'},
+            tweakOptions: {'lean': 'back'},
           ),
           Sets(2, n: 2, ex: exes.firstWhere((e) => e.id == 'chest supported machine row')),
           Sets(2, n: 2, ex: exes.firstWhere((e) => e.id == 'chest press machine')),
@@ -29,7 +29,7 @@ final demo1 = ProgramState(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'dumbbell standing calf raise'),
-            cueOptions: {'after failure -> lengthened partial reps': true},
+            tweakOptions: {'ROM': 'full with lengthened partials beyond failure'},
           ),
           Sets(1, ex: exes.firstWhere((e) => e.id == 'dumbbell overhead tricep extension')),
           Sets(1, ex: exes.firstWhere((e) => e.id == 'lying dumbbell bicep curl')),
@@ -46,19 +46,19 @@ final demo1 = ProgramState(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'barbell squat'),
-            modifierOptions: {'bar': 'front', 'lower leg movement': 'back and forth'},
+            tweakOptions: {'bar': 'front', 'lower leg movement': 'back and forth'},
           ),
           Sets(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'seated cable row'),
-            modifierOptions: {'spine': 'dynamic'},
+            tweakOptions: {'spine': 'dynamic'},
           ),
           Sets(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'barbell bench press'),
-            modifierOptions: {'bench angle': '15'},
+            tweakOptions: {'bench angle': '15'},
           ),
         ]),
         SetGroup([
@@ -66,14 +66,14 @@ final demo1 = ProgramState(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'seated leg curl machine'),
-            modifierOptions: {'ankle dorsiflexed': 'yes'},
+            tweakOptions: {'ankle dorsiflexed': 'yes'},
           ),
           Sets(2, n: 2, ex: exes.firstWhere((e) => e.id == 'standing cable lateral raise')),
           Sets(
             2,
             n: 2,
             ex: exes.firstWhere((e) => e.id == 'standing cable bicep curl'),
-            modifierOptions: {'style': 'bayesian'},
+            tweakOptions: {'style': 'bayesian'},
           ),
           Sets(2, n: 2, ex: exes.firstWhere((e) => e.id == 'cable overhead tricep extension')),
           Sets(1, ex: exes.firstWhere((e) => e.id == 'dumbbell wrist curl')),

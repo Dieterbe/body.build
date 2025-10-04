@@ -3,21 +3,88 @@ import 'package:bodybuild/data/programmer/volume_assignment.dart';
 
 /*
 - If it's a different machine , it's a different exercise, is a valid way. Other way would be valid too. Comes down to preference I guess
-- Sometimes the type of machine / equipment affects the modifiers (e.g. for BSQ with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not). Doing everything as modifiers would complicate things
-- I guess it make sense that main equipment constitutes different exercise, modifiers are more for small tweaks
+- Sometimes the type of machine / equipment affects the tweaks (e.g. for BSQ with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not). Doing everything as tweaks would complicate things
+- I guess it make sense that main equipment constitutes different exercise, tweaks are more for small tweaks
 */
 typedef Option = (VolumeAssignment va, String desc);
 
-class Modifier {
+class Tweak {
   final String name;
   final String defaultVal;
   final Map<String, Option> opts;
   final String? desc;
 
-  const Modifier(this.name, this.defaultVal, this.opts, {this.desc});
+  const Tweak(this.name, this.defaultVal, this.opts, {this.desc});
+
+  /// Generates cartesian product of tweak options
+  /// Example: {ROM: [full, partial], grip: [normal, extra]}
+  ///       → [{ROM: full, grip: normal}, {ROM: full, grip: extra}, ...]
+  static List<Map<String, String>> generateCombinations(Map<String, List<String>> tweakOptions) {
+    return tweakOptions.entries.fold<List<Map<String, String>>>(
+      [{}],
+      (combinations, tweakOpts) => [
+        for (final combo in combinations)
+          for (final val in tweakOpts.value) {...combo, tweakOpts.key: val},
+      ],
+    );
+  }
 }
 
-const benchPressBenchAngle = Modifier(
+// BEWARE: tweak names and option names go into URL's, so don't use special chars
+const rom = Tweak("ROM", "full", {
+  "full": ({}, 'full range of motion'),
+  "full with extra time at stretch": ({}, 'full range of motion with extra time at stretch'),
+  "full with extra time at contraction": (
+    {},
+    'full range of motion with extra time at contraction',
+  ),
+  "lengthened partials": (
+    {},
+    'only the long muscle length ("bottom") half of the ROM',
+  ), // TODO: this only make sense for exercises that load under stretch
+  "shortened partials": (
+    {},
+    'only the short muscle length ("top") half of the ROM',
+  ), // TODO: this only make sense for exercises that load at the shortest
+  "mid-range partials": (
+    {},
+    'only the mid-range of the ROM',
+  ), // TODO: this only make sense for exercises that load at the mid-range
+});
+
+final romCalfRaise = Tweak("ROM", "full", {
+  ...rom.opts,
+  'full with lengthened partials beyond failure': (
+    {},
+    "go until you can't move the weight. (don't count the partials) should stimulate more gastroc growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)",
+  ),
+});
+
+const calfRaiseToes = Tweak("toes", "neutral", {
+  "neutral": ({}, 'point toes forward. The standard'),
+  "in": ({}, 'point toes in, stimulates more outer calf growth'),
+  "out": ({}, 'point toes out, stimulates more inner calf growth'),
+  "alternating": (
+    {},
+    'alternate between in and out between sets. might stimulate more growth [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)',
+  ),
+}, desc: "  [Research paper](https://pubmed.ncbi.nlm.nih.gov/32735428/)");
+
+const gripSqueeze = Tweak('grip squeeze', 'normal', {
+  'normal': ({}, 'only as hard as needed to maintain grip'),
+  'extra': ({}, 'squeezing hands tighter might stimulate more (fore)arm growth'),
+  'max': ({}, 'squeeze as hard as possible to maximally emphasize (fore)arms'),
+});
+
+const legExtensionPullOnHandles = Tweak('pull on handles', 'no', {
+  'yes': (
+    {},
+    "pull on the handles to maybe get more tension on the quads.  [It's also Jeff Nippard's number 1 leg extension tip](https://www.instagram.com/jeffnippard/reel/CvUz7JyIMtQ/i-meant-to-say-pull-yourself-down-by-pulling-up-on-the-handles-my-badmy-number-1/)",
+  ),
+  'no': ({}, ''),
+});
+
+const benchPressBenchAngle = Tweak(
   'bench angle',
   '0',
   {
@@ -37,7 +104,7 @@ Therefore, an incline is usually the best option for stimulating all pecs well, 
 to personal anatomy and preference.
 ''',
 );
-const flyThumbs = Modifier('thumbs', 'up', {
+const flyThumbs = Tweak('thumbs', 'up', {
   'up': (
     {
       ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
@@ -56,7 +123,7 @@ const flyThumbs = Modifier('thumbs', 'up', {
   ),
 });
 
-const legCurlAnkleDorsiflexed = Modifier(
+const legCurlAnkleDorsiflexed = Tweak(
   'ankle dorsiflexed',
   'no',
   {
@@ -69,7 +136,7 @@ const legCurlAnkleDorsiflexed = Modifier(
 * [Menno Henselmans breaks it down on instagram](https://www.instagram.com/menno.henselmans/p/DBWTmsmRyji/)''',
 );
 
-const legCurlHipFlexion = Modifier(
+const legCurlHipFlexion = Tweak(
   'hip flexion',
   'yes',
   {
@@ -96,7 +163,7 @@ const legCurlHipFlexion = Modifier(
 /*
 NOTE: for now, we don't have different programgroups for upper/lower back, that would be a good use case here
 */
-const squatBarPlacement = Modifier(
+const squatBarPlacement = Tweak(
   'bar placement',
   'high back',
   {
@@ -115,8 +182,8 @@ The higher the bar placement, the less weight you need and the more you can targ
 ''',
 );
 
-const bsqRearLeg = Modifier('rear leg', 'for balance', {
-  'for balance': ({}, 'for stability. no contraction'),
+const bsqRearLeg = Tweak('rear leg', 'for balance', {
+  'for balance': ({}, 'for stability. no contraction. Most coaches recommend this'),
   'active': (
     {ProgramGroup.quadsRF: Assign(1, 'knee extension while stretched (rear leg)')},
     '''rear leg actively pushes and contributes to the movement.  
@@ -125,7 +192,7 @@ const bsqRearLeg = Modifier('rear leg', 'for balance', {
   ),
 });
 
-const hipExtensionKneeFlexion = Modifier('knee flexion', 'no', {
+const hipExtensionKneeFlexion = Tweak('knee flexion', 'no', {
   'yes': (
     {ProgramGroup.quadsVasti: Assign(0.5, 'knee extension during hip extension')},
     'adds 0.5 quadriceps recruitment',
@@ -136,7 +203,7 @@ const hipExtensionKneeFlexion = Modifier('knee flexion', 'no', {
   ),
 }, desc: 'Whether the movement involves knee flexion (and extension)');
 
-const legExtensionLean = Modifier(
+const legExtensionLean = Tweak(
   'lean',
   'upright',
   {
@@ -155,7 +222,7 @@ Menno Henselmans clarifies this study:
 ''',
 );
 
-const squatLowerLegMovement = Modifier('lower leg movement', 'still', {
+const squatLowerLegMovement = Tweak('lower leg movement', 'still', {
   'still': (
     {
       // assume no soleus contribution
@@ -170,7 +237,7 @@ const squatLowerLegMovement = Modifier('lower leg movement', 'still', {
   ),
 });
 
-const deficit = Modifier(
+const deficit = Tweak(
   'deficit',
   'no',
   {'max': ({}, ''), 'small': ({}, ''), 'no': ({}, '')},
@@ -178,7 +245,7 @@ const deficit = Modifier(
 Does not affect recruitment, but increases ROM and probably gains''',
 );
 
-Modifier lateralRaiseShoulderRotation = const Modifier(
+Tweak lateralRaiseShoulderRotation = const Tweak(
   'wrist position',
   'pinkie up',
   {
@@ -203,7 +270,7 @@ Modifier lateralRaiseShoulderRotation = const Modifier(
         """,
 );
 
-Modifier lateralRaiseCablePath = const Modifier(
+Tweak lateralRaiseCablePath = const Tweak(
   'cable path',
   'in front',
   {
@@ -241,18 +308,18 @@ way up - lose some tension at the top, but higher contraction. if shoulder can t
 5:20 pauses at the top for increased MMC
 */
 
-Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
-  'hip flexion',
+Tweak hipAbductionHipFlexion(String defaultValue) => Tweak(
+  'hip flexion angle',
   defaultValue,
   {
-    '0°': (
+    '0': (
       {
         ProgramGroup.gluteMax: const Assign(0.25, 'hip abduction at 0° hip flexion (upper fibers)'),
         ProgramGroup.gluteMed: const Assign(1.0, 'hip abduction at 0° hip flexion'),
       },
       '',
     ),
-    '15°': (
+    '15': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.375,
@@ -262,14 +329,14 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       },
       '',
     ),
-    '30°': (
+    '30': (
       {
         ProgramGroup.gluteMax: const Assign(0.5, 'hip abduction at 30° hip flexion (upper fibers)'),
         ProgramGroup.gluteMed: const Assign(0.833, 'hip abduction at 30° hip flexion'),
       },
       '',
     ),
-    '45°': (
+    '45': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.625,
@@ -282,7 +349,7 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       },
       '',
     ),
-    '60°': (
+    '60': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.75,
@@ -292,7 +359,7 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       },
       '',
     ),
-    '75°': (
+    '75': (
       {
         ProgramGroup.gluteMax: const Assign(
           0.875,
@@ -302,7 +369,7 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
       },
       '',
     ),
-    '90°': (
+    '90': (
       {
         ProgramGroup.gluteMax: const Assign(1.0, 'hip abduction at 90° hip flexion (upper fibers)'),
         ProgramGroup.gluteMed: const Assign(0.5, 'hip abduction at 90° hip flexion'),
@@ -316,7 +383,7 @@ Modifier hipAbductionHipFlexion(String defaultValue) => Modifier(
 ''',
 );
 
-const Modifier dbCurlGrip = Modifier('grip', 'hammer to supinated', {
+const Tweak dbCurlGrip = Tweak('grip', 'hammer to supinated', {
   'supinated': ({}, 'supinated grip throughout the entire movement'),
   'hammer': ({}, 'neutral grip throughout the entire movement'),
   'hammer to supinated': (
@@ -329,7 +396,7 @@ const Modifier dbCurlGrip = Modifier('grip', 'hammer to supinated', {
   ),
 });
 
-const Modifier cableCurlStyle = Modifier('style', 'standard', {
+const Tweak cableCurlStyle = Tweak('style', 'standard', {
   'standard': ({}, 'bar grip, face the cable stack. arms to the side'),
   'bayesian': (
     {},

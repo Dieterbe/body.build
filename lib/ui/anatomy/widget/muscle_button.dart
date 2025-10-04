@@ -1,4 +1,4 @@
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';

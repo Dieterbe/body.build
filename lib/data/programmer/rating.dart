@@ -12,16 +12,14 @@ glutes max upper/mid/lower
 class Rating {
   final Source source;
   final double score;
-  final List<ProgramGroup> pg;
+  final List<ProgramGroup> pg; // the rating applies only to these PG's
   final String comment;
-  final Map<String, String> modifiers;
-  final Set<String> cues;
+  final Map<String, String> tweaks; // in case the score only applies for the given tweak options
   const Rating({
     required this.source,
     required this.score,
     required this.pg,
     required this.comment,
-    this.modifiers = const {},
-    this.cues = const {},
+    this.tweaks = const {},
   });
 }

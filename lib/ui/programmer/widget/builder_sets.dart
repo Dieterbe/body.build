@@ -9,7 +9,7 @@ import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 
 class BuilderSets extends ConsumerStatefulWidget {
@@ -107,8 +107,8 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                   sets: widget.sets,
                   setup: widget.setup,
                   onChangeEx: widget.onChange,
-                  onChangeModifiersCues: widget.onChange,
-                  showRecruitmentViz: false,
+                  onChangeTweaks: widget.onChange,
+                  showRecruitmentViz: true,
                 ),
               ),
             ),
@@ -236,7 +236,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                   const SizedBox(width: 8),
                   IconButton(
                     onPressed: () => showRatingsDialog(widget.sets.ex!.id, setRatings, context),
-                    icon: RatingIcon(
+                    icon: RatingIconMulti(
                       ratings: setRatings,
                       size:
                           MediaQuery.sizeOf(context).width /
@@ -302,7 +302,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                     child: muscleMark(
                       widget.sets.ex == null
                           ? 0
-                          : widget.sets.ex!.recruitment(g, widget.sets.modifierOptions).volume,
+                          : widget.sets.ex!.recruitment(g, widget.sets.tweakOptions).volume,
                       context,
                     ),
                   ),

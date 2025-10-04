@@ -1,5 +1,5 @@
 import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/modifier.dart';
+import 'package:bodybuild/data/programmer/tweak.dart';
 
 typedef VolumeAssignment = Map<ProgramGroup, Assign>;
 
@@ -128,8 +128,8 @@ const vaLegExtensionReverseNordicHamCurlSquatSissy = {
 const vaHipThrustGluteKickback = {ProgramGroup.gluteMax: Assign(1)};
 
 final vaHipAbductionStraightHip = {
-  // for exercises that use this EBase but don't use the modifier, we assume straight hip
-  ...hipAbductionHipFlexion('0°').opts['0°']!.$1,
+  // for exercises that use this EBase but don't use the tweak, we assume straight hip
+  ...hipAbductionHipFlexion('0').opts['0']!.$1,
 };
 const vaStandingCalfRaiseCalfJump = {
   ProgramGroup.gastroc: Assign(
@@ -166,7 +166,7 @@ const vaPullupPulldownWidePronatedPullupWidePronated = {
   ...wrist05,
 };
 const vaRow = {
-  // lats and spinal erectors are added via modifier!
+  // lats and spinal erectors are added via tweak!
   ProgramGroup.rearDelts: Assign(1),
   ProgramGroup.lowerTraps: Assign(1),
   ProgramGroup.middleTraps: Assign(1, 'scapular retraction'),
@@ -225,7 +225,7 @@ const vaBenchPressDBChestPressCable = {
   ...wrist025,
 };
 const vaFlyPecDeckHandGrip = {
-  // most real muscle recruitments are set via the `flyThumbs` modifier
+  // most real muscle recruitments are set via the `flyThumbs` tweak
   ProgramGroup.wristFlexors: Assign(0.5, 'isometric'),
 };
 const vaPecDeckElbowPad = {

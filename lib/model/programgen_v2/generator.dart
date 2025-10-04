@@ -61,7 +61,7 @@ void _generateInIsolate(WorkoutGenerationParams params) {
               .recruitmentFiltered(
                 group,
                 {},
-                0.5, // TODO: we don't support modifiers yet
+                0.5, // TODO: we don't support tweaks yet
               )
               .volume,
         ),

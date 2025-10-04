@@ -15,8 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Sets {
 
- int get intensity;@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? get ex; int get n;@JsonKey(includeToJson: false) bool get changeEx; Map<String, String> get modifierOptions;// Map of modifier name to selected option
- Map<String, bool> get cueOptions;
+ int get intensity;@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? get ex; int get n;@JsonKey(includeToJson: false) bool get changeEx; Map<String, String> get tweakOptions;
 /// Create a copy of Sets
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -31,7 +30,7 @@ $SetsCopyWith<Sets> get copyWith => _$SetsCopyWithImpl<Sets>(this as Sets, _$ide
 
 @override
 String toString() {
-  return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, modifierOptions: $modifierOptions, cueOptions: $cueOptions)';
+  return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, tweakOptions: $tweakOptions)';
 }
 
 
@@ -42,7 +41,7 @@ abstract mixin class $SetsCopyWith<$Res>  {
   factory $SetsCopyWith(Sets value, $Res Function(Sets) _then) = _$SetsCopyWithImpl;
 @useResult
 $Res call({
- int intensity,@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex, int n,@JsonKey(includeToJson: false) bool changeEx, Map<String, String> modifierOptions, Map<String, bool> cueOptions
+ int intensity,@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex, int n,@JsonKey(includeToJson: false) bool changeEx, Map<String, String> tweakOptions
 });
 
 
@@ -59,15 +58,14 @@ class _$SetsCopyWithImpl<$Res>
 
 /// Create a copy of Sets
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? intensity = null,Object? ex = freezed,Object? n = null,Object? changeEx = null,Object? modifierOptions = null,Object? cueOptions = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? intensity = null,Object? ex = freezed,Object? n = null,Object? changeEx = null,Object? tweakOptions = null,}) {
   return _then(_self.copyWith(
 intensity: null == intensity ? _self.intensity : intensity // ignore: cast_nullable_to_non_nullable
 as int,ex: freezed == ex ? _self.ex : ex // ignore: cast_nullable_to_non_nullable
 as Ex?,n: null == n ? _self.n : n // ignore: cast_nullable_to_non_nullable
 as int,changeEx: null == changeEx ? _self.changeEx : changeEx // ignore: cast_nullable_to_non_nullable
-as bool,modifierOptions: null == modifierOptions ? _self.modifierOptions : modifierOptions // ignore: cast_nullable_to_non_nullable
-as Map<String, String>,cueOptions: null == cueOptions ? _self.cueOptions : cueOptions // ignore: cast_nullable_to_non_nullable
-as Map<String, bool>,
+as bool,tweakOptions: null == tweakOptions ? _self.tweakOptions : tweakOptions // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 
@@ -152,10 +150,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> modifierOptions,  Map<String, bool> cueOptions)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> tweakOptions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Sets() when $default != null:
-return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOptions,_that.cueOptions);case _:
+return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.tweakOptions);case _:
   return orElse();
 
 }
@@ -173,10 +171,10 @@ return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOp
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> modifierOptions,  Map<String, bool> cueOptions)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> tweakOptions)  $default,) {final _that = this;
 switch (_that) {
 case _Sets():
-return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOptions,_that.cueOptions);case _:
+return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.tweakOptions);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +191,10 @@ return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOp
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> modifierOptions,  Map<String, bool> cueOptions)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int intensity, @JsonKey(toJson: _exToJson, fromJson: _exFromJson)  Ex? ex,  int n, @JsonKey(includeToJson: false)  bool changeEx,  Map<String, String> tweakOptions)?  $default,) {final _that = this;
 switch (_that) {
 case _Sets() when $default != null:
-return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOptions,_that.cueOptions);case _:
+return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.tweakOptions);case _:
   return null;
 
 }
@@ -208,27 +206,18 @@ return $default(_that.intensity,_that.ex,_that.n,_that.changeEx,_that.modifierOp
 @JsonSerializable()
 
 class _Sets extends Sets {
-  const _Sets(this.intensity, {@JsonKey(toJson: _exToJson, fromJson: _exFromJson) this.ex, this.n = 1, @JsonKey(includeToJson: false) this.changeEx = false, final  Map<String, String> modifierOptions = const {}, final  Map<String, bool> cueOptions = const {}}): _modifierOptions = modifierOptions,_cueOptions = cueOptions,super._();
+  const _Sets(this.intensity, {@JsonKey(toJson: _exToJson, fromJson: _exFromJson) this.ex, this.n = 1, @JsonKey(includeToJson: false) this.changeEx = false, final  Map<String, String> tweakOptions = const {}}): _tweakOptions = tweakOptions,super._();
   factory _Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json);
 
 @override final  int intensity;
 @override@JsonKey(toJson: _exToJson, fromJson: _exFromJson) final  Ex? ex;
 @override@JsonKey() final  int n;
 @override@JsonKey(includeToJson: false) final  bool changeEx;
- final  Map<String, String> _modifierOptions;
-@override@JsonKey() Map<String, String> get modifierOptions {
-  if (_modifierOptions is EqualUnmodifiableMapView) return _modifierOptions;
+ final  Map<String, String> _tweakOptions;
+@override@JsonKey() Map<String, String> get tweakOptions {
+  if (_tweakOptions is EqualUnmodifiableMapView) return _tweakOptions;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_modifierOptions);
-}
-
-// Map of modifier name to selected option
- final  Map<String, bool> _cueOptions;
-// Map of modifier name to selected option
-@override@JsonKey() Map<String, bool> get cueOptions {
-  if (_cueOptions is EqualUnmodifiableMapView) return _cueOptions;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_cueOptions);
+  return EqualUnmodifiableMapView(_tweakOptions);
 }
 
 
@@ -247,7 +236,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, modifierOptions: $modifierOptions, cueOptions: $cueOptions)';
+  return 'Sets(intensity: $intensity, ex: $ex, n: $n, changeEx: $changeEx, tweakOptions: $tweakOptions)';
 }
 
 
@@ -258,7 +247,7 @@ abstract mixin class _$SetsCopyWith<$Res> implements $SetsCopyWith<$Res> {
   factory _$SetsCopyWith(_Sets value, $Res Function(_Sets) _then) = __$SetsCopyWithImpl;
 @override @useResult
 $Res call({
- int intensity,@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex, int n,@JsonKey(includeToJson: false) bool changeEx, Map<String, String> modifierOptions, Map<String, bool> cueOptions
+ int intensity,@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex, int n,@JsonKey(includeToJson: false) bool changeEx, Map<String, String> tweakOptions
 });
 
 
@@ -275,15 +264,14 @@ class __$SetsCopyWithImpl<$Res>
 
 /// Create a copy of Sets
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? intensity = null,Object? ex = freezed,Object? n = null,Object? changeEx = null,Object? modifierOptions = null,Object? cueOptions = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? intensity = null,Object? ex = freezed,Object? n = null,Object? changeEx = null,Object? tweakOptions = null,}) {
   return _then(_Sets(
 null == intensity ? _self.intensity : intensity // ignore: cast_nullable_to_non_nullable
 as int,ex: freezed == ex ? _self.ex : ex // ignore: cast_nullable_to_non_nullable
 as Ex?,n: null == n ? _self.n : n // ignore: cast_nullable_to_non_nullable
 as int,changeEx: null == changeEx ? _self.changeEx : changeEx // ignore: cast_nullable_to_non_nullable
-as bool,modifierOptions: null == modifierOptions ? _self._modifierOptions : modifierOptions // ignore: cast_nullable_to_non_nullable
-as Map<String, String>,cueOptions: null == cueOptions ? _self._cueOptions : cueOptions // ignore: cast_nullable_to_non_nullable
-as Map<String, bool>,
+as bool,tweakOptions: null == tweakOptions ? _self._tweakOptions : tweakOptions // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 

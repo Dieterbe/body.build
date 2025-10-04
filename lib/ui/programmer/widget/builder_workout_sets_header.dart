@@ -8,7 +8,7 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 class BuilderWorkoutSetsHeader extends StatelessWidget {
@@ -133,47 +133,6 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
         .toList(),
   );
 
-  Iterable<Sets> toSetsFor(Ex ex, Parameters params, ProgramGroup g) {
-    // For each modifier that affects this program group, collect all its options
-    Map<String, List<String>> modifierOptions = {};
-
-    // First pass: identify modifiers that cause variations in recruitment or ratings for this program group
-    // Note: different modifiers may not actually result in different recruitment or ratings numbers, but them being included is
-    // a good clue that they probably do differ.
-    for (final modifier in ex.modifiers) {
-      bool hasRecruitmentVariation = modifier.opts.entries.any(
-        (entry) => entry.value.$1.containsKey(g),
-      );
-      bool hasRatingVariation = ex.ratings.any(
-        (rating) => rating.pg.contains(g) && rating.modifiers.containsKey(modifier.name),
-      );
-
-      if (hasRecruitmentVariation || hasRatingVariation) {
-        modifierOptions[modifier.name] = modifier.opts.keys.toList();
-      }
-    }
-
-    // If no modifiers affect this group's recruitment or ratings, return a single Sets with default values
-    if (modifierOptions.isEmpty) {
-      return [Sets(params.intensities.first, ex: ex, modifierOptions: {})];
-    }
-
-    // Generate all possible combinations of modifier options
-    var allCombinations = [
-      {for (var entry in modifierOptions.entries) entry.key: entry.value.first},
-    ];
-    modifierOptions.forEach((name, options) {
-      allCombinations = allCombinations
-          .expand((combo) => options.map((opt) => {...combo, name: opt}))
-          .toList();
-    });
-
-    // Create a Sets object for each unique combination
-    return allCombinations.map(
-      (modifiers) => Sets(params.intensities.first, ex: ex, modifierOptions: modifiers),
-    );
-  }
-
   Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) => SimpleDialog(
     contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
     title: Column(
@@ -202,7 +161,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
             optionsBuilder: (textEditingValue) {
               final opts = setup
                   .getAvailableExercises(query: textEditingValue.text)
-                  .expand((e) => toSetsFor(e, setup.paramFinal, g))
+                  .expand((e) => Sets.toDifferingRecruitmentOrRatingSets(e, setup.paramFinal, g))
                   .where((e) => e.recruitmentFiltered(g, 0) > 0)
                   .toList();
               opts.sort((a, b) {
@@ -276,13 +235,13 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                 option.ex!.id,
                                 style: TextStyle(fontSize: MediaQuery.sizeOf(context).width / 110),
                               ),
-                              if (option.modifierOptions.isNotEmpty) ...[
+                              if (option.tweakOptions.isNotEmpty) ...[
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Wrap(
                                     spacing: 8,
                                     runSpacing: 4,
-                                    children: option.modifierOptions.entries.map((entry) {
+                                    children: option.tweakOptions.entries.map((entry) {
                                       return Container(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 8,
@@ -340,7 +299,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                   if (relevantRatings.isNotEmpty) ...[
                                     Padding(
                                       padding: const EdgeInsets.only(right: 8),
-                                      child: RatingIcon(
+                                      child: RatingIconMulti(
                                         ratings: relevantRatings,
                                         size: MediaQuery.sizeOf(context).width / 60,
                                       ),

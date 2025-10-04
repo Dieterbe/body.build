@@ -2,7 +2,7 @@ import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 
 class ExerciseRatingsDialog extends StatelessWidget {
   final String exerciseId;
@@ -55,30 +55,18 @@ class ExerciseRatingsDialog extends StatelessWidget {
                       Text('Score: ${(rating.score * 100).toStringAsFixed(1)}%'),
                       if (rating.comment.isNotEmpty)
                         _buildCommentWithVideo(context, rating.comment),
-                      if (rating.modifiers.isNotEmpty) ...[
+                      if (rating.tweaks.isNotEmpty) ...[
                         const SizedBox(height: 4),
                         const Text(
-                          'Assuming you uset hese exercise modifiers:',
+                          'Assuming you use these exercise tweaks:',
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(height: 4),
-                        ...rating.modifiers.entries.map(
+                        ...rating.tweaks.entries.map(
                           (e) => Padding(
                             padding: const EdgeInsets.only(left: 16),
                             child: Text('${e.key}: ${e.value}'),
                           ),
-                        ),
-                      ],
-                      if (rating.cues.isNotEmpty) ...[
-                        const SizedBox(height: 4),
-                        const Text(
-                          'Assuming you use these exercise cues:',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(height: 4),
-                        ...rating.cues.map(
-                          (cue) =>
-                              Padding(padding: const EdgeInsets.only(left: 16), child: Text(cue)),
                         ),
                       ],
                       if (rating.pg.isNotEmpty) ...[

@@ -50,7 +50,7 @@ SetGroup generateLowestCostSetGroup(
     // Zero out targets for program groups not affected by this component
     final componentProgramGroups = ProgramGroup.values.where(
       (pg) => component.any((ex) => ex.ex.recruitment(pg, {}).volume > 0),
-    ); // we don't support modifiers
+    ); // we don't support tweaks
 
     // Zero out targets for program groups not affected by this component
     for (final pg in ProgramGroup.values) {
