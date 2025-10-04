@@ -15,7 +15,7 @@ import 'package:bodybuild/data/anatomy/muscle_quads.dart';
 import 'package:bodybuild/data/anatomy/muscle_spinal_erectors.dart';
 import 'package:bodybuild/data/anatomy/muscle_traps.dart';
 import 'package:bodybuild/data/anatomy/muscle_triceps.dart';
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 
 // contains Id's for muscles, muscle heads, and areas within muscles or heads
 // primary purpose here is anatomical correctness and using correct scientific terminology

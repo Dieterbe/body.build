@@ -1,4 +1,4 @@
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/ui/anatomy/page/articulation.dart';

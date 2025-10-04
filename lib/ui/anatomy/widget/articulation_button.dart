@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/data/anatomy/articulations.dart';
 import 'package:bodybuild/ui/anatomy/page/articulation.dart';
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 
 class ArticulationButton extends StatelessWidget {
   final Articulation articulation;

@@ -3,7 +3,7 @@ import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';

@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
 extension StringExtension on String {
   String capitalizeFirstOnly() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
@@ -35,32 +32,4 @@ extension StringExtension on String {
   String snakeToCamel() {
     return replaceAllMapped(RegExp(r'_([a-z])'), (match) => match.group(1)!.toUpperCase());
   }
-}
-
-extension IterableExtension<T> on Iterable<T> {
-  /// Insert any item<T> inBetween the list items
-  Iterable<T> insertBetween(T item) => expand((e) sync* {
-    yield item;
-    yield e;
-  }).skip(1);
-
-  // insertBetween will be called with index 0 up until iterable.length
-  // (i.o.w iterable.length + 1 times)
-  Iterable<T> insertBeforeBetweenAfter(T Function(int index) insert) sync* {
-    for (final (i, element) in indexed) {
-      yield insert(i);
-      yield element;
-    }
-    yield insert(length);
-  }
-}
-
-bool isMobileApp() {
-  if (kIsWeb) return false; // not sure if needed
-  return (defaultTargetPlatform == TargetPlatform.android ||
-      defaultTargetPlatform == TargetPlatform.iOS);
-}
-
-bool isTabletOrDesktop(BuildContext context) {
-  return MediaQuery.of(context).size.width > 768;
 }

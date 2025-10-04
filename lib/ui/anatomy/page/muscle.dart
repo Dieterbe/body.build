@@ -1,3 +1,4 @@
+import 'package:bodybuild/util/iterable_extension.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/data/anatomy/articulations.dart';
@@ -6,7 +7,7 @@ import 'package:bodybuild/data/anatomy/muscles.dart';
 import 'package:bodybuild/ui/anatomy/widget/articulation_button.dart';
 import 'package:bodybuild/ui/anatomy/colors.dart';
 import 'package:bodybuild/ui/anatomy/widget/insufficiency_widget.dart';
-import 'package:bodybuild/util.dart';
+import 'package:bodybuild/util/string_extension.dart';
 
 const double chartHeight = 100;
 
