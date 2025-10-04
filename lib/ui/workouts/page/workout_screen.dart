@@ -1,8 +1,8 @@
+import 'package:bodybuild/data/developer_mode_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
-import 'package:bodybuild/ui/workouts/widget/exercise_picker_sheet.dart';
-import 'package:bodybuild/ui/workouts/widget/add_set_dialog.dart';
+import 'package:bodybuild/ui/workouts/widget/log_set_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/set_log_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
@@ -12,10 +12,8 @@ import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:collection/collection.dart';
 
 /// This screen is used as both:
@@ -58,7 +56,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (!isMobileApp()) {
+    final devMode = ref.watch(developerModeProvider);
+    if (!isMobileApp() && !devMode) {
       return const MobileAppOnly(title: 'Workout tracking & viewing');
     }
 
@@ -125,7 +124,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       floatingActionButton: !workout!.isActive
           ? null
           : FloatingActionButton.extended(
-              onPressed: () => _showExercisePicker(context),
+              onPressed: () => _showLogSetSheet(context),
               icon: const Icon(Icons.add),
               label: const Text('Log Set'),
             ),
@@ -213,7 +212,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
                   onPressed: () {
                     final exercise = exes.firstWhereOrNull((e) => e.id == exerciseId);
                     if (exercise != null) {
-                      _addSetForExercise(Sets(0, ex: exercise, tweakOptions: tweaks));
+                      _showLogSetSheet(
+                        context,
+                        initialSets: Sets(0, ex: exercise, tweakOptions: tweaks),
+                      );
                     }
                   },
                   icon: const Icon(Icons.add, size: 16),
@@ -238,92 +240,20 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
   }
 
-  void _showExercisePicker(BuildContext context) {
-    showModalBottomSheet(
+  void _showLogSetSheet(BuildContext context, {Sets? initialSets}) async {
+    final result = await showModalBottomSheet<Map<String, dynamic>>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => ExercisePickerSheet(
-        onExerciseSelected: (exerciseId) {
-          Navigator.of(context).pop();
-          _showExerciseDetailsDialog(exerciseId);
-        },
-      ),
+      builder: (context) => LogSetSheet(initialSets: initialSets),
     );
+
+    if (result != null) {
+      _saveSet(result);
+    }
   }
 
-  void _showExerciseDetailsDialog(String exerciseId) async {
-    // Get the exercise from the database
-    final exercise = exes.firstWhereOrNull((e) => e.id == exerciseId);
-
-    if (exercise == null) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Exercise $exerciseId not found'), backgroundColor: Colors.red),
-        );
-      }
-      return;
-    }
-
-    // Get user settings for the dialog
-    final settings = await ref.read(setupProvider.future);
-
-    // Create a Sets object for the dialog
-    Sets currentSets = Sets(0, ex: exercise, tweakOptions: {});
-
-    if (!mounted) return;
-
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 0.9,
-          child: StatefulBuilder(
-            builder: (context, setState) => SingleChildScrollView(
-              child: ExerciseDetailsDialog(
-                sets: currentSets,
-                setup: settings,
-                onChangeTweaks: (newSets) {
-                  setState(() {
-                    currentSets = newSets;
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _addSetForExercise(currentSets);
-            },
-            child: const Text('Continue to Add Set'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _addSetForExercise(Sets sets) async {
-    // Show dialog to get set data
-    final result = await showDialog<dynamic>(
-      context: context,
-      builder: (context) => AddSetDialog(sets: sets),
-    );
-
-    // If user cancelled the dialog, don't add the set
-    if (result == null) return;
-
-    // If user wants to change the exercise, go back to exercise details dialog
-    if (result == 'change_exercise') {
-      _showExerciseDetailsDialog(sets.ex!.id);
-      return;
-    }
-
-    // Otherwise, process the set data
-    final setData = result as Map<String, dynamic>;
-    if (setData['action'] != 'save') return;
+  void _saveSet(Map<String, dynamic> data) async {
+    final sets = data['sets'] as Sets;
 
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
@@ -331,10 +261,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         workoutId: workout!.id,
         exerciseId: sets.ex!.id,
         tweaks: sets.tweakOptions,
-        weight: setData['weight'] as double?,
-        reps: setData['reps'] as int?,
-        rir: setData['rir'] as int?,
-        comments: setData['comments'] as String?,
+        weight: data['weight'] as double?,
+        reps: data['reps'] as int?,
+        rir: data['rir'] as int?,
+        comments: data['comments'] as String?,
       );
     } catch (e) {
       if (mounted) {
