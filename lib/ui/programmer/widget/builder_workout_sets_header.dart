@@ -133,17 +133,14 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
         .toList(),
   );
 
-  Iterable<Sets> toSetsFor(Ex ex, Parameters params, ProgramGroup g) {
+  Iterable<Sets> toDifferingRecruitmentOrRatingSets(Ex ex, Parameters params, ProgramGroup g) {
     // For each tweak that affects this program group, collect all its options
     Map<String, List<String>> tweakOptions = {};
 
-    // First pass: identify tweaks that cause variations in recruitment or ratings for this program group
-    // Note: different tweaks may not actually result in different recruitment or ratings numbers, but them being included is
-    // a good clue that they probably do differ.
+    // First pass: identify tweaks that likely cause variations in recruitment or ratings for this program group
+    // Note: we include all the tweak options. Only some may effect recruitment/rating
     for (final tweak in ex.tweaks) {
-      bool hasRecruitmentVariation = tweak.opts.entries.any(
-        (entry) => entry.value.$1.containsKey(g),
-      );
+      bool hasRecruitmentVariation = tweak.opts.entries.any((opt) => opt.value.$1.containsKey(g));
       bool hasRatingVariation = ex.ratings.any(
         (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
       );
@@ -159,11 +156,17 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
     }
 
     // Generate all possible combinations of tweak options
+    // Let's say tweakOptions: {'ROM': ['full', 'partial'], 'grip': ['normal', 'extra']}
+
     var allCombinations = [
       {for (var entry in tweakOptions.entries) entry.key: entry.value.first},
     ];
+    // AllCombinations is now: [{ROM: 'full', grip: 'normal'}]
     tweakOptions.forEach((name, options) {
+      // 'ROM', ['full', 'partial']
       allCombinations = allCombinations
+          // each "combo" is the map of tweaks where each tweak option is just the first val
+          // replace each combo map with multiple maps (where each map is the combo + one tweak option)
           .expand((combo) => options.map((opt) => {...combo, name: opt}))
           .toList();
     });
@@ -202,7 +205,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
             optionsBuilder: (textEditingValue) {
               final opts = setup
                   .getAvailableExercises(query: textEditingValue.text)
-                  .expand((e) => toSetsFor(e, setup.paramFinal, g))
+                  .expand((e) => toDifferingRecruitmentOrRatingSets(e, setup.paramFinal, g))
                   .where((e) => e.recruitmentFiltered(g, 0) > 0)
                   .toList();
               opts.sort((a, b) {
