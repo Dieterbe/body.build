@@ -210,7 +210,12 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () => _addSetForExercise(exerciseId, tweaks),
+                  onPressed: () {
+                    final exercise = exes.firstWhereOrNull((e) => e.id == exerciseId);
+                    if (exercise != null) {
+                      _addSetForExercise(Sets(0, ex: exercise, tweakOptions: tweaks));
+                    }
+                  },
                   icon: const Icon(Icons.add, size: 16),
                   label: const Text('Add Set'),
                   style: TextButton.styleFrom(
@@ -291,7 +296,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              _addSetForExercise(currentSets.ex!.id, currentSets.tweakOptions);
+              _addSetForExercise(currentSets);
             },
             child: const Text('Continue to Add Set'),
           ),
@@ -300,22 +305,32 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
   }
 
-  void _addSetForExercise(String exerciseId, Map<String, String> tweaks) async {
+  void _addSetForExercise(Sets sets) async {
     // Show dialog to get set data
-    final setData = await showDialog<Map<String, dynamic>>(
+    final result = await showDialog<dynamic>(
       context: context,
-      builder: (context) => const AddSetDialog(),
+      builder: (context) => AddSetDialog(sets: sets),
     );
 
     // If user cancelled the dialog, don't add the set
-    if (setData == null) return;
+    if (result == null) return;
+
+    // If user wants to change the exercise, go back to exercise details dialog
+    if (result == 'change_exercise') {
+      _showExerciseDetailsDialog(sets.ex!.id);
+      return;
+    }
+
+    // Otherwise, process the set data
+    final setData = result as Map<String, dynamic>;
+    if (setData['action'] != 'save') return;
 
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
       await workoutManager.addSet(
         workoutId: workout!.id,
-        exerciseId: exerciseId,
-        tweaks: tweaks,
+        exerciseId: sets.ex!.id,
+        tweaks: sets.tweakOptions,
         weight: setData['weight'] as double?,
         reps: setData['reps'] as int?,
         rir: setData['rir'] as int?,
