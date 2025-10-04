@@ -167,19 +167,13 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
   /// Example: {ROM: [full, partial], grip: [normal, extra]}
   ///       → [{ROM: full, grip: normal}, {ROM: full, grip: extra}, ...]
   List<Map<String, String>> _generateTweakCombinations(Map<String, List<String>> tweakOptions) {
-    var combinations = <Map<String, String>>[{}];
-
-    for (final entry in tweakOptions.entries) {
-      final tweakName = entry.key;
-      final tweakOpts = entry.value;
-
-      combinations = [
+    return tweakOptions.entries.fold<List<Map<String, String>>>(
+      [{}],
+      (combinations, tweakOpts) => [
         for (final combo in combinations)
-          for (final option in tweakOpts) {...combo, tweakName: option},
-      ];
-    }
-
-    return combinations;
+          for (final val in tweakOpts.value) {...combo, tweakOpts.key: val},
+      ],
+    );
   }
 
   Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) => SimpleDialog(
