@@ -12,6 +12,11 @@ import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
+import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/programmer/setup.dart';
+import 'package:collection/collection.dart';
 
 /// This screen is used as both:
 /// - a top level screen (for the curently active workout)
@@ -235,8 +240,62 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       builder: (context) => ExercisePickerSheet(
         onExerciseSelected: (exerciseId) {
           Navigator.of(context).pop();
-          _addSetForExercise(exerciseId, {});
+          _showExerciseDetailsDialog(exerciseId);
         },
+      ),
+    );
+  }
+
+  void _showExerciseDetailsDialog(String exerciseId) async {
+    // Get the exercise from the database
+    final exercise = exes.firstWhereOrNull((e) => e.id == exerciseId);
+
+    if (exercise == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Exercise $exerciseId not found'), backgroundColor: Colors.red),
+        );
+      }
+      return;
+    }
+
+    // Get user settings for the dialog
+    final settings = await ref.read(setupProvider.future);
+
+    // Create a Sets object for the dialog
+    Sets currentSets = Sets(0, ex: exercise, tweakOptions: {});
+
+    if (!mounted) return;
+
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: SizedBox(
+          width: MediaQuery.sizeOf(context).width * 0.9,
+          child: StatefulBuilder(
+            builder: (context, setState) => SingleChildScrollView(
+              child: ExerciseDetailsDialog(
+                sets: currentSets,
+                setup: settings,
+                onChangeTweaks: (newSets) {
+                  setState(() {
+                    currentSets = newSets;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _addSetForExercise(currentSets.ex!.id, currentSets.tweakOptions);
+            },
+            child: const Text('Continue to Add Set'),
+          ),
+        ],
       ),
     );
   }
