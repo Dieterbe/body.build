@@ -134,47 +134,52 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
   );
 
   Iterable<Sets> toDifferingRecruitmentOrRatingSets(Ex ex, Parameters params, ProgramGroup g) {
-    // For each tweak that affects this program group, collect all its options
-    Map<String, List<String>> tweakOptions = {};
+    final relevantTweaks = _getRelevantTweaks(ex, g);
 
-    // First pass: identify tweaks that likely cause variations in recruitment or ratings for this program group
-    // Note: we include all the tweak options. Only some may effect recruitment/rating
-    for (final tweak in ex.tweaks) {
-      bool hasRecruitmentVariation = tweak.opts.entries.any((opt) => opt.value.$1.containsKey(g));
-      bool hasRatingVariation = ex.ratings.any(
-        (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
-      );
-
-      if (hasRecruitmentVariation || hasRatingVariation) {
-        tweakOptions[tweak.name] = tweak.opts.keys.toList();
-      }
-    }
-
-    // If no tweaks affect this group's recruitment or ratings, return a single Sets with default values
-    if (tweakOptions.isEmpty) {
+    if (relevantTweaks.isEmpty) {
       return [Sets(params.intensities.first, ex: ex, tweakOptions: {})];
     }
 
-    // Generate all possible combinations of tweak options
-    // Let's say tweakOptions: {'ROM': ['full', 'partial'], 'grip': ['normal', 'extra']}
+    final combinations = _generateTweakCombinations(relevantTweaks);
 
-    var allCombinations = [
-      {for (var entry in tweakOptions.entries) entry.key: entry.value.first},
-    ];
-    // AllCombinations is now: [{ROM: 'full', grip: 'normal'}]
-    tweakOptions.forEach((name, options) {
-      // 'ROM', ['full', 'partial']
-      allCombinations = allCombinations
-          // each "combo" is the map of tweaks where each tweak option is just the first val
-          // replace each combo map with multiple maps (where each map is the combo + one tweak option)
-          .expand((combo) => options.map((opt) => {...combo, name: opt}))
-          .toList();
-    });
-
-    // Create a Sets object for each unique combination
-    return allCombinations.map(
-      (tweaks) => Sets(params.intensities.first, ex: ex, tweakOptions: tweaks),
+    return combinations.map(
+      (tweakOptions) => Sets(params.intensities.first, ex: ex, tweakOptions: tweakOptions),
     );
+  }
+
+  /// Returns tweaks that may affect recruitment or ratings for the target muscle group
+  /// For each tweak, include all its options. Only some may actually affect recruitment/rating
+  Map<String, List<String>> _getRelevantTweaks(Ex ex, ProgramGroup g) {
+    return Map.fromEntries(
+      ex.tweaks
+          .where((tweak) {
+            final affectsRecruitment = tweak.opts.entries.any((opt) => opt.value.$1.containsKey(g));
+            final affectsRating = ex.ratings.any(
+              (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
+            );
+            return affectsRecruitment || affectsRating;
+          })
+          .map((tweak) => MapEntry(tweak.name, tweak.opts.keys.toList())),
+    );
+  }
+
+  /// Generates cartesian product of tweak options
+  /// Example: {ROM: [full, partial], grip: [normal, extra]}
+  ///       → [{ROM: full, grip: normal}, {ROM: full, grip: extra}, ...]
+  List<Map<String, String>> _generateTweakCombinations(Map<String, List<String>> tweakOptions) {
+    var combinations = <Map<String, String>>[{}];
+
+    for (final entry in tweakOptions.entries) {
+      final tweakName = entry.key;
+      final tweakOpts = entry.value;
+
+      combinations = [
+        for (final combo in combinations)
+          for (final option in tweakOpts) {...combo, tweakName: option},
+      ];
+    }
+
+    return combinations;
   }
 
   Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) => SimpleDialog(
