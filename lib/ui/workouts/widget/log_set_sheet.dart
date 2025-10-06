@@ -244,25 +244,22 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Exercise name card
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      currentSets!.ex!.id,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  if (applicableRatings.isNotEmpty) RatingIconMulti(ratings: applicableRatings),
-                ],
+          // Exercise name header
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  currentSets!.ex!.id,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
+              if (applicableRatings.isNotEmpty) RatingIconMulti(ratings: applicableRatings),
+            ],
           ),
+          const SizedBox(height: 8),
+          Divider(color: Theme.of(context).colorScheme.outlineVariant),
           const SizedBox(height: 16),
 
           // Tweaks configuration or "no config needed" message
@@ -302,31 +299,28 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
   }
 
   Widget _buildTweakSection(BuildContext context, Tweak tweak) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          spacing: 12,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              tweak.name.capitalizeFirstOnlyButKeepAcronym(),
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            ConfigureTweakSmall(
-              tweak,
-              currentSets!,
-              onChange: (val) {
-                setState(() {
-                  currentSets = currentSets!.copyWith(
-                    tweakOptions: {...currentSets!.tweakOptions, tweak.name: val},
-                  );
-                });
-              },
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        spacing: 12,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            tweak.name.capitalizeFirstOnlyButKeepAcronym(),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          ConfigureTweakSmall(
+            tweak,
+            currentSets!,
+            onChange: (val) {
+              setState(() {
+                currentSets = currentSets!.copyWith(
+                  tweakOptions: {...currentSets!.tweakOptions, tweak.name: val},
+                );
+              });
+            },
+          ),
+        ],
       ),
     );
   }
