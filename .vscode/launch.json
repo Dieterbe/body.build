@@ -5,25 +5,39 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "bodybuild",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "bodybuild (debug, linux)",
+            "name": "debug linux",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
             "deviceId": "linux"
         },
         {
-            "name": "bodybuild (profile mode)",
+            "name": "debug pixel",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId": "1A111FDF6007TT"
+        },
+        {
+            "name": "normal linux",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "linux",
+        },
+        {
+            "name": "normal pixel",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "1A111FDF6007TT",
+        },
+        {
+            "name": "profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "bodybuild (release mode)",
+            "name": "release",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
