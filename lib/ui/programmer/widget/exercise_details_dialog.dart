@@ -215,48 +215,89 @@ In the future, you'll be able to add your own custom tweaks as well.
           ],
         ),
         const SizedBox(height: 12),
-        ...?localSets.ex?.tweaks.map(
-          (tweak) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                tweak.name.capitalizeFirstOnlyButKeepAcronym(),
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
-              ),
-              const SizedBox(height: 12),
-              if (showDetailedTweaks)
-                ConfigureTweakLarge(
-                  tweak,
-                  localSets,
-                  onChange: widget.onChangeTweaks != null
-                      ? (value) {
-                          widget.onChangeTweaks!(
-                            localSets.copyWith(
-                              tweakOptions: {...localSets.tweakOptions, tweak.name: value},
-                            ),
-                          );
-                        }
-                      : null,
-                )
-              else
-                ConfigureTweakSmall(
-                  tweak,
-                  localSets,
-                  onChange: widget.onChangeTweaks != null
-                      ? (value) {
-                          widget.onChangeTweaks!(
-                            localSets.copyWith(
-                              tweakOptions: {...localSets.tweakOptions, tweak.name: value},
-                            ),
-                          );
-                        }
-                      : null,
-                ),
-              SizedBox(height: 12),
-            ],
-          ),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            if (localSets.ex == null || localSets.ex!.tweaks.isEmpty) {
+              return const SizedBox.shrink();
+            }
+            // Calculate optimal item width based on available space
+            final availableWidth = constraints.maxWidth;
+            const minItemWidth = 300.0;
+            const maxItemWidth = 600.0;
+            const spacing = 16.0;
+
+            // Determine how many items can fit per row
+            int itemsPerRow = (availableWidth / (minItemWidth + spacing)).floor();
+            itemsPerRow = itemsPerRow.clamp(1, localSets.ex!.tweaks.length);
+
+            // Calculate actual item width to fill available space
+            final totalSpacing = (itemsPerRow - 1) * spacing;
+            final calculatedWidth = (availableWidth - totalSpacing) / itemsPerRow;
+
+            // Clamp to min/max bounds
+            final itemWidth = calculatedWidth.clamp(minItemWidth, maxItemWidth);
+
+            return Wrap(
+              spacing: spacing,
+              runSpacing: spacing,
+              children:
+                  localSets.ex?.tweaks
+                      .map(
+                        (tweak) => SizedBox(
+                          width: itemWidth,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                tweak.name.capitalizeFirstOnlyButKeepAcronym(),
+                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              if (showDetailedTweaks)
+                                ConfigureTweakLarge(
+                                  tweak,
+                                  localSets,
+                                  onChange: widget.onChangeTweaks != null
+                                      ? (value) {
+                                          widget.onChangeTweaks!(
+                                            localSets.copyWith(
+                                              tweakOptions: {
+                                                ...localSets.tweakOptions,
+                                                tweak.name: value,
+                                              },
+                                            ),
+                                          );
+                                        }
+                                      : null,
+                                )
+                              else
+                                ConfigureTweakSmall(
+                                  tweak,
+                                  localSets,
+                                  onChange: widget.onChangeTweaks != null
+                                      ? (value) {
+                                          widget.onChangeTweaks!(
+                                            localSets.copyWith(
+                                              tweakOptions: {
+                                                ...localSets.tweakOptions,
+                                                tweak.name: value,
+                                              },
+                                            ),
+                                          );
+                                        }
+                                      : null,
+                                ),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList() ??
+                  [],
+            );
+          },
         ),
         if (widget.showRecruitmentViz && localSets.ex != null) ...[
           const SizedBox(height: 16),
