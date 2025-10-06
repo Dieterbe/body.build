@@ -190,14 +190,6 @@ In the future, you'll be able to add your own custom tweaks as well.
             },
           ),
         const SizedBox(height: 24),
-        if (widget.showRecruitmentViz && localSets.ex != null) ...[
-          ExerciseRecruitmentVisualization(
-            exercise: localSets.ex!,
-            tweakOptions: localSets.tweakOptions,
-            setup: widget.setup,
-          ),
-          const SizedBox(height: 24),
-        ],
         Text(
           'Tweaks',
           style: Theme.of(
@@ -234,6 +226,21 @@ In the future, you'll be able to add your own custom tweaks as well.
             ),
           ),
         ),
+        if (widget.showRecruitmentViz && localSets.ex != null) ...[
+          const SizedBox(height: 24),
+          Text(
+            'Muscle Recruitment',
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
+          ),
+          const SizedBox(height: 12),
+          ExerciseRecruitmentVisualization(
+            exercise: localSets.ex!,
+            tweakOptions: localSets.tweakOptions,
+            setup: widget.setup,
+          ),
+        ],
       ],
     );
   }

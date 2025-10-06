@@ -34,7 +34,6 @@ class ConfigureTweakLarge extends StatelessWidget {
                         Text(
                           '(default)',
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 120,
                             color: Theme.of(context).hintColor,
                             fontStyle: FontStyle.italic,
                           ),

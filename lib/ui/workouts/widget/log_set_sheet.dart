@@ -1,4 +1,6 @@
 import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
+import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,6 +33,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
 
   Sets? currentSets;
   int currentStep = 0; // 0: Select Exercise, 1: Configure, 2: Log Set
+  bool showDetailedTweaks = false; // Toggle between ConfigureTweakSmall and ConfigureTweakLarge
 
   @override
   void initState() {
@@ -240,61 +243,91 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
     }
     final applicableRatings = currentSets!.getApplicableRatings().toList();
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Exercise name header
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  currentSets!.ex!.id,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Exercise name header
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                currentSets!.ex!.id,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            if (applicableRatings.isNotEmpty) RatingIconMulti(ratings: applicableRatings),
+            const SizedBox(width: 8),
+            // Toggle button for detailed/simple tweak view
+            if (currentSets!.ex!.tweaks.isNotEmpty)
+              FilledButton.tonalIcon(
+                onPressed: () => setState(() => showDetailedTweaks = !showDetailedTweaks),
+                icon: Icon(showDetailedTweaks ? Icons.unfold_less : Icons.unfold_more),
+                label: Text(showDetailedTweaks ? 'Less' : 'More'),
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  visualDensity: VisualDensity.compact,
                 ),
               ),
-              if (applicableRatings.isNotEmpty) RatingIconMulti(ratings: applicableRatings),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Divider(color: Theme.of(context).colorScheme.outlineVariant),
-          const SizedBox(height: 16),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Divider(color: Theme.of(context).colorScheme.outlineVariant),
 
-          // Tweaks configuration or "no config needed" message
-          if (currentSets!.ex!.tweaks.isEmpty)
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.check_circle_outline,
-                      size: 64,
-                      color: Theme.of(context).colorScheme.primary,
+                const SizedBox(height: 16),
+
+                // Tweaks configuration or "no config needed" message
+                if (currentSets!.ex!.tweaks.isEmpty)
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.check_circle_outline,
+                            size: 64,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'No configuration needed',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'This exercise has no tweaks to configure.\nTap Next to continue.',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'No configuration needed',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'This exercise has no tweaks to configure.\nTap Next to continue.',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            )
-          else
-            ...currentSets!.ex!.tweaks.map((tweak) => _buildTweakSection(context, tweak)),
-        ],
-      ),
+                  )
+                else
+                  ...currentSets!.ex!.tweaks.map((tweak) => _buildTweakSection(context, tweak)),
+                Divider(color: Theme.of(context).colorScheme.outlineVariant),
+
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        ),
+        ExerciseRecruitmentVisualization(
+          exercise: currentSets!.ex!,
+          tweakOptions: currentSets!.tweakOptions,
+          setup: settings,
+          cutoff: 0.4,
+        ),
+        const SizedBox(height: 16),
+      ],
     );
   }
 
@@ -309,17 +342,30 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
             tweak.name.capitalizeFirstOnlyButKeepAcronym(),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
-          ConfigureTweakSmall(
-            tweak,
-            currentSets!,
-            onChange: (val) {
-              setState(() {
-                currentSets = currentSets!.copyWith(
-                  tweakOptions: {...currentSets!.tweakOptions, tweak.name: val},
-                );
-              });
-            },
-          ),
+          if (showDetailedTweaks)
+            ConfigureTweakLarge(
+              tweak,
+              currentSets!,
+              onChange: (val) {
+                setState(() {
+                  currentSets = currentSets!.copyWith(
+                    tweakOptions: {...currentSets!.tweakOptions, tweak.name: val},
+                  );
+                });
+              },
+            )
+          else
+            ConfigureTweakSmall(
+              tweak,
+              currentSets!,
+              onChange: (val) {
+                setState(() {
+                  currentSets = currentSets!.copyWith(
+                    tweakOptions: {...currentSets!.tweakOptions, tweak.name: val},
+                  );
+                });
+              },
+            ),
         ],
       ),
     );
