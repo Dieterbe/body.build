@@ -1,6 +1,7 @@
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
+import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
@@ -31,6 +32,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
 
 class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
   late Sets localSets;
+  bool showDetailedTweaks = false;
 
   @override
   void initState() {
@@ -190,11 +192,27 @@ In the future, you'll be able to add your own custom tweaks as well.
             },
           ),
         const SizedBox(height: 24),
-        Text(
-          'Tweaks',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
+        Row(
+          children: [
+            Text(
+              'Tweaks',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
+            ),
+            if (localSets.ex?.tweaks.isNotEmpty ?? false) ...[
+              Expanded(child: Container()),
+              FilledButton.tonalIcon(
+                onPressed: () => setState(() => showDetailedTweaks = !showDetailedTweaks),
+                icon: Icon(showDetailedTweaks ? Icons.unfold_less : Icons.unfold_more),
+                label: Text(showDetailedTweaks ? 'Less' : 'More'),
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  visualDensity: VisualDensity.compact,
+                ),
+              ),
+            ],
+          ],
         ),
         ...?localSets.ex?.tweaks.map(
           (tweak) => Padding(
@@ -209,19 +227,34 @@ In the future, you'll be able to add your own custom tweaks as well.
                   ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
                 ),
                 const SizedBox(height: 12),
-                ConfigureTweakLarge(
-                  tweak,
-                  localSets,
-                  onChange: widget.onChangeTweaks != null
-                      ? (value) {
-                          widget.onChangeTweaks!(
-                            localSets.copyWith(
-                              tweakOptions: {...localSets.tweakOptions, tweak.name: value},
-                            ),
-                          );
-                        }
-                      : null,
-                ),
+                if (showDetailedTweaks)
+                  ConfigureTweakLarge(
+                    tweak,
+                    localSets,
+                    onChange: widget.onChangeTweaks != null
+                        ? (value) {
+                            widget.onChangeTweaks!(
+                              localSets.copyWith(
+                                tweakOptions: {...localSets.tweakOptions, tweak.name: value},
+                              ),
+                            );
+                          }
+                        : null,
+                  )
+                else
+                  ConfigureTweakSmall(
+                    tweak,
+                    localSets,
+                    onChange: widget.onChangeTweaks != null
+                        ? (value) {
+                            widget.onChangeTweaks!(
+                              localSets.copyWith(
+                                tweakOptions: {...localSets.tweakOptions, tweak.name: value},
+                              ),
+                            );
+                          }
+                        : null,
+                  ),
               ],
             ),
           ),
