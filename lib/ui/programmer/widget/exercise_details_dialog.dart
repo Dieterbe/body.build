@@ -191,7 +191,7 @@ In the future, you'll be able to add your own custom tweaks as well.
               );
             },
           ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 16),
         Row(
           children: [
             Text(
@@ -214,53 +214,52 @@ In the future, you'll be able to add your own custom tweaks as well.
             ],
           ],
         ),
+        const SizedBox(height: 12),
         ...?localSets.ex?.tweaks.map(
-          (tweak) => Padding(
-            padding: const EdgeInsets.only(bottom: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tweak.name.capitalizeFirstOnlyButKeepAcronym(),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
+          (tweak) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                tweak.name.capitalizeFirstOnlyButKeepAcronym(),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
+              ),
+              const SizedBox(height: 12),
+              if (showDetailedTweaks)
+                ConfigureTweakLarge(
+                  tweak,
+                  localSets,
+                  onChange: widget.onChangeTweaks != null
+                      ? (value) {
+                          widget.onChangeTweaks!(
+                            localSets.copyWith(
+                              tweakOptions: {...localSets.tweakOptions, tweak.name: value},
+                            ),
+                          );
+                        }
+                      : null,
+                )
+              else
+                ConfigureTweakSmall(
+                  tweak,
+                  localSets,
+                  onChange: widget.onChangeTweaks != null
+                      ? (value) {
+                          widget.onChangeTweaks!(
+                            localSets.copyWith(
+                              tweakOptions: {...localSets.tweakOptions, tweak.name: value},
+                            ),
+                          );
+                        }
+                      : null,
                 ),
-                const SizedBox(height: 12),
-                if (showDetailedTweaks)
-                  ConfigureTweakLarge(
-                    tweak,
-                    localSets,
-                    onChange: widget.onChangeTweaks != null
-                        ? (value) {
-                            widget.onChangeTweaks!(
-                              localSets.copyWith(
-                                tweakOptions: {...localSets.tweakOptions, tweak.name: value},
-                              ),
-                            );
-                          }
-                        : null,
-                  )
-                else
-                  ConfigureTweakSmall(
-                    tweak,
-                    localSets,
-                    onChange: widget.onChangeTweaks != null
-                        ? (value) {
-                            widget.onChangeTweaks!(
-                              localSets.copyWith(
-                                tweakOptions: {...localSets.tweakOptions, tweak.name: value},
-                              ),
-                            );
-                          }
-                        : null,
-                  ),
-              ],
-            ),
+              SizedBox(height: 12),
+            ],
           ),
         ),
         if (widget.showRecruitmentViz && localSets.ex != null) ...[
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           Text(
             'Muscle Recruitment',
             style: Theme.of(

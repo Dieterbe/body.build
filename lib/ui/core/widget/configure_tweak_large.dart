@@ -13,8 +13,7 @@ class ConfigureTweakLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -52,12 +51,8 @@ class ConfigureTweakLarge extends StatelessWidget {
                       : null,
 
                   contentPadding: EdgeInsets.zero,
+                  subtitle: optionDesc.isNotEmpty ? markdown(optionDesc, context) : null,
                 ),
-                if (optionDesc.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 56, bottom: 8),
-                    child: markdown(optionDesc, context),
-                  ),
               ],
             );
           }),
