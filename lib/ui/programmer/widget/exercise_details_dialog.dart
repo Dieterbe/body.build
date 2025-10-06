@@ -1,10 +1,9 @@
 import 'package:bodybuild/ui/core/markdown.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
+import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 
@@ -45,43 +44,6 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     if (oldWidget.sets != widget.sets) {
       localSets = widget.sets;
     }
-  }
-
-  Widget _buildRatingIcon({String? tweakName, String? tweakValue, required BuildContext context}) {
-    if (localSets.ex == null) return const SizedBox.shrink();
-
-    // Get ratings for current configuration
-    final currentRatings = localSets.getApplicableRatingsForConfig(localSets.tweakOptions).toList();
-
-    // Create a copy of current configuration
-    final tweakConfig = Map<String, String>.of(localSets.tweakOptions);
-
-    // Apply the specific option we're showing the rating for
-    if (tweakName != null && tweakValue != null) {
-      tweakConfig[tweakName] = tweakValue;
-    }
-
-    // Get ratings for this configuration
-    final ratings = localSets.getApplicableRatingsForConfig(tweakConfig).toList();
-
-    // Only show rating icon if this option changes the ratings
-    if (ratings.length == currentRatings.length) {
-      bool sameRatings = true;
-      for (int i = 0; i < ratings.length; i++) {
-        if (ratings[i].score != currentRatings[i].score) {
-          sameRatings = false;
-          break;
-        }
-      }
-      if (sameRatings) return const SizedBox.shrink();
-    }
-
-    return RatingIconMulti(
-      ratings: ratings,
-      onTap: ratings.isEmpty
-          ? null
-          : () => {showRatingsDialog(widget.sets.ex!.id, ratings, context)},
-    );
   }
 
   void onChangeEx(Sets newSets) {
@@ -255,77 +217,18 @@ In the future, you'll be able to add your own custom tweaks as well.
                   ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
                 ),
                 const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((
-                        opt,
-                      ) {
-                        final optionDesc = opt.value.$2;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RadioListTile<String>(
-                              title: Row(
-                                children: [
-                                  Text(opt.key),
-                                  const SizedBox(width: 8),
-                                  _buildRatingIcon(
-                                    tweakName: tweak.name,
-                                    tweakValue: opt.key,
-                                    context: context,
-                                  ),
-                                  if (opt.key == tweak.defaultVal) ...[
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      '(default)',
-                                      style: TextStyle(
-                                        fontSize: MediaQuery.of(context).size.width / 120,
-                                        color: Theme.of(context).hintColor,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                              value: opt.key,
-                              groupValue: localSets.tweakOptions[tweak.name] ?? tweak.defaultVal,
-                              onChanged: widget.onChangeTweaks != null
-                                  ? (value) {
-                                      if (value != null) {
-                                        onChangeTweaks(
-                                          localSets.copyWith(
-                                            tweakOptions: {
-                                              ...localSets.tweakOptions,
-                                              tweak.name: value,
-                                            },
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  : null,
-                              contentPadding: EdgeInsets.zero,
+                ConfigureTweakLarge(
+                  tweak,
+                  localSets,
+                  onChange: widget.onChangeTweaks != null
+                      ? (value) {
+                          widget.onChangeTweaks!(
+                            localSets.copyWith(
+                              tweakOptions: {...localSets.tweakOptions, tweak.name: value},
                             ),
-                            if (optionDesc.isNotEmpty)
-                              Padding(
-                                padding: const EdgeInsets.only(left: 56, bottom: 8),
-                                child: markdown(optionDesc, context),
-                              ),
-                          ],
-                        );
-                      }),
-                      if (tweak.desc != null) ...[
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 2),
-                          child: markdown(tweak.desc!, context),
-                        ),
-                      ],
-                    ],
-                  ),
+                          );
+                        }
+                      : null,
                 ),
               ],
             ),
