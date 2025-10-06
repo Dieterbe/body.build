@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -306,35 +307,23 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          spacing: 12,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               tweak.name.capitalizeFirstOnlyButKeepAcronym(),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: (tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((
-                opt,
-              ) {
-                final isSelected =
-                    (currentSets!.tweakOptions[tweak.name] ?? tweak.defaultVal) == opt.key;
-                return ChoiceChip(
-                  label: Text(opt.key),
-                  selected: isSelected,
-                  onSelected: (selected) {
-                    if (selected) {
-                      setState(() {
-                        currentSets = currentSets!.copyWith(
-                          tweakOptions: {...currentSets!.tweakOptions, tweak.name: opt.key},
-                        );
-                      });
-                    }
-                  },
-                );
-              }).toList(),
+            ConfigureTweakSmall(
+              tweak,
+              currentSets!,
+              onChange: (val) {
+                setState(() {
+                  currentSets = currentSets!.copyWith(
+                    tweakOptions: {...currentSets!.tweakOptions, tweak.name: val},
+                  );
+                });
+              },
             ),
           ],
         ),
