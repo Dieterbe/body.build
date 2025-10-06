@@ -1,8 +1,7 @@
 import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
+import 'package:bodybuild/ui/core/util_ratings.dart';
 import 'package:flutter/material.dart';
 
 class ConfigureTweakLarge extends StatelessWidget {
@@ -29,11 +28,7 @@ class ConfigureTweakLarge extends StatelessWidget {
                     children: [
                       Text(opt.key),
                       const SizedBox(width: 8),
-                      _buildRatingIcon(
-                        tweakName: tweak.name,
-                        tweakValue: opt.key,
-                        context: context,
-                      ),
+                      buildRatingIcon(sets, tweak.name, opt.key, context),
                       if (opt.key == tweak.defaultVal) ...[
                         const SizedBox(width: 4),
                         Text(
@@ -73,41 +68,6 @@ class ConfigureTweakLarge extends StatelessWidget {
           ],
         ],
       ),
-    );
-  }
-
-  Widget _buildRatingIcon({String? tweakName, String? tweakValue, required BuildContext context}) {
-    if (sets.ex == null) return const SizedBox.shrink();
-
-    // Get ratings for current configuration
-    final currentRatings = sets.getApplicableRatingsForConfig(sets.tweakOptions).toList();
-
-    // Create a copy of current configuration
-    final tweakConfig = Map<String, String>.of(sets.tweakOptions);
-
-    // Apply the specific option we're showing the rating for
-    if (tweakName != null && tweakValue != null) {
-      tweakConfig[tweakName] = tweakValue;
-    }
-
-    // Get ratings for this configuration
-    final ratings = sets.getApplicableRatingsForConfig(tweakConfig).toList();
-
-    // Only show rating icon if this option changes the ratings
-    if (ratings.length == currentRatings.length) {
-      bool sameRatings = true;
-      for (int i = 0; i < ratings.length; i++) {
-        if (ratings[i].score != currentRatings[i].score) {
-          sameRatings = false;
-          break;
-        }
-      }
-      if (sameRatings) return const SizedBox.shrink();
-    }
-
-    return RatingIconMulti(
-      ratings: ratings,
-      onTap: ratings.isEmpty ? null : () => {showRatingsDialog(sets.ex!.id, ratings, context)},
     );
   }
 }

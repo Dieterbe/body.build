@@ -1,5 +1,9 @@
 import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/ui/core/util_ratings.dart';
+import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
+import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class ConfigureTweakSmall extends StatelessWidget {
@@ -15,8 +19,15 @@ class ConfigureTweakSmall extends StatelessWidget {
       runSpacing: 8,
       children: (tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((opt) {
         final isSelected = (sets.tweakOptions[tweak.name] ?? tweak.defaultVal) == opt.key;
+        final ratingIcon = buildRatingIcon(sets, tweak.name, opt.key, context);
         return ChoiceChip(
-          label: Text(opt.key),
+          label: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(opt.key),
+              if (ratingIcon is! SizedBox) ...[const SizedBox(width: 6), ratingIcon],
+            ],
+          ),
           selected: isSelected,
           onSelected: onChange != null
               ? (selected) {
