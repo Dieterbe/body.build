@@ -226,9 +226,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     showDialog(
       context: context,
       builder: (dialogContext) => Dialog(
-        insetPadding: const EdgeInsets.all(20),
+        insetPadding: const EdgeInsets.all(12),
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 700),
           padding: const EdgeInsets.all(16),
           child: ExerciseDetailPanel(setupData: setupData, pop: dialogContext),
         ),

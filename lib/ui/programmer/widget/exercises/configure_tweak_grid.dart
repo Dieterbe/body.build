@@ -4,6 +4,10 @@ import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 
+const minItemWidth = 300.0;
+const maxItemWidth = 450.0;
+const spacing = 16.0;
+
 // caller must ensure there are tweaks to configure
 // tries to occupy the horizontal space as well as possible - by putting tweak configuration options
 // next to each other - in order to minimize vertical space used
@@ -21,6 +25,17 @@ class ConfigureTweakGrid extends StatelessWidget {
   final Function(Sets)? onChange;
   final bool showDetailedTweaks;
 
+  // calculate the width needed to display all tweaks
+  // this assumes we can fit all tweaks on one row. In practice, due to width constraints we
+  // may wrap onto multiple rows. However, if there are not many tweaks (and the screen is large),
+  // than this width may be less than the constraints, and then this becomes a useful parameter
+  // to size up other widgets that are above or below this grid.
+  static double idealWidth(Sets sets) {
+    final spaceTweaks = sets.ex!.tweaks.length * maxItemWidth;
+    final spaceSpacing = (sets.ex!.tweaks.length - 1) * spacing; // this assumes we have at least 1
+    return spaceTweaks + spaceSpacing;
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -29,9 +44,6 @@ class ConfigureTweakGrid extends StatelessWidget {
         // We either make items wider to use leftover horizontal space (and make them less tall)
         // or make items narrower to fit more items on one row
         final availableWidth = constraints.maxWidth;
-        const minItemWidth = 300.0;
-        const maxItemWidth = 600.0;
-        const spacing = 16.0;
 
         // Determine how many items can fit per row
         int itemsPerRow = (availableWidth / (minItemWidth + spacing)).floor();
@@ -42,6 +54,8 @@ class ConfigureTweakGrid extends StatelessWidget {
         final calculatedWidth = (availableWidth - totalSpacing) / itemsPerRow;
 
         // Clamp to min/max bounds
+        // Note that actual width used may be less than availableWidth
+        // (if there are only few tweaks and there's a big screen). See idealWidth()
         final itemWidth = calculatedWidth.clamp(minItemWidth, maxItemWidth);
 
         return Wrap(

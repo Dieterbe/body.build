@@ -36,6 +36,7 @@ class ExerciseDetailPanel extends ConsumerWidget {
         if (pop != null) Navigator.pop(pop!);
       },
       scrollableTweakGrid: true,
+      constrainWidth: true,
     );
   }
 }
