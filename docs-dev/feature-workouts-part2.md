@@ -1,7 +1,8 @@
 # Gym mode part 2
 
-## Issue: there are sometimes more exercise tweak options than what fits on a screen, and we also want to keep the recruitments on-display while going through all tweaks to see their effect
+## Issue: there were sometimes more exercise tweak options than what fits on a screen, and we also want to keep the recruitments on-display while going through all tweaks to see their effect
 
+addressing this has led to quite the refactor.
 We show the tweaks in 3 different locations: logset sheet, workout programmer, and exercise browser
 
 changes made in all places:
@@ -14,7 +15,7 @@ mobile only: small portrait layout. landscape not supported
 using LogSetSheet which uses ConfigureTweakSmall and ConfigureTweakLarge directly
 
 changes made:
-* scroll the ConfigureTweak widgets, keeping recruitment visible (done)
+* scroll the ConfigureTweak widgets, keeping recruitment visible
 
 ### in the workout programmer
 
@@ -37,8 +38,8 @@ changes made:
 
 changes:
 
-- allow dialog to take up bigger portion of screen (TODO)
-- scrollable TweakGrid (done)
+- allow dialog to take up bigger portion of screen
+- scrollable TweakGrid
 
 #### desktop
 3 pane layout: too narrow portrait
@@ -46,5 +47,5 @@ changes:
 changes:
 
   - make middle pane more narrow to give more space
-  - adopt tablet layout much quicker (dialog rather than 3rd pane)
-  - scrollable TweakGrid (done)
+  - fallback to 2 pane layout quicker (dialog rather than 3rd pane)
+  - scrollable TweakGrid
