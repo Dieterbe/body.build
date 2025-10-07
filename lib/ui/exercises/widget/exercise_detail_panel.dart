@@ -22,21 +22,21 @@ class ExerciseDetailPanel extends ConsumerWidget {
 
     if (selectedExercise == null) return const SizedBox.shrink();
 
-    return SingleChildScrollView(
-      child: ExerciseDetailsDialog(
-        sets: Sets(1, ex: selectedExercise, tweakOptions: selectedTweakOptions),
-        setup: setupData,
-        onChangeTweaks: (sets) {
-          // Update the selected exercise with new tweak options
-          ref
-              .read(exerciseFilterProvider.notifier)
-              .setSelectedExercise(sets.ex, tweakOptions: sets.tweakOptions);
-        },
-        onClose: () {
-          ref.read(exerciseFilterProvider.notifier).setSelectedExercise(null);
-          if (pop != null) Navigator.pop(pop!);
-        },
-      ),
+    return ExerciseDetailsDialog(
+      sets: Sets(1, ex: selectedExercise, tweakOptions: selectedTweakOptions),
+      setup: setupData,
+      onChangeTweaks: (sets) {
+        // Update the selected exercise with new tweak options
+        ref
+            .read(exerciseFilterProvider.notifier)
+            .setSelectedExercise(sets.ex, tweakOptions: sets.tweakOptions);
+      },
+      onClose: () {
+        ref.read(exerciseFilterProvider.notifier).setSelectedExercise(null);
+        if (pop != null) Navigator.pop(pop!);
+      },
+      scrollableTweakGrid: true,
+      constrainWidth: true,
     );
   }
 }

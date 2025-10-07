@@ -33,14 +33,14 @@ examples:
 * it takes a large amount of instability to make an exercise less effective to stimulate the target, but can help with core and rehab (higher activation for lower loads), which moves the limit factor
 * split squats and back squats similar activation in vastus lateralis, biceps femoris, glute max and erector spinae (it's stable enough)
 
-#### dumbell vs barbell
+#### dumbbell vs barbell
 mostly equivalent, but consider ROM, comfort and injury risk
 ##### triceps
 - using a bar (barbell press and overhead press) triceps can contribute more (pushing the bar apart), but need narrow grip (hands within elbows)
-- triceps don't really contribute to dumbell presses (you don't extend your elbows)
-- dumbell press counts 50% towards tri's compared to barbell, need to add isolation to compensate
+- triceps don't really contribute to dumbbell presses (you don't extend your elbows)
+- dumbbell press counts 50% towards tri's compared to barbell, need to add isolation to compensate
 ##### biceps
-- dumbell rows only stimulate 50% compared to isolation or fixed bar pulls
+- dumbbell rows only stimulate 50% compared to isolation or fixed bar pulls
 - extremely wide grip bar pulls may stimulate biceps more, due to horizontal force production (and lower flexion demands)
 
 ### 2) eccentric contractions

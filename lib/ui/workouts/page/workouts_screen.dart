@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/developer_mode_provider.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list.dart';
@@ -16,7 +17,8 @@ class WorkoutsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (!isMobileApp()) {
+    final devMode = ref.watch(developerModeProvider);
+    if (!isMobileApp() && !devMode) {
       return const MobileAppOnly(title: 'Workouts');
     }
 

@@ -6,6 +6,8 @@
 - Refer to routes in dart by <widget>.routeName, this is the only place where we hardcode route strings (with the exception of the initial home route)
 - Use the existing directories named `core` and `util` to store reusable components and functions, and find existing code to use.
 - Avoid writing duplicate or similar code, always look for opportunities to make code reusable.
+- Prefer using modern dart 3 functionality/syntax, in particular use **pattern matching** over traditional **switch** or **if** statements.
+- Prefer using **spacing** option over repeated **SizedBox** or similar widgets.
 
 ## File organization
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 
+// a logged set in a workout, has inline buttons to edit or delete the set in-place
 class SetLogWidget extends StatefulWidget {
   final model.WorkoutSet workoutSet;
   final Function(model.WorkoutSet) onUpdate;

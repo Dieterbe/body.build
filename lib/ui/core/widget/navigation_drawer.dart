@@ -21,7 +21,7 @@ class AppNavigationDrawer extends StatelessWidget {
         children: [
           // Header
           Container(
-            height: 120,
+            height: 140,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
@@ -36,7 +36,7 @@ class AppNavigationDrawer extends StatelessWidget {
             ),
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16), // match the listTiles below
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -48,7 +48,7 @@ class AppNavigationDrawer extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     Text(
                       'Advanced workout planner',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
