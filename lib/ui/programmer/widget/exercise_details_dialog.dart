@@ -1,8 +1,6 @@
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
-import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
-import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
-import 'package:bodybuild/util/string_extension.dart';
+import 'package:bodybuild/ui/programmer/widget/exercises/configure_tweak_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/programmer/exercises.dart';
@@ -15,6 +13,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
   final Function(Sets)? onChangeTweaks; // allow editng tweaks?
   final Function()? onClose; // if set, puts a close button
   final bool showRecruitmentViz;
+  final bool scrollableTweakGrid; // if parent is already scrollable, avoid scroll inside of scroll
 
   const ExerciseDetailsDialog({
     super.key,
@@ -24,6 +23,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
     this.onChangeTweaks,
     this.onClose,
     this.showRecruitmentViz = true,
+    this.scrollableTweakGrid = false,
   });
 
   @override
@@ -143,17 +143,10 @@ In the future, you'll be able to add your own custom tweaks as well.
           ).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
         const SizedBox(height: 12),
-        if (localSets.ex != null && !localSets.changeEx) ...[
+        if (localSets.ex != null && !localSets.changeEx)
           Row(
             children: [
-              Text(
-                localSets.ex!.id,
-                /*   style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width / 90,
-                  fontWeight: FontWeight.bold,
-                ),
-                */
-              ),
+              Text(localSets.ex!.id),
               const Spacer(),
               if (widget.onChangeEx != null)
                 TextButton(
@@ -163,8 +156,8 @@ In the future, you'll be able to add your own custom tweaks as well.
                   child: const Text('Change'),
                 ),
             ],
-          ),
-        ] else
+          )
+        else
           Autocomplete<Ex>(
             displayStringForOption: (e) => e.id,
             optionsBuilder: (textEditingValue) =>
@@ -214,91 +207,28 @@ In the future, you'll be able to add your own custom tweaks as well.
             ],
           ],
         ),
-        const SizedBox(height: 12),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            if (localSets.ex == null || localSets.ex!.tweaks.isEmpty) {
-              return const SizedBox.shrink();
-            }
-            // Calculate optimal item width based on available space
-            final availableWidth = constraints.maxWidth;
-            const minItemWidth = 300.0;
-            const maxItemWidth = 600.0;
-            const spacing = 16.0;
-
-            // Determine how many items can fit per row
-            int itemsPerRow = (availableWidth / (minItemWidth + spacing)).floor();
-            itemsPerRow = itemsPerRow.clamp(1, localSets.ex!.tweaks.length);
-
-            // Calculate actual item width to fill available space
-            final totalSpacing = (itemsPerRow - 1) * spacing;
-            final calculatedWidth = (availableWidth - totalSpacing) / itemsPerRow;
-
-            // Clamp to min/max bounds
-            final itemWidth = calculatedWidth.clamp(minItemWidth, maxItemWidth);
-
-            return Wrap(
-              spacing: spacing,
-              runSpacing: spacing,
-              children:
-                  localSets.ex?.tweaks
-                      .map(
-                        (tweak) => SizedBox(
-                          width: itemWidth,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                tweak.name.capitalizeFirstOnlyButKeepAcronym(),
-                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                  color: Theme.of(context).colorScheme.secondary,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              if (showDetailedTweaks)
-                                ConfigureTweakLarge(
-                                  tweak,
-                                  localSets,
-                                  onChange: widget.onChangeTweaks != null
-                                      ? (value) {
-                                          widget.onChangeTweaks!(
-                                            localSets.copyWith(
-                                              tweakOptions: {
-                                                ...localSets.tweakOptions,
-                                                tweak.name: value,
-                                              },
-                                            ),
-                                          );
-                                        }
-                                      : null,
-                                )
-                              else
-                                ConfigureTweakSmall(
-                                  tweak,
-                                  localSets,
-                                  onChange: widget.onChangeTweaks != null
-                                      ? (value) {
-                                          widget.onChangeTweaks!(
-                                            localSets.copyWith(
-                                              tweakOptions: {
-                                                ...localSets.tweakOptions,
-                                                tweak.name: value,
-                                              },
-                                            ),
-                                          );
-                                        }
-                                      : null,
-                                ),
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList() ??
-                  [],
-            );
-          },
-        ),
+        if (localSets.ex?.tweaks.isNotEmpty == true) ...[
+          const SizedBox(height: 12),
+          if (widget.scrollableTweakGrid)
+            Flexible(
+              child: Scrollbar(
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  child: ConfigureTweakGrid(
+                    sets: localSets,
+                    onChange: onChangeTweaks,
+                    showDetailedTweaks: showDetailedTweaks,
+                  ),
+                ),
+              ),
+            )
+          else
+            ConfigureTweakGrid(
+              sets: localSets,
+              onChange: onChangeTweaks,
+              showDetailedTweaks: showDetailedTweaks,
+            ),
+        ],
         if (widget.showRecruitmentViz && localSets.ex != null) ...[
           const SizedBox(height: 16),
           Text(
