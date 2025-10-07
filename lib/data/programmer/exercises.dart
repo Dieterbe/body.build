@@ -117,7 +117,7 @@ final List<Ex> exes = [
   Ex(vaDeadlift, "deadlift", [Equipment.barbell], [rom, gripSqueeze]),
   Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
   Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell], [rom, gripSqueeze]),
-  Ex(vaDeadliftRDL, "dummbbell romanian deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
+  Ex(vaDeadliftRDL, "dumbbell romanian deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
 
   const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45], [rom, gripSqueeze]),
   const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45], [rom, gripSqueeze]),

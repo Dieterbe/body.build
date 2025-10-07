@@ -355,7 +355,7 @@ const vaWristFlexion = {ProgramGroup.wristFlexors: Assign(1, 'active ROM')};
 
 //                           medial/lat    long
 // barbell presses              v
-// cable/dummbell presses
+// cable/dumbbell presses
 // tri isolation work           v            v
 // lat prayer                                v
 //
@@ -371,12 +371,12 @@ bicep curls
 tricep extensions
 deadlifts
 different squats: what's the point of having a category that includes bulgarian and hack squat and goblet, and bodyweight, etc? they are quite different (e.g. in back load
-bench press (inclide, decline, barbell, dumbell)
+bench press (inclide, decline, barbell, dumbbell)
 pull-downs (chinup, neutral grip, wide, etc), also assisted vs unassisted
 pull-ups (chinup, neutral grip, wide, etc)
 
 for volume assignments, we use
-- exact names (e.g. dumbell overhead press). i guess you can always split up further. seated, standing, maybe unilateral though that could be an execution specific thing that is orthogonal to the exercise, etc
+- exact names (e.g. dumbbell overhead press). i guess you can always split up further. seated, standing, maybe unilateral though that could be an execution specific thing that is orthogonal to the exercise, etc
   i suppose we can later always add new variants, while the rules must continue to work. therefore, rules cannot point to single exercises by id/name
 - family names (chest fly, lat raise)
 
