@@ -62,8 +62,8 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     // perhaps we'll use this more at a later stage
     final setup = ref.watch(setupProvider);
     final screenWidth = MediaQuery.of(context).size.width;
-    final isDesktop = screenWidth > 1024;
-    final isTablet = screenWidth > 768 && screenWidth <= 1024;
+    final layout3Pane = screenWidth > 1440;
+    final layout2Pane = screenWidth > 768 && screenWidth <= 1440;
 
     // Listen to exercise selection changes and update URL
     ref.listen(exerciseFilterProvider, (previous, next) {
@@ -74,7 +74,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     });
 
     // Listen for exercise selection on mobile/tablet to show modal
-    if (!isDesktop) {
+    if (!layout3Pane) {
       ref.listen(exerciseFilterProvider.select((state) => state.selectedExercise), (
         previous,
         selectedExercise,
@@ -95,7 +95,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           title: const Text('Exercise Browser'),
           backgroundColor: Theme.of(context).colorScheme.surface,
           actions: [
-            if (!isDesktop) ...[
+            if (!layout3Pane) ...[
               Consumer(
                 builder: (context, ref, child) {
                   final showFilters = ref.watch(
@@ -113,16 +113,16 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           ],
         ),
         drawer: const AppNavigationDrawer(),
-        body: isDesktop
-            ? _buildDesktopLayout(setupData)
-            : isTablet
-            ? _buildTabletLayout()
-            : _buildMobileLayout(),
+        body: layout3Pane
+            ? _buildLayout3Pane(setupData)
+            : layout2Pane
+            ? _buildLayout2Pane()
+            : _buildLayout1Pane(),
       ),
     );
   }
 
-  Widget _buildDesktopLayout(Settings setupData) {
+  Widget _buildLayout3Pane(Settings setupData) {
     return Row(
       children: [
         // Filters Panel
@@ -138,7 +138,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           child: const FilterPanel(),
         ),
         // Exercise List
-        const Expanded(flex: 2, child: ExerciseList()),
+        const Expanded(flex: 1, child: ExerciseList()),
         // Exercise Detail Panel
         Consumer(
           builder: (context, ref, child) {
@@ -146,17 +146,29 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
               exerciseFilterProvider.select((state) => state.selectedExercise),
             );
             if (selectedExercise == null) return const SizedBox.shrink();
-            return Container(
-              width: 400,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                border: Border(
-                  left: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
+            return Expanded(
+              // more tweaks -> we want more horizontal space to put them next to each other
+              // a tweak column is roughly as wide as the exercise list
+              // but once we have >3 columns it's probably approriate to start going to a second
+              // row if necessary, after that we can use some more space but let's not go crazy
+              flex: switch (selectedExercise.tweaks.length) {
+                1 => 1,
+                2 => 2,
+                3 || 4 => 3,
+                _ => 4,
+              },
+              child: Container(
+                width: 400,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  border: Border(
+                    left: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
+                  ),
                 ),
+                alignment: Alignment.topCenter,
+                child: ExerciseDetailPanel(setupData: setupData),
               ),
-              alignment: Alignment.topCenter,
-              child: ExerciseDetailPanel(setupData: setupData),
             );
           },
         ),
@@ -164,7 +176,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     );
   }
 
-  Widget _buildTabletLayout() {
+  Widget _buildLayout2Pane() {
     return Row(
       children: [
         // Collapsible Filters Panel
@@ -193,7 +205,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     );
   }
 
-  Widget _buildMobileLayout() {
+  Widget _buildLayout1Pane() {
     return Column(
       children: [
         Consumer(
