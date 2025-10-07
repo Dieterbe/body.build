@@ -19,6 +19,8 @@ class ConfigureTweakLarge extends StatelessWidget {
         children: [
           ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((opt) {
             final optionDesc = opt.value.$2;
+            final ratingIcon = buildRatingIcon(sets, tweak.name, opt.key, context);
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -26,8 +28,8 @@ class ConfigureTweakLarge extends StatelessWidget {
                   title: Row(
                     children: [
                       Text(opt.key),
-                      const SizedBox(width: 8),
-                      buildRatingIcon(sets, tweak.name, opt.key, context),
+                      if (ratingIcon is! SizedBox) const SizedBox(width: 8),
+                      ratingIcon,
                       if (opt.key == tweak.defaultVal) ...[
                         const SizedBox(width: 4),
                         Text(

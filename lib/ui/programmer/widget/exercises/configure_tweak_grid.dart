@@ -4,7 +4,7 @@ import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 
-const minItemWidth = 300.0;
+const minItemWidth = 315.0;
 const maxItemWidth = 450.0;
 const spacing = 16.0;
 
