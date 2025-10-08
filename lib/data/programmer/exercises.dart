@@ -389,36 +389,39 @@ final List<Ex> exes = [
  *    888   d88P  d8888888888 Y88b  d88P 888   Y88b                     
  *    8888888P"  d88P     888  "Y8888P"  888    Y88b     
  */
-  const Ex(vaPullsWide, "pull-up", [], [rom, gripSqueeze]), // just outside shoulder width
-  // Ex(EBase.?, "pull-up close grip pronated", []),
+  const Ex(vaPulls, "gymnastic rings pull-up", [Equipment.gymnasticRings], [rom, gripSqueeze]),
   const Ex(
-    vaPulls,
-    "gymnastic rings pull-up",
-    [Equipment.gymnasticRings],
-    [rom, gripSqueeze],
-  ), // TODO see if recruitment should be adjusted
-  const Ex(vaPulls, "pull-up neutral grip", [], [rom, gripSqueeze]),
-  const Ex(vaPulls, "pull-up supinated grip", [], [rom, gripSqueeze]), // chin-up
-  const Ex(vaPullsWide, "pull-up wide pronated grip", [], [rom, gripSqueeze]),
-
-  const Ex(vaPullsWide, "lat pulldown", [Equipment.latPullDownMachine], [rom, gripSqueeze]),
-  const Ex(
-    vaPulls,
-    "lat pulldown neutral grip",
+    {},
+    "pull-up",
     [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
+    [
+      rom,
+      gripSqueeze,
+      Tweak('grip', 'shoulder width pronated', {
+        'narrow supinated': (vaPulls, 'aka narrow chin-up'),
+        'shoulder width supinated': (vaPulls, 'aka chin-up'),
+        'shoulder width pronated': (vaPulls, 'aka normal grip'),
+        'wide pronated': (vaPullsWide, 'normal grip, but wide'),
+      }),
+    ],
   ),
   const Ex(
-    vaPulls,
-    "lat pulldown supinated grip",
+    {},
+    "lat pulldown",
     [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
-  ),
-  const Ex(
-    vaPullsWide,
-    "lat pulldown wide pronated grip",
-    [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
+    [
+      rom,
+      gripSqueeze,
+      Tweak('grip', 'bar shoulder width pronated', {
+        'attachment narrow supinated': (vaPulls, ''),
+        'attachment narrow neutral grip': (vaPulls, 'aka hammer grip'),
+        'attachment wide neutral grip': (vaPulls, 'aka hammer grip'),
+        'bar narrow supinated': (vaPulls, ''),
+        'bar shoulder width supinated': (vaPulls, ''),
+        'bar shoulder width pronated': (vaPulls, 'aka normal grip'),
+        'bar wide pronated': (vaPullsWide, 'normal grip, but wide'),
+      }),
+    ],
   ),
 
   const Ex(vaPulls, "kneeling diagonal cable row", [Equipment.cableTower], [rom, gripSqueeze]),
@@ -447,15 +450,20 @@ final List<Ex> exes = [
             Also called 'flexion row'""",
         ),
       }),
-      Tweak('grip width', 'shoulder', {
-        'shoulder': ({}, ''),
-        'wide': (
+      Tweak('grip', 'bar shoulder width pronated', {
+        'attachment narrow supinated': ({}, ''),
+        'attachment narrow neutral grip': ({}, 'aka hammer grip'),
+        'attachment wide neutral grip': ({}, 'aka hammer grip'),
+        'bar narrow supinated': ({}, ''),
+        'bar shoulder width supinated': ({}, ''),
+        'bar shoulder width pronated': ({}, 'aka normal grip'),
+        'bar wide pronated': (
           {
             ProgramGroup.rearDelts: Assign(1, 'shoulder horizontal extension + shoulder extension'),
             ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
             ProgramGroup.lats: Assign(1, 'shoulder extension + shoulder adduction'),
           },
-          '',
+          'normal grip, but wide',
         ),
       }),
     ],
@@ -469,6 +477,12 @@ final List<Ex> exes = [
     [Equipment.barbell],
     [rom, gripSqueeze],
   ),
+  const Ex(
+    vaRowWithSpineIso,
+    "standing bent over dumbbell row", // https://www.youtube.com/shorts/q0zngW0oiT0
+    [Equipment.dumbbell],
+    [rom, gripSqueeze],
+  ),
 
   const Ex(
     vaRowWithoutSpine,
@@ -478,7 +492,7 @@ final List<Ex> exes = [
   ),
   const Ex(
     vaRowWithoutSpine,
-    "helms row", // https://www.youtube.com/shorts/XdZSJD41l68
+    "helms row", // https://www.youtube.com/shorts/Bk0YWJmbQEQ
     [Equipment.dumbbell],
     [rom, gripSqueeze],
     [ratingJNRowChestSupported],
