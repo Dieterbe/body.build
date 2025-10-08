@@ -145,7 +145,7 @@ wide grip pull down -> grip just outside shoulder width
 lat pull down -> not mentioned :?
 this explains why pull up goes together with wide grip pull down
 */
-const vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow = {
+const vaPulls = {
   ProgramGroup.lowerPecs: Assign(0.25),
   ProgramGroup.rearDelts: Assign(1),
   ProgramGroup.lowerTraps: Assign(1),
@@ -156,7 +156,7 @@ const vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiag
 };
 // TODO: add hanging leg raises? wrist stuff 0.5
 // TODO confirm
-const vaPullupPulldownWidePronatedPullupWidePronated = {
+const vaPullsWide = {
   ProgramGroup.lowerPecs: Assign(0.5),
   ProgramGroup.rearDelts: Assign(0.25),
   ProgramGroup.lowerTraps: Assign(1),

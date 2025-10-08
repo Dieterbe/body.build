@@ -83,7 +83,8 @@ class Ex {
   }
 }
 
-// TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
+// TODO add pull-up negatives. this is not eccentric overloads (those still have concentric) -> could be a ROM tweak
+// actually negative is like eccentric overload with weight for concentric set to 0
 // form tweaks like unilateral concentrics, unilateral, e.g. for leg ext, leg curls, calf raises
 // important: id's should not change! perhaps we should introduce seperate human friendly naming
 // TODO: annotate which exercises are 'preferred' by way of menno's recommendations, also those that are deficit or have larger ROM
@@ -101,8 +102,19 @@ This categorization is only meant to make code navigation easier here and elsewh
 exercise id and tweak names/values allowed chars: a-z, 0-9, °, -, space, (), >
 no '&' cause that would look ugly in URL encoding
 no '_' because it shouldn't be needed, and allows us to url encode space to '_' instead of %20 in the URL and instead of '+' in path parameters
+today we don't encode ° and () (and space) in exercise ID's in URL's and it seems to work fine, however
 */
 final List<Ex> exes = [
+  /**
+ *    888      8888888888  .d8888b.   .d8888b.  
+ *    888      888        d88P  Y88b d88P  Y88b 
+ *    888      888        888    888 Y88b.      
+ *    888      8888888    888         "Y888b.   
+ *    888      888        888  88888     "Y88b. 
+ *    888      888        888    888       "888 
+ *    888      888        Y88b  d88P Y88b  d88P 
+ *    88888888 8888888888  "Y8888P88  "Y8888P"                                             
+ */
   const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(
     vaGoodMorning,
@@ -162,6 +174,12 @@ final List<Ex> exes = [
     "barbell squat",
     [Equipment.squatRack],
     [rom, gripSqueeze, squatBarPlacement, squatLowerLegMovement],
+  ),
+  const Ex(
+    vaSquatBBAndGoblet,
+    "barbell squat (powerlift)",
+    [Equipment.squatRack],
+    [rom, gripSqueeze, squatPowerLiftBarPlacement, squatLowerLegMovement],
   ),
   const Ex(vaSquatBBAndGoblet, "goblet squat", [], [
     rom,
@@ -371,65 +389,39 @@ final List<Ex> exes = [
  *    888   d88P  d8888888888 Y88b  d88P 888   Y88b                     
  *    8888888P"  d88P     888  "Y8888P"  888    Y88b     
  */
-  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup", [], [
-    rom,
-    gripSqueeze,
-  ]), // just outside shoulder width
-  // Ex(EBase.?, "pullup close grip pronated", []),
+  const Ex(vaPullsWide, "pull-up", [], [rom, gripSqueeze]), // just outside shoulder width
+  // Ex(EBase.?, "pull-up close grip pronated", []),
   const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "pullup gymnastic rings",
+    vaPulls,
+    "gymnastic rings pull-up",
     [Equipment.gymnasticRings],
     [rom, gripSqueeze],
   ), // TODO see if recruitment should be adjusted
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "pullup neutral grip",
-    [],
-    [rom, gripSqueeze],
-  ),
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "pullup supinated grip",
-    [],
-    [rom, gripSqueeze],
-  ), // chin-up
-  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup wide pronated grip", [], [
-    rom,
-    gripSqueeze,
-  ]),
+  const Ex(vaPulls, "pull-up neutral grip", [], [rom, gripSqueeze]),
+  const Ex(vaPulls, "pull-up supinated grip", [], [rom, gripSqueeze]), // chin-up
+  const Ex(vaPullsWide, "pull-up wide pronated grip", [], [rom, gripSqueeze]),
 
+  const Ex(vaPullsWide, "lat pulldown", [Equipment.latPullDownMachine], [rom, gripSqueeze]),
   const Ex(
-    vaPullupPulldownWidePronatedPullupWidePronated,
-    "lat pulldown",
-    [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
-  ),
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
+    vaPulls,
     "lat pulldown neutral grip",
     [Equipment.latPullDownMachine],
     [rom, gripSqueeze],
   ),
   const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
+    vaPulls,
     "lat pulldown supinated grip",
     [Equipment.latPullDownMachine],
     [rom, gripSqueeze],
   ),
   const Ex(
-    vaPullupPulldownWidePronatedPullupWidePronated,
+    vaPullsWide,
     "lat pulldown wide pronated grip",
     [Equipment.latPullDownMachine],
     [rom, gripSqueeze],
   ),
 
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "kneeling diagonal cable row",
-    [Equipment.cableTower],
-    [rom, gripSqueeze],
-  ),
+  const Ex(vaPulls, "kneeling diagonal cable row", [Equipment.cableTower], [rom, gripSqueeze]),
   const Ex(
     vaRow,
     "seated cable row",
@@ -470,7 +462,7 @@ final List<Ex> exes = [
     [ratingJNRowCable],
   ),
 
-  // TODO many different grips. those should affect recruitment similar to pullup types
+  // TODO many different grips. those should affect recruitment similar to pull-up types
   const Ex(
     vaRowWithSpineIso,
     "standing bent over barbell row",
@@ -599,7 +591,7 @@ final List<Ex> exes = [
   ),
   const Ex(
     vaBenchPressBBChestPressMachineDip,
-    "bench press smith machine",
+    "smith machine bench press",
     [Equipment.smithMachineAngled],
     [rom, gripSqueeze, benchPressBenchAngle],
   ),
@@ -611,7 +603,7 @@ final List<Ex> exes = [
     [rom, gripSqueeze],
     [ratingJNMachineChestPress],
   ),
-
+  // TODO: hand position, diamond etc
   const Ex(vaPushUp, "push-up", [], [rom, deficit], [ratingJNPushUp, ratingJNPushUpDeficit]),
 
   const Ex(

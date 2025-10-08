@@ -163,6 +163,20 @@ const legCurlHipFlexion = Tweak(
 /*
 NOTE: for now, we don't have different programgroups for upper/lower back, that would be a good use case here
 */
+const squatPowerLiftBarPlacement = Tweak(
+  'bar placement',
+  'high back',
+  {
+    'high back': ({}, 'bar rests on upper traps, shoulders'),
+    'mid back': ({}, 'bar rests on middle traps'),
+    'low back': ({}, 'bar rests on rear deltoids below spine of scapula'),
+  },
+  desc: '''
+Most people are stronger, the lower the bar placement. Therefore the low back bar placement is often used in powerlifting.
+The higher the bar placement, the less weight you need and the more you can target the back, in particular the upper back.
+''',
+);
+
 const squatBarPlacement = Tweak(
   'bar placement',
   'high back',
