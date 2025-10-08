@@ -5,42 +5,60 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug linux",
+            "name": "auto/profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "auto/release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "linux/debug",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
             "deviceId": "linux"
         },
         {
-            "name": "debug pixel",
+            "name": "linux/debug dev",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "deviceId": "linux",
+            "args": [
+                "--dart-define=DEV_MODE=true"
+            ]
+        },
+        {
+            "name": "pixel/debug",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
             "deviceId": "1A111FDF6007TT"
         },
         {
-            "name": "normal linux",
+            "name": "linux/normal",
             "request": "launch",
             "type": "dart",
             "deviceId": "linux",
         },
         {
-            "name": "normal pixel",
+            "name": "pixel/normal",
             "request": "launch",
             "type": "dart",
             "deviceId": "1A111FDF6007TT",
         },
+
         {
-            "name": "profile",
+            "name": "web/debug",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "release",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "debug",
+            "deviceId": "chrome",
         }
     ]
 }
