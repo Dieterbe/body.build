@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/developer_mode_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/ui/core/widget/err_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/log_set_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/set_log_widget.dart';
@@ -91,7 +92,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         return _buildNewWorkoutLoading(context);
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const Center(child: Text('Error loading workout state')),
+      error: (error, stackTrace) => ErrWidget("Error loading workout state", error),
     );
   }
 
