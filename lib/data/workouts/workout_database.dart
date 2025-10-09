@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 
@@ -33,26 +34,49 @@ class WorkoutSets extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [Workouts, WorkoutSets])
+// Exercise version tracking table
+class ExerciseVersions extends Table {
+  TextColumn get id =>
+      text().withDefault(const Constant('current'))(); // Always 'current' for the active version
+  IntColumn get version => integer()(); // Current exercise dataset version in use
+  DateTimeColumn get setAt => dateTime()(); // When this version was set
+  TextColumn get source => text()(); // 'code', 'migration', 'manual'
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DriftDatabase(tables: [Workouts, WorkoutSets, ExerciseVersions])
 class WorkoutDatabase extends _$WorkoutDatabase {
   WorkoutDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
       beforeOpen: (details) async {
         if (details.wasCreated) {
-          // ...
+          print("drift database just created");
+          await setCurrentExerciseVersion(exerciseDatasetVersion, 'initial');
+        } else {
+          print("drift database already exists");
+          await _checkExerciseMigration();
         }
         await customStatement('PRAGMA foreign_keys = ON');
       },
       onCreate: (Migrator m) async {
         await m.createAll();
       },
-      onUpgrade: (Migrator m, int from, int to) async {},
+      onUpgrade: (Migrator m, int from, int to) async {
+        if (from < 2) {
+          // Add exercise_versions table
+          await m.createTable(exerciseVersions);
+          // Set initial version
+          await setCurrentExerciseVersion(exerciseDatasetVersion, 'migration');
+        }
+      },
     );
   }
 
@@ -114,6 +138,38 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
   Future<int> deleteWorkoutSets(String workoutId) =>
       (delete(workoutSets)..where((s) => s.workoutId.equals(workoutId))).go();
+
+  // Exercise version tracking
+  Future<int?> getCurrentExerciseVersion() async {
+    final version =
+        await (select(exerciseVersions)
+              ..where((v) => v.id.equals('current'))
+              ..limit(1))
+            .getSingleOrNull();
+
+    return version?.version;
+  }
+
+  Future<void> setCurrentExerciseVersion(int version, String source) async {
+    await into(exerciseVersions).insert(
+      ExerciseVersionsCompanion(
+        id: const Value('current'),
+        version: Value(version),
+        setAt: Value(DateTime.now()),
+        source: Value(source),
+      ),
+      mode: InsertMode.insertOrIgnore,
+    );
+  }
+
+  Future<void> _checkExerciseMigration() async {
+    // TODO: This would integrate with a migration service
+    // For now, just a placeholder
+    final currentVersion = await getCurrentExerciseVersion();
+    if (currentVersion != exerciseDatasetVersion) {
+      throw ('Exercise migration needed: ${currentVersion!} -> $exerciseDatasetVersion');
+    }
+  }
 }
 
 QueryExecutor _openConnection() => driftDatabase(name: 'workouts');

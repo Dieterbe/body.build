@@ -41,8 +41,7 @@ abstract class _$ProgramManager extends $AsyncNotifier<ProgramManagerState> {
   @override
   void runBuild() {
     final created = build();
-    final ref =
-        this.ref as $Ref<AsyncValue<ProgramManagerState>, ProgramManagerState>;
+    final ref = this.ref as $Ref<AsyncValue<ProgramManagerState>, ProgramManagerState>;
     final element =
         ref.element
             as $ClassProviderElement<

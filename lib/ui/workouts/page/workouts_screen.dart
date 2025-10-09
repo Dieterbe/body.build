@@ -36,7 +36,7 @@ class WorkoutsScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) {
           debugPrint('WorkoutsScreen error: $error');
-          debugPrintStack(stackTrace: stack);
+          debugPrint('Stack trace: $stack');
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

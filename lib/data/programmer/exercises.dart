@@ -1,11 +1,10 @@
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/data/programmer/rating_jn.dart';
 import 'package:bodybuild/data/programmer/rating_mh.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
-
-import 'rating.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
@@ -104,6 +103,14 @@ no '&' cause that would look ugly in URL encoding
 no '_' because it shouldn't be needed, and allows us to url encode space to '_' instead of %20 in the URL and instead of '+' in path parameters
 today we don't encode ° and () (and space) in exercise ID's in URL's and it seems to work fine, however
 */
+
+// Exercise dataset version for migration tracking
+const int exerciseDatasetVersion = 1;
+
+// In case we make breaking changes to exercise ID's or tweaks (such that persisted values from
+// the programmer, workout history, etc. are no longer valid), we should increment this version
+// and build a migration system (if/when we care enough about stability anyway)
+
 final List<Ex> exes = [
   /**
  *    888      8888888888  .d8888b.   .d8888b.  

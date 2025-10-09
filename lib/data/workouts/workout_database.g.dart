@@ -939,16 +939,300 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
   }
 }
 
+class $ExerciseVersionsTable extends ExerciseVersions
+    with TableInfo<$ExerciseVersionsTable, ExerciseVersion> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExerciseVersionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('current'),
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta('version');
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _setAtMeta = const VerificationMeta('setAt');
+  @override
+  late final GeneratedColumn<DateTime> setAt = GeneratedColumn<DateTime>(
+    'set_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sourceMeta = const VerificationMeta('source');
+  @override
+  late final GeneratedColumn<String> source = GeneratedColumn<String>(
+    'source',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, version, setAt, source];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'exercise_versions';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExerciseVersion> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('version')) {
+      context.handle(_versionMeta, version.isAcceptableOrUnknown(data['version']!, _versionMeta));
+    } else if (isInserting) {
+      context.missing(_versionMeta);
+    }
+    if (data.containsKey('set_at')) {
+      context.handle(_setAtMeta, setAt.isAcceptableOrUnknown(data['set_at']!, _setAtMeta));
+    } else if (isInserting) {
+      context.missing(_setAtMeta);
+    }
+    if (data.containsKey('source')) {
+      context.handle(_sourceMeta, source.isAcceptableOrUnknown(data['source']!, _sourceMeta));
+    } else if (isInserting) {
+      context.missing(_sourceMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExerciseVersion map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExerciseVersion(
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      setAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}set_at'],
+      )!,
+      source: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source'],
+      )!,
+    );
+  }
+
+  @override
+  $ExerciseVersionsTable createAlias(String alias) {
+    return $ExerciseVersionsTable(attachedDatabase, alias);
+  }
+}
+
+class ExerciseVersion extends DataClass implements Insertable<ExerciseVersion> {
+  final String id;
+  final int version;
+  final DateTime setAt;
+  final String source;
+  const ExerciseVersion({
+    required this.id,
+    required this.version,
+    required this.setAt,
+    required this.source,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['version'] = Variable<int>(version);
+    map['set_at'] = Variable<DateTime>(setAt);
+    map['source'] = Variable<String>(source);
+    return map;
+  }
+
+  ExerciseVersionsCompanion toCompanion(bool nullToAbsent) {
+    return ExerciseVersionsCompanion(
+      id: Value(id),
+      version: Value(version),
+      setAt: Value(setAt),
+      source: Value(source),
+    );
+  }
+
+  factory ExerciseVersion.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExerciseVersion(
+      id: serializer.fromJson<String>(json['id']),
+      version: serializer.fromJson<int>(json['version']),
+      setAt: serializer.fromJson<DateTime>(json['setAt']),
+      source: serializer.fromJson<String>(json['source']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'version': serializer.toJson<int>(version),
+      'setAt': serializer.toJson<DateTime>(setAt),
+      'source': serializer.toJson<String>(source),
+    };
+  }
+
+  ExerciseVersion copyWith({String? id, int? version, DateTime? setAt, String? source}) =>
+      ExerciseVersion(
+        id: id ?? this.id,
+        version: version ?? this.version,
+        setAt: setAt ?? this.setAt,
+        source: source ?? this.source,
+      );
+  ExerciseVersion copyWithCompanion(ExerciseVersionsCompanion data) {
+    return ExerciseVersion(
+      id: data.id.present ? data.id.value : this.id,
+      version: data.version.present ? data.version.value : this.version,
+      setAt: data.setAt.present ? data.setAt.value : this.setAt,
+      source: data.source.present ? data.source.value : this.source,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExerciseVersion(')
+          ..write('id: $id, ')
+          ..write('version: $version, ')
+          ..write('setAt: $setAt, ')
+          ..write('source: $source')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, version, setAt, source);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExerciseVersion &&
+          other.id == this.id &&
+          other.version == this.version &&
+          other.setAt == this.setAt &&
+          other.source == this.source);
+}
+
+class ExerciseVersionsCompanion extends UpdateCompanion<ExerciseVersion> {
+  final Value<String> id;
+  final Value<int> version;
+  final Value<DateTime> setAt;
+  final Value<String> source;
+  final Value<int> rowid;
+  const ExerciseVersionsCompanion({
+    this.id = const Value.absent(),
+    this.version = const Value.absent(),
+    this.setAt = const Value.absent(),
+    this.source = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ExerciseVersionsCompanion.insert({
+    this.id = const Value.absent(),
+    required int version,
+    required DateTime setAt,
+    required String source,
+    this.rowid = const Value.absent(),
+  }) : version = Value(version),
+       setAt = Value(setAt),
+       source = Value(source);
+  static Insertable<ExerciseVersion> custom({
+    Expression<String>? id,
+    Expression<int>? version,
+    Expression<DateTime>? setAt,
+    Expression<String>? source,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (version != null) 'version': version,
+      if (setAt != null) 'set_at': setAt,
+      if (source != null) 'source': source,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ExerciseVersionsCompanion copyWith({
+    Value<String>? id,
+    Value<int>? version,
+    Value<DateTime>? setAt,
+    Value<String>? source,
+    Value<int>? rowid,
+  }) {
+    return ExerciseVersionsCompanion(
+      id: id ?? this.id,
+      version: version ?? this.version,
+      setAt: setAt ?? this.setAt,
+      source: source ?? this.source,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (setAt.present) {
+      map['set_at'] = Variable<DateTime>(setAt.value);
+    }
+    if (source.present) {
+      map['source'] = Variable<String>(source.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExerciseVersionsCompanion(')
+          ..write('id: $id, ')
+          ..write('version: $version, ')
+          ..write('setAt: $setAt, ')
+          ..write('source: $source, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$WorkoutDatabase extends GeneratedDatabase {
   _$WorkoutDatabase(QueryExecutor e) : super(e);
   $WorkoutDatabaseManager get managers => $WorkoutDatabaseManager(this);
   late final $WorkoutsTable workouts = $WorkoutsTable(this);
   late final $WorkoutSetsTable workoutSets = $WorkoutSetsTable(this);
+  late final $ExerciseVersionsTable exerciseVersions = $ExerciseVersionsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [workouts, workoutSets];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [workouts, workoutSets, exerciseVersions];
 }
 
 typedef $$WorkoutsTableCreateCompanionBuilder =
@@ -1564,6 +1848,167 @@ typedef $$WorkoutSetsTableProcessedTableManager =
       WorkoutSet,
       PrefetchHooks Function({bool workoutId})
     >;
+typedef $$ExerciseVersionsTableCreateCompanionBuilder =
+    ExerciseVersionsCompanion Function({
+      Value<String> id,
+      required int version,
+      required DateTime setAt,
+      required String source,
+      Value<int> rowid,
+    });
+typedef $$ExerciseVersionsTableUpdateCompanionBuilder =
+    ExerciseVersionsCompanion Function({
+      Value<String> id,
+      Value<int> version,
+      Value<DateTime> setAt,
+      Value<String> source,
+      Value<int> rowid,
+    });
+
+class $$ExerciseVersionsTableFilterComposer
+    extends Composer<_$WorkoutDatabase, $ExerciseVersionsTable> {
+  $$ExerciseVersionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get setAt =>
+      $composableBuilder(column: $table.setAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => ColumnFilters(column));
+}
+
+class $$ExerciseVersionsTableOrderingComposer
+    extends Composer<_$WorkoutDatabase, $ExerciseVersionsTable> {
+  $$ExerciseVersionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get setAt =>
+      $composableBuilder(column: $table.setAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ExerciseVersionsTableAnnotationComposer
+    extends Composer<_$WorkoutDatabase, $ExerciseVersionsTable> {
+  $$ExerciseVersionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get setAt =>
+      $composableBuilder(column: $table.setAt, builder: (column) => column);
+
+  GeneratedColumn<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => column);
+}
+
+class $$ExerciseVersionsTableTableManager
+    extends
+        RootTableManager<
+          _$WorkoutDatabase,
+          $ExerciseVersionsTable,
+          ExerciseVersion,
+          $$ExerciseVersionsTableFilterComposer,
+          $$ExerciseVersionsTableOrderingComposer,
+          $$ExerciseVersionsTableAnnotationComposer,
+          $$ExerciseVersionsTableCreateCompanionBuilder,
+          $$ExerciseVersionsTableUpdateCompanionBuilder,
+          (
+            ExerciseVersion,
+            BaseReferences<_$WorkoutDatabase, $ExerciseVersionsTable, ExerciseVersion>,
+          ),
+          ExerciseVersion,
+          PrefetchHooks Function()
+        > {
+  $$ExerciseVersionsTableTableManager(_$WorkoutDatabase db, $ExerciseVersionsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExerciseVersionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExerciseVersionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExerciseVersionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<DateTime> setAt = const Value.absent(),
+                Value<String> source = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ExerciseVersionsCompanion(
+                id: id,
+                version: version,
+                setAt: setAt,
+                source: source,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                required int version,
+                required DateTime setAt,
+                required String source,
+                Value<int> rowid = const Value.absent(),
+              }) => ExerciseVersionsCompanion.insert(
+                id: id,
+                version: version,
+                setAt: setAt,
+                source: source,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ExerciseVersionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$WorkoutDatabase,
+      $ExerciseVersionsTable,
+      ExerciseVersion,
+      $$ExerciseVersionsTableFilterComposer,
+      $$ExerciseVersionsTableOrderingComposer,
+      $$ExerciseVersionsTableAnnotationComposer,
+      $$ExerciseVersionsTableCreateCompanionBuilder,
+      $$ExerciseVersionsTableUpdateCompanionBuilder,
+      (ExerciseVersion, BaseReferences<_$WorkoutDatabase, $ExerciseVersionsTable, ExerciseVersion>),
+      ExerciseVersion,
+      PrefetchHooks Function()
+    >;
 
 class $WorkoutDatabaseManager {
   final _$WorkoutDatabase _db;
@@ -1571,4 +2016,6 @@ class $WorkoutDatabaseManager {
   $$WorkoutsTableTableManager get workouts => $$WorkoutsTableTableManager(_db, _db.workouts);
   $$WorkoutSetsTableTableManager get workoutSets =>
       $$WorkoutSetsTableTableManager(_db, _db.workoutSets);
+  $$ExerciseVersionsTableTableManager get exerciseVersions =>
+      $$ExerciseVersionsTableTableManager(_db, _db.exerciseVersions);
 }
