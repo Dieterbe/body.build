@@ -1,10 +1,12 @@
 String formatHumanDateTimeMinutely(DateTime dateTime) {
   final now = DateTime.now();
-  final difference = now.difference(dateTime);
+  final today = DateTime(now.year, now.month, now.day);
+  final yesterday = today.subtract(const Duration(days: 1));
+  final dateOnly = DateTime(dateTime.year, dateTime.month, dateTime.day);
 
-  if (difference.inDays == 0) {
+  if (dateOnly == today) {
     return 'Today ${formatHumanTimeMinutely(dateTime)}';
-  } else if (difference.inDays == 1) {
+  } else if (dateOnly == yesterday) {
     return 'Yesterday ${formatHumanTimeMinutely(dateTime)}';
   }
   return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${formatHumanTimeMinutely(dateTime)}';
