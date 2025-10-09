@@ -56,7 +56,7 @@ final romCalfRaise = Tweak("ROM", "full", {
   ...rom.opts,
   'full with lengthened partials beyond failure': (
     {},
-    "go until you can't move the weight. (don't count the partials) should stimulate more gastroc growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)",
+    "go until you can't move the weight. (don't count the partials) should stimulate more gastrocnemius growth. [jeff nippard video](https://www.youtube.com/shorts/baEXLy09Ncc)",
   ),
 });
 
