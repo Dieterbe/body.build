@@ -33,7 +33,7 @@ final class ProgramManagerProvider
   ProgramManager create() => ProgramManager();
 }
 
-String _$programManagerHash() => r'1171c1907389a82c9261f011693b35651a66656c';
+String _$programManagerHash() => r'0b9ccd31ab51939dc8e02a00d954e1742b55eb17';
 
 abstract class _$ProgramManager extends $AsyncNotifier<ProgramManagerState> {
   FutureOr<ProgramManagerState> build();
@@ -41,7 +41,8 @@ abstract class _$ProgramManager extends $AsyncNotifier<ProgramManagerState> {
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<ProgramManagerState>, ProgramManagerState>;
+    final ref =
+        this.ref as $Ref<AsyncValue<ProgramManagerState>, ProgramManagerState>;
     final element =
         ref.element
             as $ClassProviderElement<

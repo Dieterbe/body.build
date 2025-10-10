@@ -19,7 +19,9 @@ final class ProgramPersistenceProvider
           ProgramPersistenceService,
           FutureOr<ProgramPersistenceService>
         >
-    with $FutureModifier<ProgramPersistenceService>, $FutureProvider<ProgramPersistenceService> {
+    with
+        $FutureModifier<ProgramPersistenceService>,
+        $FutureProvider<ProgramPersistenceService> {
   const ProgramPersistenceProvider._()
     : super(
         from: null,
@@ -36,8 +38,9 @@ final class ProgramPersistenceProvider
 
   @$internal
   @override
-  $FutureProviderElement<ProgramPersistenceService> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<ProgramPersistenceService> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
   FutureOr<ProgramPersistenceService> create(Ref ref) {
@@ -45,4 +48,5 @@ final class ProgramPersistenceProvider
   }
 }
 
-String _$programPersistenceHash() => r'4cb372063e0996390b38607843adc776ab3185c0';
+String _$programPersistenceHash() =>
+    r'0e358827644a447e69cb9192894d86838031a4bf';

@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
 
 class ProgramPersistenceService {
   static const String _programsKey = 'programs';
   static const String _lastProgramKey = 'last_program_id';
+  static const String _exerciseVersionKey = 'exercise_dataset_version_programs';
   final SharedPreferences _prefs;
 
   ProgramPersistenceService(this._prefs);
@@ -54,5 +56,36 @@ class ProgramPersistenceService {
   /// Saves the ID of the last selected program
   Future<bool> saveLastProgramId(String id) {
     return _prefs.setString(_lastProgramKey, id);
+  }
+
+  /// Gets the current exercise dataset version from SharedPreferences
+  int? getCurrentExerciseVersion() {
+    return _prefs.getInt(_exerciseVersionKey);
+  }
+
+  /// Sets the current exercise dataset version in SharedPreferences
+  Future<bool> setCurrentExerciseVersion(int version) {
+    return _prefs.setInt(_exerciseVersionKey, version);
+  }
+
+  /// Checks if exercise migration is needed
+  /// Returns null if OK, or error message if migration needed
+  Future<String?> checkExerciseMigration() async {
+    final currentVersion = getCurrentExerciseVersion();
+    print('PPS current version is $currentVersion');
+
+    if (currentVersion == null) {
+      // First time - set the version
+      await setCurrentExerciseVersion(exerciseDatasetVersion);
+      print('PPS set version to $exerciseDatasetVersion');
+      return null;
+    }
+
+    if (currentVersion != exerciseDatasetVersion) {
+      print('PPS version mismatch: $currentVersion -> $exerciseDatasetVersion');
+      return 'Exercise migration needed for programs: $currentVersion -> $exerciseDatasetVersion';
+    }
+
+    return null;
   }
 }

@@ -4,7 +4,7 @@ import 'package:bodybuild/service/program_persistence_service.dart';
 
 part 'program_persistence_provider.g.dart';
 
-@Riverpod()
+@riverpod
 Future<ProgramPersistenceService> programPersistence(Ref ref) async {
   final prefs = await SharedPreferences.getInstance();
   return ProgramPersistenceService(prefs);
