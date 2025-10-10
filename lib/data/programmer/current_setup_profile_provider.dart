@@ -8,6 +8,9 @@ part 'current_setup_profile_provider.g.dart';
 class CurrentSetupProfile extends _$CurrentSetupProfile {
   @override
   Future<String> build() async {
+    ref.onDispose(() {
+      print('current setup profile provider disposed');
+    });
 
     // Get the persistence service
     final service = await ref.read(setupPersistenceProvider.future);

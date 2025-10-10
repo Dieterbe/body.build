@@ -14,13 +14,15 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'setup.g.dart';
 
-@riverpod
+@Riverpod()
 class Setup extends _$Setup {
   @override
   Future<Settings> build() async {
+    ref.onDispose(() {
+      print('programmer setup provider disposed');
+    });
 
     // Watch the current profile ID to rebuild when it changes
-    // Using .future will properly await and propagate any exceptions
     final profileId = await ref.watch(currentSetupProfileProvider.future);
     final service = await ref.read(setupPersistenceProvider.future);
     final profile = await service.loadProfile(profileId);

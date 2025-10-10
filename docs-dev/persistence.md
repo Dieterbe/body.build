@@ -6,9 +6,6 @@ we use 2 methods: shared prefs and drift
 used for workout programmer, personal profile, meal plan stuff.
 limited quota and API, but good enough for our needs.
 
-- `SetupPersistenceService` and `ProgramPersistenceService` reference exercises and therefore track exercise dataset version
-- If version mismatch detected, an exception is thrown (migration needed)
-
 
 ## Drift (sqlite)
 
@@ -18,31 +15,9 @@ Not used on web because:
 * bundle size
 * may cause some issues on safari (?)
 
-- `ExerciseVersions` table tracks the current exercise dataset version
-- Version is checked in `beforeOpen` migration hook
-- On database creation, version is set to current `exerciseDatasetVersion`
-- If version mismatch detected, an exception is thrown (migration needed)
-
-
-## Exercise Dataset Version
-
-The `exerciseDatasetVersion` constant (defined in `/lib/data/programmer/exercises.dart`) tracks breaking changes to:
-- Exercise IDs
-- Exercise tweaks/modifiers
-
-**Current version: 1**
-
-When incrementing the version:
-1. Update `exerciseDatasetVersion` constant in `exercises.dart`
-2. Implement migration logic in both Drift and SharedPreferences services
-3. Test migration paths thoroughly
-
 
 ## Future plans
 
-Exercise dataset versioning is now implemented for both persistence methods.
-This will allow us to update exercise definitions (ID's and tweaks)
-Future work may include:
-- Implementing actual migration logic (currently just throws exception)
-- Potentially consolidating to a single persistence method
-- Extracting exercise library into separate project/repo with its own versioning (and migration logic?)
+Inevitably, we'll need to come up with a way to migrate/upgrade exercise definitions (ID's and tweaks, etc)
+Since we reference these in both SharedPrefs and in Drift, it may be advisable to just migrate to 1 persistence method at some point in the future.
+Unless we can devise a more "exercise-library-native" way to do the migrations (perhaps tied to a project to separate out the library into its own project/repo)

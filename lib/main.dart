@@ -16,9 +16,6 @@ import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/util/url.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bodybuild/service/setup_persistence_service.dart';
-import 'package:bodybuild/service/program_persistence_service.dart';
 
 void main() async {
   // disabled for now. not all that useful actually..
@@ -33,15 +30,6 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Check for exercise migration before starting the app
-  String? migrationError;
-  try {
-    await _checkExerciseMigration();
-  } catch (e) {
-    migrationError = e.toString();
-  }
-
   // Note: making this key public is not an issue. it's write-only
   final config = PostHogConfig('phc_WC0LK9tiHgH0rMWV8KKYTUOnWJt9PRMny3Vw8dGG8bJ');
   config.debug = true;
@@ -49,70 +37,15 @@ void main() async {
   config.host = 'https://eu.i.posthog.com';
   await Posthog().setup(config);
   usePathUrlStrategy();
-  runApp(ProviderScope(child: MyApp(migrationError: migrationError)));
-}
-
-Future<void> _checkExerciseMigration() async {
-  // This will throw if migration is needed, preventing the app from starting
-  final prefs = await SharedPreferences.getInstance();
-  final setupService = SetupPersistenceService(prefs);
-  final setupError = await setupService.checkExerciseMigration();
-  if (setupError != null) {
-    throw Exception(setupError);
-  }
-
-  final programService = ProgramPersistenceService(prefs);
-  final programError = await programService.checkExerciseMigration();
-  if (programError != null) {
-    throw Exception(programError);
-  }
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  final String? migrationError;
-
-  const MyApp({super.key, this.migrationError});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // If there's a migration error, show error screen instead of normal app
-    if (migrationError != null) {
-      return MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                  const SizedBox(height: 24),
-                  const Text(
-                    'Migration Required',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      migrationError!,
-                      style: const TextStyle(fontFamily: 'monospace'),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,

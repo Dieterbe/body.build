@@ -22,10 +22,13 @@ class ProgramManagerState {
   }
 }
 
-@riverpod
+@Riverpod()
 class ProgramManager extends _$ProgramManager {
   @override
   Future<ProgramManagerState> build() async {
+    ref.onDispose(() {
+      print('program manager provider disposed');
+    });
 
     final service = await ref.read(programPersistenceProvider.future);
 

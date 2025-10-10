@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
 
 class SetupPersistenceService {
   final SharedPreferences _prefs;
   static const _setupProfilesKey = 'setup_profiles';
   static const _lastProfileKey = 'last_setup_profile';
-  static const _exerciseVersionKey = 'exercise_dataset_version';
 
   SetupPersistenceService(this._prefs);
 
@@ -56,33 +54,5 @@ class SetupPersistenceService {
   /// Saves the ID of the last selected profile
   Future<bool> saveLastProfileId(String id) {
     return _prefs.setString(_lastProfileKey, id);
-  }
-
-  /// Gets the current exercise dataset version from SharedPreferences
-  int? getCurrentExerciseVersion() {
-    return _prefs.getInt(_exerciseVersionKey);
-  }
-
-  /// Sets the current exercise dataset version in SharedPreferences
-  Future<bool> setCurrentExerciseVersion(int version) {
-    return _prefs.setInt(_exerciseVersionKey, version);
-  }
-
-  /// Checks if exercise migration is needed
-  /// Returns null if OK, or error message if migration needed
-  Future<String?> checkExerciseMigration() async {
-    final currentVersion = getCurrentExerciseVersion();
-
-    if (currentVersion == null) {
-      // First time - set the version
-      await setCurrentExerciseVersion(exerciseDatasetVersion);
-      return null;
-    }
-
-    if (currentVersion != exerciseDatasetVersion) {
-      return 'Exercise migration needed for setup profiles: $currentVersion -> $exerciseDatasetVersion';
-    }
-
-    return null;
   }
 }

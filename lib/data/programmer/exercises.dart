@@ -105,7 +105,7 @@ today we don't encode ° and () (and space) in exercise ID's in URL's and it see
 */
 
 // Exercise dataset version for migration tracking
-const int exerciseDatasetVersion = 2;
+const int exerciseDatasetVersion = 1;
 
 // In case we make breaking changes to exercise ID's or tweaks (such that persisted values from
 // the programmer, workout history, etc. are no longer valid), we should increment this version
