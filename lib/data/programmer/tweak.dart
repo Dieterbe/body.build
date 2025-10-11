@@ -26,9 +26,8 @@ class Tweak {
 class Option {
   final VolumeAssignment va;
   final String desc;
-  final String? searchAlias;
 
-  const Option(this.va, this.desc, {this.searchAlias});
+  const Option(this.va, this.desc);
 }
 
 // BEWARE: tweak names and option names go into URL's, so don't use special chars
@@ -89,12 +88,12 @@ const benchPressBenchAngle = Tweak(
   'bench angle',
   '0',
   {
-    '-30': Option({}, '30° decline.'),
-    '-15': Option({}, '15° decline.'),
-    '0': Option({}, 'flat bench'),
-    '15': Option({}, '15° incline.'),
-    '30': Option({}, '30° incline.'),
-    '45': Option({}, '45° incline.'),
+    '-30': Option({}, 'aka 30° decline.'),
+    '-15': Option({}, 'aka 15° decline.'),
+    '0': Option({}, 'aka flat bench'),
+    '15': Option({}, 'aka 15° incline.'),
+    '30': Option({}, 'aka 30° incline.'),
+    '45': Option({}, 'aka 45° incline.'),
   },
   desc: '''
 * Flat bench should stimulate lower & mid pecs well, and upper pecs relatively well.
@@ -336,15 +335,15 @@ Tweak hipAbductionHipFlexion(String defaultValue) => Tweak(
 );
 
 const Tweak dbCurlGrip = Tweak('grip', 'hammer to supinated', {
-  'supinated': Option({}, 'supinated grip throughout the entire movement'),
-  'hammer': Option({}, 'neutral grip throughout the entire movement'),
+  'supinated': Option({}, 'supinated grip throughout the entire movement, aka underhand'),
+  'hammer': Option({}, 'aka neutral grip throughout the entire movement'),
   'hammer to supinated': Option(
     {},
-    'the bicep is a supinator. this adds a slightly higher demand on the bicep and is therefore the most commonly recommended form. see [form instruction](https://www.youtube.com/watch?v=ykJmrZ5v0Oo)',
+    'the bicep is a supinator. this adds a slightly higher demand on the bicep and is therefore the most commonly recommended form. see [form instruction](https://www.youtube.com/watch?v=ykJmrZ5v0Oo), aka neutral to underhand',
   ),
   'hammer to supinated, inside heavier': Option(
     {},
-    'grip the dumbbell on the outside, or use a custom dumbbell with more weight on the inside. The loaded supination exercises the bicep better (Arnold does this!)',
+    'grip the dumbbell on the outside, or use a custom dumbbell with more weight on the inside. The loaded supination exercises the bicep better (Arnold does this!), aka neutral to underhand with inside heavier',
   ),
 });
 
