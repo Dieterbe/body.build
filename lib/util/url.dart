@@ -1,6 +1,7 @@
 /// URL encoding and decoding utilities for exercise IDs
 /// see exercises.dart for detailed character rules of the various fields
 /// most importantly, '_' is not allowed, so we can use them in the URL
+library;
 
 /// Builds an exercise detail URL with encoded exercise ID and tweak options.
 String buildExerciseDetailUrl(String exerciseId, Map<String, String> tweakOptions) {

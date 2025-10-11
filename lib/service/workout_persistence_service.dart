@@ -1,4 +1,3 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/workouts/workout_database.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:drift/drift.dart';
