@@ -129,8 +129,7 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                         displayStringForOption: (e) => e.id,
                         optionsBuilder: (textEditingValue) {
                           return setup.availableExercises
-                              .where((e) => e.id.toLowerCase().contains(
-                                  textEditingValue.text.toLowerCase()))
+                              .where((e) => e.matchesSearch(textEditingValue.text))
                               .toList();
                         },
                         onSelected: (Ex exercise) {
