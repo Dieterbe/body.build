@@ -41,8 +41,8 @@ _WorkoutSet _$WorkoutSetFromJson(Map<String, dynamic> json) => _WorkoutSet(
   reps: (json['reps'] as num?)?.toInt(),
   rir: (json['rir'] as num?)?.toInt(),
   comments: json['comments'] as String?,
-  timestamp: DateTime.parse(json['timestamp'] as String),
   setOrder: (json['setOrder'] as num).toInt(),
+  timestamp: DateTime.parse(json['timestamp'] as String),
 );
 
 Map<String, dynamic> _$WorkoutSetToJson(_WorkoutSet instance) => <String, dynamic>{
@@ -54,8 +54,24 @@ Map<String, dynamic> _$WorkoutSetToJson(_WorkoutSet instance) => <String, dynami
   'reps': instance.reps,
   'rir': instance.rir,
   'comments': instance.comments,
-  'timestamp': instance.timestamp.toIso8601String(),
   'setOrder': instance.setOrder,
+  'timestamp': instance.timestamp.toIso8601String(),
+};
+
+_ExerciseSetGroup _$ExerciseSetGroupFromJson(Map<String, dynamic> json) => _ExerciseSetGroup(
+  exerciseId: json['exerciseId'] as String,
+  tweaks:
+      (json['tweaks'] as Map<String, dynamic>?)?.map((k, e) => MapEntry(k, e as String)) ??
+      const {},
+  sets: (json['sets'] as List<dynamic>)
+      .map((e) => WorkoutSet.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$ExerciseSetGroupToJson(_ExerciseSetGroup instance) => <String, dynamic>{
+  'exerciseId': instance.exerciseId,
+  'tweaks': instance.tweaks,
+  'sets': instance.sets,
 };
 
 _WorkoutState _$WorkoutStateFromJson(Map<String, dynamic> json) => _WorkoutState(

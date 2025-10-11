@@ -104,10 +104,6 @@ class WorkoutPersistenceService {
     final id = _uuid.v4();
     final now = DateTime.now();
 
-    // Get next set order
-    final existingSets = await _database.getWorkoutSets(workoutId);
-    final setOrder = existingSets.length + 1;
-
     final companion = WorkoutSetsCompanion(
       id: Value(id),
       workoutId: Value(workoutId),
@@ -119,7 +115,7 @@ class WorkoutPersistenceService {
           exerciseId: exerciseId,
           tweaks: tweaks,
           timestamp: now,
-          setOrder: setOrder,
+          setOrder: 0, // is ignored I think
         ).tweaksJson,
       ),
       weight: Value(weight),
@@ -127,7 +123,6 @@ class WorkoutPersistenceService {
       rir: Value(rir),
       comments: Value(comments),
       timestamp: Value(now),
-      setOrder: Value(setOrder),
     );
 
     await _database.insertWorkoutSet(companion);
@@ -149,7 +144,6 @@ class WorkoutPersistenceService {
       rir: Value(workoutSet.rir),
       comments: Value(workoutSet.comments),
       timestamp: Value(workoutSet.timestamp),
-      setOrder: Value(workoutSet.setOrder),
     );
 
     await _database.updateWorkoutSet(companion);
@@ -186,7 +180,11 @@ class WorkoutPersistenceService {
   // Helper method to convert database workout to domain model with sets
   Future<model.Workout> _workoutWithSets(Workout workout) async {
     final sets = await _database.getWorkoutSets(workout.id);
-    final workoutSets = sets.map(_convertWorkoutSet).toList();
+    final workoutSets = sets
+        .asMap()
+        .entries
+        .map((e) => _convertWorkoutSet(e.value, e.key + 1))
+        .toList();
 
     return model.Workout(
       id: workout.id,
@@ -200,7 +198,7 @@ class WorkoutPersistenceService {
   }
 
   // Helper method to convert database workout set to domain model
-  model.WorkoutSet _convertWorkoutSet(WorkoutSet setData) {
+  model.WorkoutSet _convertWorkoutSet(WorkoutSet setData, int setOrder) {
     return model.WorkoutSet(
       id: setData.id,
       workoutId: setData.workoutId,
@@ -210,8 +208,8 @@ class WorkoutPersistenceService {
       reps: setData.reps,
       rir: setData.rir,
       comments: setData.comments,
+      setOrder: setOrder,
       timestamp: setData.timestamp,
-      setOrder: setData.setOrder,
     );
   }
 }

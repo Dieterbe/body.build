@@ -28,7 +28,7 @@ class WorkoutSets extends Table {
   IntColumn get rir => integer().nullable()(); // Reps in Reserve
   TextColumn get comments => text().nullable()();
   DateTimeColumn get timestamp => dateTime()();
-  IntColumn get setOrder => integer()();
+  // Note: setOrder is derived at runtime from timestamp ordering, not stored in DB
 
   @override
   Set<Column> get primaryKey => {id};
@@ -51,7 +51,7 @@ class WorkoutDatabase extends _$WorkoutDatabase {
   WorkoutDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -75,6 +75,10 @@ class WorkoutDatabase extends _$WorkoutDatabase {
           await m.createTable(exerciseVersions);
           // Set initial version
           await setCurrentExerciseVersion(exerciseDatasetVersion, 'migration');
+        }
+        if (from < 3) {
+          // Remove set_order column - it's now computed at runtime from timestamp
+          await customStatement('ALTER TABLE workout_sets DROP COLUMN set_order');
         }
       },
     );
@@ -108,16 +112,16 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
   Future<int> deleteWorkout(String id) => (delete(workouts)..where((w) => w.id.equals(id))).go();
 
-  // Workout set queries
+  // Workout set queries (always ordered by timestamp)
   Future<List<WorkoutSet>> getWorkoutSets(String workoutId) =>
       (select(workoutSets)
             ..where((s) => s.workoutId.equals(workoutId))
-            ..orderBy([(s) => OrderingTerm(expression: s.setOrder)]))
+            ..orderBy([(s) => OrderingTerm(expression: s.timestamp)]))
           .get();
   Stream<List<WorkoutSet>> watchWorkoutSets(String workoutId) =>
       (select(workoutSets)
             ..where((s) => s.workoutId.equals(workoutId))
-            ..orderBy([(s) => OrderingTerm(expression: s.setOrder)]))
+            ..orderBy([(s) => OrderingTerm(expression: s.timestamp)]))
           .watch();
 
   Future<WorkoutSet?> getLastSetForWorkout(String workoutId) =>

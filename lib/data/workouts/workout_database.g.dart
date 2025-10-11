@@ -464,15 +464,6 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _setOrderMeta = const VerificationMeta('setOrder');
-  @override
-  late final GeneratedColumn<int> setOrder = GeneratedColumn<int>(
-    'set_order',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -484,7 +475,6 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
     rir,
     comments,
     timestamp,
-    setOrder,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -547,14 +537,6 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
     } else if (isInserting) {
       context.missing(_timestampMeta);
     }
-    if (data.containsKey('set_order')) {
-      context.handle(
-        _setOrderMeta,
-        setOrder.isAcceptableOrUnknown(data['set_order']!, _setOrderMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_setOrderMeta);
-    }
     return context;
   }
 
@@ -591,10 +573,6 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, Wo
         DriftSqlType.dateTime,
         data['${effectivePrefix}timestamp'],
       )!,
-      setOrder: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}set_order'],
-      )!,
     );
   }
 
@@ -614,7 +592,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
   final int? rir;
   final String? comments;
   final DateTime timestamp;
-  final int setOrder;
   const WorkoutSet({
     required this.id,
     required this.workoutId,
@@ -625,7 +602,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     this.rir,
     this.comments,
     required this.timestamp,
-    required this.setOrder,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -647,7 +623,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       map['comments'] = Variable<String>(comments);
     }
     map['timestamp'] = Variable<DateTime>(timestamp);
-    map['set_order'] = Variable<int>(setOrder);
     return map;
   }
 
@@ -662,7 +637,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       rir: rir == null && nullToAbsent ? const Value.absent() : Value(rir),
       comments: comments == null && nullToAbsent ? const Value.absent() : Value(comments),
       timestamp: Value(timestamp),
-      setOrder: Value(setOrder),
     );
   }
 
@@ -678,7 +652,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       rir: serializer.fromJson<int?>(json['rir']),
       comments: serializer.fromJson<String?>(json['comments']),
       timestamp: serializer.fromJson<DateTime>(json['timestamp']),
-      setOrder: serializer.fromJson<int>(json['setOrder']),
     );
   }
   @override
@@ -694,7 +667,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       'rir': serializer.toJson<int?>(rir),
       'comments': serializer.toJson<String?>(comments),
       'timestamp': serializer.toJson<DateTime>(timestamp),
-      'setOrder': serializer.toJson<int>(setOrder),
     };
   }
 
@@ -708,7 +680,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     Value<int?> rir = const Value.absent(),
     Value<String?> comments = const Value.absent(),
     DateTime? timestamp,
-    int? setOrder,
   }) => WorkoutSet(
     id: id ?? this.id,
     workoutId: workoutId ?? this.workoutId,
@@ -719,7 +690,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
     rir: rir.present ? rir.value : this.rir,
     comments: comments.present ? comments.value : this.comments,
     timestamp: timestamp ?? this.timestamp,
-    setOrder: setOrder ?? this.setOrder,
   );
   WorkoutSet copyWithCompanion(WorkoutSetsCompanion data) {
     return WorkoutSet(
@@ -732,7 +702,6 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
       rir: data.rir.present ? data.rir.value : this.rir,
       comments: data.comments.present ? data.comments.value : this.comments,
       timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
-      setOrder: data.setOrder.present ? data.setOrder.value : this.setOrder,
     );
   }
 
@@ -747,25 +716,14 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
           ..write('reps: $reps, ')
           ..write('rir: $rir, ')
           ..write('comments: $comments, ')
-          ..write('timestamp: $timestamp, ')
-          ..write('setOrder: $setOrder')
+          ..write('timestamp: $timestamp')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    workoutId,
-    exerciseId,
-    tweaks,
-    weight,
-    reps,
-    rir,
-    comments,
-    timestamp,
-    setOrder,
-  );
+  int get hashCode =>
+      Object.hash(id, workoutId, exerciseId, tweaks, weight, reps, rir, comments, timestamp);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -778,8 +736,7 @@ class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
           other.reps == this.reps &&
           other.rir == this.rir &&
           other.comments == this.comments &&
-          other.timestamp == this.timestamp &&
-          other.setOrder == this.setOrder);
+          other.timestamp == this.timestamp);
 }
 
 class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
@@ -792,7 +749,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
   final Value<int?> rir;
   final Value<String?> comments;
   final Value<DateTime> timestamp;
-  final Value<int> setOrder;
   final Value<int> rowid;
   const WorkoutSetsCompanion({
     this.id = const Value.absent(),
@@ -804,7 +760,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     this.rir = const Value.absent(),
     this.comments = const Value.absent(),
     this.timestamp = const Value.absent(),
-    this.setOrder = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   WorkoutSetsCompanion.insert({
@@ -817,14 +772,12 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     this.rir = const Value.absent(),
     this.comments = const Value.absent(),
     required DateTime timestamp,
-    required int setOrder,
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        workoutId = Value(workoutId),
        exerciseId = Value(exerciseId),
        tweaks = Value(tweaks),
-       timestamp = Value(timestamp),
-       setOrder = Value(setOrder);
+       timestamp = Value(timestamp);
   static Insertable<WorkoutSet> custom({
     Expression<String>? id,
     Expression<String>? workoutId,
@@ -835,7 +788,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     Expression<int>? rir,
     Expression<String>? comments,
     Expression<DateTime>? timestamp,
-    Expression<int>? setOrder,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -848,7 +800,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
       if (rir != null) 'rir': rir,
       if (comments != null) 'comments': comments,
       if (timestamp != null) 'timestamp': timestamp,
-      if (setOrder != null) 'set_order': setOrder,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -863,7 +814,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     Value<int?>? rir,
     Value<String?>? comments,
     Value<DateTime>? timestamp,
-    Value<int>? setOrder,
     Value<int>? rowid,
   }) {
     return WorkoutSetsCompanion(
@@ -876,7 +826,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
       rir: rir ?? this.rir,
       comments: comments ?? this.comments,
       timestamp: timestamp ?? this.timestamp,
-      setOrder: setOrder ?? this.setOrder,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -911,9 +860,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
     if (timestamp.present) {
       map['timestamp'] = Variable<DateTime>(timestamp.value);
     }
-    if (setOrder.present) {
-      map['set_order'] = Variable<int>(setOrder.value);
-    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -932,7 +878,6 @@ class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
           ..write('rir: $rir, ')
           ..write('comments: $comments, ')
           ..write('timestamp: $timestamp, ')
-          ..write('setOrder: $setOrder, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -1511,7 +1456,6 @@ typedef $$WorkoutSetsTableCreateCompanionBuilder =
       Value<int?> rir,
       Value<String?> comments,
       required DateTime timestamp,
-      required int setOrder,
       Value<int> rowid,
     });
 typedef $$WorkoutSetsTableUpdateCompanionBuilder =
@@ -1525,7 +1469,6 @@ typedef $$WorkoutSetsTableUpdateCompanionBuilder =
       Value<int?> rir,
       Value<String?> comments,
       Value<DateTime> timestamp,
-      Value<int> setOrder,
       Value<int> rowid,
     });
 
@@ -1581,9 +1524,6 @@ class $$WorkoutSetsTableFilterComposer extends Composer<_$WorkoutDatabase, $Work
   ColumnFilters<DateTime> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get setOrder =>
-      $composableBuilder(column: $table.setOrder, builder: (column) => ColumnFilters(column));
-
   $$WorkoutsTableFilterComposer get workoutId {
     final $$WorkoutsTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -1635,9 +1575,6 @@ class $$WorkoutSetsTableOrderingComposer extends Composer<_$WorkoutDatabase, $Wo
   ColumnOrderings<DateTime> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get setOrder =>
-      $composableBuilder(column: $table.setOrder, builder: (column) => ColumnOrderings(column));
-
   $$WorkoutsTableOrderingComposer get workoutId {
     final $$WorkoutsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -1688,9 +1625,6 @@ class $$WorkoutSetsTableAnnotationComposer extends Composer<_$WorkoutDatabase, $
 
   GeneratedColumn<DateTime> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
-
-  GeneratedColumn<int> get setOrder =>
-      $composableBuilder(column: $table.setOrder, builder: (column) => column);
 
   $$WorkoutsTableAnnotationComposer get workoutId {
     final $$WorkoutsTableAnnotationComposer composer = $composerBuilder(
@@ -1746,7 +1680,6 @@ class $$WorkoutSetsTableTableManager
                 Value<int?> rir = const Value.absent(),
                 Value<String?> comments = const Value.absent(),
                 Value<DateTime> timestamp = const Value.absent(),
-                Value<int> setOrder = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => WorkoutSetsCompanion(
                 id: id,
@@ -1758,7 +1691,6 @@ class $$WorkoutSetsTableTableManager
                 rir: rir,
                 comments: comments,
                 timestamp: timestamp,
-                setOrder: setOrder,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -1772,7 +1704,6 @@ class $$WorkoutSetsTableTableManager
                 Value<int?> rir = const Value.absent(),
                 Value<String?> comments = const Value.absent(),
                 required DateTime timestamp,
-                required int setOrder,
                 Value<int> rowid = const Value.absent(),
               }) => WorkoutSetsCompanion.insert(
                 id: id,
@@ -1784,7 +1715,6 @@ class $$WorkoutSetsTableTableManager
                 rir: rir,
                 comments: comments,
                 timestamp: timestamp,
-                setOrder: setOrder,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

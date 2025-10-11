@@ -12,46 +12,35 @@ import 'package:bodybuild/util/string_extension.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_picker_sheet.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/data/programmer/tweak.dart';
+import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:collection/collection.dart';
 
-// a modal sheet with a stepper to choose exercise, tweak it, and log a set for it
-class LogSetSheet extends ConsumerStatefulWidget {
-  final Sets? initialSets;
+/// Sheet for editing exercise, tweaks, and individual sets for a group
+/// Step 1/2 very similar to [LogSetSheet], 3rd step is different
+class EditExerciseSetGroupSheet extends ConsumerStatefulWidget {
+  final model.ExerciseSetGroup group;
 
-  const LogSetSheet({super.key, this.initialSets});
+  const EditExerciseSetGroupSheet({super.key, required this.group});
 
   @override
-  ConsumerState<LogSetSheet> createState() => _LogSetSheetState();
+  ConsumerState<EditExerciseSetGroupSheet> createState() => _EditExerciseSheetState();
 }
 
-class _LogSetSheetState extends ConsumerState<LogSetSheet> {
-  final _formKey = GlobalKey<FormState>();
-  final _weightController = TextEditingController();
-  final _repsController = TextEditingController();
-  final _rirController = TextEditingController();
-  final _commentsController = TextEditingController();
-
+class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
   Sets? currentSets;
-  int currentStep = 0; // 0: Select Exercise, 1: Configure, 2: Log Set
-  bool showDetailedTweaks = false; // Toggle between ConfigureTweakSmall and ConfigureTweakLarge
+  int currentStep = 0; // 0: Select Exercise, 1: Configure, 2: Edit Sets
+  bool showDetailedTweaks = false;
+  late List<model.WorkoutSet> editableSets;
+  final Set<String> deletedSetIds = {};
 
   @override
   void initState() {
     super.initState();
-    currentSets = widget.initialSets;
-    // If exercise already provided, start straight at logging a new set
-    if (currentSets?.ex != null) {
-      currentStep = 2;
-    }
-  }
-
-  @override
-  void dispose() {
-    _weightController.dispose();
-    _repsController.dispose();
-    _rirController.dispose();
-    _commentsController.dispose();
-    super.dispose();
+    final exercise = exes.firstWhereOrNull((e) => e.id == widget.group.exerciseId);
+    currentSets = Sets(0, ex: exercise, tweakOptions: widget.group.tweaks); // TODO do we need this?
+    editableSets = List.of(widget.group.sets);
+    // This seems the most common use case
+    currentStep = 2;
   }
 
   @override
@@ -77,7 +66,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
             children: [
               Expanded(
                 child: Text(
-                  'Log Set',
+                  'Edit Exercise Sets',
                   style: Theme.of(
                     context,
                   ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -118,7 +107,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
         Expanded(
           child: Divider(color: currentStep > 1 ? Theme.of(context).colorScheme.primary : null),
         ),
-        _buildStepDot(context, 2, 'Log Set'),
+        _buildStepDot(context, 2, 'Edit Sets'),
       ],
     );
   }
@@ -182,7 +171,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
     return switch (currentStep) {
       0 => _buildStepExercisePicker(),
       1 => _buildStepConfigure(context, settings),
-      2 => _buildStepLogSet(),
+      2 => _buildStepEditSets(),
       _ => const SizedBox.shrink(),
     };
   }
@@ -204,7 +193,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
           child: ElevatedButton.icon(
             onPressed: _getNextButtonAction(),
             icon: Icon(currentStep == 2 ? Icons.save : Icons.arrow_forward),
-            label: Text(currentStep == 2 ? 'Save Set' : 'Next'),
+            label: Text(currentStep == 2 ? 'Save Changes' : 'Next'),
           ),
         ),
       ],
@@ -215,28 +204,68 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
     return switch (currentStep) {
       0 => currentSets?.ex != null ? () => setState(() => currentStep = 1) : null,
       1 => () => setState(() => currentStep = 2),
-      2 => _saveSet,
+      2 => _saveChanges,
       _ => null,
     };
   }
 
-  // Step 1: Exercise selection
   Widget _buildStepExercisePicker() {
-    return ExercisePickerSheet(
-      onExerciseSelected: (exerciseId) {
-        final exercise = exes.firstWhereOrNull((e) => e.id == exerciseId);
-        if (exercise == null) return;
-        if (mounted) {
-          setState(() {
-            currentSets = Sets(0, ex: exercise, tweakOptions: {});
-            currentStep = 1; // Auto-advance to configure step
-          });
-        }
-      },
+    return Column(
+      children: [
+        // Show currently selected exercise if any
+        if (currentSets?.ex != null)
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              spacing: 12,
+              children: [
+                Icon(Icons.check_circle, color: Theme.of(context).colorScheme.onPrimaryContainer),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Currently selected:',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                      Text(
+                        currentSets!.ex!.id,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        Expanded(
+          child: ExercisePickerSheet(
+            onExerciseSelected: (exerciseId) {
+              final exercise = exes.firstWhereOrNull((e) => e.id == exerciseId);
+              if (exercise == null) return;
+              if (mounted) {
+                setState(() {
+                  currentSets = Sets(0, ex: exercise, tweakOptions: {});
+                  currentStep = 1;
+                });
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 
-  // Step 2: Configure exercise
   Widget _buildStepConfigure(BuildContext context, Settings settings) {
     if (currentSets?.ex == null) {
       return const Center(child: Text('No exercise selected'));
@@ -259,7 +288,6 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
             ),
             if (applicableRatings.isNotEmpty) RatingIconMulti(ratings: applicableRatings),
             const SizedBox(width: 8),
-            // Toggle button for detailed/simple tweak view
             if (currentSets!.ex!.tweaks.isNotEmpty)
               FilledButton.tonalIcon(
                 onPressed: () => setState(() => showDetailedTweaks = !showDetailedTweaks),
@@ -279,10 +307,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Divider(color: Theme.of(context).colorScheme.outlineVariant),
-
                 const SizedBox(height: 16),
-
-                // Tweaks configuration or "no config needed" message
                 if (currentSets!.ex!.tweaks.isEmpty)
                   Center(
                     child: Padding(
@@ -303,7 +328,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'This exercise has no tweaks to configure.\nTap Next to continue.',
+                            'This exercise has no tweaks to configure.\nTap Save to apply changes.',
                             style: Theme.of(context).textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           ),
@@ -314,7 +339,6 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
                 else
                   ...currentSets!.ex!.tweaks.map((tweak) => _buildTweakSection(context, tweak)),
                 Divider(color: Theme.of(context).colorScheme.outlineVariant),
-
                 const SizedBox(height: 16),
               ],
             ),
@@ -371,121 +395,142 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
     );
   }
 
-  // Step 3: Log set details
-  Widget _buildStepLogSet() {
-    if (currentSets?.ex == null) {
-      return const Center(child: Text('No exercise selected'));
-    }
-
-    return Form(
-      key: _formKey,
-      child: SingleChildScrollView(child: _buildSetForm()),
+  Widget _buildStepEditSets() {
+    return ListView.builder(
+      itemCount: editableSets.length,
+      itemBuilder: (context, index) {
+        final set = editableSets[index];
+        return Card(
+          key: ValueKey(set.id),
+          margin: const EdgeInsets.only(bottom: 12),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Set ${index + 1}',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          deletedSetIds.add(set.id);
+                          editableSets.removeAt(index);
+                        });
+                      },
+                      icon: const Icon(Icons.delete_outline),
+                      tooltip: 'Remove set',
+                      iconSize: 20,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        initialValue: set.weight?.toString() ?? '',
+                        decoration: const InputDecoration(
+                          labelText: 'Weight (kg)',
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))],
+                        onChanged: (value) {
+                          final weight = double.tryParse(value);
+                          editableSets[index] = editableSets[index].copyWith(weight: weight);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: TextFormField(
+                        initialValue: set.reps?.toString() ?? '',
+                        decoration: const InputDecoration(
+                          labelText: 'Reps',
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        onChanged: (value) {
+                          final reps = int.tryParse(value);
+                          editableSets[index] = editableSets[index].copyWith(reps: reps);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: TextFormField(
+                        initialValue: set.rir?.toString() ?? '',
+                        decoration: const InputDecoration(
+                          labelText: 'RIR',
+                          border: OutlineInputBorder(),
+                          isDense: true,
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        onChanged: (value) {
+                          final rir = int.tryParse(value);
+                          editableSets[index] = editableSets[index].copyWith(rir: rir);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                TextFormField(
+                  initialValue: set.comments ?? '',
+                  decoration: const InputDecoration(
+                    labelText: 'Comments (optional)',
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                  maxLines: 2,
+                  onChanged: (value) {
+                    editableSets[index] = editableSets[index].copyWith(
+                      comments: value.isEmpty ? null : value,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildSetForm() {
-    return Column(
-      spacing: 16,
-      children: [
-        TextFormField(
-          controller: _weightController,
-          decoration: const InputDecoration(
-            labelText: 'Weight (kg)',
-            border: OutlineInputBorder(),
-            prefixIcon: Icon(Icons.fitness_center),
-          ),
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))],
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'Weight is required';
-            }
-            final weight = double.tryParse(value);
-            if (weight == null || weight <= 0) {
-              return 'Please enter a valid weight';
-            }
-            return null;
-          },
-        ),
-        TextFormField(
-          controller: _repsController,
-          decoration: const InputDecoration(
-            labelText: 'Reps',
-            border: OutlineInputBorder(),
-            prefixIcon: Icon(Icons.repeat),
-          ),
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'Reps is required';
-            }
-            final reps = int.tryParse(value);
-            if (reps == null || reps <= 0) {
-              return 'Please enter a valid number of reps';
-            }
-            return null;
-          },
-        ),
-        TextFormField(
-          controller: _rirController,
-          decoration: const InputDecoration(
-            labelText: 'RIR (Reps in Reserve)',
-            helperText: 'How many more reps you could have done',
-            border: OutlineInputBorder(),
-            prefixIcon: Icon(Icons.battery_charging_full),
-          ),
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'RIR is required';
-            }
-            final rir = int.tryParse(value);
-            if (rir == null || rir < 0 || rir > 10) {
-              return 'Please enter a valid RIR (0-10)';
-            }
-            return null;
-          },
-        ),
-        TextFormField(
-          controller: _commentsController,
-          decoration: const InputDecoration(
-            labelText: 'Comments (optional)',
-            border: OutlineInputBorder(),
-            prefixIcon: Icon(Icons.note),
-          ),
-          maxLines: 2,
-        ),
-      ],
-    );
-  }
-
-  void _saveSet() {
-    if (_formKey.currentState!.validate()) {
-      final weight = double.parse(_weightController.text);
-      final reps = int.parse(_repsController.text);
-      final rir = int.parse(_rirController.text);
-      final comments = _commentsController.text.trim();
-
-      // Ensure all tweaks have explicit values (including defaults)
-      final explicitTweakOptions = <String, String>{};
-      if (currentSets?.ex != null) {
-        for (final tweak in currentSets!.ex!.tweaks) {
-          explicitTweakOptions[tweak.name] =
-              currentSets!.tweakOptions[tweak.name] ?? tweak.defaultVal;
-        }
+  void _saveChanges() {
+    // Ensure all tweaks have explicit values (including defaults)
+    final explicitTweakOptions = <String, String>{};
+    if (currentSets?.ex != null) {
+      for (final tweak in currentSets!.ex!.tweaks) {
+        explicitTweakOptions[tweak.name] =
+            currentSets!.tweakOptions[tweak.name] ?? tweak.defaultVal;
       }
-
-      final setsWithExplicitTweaks = currentSets!.copyWith(tweakOptions: explicitTweakOptions);
-
-      Navigator.of(context).pop({
-        'sets': setsWithExplicitTweaks,
-        'weight': weight,
-        'reps': reps,
-        'rir': rir,
-        'comments': comments.isEmpty ? null : comments,
-      });
     }
+
+    final setsWithExplicitTweaks = currentSets!.copyWith(tweakOptions: explicitTweakOptions);
+
+    // Update all sets with new exercise and tweaks
+    final updatedSets = editableSets.map((set) {
+      return set.copyWith(exerciseId: setsWithExplicitTweaks.ex!.id, tweaks: explicitTweakOptions);
+    }).toList();
+
+    Navigator.of(context).pop({
+      'sets': setsWithExplicitTweaks,
+      'updatedSets': updatedSets,
+      'deletedSetIds': deletedSetIds.toList(),
+    });
   }
 }
