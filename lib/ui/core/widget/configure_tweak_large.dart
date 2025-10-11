@@ -18,7 +18,7 @@ class ConfigureTweakLarge extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((opt) {
-            final optionDesc = opt.value.$2;
+            final optionDesc = opt.value.desc;
             final ratingIcon = buildRatingIcon(sets, tweak.name, opt.key, context);
 
             return Column(

@@ -46,7 +46,7 @@ class Ex {
         // This should never happen. this would be a bug in the tweaks definition
         print('tweak ${tweak.name} has no option $selectedOption');
       }
-      final optEffects = tweak.opts[selectedOption]!.$1;
+      final optEffects = tweak.opts[selectedOption]!.va;
       if (optEffects.containsKey(pg)) {
         r = r.merge(optEffects[pg]!);
       }
@@ -74,7 +74,7 @@ class Ex {
     return Map.fromEntries(
       tweaks
           .where((tweak) {
-            final affectsRecruitment = tweak.opts.entries.any((opt) => opt.value.$1.containsKey(g));
+            final affectsRecruitment = tweak.opts.entries.any((opt) => opt.value.va.containsKey(g));
             final affectsRating = ratings.any(
               (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
             );
@@ -97,7 +97,7 @@ class Ex {
       tokens.addAll(_normalize(tweak.name));
       for (final opt in tweak.opts.entries) {
         tokens.addAll(_normalize(opt.key));
-        tokens.addAll(_normalize(opt.value.$2));
+        tokens.addAll(_normalize(opt.value.desc));
       }
     }
 
@@ -279,6 +279,8 @@ final List<Ex> exes = [
     [Equipment.beltSquatMachine],
     [rom, squatLowerLegMovement],
   ),
+
+  //TODO: bulgarian split squat with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not).
   const Ex({...vaSquatBSQ, ...wrist03}, "dumbbell bulgarian split squat", [Equipment.dumbbell], [
     rom,
     gripSqueeze,
@@ -476,10 +478,10 @@ final List<Ex> exes = [
       rom,
       gripSqueeze,
       Tweak('grip', 'shoulder width pronated', {
-        'narrow supinated': (vaPulls, 'aka close grip chin-up'),
-        'shoulder width supinated': (vaPulls, 'aka chin-up'),
-        'shoulder width pronated': (vaPulls, 'aka normal grip'),
-        'wide pronated': (vaPullsWide, 'normal grip, but wide'),
+        'narrow supinated': Option(vaPulls, 'aka close grip chin-up'),
+        'shoulder width supinated': Option(vaPulls, 'aka chin-up'),
+        'shoulder width pronated': Option(vaPulls, 'aka normal grip'),
+        'wide pronated': Option(vaPullsWide, 'normal grip, but wide'),
       }),
     ],
   ),
@@ -491,13 +493,13 @@ final List<Ex> exes = [
       rom,
       gripSqueeze,
       Tweak('grip', 'bar shoulder width pronated', {
-        'attachment narrow supinated': (vaPulls, 'aka close grip supinated'),
-        'attachment narrow neutral grip': (vaPulls, 'aka close hammer grip'),
-        'attachment wide neutral grip': (vaPulls, 'aka hammer grip'),
-        'bar narrow supinated': (vaPulls, 'aka close grip supinated'),
-        'bar shoulder width supinated': (vaPulls, ''),
-        'bar shoulder width pronated': (vaPulls, 'aka normal grip'),
-        'bar wide pronated': (vaPullsWide, 'normal grip, but wide'),
+        'attachment narrow supinated': Option(vaPulls, 'aka close grip supinated'),
+        'attachment narrow neutral grip': Option(vaPulls, 'aka close hammer grip'),
+        'attachment wide neutral grip': Option(vaPulls, 'aka hammer grip'),
+        'bar narrow supinated': Option(vaPulls, 'aka close grip supinated'),
+        'bar shoulder width supinated': Option(vaPulls, ''),
+        'bar shoulder width pronated': Option(vaPulls, 'aka normal grip'),
+        'bar wide pronated': Option(vaPullsWide, 'normal grip, but wide'),
       }),
     ],
   ),
@@ -511,14 +513,11 @@ final List<Ex> exes = [
       rom,
       gripSqueeze,
       Tweak('spine', 'still', {
-        'still': (
-          {
-            ProgramGroup.lats: Assign(1, 'not full stretch'),
-            ProgramGroup.spinalErectors: Assign(0.25, 'isometric'),
-          },
-          'keep the spine upright',
-        ),
-        'dynamic': (
+        'still': Option({
+          ProgramGroup.lats: Assign(1, 'not full stretch'),
+          ProgramGroup.spinalErectors: Assign(0.25, 'isometric'),
+        }, 'keep the spine upright'),
+        'dynamic': Option(
           {
             ProgramGroup.lats: Assign(1, 'near full stretch'),
             ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
@@ -528,20 +527,17 @@ final List<Ex> exes = [
         ),
       }),
       Tweak('grip', 'bar shoulder width pronated', {
-        'attachment narrow supinated': ({}, 'aka close grip supinated'),
-        'attachment narrow neutral grip': ({}, 'aka close hammer grip'),
-        'attachment wide neutral grip': ({}, 'aka hammer grip'),
-        'bar narrow supinated': ({}, 'aka close grip supinated'),
-        'bar shoulder width supinated': ({}, ''),
-        'bar shoulder width pronated': ({}, 'aka normal grip'),
-        'bar wide pronated': (
-          {
-            ProgramGroup.rearDelts: Assign(1, 'shoulder horizontal extension + shoulder extension'),
-            ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
-            ProgramGroup.lats: Assign(1, 'shoulder extension + shoulder adduction'),
-          },
-          'normal grip, but wide',
-        ),
+        'attachment narrow supinated': Option({}, 'aka close grip supinated'),
+        'attachment narrow neutral grip': Option({}, 'aka close hammer grip'),
+        'attachment wide neutral grip': Option({}, 'aka hammer grip'),
+        'bar narrow supinated': Option({}, 'aka close grip supinated'),
+        'bar shoulder width supinated': Option({}, ''),
+        'bar shoulder width pronated': Option({}, 'aka normal grip'),
+        'bar wide pronated': Option({
+          ProgramGroup.rearDelts: Assign(1, 'shoulder horizontal extension + shoulder extension'),
+          ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
+          ProgramGroup.lats: Assign(1, 'shoulder extension + shoulder adduction'),
+        }, 'normal grip, but wide'),
       }),
     ],
     [ratingJNRowCable],
@@ -784,8 +780,8 @@ final List<Ex> exes = [
       rom,
       gripSqueeze,
       Tweak('RP style', 'no', {
-        'no': ({}, ''),
-        'yes': (
+        'no': Option({}, ''),
+        'yes': Option(
           {},
           'use small bar. elbows in - up & back to down & forward. see [this instagram reel](https://www.instagram.com/reel/DEUw9COM-K8)',
         ),

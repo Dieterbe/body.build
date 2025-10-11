@@ -129,7 +129,7 @@ const vaHipThrustGluteKickback = {ProgramGroup.gluteMax: Assign(1)};
 
 final vaHipAbductionStraightHip = {
   // for exercises that use this EBase but don't use the tweak, we assume straight hip
-  ...hipAbductionHipFlexion('0').opts['0']!.$1,
+  ...hipAbductionHipFlexion('0').opts['0']!.va,
 };
 const vaStandingCalfRaiseCalfJump = {
   ProgramGroup.gastroc: Assign(
