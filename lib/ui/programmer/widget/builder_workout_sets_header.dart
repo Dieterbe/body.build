@@ -294,7 +294,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                               return Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  if (relevantRatings.isNotEmpty) ...[
+                                  if (relevantRatings.isNotEmpty)
                                     Padding(
                                       padding: const EdgeInsets.only(right: 8),
                                       child: RatingIconMulti(
@@ -302,7 +302,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                                         size: MediaQuery.sizeOf(context).width / 60,
                                       ),
                                     ),
-                                  ],
+
                                   SizedBox(
                                     width: 100,
                                     child: Row(
