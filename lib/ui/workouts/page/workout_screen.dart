@@ -11,6 +11,7 @@ import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/util/flutter.dart';
+import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
@@ -172,7 +173,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     for (final set in workout!.sets) {
       // Create a composite key that includes exercise ID and tweaks
       final tweaksKey = set.tweaks.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
-      final groupKey = '${set.exerciseId}|${tweaksKey.join(',')}}';
+      final groupKey = '${set.exerciseId}|${tweaksKey.join(',')}';
       groupedSets.putIfAbsent(groupKey, () => []).add(set);
     }
 
@@ -190,8 +191,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   // sets is guaranteed to be non-empty, and all sets have the same exerciseId and tweaks
   Widget _buildExerciseGroup(List<model.WorkoutSet> sets) {
-    final exerciseId = sets.first.exerciseId;
-    final tweaks = sets.first.tweaks;
+    final exerciseId = sets.firstOrNull!.exerciseId;
+    final tweaks = sets.firstOrNull!.tweaks;
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -203,7 +204,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    exerciseId, // TODO: Get exercise name from exercise data
+                    exerciseId,
                     style: Theme.of(
                       context,
                     ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -227,7 +228,31 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
+            if (tweaks.isNotEmpty) ...[
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: tweaks.entries
+                    .map(
+                      (e) => Chip(
+                        label: Text(
+                          '${e.key.capitalizeFirstOnlyButKeepAcronym()}: ${e.value}',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        visualDensity: VisualDensity.compact,
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        side: BorderSide(
+                          color: Theme.of(context).dividerColor.withValues(alpha: 0.3),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(height: 8),
+            ],
+            const SizedBox(height: 4),
             ...sets.map(
               (set) => SetLogWidget(
                 workoutSet: set,
