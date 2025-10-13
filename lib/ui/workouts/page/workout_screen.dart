@@ -9,7 +9,6 @@ import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
-import 'package:bodybuild/ui/workouts/widget/workout_volume_summary.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
@@ -170,25 +169,16 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     final groups = model.ExerciseSetGroup.fromSets(workout!.sets);
 
     return ListView.builder(
-      padding: const EdgeInsets.only(bottom: 16),
-      itemCount: groups.length + 1, // +1 for volume summary
+      padding: const EdgeInsets.all(16),
+      itemCount: groups.length,
       itemBuilder: (context, index) {
-        // First item is the volume summary
-        if (index == 0) {
-          return WorkoutVolumeSummary(workout: workout!);
-        }
-
-        // Remaining items are exercise groups
-        final group = groups[index - 1];
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ExerciseSetGroupWidget(
-            group: group,
-            onUpdateSet: _updateSet,
-            onUpdateExercise: _updateExerciseForGroup,
-            onAddSet: _saveSet,
-            onDeleteSet: _deleteSet,
-          ),
+        final group = groups[index];
+        return ExerciseSetGroupWidget(
+          group: group,
+          onUpdateSet: _updateSet,
+          onUpdateExercise: _updateExerciseForGroup,
+          onAddSet: _saveSet,
+          onDeleteSet: _deleteSet,
         );
       },
     );
