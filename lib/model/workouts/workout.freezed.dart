@@ -291,7 +291,8 @@ as List<WorkoutSet>,
 mixin _$WorkoutSet {
 
  String get id; String get workoutId; String get exerciseId; Map<String, String> get tweaks; double? get weight; int? get reps; int? get rir;// Reps in Reserve
- String? get comments; DateTime get timestamp; int get setOrder;
+ String? get comments; int get setOrder;// we're "the i-th set in the workout (grouped by time)", not persisted
+ DateTime get timestamp;
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -306,7 +307,7 @@ $WorkoutSetCopyWith<WorkoutSet> get copyWith => _$WorkoutSetCopyWithImpl<Workout
 
 @override
 String toString() {
-  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, timestamp: $timestamp, setOrder: $setOrder)';
+  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, setOrder: $setOrder, timestamp: $timestamp)';
 }
 
 
@@ -317,7 +318,7 @@ abstract mixin class $WorkoutSetCopyWith<$Res>  {
   factory $WorkoutSetCopyWith(WorkoutSet value, $Res Function(WorkoutSet) _then) = _$WorkoutSetCopyWithImpl;
 @useResult
 $Res call({
- String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, DateTime timestamp, int setOrder
+ String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, int setOrder, DateTime timestamp
 });
 
 
@@ -334,7 +335,7 @@ class _$WorkoutSetCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? timestamp = null,Object? setOrder = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? setOrder = null,Object? timestamp = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
@@ -344,9 +345,9 @@ as Map<String, String>,weight: freezed == weight ? _self.weight : weight // igno
 as double?,reps: freezed == reps ? _self.reps : reps // ignore: cast_nullable_to_non_nullable
 as int?,rir: freezed == rir ? _self.rir : rir // ignore: cast_nullable_to_non_nullable
 as int?,comments: freezed == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable
-as String?,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as DateTime,setOrder: null == setOrder ? _self.setOrder : setOrder // ignore: cast_nullable_to_non_nullable
-as int,
+as String?,setOrder: null == setOrder ? _self.setOrder : setOrder // ignore: cast_nullable_to_non_nullable
+as int,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 
@@ -431,10 +432,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WorkoutSet() when $default != null:
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp);case _:
   return orElse();
 
 }
@@ -452,10 +453,10 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.wei
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp)  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutSet():
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -472,10 +473,10 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.wei
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  DateTime timestamp,  int setOrder)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp)?  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutSet() when $default != null:
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.timestamp,_that.setOrder);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp);case _:
   return null;
 
 }
@@ -487,7 +488,7 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.wei
 @JsonSerializable()
 
 class _WorkoutSet extends WorkoutSet {
-  const _WorkoutSet({required this.id, required this.workoutId, required this.exerciseId, final  Map<String, String> tweaks = const {}, this.weight, this.reps, this.rir, this.comments, required this.timestamp, required this.setOrder}): _tweaks = tweaks,super._();
+  const _WorkoutSet({required this.id, required this.workoutId, required this.exerciseId, final  Map<String, String> tweaks = const {}, this.weight, this.reps, this.rir, this.comments, required this.setOrder, required this.timestamp}): _tweaks = tweaks,super._();
   factory _WorkoutSet.fromJson(Map<String, dynamic> json) => _$WorkoutSetFromJson(json);
 
 @override final  String id;
@@ -505,8 +506,9 @@ class _WorkoutSet extends WorkoutSet {
 @override final  int? rir;
 // Reps in Reserve
 @override final  String? comments;
-@override final  DateTime timestamp;
 @override final  int setOrder;
+// we're "the i-th set in the workout (grouped by time)", not persisted
+@override final  DateTime timestamp;
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
@@ -523,7 +525,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, timestamp: $timestamp, setOrder: $setOrder)';
+  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, setOrder: $setOrder, timestamp: $timestamp)';
 }
 
 
@@ -534,7 +536,7 @@ abstract mixin class _$WorkoutSetCopyWith<$Res> implements $WorkoutSetCopyWith<$
   factory _$WorkoutSetCopyWith(_WorkoutSet value, $Res Function(_WorkoutSet) _then) = __$WorkoutSetCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, DateTime timestamp, int setOrder
+ String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, int setOrder, DateTime timestamp
 });
 
 
@@ -551,7 +553,7 @@ class __$WorkoutSetCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? timestamp = null,Object? setOrder = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? setOrder = null,Object? timestamp = null,}) {
   return _then(_WorkoutSet(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
@@ -561,9 +563,276 @@ as Map<String, String>,weight: freezed == weight ? _self.weight : weight // igno
 as double?,reps: freezed == reps ? _self.reps : reps // ignore: cast_nullable_to_non_nullable
 as int?,rir: freezed == rir ? _self.rir : rir // ignore: cast_nullable_to_non_nullable
 as int?,comments: freezed == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable
-as String?,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as DateTime,setOrder: null == setOrder ? _self.setOrder : setOrder // ignore: cast_nullable_to_non_nullable
-as int,
+as String?,setOrder: null == setOrder ? _self.setOrder : setOrder // ignore: cast_nullable_to_non_nullable
+as int,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ExerciseSetGroup {
+
+ String get exerciseId; Map<String, String> get tweaks; List<WorkoutSet> get sets;
+/// Create a copy of ExerciseSetGroup
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExerciseSetGroupCopyWith<ExerciseSetGroup> get copyWith => _$ExerciseSetGroupCopyWithImpl<ExerciseSetGroup>(this as ExerciseSetGroup, _$identity);
+
+  /// Serializes this ExerciseSetGroup to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+
+
+@override
+String toString() {
+  return 'ExerciseSetGroup(exerciseId: $exerciseId, tweaks: $tweaks, sets: $sets)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExerciseSetGroupCopyWith<$Res>  {
+  factory $ExerciseSetGroupCopyWith(ExerciseSetGroup value, $Res Function(ExerciseSetGroup) _then) = _$ExerciseSetGroupCopyWithImpl;
+@useResult
+$Res call({
+ String exerciseId, Map<String, String> tweaks, List<WorkoutSet> sets
+});
+
+
+
+
+}
+/// @nodoc
+class _$ExerciseSetGroupCopyWithImpl<$Res>
+    implements $ExerciseSetGroupCopyWith<$Res> {
+  _$ExerciseSetGroupCopyWithImpl(this._self, this._then);
+
+  final ExerciseSetGroup _self;
+  final $Res Function(ExerciseSetGroup) _then;
+
+/// Create a copy of ExerciseSetGroup
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? exerciseId = null,Object? tweaks = null,Object? sets = null,}) {
+  return _then(_self.copyWith(
+exerciseId: null == exerciseId ? _self.exerciseId : exerciseId // ignore: cast_nullable_to_non_nullable
+as String,tweaks: null == tweaks ? _self.tweaks : tweaks // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,sets: null == sets ? _self.sets : sets // ignore: cast_nullable_to_non_nullable
+as List<WorkoutSet>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ExerciseSetGroup].
+extension ExerciseSetGroupPatterns on ExerciseSetGroup {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExerciseSetGroup value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ExerciseSetGroup() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExerciseSetGroup value)  $default,){
+final _that = this;
+switch (_that) {
+case _ExerciseSetGroup():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExerciseSetGroup value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ExerciseSetGroup() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String exerciseId,  Map<String, String> tweaks,  List<WorkoutSet> sets)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ExerciseSetGroup() when $default != null:
+return $default(_that.exerciseId,_that.tweaks,_that.sets);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String exerciseId,  Map<String, String> tweaks,  List<WorkoutSet> sets)  $default,) {final _that = this;
+switch (_that) {
+case _ExerciseSetGroup():
+return $default(_that.exerciseId,_that.tweaks,_that.sets);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String exerciseId,  Map<String, String> tweaks,  List<WorkoutSet> sets)?  $default,) {final _that = this;
+switch (_that) {
+case _ExerciseSetGroup() when $default != null:
+return $default(_that.exerciseId,_that.tweaks,_that.sets);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ExerciseSetGroup extends ExerciseSetGroup {
+  const _ExerciseSetGroup({required this.exerciseId, final  Map<String, String> tweaks = const {}, required final  List<WorkoutSet> sets}): _tweaks = tweaks,_sets = sets,super._();
+  factory _ExerciseSetGroup.fromJson(Map<String, dynamic> json) => _$ExerciseSetGroupFromJson(json);
+
+@override final  String exerciseId;
+ final  Map<String, String> _tweaks;
+@override@JsonKey() Map<String, String> get tweaks {
+  if (_tweaks is EqualUnmodifiableMapView) return _tweaks;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_tweaks);
+}
+
+ final  List<WorkoutSet> _sets;
+@override List<WorkoutSet> get sets {
+  if (_sets is EqualUnmodifiableListView) return _sets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_sets);
+}
+
+
+/// Create a copy of ExerciseSetGroup
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExerciseSetGroupCopyWith<_ExerciseSetGroup> get copyWith => __$ExerciseSetGroupCopyWithImpl<_ExerciseSetGroup>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ExerciseSetGroupToJson(this, );
+}
+
+
+
+@override
+String toString() {
+  return 'ExerciseSetGroup(exerciseId: $exerciseId, tweaks: $tweaks, sets: $sets)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExerciseSetGroupCopyWith<$Res> implements $ExerciseSetGroupCopyWith<$Res> {
+  factory _$ExerciseSetGroupCopyWith(_ExerciseSetGroup value, $Res Function(_ExerciseSetGroup) _then) = __$ExerciseSetGroupCopyWithImpl;
+@override @useResult
+$Res call({
+ String exerciseId, Map<String, String> tweaks, List<WorkoutSet> sets
+});
+
+
+
+
+}
+/// @nodoc
+class __$ExerciseSetGroupCopyWithImpl<$Res>
+    implements _$ExerciseSetGroupCopyWith<$Res> {
+  __$ExerciseSetGroupCopyWithImpl(this._self, this._then);
+
+  final _ExerciseSetGroup _self;
+  final $Res Function(_ExerciseSetGroup) _then;
+
+/// Create a copy of ExerciseSetGroup
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? exerciseId = null,Object? tweaks = null,Object? sets = null,}) {
+  return _then(_ExerciseSetGroup(
+exerciseId: null == exerciseId ? _self.exerciseId : exerciseId // ignore: cast_nullable_to_non_nullable
+as String,tweaks: null == tweaks ? _self._tweaks : tweaks // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,sets: null == sets ? _self._sets : sets // ignore: cast_nullable_to_non_nullable
+as List<WorkoutSet>,
   ));
 }
 

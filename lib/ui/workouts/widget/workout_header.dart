@@ -1,5 +1,5 @@
 import 'package:bodybuild/ui/datetime.dart';
-import 'package:bodybuild/ui/workouts/widget/stat_chip.dart';
+import 'package:bodybuild/ui/workouts/widget/workout_stats_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 
@@ -48,13 +48,14 @@ class WorkoutHeader extends StatelessWidget {
               'Ended: ${formatHumanDateTimeMinutely(workout.endTime!)}',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              StatChip('${workout.sets.length} sets'),
-              const SizedBox(width: 8),
-              StatChip('${workout.exerciseIds.length} exercises'),
-            ],
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed: () => showWorkoutStatsSheet(context, workout),
+            icon: const Icon(Icons.bar_chart),
+            label: const Text('View Workout Stats'),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            ),
           ),
           if (workout.notes?.isNotEmpty == true) ...[
             const SizedBox(height: 12),

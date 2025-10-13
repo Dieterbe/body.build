@@ -64,7 +64,9 @@ class WorkoutPopupMenu extends ConsumerWidget {
           : 'Awesome work! This will finish the workout.',
       confirmText: 'Finish',
       onConfirm: () {
-        ref.read(workoutManagerProvider.notifier).endWorkout(workout.id);
+        ref
+            .read(workoutManagerProvider.notifier)
+            .endWorkout(workout.id, endTime: workout.sets.lastOrNull?.timestamp);
         if (reRoute == null) return;
         context.go(reRoute!);
       },

@@ -7,6 +7,9 @@ import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:bodybuild/ui/core/logo.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/data/programmer/setup_persistence_provider.dart';
+import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const String helpProgrammer = '''
 # What is this?
@@ -74,8 +77,80 @@ class ProgrammerScreen extends StatefulWidget {
 }
 
 class _ProgrammerScreenState extends State<ProgrammerScreen> {
+  String? _migrationError;
+  bool _migrationChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Check migration on first load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkMigration();
+    });
+  }
+
+  Future<void> _checkMigration() async {
+    if (_migrationChecked) return;
+    _migrationChecked = true;
+
+    try {
+      final container = ProviderScope.containerOf(context);
+      final setupService = await container.read(setupPersistenceProvider.future);
+      final setupError = await setupService.checkExerciseMigration();
+      if (setupError != null) {
+        if (mounted) setState(() => _migrationError = setupError);
+        return;
+      }
+
+      final programService = await container.read(programPersistenceProvider.future);
+      final programError = await programService.checkExerciseMigration();
+      if (programError != null) {
+        if (mounted) setState(() => _migrationError = programError);
+      }
+    } catch (e) {
+      if (mounted) setState(() => _migrationError = e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Show migration error if present
+    if (_migrationError != null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Programmer')),
+        drawer: const AppNavigationDrawer(),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                const SizedBox(height: 24),
+                const Text(
+                  'Migration Required',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    _migrationError!,
+                    style: const TextStyle(fontFamily: 'monospace'),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
 

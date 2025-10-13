@@ -82,9 +82,9 @@ class FilterMobile extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Select Equipment'),
-        content: Container(
+        content: const SizedBox(
           width: double.maxFinite,
-          child: const Column(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // Equipment list

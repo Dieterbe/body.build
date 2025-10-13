@@ -1,9 +1,10 @@
 import 'package:bodybuild/data/developer_mode_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/ui/core/widget/err_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/log_set_sheet.dart';
-import 'package:bodybuild/ui/workouts/widget/set_log_widget.dart';
+import 'package:bodybuild/ui/workouts/widget/exercise_set_group_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
@@ -13,8 +14,6 @@ import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:collection/collection.dart';
 
 /// This screen is used as both:
 /// - a top level screen (for the curently active workout)
@@ -91,7 +90,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         return _buildNewWorkoutLoading(context);
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const Center(child: Text('Error loading workout state')),
+      error: (error, stackTrace) => ErrWidget("Error loading workout state", error),
     );
   }
 
@@ -166,78 +165,40 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   }
 
   Widget _buildSetsList() {
-    // Group sets by exercise and tweaks
-    final groupedSets = <String, List<model.WorkoutSet>>{};
-    for (final set in workout!.sets) {
-      // Create a composite key that includes exercise ID and tweaks
-      final tweaksKey = set.tweaks.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
-      final groupKey = '${set.exerciseId}|${tweaksKey.join(',')}}';
-      groupedSets.putIfAbsent(groupKey, () => []).add(set);
-    }
+    // Group sets by exercise and tweaks using the model
+    final groups = model.ExerciseSetGroup.fromSets(workout!.sets);
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: groupedSets.length,
+      itemCount: groups.length,
       itemBuilder: (context, index) {
-        final groupKey = groupedSets.keys.elementAt(index);
-        final exerciseSets = groupedSets[groupKey]!;
-
-        return _buildExerciseGroup(exerciseSets);
+        final group = groups[index];
+        return ExerciseSetGroupWidget(
+          group: group,
+          onUpdateSet: _updateSet,
+          onUpdateExercise: _updateExerciseForGroup,
+          onAddSet: _saveSet,
+          onDeleteSet: _deleteSet,
+        );
       },
     );
   }
 
-  // sets is guaranteed to be non-empty, and all sets have the same exerciseId and tweaks
-  Widget _buildExerciseGroup(List<model.WorkoutSet> sets) {
-    final exerciseId = sets.first.exerciseId;
-    final tweaks = sets.first.tweaks;
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    exerciseId, // TODO: Get exercise name from exercise data
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    final exercise = exes.firstWhereOrNull((e) => e.id == exerciseId);
-                    if (exercise != null) {
-                      _showLogSetSheet(
-                        context,
-                        initialSets: Sets(0, ex: exercise, tweakOptions: tweaks),
-                      );
-                    }
-                  },
-                  icon: const Icon(Icons.add, size: 16),
-                  label: const Text('Add Set'),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            ...sets.map(
-              (set) => SetLogWidget(
-                workoutSet: set,
-                onUpdate: (updatedSet) => _updateSet(updatedSet),
-                onDelete: () => _deleteSet(set.id),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+  void _updateExerciseForGroup(model.ExerciseSetGroup group, Sets newSets) async {
+    // Update all sets in the group with the new exercise and tweaks
+    try {
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+      for (final set in group.sets) {
+        final updatedSet = set.copyWith(exerciseId: newSets.ex!.id, tweaks: newSets.tweakOptions);
+        await workoutManager.updateSet(updatedSet);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error updating exercise: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
   }
 
   void _showLogSetSheet(BuildContext context, {Sets? initialSets}) async {

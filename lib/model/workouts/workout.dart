@@ -44,8 +44,8 @@ abstract class WorkoutSet with _$WorkoutSet {
     int? reps,
     int? rir, // Reps in Reserve
     String? comments,
+    required int setOrder, // we're "the i-th set in the workout (grouped by time)", not persisted
     required DateTime timestamp,
-    required int setOrder,
   }) = _WorkoutSet;
 
   factory WorkoutSet.fromJson(Map<String, dynamic> json) => _$WorkoutSetFromJson(json);
@@ -56,6 +56,40 @@ abstract class WorkoutSet with _$WorkoutSet {
     if (jsonStr.isEmpty) return {};
     final decoded = json.decode(jsonStr);
     return Map<String, String>.from(decoded);
+  }
+}
+
+/// UI model for grouping sets by exercise and tweaks
+/// This is not persisted to the database - it's a view model for the UI
+@freezed
+abstract class ExerciseSetGroup with _$ExerciseSetGroup {
+  const ExerciseSetGroup._();
+
+  const factory ExerciseSetGroup({
+    required String exerciseId,
+    @Default({}) Map<String, String> tweaks,
+    required List<WorkoutSet> sets,
+  }) = _ExerciseSetGroup;
+
+  factory ExerciseSetGroup.fromJson(Map<String, dynamic> json) => _$ExerciseSetGroupFromJson(json);
+
+  /// Create groups from a list of sets
+  static List<ExerciseSetGroup> fromSets(List<WorkoutSet> sets) {
+    final groupedSets = <String, List<WorkoutSet>>{};
+    for (final set in sets) {
+      final tweaksKey = set.tweaks.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
+      final groupKey = '${set.exerciseId}|${tweaksKey.join(',')}';
+      groupedSets.putIfAbsent(groupKey, () => []).add(set);
+    }
+
+    return groupedSets.entries.map((entry) {
+      final firstSet = entry.value.firstOrNull!;
+      return ExerciseSetGroup(
+        exerciseId: firstSet.exerciseId,
+        tweaks: firstSet.tweaks,
+        sets: entry.value,
+      );
+    }).toList();
   }
 }
 

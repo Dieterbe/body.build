@@ -1,11 +1,10 @@
 import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/programmer/rating.dart';
 import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/data/programmer/rating_jn.dart';
 import 'package:bodybuild/data/programmer/rating_mh.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
-
-import 'rating.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
@@ -22,6 +21,8 @@ class Ex {
   final List<Tweak> tweaks;
   final List<Rating> ratings;
   final String id; // identifier to match to kaos exercise. does not need to be human friendly
+  final List<String>
+  searchAliases; // additional search terms (abbreviations, synonyms) (does not need to match exactly 1:1)
 
   const Ex(
     this.volumeAssignment,
@@ -29,6 +30,7 @@ class Ex {
     this.equipment, [
     this.tweaks = const [],
     this.ratings = const [],
+    this.searchAliases = const [],
   ]);
 
   // calculate recruitment for a given PG & tweak options.
@@ -44,7 +46,7 @@ class Ex {
         // This should never happen. this would be a bug in the tweaks definition
         print('tweak ${tweak.name} has no option $selectedOption');
       }
-      final optEffects = tweak.opts[selectedOption]!.$1;
+      final optEffects = tweak.opts[selectedOption]!.va;
       if (optEffects.containsKey(pg)) {
         r = r.merge(optEffects[pg]!);
       }
@@ -72,7 +74,7 @@ class Ex {
     return Map.fromEntries(
       tweaks
           .where((tweak) {
-            final affectsRecruitment = tweak.opts.entries.any((opt) => opt.value.$1.containsKey(g));
+            final affectsRecruitment = tweak.opts.entries.any((opt) => opt.value.va.containsKey(g));
             final affectsRating = ratings.any(
               (rating) => rating.pg.contains(g) && rating.tweaks.containsKey(tweak.name),
             );
@@ -81,9 +83,59 @@ class Ex {
           .map((tweak) => MapEntry(tweak.name, tweak.opts.keys.toList())),
     );
   }
+
+  /// Returns all searchable tokens for this exercise
+  /// Includes: exercise ID, tweak names, and manual aliases
+  Set<String> get searchTokens {
+    final tokens = <String>{};
+
+    // 1. Exercise ID (normalized)
+    tokens.addAll(_normalize(id));
+
+    // 2. Tweak names, option's keys and descriptions
+    for (final tweak in tweaks) {
+      tokens.addAll(_normalize(tweak.name));
+      for (final opt in tweak.opts.entries) {
+        tokens.addAll(_normalize(opt.key));
+
+        // Extract words following "aka" or "Aka" in description
+        final desc = opt.value.desc;
+        final akaIndex = desc.toLowerCase().indexOf('aka ');
+        if (akaIndex >= 0) {
+          final afterAka = desc.substring(akaIndex + 4); // Skip "aka "
+          tokens.addAll(_normalize(afterAka));
+        }
+      }
+    }
+
+    // 3. Exercise aliases
+    for (final alias in searchAliases) {
+      tokens.addAll(_normalize(alias));
+    }
+
+    return tokens;
+  }
+
+  /// Normalizes text: lowercase, replace hyphens with spaces, split by whitespace
+  static Set<String> _normalize(String text) {
+    return text
+        .toLowerCase()
+        .replaceAll('-', ' ')
+        .split(RegExp(r'\s+'))
+        .where((t) => t.isNotEmpty)
+        .toSet();
+  }
+
+  /// Returns true if ALL query words match at least one search token
+  bool matchesSearch(String query) {
+    if (query.isEmpty) return true;
+    final queryWords = _normalize(query);
+    return queryWords.every((qWord) => searchTokens.any((token) => token.startsWith(qWord)));
+  }
 }
 
-// TODO add pullup negatives. this is not eccentric overloads (those still have concentric)
+// TODO add pull-up negatives. this is not eccentric overloads (those still have concentric) -> could be a ROM tweak
+// actually negative is like eccentric overload with weight for concentric set to 0
 // form tweaks like unilateral concentrics, unilateral, e.g. for leg ext, leg curls, calf raises
 // important: id's should not change! perhaps we should introduce seperate human friendly naming
 // TODO: annotate which exercises are 'preferred' by way of menno's recommendations, also those that are deficit or have larger ROM
@@ -101,8 +153,27 @@ This categorization is only meant to make code navigation easier here and elsewh
 exercise id and tweak names/values allowed chars: a-z, 0-9, °, -, space, (), >
 no '&' cause that would look ugly in URL encoding
 no '_' because it shouldn't be needed, and allows us to url encode space to '_' instead of %20 in the URL and instead of '+' in path parameters
+today we don't encode ° and () (and space) in exercise ID's in URL's and it seems to work fine, however
 */
+
+// Exercise dataset version for migration tracking
+const int exerciseDatasetVersion = 1;
+
+// In case we make breaking changes to exercise ID's or tweaks (such that persisted values from
+// the programmer, workout history, etc. are no longer valid), we should increment this version
+// and build a migration system (if/when we care enough about stability anyway)
+
 final List<Ex> exes = [
+  /**
+ *    888      8888888888  .d8888b.   .d8888b.  
+ *    888      888        d88P  Y88b d88P  Y88b 
+ *    888      888        888    888 Y88b.      
+ *    888      8888888    888         "Y888b.   
+ *    888      888        888  88888     "Y88b. 
+ *    888      888        888    888       "888 
+ *    888      888        Y88b  d88P Y88b  d88P 
+ *    88888888 8888888888  "Y8888P88  "Y8888P"                                             
+ */
   const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(
     vaGoodMorning,
@@ -116,8 +187,10 @@ final List<Ex> exes = [
   Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell], [rom, gripSqueeze]),
   Ex(vaDeadlift, "deadlift", [Equipment.barbell], [rom, gripSqueeze]),
   Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
-  Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell], [rom, gripSqueeze]),
-  Ex(vaDeadliftRDL, "dumbbell romanian deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
+  Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell], [rom, gripSqueeze], [], ['RDL']),
+  Ex(vaDeadliftRDL, "dumbbell romanian deadlift", [Equipment.dumbbell], [rom, gripSqueeze], [], [
+    'RDL',
+  ]),
 
   const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45], [rom, gripSqueeze]),
   const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45], [rom, gripSqueeze]),
@@ -130,38 +203,65 @@ final List<Ex> exes = [
     "seated leg curl machine",
     [Equipment.hamCurlMachineSeated],
     [rom, legCurlAnkleDorsiflexed],
+    [],
+    ['hamstring curl'],
   ),
   const Ex(
     vaLegCurlHipExtended,
     "standing unilateral leg curl machine",
     [Equipment.hamCurlMachineStanding],
     [rom, legCurlAnkleDorsiflexed],
+    [],
+    ['hamstring curl'],
   ),
   const Ex(
     vaLegCurlHipExtended,
     "lying leg curl machine",
     [Equipment.hamCurlMachineLying],
     [rom, legCurlAnkleDorsiflexed],
+    [],
+    ['prone hamstring curl'],
   ),
   const Ex(
     {},
     "bodyweight leg curl with trx",
     [Equipment.trx],
     [rom, legCurlAnkleDorsiflexed, legCurlHipFlexion],
+    [],
+    ['hamstring curl'],
   ),
   const Ex(
     {},
     "bodyweight leg curl with rings",
     [Equipment.gymnasticRings],
     [rom, legCurlAnkleDorsiflexed, legCurlHipFlexion],
+    [],
+    ['hamstring curl'],
   ),
-  const Ex({}, "nordic curl", [], [rom, legCurlAnkleDorsiflexed, legCurlHipFlexion]),
+  const Ex(
+    {},
+    "nordic curl",
+    [],
+    [rom, legCurlAnkleDorsiflexed, legCurlHipFlexion],
+    [],
+    ['hamstring curl'],
+  ),
 
   const Ex(
     vaSquatBBAndGoblet,
     "barbell squat",
     [Equipment.squatRack],
     [rom, gripSqueeze, squatBarPlacement, squatLowerLegMovement],
+    [],
+    ['BSQ'],
+  ),
+  const Ex(
+    vaSquatBBAndGoblet,
+    "barbell squat (powerlift)",
+    [Equipment.squatRack],
+    [rom, gripSqueeze, squatPowerLiftBarPlacement, squatLowerLegMovement],
+    [],
+    ['BSQ'],
   ),
   const Ex(vaSquatBBAndGoblet, "goblet squat", [], [
     rom,
@@ -185,6 +285,8 @@ final List<Ex> exes = [
     [Equipment.beltSquatMachine],
     [rom, squatLowerLegMovement],
   ),
+
+  //TODO: bulgarian split squat with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not).
   const Ex({...vaSquatBSQ, ...wrist03}, "dumbbell bulgarian split squat", [Equipment.dumbbell], [
     rom,
     gripSqueeze,
@@ -258,6 +360,8 @@ final List<Ex> exes = [
     "seated leg extension machine",
     [Equipment.legExtensionMachine],
     [rom, legExtensionPullOnHandles, legExtensionLean],
+    [],
+    ['quad extension'],
   ),
 
   const Ex(vaLegExtensionReverseNordicHamCurlSquatSissy, "reverse nordic ham curl", [], [
@@ -371,65 +475,48 @@ final List<Ex> exes = [
  *    888   d88P  d8888888888 Y88b  d88P 888   Y88b                     
  *    8888888P"  d88P     888  "Y8888P"  888    Y88b     
  */
-  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup", [], [
-    rom,
-    gripSqueeze,
-  ]), // just outside shoulder width
-  // Ex(EBase.?, "pullup close grip pronated", []),
+  const Ex(vaPulls, "gymnastic rings pull-up", [Equipment.gymnasticRings], [rom, gripSqueeze], [], [
+    "pullup",
+  ]),
   const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "pullup gymnastic rings",
-    [Equipment.gymnasticRings],
-    [rom, gripSqueeze],
-  ), // TODO see if recruitment should be adjusted
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "pullup neutral grip",
+    {},
+    "pull-up",
+    [Equipment.latPullDownMachine],
+    [
+      rom,
+      gripSqueeze,
+      Tweak('grip', 'shoulder width pronated', {
+        'narrow supinated': Option(vaPulls, 'aka close grip chin-up, underhand'),
+        'shoulder width supinated': Option(vaPulls, 'aka chin-up, underhand'),
+        'shoulder width pronated': Option(vaPulls, 'aka normal grip, overhand'),
+        'wide pronated': Option(vaPullsWide, 'aka wide normal grip, overhand'),
+      }),
+    ],
     [],
-    [rom, gripSqueeze],
+    ["pullup", "chinup"],
   ),
   const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "pullup supinated grip",
-    [],
-    [rom, gripSqueeze],
-  ), // chin-up
-  const Ex(vaPullupPulldownWidePronatedPullupWidePronated, "pullup wide pronated grip", [], [
-    rom,
-    gripSqueeze,
-  ]),
-
-  const Ex(
-    vaPullupPulldownWidePronatedPullupWidePronated,
+    {},
     "lat pulldown",
     [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
-  ),
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "lat pulldown neutral grip",
-    [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
-  ),
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "lat pulldown supinated grip",
-    [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
-  ),
-  const Ex(
-    vaPullupPulldownWidePronatedPullupWidePronated,
-    "lat pulldown wide pronated grip",
-    [Equipment.latPullDownMachine],
-    [rom, gripSqueeze],
+    [
+      rom,
+      gripSqueeze,
+      Tweak('grip', 'bar shoulder width pronated', {
+        'attachment narrow supinated': Option(vaPulls, 'aka underhand close grip'),
+        'attachment narrow neutral grip': Option(vaPulls, 'aka close hammer grip'),
+        'attachment wide neutral grip': Option(vaPulls, 'aka wide hammer grip'),
+        'bar narrow supinated': Option(vaPulls, 'aka underhand close grip'),
+        'bar shoulder width supinated': Option(vaPulls, 'aka underhand'),
+        'bar shoulder width pronated': Option(vaPulls, 'aka normal grip, overhand'),
+        'bar wide pronated': Option(vaPullsWide, 'aka wide normal grip, overhand'),
+      }),
+    ],
+    [],
+    ["pull-down"],
   ),
 
-  const Ex(
-    vaPullupSupinatedPulldownSupinatedPullDownPulldownNeutralPullupNeutralDiagonalRow,
-    "kneeling diagonal cable row",
-    [Equipment.cableTower],
-    [rom, gripSqueeze],
-  ),
+  const Ex(vaPulls, "kneeling diagonal cable row", [Equipment.cableTower], [rom, gripSqueeze]),
   const Ex(
     vaRow,
     "seated cable row",
@@ -438,43 +525,47 @@ final List<Ex> exes = [
       rom,
       gripSqueeze,
       Tweak('spine', 'still', {
-        'still': (
-          {
-            ProgramGroup.lats: Assign(1, 'not full stretch'),
-            ProgramGroup.spinalErectors: Assign(0.25, 'isometric'),
-          },
-          'keep the spine upright',
-        ),
-        'dynamic': (
-          // aka cable flexion row
+        'still': Option({
+          ProgramGroup.lats: Assign(1, 'not full stretch'),
+          ProgramGroup.spinalErectors: Assign(0.25, 'isometric'),
+        }, 'keep the spine upright'),
+        'dynamic': Option(
           {
             ProgramGroup.lats: Assign(1, 'near full stretch'),
             ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
           },
           """flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout.  
-            Also called 'flexion row'""",
+            Aka flexion row""",
         ),
       }),
-      Tweak('grip width', 'shoulder', {
-        'shoulder': ({}, ''),
-        'wide': (
-          {
-            ProgramGroup.rearDelts: Assign(1, 'shoulder horizontal extension + shoulder extension'),
-            ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
-            ProgramGroup.lats: Assign(1, 'shoulder extension + shoulder adduction'),
-          },
-          '',
-        ),
+      Tweak('grip', 'bar shoulder width pronated', {
+        'attachment narrow supinated': Option({}, 'aka underhand close grip'),
+        'attachment narrow neutral grip': Option({}, 'aka close hammer grip'),
+        'attachment wide neutral grip': Option({}, 'aka wide hammer grip'),
+        'bar narrow supinated': Option({}, 'aka underhand close grip'),
+        'bar shoulder width supinated': Option({}, 'aka underhand grip'),
+        'bar shoulder width pronated': Option({}, 'aka normal grip, overhand'),
+        'bar wide pronated': Option({
+          ProgramGroup.rearDelts: Assign(1, 'shoulder horizontal extension + shoulder extension'),
+          ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
+          ProgramGroup.lats: Assign(1, 'shoulder extension + shoulder adduction'),
+        }, 'aka wide normal grip, overhand'),
       }),
     ],
     [ratingJNRowCable],
   ),
 
-  // TODO many different grips. those should affect recruitment similar to pullup types
+  // TODO many different grips. those should affect recruitment similar to pull-up types
   const Ex(
     vaRowWithSpineIso,
     "standing bent over barbell row",
     [Equipment.barbell],
+    [rom, gripSqueeze],
+  ),
+  const Ex(
+    vaRowWithSpineIso,
+    "standing bent over dumbbell row", // https://www.youtube.com/shorts/q0zngW0oiT0
+    [Equipment.dumbbell],
     [rom, gripSqueeze],
   ),
 
@@ -486,7 +577,7 @@ final List<Ex> exes = [
   ),
   const Ex(
     vaRowWithoutSpine,
-    "helms row", // https://www.youtube.com/shorts/XdZSJD41l68
+    "helms row", // https://www.youtube.com/shorts/Bk0YWJmbQEQ
     [Equipment.dumbbell],
     [rom, gripSqueeze],
     [ratingJNRowChestSupported],
@@ -599,7 +690,7 @@ final List<Ex> exes = [
   ),
   const Ex(
     vaBenchPressBBChestPressMachineDip,
-    "bench press smith machine",
+    "smith machine bench press",
     [Equipment.smithMachineAngled],
     [rom, gripSqueeze, benchPressBenchAngle],
   ),
@@ -611,8 +702,12 @@ final List<Ex> exes = [
     [rom, gripSqueeze],
     [ratingJNMachineChestPress],
   ),
-
-  const Ex(vaPushUp, "push-up", [], [rom, deficit], [ratingJNPushUp, ratingJNPushUpDeficit]),
+  // TODO: hand position, diamond etc
+  const Ex(vaPushUp, "push-up", [], [rom, deficit], [ratingJNPushUp, ratingJNPushUpDeficit], [
+    'press-up',
+    "pressup",
+    "pushup",
+  ]),
 
   const Ex(
     vaBenchPressDBChestPressCable,
@@ -658,12 +753,21 @@ final List<Ex> exes = [
   ),
 
   const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(vaOverheadPressBB, "barbell overhead press", [Equipment.barbell], [rom, gripSqueeze]),
+  const Ex(
+    vaOverheadPressBB,
+    "barbell overhead press",
+    [Equipment.barbell],
+    [rom, gripSqueeze],
+    [],
+    ['shoulder press', 'deltoid press'],
+  ),
   const Ex(
     vaOverheadPressBB,
     "shoulder press machine",
     [Equipment.shoulderPressMachine],
     [rom, gripSqueeze],
+    [],
+    ['deltoid press'],
   ),
 
   Ex(
@@ -690,8 +794,8 @@ final List<Ex> exes = [
       rom,
       gripSqueeze,
       Tweak('RP style', 'no', {
-        'no': ({}, ''),
-        'yes': (
+        'no': Option({}, ''),
+        'yes': Option(
           {},
           'use small bar. elbows in - up & back to down & forward. see [this instagram reel](https://www.instagram.com/reel/DEUw9COM-K8)',
         ),
@@ -715,7 +819,14 @@ final List<Ex> exes = [
     [rom, gripSqueeze],
   ), // see https://www.youtube.com/watch?v=1lrjpLuXH4w , https://www.instagram.com/drmikeisraetel/reel/CmosT4EBmDi/?igshid=ZmMyNmFmZTc%3D
   const Ex(vaTricepExtension, "tricep kickback", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "tricep cable pushdown", [Equipment.cableTower], [rom, gripSqueeze]),
+  const Ex(
+    vaTricepExtension,
+    "tricep cable pushdown",
+    [Equipment.cableTower],
+    [rom, gripSqueeze],
+    [],
+    ["push down"],
+  ),
   /***
  *    888888b.  8888888  .d8888b.  8888888888 8888888b.   .d8888b.  
  *    888  "88b   888   d88P  Y88b 888        888   Y88b d88P  Y88b 
@@ -793,10 +904,14 @@ final List<Ex> exes = [
 
   const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine], [rom]),
   const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, gripSqueeze]),
-  const Ex(vaAbCrunch, "laying ab crunch", [], [rom]),
+  const Ex(vaAbCrunch, "lying ab crunch", [], [rom]),
   const Ex(vaAbIsometric, "plank", []),
-  const Ex(vaWristFlexion, "dumbbell wrist curl", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(vaWristExtension, "dumbbell wrist extension", [Equipment.dumbbell], [rom]),
+  const Ex(vaWristFlexion, "dumbbell wrist flexion", [Equipment.dumbbell], [rom, gripSqueeze], [], [
+    'wrist curl',
+  ]),
+  const Ex(vaWristExtension, "dumbbell wrist extension", [Equipment.dumbbell], [rom], [], [
+    'reverse wrist curl',
+  ]),
 ];
 
 /// Returns a filtered list of exercises based on various criteria and sorts by ID
@@ -821,7 +936,7 @@ List<Ex> getFilteredExercises({
     }
 
     if (query != null && query.isNotEmpty) {
-      if (!e.id.toLowerCase().contains(query.toLowerCase())) {
+      if (!e.matchesSearch(query)) {
         return false;
       }
     }
