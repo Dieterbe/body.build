@@ -1,4 +1,4 @@
-package com.example.body_build
+package build.body.bodybuild
 
 import io.flutter.embedding.android.FlutterActivity
 
