@@ -5,60 +5,62 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "auto/profile",
+            "name": "debug linux",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "auto/release",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
-            "name": "linux/debug",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug",
             "deviceId": "linux"
         },
         {
-            "name": "linux/debug dev",
+            "name": "debug linux dev",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
             "deviceId": "linux",
             "args": [
                 "--dart-define=DEV_MODE=true"
             ]
         },
         {
-            "name": "pixel/debug",
+            "name": "debug pixel",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
             "deviceId": "1A111FDF6007TT"
         },
         {
-            "name": "linux/normal",
+            "name": "debug web",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome"
+        },
+        {
+            "name": "release linux",
             "request": "launch",
             "type": "dart",
             "deviceId": "linux",
+            "flutterMode": "release"
         },
         {
-            "name": "pixel/normal",
+            "name": "release linux dev",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "linux",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define=DEV_MODE=true"
+            ]
+        },
+        {
+            "name": "release pixel",
             "request": "launch",
             "type": "dart",
             "deviceId": "1A111FDF6007TT",
+            "flutterMode": "release"
         },
-
         {
-            "name": "web/debug",
+            "name": "release web",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug",
             "deviceId": "chrome",
+            "flutterMode": "release"
         }
     ]
 }
