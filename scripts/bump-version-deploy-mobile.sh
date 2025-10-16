@@ -44,23 +44,19 @@ if ! version_gt "$NEW_VERSION" "$CURRENT_VERSION"; then
     error "New version ($NEW_VERSION) must be greater than current version ($CURRENT_VERSION)"
 fi
 
-# Check if tag already exists locally
+# Check if tag already exists and validate against all existing tags
 TAG_NAME="v$NEW_VERSION"
 if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
     error "Tag $TAG_NAME already exists locally"
 fi
 
-# Check if tag exists on remote
 if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME$"; then
     error "Tag $TAG_NAME already exists on remote"
 fi
 
-# Get all existing tags and check against them
+# Validate against all existing version tags
 EXISTING_TAGS=$(git tag -l 'v*' | sed 's/^v//' | sort -V)
 for existing_tag in $EXISTING_TAGS; do
-    if [ "$existing_tag" = "$NEW_VERSION" ]; then
-        error "Version $NEW_VERSION already exists as a tag"
-    fi
     if ! version_gt "$NEW_VERSION" "$existing_tag"; then
         error "New version ($NEW_VERSION) must be greater than existing tag v$existing_tag"
     fi
@@ -69,22 +65,20 @@ done
 # Increment build number
 NEW_BUILD=$((CURRENT_BUILD + 1))
 
-info ""
+echo
 info "Changes to be made:"
 info "  - Update version in pubspec.yaml: $CURRENT_VERSION+$CURRENT_BUILD → $NEW_VERSION+$NEW_BUILD"
 info "  - Create git tag: $TAG_NAME"
 info "  - Push tag to origin"
-info ""
-
-read -p "Proceed? (y/N) " -n 1 -r
 echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+
+if ! confirm "Proceed?"; then
     info "Aborted"
     exit 0
 fi
 
 # Update pubspec.yaml
-info ""
+echo
 info "Updating pubspec.yaml..."
 sed -i "s/^version: .*$/version: $NEW_VERSION+$NEW_BUILD/" "$PUBSPEC_FILE"
 success "Updated pubspec.yaml to version $NEW_VERSION+$NEW_BUILD"
@@ -96,20 +90,20 @@ if [ "$NEW_VERSION_CHECK" != "$NEW_VERSION+$NEW_BUILD" ]; then
 fi
 
 # Commit the version change
-info ""
+echo
 info "Committing version change..."
 git add "$PUBSPEC_FILE"
 git commit -m "Bump version to $NEW_VERSION"
 success "Committed version change"
 
 # Create git tag
-info ""
+echo
 info "Creating git tag $TAG_NAME..."
 git tag -a "$TAG_NAME" -m "Release version $NEW_VERSION"
 success "Created tag $TAG_NAME"
 
 # Push commit and tag to origin
-info ""
+echo
 info "Pushing to origin..."
 git push origin HEAD
 success "Pushed commit to origin"
@@ -118,7 +112,7 @@ info "Pushing tag to origin..." # this will trigger mobile app build
 git push origin "$TAG_NAME"
 success "Pushed tag $TAG_NAME to origin"
 
-info ""
+echo
 success "Version bump complete! 🎉"
 info "  Version: $NEW_VERSION+$NEW_BUILD"
 info "  Tag: $TAG_NAME"

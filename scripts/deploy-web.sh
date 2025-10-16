@@ -11,7 +11,6 @@ source "$SCRIPT_DIR/common.sh"
 check_git_repo
 check_git_clean
 
-
 version=$(get_git_version)
 
 timestamp=$(git log -1 --format=%cd)
@@ -27,9 +26,7 @@ flutter build web --base-href '/app/' -o build/web/app
 info "copying landing page"
 cp -ax landing-page/* build/web/
 info "build docs"
-cd docs
-npm run build
-cd -
+(cd docs && npm run build)
 rsync -a docs/build/ build/web/docs/
 
 info "git add build/web, deploy and git push"

@@ -26,6 +26,14 @@ info() {
     echo "$(date "+%F %T") $1"
 }
 
+# Confirmation prompt (returns 0 if yes, 1 if no)
+confirm() {
+    local prompt="${1:-Proceed?}"
+    read -p "$prompt (y/N) " -n 1 -r
+    echo
+    [[ $REPLY =~ ^[Yy]$ ]]
+}
+
 # Git validation functions
 check_git_repo() {
     if ! git rev-parse --git-dir > /dev/null 2>&1; then
