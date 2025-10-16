@@ -43,14 +43,15 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
     error "Not in a git repository"
 fi
 
-# Check if working directory is clean - actually this doesn't pick up new files
-if ! git diff-index --quiet HEAD --; then
-    warning "Working directory has uncommitted changes"
-    read -p "Continue anyway? (y/N) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        exit 1
-    fi
+# Check if we're on the main branch
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [ "$CURRENT_BRANCH" != "main" ]; then
+    error "Must be on 'main' branch (currently on '$CURRENT_BRANCH')"
+fi
+
+# Check if working directory is clean
+if [[ -n $(git status --porcelain) ]]; then
+    error "Working directory has uncommitted changes or untracked files"
 fi
 
 PUBSPEC_FILE="pubspec.yaml"
