@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/const.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
@@ -222,7 +223,7 @@ class AppNavigationDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                   child: Text(
-                    'Free • No ads • No signup',
+                    'version $buildVersion ($buildTime)',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
