@@ -54980,7 +54980,7 @@ q=A.m4(B.W,q,B.cE,8,8)
 p=A.v("Involved muscles",n,n,n,n,A.h(a).ok.r,n,n)
 o=l.b
 o===$&&A.b()
-o=o.length!==0?new A.a_N(l,n):B.aoI
+o=o.length!==0?new A.a_N(l,n):B.aoH
 o=A.a([s,B.l_,B.a4,r,B.a4,q,p,B.l_,B.a4,new A.cW(B.Ou,o,n),A.v("Insufficient muscles/heads",n,n,n,n,A.h(a).ok.r,n,n)],t.p)
 if(!f.gai(0).v())o.push(B.apC)
 if(!f.gaa(0)){g=g.h("d5<q.E,wG>")
@@ -55207,7 +55207,7 @@ s.r=this.c.gp()
 a.cP(this.b,s)},
 eP(a){return!0}}
 A.wF.prototype={
-H(a){var s=null,r=A.a([B.aoH],t.p),q=this.c,p=q.a
+H(a){var s=null,r=A.a([B.aoG],t.p),q=this.c,p=q.a
 B.b.E(r,new A.L(p,new A.asP(this),A.V(p).h("L<1,d>")))
 q=q.b
 p=q!=null
@@ -55410,7 +55410,7 @@ $1(a){var s=null
 return new A.kZ(a,A.v(a.e,s,s,s,s,s,s,s),s,t.CC)},
 $S:632}
 A.zE.prototype={
-H(a){var s,r,q,p,o,n,m,l,k,j,i,h=this,g=null,f=A.h(a),e=f.ax,d=A.iP(g,!0,B.D,g,0,g,B.aoJ,g),c=A.bl(20),b=e.x1
+H(a){var s,r,q,p,o,n,m,l,k,j,i,h=this,g=null,f=A.h(a),e=f.ax,d=A.iP(g,!0,B.D,g,0,g,B.aoI,g),c=A.bl(20),b=e.x1
 b=A.a([new A.c4(0,B.aa,(b==null?B.p:b).ao(0.1),B.EU,20)],t.F)
 s=f.ok
 r=s.e
@@ -56059,7 +56059,7 @@ A.ah1.prototype={
 $0(){return this.a.r4(this.b,"privacy")},
 $S:0}
 A.a36.prototype={
-H(a){return B.aoE}}
+H(a){return B.aoP}}
 A.t_.prototype={
 ab(){return new A.a6y()}}
 A.a6y.prototype={
@@ -56288,7 +56288,7 @@ $0(){return this.a.aC7(this.b,this.c)},
 $S:0}
 A.apo.prototype={
 $1(a){var s=null
-return A.nE(A.a([A.i4(!1,B.aos,s,s,s,s,s,s,new A.apn(a),s,s)],t.p),B.aiw,B.aoN)},
+return A.nE(A.a([A.i4(!1,B.aos,s,s,s,s,s,s,new A.apn(a),s,s)],t.p),B.aiw,B.aoM)},
 $S:47}
 A.apn.prototype={
 $0(){A.cP(this.a,!1).fH(null)
@@ -56984,7 +56984,7 @@ $2(a,b){var s=null
 return A.c5(A.v("Error: "+A.j(a),s,s,s,s,s,s,s),s,s)},
 $S:39}
 A.aBu.prototype={
-$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.bdm(A.a([A.mH(!1,B.KU,k,k,k,k,k,k,new A.aBp(j),k,k),A.mH(!1,B.aoK,k,k,k,k,k,k,new A.aBq(j),k,k),A.mH(!1,B.KQ,k,k,k,k,k,k,new A.aBr(j),k,k)],i),B.as,t.l)
+$1(a){var s,r,q,p,o,n,m,l,k=null,j=this.a,i=t.p,h=A.bdm(A.a([A.mH(!1,B.KU,k,k,k,k,k,k,new A.aBp(j),k,k),A.mH(!1,B.aoJ,k,k,k,k,k,k,new A.aBq(j),k,k),A.mH(!1,B.KQ,k,k,k,k,k,k,new A.aBr(j),k,k)],i),B.as,t.l)
 h=A.P(h,A.k(h).h("q.E"))
 h=A.ay(A.a([new A.cJ(28,B.af,new A.tr("Available equipment",h,k),k)],i),B.j,B.e,B.h,0,k,k)
 s=A.a([],i)
@@ -57163,7 +57163,7 @@ $0(){return A.y6(this.a).Sf()},
 $S:0}
 A.Ui.prototype={
 H(a){var s=null,r=A.bcs(s,s,A.h(a).ax.b.ao(0.1),s,s,s,0,s,s,A.h(a).ax.b,s,s,B.ar,s,new A.d6(A.bl(8),B.o),s,s,s,s,s)
-return new A.KF(A.mH(!1,A.ay(A.a([A.c1(B.pr,A.h(a).ax.b,s,18),B.as,B.aoP],t.p),B.j,B.e,B.N,0,s,s),s,s,s,s,s,s,this.d,s,r),this.c,"Add a first set to this workout",s)}}
+return new A.KF(A.mH(!1,A.ay(A.a([A.c1(B.pr,A.h(a).ax.b,s,18),B.as,B.aoO],t.p),B.j,B.e,B.N,0,s,s),s,s,s,s,s,s,this.d,s,r),this.c,"Add a first set to this workout",s)}}
 A.GV.prototype={
 ab(){return new A.a4E()},
 S1(a){return this.r.$1(a)}}
@@ -57845,7 +57845,7 @@ r=A.a([A.v("Average Rating: "+B.d.aq(n*100,1)+"%",o,o,o,o,B.dh,o,o),B.O],s)
 q=p.d
 B.b.E(r,new A.L(q,new A.aoV(p,a),A.V(q).h("L<1,d>")))
 r=A.fV(A.aj(r,B.y,o,B.e,B.N,0),o,B.H,o,o,B.a_)
-return A.nE(A.a([A.i4(!1,B.aoG,o,o,o,o,o,o,new A.aoW(a),o,o)],s),new A.cW(new A.ab(0,k.a.a*0.4,0,l.a.b*0.8),r,o),m)}}
+return A.nE(A.a([A.i4(!1,B.aoF,o,o,o,o,o,o,new A.aoW(a),o,o)],s),new A.cW(new A.ab(0,k.a.a*0.4,0,l.a.b*0.8),r,o),m)}}
 A.aoS.prototype={
 $2(a,b){return a+b.b},
 $S:358}
@@ -58555,7 +58555,7 @@ dU(a,b){var s,r=null,q=b.bU($.agi(),t.y)
 A.TB()
 if(!q)return B.a9k
 s=b.bU(B.cD,t.OZ)
-return A.iD(A.iP(r,!0,A.h(a).ax.k2,r,r,r,B.aoM,r),A.eS(s,new A.aMV(),new A.aMW(b),new A.aMX(),!1,!0,!1),B.ca,A.eS(s,new A.aMY(a),new A.aMZ(),new A.aN_(),!1,!0,!1))}}
+return A.iD(A.iP(r,!0,A.h(a).ax.k2,r,r,r,B.aoL,r),A.eS(s,new A.aMV(),new A.aMW(b),new A.aMX(),!1,!0,!1),B.ca,A.eS(s,new A.aMY(a),new A.aMZ(),new A.aN_(),!1,!0,!1))}}
 A.aMV.prototype={
 $1(a){return J.eF(a.gvj())?B.arO:new A.a3u(a.gvj(),null)},
 $S:394}
@@ -130839,8 +130839,8 @@ B.agn=new A.fG(B.ae,B.e,B.h,B.j,null,B.b3,null,8,B.a3q,null)
 B.aer=new A.kZ("notes",B.agn,null,t.wI)
 B.aes=new A.kZ(null,B.te,null,t.CC)
 B.a_A=new A.d4(B.pv,null,null,null,null)
-B.aoO=new A.aP("Finish Workout",null,null,null,null,null,null,null,null,null,null)
-B.a3g=s([B.a_A,B.aoO],t.p)
+B.aoN=new A.aP("Finish Workout",null,null,null,null,null,null,null,null,null,null)
+B.a3g=s([B.a_A,B.aoN],t.p)
 B.agm=new A.fG(B.ae,B.e,B.h,B.j,null,B.b3,null,8,B.a3g,null)
 B.aet=new A.kZ("finish",B.agm,null,t.wI)
 B.aeu=new A.Ce(null,null,null,null,null,null,null,null,null,null,null,null,null)
@@ -130965,12 +130965,12 @@ B.J7=new A.CJ(2,"bubble")
 B.ml=new A.ju(null,null)
 B.ZI=new A.bF(57527,"MaterialIcons",null,!1)
 B.a_y=new A.d4(B.ZI,null,null,null,null)
-B.aoF=new A.aP("generate workout",null,null,null,null,null,null,null,null,null,null)
-B.a5h=s([B.a_y,B.aoF],t.p)
+B.aoE=new A.aP("generate workout",null,null,null,null,null,null,null,null,null,null)
+B.a5h=s([B.a_y,B.aoE],t.p)
 B.agd=new A.fG(B.ae,B.e,B.h,B.j,null,B.b3,null,0,B.a5h,null)
 B.air=new A.cL(24,null,null,null)
-B.aoL=new A.aP("(height corresponds to muscle strength for this movement)",null,null,null,null,!0,null,null,null,null,null)
-B.YY=new A.cJ(1,B.af,B.aoL,null)
+B.aoK=new A.aP("(height corresponds to muscle strength for this movement)",null,null,null,null,!0,null,null,null,null,null)
+B.YY=new A.cJ(1,B.af,B.aoK,null)
 B.a5c=s([B.air,B.YY],t.p)
 B.agf=new A.fG(B.ae,B.e,B.N,B.j,null,B.b3,null,0,B.a5c,null)
 B.Rg=new A.vD(16,16,0,8,16,null)
@@ -131694,16 +131694,16 @@ B.aox=new A.aP("muscle inactive",null,null,null,null,null,null,null,null,null,nu
 B.aoy=new A.aP("View Workout Stats",null,null,null,null,null,null,null,null,null,null)
 B.i4=new A.aP("Cancel",null,null,null,null,null,null,null,null,null,null)
 B.aoD=new A.aP("Save",null,null,null,null,null,null,null,null,null,null)
-B.aoE=new A.aP("version v1.0.4-2-g2218867 (Thu Oct 16 22:09:55 2025 +0300)",null,null,null,null,null,null,null,null,null,null)
-B.aoG=new A.aP("Close",null,null,null,null,null,null,null,null,null,null)
-B.aoH=new A.aP("Conditions:",null,B.dh,null,null,null,null,null,null,null,null)
-B.aoI=new A.aP("no moves for this articulation",null,null,null,null,null,null,null,null,null,null)
-B.aoJ=new A.aP("About Body.build",null,null,null,null,null,null,null,null,null,null)
-B.aoK=new A.aP("Basic Gym",null,null,null,null,null,null,null,null,null,null)
-B.aoM=new A.aP("Workouts",null,null,null,null,null,null,null,null,null,null)
-B.aoN=new A.aP("Select Equipment",null,null,null,null,null,null,null,null,null,null)
+B.aoF=new A.aP("Close",null,null,null,null,null,null,null,null,null,null)
+B.aoG=new A.aP("Conditions:",null,B.dh,null,null,null,null,null,null,null,null)
+B.aoH=new A.aP("no moves for this articulation",null,null,null,null,null,null,null,null,null,null)
+B.aoI=new A.aP("About Body.build",null,null,null,null,null,null,null,null,null,null)
+B.aoJ=new A.aP("Basic Gym",null,null,null,null,null,null,null,null,null,null)
+B.aoL=new A.aP("Workouts",null,null,null,null,null,null,null,null,null,null)
+B.aoM=new A.aP("Select Equipment",null,null,null,null,null,null,null,null,null,null)
 B.alG=new A.J(!0,null,null,null,null,null,14,B.an,null,0.3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.aoP=new A.aP("Add Set",null,B.alG,null,null,null,null,null,null,null,null)
+B.aoO=new A.aP("Add Set",null,B.alG,null,null,null,null,null,null,null,null)
+B.aoP=new A.aP("version v1.0.4-3-g4c974f0 (Thu Oct 16 22:21:01 2025 +0300)",null,null,null,null,null,null,null,null,null,null)
 B.KR=new A.aP("Rename",null,null,null,null,null,null,null,null,null,null)
 B.aoQ=new A.aP("Log Set",null,null,null,null,null,null,null,null,null,null)
 B.aoR=new A.aP("Passive insufficiency",null,B.dh,null,null,null,null,null,null,null,null)
