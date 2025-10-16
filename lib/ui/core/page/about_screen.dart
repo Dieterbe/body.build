@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/page/privacy_policy_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class AboutScreen extends StatelessWidget {
   static const String routeName = 'about';
@@ -226,6 +228,13 @@ class AboutScreen extends StatelessWidget {
                     subtitle: 'Help us improve',
                     url: 'https://github.com/dieterbe/body.build/issues',
                   ),
+                  _buildInternalLinkItem(
+                    context,
+                    icon: Icons.privacy_tip,
+                    title: 'Privacy Policy',
+                    subtitle: 'How we handle your data',
+                    routeName: PrivacyPolicyScreen.routeName,
+                  ),
                   const SizedBox(height: 32),
                 ],
               ),
@@ -346,11 +355,59 @@ class AboutScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(
-                Icons.open_in_new,
-                color: colorScheme.onSurface.withValues(alpha: 0.5),
-                size: 20,
+              Icon(Icons.open_in_new, color: colorScheme.onSurface.withValues(alpha: 0.5), size: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInternalLinkItem(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String routeName,
+  }) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Card(
+      elevation: 0,
+      color: colorScheme.surfaceContainerHighest,
+      child: InkWell(
+        onTap: () => context.goNamed(routeName),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Icon(icon, color: colorScheme.primary, size: 28),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onSurface,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              Icon(Icons.arrow_forward_ios,
+                  color: colorScheme.onSurface.withValues(alpha: 0.5), size: 16),
             ],
           ),
         ),
