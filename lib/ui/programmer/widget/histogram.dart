@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+// Note: this is very similar to the core HistogramWidget, but a bit of a different design
+// at some point, we should probably merge the two
 class HistogramWidget extends StatelessWidget {
   final Map<int, int> data;
   final EdgeInsets rowPadding;

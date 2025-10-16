@@ -1,8 +1,8 @@
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/ui/core/widget/histogram_widget.dart';
 import 'package:bodybuild/ui/programmer/util_groups.dart';
-import 'package:bodybuild/ui/programmer/widget/histogram.dart';
 import 'package:flutter/material.dart';
 
 /// Shows a comprehensive stats bottom sheet for a workout
@@ -218,7 +218,7 @@ class _WorkoutStatsSheet extends StatelessWidget {
           style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
         ),
         const SizedBox(height: 12),
-        SizedBox(height: 200, child: HistogramWidget(data: histogram)),
+        HistogramWidget(data: histogram),
       ],
     );
   }
