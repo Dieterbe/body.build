@@ -5,6 +5,7 @@ import 'package:bodybuild/ui/anatomy/page/articulation.dart';
 import 'package:bodybuild/ui/anatomy/page/articulations.dart';
 import 'package:bodybuild/ui/anatomy/colors.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
+import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:bodybuild/ui/anatomy/page/muscle.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -132,6 +133,11 @@ class MyApp extends StatelessWidget {
                         WorkoutScreen(workoutId: state.pathParameters['id']!),
                   ),
                 ],
+              ),
+              GoRoute(
+                name: AboutScreen.routeName,
+                path: AboutScreen.routeName,
+                builder: (context, state) => const AboutScreen(),
               ),
             ],
           ),
