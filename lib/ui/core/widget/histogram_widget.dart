@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class HistogramWidget extends StatelessWidget {
@@ -24,72 +22,45 @@ class HistogramWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.primary.withValues(alpha: 0.05),
+        color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
       ),
       padding: containerPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...sortedEntries.map((e) {
-            final barWidth = max(150 * (e.value / (maxValue == 0 ? 1 : maxValue)), 4.0);
-            final isMaxValue = e.value == maxValue.toInt();
+        children: sortedEntries.map((e) {
+          final isMaxValue = e.value == maxValue.toInt();
 
-            return Padding(
-              padding: rowPadding,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 120,
-                    child: Text(
-                      '${e.value} sets of ${e.key}',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: isMaxValue ? FontWeight.bold : FontWeight.normal,
+          return Padding(
+            padding: rowPadding,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 120,
+                  child: Text(
+                    '${e.value} sets of ${e.key}',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: isMaxValue ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: LinearProgressIndicator(
+                      value: e.value / maxValue,
+                      minHeight: 24,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colorScheme.primary.withValues(alpha: 0.7),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: 24,
-                        width: barWidth,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              theme.colorScheme.primary.withValues(alpha: 0.5),
-                              theme.colorScheme.primary.withValues(alpha: 0.8),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(4),
-                          boxShadow: [
-                            BoxShadow(
-                              color: theme.colorScheme.primary.withValues(alpha: 0.2),
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        child: barWidth > 40
-                            ? Text(
-                                '${e.value}',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: theme.colorScheme.onPrimary,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            : null,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-        ],
+                ),
+              ],
+            ),
+          );
+        }).toList(),
       ),
     );
   }
