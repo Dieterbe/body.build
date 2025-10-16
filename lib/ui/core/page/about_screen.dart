@@ -96,7 +96,7 @@ class AboutScreen extends StatelessWidget {
                   // Tagline
                   Center(
                     child: Text(
-                      'Advanced workout planner for coaches and lifters',
+                      'Advanced workout application for coaches and lifters',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.titleLarge?.copyWith(
                         color: colorScheme.onSurface.withValues(alpha: 0.8),
@@ -107,7 +107,7 @@ class AboutScreen extends StatelessWidget {
 
                   // What is Body.build
                   Text(
-                    'What is Body.build?',
+                    'What is Body.build (preview)?',
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.primary,
@@ -115,7 +115,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Body.build is an advanced and comprehensive workout planning and tracking application designed for serious lifters and coaches.',
+                    'Body.build is an advanced and comprehensive workout planning and tracking application designed for serious lifters and coaches.  This is a preview version.  Although we will try to ensure data compatibility with future versions, it is not guaranteed.',
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: colorScheme.onSurface.withValues(alpha: 0.8),
                       height: 1.5,

@@ -179,16 +179,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 72,
-        title: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 6),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Logo(height: 60),
-              Text('alpha (preview) version', style: TextStyle(fontWeight: FontWeight.w300)),
-            ],
-          ),
-        ),
+        title: const Padding(padding: EdgeInsets.symmetric(vertical: 6), child: Logo(height: 60)),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         leading: Builder(
           builder: (context) => IconButton(

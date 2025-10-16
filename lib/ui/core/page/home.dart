@@ -1,4 +1,5 @@
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
+import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
@@ -104,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      'Advanced workout planner\nfor coaches and lifters',
+                      'Advanced workout application\nfor coaches and lifters (preview)',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.headlineSmall?.copyWith(
                         color: colorScheme.onSurface.withValues(alpha: 0.8),
@@ -251,6 +252,15 @@ class HomeScreen extends StatelessWidget {
                                   color: Colors.orange,
                                   onTap: () => _navigateQuickAccess(context, 'analysis', true),
                                   showComingSoon: true,
+                                ),
+                                _buildQuickAccessCard(
+                                  context: context,
+                                  title: 'About',
+                                  subtitle: 'Learn more about Body.build (preview)',
+                                  icon: Icons.info,
+                                  color: Colors.green,
+                                  onTap: () =>
+                                      _navigateQuickAccess(context, AboutScreen.routeName, false),
                                 ),
                               ],
                             ),

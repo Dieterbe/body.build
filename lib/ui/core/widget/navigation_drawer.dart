@@ -52,7 +52,7 @@ class AppNavigationDrawer extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Advanced workout planner',
+                      'Advanced workout app (preview)',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.9),
                       ),

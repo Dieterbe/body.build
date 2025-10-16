@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
-      title: 'Body.build: advanced workout planner for coaches and lifters',
+      title: 'Body.build: advanced workout application for coaches and lifters',
       //     darkTheme: ThemeData.dark(),
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: colorSeed), useMaterial3: true),
       routerConfig: GoRouter(
