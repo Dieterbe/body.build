@@ -170,15 +170,15 @@ class AppNavigationDrawer extends StatelessWidget {
                             Icon(
                               Icons.info_outline,
                               size: 14,
-                              color:
-                                  Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                             ),
                             const SizedBox(width: 4),
                             Text(
                               'About',
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.6),
                               ),
                             ),
                           ],
@@ -201,15 +201,15 @@ class AppNavigationDrawer extends StatelessWidget {
                             Icon(
                               Icons.privacy_tip_outlined,
                               size: 14,
-                              color:
-                                  Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                             ),
                             const SizedBox(width: 4),
                             Text(
                               'Privacy',
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.6),
                               ),
                             ),
                           ],

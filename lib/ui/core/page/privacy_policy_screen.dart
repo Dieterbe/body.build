@@ -57,98 +57,87 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage != null
-              ? Center(
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.error_outline, size: 64, color: colorScheme.error),
+                    const SizedBox(height: 16),
+                    Text(
+                      _errorMessage!,
+                      style: theme.textTheme.bodyLarge?.copyWith(color: colorScheme.error),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : SingleChildScrollView(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 800),
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error_outline,
-                          size: 64,
-                          color: colorScheme.error,
+                    child: Markdown(
+                      data: _markdownContent,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      styleSheet: MarkdownStyleSheet(
+                        h1: theme.textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.primary,
                         ),
-                        const SizedBox(height: 16),
-                        Text(
-                          _errorMessage!,
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            color: colorScheme.error,
-                          ),
-                          textAlign: TextAlign.center,
+                        h2: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.primary,
+                          height: 2.0,
                         ),
-                      ],
-                    ),
-                  ),
-                )
-              : SingleChildScrollView(
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 800),
-                      child: Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Markdown(
-                          data: _markdownContent,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          styleSheet: MarkdownStyleSheet(
-                            h1: theme.textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: colorScheme.primary,
-                            ),
-                            h2: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: colorScheme.primary,
-                              height: 2.0,
-                            ),
-                            h3: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: colorScheme.onSurface,
-                            ),
-                            p: theme.textTheme.bodyLarge?.copyWith(
-                              color: colorScheme.onSurface.withValues(alpha: 0.8),
-                              height: 1.6,
-                            ),
-                            listBullet: theme.textTheme.bodyLarge?.copyWith(
-                              color: colorScheme.onSurface.withValues(alpha: 0.8),
-                            ),
-                            a: TextStyle(
-                              color: colorScheme.primary,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            strong: theme.textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: colorScheme.onSurface,
-                            ),
-                            em: theme.textTheme.bodyLarge?.copyWith(
-                              fontStyle: FontStyle.italic,
-                              color: colorScheme.onSurface.withValues(alpha: 0.7),
-                            ),
-                            blockquote: theme.textTheme.bodyLarge?.copyWith(
-                              color: colorScheme.onSurface.withValues(alpha: 0.7),
-                              fontStyle: FontStyle.italic,
-                            ),
-                            blockquoteDecoration: BoxDecoration(
-                              color: colorScheme.surfaceContainerHighest,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border(
-                                left: BorderSide(
-                                  color: colorScheme.primary,
-                                  width: 4,
-                                ),
-                              ),
-                            ),
-                          ),
-                          onTapLink: (text, url, title) {
-                            if (url != null) {
-                              _openUrl(url);
-                            }
-                          },
+                        h3: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface,
+                        ),
+                        p: theme.textTheme.bodyLarge?.copyWith(
+                          color: colorScheme.onSurface.withValues(alpha: 0.8),
+                          height: 1.6,
+                        ),
+                        listBullet: theme.textTheme.bodyLarge?.copyWith(
+                          color: colorScheme.onSurface.withValues(alpha: 0.8),
+                        ),
+                        a: TextStyle(
+                          color: colorScheme.primary,
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        strong: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.onSurface,
+                        ),
+                        em: theme.textTheme.bodyLarge?.copyWith(
+                          fontStyle: FontStyle.italic,
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
+                        ),
+                        blockquote: theme.textTheme.bodyLarge?.copyWith(
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
+                          fontStyle: FontStyle.italic,
+                        ),
+                        blockquoteDecoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border(left: BorderSide(color: colorScheme.primary, width: 4)),
                         ),
                       ),
+                      onTapLink: (text, url, title) {
+                        if (url != null) {
+                          _openUrl(url);
+                        }
+                      },
                     ),
                   ),
                 ),
+              ),
+            ),
     );
   }
 
