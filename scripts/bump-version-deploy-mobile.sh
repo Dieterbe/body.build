@@ -2,29 +2,9 @@
 
 set -e  # Exit on error
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
-# Function to print colored messages
-error() {
-    echo -e "${RED}ERROR: $1${NC}" >&2
-    exit 1
-}
-
-success() {
-    echo -e "${GREEN}✓ $1${NC}"
-}
-
-warning() {
-    echo -e "${YELLOW}⚠ $1${NC}"
-}
-
-info() {
-    echo -e "$1"
-}
+# Source common utilities
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/common.sh"
 
 # Check if version argument is provided
 if [ -z "$1" ]; then
@@ -38,21 +18,8 @@ if ! [[ "$NEW_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     error "Invalid version format. Expected format: X.Y.Z (e.g., 1.0.3)"
 fi
 
-# Check if we're in a git repository
-if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    error "Not in a git repository"
-fi
-
-# Check if we're on the main branch
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-if [ "$CURRENT_BRANCH" != "main" ]; then
-    error "Must be on 'main' branch (currently on '$CURRENT_BRANCH')"
-fi
-
-# Check if working directory is clean
-if [[ -n $(git status --porcelain) ]]; then
-    error "Working directory has uncommitted changes or untracked files"
-fi
+check_git_repo
+check_git_clean
 
 PUBSPEC_FILE="pubspec.yaml"
 
@@ -71,11 +38,6 @@ fi
 
 info "Current version: $CURRENT_VERSION+$CURRENT_BUILD"
 info "New version: $NEW_VERSION"
-
-# Function to compare semantic versions
-version_gt() {
-    test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"
-}
 
 # Check if new version is greater than current version
 if ! version_gt "$NEW_VERSION" "$CURRENT_VERSION"; then
@@ -152,7 +114,7 @@ info "Pushing to origin..."
 git push origin HEAD
 success "Pushed commit to origin"
 
-info "Pushing tag to origin..."
+info "Pushing tag to origin..." # this will trigger mobile app build
 git push origin "$TAG_NAME"
 success "Pushed tag $TAG_NAME to origin"
 
