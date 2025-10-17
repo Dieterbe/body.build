@@ -256,7 +256,7 @@ class HomeScreen extends StatelessWidget {
                                 _buildQuickAccessCard(
                                   context: context,
                                   title: 'About',
-                                  subtitle: 'Learn more about Body.build (preview)',
+                                  subtitle: 'About Body.build (preview)',
                                   icon: Icons.info,
                                   color: Colors.green,
                                   onTap: () =>
