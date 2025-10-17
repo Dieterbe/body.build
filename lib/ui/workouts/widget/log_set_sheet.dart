@@ -1,6 +1,7 @@
 import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,13 +13,23 @@ import 'package:bodybuild/util/string_extension.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_picker_sheet.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/data/programmer/tweak.dart';
-import 'package:collection/collection.dart';
 
 // a modal sheet with a stepper to choose exercise, tweak it, and log a set for it
 class LogSetSheet extends ConsumerStatefulWidget {
   final Sets? initialSets;
+  final double? initialWeight;
+  final int? initialReps;
+  final int? initialRir;
+  final String? initialComments;
 
-  const LogSetSheet({super.key, this.initialSets});
+  const LogSetSheet({
+    super.key,
+    this.initialSets,
+    this.initialWeight,
+    this.initialReps,
+    this.initialRir,
+    this.initialComments,
+  });
 
   @override
   ConsumerState<LogSetSheet> createState() => _LogSetSheetState();
@@ -39,6 +50,21 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
   void initState() {
     super.initState();
     currentSets = widget.initialSets;
+
+    // Initialize controllers with provided initial values
+    if (widget.initialWeight != null) {
+      _weightController.text = widget.initialWeight!.toString();
+    }
+    if (widget.initialReps != null) {
+      _repsController.text = widget.initialReps!.toString();
+    }
+    if (widget.initialRir != null) {
+      _rirController.text = widget.initialRir!.toString();
+    }
+    if (widget.initialComments != null) {
+      _commentsController.text = widget.initialComments!;
+    }
+
     // If exercise already provided, start straight at logging a new set
     if (currentSets?.ex != null) {
       currentStep = 2;

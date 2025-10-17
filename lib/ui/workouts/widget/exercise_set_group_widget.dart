@@ -101,11 +101,22 @@ class ExerciseSetGroupWidget extends StatelessWidget {
     final exercise = exes.firstWhereOrNull((e) => e.id == group.exerciseId);
     if (exercise == null) return;
 
+    // Get initial values from the last set if available
+    final lastSet = group.sets.lastOrNull;
+    final initialWeight = lastSet?.weight;
+    final initialReps = lastSet?.reps;
+    final initialRir = lastSet?.rir;
+    final initialComments = lastSet?.comments;
+
     final result = await showModalBottomSheet<Map<String, dynamic>>(
       context: context,
       isScrollControlled: true,
       builder: (context) => LogSetSheet(
         initialSets: Sets(0, ex: exercise, tweakOptions: group.tweaks),
+        initialWeight: initialWeight,
+        initialReps: initialReps,
+        initialRir: initialRir,
+        initialComments: initialComments,
       ),
     );
 
