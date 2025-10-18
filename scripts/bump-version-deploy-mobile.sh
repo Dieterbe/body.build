@@ -22,6 +22,7 @@ check_git_repo
 check_git_clean
 
 PUBSPEC_FILE="pubspec.yaml"
+RELEASE_NOTES_FILE="release_notes.txt"
 
 # Check if pubspec.yaml exists
 if [ ! -f "$PUBSPEC_FILE" ]; then
@@ -77,6 +78,55 @@ if ! confirm "Proceed?"; then
     exit 0
 fi
 
+# Prompt for release notes
+echo
+info "Opening editor for release notes..."
+info "Please write the release notes for version $NEW_VERSION"
+echo
+
+# Create a template if file doesn't exist or is empty
+if [ ! -f "$RELEASE_NOTES_FILE" ] || [ ! -s "$RELEASE_NOTES_FILE" ]; then
+    cat > "$RELEASE_NOTES_FILE" << EOF
+# Release notes for version $NEW_VERSION
+# 
+# These notes will be published to Google Play Store.
+# Write user-facing changes below (remove these comment lines).
+# Keep it concise and focused on what users will notice.
+#
+# Example:
+# - Added new workout tracking feature
+# - Fixed crash when selecting exercises
+# - Improved performance on older devices
+
+EOF
+fi
+
+# Detect editor (prefer VISUAL, then EDITOR, fallback to common editors)
+if [ -n "$VISUAL" ]; then
+    EDITOR_CMD="$VISUAL"
+elif [ -n "$EDITOR" ]; then
+    EDITOR_CMD="$EDITOR"
+elif command -v nano >/dev/null 2>&1; then
+    EDITOR_CMD="nano"
+elif command -v vim >/dev/null 2>&1; then
+    EDITOR_CMD="vim"
+elif command -v vi >/dev/null 2>&1; then
+    EDITOR_CMD="vi"
+else
+    error "No editor found. Please set VISUAL or EDITOR environment variable."
+fi
+
+# Open editor
+$EDITOR_CMD "$RELEASE_NOTES_FILE"
+
+# Remove comment lines and check if there's actual content
+NOTES_CONTENT=$(grep -v '^#' "$RELEASE_NOTES_FILE" | grep -v '^[[:space:]]*$' || true)
+if [ -z "$NOTES_CONTENT" ]; then
+    error "Release notes are empty. Please provide release notes for this version."
+fi
+
+success "Release notes saved"
+
 # Update pubspec.yaml
 echo
 info "Updating pubspec.yaml..."
@@ -89,12 +139,12 @@ if [ "$NEW_VERSION_CHECK" != "$NEW_VERSION+$NEW_BUILD" ]; then
     error "Failed to update pubspec.yaml correctly. Expected: $NEW_VERSION+$NEW_BUILD, Got: $NEW_VERSION_CHECK"
 fi
 
-# Commit the version change
+# Commit the version change and release notes
 echo
-info "Committing version change..."
-git add "$PUBSPEC_FILE"
+info "Committing version change and release notes..."
+git add "$PUBSPEC_FILE" "$RELEASE_NOTES_FILE"
 git commit -m "Bump version to $NEW_VERSION"
-success "Committed version change"
+success "Committed version change and release notes"
 
 # Create git tag
 echo
