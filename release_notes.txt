@@ -1,0 +1,3 @@
+- auto-populate fields upon logging another set for an exercise
+- layout/design fixes
+- include version in navigation bar
