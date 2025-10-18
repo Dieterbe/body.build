@@ -2,20 +2,36 @@
 sidebar_position: 2
 ---
 
-# Quick Start Guide
+# Workout Programmer
 
-Get started with body.build in just a few minutes. This guide will walk you through the essential steps to create your first training program.
+Get started with the body.build workout programmer in just a few minutes. This guide will walk you through the essential steps to create your first training program.  The feature has been updated a bit since this was written, but it should look mostly the same.
+
+## Workout Programmer video
+
+
+<div style={{textAlign: 'center', margin: '2rem 0'}}>
+  <iframe
+    width="100%"
+    height="400"
+    style={{maxWidth: '700px'}}
+    src="https://www.youtube.com/embed/wOVZdZ9_jdE"
+    title="Body.build Introduction Video"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  ></iframe>
+</div>
 
 ## Step 1: Access the App
 
 1. Visit [body.build/app](https://body.build/app)
-2. Note: The app is currently desktop-only for the best experience
+2. Note: The workout programmer is currently desktop-only for the best experience
 
 ## Step 2: Programs
 
-The app opens onto the **Workout Programmer** tab by default.
+Use the left hand navigation menu to go to the **Workout Programmer** tab:
 
-It should look like this:
+It should look something like this:
 
 ![Workout programmer](/img/workout-programmer.png)
 
