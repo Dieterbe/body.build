@@ -90,7 +90,7 @@ if [ ! -f "$RELEASE_NOTES_FILE" ] || [ ! -s "$RELEASE_NOTES_FILE" ]; then
 # Release notes for version $NEW_VERSION
 # 
 # These notes will be published to Google Play Store.
-# Write user-facing changes below (remove these comment lines).
+# Write user-facing changes below (these comment lines will be auto-removed).
 # Keep it concise and focused on what users will notice.
 #
 # Example:
