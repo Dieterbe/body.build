@@ -1,30 +1,472 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Custom styling for body.build documentation
+ * Matches the landing page design with green accent color (#27ae60)
  */
 
-/* You can override the default Infima variables here. */
+/* Light mode - matching landing page green theme */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Primary green color matching landing page */
+  --ifm-color-primary: #27ae60;
+  --ifm-color-primary-dark: #229954;
+  --ifm-color-primary-darker: #1f8f4d;
+  --ifm-color-primary-darkest: #1a7640;
+  --ifm-color-primary-light: #2ecc71;
+  --ifm-color-primary-lighter: #3dd97a;
+  --ifm-color-primary-lightest: #52e68a;
+  
+  /* Typography */
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  --ifm-heading-font-weight: 700;
+  --ifm-font-weight-semibold: 600;
+  --ifm-line-height-base: 1.7;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  
+  /* Background colors matching landing page */
+  --ifm-background-color: #f5f7fa;
+  --ifm-background-surface-color: #ffffff;
+  
+  /* Navbar styling */
+  --ifm-navbar-background-color: #1a202c;
+  --ifm-navbar-link-color: rgba(255, 255, 255, 0.9);
+  --ifm-navbar-link-hover-color: #27ae60;
+  
+  /* Footer styling */
+  --ifm-footer-background-color: #1a202c;
+  --ifm-footer-color: rgba(255, 255, 255, 0.9);
+  --ifm-footer-link-color: #2ecc71;
+  --ifm-footer-link-hover-color: #27ae60;
+  
+  /* Code blocks */
+  --docusaurus-highlighted-code-line-bg: rgba(39, 174, 96, 0.1);
+  
+  /* Shadows and borders */
+  --ifm-global-shadow-lw: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --ifm-global-shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --ifm-global-shadow-tl: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark mode */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #2ecc71;
+  --ifm-color-primary-dark: #27ae60;
+  --ifm-color-primary-darker: #229954;
+  --ifm-color-primary-darkest: #1a7640;
+  --ifm-color-primary-light: #3dd97a;
+  --ifm-color-primary-lighter: #52e68a;
+  --ifm-color-primary-lightest: #6bef9a;
+  
+  --ifm-background-color: #1a202c;
+  --ifm-background-surface-color: #2d3748;
+  
+  --docusaurus-highlighted-code-line-bg: rgba(46, 204, 113, 0.2);
+}
+
+/* Navbar styling */
+.navbar {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* Fix theme switcher button contrast on dark navbar */
+.navbar button[title*="dark"],
+.navbar button[title*="light"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.navbar button[title*="dark"]:hover,
+.navbar button[title*="light"]:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Make the SVG icons white for both light and dark themes */
+.navbar button[title*="dark"] svg,
+.navbar button[title*="light"] svg {
+  color: white !important;
+}
+
+.navbar button[title*="dark"] svg path,
+.navbar button[title*="light"] svg path {
+  fill: currentColor;
+}
+
+/* Main content area */
+.main-wrapper {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  min-height: calc(100vh - var(--ifm-navbar-height) - var(--ifm-footer-height));
+}
+
+[data-theme='dark'] .main-wrapper {
+  background: linear-gradient(135deg, #1a202c 0%, #0f1419 100%);
+}
+
+/* Content container */
+.container {
+  max-width: 1100px;
+}
+
+/* Article/doc content styling */
+article {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+[data-theme='dark'] article {
+  background: #2d3748;
+}
+
+/* Fix paragraph margins inside buttons */
+.button p {
+  margin: 0;
+  display: inline;
+}
+
+/* Headings */
+article h1 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme='dark'] article h1 {
+  color: #ffffff;
+}
+
+article h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+  color: #1a202c;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid #e8ecf1;
+  padding-bottom: 0.5rem;
+}
+
+[data-theme='dark'] article h2 {
+  color: #ffffff;
+  border-bottom-color: #4a5568;
+}
+
+article h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme='dark'] article h3 {
+  color: #e8ecf1;
+}
+
+/* Links */
+article a:not(.hash-link) {
+  color: #27ae60;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+article a:not(.hash-link):hover {
+  color: #229954;
+  border-bottom-color: #27ae60;
+}
+
+/* Lists */
+article ul li,
+article ol li {
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+  color: #4a5568;
+}
+
+[data-theme='dark'] article ul li,
+[data-theme='dark'] article ol li {
+  color: #cbd5e0;
+}
+
+/* Blockquotes */
+article blockquote {
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-left: 5px solid #27ae60;
+  border-radius: 0 12px 12px 0;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] article blockquote {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  border-left-color: #2ecc71;
+}
+
+/* Code blocks */
+article pre {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Inline code */
+article code:not([class*='language-']) {
+  background-color: rgba(39, 174, 96, 0.1);
+  border: 1px solid rgba(39, 174, 96, 0.2);
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
+  color: #229954;
+  font-size: 0.9em;
+}
+
+[data-theme='dark'] article code:not([class*='language-']) {
+  background-color: rgba(46, 204, 113, 0.15);
+  border-color: rgba(46, 204, 113, 0.3);
+  color: #2ecc71;
+}
+
+/* Tables */
+article table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+article table thead tr {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+}
+
+article table thead tr th {
+  color: white;
+  font-weight: 600;
+}
+
+/* Sidebar */
+.theme-doc-sidebar-container {
+  border-right: 1px solid #e8ecf1;
+}
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  border-right-color: #4a5568;
+}
+
+.menu__link {
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.menu__link:hover {
+  background-color: rgba(39, 174, 96, 0.1);
+}
+
+.menu__link--active {
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.15) 0%, rgba(39, 174, 96, 0.1) 100%);
+  border-left: 3px solid #27ae60;
+  font-weight: 600;
+}
+
+/* Pagination */
+.pagination-nav__link {
+  border: 1px solid #e8ecf1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: #27ae60;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  padding: 3rem 0;
+}
+
+.footer__title {
+  color: white;
+  font-weight: 700;
+}
+
+/* Style footer links like landing page contact items */
+.footer__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer__col {
+  flex: 0 0 auto;
+  max-width: none;
+}
+
+.footer__items {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__item {
+  margin: 0;
+}
+
+.footer__link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2ecc71 !important;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: rgba(46, 204, 113, 0.1);
+  font-size: 1rem;
+}
+
+.footer__link-item:hover {
+  border-color: #2ecc71;
+  background: rgba(46, 204, 113, 0.15);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Style the external link icon */
+.footer__link-item .iconExternalLink_nPIU {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.footer__link-item:hover .iconExternalLink_nPIU {
+  opacity: 1;
+}
+
+/* Admonitions (info boxes) */
+.admonition {
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.admonition-icon svg {
+  fill: currentColor;
+}
+
+/* Buttons and CTAs */
+.button {
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.button--primary:hover {
+  background: linear-gradient(135deg, #229954 0%, #27ae60 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+}
+
+/* Responsive iframe containers (for YouTube embeds) */
+article iframe {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Improve spacing for doc content */
+.docItemContainer_Djhp {
+  max-width: 100%;
+}
+
+/* Better spacing for the main doc area */
+.docMainContainer_TBSr {
+  padding-top: 2rem;
+}
+
+/* Improve table of contents styling */
+.table-of-contents {
+  border-left: 3px solid #27ae60;
+  padding-left: 1rem;
+}
+
+.table-of-contents__link {
+  color: #4a5568;
+  transition: color 0.2s ease;
+}
+
+.table-of-contents__link:hover {
+  color: #27ae60;
+}
+
+.table-of-contents__link--active {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+/* Improve "Edit this page" link styling */
+.theme-edit-this-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #27ae60;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.theme-edit-this-page:hover {
+  background-color: rgba(39, 174, 96, 0.1);
+  border-color: #27ae60;
+  text-decoration: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 996px) {
+  article {
+    padding: 1.5rem !important;
+    border-radius: 12px;
+  }
+  
+  article h1 {
+    font-size: 2rem;
+  }
+  
+  article h2 {
+    font-size: 1.75rem;
+  }
+  
+  .docMainContainer_TBSr {
+    padding-top: 1rem;
+  }
 }
