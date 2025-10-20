@@ -76,7 +76,7 @@ final demo1 = ProgramState(
             tweakOptions: {'style': 'bayesian'},
           ),
           Sets(2, n: 2, ex: exes.firstWhere((e) => e.id == 'cable overhead tricep extension')),
-          Sets(1, ex: exes.firstWhere((e) => e.id == 'dumbbell wrist curl')),
+          Sets(1, ex: exes.firstWhere((e) => e.id == 'dumbbell wrist flexion')),
           Sets(1, ex: exes.firstWhere((e) => e.id == 'dumbbell wrist extension')),
         ]),
       ],
