@@ -148,7 +148,6 @@
       background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
       border: 2px solid #27ae60;
       position: relative;
-      overflow: hidden;
     }
     
     .mobile-beta-section::before {
@@ -599,8 +598,14 @@
         min-width: unset;
       }
       
+      .mobile-showcase {
+        width: 100%;
+        max-width: 100%;
+      }
+      
       .mobile-video-container {
-        max-width: 250px;
+        max-width: 280px;
+        margin: 0 auto;
       }
       
       .mobile-screenshots {
