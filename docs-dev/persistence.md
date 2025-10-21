@@ -3,7 +3,7 @@
 we use 2 methods: shared prefs and drift
 
 ## Shared Preferences
-used for workout programmer, personal profile, meal plan stuff.
+used for workout programmer, personal profile, meal plan stuff, app settings
 limited quota and API, but good enough for our needs.
 
 - `SetupPersistenceService` and `ProgramPersistenceService` reference exercises and therefore track exercise dataset version

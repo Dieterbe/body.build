@@ -17,6 +17,7 @@ import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/measurements/page/measurements_screen.dart';
+import 'package:bodybuild/ui/settings/page/settings_screen.dart';
 import 'package:bodybuild/util/url.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
@@ -140,6 +141,11 @@ class MyApp extends StatelessWidget {
                 name: MeasurementsScreen.routeName,
                 path: MeasurementsScreen.routeName,
                 builder: (context, state) => const MeasurementsScreen(),
+              ),
+              GoRoute(
+                name: SettingsScreen.routeName,
+                path: SettingsScreen.routeName,
+                builder: (context, state) => const SettingsScreen(),
               ),
               GoRoute(
                 name: AboutScreen.routeName,

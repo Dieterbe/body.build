@@ -78,6 +78,7 @@ class MeasurementPersistenceService {
     final companion = db.MeasurementsCompanion(
       id: Value(id),
       timestamp: Value(timestamp),
+      timezoneOffset: Value(timezoneOffset),
       measurementType: Value(measurementType.name),
       value: Value(value),
       unit: Value(unit.name),
@@ -86,6 +87,42 @@ class MeasurementPersistenceService {
 
     await _database.insertMeasurement(companion);
     return id;
+  }
+
+  // Batch insert measurements (more efficient for bulk imports)
+  // duplicates cause replacement
+  Future<void> addMeasurementsBatch(
+    List<
+      ({
+        DateTime timestamp,
+        MeasurementType measurementType,
+        double value,
+        Unit unit,
+        String? comment,
+      })
+    >
+    measurements,
+  ) async {
+    await _database.batch((batch) {
+      for (final measurement in measurements) {
+        final id = _uuid.v4();
+        final timezoneOffset = getTimezoneOffsetString(measurement.timestamp);
+
+        batch.insert(
+          _database.measurements,
+          db.MeasurementsCompanion(
+            id: Value(id),
+            timestamp: Value(measurement.timestamp),
+            timezoneOffset: Value(timezoneOffset),
+            measurementType: Value(measurement.measurementType.name),
+            value: Value(measurement.value),
+            unit: Value(measurement.unit.name),
+            comment: Value(measurement.comment),
+          ),
+          mode: InsertMode.insertOrReplace,
+        );
+      }
+    });
   }
 
   // Update existing measurement
