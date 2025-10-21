@@ -1167,17 +1167,454 @@ class ExerciseVersionsCompanion extends UpdateCompanion<ExerciseVersion> {
   }
 }
 
+class $MeasurementsTable extends Measurements with TableInfo<$MeasurementsTable, Measurement> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MeasurementsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _timestampMeta = const VerificationMeta('timestamp');
+  @override
+  late final GeneratedColumn<DateTime> timestamp = GeneratedColumn<DateTime>(
+    'timestamp',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _timezoneOffsetMeta = const VerificationMeta('timezoneOffset');
+  @override
+  late final GeneratedColumn<String> timezoneOffset = GeneratedColumn<String>(
+    'timezone_offset',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _measurementTypeMeta = const VerificationMeta('measurementType');
+  @override
+  late final GeneratedColumn<String> measurementType = GeneratedColumn<String>(
+    'measurement_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _valueMeta = const VerificationMeta('value');
+  @override
+  late final GeneratedColumn<double> value = GeneratedColumn<double>(
+    'value',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unitMeta = const VerificationMeta('unit');
+  @override
+  late final GeneratedColumn<String> unit = GeneratedColumn<String>(
+    'unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _commentMeta = const VerificationMeta('comment');
+  @override
+  late final GeneratedColumn<String> comment = GeneratedColumn<String>(
+    'comment',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    timestamp,
+    timezoneOffset,
+    measurementType,
+    value,
+    unit,
+    comment,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'measurements';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Measurement> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('timestamp')) {
+      context.handle(
+        _timestampMeta,
+        timestamp.isAcceptableOrUnknown(data['timestamp']!, _timestampMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_timestampMeta);
+    }
+    if (data.containsKey('timezone_offset')) {
+      context.handle(
+        _timezoneOffsetMeta,
+        timezoneOffset.isAcceptableOrUnknown(data['timezone_offset']!, _timezoneOffsetMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_timezoneOffsetMeta);
+    }
+    if (data.containsKey('measurement_type')) {
+      context.handle(
+        _measurementTypeMeta,
+        measurementType.isAcceptableOrUnknown(data['measurement_type']!, _measurementTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_measurementTypeMeta);
+    }
+    if (data.containsKey('value')) {
+      context.handle(_valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
+    } else if (isInserting) {
+      context.missing(_valueMeta);
+    }
+    if (data.containsKey('unit')) {
+      context.handle(_unitMeta, unit.isAcceptableOrUnknown(data['unit']!, _unitMeta));
+    } else if (isInserting) {
+      context.missing(_unitMeta);
+    }
+    if (data.containsKey('comment')) {
+      context.handle(_commentMeta, comment.isAcceptableOrUnknown(data['comment']!, _commentMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {timestamp, measurementType},
+  ];
+  @override
+  Measurement map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Measurement(
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      timestamp: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}timestamp'],
+      )!,
+      timezoneOffset: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}timezone_offset'],
+      )!,
+      measurementType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}measurement_type'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}value'],
+      )!,
+      unit: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}unit'])!,
+      comment: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}comment'],
+      ),
+    );
+  }
+
+  @override
+  $MeasurementsTable createAlias(String alias) {
+    return $MeasurementsTable(attachedDatabase, alias);
+  }
+}
+
+class Measurement extends DataClass implements Insertable<Measurement> {
+  final String id;
+  final DateTime timestamp;
+  final String timezoneOffset;
+  final String measurementType;
+  final double value;
+  final String unit;
+  final String? comment;
+  const Measurement({
+    required this.id,
+    required this.timestamp,
+    required this.timezoneOffset,
+    required this.measurementType,
+    required this.value,
+    required this.unit,
+    this.comment,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['timestamp'] = Variable<DateTime>(timestamp);
+    map['timezone_offset'] = Variable<String>(timezoneOffset);
+    map['measurement_type'] = Variable<String>(measurementType);
+    map['value'] = Variable<double>(value);
+    map['unit'] = Variable<String>(unit);
+    if (!nullToAbsent || comment != null) {
+      map['comment'] = Variable<String>(comment);
+    }
+    return map;
+  }
+
+  MeasurementsCompanion toCompanion(bool nullToAbsent) {
+    return MeasurementsCompanion(
+      id: Value(id),
+      timestamp: Value(timestamp),
+      timezoneOffset: Value(timezoneOffset),
+      measurementType: Value(measurementType),
+      value: Value(value),
+      unit: Value(unit),
+      comment: comment == null && nullToAbsent ? const Value.absent() : Value(comment),
+    );
+  }
+
+  factory Measurement.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Measurement(
+      id: serializer.fromJson<String>(json['id']),
+      timestamp: serializer.fromJson<DateTime>(json['timestamp']),
+      timezoneOffset: serializer.fromJson<String>(json['timezoneOffset']),
+      measurementType: serializer.fromJson<String>(json['measurementType']),
+      value: serializer.fromJson<double>(json['value']),
+      unit: serializer.fromJson<String>(json['unit']),
+      comment: serializer.fromJson<String?>(json['comment']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'timestamp': serializer.toJson<DateTime>(timestamp),
+      'timezoneOffset': serializer.toJson<String>(timezoneOffset),
+      'measurementType': serializer.toJson<String>(measurementType),
+      'value': serializer.toJson<double>(value),
+      'unit': serializer.toJson<String>(unit),
+      'comment': serializer.toJson<String?>(comment),
+    };
+  }
+
+  Measurement copyWith({
+    String? id,
+    DateTime? timestamp,
+    String? timezoneOffset,
+    String? measurementType,
+    double? value,
+    String? unit,
+    Value<String?> comment = const Value.absent(),
+  }) => Measurement(
+    id: id ?? this.id,
+    timestamp: timestamp ?? this.timestamp,
+    timezoneOffset: timezoneOffset ?? this.timezoneOffset,
+    measurementType: measurementType ?? this.measurementType,
+    value: value ?? this.value,
+    unit: unit ?? this.unit,
+    comment: comment.present ? comment.value : this.comment,
+  );
+  Measurement copyWithCompanion(MeasurementsCompanion data) {
+    return Measurement(
+      id: data.id.present ? data.id.value : this.id,
+      timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
+      timezoneOffset: data.timezoneOffset.present ? data.timezoneOffset.value : this.timezoneOffset,
+      measurementType: data.measurementType.present
+          ? data.measurementType.value
+          : this.measurementType,
+      value: data.value.present ? data.value.value : this.value,
+      unit: data.unit.present ? data.unit.value : this.unit,
+      comment: data.comment.present ? data.comment.value : this.comment,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Measurement(')
+          ..write('id: $id, ')
+          ..write('timestamp: $timestamp, ')
+          ..write('timezoneOffset: $timezoneOffset, ')
+          ..write('measurementType: $measurementType, ')
+          ..write('value: $value, ')
+          ..write('unit: $unit, ')
+          ..write('comment: $comment')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, timestamp, timezoneOffset, measurementType, value, unit, comment);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Measurement &&
+          other.id == this.id &&
+          other.timestamp == this.timestamp &&
+          other.timezoneOffset == this.timezoneOffset &&
+          other.measurementType == this.measurementType &&
+          other.value == this.value &&
+          other.unit == this.unit &&
+          other.comment == this.comment);
+}
+
+class MeasurementsCompanion extends UpdateCompanion<Measurement> {
+  final Value<String> id;
+  final Value<DateTime> timestamp;
+  final Value<String> timezoneOffset;
+  final Value<String> measurementType;
+  final Value<double> value;
+  final Value<String> unit;
+  final Value<String?> comment;
+  final Value<int> rowid;
+  const MeasurementsCompanion({
+    this.id = const Value.absent(),
+    this.timestamp = const Value.absent(),
+    this.timezoneOffset = const Value.absent(),
+    this.measurementType = const Value.absent(),
+    this.value = const Value.absent(),
+    this.unit = const Value.absent(),
+    this.comment = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MeasurementsCompanion.insert({
+    required String id,
+    required DateTime timestamp,
+    required String timezoneOffset,
+    required String measurementType,
+    required double value,
+    required String unit,
+    this.comment = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       timestamp = Value(timestamp),
+       timezoneOffset = Value(timezoneOffset),
+       measurementType = Value(measurementType),
+       value = Value(value),
+       unit = Value(unit);
+  static Insertable<Measurement> custom({
+    Expression<String>? id,
+    Expression<DateTime>? timestamp,
+    Expression<String>? timezoneOffset,
+    Expression<String>? measurementType,
+    Expression<double>? value,
+    Expression<String>? unit,
+    Expression<String>? comment,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (timestamp != null) 'timestamp': timestamp,
+      if (timezoneOffset != null) 'timezone_offset': timezoneOffset,
+      if (measurementType != null) 'measurement_type': measurementType,
+      if (value != null) 'value': value,
+      if (unit != null) 'unit': unit,
+      if (comment != null) 'comment': comment,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MeasurementsCompanion copyWith({
+    Value<String>? id,
+    Value<DateTime>? timestamp,
+    Value<String>? timezoneOffset,
+    Value<String>? measurementType,
+    Value<double>? value,
+    Value<String>? unit,
+    Value<String?>? comment,
+    Value<int>? rowid,
+  }) {
+    return MeasurementsCompanion(
+      id: id ?? this.id,
+      timestamp: timestamp ?? this.timestamp,
+      timezoneOffset: timezoneOffset ?? this.timezoneOffset,
+      measurementType: measurementType ?? this.measurementType,
+      value: value ?? this.value,
+      unit: unit ?? this.unit,
+      comment: comment ?? this.comment,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (timestamp.present) {
+      map['timestamp'] = Variable<DateTime>(timestamp.value);
+    }
+    if (timezoneOffset.present) {
+      map['timezone_offset'] = Variable<String>(timezoneOffset.value);
+    }
+    if (measurementType.present) {
+      map['measurement_type'] = Variable<String>(measurementType.value);
+    }
+    if (value.present) {
+      map['value'] = Variable<double>(value.value);
+    }
+    if (unit.present) {
+      map['unit'] = Variable<String>(unit.value);
+    }
+    if (comment.present) {
+      map['comment'] = Variable<String>(comment.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MeasurementsCompanion(')
+          ..write('id: $id, ')
+          ..write('timestamp: $timestamp, ')
+          ..write('timezoneOffset: $timezoneOffset, ')
+          ..write('measurementType: $measurementType, ')
+          ..write('value: $value, ')
+          ..write('unit: $unit, ')
+          ..write('comment: $comment, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$WorkoutDatabase extends GeneratedDatabase {
   _$WorkoutDatabase(QueryExecutor e) : super(e);
   $WorkoutDatabaseManager get managers => $WorkoutDatabaseManager(this);
   late final $WorkoutsTable workouts = $WorkoutsTable(this);
   late final $WorkoutSetsTable workoutSets = $WorkoutSetsTable(this);
   late final $ExerciseVersionsTable exerciseVersions = $ExerciseVersionsTable(this);
+  late final $MeasurementsTable measurements = $MeasurementsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [workouts, workoutSets, exerciseVersions];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    workouts,
+    workoutSets,
+    exerciseVersions,
+    measurements,
+  ];
 }
 
 typedef $$WorkoutsTableCreateCompanionBuilder =
@@ -1939,6 +2376,211 @@ typedef $$ExerciseVersionsTableProcessedTableManager =
       ExerciseVersion,
       PrefetchHooks Function()
     >;
+typedef $$MeasurementsTableCreateCompanionBuilder =
+    MeasurementsCompanion Function({
+      required String id,
+      required DateTime timestamp,
+      required String timezoneOffset,
+      required String measurementType,
+      required double value,
+      required String unit,
+      Value<String?> comment,
+      Value<int> rowid,
+    });
+typedef $$MeasurementsTableUpdateCompanionBuilder =
+    MeasurementsCompanion Function({
+      Value<String> id,
+      Value<DateTime> timestamp,
+      Value<String> timezoneOffset,
+      Value<String> measurementType,
+      Value<double> value,
+      Value<String> unit,
+      Value<String?> comment,
+      Value<int> rowid,
+    });
+
+class $$MeasurementsTableFilterComposer extends Composer<_$WorkoutDatabase, $MeasurementsTable> {
+  $$MeasurementsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get timestamp =>
+      $composableBuilder(column: $table.timestamp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get timezoneOffset =>
+      $composableBuilder(column: $table.timezoneOffset, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get measurementType => $composableBuilder(
+    column: $table.measurementType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get unit =>
+      $composableBuilder(column: $table.unit, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get comment =>
+      $composableBuilder(column: $table.comment, builder: (column) => ColumnFilters(column));
+}
+
+class $$MeasurementsTableOrderingComposer extends Composer<_$WorkoutDatabase, $MeasurementsTable> {
+  $$MeasurementsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get timestamp =>
+      $composableBuilder(column: $table.timestamp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get timezoneOffset => $composableBuilder(
+    column: $table.timezoneOffset,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get measurementType => $composableBuilder(
+    column: $table.measurementType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get unit =>
+      $composableBuilder(column: $table.unit, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get comment =>
+      $composableBuilder(column: $table.comment, builder: (column) => ColumnOrderings(column));
+}
+
+class $$MeasurementsTableAnnotationComposer
+    extends Composer<_$WorkoutDatabase, $MeasurementsTable> {
+  $$MeasurementsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get timestamp =>
+      $composableBuilder(column: $table.timestamp, builder: (column) => column);
+
+  GeneratedColumn<String> get timezoneOffset =>
+      $composableBuilder(column: $table.timezoneOffset, builder: (column) => column);
+
+  GeneratedColumn<String> get measurementType =>
+      $composableBuilder(column: $table.measurementType, builder: (column) => column);
+
+  GeneratedColumn<double> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => column);
+
+  GeneratedColumn<String> get unit =>
+      $composableBuilder(column: $table.unit, builder: (column) => column);
+
+  GeneratedColumn<String> get comment =>
+      $composableBuilder(column: $table.comment, builder: (column) => column);
+}
+
+class $$MeasurementsTableTableManager
+    extends
+        RootTableManager<
+          _$WorkoutDatabase,
+          $MeasurementsTable,
+          Measurement,
+          $$MeasurementsTableFilterComposer,
+          $$MeasurementsTableOrderingComposer,
+          $$MeasurementsTableAnnotationComposer,
+          $$MeasurementsTableCreateCompanionBuilder,
+          $$MeasurementsTableUpdateCompanionBuilder,
+          (Measurement, BaseReferences<_$WorkoutDatabase, $MeasurementsTable, Measurement>),
+          Measurement,
+          PrefetchHooks Function()
+        > {
+  $$MeasurementsTableTableManager(_$WorkoutDatabase db, $MeasurementsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () => $$MeasurementsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$MeasurementsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MeasurementsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<DateTime> timestamp = const Value.absent(),
+                Value<String> timezoneOffset = const Value.absent(),
+                Value<String> measurementType = const Value.absent(),
+                Value<double> value = const Value.absent(),
+                Value<String> unit = const Value.absent(),
+                Value<String?> comment = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => MeasurementsCompanion(
+                id: id,
+                timestamp: timestamp,
+                timezoneOffset: timezoneOffset,
+                measurementType: measurementType,
+                value: value,
+                unit: unit,
+                comment: comment,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required DateTime timestamp,
+                required String timezoneOffset,
+                required String measurementType,
+                required double value,
+                required String unit,
+                Value<String?> comment = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => MeasurementsCompanion.insert(
+                id: id,
+                timestamp: timestamp,
+                timezoneOffset: timezoneOffset,
+                measurementType: measurementType,
+                value: value,
+                unit: unit,
+                comment: comment,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$MeasurementsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$WorkoutDatabase,
+      $MeasurementsTable,
+      Measurement,
+      $$MeasurementsTableFilterComposer,
+      $$MeasurementsTableOrderingComposer,
+      $$MeasurementsTableAnnotationComposer,
+      $$MeasurementsTableCreateCompanionBuilder,
+      $$MeasurementsTableUpdateCompanionBuilder,
+      (Measurement, BaseReferences<_$WorkoutDatabase, $MeasurementsTable, Measurement>),
+      Measurement,
+      PrefetchHooks Function()
+    >;
 
 class $WorkoutDatabaseManager {
   final _$WorkoutDatabase _db;
@@ -1948,4 +2590,6 @@ class $WorkoutDatabaseManager {
       $$WorkoutSetsTableTableManager(_db, _db.workoutSets);
   $$ExerciseVersionsTableTableManager get exerciseVersions =>
       $$ExerciseVersionsTableTableManager(_db, _db.exerciseVersions);
+  $$MeasurementsTableTableManager get measurements =>
+      $$MeasurementsTableTableManager(_db, _db.measurements);
 }

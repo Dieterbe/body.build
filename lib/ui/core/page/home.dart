@@ -1,6 +1,7 @@
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
+import 'package:bodybuild/ui/measurements/widget/measurement_summary_card.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
@@ -269,6 +270,12 @@ class HomeScreen extends StatelessWidget {
                       ),
 
                       const SizedBox(height: 32),
+
+                      // Measurement Summary Card (mobile only)
+                      if (isMobileApp()) ...[
+                        const MeasurementSummaryCard(),
+                        const SizedBox(height: 32),
+                      ],
 
                       // YouTube Video Section
                       Text(
