@@ -524,20 +524,26 @@ final List<Ex> exes = [
     [
       rom,
       gripSqueeze,
-      Tweak('spine', 'still', {
-        'still': Option({
-          ProgramGroup.lats: Assign(1, 'not full stretch'),
-          ProgramGroup.spinalErectors: Assign(0.25, 'isometric'),
-        }, 'keep the spine upright'),
-        'dynamic': Option(
-          {
-            ProgramGroup.lats: Assign(1, 'near full stretch'),
-            ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
-          },
-          """flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout.  
+      Tweak(
+        'spine',
+        'still',
+        {
+          'still': Option({
+            ProgramGroup.lats: Assign(1, 'not full stretch'),
+            ProgramGroup.spinalErectors: Assign(0.25, 'isometric'),
+          }, 'keep the spine upright'),
+          'dynamic': Option(
+            {
+              ProgramGroup.lats: Assign(1, 'near full stretch'),
+              ProgramGroup.spinalErectors: Assign(0.5, 'flexion & extension cycles'),
+            },
+            """flex/extend the spine to go beyond the normal rowing motion, to achieve greater lat stretch and erector spinae workout.  
             Aka flexion row""",
-        ),
-      }),
+          ),
+        },
+        desc:
+            "The 'modern meathead' has a good explanation in [this Youtube video](https://www.youtube.com/shorts/wkGkNR4ziMU)",
+      ),
       Tweak('grip', 'bar shoulder width pronated', {
         'attachment narrow supinated': Option({}, 'aka underhand close grip'),
         'attachment narrow neutral grip': Option({}, 'aka close hammer grip'),
