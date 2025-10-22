@@ -28,7 +28,7 @@ class MobileAppOnly extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'This feature is designed for mobile use at the gym. '
+                'This feature is designed for mobile use. '
                 'Please use the Body.build mobile app on your phone or tablet to use this functionality.',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,

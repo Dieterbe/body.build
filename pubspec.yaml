@@ -53,6 +53,9 @@ dependencies:
   drift_flutter: ^0.2.7
   path_provider: ^2.1.5
   path: ^1.9.0
+  fl_chart: ^0.69.0
+  intl: ^0.19.0
+  http: ^1.2.0
 
 dev_dependencies:
   build_runner: ^2.7.1
