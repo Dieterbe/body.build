@@ -22,22 +22,22 @@ class MeasurementChart extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    // Use timestamps for X-axis to properly handle sparse data
+    final firstTimestamp = measurements.first.timestamp.millisecondsSinceEpoch.toDouble();
+
     // Convert all measurements to kg for consistent chart display
-    final spots = measurements.asMap().entries.map((entry) {
-      final measurement = entry.value;
+    final spots = measurements.map((measurement) {
       final valueInKg = measurement.unit.toKg(measurement.value);
-      return FlSpot(entry.key.toDouble(), valueInKg);
+      final x = measurement.timestamp.millisecondsSinceEpoch.toDouble() - firstTimestamp;
+      return FlSpot(x, valueInKg);
     }).toList();
 
     // Create moving average spots if available
     final movingAverageSpots = <FlSpot>[];
     if (movingAverage.isNotEmpty) {
-      // Map each moving average point to its corresponding index in sortedMeasurements
       for (final avgPoint in movingAverage) {
-        final index = measurements.indexWhere((m) => m.timestamp == avgPoint.timestamp);
-        if (index >= 0) {
-          movingAverageSpots.add(FlSpot(index.toDouble(), avgPoint.value));
-        }
+        final x = avgPoint.timestamp.millisecondsSinceEpoch.toDouble() - firstTimestamp;
+        movingAverageSpots.add(FlSpot(x, avgPoint.value));
       }
     }
 
@@ -82,17 +82,15 @@ class MeasurementChart extends StatelessWidget {
                         showTitles: true,
                         reservedSize: 30,
                         getTitlesWidget: (value, meta) {
-                          final index = value.toInt();
-                          if (index < 0 || index >= measurements.length) {
-                            return const Text('');
-                          }
-                          // ignore: avoid-unsafe-collection-methods
-                          final measurement = measurements[index];
+                          // Convert X value back to timestamp
+                          final timestamp = DateTime.fromMillisecondsSinceEpoch(
+                            (value + firstTimestamp).toInt(),
+                          );
                           final format = DateFormat('MMM d');
                           return Padding(
                             padding: const EdgeInsets.only(top: 8),
                             child: Text(
-                              format.format(measurement.timestamp),
+                              format.format(timestamp),
                               style: const TextStyle(fontSize: 10),
                             ),
                           );
@@ -146,12 +144,14 @@ class MeasurementChart extends StatelessWidget {
                     touchTooltipData: LineTouchTooltipData(
                       getTooltipItems: (touchedSpots) {
                         return touchedSpots.map((spot) {
-                          final index = spot.x.toInt();
-                          if (index < 0 || index >= measurements.length) {
-                            return null;
-                          }
-                          // ignore: avoid-unsafe-collection-methods
-                          final measurement = measurements[index];
+                          // Find the closest measurement to this X value
+                          final spotTimestamp = (spot.x + firstTimestamp).toInt();
+                          final measurement = measurements.reduce((a, b) {
+                            final aDiff = (a.timestamp.millisecondsSinceEpoch - spotTimestamp).abs();
+                            final bDiff = (b.timestamp.millisecondsSinceEpoch - spotTimestamp).abs();
+                            return aDiff < bDiff ? a : b;
+                          });
+
                           return LineTooltipItem(
                             '${measurement.value.toStringAsFixed(1)} ${measurement.unit.displayName}\n${DateFormat('MMM d, yyyy').format(measurement.timestamp)}',
                             const TextStyle(color: Colors.white),
