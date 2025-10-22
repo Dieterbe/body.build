@@ -197,29 +197,59 @@ class MeasurementChart extends StatelessWidget {
                   color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
                   children: [
-                    Text(
-                      'Overall Change',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
-                    ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(
-                          periodChange! >= 0 ? Icons.trending_up : Icons.trending_down,
-                          size: 18,
-                          color: periodChange! >= 0 ? Colors.orange : Colors.green,
-                        ),
-                        const SizedBox(width: 6),
                         Text(
-                          '${periodChange! >= 0 ? '+' : ''}${periodChange!.toStringAsFixed(1)} kg',
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: periodChange! >= 0 ? Colors.orange : Colors.green,
+                          'Overall Change',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              periodChange! >= 0 ? Icons.trending_up : Icons.trending_down,
+                              size: 18,
+                              color: periodChange! >= 0 ? Colors.orange : Colors.green,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              '${periodChange! >= 0 ? '+' : ''}${periodChange!.toStringAsFixed(1)} kg',
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: periodChange! >= 0 ? Colors.orange : Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Weekly Rate',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                           ),
+                        ),
+                        Builder(
+                          builder: (context) {
+                            final days = changePeriod.inDays;
+                            final weeklyRate = days > 0 ? (periodChange! / days) * 7 : 0.0;
+                            return Text(
+                              '${weeklyRate >= 0 ? '+' : ''}${weeklyRate.toStringAsFixed(2)} kg',
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.8),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
