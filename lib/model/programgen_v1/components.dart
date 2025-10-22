@@ -20,6 +20,7 @@ List<List<RankedExercise>> findExerciseComponents(
   // Groups to ignore for upper/lower body exercises
   final upperBodyIgnoredGroups = {
     ProgramGroup.abs,
+    ProgramGroup.obliques,
     ProgramGroup.hams,
     ProgramGroup.gluteMax,
     ProgramGroup.spinalErectors,

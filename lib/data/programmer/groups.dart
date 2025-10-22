@@ -133,11 +133,17 @@ enum ProgramGroup {
   abs(
     'Abs',
     'Abs',
-    [MuscleId.rectusAbdominis, MuscleId.externalObliques],
+    [MuscleId.rectusAbdominis],
     ['depends on goals (e.g. typically not for physique athletes)'],
     'abs',
   ),
-
+  obliques(
+    'Obliques',
+    'Obliques',
+    [MuscleId.externalObliques],
+    ['depends on goals (e.g. typically not for physique athletes)'],
+    'abs',
+  ),
   spinalErectors(
     'Spinal Erectors',
     'Spinal Erectors',

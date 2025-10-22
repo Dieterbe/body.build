@@ -23,6 +23,7 @@ class Ex {
   final String id; // identifier to match to kaos exercise. does not need to be human friendly
   final List<String>
   searchAliases; // additional search terms (abbreviations, synonyms) (does not need to match exactly 1:1)
+  final String desc; // markdown further info
 
   const Ex(
     this.volumeAssignment,
@@ -31,6 +32,7 @@ class Ex {
     this.tweaks = const [],
     this.ratings = const [],
     this.searchAliases = const [],
+    this.desc = '',
   ]);
 
   // calculate recruitment for a given PG & tweak options.
@@ -912,6 +914,77 @@ final List<Ex> exes = [
   const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, gripSqueeze]),
   const Ex(vaAbCrunch, "lying ab crunch", [], [rom]),
   const Ex(vaAbIsometric, "plank", []),
+  // TODO implement seconds counting
+  const Ex(
+    {...wrist03, ...vaOblRotationIso},
+    "cable pallof press",
+    [Equipment.cableTower],
+    [
+      gripSqueeze,
+      Tweak('posture', 'standing', {
+        'standing': Option(
+          {},
+          'stand with feet shoulder width apart, contract glutes to tilt pelvis posteriorly',
+        ),
+        'half kneeling': Option(
+          {},
+          'kneel on one knee, contract glutes to tilt pelvis posteriorly',
+        ),
+        'tall kneeling': Option(
+          {},
+          'kneel on both knees, contract glutes to tilt pelvis posteriorly',
+        ),
+      }),
+      Tweak('sidesteps', 'no', {
+        'no': Option({}, 'stay in place'),
+        '1': Option({}, 'do a sidestep while at max torque'), // TODO: only for standing posture
+        '2': Option({}, 'do 2 sidesteps while at max torque'), // TODO: only for standing posture
+        '3': Option({}, 'do 3 sidesteps while at max torque'), // TODO: only for standing posture
+      }),
+      Tweak('mode', 'reps', {
+        'reps': Option(
+          {},
+          'hold 2-3sec at peak (see [video](https://www.youtube.com/watch?v=gHGLwQGvtxg)), or more when sidestepping',
+        ),
+        'time': Option({}, 'hold it for time at max torque (count seconds)'),
+      }),
+    ],
+    [],
+    [],
+    "- cable at a height between abs/chest\n- extend arms to increase torque on obliques\n- [video](https://www.youtube.com/watch?v=l-x3HPeHh90) with more info",
+  ),
+  const Ex(
+    {...wrist03, ...vaOblRotationIso},
+    "elastic pallof press",
+    [Equipment.elastic],
+    [
+      gripSqueeze,
+      Tweak('posture', 'standing', {
+        'standing': Option(
+          {},
+          'stand with feet shoulder width apart, contract glutes to tilt pelvis posteriorly',
+        ),
+        'half kneeling': Option(
+          {},
+          'kneel on one knee, contract glutes to tilt pelvis posteriorly',
+        ),
+        'tall kneeling': Option(
+          {},
+          'kneel on both knees, contract glutes to tilt pelvis posteriorly',
+        ),
+      }),
+      Tweak('mode', 'reps', {
+        'reps': Option(
+          {},
+          'hold 2-3sec at peak (see [video](https://www.youtube.com/watch?v=gHGLwQGvtxg))',
+        ),
+        'time': Option({}, 'hold it for time at max torque (count seconds)'),
+      }),
+    ],
+    [],
+    [],
+    "- elastic band at a height between abs/chest\n- extend arms to increase torque on obliques\n- [video](https://www.youtube.com/watch?v=l-x3HPeHh90) with more info",
+  ),
   const Ex(vaWristFlexion, "dumbbell wrist flexion", [Equipment.dumbbell], [rom, gripSqueeze], [], [
     'wrist curl',
   ]),

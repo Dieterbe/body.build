@@ -23,7 +23,8 @@ const vaGoodMorning = {
   ProgramGroup.spinalErectors: Assign(1, 'isometric'),
   ProgramGroup.hams: Assign(1, 'long length hip extension'),
   ProgramGroup.gluteMax: Assign(1, 'full ROM hip extension, less load when short & strongest'),
-  ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, "intra abdominal pressure"),
+  ProgramGroup.obliques: Assign(0.25, "intra oblique pressure"),
   ...wrist025,
 };
 
@@ -84,7 +85,8 @@ const vaSquatBBAndGoblet = {
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
   ProgramGroup.gluteMax: Assign(1),
   ProgramGroup.hams: Assign(0.3, 'hip extension'),
-  ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, "intra abdominal pressure"),
+  ProgramGroup.obliques: Assign(0.25, "intra oblique pressure"),
   ...wrist03,
 };
 
@@ -104,7 +106,8 @@ const vaSquatBSQ = {
   ),
   ProgramGroup.gluteMed: Assign(0.5, 'anti-adduction force'),
   ProgramGroup.hams: Assign(0.3, 'hip extension'),
-  ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, "intra abdominal pressure"),
+  ProgramGroup.obliques: Assign(0.25, "intra oblique pressure"),
 };
 const vaLungeStepUp = {
   ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
@@ -112,7 +115,8 @@ const vaLungeStepUp = {
   ProgramGroup.gluteMax: Assign(1),
   ProgramGroup.gluteMed: Assign(0.5),
   ProgramGroup.hams: Assign(0.3, 'hip extension'),
-  ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, "intra abdominal pressure"),
+  ProgramGroup.obliques: Assign(0.25, "intra oblique pressure"),
 };
 const vaSquatPistolSissyAssistedSpanish = {
   ProgramGroup.spinalErectors: Assign(0.5, 'isometric'),
@@ -120,7 +124,8 @@ const vaSquatPistolSissyAssistedSpanish = {
   ProgramGroup.gluteMax: Assign(1),
   ProgramGroup.gluteMed: Assign(0.5),
   ProgramGroup.hams: Assign(0.3, 'hip extension'),
-  ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, "intra abdominal pressure"),
+  ProgramGroup.obliques: Assign(0.25, "intra oblique pressure"),
 };
 const vaLegExtensionReverseNordicHamCurlSquatSissy = {
   ProgramGroup.quadsVasti: Assign(1, 'knee extension'),
@@ -216,6 +221,7 @@ const vaPushUp = {
   ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
   ProgramGroup.tricepsLongHead: Assign(0.25),
   ProgramGroup.abs: Assign(1, 'isometric'),
+  ProgramGroup.obliques: Assign(0.25, 'intra abdominal pressure'),
 };
 const vaBenchPressDBChestPressCable = {
   ProgramGroup.lowerPecs: Assign(1),
@@ -245,7 +251,8 @@ const vaOverheadPressBB = {
     'elbow extension',
   ), // TODO: normally should be 1 but i think i read somewhere they don't activate well for most people
   ProgramGroup.tricepsLongHead: Assign(0.25),
-  ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, 'intra abdominal pressure'),
+  ProgramGroup.obliques: Assign(0.25, 'intra oblique pressure'),
   ...wrist025,
 };
 const vaOverheadPressDB = {
@@ -256,7 +263,8 @@ const vaOverheadPressDB = {
   ProgramGroup.middleTraps: Assign(0.25),
   ProgramGroup.upperTraps: Assign(0.25),
   ProgramGroup.tricepsMedLatH: Assign(0.5, 'elbow extension'),
-  ProgramGroup.abs: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, 'intra abdominal pressure'),
+  ProgramGroup.obliques: Assign(0.25, 'intra oblique pressure'),
   ...wrist025,
 };
 const vaLateralRaise = {
@@ -325,6 +333,7 @@ const vaBicepCurlLying = {
 };
 const vaAbCrunch = {ProgramGroup.abs: Assign(1, 'full ROM')};
 const vaAbIsometric = {ProgramGroup.abs: Assign(1, 'isometric')};
+const vaOblRotationIso = {ProgramGroup.obliques: Assign(1, 'spine rotation isometric')};
 const vaWristExtension = {ProgramGroup.wristExtensors: Assign(1, 'active ROM')};
 const vaWristFlexion = {ProgramGroup.wristFlexors: Assign(1, 'active ROM')};
 
