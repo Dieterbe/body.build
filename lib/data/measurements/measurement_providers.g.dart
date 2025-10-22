@@ -64,7 +64,7 @@ const measurementManagerProvider = MeasurementManagerProvider._();
 /// Measurement manager - single source of truth for all measurement state
 /// Uses Drift streams to automatically update when measurement data changes
 final class MeasurementManagerProvider
-    extends $StreamNotifierProvider<MeasurementManager, List<Measurement>> {
+    extends $StreamNotifierProvider<MeasurementManager, MeasurementData> {
   /// Measurement manager - single source of truth for all measurement state
   /// Uses Drift streams to automatically update when measurement data changes
   const MeasurementManagerProvider._()
@@ -86,23 +86,23 @@ final class MeasurementManagerProvider
   MeasurementManager create() => MeasurementManager();
 }
 
-String _$measurementManagerHash() => r'7eddce2a7cf9a6d11ebceaf40544ccc61384d98d';
+String _$measurementManagerHash() => r'1959346f871be9767284b4a9c2b4db306e48e3c7';
 
 /// Measurement manager - single source of truth for all measurement state
 /// Uses Drift streams to automatically update when measurement data changes
 
-abstract class _$MeasurementManager extends $StreamNotifier<List<Measurement>> {
-  Stream<List<Measurement>> build();
+abstract class _$MeasurementManager extends $StreamNotifier<MeasurementData> {
+  Stream<MeasurementData> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<List<Measurement>>, List<Measurement>>;
+    final ref = this.ref as $Ref<AsyncValue<MeasurementData>, MeasurementData>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<Measurement>>, List<Measurement>>,
-              AsyncValue<List<Measurement>>,
+              AnyNotifier<AsyncValue<MeasurementData>, MeasurementData>,
+              AsyncValue<MeasurementData>,
               Object?,
               Object?
             >;

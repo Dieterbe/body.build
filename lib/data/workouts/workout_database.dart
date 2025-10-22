@@ -205,25 +205,25 @@ class WorkoutDatabase extends _$WorkoutDatabase {
     }
   }
 
-  // Measurement queries
+  // Measurement queries. lists of measurements are always returned in TS ASC order
   Future<List<Measurement>> getAllMeasurements() => (select(
     measurements,
-  )..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.desc)])).get();
+  )..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.asc)])).get();
 
   Stream<List<Measurement>> watchAllMeasurements() => (select(
     measurements,
-  )..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.desc)])).watch();
+  )..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.asc)])).watch();
 
   Future<List<Measurement>> getMeasurementsByType(String type) =>
       (select(measurements)
             ..where((m) => m.measurementType.equals(type))
-            ..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.desc)]))
+            ..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.asc)]))
           .get();
 
   Stream<List<Measurement>> watchMeasurementsByType(String type) =>
       (select(measurements)
             ..where((m) => m.measurementType.equals(type))
-            ..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.desc)]))
+            ..orderBy([(m) => OrderingTerm(expression: m.timestamp, mode: OrderingMode.asc)]))
           .watch();
 
   Future<Measurement?> getLatestMeasurement() =>

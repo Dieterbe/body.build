@@ -1,6 +1,4 @@
 import 'package:bodybuild/data/measurements/measurement_providers.dart';
-import 'package:bodybuild/model/measurements/measurement.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +14,8 @@ class MeasurementSummaryCard extends ConsumerWidget {
     final colorScheme = theme.colorScheme;
 
     return measurementsAsync.when(
-      data: (measurements) {
+      data: (data) {
+        final measurements = data.measurements;
         if (measurements.isEmpty) {
           return Card(
             elevation: 2,
@@ -69,29 +68,35 @@ class MeasurementSummaryCard extends ConsumerWidget {
           );
         }
 
-        final latest = measurements.firstOrNull;
-        if (latest == null) return const SizedBox.shrink();
+        final movingAvg7d = data.movingAverage7Day;
+        if (movingAvg7d.isEmpty) return const SizedBox.shrink();
+
+        // Use the most recent 7-day moving average
+        final latestAvg = movingAvg7d.last;
+        final latestAvgValue = latestAvg.value;
 
         final dateFormat = DateFormat('MMM d');
 
-        // Calculate trend if we have at least 2 measurements
+        // Calculate trend: delta between last 7d avg and 7d avg from at least a week ago
         String? trendText;
         IconData? trendIcon;
         Color? trendColor;
 
-        if (measurements.length >= 2) {
-          final previous = measurements.elementAtOrNull(1);
-          if (previous != null) {
-            final latestInKg = latest.unit.toKg(latest.value);
-            final previousInKg = previous.unit.toKg(previous.value);
-            final diff = latestInKg - previousInKg;
+        final weekAgo = latestAvg.timestamp.subtract(const Duration(days: 7));
+        final olderAvg = movingAvg7d.lastWhere(
+          (avg) => avg.timestamp.isBefore(weekAgo) || avg.timestamp.isAtSameMomentAs(weekAgo),
+          orElse: () => movingAvg7d.first,
+        );
 
-            if (diff.abs() > 0.1) {
-              // Only show trend if difference is significant
-              trendText = '${diff > 0 ? '+' : ''}${diff.toStringAsFixed(1)} kg';
-              trendIcon = diff > 0 ? Icons.trending_up : Icons.trending_down;
-              trendColor = diff > 0 ? Colors.orange : Colors.green;
-            }
+        // Only show trend if we have data from at least a week ago
+        if (olderAvg.timestamp.isBefore(weekAgo) || olderAvg.timestamp.isAtSameMomentAs(weekAgo)) {
+          final diff = latestAvgValue - olderAvg.value;
+
+          if (diff.abs() > 0.1) {
+            // Only show trend if difference is significant
+            trendText = '${diff > 0 ? '+' : ''}${diff.toStringAsFixed(1)} kg';
+            trendIcon = diff > 0 ? Icons.trending_up : Icons.trending_down;
+            trendColor = diff > 0 ? Colors.orange : Colors.green;
           }
         }
 
@@ -155,7 +160,7 @@ class MeasurementSummaryCard extends ConsumerWidget {
                         Row(
                           children: [
                             Text(
-                              '${latest.value.toStringAsFixed(1)} ${latest.unit.displayName}',
+                              '${latestAvgValue.toStringAsFixed(1)} kg',
                               style: theme.textTheme.headlineSmall?.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: colorScheme.primary,
@@ -163,7 +168,7 @@ class MeasurementSummaryCard extends ConsumerWidget {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              '• ${dateFormat.format(latest.timestamp)}',
+                              '• ${dateFormat.format(latestAvg.timestamp)}',
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: colorScheme.onSurface.withValues(alpha: 0.6),
                               ),

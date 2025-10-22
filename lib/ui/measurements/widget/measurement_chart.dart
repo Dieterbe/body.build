@@ -4,8 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MeasurementChart extends StatelessWidget {
-  final List<Measurement> measurements;
-  const MeasurementChart({super.key, required this.measurements});
+  final List<Measurement> measurements; // assumed to be sorted ASC
+  final List<MovingAveragePoint> movingAverage; // assumed to be sorted ASC
+  final double? periodChange;
+  final Duration changePeriod;
+  const MeasurementChart({
+    super.key,
+    required this.measurements,
+    this.movingAverage = const [],
+    this.periodChange,
+    required this.changePeriod,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,19 +22,29 @@ class MeasurementChart extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    // Sort measurements by timestamp (oldest first for chart)
-    final sortedMeasurements = List<Measurement>.of(measurements)
-      ..sort((a, b) => a.timestamp.compareTo(b.timestamp));
-
     // Convert all measurements to kg for consistent chart display
-    final spots = sortedMeasurements.asMap().entries.map((entry) {
+    final spots = measurements.asMap().entries.map((entry) {
       final measurement = entry.value;
       final valueInKg = measurement.unit.toKg(measurement.value);
       return FlSpot(entry.key.toDouble(), valueInKg);
     }).toList();
 
-    final minY = spots.map((s) => s.y).reduce((a, b) => a < b ? a : b);
-    final maxY = spots.map((s) => s.y).reduce((a, b) => a > b ? a : b);
+    // Create moving average spots if available
+    final movingAverageSpots = <FlSpot>[];
+    if (movingAverage.isNotEmpty) {
+      // Map each moving average point to its corresponding index in sortedMeasurements
+      for (final avgPoint in movingAverage) {
+        final index = measurements.indexWhere((m) => m.timestamp == avgPoint.timestamp);
+        if (index >= 0) {
+          movingAverageSpots.add(FlSpot(index.toDouble(), avgPoint.value));
+        }
+      }
+    }
+
+    // Calculate Y-axis range considering both raw and moving average data
+    final allYValues = [...spots.map((s) => s.y), ...movingAverageSpots.map((s) => s.y)];
+    final minY = allYValues.reduce((a, b) => a < b ? a : b);
+    final maxY = allYValues.reduce((a, b) => a > b ? a : b);
     final range = maxY - minY;
     final padding = range * 0.1;
 
@@ -33,102 +52,157 @@ class MeasurementChart extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: SizedBox(
-          height: 200,
-          child: LineChart(
-            LineChartData(
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: false,
-                horizontalInterval: range > 0 ? range / 4 : 1,
-              ),
-              titlesData: FlTitlesData(
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 40,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        '${value.toStringAsFixed(1)} kg',
-                        style: const TextStyle(fontSize: 10),
-                      );
-                    },
-                  ),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 30,
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      if (index < 0 || index >= sortedMeasurements.length) {
-                        return const Text('');
-                      }
-                      // ignore: avoid-unsafe-collection-methods
-                      final measurement = sortedMeasurements[index];
-                      final format = DateFormat('MMM d');
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(
-                          format.format(measurement.timestamp),
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-              ),
-              borderData: FlBorderData(
-                show: true,
-                border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
-              ),
-              minY: minY - padding,
-              maxY: maxY + padding,
-              lineBarsData: [
-                LineChartBarData(
-                  spots: spots,
-                  isCurved: true,
-                  color: Theme.of(context).colorScheme.primary,
-                  barWidth: 3,
-                  dotData: FlDotData(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 200,
+              child: LineChart(
+                LineChartData(
+                  gridData: FlGridData(
                     show: true,
-                    getDotPainter: (spot, percent, barData, index) {
-                      return FlDotCirclePainter(
-                        radius: 4,
+                    drawVerticalLine: false,
+                    horizontalInterval: range > 0 ? range / 4 : 1,
+                  ),
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) {
+                          return Text(
+                            '${value.toStringAsFixed(1)} kg',
+                            style: const TextStyle(fontSize: 10),
+                          );
+                        },
+                      ),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 30,
+                        getTitlesWidget: (value, meta) {
+                          final index = value.toInt();
+                          if (index < 0 || index >= measurements.length) {
+                            return const Text('');
+                          }
+                          // ignore: avoid-unsafe-collection-methods
+                          final measurement = measurements[index];
+                          final format = DateFormat('MMM d');
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(
+                              format.format(measurement.timestamp),
+                              style: const TextStyle(fontSize: 10),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  ),
+                  borderData: FlBorderData(
+                    show: true,
+                    border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+                  ),
+                  minY: minY - padding,
+                  maxY: maxY + padding,
+                  lineBarsData: [
+                    // Raw measurements as dots only (no connecting line)
+                    LineChartBarData(
+                      spots: spots,
+                      isCurved: false,
+                      color: Colors.transparent,
+                      barWidth: 0,
+                      dotData: FlDotData(
+                        show: true,
+                        getDotPainter: (spot, percent, barData, index) {
+                          return FlDotCirclePainter(
+                            radius: 4,
+                            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+                            strokeWidth: 2,
+                            strokeColor: Colors.white,
+                          );
+                        },
+                      ),
+                      belowBarData: BarAreaData(show: false),
+                    ),
+                    // 7-day moving average line
+                    if (movingAverageSpots.isNotEmpty)
+                      LineChartBarData(
+                        spots: movingAverageSpots,
+                        isCurved: true,
                         color: Theme.of(context).colorScheme.primary,
-                        strokeWidth: 2,
-                        strokeColor: Colors.white,
-                      );
-                    },
+                        barWidth: 3,
+                        dotData: const FlDotData(show: false),
+                        belowBarData: BarAreaData(
+                          show: true,
+                          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                        ),
+                      ),
+                  ],
+                  lineTouchData: LineTouchData(
+                    touchTooltipData: LineTouchTooltipData(
+                      getTooltipItems: (touchedSpots) {
+                        return touchedSpots.map((spot) {
+                          final index = spot.x.toInt();
+                          if (index < 0 || index >= measurements.length) {
+                            return null;
+                          }
+                          // ignore: avoid-unsafe-collection-methods
+                          final measurement = measurements[index];
+                          return LineTooltipItem(
+                            '${measurement.value.toStringAsFixed(1)} ${measurement.unit.displayName}\n${DateFormat('MMM d, yyyy').format(measurement.timestamp)}',
+                            const TextStyle(color: Colors.white),
+                          );
+                        }).toList();
+                      },
+                    ),
                   ),
-                  belowBarData: BarAreaData(
-                    show: true,
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-                  ),
-                ),
-              ],
-              lineTouchData: LineTouchData(
-                touchTooltipData: LineTouchTooltipData(
-                  getTooltipItems: (touchedSpots) {
-                    return touchedSpots.map((spot) {
-                      final index = spot.x.toInt();
-                      if (index < 0 || index >= sortedMeasurements.length) {
-                        return null;
-                      }
-                      // ignore: avoid-unsafe-collection-methods
-                      final measurement = sortedMeasurements[index];
-                      return LineTooltipItem(
-                        '${measurement.value.toStringAsFixed(1)} ${measurement.unit.displayName}\n${DateFormat('MMM d, yyyy').format(measurement.timestamp)}',
-                        const TextStyle(color: Colors.white),
-                      );
-                    }).toList();
-                  },
                 ),
               ),
             ),
-          ),
+            // Change summary
+            if (periodChange != null) ...[
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Overall Change',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          periodChange! >= 0 ? Icons.trending_up : Icons.trending_down,
+                          size: 18,
+                          color: periodChange! >= 0 ? Colors.orange : Colors.green,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          '${periodChange! >= 0 ? '+' : ''}${periodChange!.toStringAsFixed(1)} kg',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: periodChange! >= 0 ? Colors.orange : Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
         ),
       ),
     );

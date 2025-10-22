@@ -6,6 +6,7 @@ import 'package:bodybuild/ui/measurements/widget/measurement_chart.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_dialog.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/util/flutter.dart';
+import 'package:bodybuild/util/measurements.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +28,9 @@ class MeasurementsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Measurements')),
       body: measurementsAsync.when(
-        data: (measurements) {
+        data: (data) {
+          final measurements = data.measurements;
+          final movingAvgs7d = data.movingAverage7Day;
           if (measurements.isEmpty) {
             return Center(
               child: Column(
@@ -50,23 +53,19 @@ class MeasurementsScreen extends ConsumerWidget {
             );
           }
 
-          // Calculate data age
           final now = DateTime.now();
-          final oldestDate = measurements.lastOrNull?.timestamp ?? now;
-          final dataAge = now.difference(oldestDate);
+          final ts30DAgo = now.subtract(const Duration(days: 30));
+          final ts1YrAgo = now.subtract(const Duration(days: 365));
 
-          // Filter measurements for different time ranges
-          final last30Days = measurements
-              .where((m) => now.difference(m.timestamp).inDays <= 30)
-              .toList();
-          final last1Year = measurements
-              .where((m) => now.difference(m.timestamp).inDays <= 365)
-              .toList();
+          // Filter measurements and moving average for different time ranges
+          final last30Days = measurements.where((m) => m.timestamp.isAfter(ts30DAgo)).toList();
+          final last30DaysAvg = movingAvgs7d.where((m) => m.timestamp.isAfter(ts30DAgo)).toList();
+          final last1Year = measurements.where((m) => m.timestamp.isAfter(ts1YrAgo)).toList();
+          final last1YearAvg = movingAvgs7d.where((m) => m.timestamp.isAfter(ts1YrAgo)).toList();
 
           return ListView(
             children: [
-              // Last 30 Days Chart (always show if we have data)
-              if (last30Days.isNotEmpty) ...[
+              if (last30Days.length > 1) ...[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                   child: Text(
@@ -76,11 +75,17 @@ class MeasurementsScreen extends ConsumerWidget {
                     ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                MeasurementChart(measurements: last30Days),
+                MeasurementChart(
+                  measurements: last30Days,
+                  movingAverage: last30DaysAvg,
+                  periodChange:
+                      last30Days.lastOrNull!.unit.toKg(last30Days.lastOrNull!.value) -
+                      interpolateValueAt(ts30DAgo, measurements)!,
+                  changePeriod: last30Days.lastOrNull!.timestamp.difference(ts30DAgo),
+                ),
               ],
 
-              // Last 1 Year Chart (show if we have data older than 30 days)
-              if (dataAge.inDays > 30 && last1Year.isNotEmpty) ...[
+              if (last1Year.length > last30Days.length + 2) ...[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
                   child: Text(
@@ -90,11 +95,17 @@ class MeasurementsScreen extends ConsumerWidget {
                     ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                MeasurementChart(measurements: last1Year),
+                MeasurementChart(
+                  measurements: last1Year,
+                  movingAverage: last1YearAvg,
+                  periodChange:
+                      last1Year.lastOrNull!.unit.toKg(last1Year.lastOrNull!.value) -
+                      interpolateValueAt(ts1YrAgo, measurements)!,
+                  changePeriod: last1Year.lastOrNull!.timestamp.difference(ts1YrAgo),
+                ),
               ],
 
-              // All Time Chart (show if we have data older than 1 year)
-              if (dataAge.inDays > 365) ...[
+              if (measurements.length > last1Year.length + 2) ...[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
                   child: Text(
@@ -104,7 +115,16 @@ class MeasurementsScreen extends ConsumerWidget {
                     ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                MeasurementChart(measurements: measurements),
+                MeasurementChart(
+                  measurements: measurements,
+                  movingAverage: data.movingAverage7Day,
+                  periodChange:
+                      measurements.lastOrNull!.unit.toKg(measurements.lastOrNull!.value) -
+                      measurements.firstOrNull!.unit.toKg(measurements.firstOrNull!.value),
+                  changePeriod: measurements.lastOrNull!.timestamp.difference(
+                    measurements.firstOrNull!.timestamp,
+                  ),
+                ),
               ],
 
               // Measurements list
@@ -117,7 +137,7 @@ class MeasurementsScreen extends ConsumerWidget {
                   ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
-              ...measurements.map<Widget>(
+              ...measurements.reversed.map<Widget>(
                 (measurement) => MeasurementCard(
                   measurement: measurement,
                   onEdit: () => _showEditDialog(context, ref, measurement),

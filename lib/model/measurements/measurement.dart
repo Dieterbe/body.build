@@ -76,3 +76,19 @@ Unit getDefaultWeightUnitFromLocale() {
   // This can be enhanced with actual locale detection
   return Unit.kg;
 }
+
+/// A point in the moving average time series
+@freezed
+abstract class MovingAveragePoint with _$MovingAveragePoint {
+  const factory MovingAveragePoint({required DateTime timestamp, required double value}) =
+      _MovingAveragePoint;
+}
+
+/// Container for measurement data with moving average
+@freezed
+abstract class MeasurementData with _$MeasurementData {
+  const factory MeasurementData({
+    required List<Measurement> measurements,
+    required List<MovingAveragePoint> movingAverage7Day,
+  }) = _MeasurementData;
+}

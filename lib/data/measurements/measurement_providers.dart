@@ -17,9 +17,44 @@ MeasurementPersistenceService measurementPersistenceService(Ref ref) {
 @riverpod
 class MeasurementManager extends _$MeasurementManager {
   @override
-  Stream<List<Measurement>> build() {
+  Stream<MeasurementData> build() {
     final service = ref.watch(measurementPersistenceServiceProvider);
-    return service.watchAllMeasurements();
+    return service.watchAllMeasurements().map((measurements) {
+      return MeasurementData(
+        measurements: measurements,
+        movingAverage7Day: _calculate7DayMovingAverage(measurements),
+      );
+    });
+  }
+
+  /// Calculate 7-day moving average for measurements
+  /// Each point represents the average of all measurements in the 7 days preceding it
+  List<MovingAveragePoint> _calculate7DayMovingAverage(List<Measurement> sorted) {
+    if (sorted.isEmpty) return [];
+
+    final movingAverage = <MovingAveragePoint>[];
+
+    for (int i = 0; i < sorted.length; i++) {
+      final currentMeasurement = sorted[i];
+      final currentDate = currentMeasurement.timestamp;
+
+      // Find all measurements within 7 days before current measurement (inclusive)
+      final sevenDaysAgo = currentDate.subtract(const Duration(days: 7));
+      final measurementsInWindow = sorted.where((m) {
+        return m.timestamp.isAfter(sevenDaysAgo) &&
+            m.timestamp.isBefore(currentDate.add(const Duration(seconds: 1)));
+      }).toList();
+
+      if (measurementsInWindow.isNotEmpty) {
+        // Convert all to kg and calculate average
+        final valuesInKg = measurementsInWindow.map((m) => m.unit.toKg(m.value)).toList();
+        final average = valuesInKg.reduce((a, b) => a + b) / valuesInKg.length;
+
+        movingAverage.add(MovingAveragePoint(timestamp: currentDate, value: average));
+      }
+    }
+
+    return movingAverage;
   }
 
   Future<String> addMeasurement({
