@@ -86,7 +86,7 @@ final class MeasurementManagerProvider
   MeasurementManager create() => MeasurementManager();
 }
 
-String _$measurementManagerHash() => r'1959346f871be9767284b4a9c2b4db306e48e3c7';
+String _$measurementManagerHash() => r'49e342d504107efd5ccc664536a6af96a9bd2fff';
 
 /// Measurement manager - single source of truth for all measurement state
 /// Uses Drift streams to automatically update when measurement data changes

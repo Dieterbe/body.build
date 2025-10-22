@@ -80,7 +80,7 @@ class MeasurementsScreen extends ConsumerWidget {
                   movingAverage: last30DaysAvg,
                   periodChange:
                       last30Days.lastOrNull!.unit.toKg(last30Days.lastOrNull!.value) -
-                      interpolateValueAt(ts30DAgo, measurements)!,
+                      interpolateValueAt(ts30DAgo, movingAvgs7d)!.value,
                   changePeriod: last30Days.lastOrNull!.timestamp.difference(ts30DAgo),
                 ),
               ],
@@ -100,7 +100,7 @@ class MeasurementsScreen extends ConsumerWidget {
                   movingAverage: last1YearAvg,
                   periodChange:
                       last1Year.lastOrNull!.unit.toKg(last1Year.lastOrNull!.value) -
-                      interpolateValueAt(ts1YrAgo, measurements)!,
+                      interpolateValueAt(ts1YrAgo, movingAvgs7d)!.value,
                   changePeriod: last1Year.lastOrNull!.timestamp.difference(ts1YrAgo),
                 ),
               ],

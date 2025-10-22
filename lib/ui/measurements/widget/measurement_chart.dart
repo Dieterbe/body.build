@@ -143,18 +143,43 @@ class MeasurementChart extends StatelessWidget {
                   lineTouchData: LineTouchData(
                     touchTooltipData: LineTouchTooltipData(
                       getTooltipItems: (touchedSpots) {
-                        return touchedSpots.map((spot) {
+                        // Only show tooltip for the first line (raw measurements)
+                        // to avoid duplicate tooltips
+                        return touchedSpots.asMap().entries.map((entry) {
+                          if (entry.key > 0) {
+                            // Skip tooltip for moving average line
+                            return null;
+                          }
+
+                          final spot = entry.value;
                           // Find the closest measurement to this X value
                           final spotTimestamp = (spot.x + firstTimestamp).toInt();
                           final measurement = measurements.reduce((a, b) {
-                            final aDiff = (a.timestamp.millisecondsSinceEpoch - spotTimestamp).abs();
-                            final bDiff = (b.timestamp.millisecondsSinceEpoch - spotTimestamp).abs();
+                            final aDiff = (a.timestamp.millisecondsSinceEpoch - spotTimestamp)
+                                .abs();
+                            final bDiff = (b.timestamp.millisecondsSinceEpoch - spotTimestamp)
+                                .abs();
                             return aDiff < bDiff ? a : b;
                           });
 
+                          // Find corresponding moving average if available
+                          final avgPoint = movingAverage.isEmpty
+                              ? null
+                              : movingAverage.firstWhere(
+                                  (avg) => avg.timestamp == measurement.timestamp,
+                                  orElse: () => movingAverage.first,
+                                );
+
+                          final dateStr = DateFormat('MMM d, yyyy').format(measurement.timestamp);
+                          final rawValue =
+                              '${measurement.value.toStringAsFixed(1)} ${measurement.unit.displayName}';
+                          final avgValue = avgPoint != null
+                              ? '\n7d avg: ${avgPoint.value.toStringAsFixed(1)} kg'
+                              : '';
+
                           return LineTooltipItem(
-                            '${measurement.value.toStringAsFixed(1)} ${measurement.unit.displayName}\n${DateFormat('MMM d, yyyy').format(measurement.timestamp)}',
-                            const TextStyle(color: Colors.white),
+                            '$dateStr\nRaw: $rawValue$avgValue',
+                            const TextStyle(color: Colors.white, fontSize: 12),
                           );
                         }).toList();
                       },
