@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
+import 'package:bodybuild/data/workouts/workout_database_connection.dart';
 
 part 'workout_database.g.dart';
 
@@ -250,12 +246,5 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 }
 
 QueryExecutor _openConnection() {
-  // Use LazyDatabase to defer opening until first access, then use
-  // NativeDatabase.createInBackground to run all database operations in a separate isolate
-  // This prevents blocking the UI thread during heavy operations like bulk imports
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'workouts.sqlite'));
-    return NativeDatabase.createInBackground(file);
-  });
+  return openWorkoutDatabaseConnection();
 }
