@@ -80,6 +80,7 @@ class ConfigureTweakGrid extends StatelessWidget {
                         ConfigureTweakLarge(
                           tweak,
                           sets,
+                          sets.ex!,
                           onChange: onChange != null
                               ? (value) {
                                   onChange!(
@@ -94,6 +95,7 @@ class ConfigureTweakGrid extends StatelessWidget {
                         ConfigureTweakSmall(
                           tweak,
                           sets,
+                          sets.ex!,
                           onChange: onChange != null
                               ? (value) {
                                   onChange!(

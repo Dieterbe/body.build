@@ -372,6 +372,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
             ConfigureTweakLarge(
               tweak,
               currentSets!,
+              currentSets!.ex!,
               onChange: (val) {
                 setState(() {
                   currentSets = currentSets!.copyWith(
@@ -384,6 +385,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
             ConfigureTweakSmall(
               tweak,
               currentSets!,
+              currentSets!.ex!,
               onChange: (val) {
                 setState(() {
                   currentSets = currentSets!.copyWith(

@@ -30,6 +30,51 @@ class Option {
   const Option(this.va, this.desc);
 }
 
+/// Represents a bidirectional incompatibility constraint between two sets of tweak options.
+/// Used at the Exercise level to declare that certain option combinations are invalid.
+/// Format: TweakConstraint(('tweakName1', {'opt1', 'opt2'}), ('tweakName2', {'optA', 'optB'}))
+/// Meaning: If tweak1 is set to opt1 or opt2, then tweak2 cannot be optA or optB (and vice versa)
+class TweakConstraint {
+  /// First tweak name and its incompatible option keys
+  final (String, Set<String>) side1;
+
+  /// Second tweak name and its incompatible option keys
+  final (String, Set<String>) side2;
+
+  const TweakConstraint(this.side1, this.side2);
+
+  /// Checks if a specific option of a tweak is available given current selections
+  bool isOptionAvailable(
+    String tweakName,
+    String optionKey,
+    Map<String, String> currentSelections,
+  ) {
+    // Check if this constraint involves the tweak we're checking
+    (String, Set<String>)? other;
+    if (side1.$1 == tweakName && side1.$2.contains(optionKey)) {
+      other = side2;
+    } else if (side2.$1 == tweakName && side2.$2.contains(optionKey)) {
+      other = side1;
+    } else {
+      return true;
+    }
+    // Check if the other side is currently selected
+    final otherValue = currentSelections[other.$1];
+    return (otherValue == null || !other.$2.contains(otherValue));
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TweakConstraint &&
+          runtimeType == other.runtimeType &&
+          side1 == other.side1 &&
+          side2 == other.side2;
+
+  @override
+  int get hashCode => side1.hashCode ^ side2.hashCode;
+}
+
 // BEWARE: tweak names and option names go into URL's, so don't use special chars
 const rom = Tweak("ROM", "full", {
   "full": Option({}, 'full range of motion'),

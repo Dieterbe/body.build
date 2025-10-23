@@ -24,6 +24,7 @@ class Ex {
   final List<String>
   searchAliases; // additional search terms (abbreviations, synonyms) (does not need to match exactly 1:1)
   final String desc; // markdown further info
+  final List<TweakConstraint> constraints; // incompatibility constraints between tweak options
 
   const Ex(
     this.volumeAssignment,
@@ -33,7 +34,21 @@ class Ex {
     this.ratings = const [],
     this.searchAliases = const [],
     this.desc = '',
+    this.constraints = const [],
   ]);
+
+  /// Checks if a specific option of a tweak is available given current tweak selections.
+  /// Returns true if the option can be selected, false if it's incompatible with current selections.
+  /// NOTE: currentTweakOptions currently doesn't include values that are left default, therefore
+  /// we don't detect constraint violations on them, but typically defaults are chosen to not contentious
+  /// with other tweaks
+  bool isOptionAvailable(
+    String tweakName,
+    String optionKey,
+    Map<String, String> currentTweakOptions,
+  ) {
+    return constraints.every((c) => c.isOptionAvailable(tweakName, optionKey, currentTweakOptions));
+  }
 
   // calculate recruitment for a given PG & tweak options.
   // tweakOptions is a subset of the exercise' tweak options; if not specified, we use the default
@@ -937,9 +952,9 @@ final List<Ex> exes = [
       }),
       Tweak('sidesteps', 'no', {
         'no': Option({}, 'stay in place'),
-        '1': Option({}, 'do a sidestep while at max torque'), // TODO: only for standing posture
-        '2': Option({}, 'do 2 sidesteps while at max torque'), // TODO: only for standing posture
-        '3': Option({}, 'do 3 sidesteps while at max torque'), // TODO: only for standing posture
+        '1': Option({}, 'do a sidestep while at max torque'),
+        '2': Option({}, 'do 2 sidesteps while at max torque'),
+        '3': Option({}, 'do 3 sidesteps while at max torque'),
       }),
       Tweak('mode', 'reps', {
         'reps': Option(
@@ -952,6 +967,12 @@ final List<Ex> exes = [
     [],
     [],
     "- cable at a height between abs/chest\n- extend arms to increase torque on obliques\n- [video](https://www.youtube.com/watch?v=l-x3HPeHh90) with more info",
+    [
+      TweakConstraint(
+        ('posture', {'half kneeling', 'tall kneeling'}),
+        ('sidesteps', {'1', '2', '3'}),
+      ),
+    ],
   ),
   const Ex(
     {...wrist03, ...vaOblRotationIso},
