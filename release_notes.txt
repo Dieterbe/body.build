@@ -1,3 +1,4 @@
-- auto-populate fields upon logging another set for an exercise
-- layout/design fixes
-- include version in navigation bar
+- support for weight measurements with 7-day moving averaging and trends
+- app settings with wger import for weight measurements
+- add 'obliques' programgroup and couple of exercises for them
+- add flexion row video
