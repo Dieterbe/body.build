@@ -1,13 +1,15 @@
 import 'package:bodybuild/data/programmer/tweak.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/core/util_ratings.dart';
 import 'package:flutter/material.dart';
 
 class ConfigureTweakLarge extends StatelessWidget {
-  const ConfigureTweakLarge(this.tweak, this.sets, {super.key, this.onChange});
+  const ConfigureTweakLarge(this.tweak, this.sets, this.exercise, {super.key, this.onChange});
   final Tweak tweak;
   final Sets sets; // current set against which we apply the tweak
+  final Ex exercise; // exercise to check constraints
   final void Function(String)? onChange;
 
   @override
@@ -19,6 +21,7 @@ class ConfigureTweakLarge extends StatelessWidget {
         children: [
           ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((opt) {
             final optionDesc = opt.value.desc;
+            final isAvailable = exercise.isOptionAvailable(tweak.name, opt.key, sets.tweakOptions);
             final ratingIcon = buildRatingIcon(sets, tweak.name, opt.key, context);
 
             return Column(
@@ -27,7 +30,12 @@ class ConfigureTweakLarge extends StatelessWidget {
                 RadioListTile<String>(
                   title: Row(
                     children: [
-                      Text(opt.key),
+                      Text(
+                        opt.key,
+                        style: isAvailable
+                            ? const TextStyle(fontWeight: FontWeight.bold)
+                            : TextStyle(color: Theme.of(context).disabledColor),
+                      ),
                       if (ratingIcon is! SizedBox) const SizedBox(width: 8),
                       ratingIcon,
                       if (opt.key == tweak.defaultVal) ...[
@@ -44,7 +52,7 @@ class ConfigureTweakLarge extends StatelessWidget {
                   ),
                   value: opt.key,
                   groupValue: sets.tweakOptions[tweak.name] ?? tweak.defaultVal,
-                  onChanged: onChange != null
+                  onChanged: (onChange != null && isAvailable)
                       ? (value) {
                           if (value != null) {
                             onChange!(value);

@@ -31,6 +31,7 @@ const _$ProgramGroupEnumMap = {
   ProgramGroup.tricepsMedLatH: 'tricepsMedLatH',
   ProgramGroup.tricepsLongHead: 'tricepsLongHead',
   ProgramGroup.abs: 'abs',
+  ProgramGroup.obliques: 'obliques',
   ProgramGroup.spinalErectors: 'spinalErectors',
   ProgramGroup.quadsVasti: 'quadsVasti',
   ProgramGroup.quadsRF: 'quadsRF',

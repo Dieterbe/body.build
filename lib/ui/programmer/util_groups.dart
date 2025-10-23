@@ -1,3 +1,5 @@
+// ignore_for_file: no-equal-switch-case
+
 import 'package:flutter/material.dart';
 import 'package:bodybuild/data/programmer/groups.dart';
 
@@ -33,8 +35,10 @@ Color bgColorForProgramGroup(ProgramGroup g) {
       return Colors.green.shade100;
     case ProgramGroup.abs:
       return Colors.purple.shade100;
-    case ProgramGroup.spinalErectors:
+    case ProgramGroup.obliques:
       return Colors.purple.shade50;
+    case ProgramGroup.spinalErectors:
+      return Colors.purple.shade100;
     case ProgramGroup.quadsVasti:
       return Colors.red.shade100;
     case ProgramGroup.quadsRF:

@@ -40,10 +40,10 @@ These are all implemented via a simple concept of "tweaks":
 - equipment
   * many exercise definitions that mainly differ in equipment, which leads to some redundancy in code (could be refactored using generative loops)
   * if different equipment for same exercise needs custom per-equipment VA or other adjustments, it involves more implementation complexity
-    (e.g. only barbell squats shoud have tweak for bar position, bulgarian split squats work forearms a bit more when using DB's, and some calf raises) often ratings are specific to equipment (e.g. barbell bench press) - would affect Assignment merging, and making tweaks and ratings conditional based on equipment
+    (e.g. only barbell squats should have tweak for bar position [1], bulgarian split squats work forearms a bit more when using DB's, and some calf raises) often ratings are specific to equipment (e.g. barbell bench press) - would affect Assignment merging, and making tweaks and ratings conditional based on equipment [1]
   * even for a given equipment for an exercise, we want to differentiate between different smith angles, machine curves,etc -> would be nicer maybe to not change exercise for this? could be nice if this was all 1 system?
   * often equipment is fairly well ingrained to imply an exercise, e.g. seated leg curl. though as discussed above, this doesn't really matter
-  we could transition to a rule "if equipment doesn't matter for VA/tweaks, than do it in-exercise"
+  we could transition to a rule "if equipment doesn't matter for VA/tweaks, than do it in-exercise" [1]
   
 ## TODO figure out in more detail:
 
@@ -55,4 +55,4 @@ These are all implemented via a simple concept of "tweaks":
 
 
 
-
+[1] in october 2025 we introduced the idea of "constraints" between tweaks (declaring incompatible options between different tweaks).  This could potentially be extended if we make equipment a tweak (e.g. a pallof press has sidestep tweaks that would be compatible with cable tower but not with elastic band equipment)

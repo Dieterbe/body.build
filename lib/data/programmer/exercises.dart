@@ -23,6 +23,8 @@ class Ex {
   final String id; // identifier to match to kaos exercise. does not need to be human friendly
   final List<String>
   searchAliases; // additional search terms (abbreviations, synonyms) (does not need to match exactly 1:1)
+  final String desc; // markdown further info
+  final List<TweakConstraint> constraints; // incompatibility constraints between tweak options
 
   const Ex(
     this.volumeAssignment,
@@ -31,7 +33,22 @@ class Ex {
     this.tweaks = const [],
     this.ratings = const [],
     this.searchAliases = const [],
+    this.desc = '',
+    this.constraints = const [],
   ]);
+
+  /// Checks if a specific option of a tweak is available given current tweak selections.
+  /// Returns true if the option can be selected, false if it's incompatible with current selections.
+  /// NOTE: currentTweakOptions currently doesn't include values that are left default, therefore
+  /// we don't detect constraint violations on them, but typically defaults are chosen to not contentious
+  /// with other tweaks
+  bool isOptionAvailable(
+    String tweakName,
+    String optionKey,
+    Map<String, String> currentTweakOptions,
+  ) {
+    return constraints.every((c) => c.isOptionAvailable(tweakName, optionKey, currentTweakOptions));
+  }
 
   // calculate recruitment for a given PG & tweak options.
   // tweakOptions is a subset of the exercise' tweak options; if not specified, we use the default
@@ -912,6 +929,105 @@ final List<Ex> exes = [
   const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, gripSqueeze]),
   const Ex(vaAbCrunch, "lying ab crunch", [], [rom]),
   const Ex(vaAbIsometric, "plank", []),
+  // TODO implement seconds counting
+  const Ex(
+    {...wrist03, ...vaOblRotationIso},
+    "cable pallof press",
+    [Equipment.cableTower],
+    [
+      gripSqueeze,
+      Tweak('posture', 'standing', {
+        'standing': Option(
+          {},
+          'stand with feet shoulder width apart, contract glutes to tilt pelvis posteriorly',
+        ),
+        'half kneeling': Option(
+          {},
+          'kneel on one knee, contract glutes to tilt pelvis posteriorly',
+        ),
+        'tall kneeling': Option(
+          {},
+          'kneel on both knees, contract glutes to tilt pelvis posteriorly',
+        ),
+      }),
+      Tweak('sidesteps', 'no', {
+        'no': Option({}, 'stay in place'),
+        '1': Option({}, 'do a sidestep while at max torque'),
+        '2': Option({}, 'do 2 sidesteps while at max torque'),
+        '3': Option({}, 'do 3 sidesteps while at max torque'),
+      }),
+      Tweak('mode', 'reps', {
+        'reps': Option(
+          {},
+          'hold 2-3sec at peak (see [video](https://www.youtube.com/watch?v=gHGLwQGvtxg)), or more when sidestepping',
+        ),
+        'time': Option({}, 'hold it for time at max torque (count seconds)'),
+      }),
+    ],
+    [],
+    [],
+    "- cable at a height between abs/chest\n- extend arms to increase torque on obliques\n- [video](https://www.youtube.com/watch?v=l-x3HPeHh90) with more info",
+    [
+      TweakConstraint(
+        ('posture', {'half kneeling', 'tall kneeling'}),
+        ('sidesteps', {'1', '2', '3'}),
+      ),
+    ],
+  ),
+  const Ex(
+    {...wrist03, ...vaOblRotationIso},
+    "elastic pallof press",
+    [Equipment.elastic],
+    [
+      gripSqueeze,
+      Tweak('posture', 'standing', {
+        'standing': Option(
+          {},
+          'stand with feet shoulder width apart, contract glutes to tilt pelvis posteriorly',
+        ),
+        'half kneeling': Option(
+          {},
+          'kneel on one knee, contract glutes to tilt pelvis posteriorly',
+        ),
+        'tall kneeling': Option(
+          {},
+          'kneel on both knees, contract glutes to tilt pelvis posteriorly',
+        ),
+      }),
+      Tweak('mode', 'reps', {
+        'reps': Option(
+          {},
+          'hold 2-3sec at peak (see [video](https://www.youtube.com/watch?v=gHGLwQGvtxg))',
+        ),
+        'time': Option({}, 'hold it for time at max torque (count seconds)'),
+      }),
+    ],
+    [],
+    [],
+    "- elastic band at a height between abs/chest\n- extend arms to increase torque on obliques\n- [video](https://www.youtube.com/watch?v=l-x3HPeHh90) with more info",
+  ),
+  const Ex(
+    vaOblRotation,
+    "cable core rotation",
+    [Equipment.cableTower],
+    [
+      rom,
+      gripSqueeze,
+      Tweak('orientation', 'horizontal', {
+        'horizontal': Option(
+          {},
+          "horizontal - cable just below chest height so it doesn't rub your shoulder",
+        ),
+        'incline': Option({}, 'cable attachment low - e.g. at ankle height'),
+        'decline': Option({}, 'cable attachment high - above head height'),
+      }),
+    ],
+    [],
+    ["twist", "wood chopper"],
+    """[Scott Herman](https://www.youtube.com/watch?v=pAplQXk3dkU) explains it in detail, with helpful tips.
+        \nHere is [another video](https://www.youtube.com/watch?v=55enRt4gNR0) with less range of motion and the cable hitting the shoulder
+    \nalways keeps arms straight and a strong engaged core. if you overdo the range or feel your spine move, you're overdoing it""",
+  ),
   const Ex(vaWristFlexion, "dumbbell wrist flexion", [Equipment.dumbbell], [rom, gripSqueeze], [], [
     'wrist curl',
   ]),

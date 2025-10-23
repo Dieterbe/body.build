@@ -210,6 +210,10 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
                 );
               },
             ),
+          if (localSets.ex?.desc.isNotEmpty ?? false) ...[
+            const SizedBox(height: 16),
+            markdown(localSets.ex!.desc, context),
+          ],
           const SizedBox(height: 16),
           Row(
             children: [
