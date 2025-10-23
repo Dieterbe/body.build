@@ -1,0 +1,47 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Refined design based on user's mockup: Stacked weight plates with B.B branding -->
+  <defs>
+    <linearGradient id="bgGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27ae60;stop-opacity:1" />
+    </linearGradient>
+    <!-- Subtle shadow for depth -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Rounded square background -->
+  <rect width="1024" height="1024" rx="180" fill="url(#bgGradient3)"/>
+  
+  <!-- Weight plates group -->
+  <g filter="url(#shadow)">
+    <!-- Top horizontal plate (slightly smaller for depth) -->
+    <rect x="120" y="610" width="480" height="100" rx="12" fill="#1a1a1a" opacity="0.95"/>
+    
+    <!-- Bottom horizontal plate -->
+    <rect x="120" y="740" width="480" height="100" rx="12" fill="#1a1a1a"/>
+    
+    <!-- Diagonal plate (rotated ~35 degrees) -->
+    <g transform="translate(512, 512) rotate(35) translate(-512, -512)">
+      <rect x="560" y="450" width="480" height="100" rx="12" fill="#1a1a1a" opacity="0.97"/>
+    </g>
+  </g>
+  
+  <!-- B.B text - bold, prominent branding -->
+  <text x="512" y="440" 
+        font-family="Arial Black, Arial, sans-serif" 
+        font-size="400" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="#1a1a1a" 
+        letter-spacing="8">B.B</text>
+</svg>
