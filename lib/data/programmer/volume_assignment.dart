@@ -334,6 +334,7 @@ const vaBicepCurlLying = {
 const vaAbCrunch = {ProgramGroup.abs: Assign(1, 'full ROM')};
 const vaAbIsometric = {ProgramGroup.abs: Assign(1, 'isometric')};
 const vaOblRotationIso = {ProgramGroup.obliques: Assign(1, 'spine rotation isometric')};
+const vaOblRotation = {ProgramGroup.obliques: Assign(1, 'spine rotation')};
 const vaWristExtension = {ProgramGroup.wristExtensors: Assign(1, 'active ROM')};
 const vaWristFlexion = {ProgramGroup.wristFlexors: Assign(1, 'active ROM')};
 

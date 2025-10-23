@@ -1006,6 +1006,28 @@ final List<Ex> exes = [
     [],
     "- elastic band at a height between abs/chest\n- extend arms to increase torque on obliques\n- [video](https://www.youtube.com/watch?v=l-x3HPeHh90) with more info",
   ),
+  const Ex(
+    vaOblRotation,
+    "cable core rotation",
+    [Equipment.cableTower],
+    [
+      rom,
+      gripSqueeze,
+      Tweak('orientation', 'horizontal', {
+        'horizontal': Option(
+          {},
+          "horizontal - cable just below chest height so it doesn't rub your shoulder",
+        ),
+        'incline': Option({}, 'cable attachment low - e.g. at ankle height'),
+        'decline': Option({}, 'cable attachment high - above head height'),
+      }),
+    ],
+    [],
+    ["twist", "wood chopper"],
+    """[Scott Herman](https://www.youtube.com/watch?v=pAplQXk3dkU) explains it in detail, with helpful tips.
+        \nHere is [another video](https://www.youtube.com/watch?v=55enRt4gNR0) with less range of motion and the cable hitting the shoulder
+    \nalways keeps arms straight and a strong engaged core. if you overdo the range or feel your spine move, you're overdoing it""",
+  ),
   const Ex(vaWristFlexion, "dumbbell wrist flexion", [Equipment.dumbbell], [rom, gripSqueeze], [], [
     'wrist curl',
   ]),
