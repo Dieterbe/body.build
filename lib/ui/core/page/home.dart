@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/developer_mode_provider.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
@@ -7,17 +8,20 @@ import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   static const String routeName = 'home';
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final devMode = ref.watch(developerModeProvider);
+
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -272,7 +276,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 32),
 
                       // Measurement Summary Card (mobile only)
-                      if (isMobileApp()) ...[
+                      if (isMobileApp() || devMode) ...[
                         const MeasurementSummaryCard(),
                         const SizedBox(height: 32),
                       ],
