@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/ui/core/page/privacy_policy_screen.dart';
+import 'package:bodybuild/ui/core/page/credits_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -234,6 +235,13 @@ class AboutScreen extends StatelessWidget {
                     title: 'Privacy Policy',
                     subtitle: 'How we handle your data',
                     routeName: PrivacyPolicyScreen.routeName,
+                  ),
+                  _buildInternalLinkItem(
+                    context,
+                    icon: Icons.copyright,
+                    title: 'Credits & Licenses',
+                    subtitle: 'Open source licenses and attributions',
+                    routeName: CreditsScreen.routeName,
                   ),
                   const SizedBox(height: 32),
                 ],
