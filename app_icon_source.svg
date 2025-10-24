@@ -1,47 +1,48 @@
-<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-  <!-- Refined design based on user's mockup: Stacked weight plates with B.B branding -->
-  <defs>
-    <linearGradient id="bgGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#27ae60;stop-opacity:1" />
-    </linearGradient>
-    <!-- Subtle shadow for depth -->
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
-      <feOffset dx="0" dy="4" result="offsetblur"/>
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="0.3"/>
-      </feComponentTransfer>
-      <feMerge>
-        <feMergeNode/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  </defs>
-  
-  <!-- Rounded square background -->
-  <rect width="1024" height="1024" rx="180" fill="url(#bgGradient3)"/>
-  
-  <!-- Weight plates group -->
-  <g filter="url(#shadow)">
-    <!-- Top horizontal plate (slightly smaller for depth) -->
-    <rect x="120" y="610" width="480" height="100" rx="12" fill="#1a1a1a" opacity="0.95"/>
-    
-    <!-- Bottom horizontal plate -->
-    <rect x="120" y="740" width="480" height="100" rx="12" fill="#1a1a1a"/>
-    
-    <!-- Diagonal plate (rotated ~35 degrees) -->
-    <g transform="translate(512, 512) rotate(35) translate(-512, -512)">
-      <rect x="560" y="450" width="480" height="100" rx="12" fill="#1a1a1a" opacity="0.97"/>
-    </g>
-  </g>
-  
-  <!-- B.B text - bold, prominent branding -->
-  <text x="512" y="440" 
-        font-family="Arial Black, Arial, sans-serif" 
-        font-size="400" 
-        font-weight="900" 
-        text-anchor="middle" 
-        fill="#1a1a1a" 
-        letter-spacing="8">B.B</text>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 2200 2200" style="enable-background:new 0 0 2200 2200;" xml:space="preserve">
+<g id="background">
+	<rect style="fill:#FFFFFF;" width="2200" height="2200"/>
+</g>
+<g id="Objects">
+	<g>
+		<path style="fill:#52A5FF;" d="M1930.744,1100c0,40.309-2.872,79.935-8.423,118.707
+			c-52.052,363.806-339.808,651.563-703.614,703.614c-38.772,5.551-78.398,8.423-118.707,8.423
+			c-458.803,0-830.744-371.94-830.744-830.744S641.197,269.256,1100,269.256S1930.744,641.197,1930.744,1100z"/>
+		<path style="fill:#4188EF;" d="M1922.321,1218.707c-52.052,363.806-339.808,651.563-703.614,703.614l-641.603-641.603
+			c-13.194-11.924-24.531-37.224-32.367-70.84l-69.473-69.591c-2.274-1.676-4.11-3.96-5.231-6.693
+			c-2.872-7.035-5.807-18.041-5.807-33.594c0-15.564,2.936-26.56,5.807-33.584c2.413-5.903,8.145-9.768,14.518-9.768h50.354
+			c6.341-83.084,30.509-144.935,59.364-144.935h46.511c12.789-29.837,28.727-47.547,45.999-47.547h44.953
+			c13.483-25.247,29.303-39.786,46.234-39.786h82.091c10.195,0,19.994,5.295,29.122,15.02l217.28,217.248h145.32
+			c6.736-131.624,43.64-232.268,88.165-232.268h82.091c10.205,0,20.005,5.295,29.143,15.031l24.819,24.755h37.224
+			c8.817,0,17.283,4.622,25.161,13.109l34.502,34.438h32.847c7.195,0,14.091,3.843,20.496,10.899L1922.321,1218.707z"/>
+		<g>
+			<path style="fill:#D6E5E5;" d="M545.446,1143.356h-60.891c-6.375,0-12.107-3.865-14.518-9.765
+				c-2.873-7.032-5.816-18.034-5.816-33.594c0-15.559,2.943-26.562,5.816-33.586c2.412-5.899,8.143-9.765,14.518-9.765h59.653
+				L545.446,1143.356z"/>
+			<path style="fill:#D6E5E5;" d="M1654.554,1143.356h60.891c6.375,0,12.106-3.865,14.518-9.765
+				c2.873-7.032,5.816-18.034,5.816-33.594c0-15.559-2.943-26.562-5.816-33.586c-2.412-5.899-8.143-9.765-14.518-9.765h-59.653
+				L1654.554,1143.356z"/>
+			<path style="fill:#3C4F56;" d="M650.342,911.715h-56.078c-33.683,0-60.989,84.298-60.989,188.285s27.306,188.285,60.989,188.285
+				h56.078V911.715z"/>
+			<path style="fill:#455A60;" d="M757.013,864.172h-70.238c-42.189,0-76.389,105.584-76.389,235.828s34.201,235.828,76.389,235.828
+				h70.238V864.172z"/>
+			<path style="fill:#3C4F56;" d="M860.052,824.381h-82.089c-49.307,0-89.278,123.399-89.278,275.619s39.971,275.619,89.278,275.619
+				h82.089V824.381z"/>
+			<ellipse style="fill:#324249;" cx="860.052" cy="1100" rx="89.278" ry="275.619"/>
+			<path style="fill:#3C4F56;" d="M1549.658,911.715h56.078c33.683,0,60.989,84.298,60.989,188.285s-27.306,188.285-60.989,188.285
+				h-56.078V911.715z"/>
+			<path style="fill:#455A60;" d="M1442.987,864.172h70.238c42.188,0,76.389,105.584,76.389,235.828s-34.201,235.828-76.389,235.828
+				h-70.238V864.172z"/>
+			<path style="fill:#3C4F56;" d="M1339.948,824.381h82.089c49.307,0,89.278,123.399,89.278,275.619s-39.971,275.619-89.278,275.619
+				h-82.089V824.381z"/>
+			<ellipse style="fill:#324249;" cx="1339.948" cy="1100" rx="89.278" ry="275.619"/>
+			<path style="fill:#D6E5E5;" d="M1351.154,1099.998c0,15.56-2.943,26.562-5.816,33.594c-2.412,5.899-8.143,9.765-14.518,9.765
+				H869.179c-6.375,0-12.107-3.865-14.518-9.765c-2.873-7.032-5.816-18.034-5.816-33.594c0-15.559,2.943-26.562,5.816-33.586
+				c2.411-5.899,8.143-9.765,14.518-9.765h461.641c6.375,0,12.106,3.865,14.518,9.765
+				C1348.211,1073.437,1351.154,1084.439,1351.154,1099.998z"/>
+		</g>
+	</g>
+</g>
 </svg>
