@@ -28,9 +28,9 @@ class WorkoutFooter extends StatelessWidget {
         ],
       ),
       child: Row(
+        spacing: 12,
         children: [
           Icon(Icons.timer, color: Theme.of(context).colorScheme.onPrimaryContainer, size: 24),
-          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

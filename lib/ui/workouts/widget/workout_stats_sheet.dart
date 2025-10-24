@@ -227,13 +227,13 @@ class _WorkoutStatsSheet extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Column(
+      spacing: 12,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Volume by Muscle Group',
           style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 12),
         _buildVolumeList(context),
       ],
     );

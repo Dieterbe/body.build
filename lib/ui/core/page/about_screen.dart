@@ -48,6 +48,7 @@ class AboutScreen extends StatelessWidget {
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
+                        spacing: 12,
                         children: [
                           Text(
                             'BODY',
@@ -57,7 +58,6 @@ class AboutScreen extends StatelessWidget {
                               letterSpacing: 0.5,
                             ),
                           ),
-                          const SizedBox(width: 12),
                           Container(
                             width: 8,
                             height: 8,
@@ -79,7 +79,6 @@ class AboutScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 12),
                           Text(
                             'BUILD',
                             style: theme.textTheme.headlineMedium?.copyWith(
@@ -265,6 +264,7 @@ class AboutScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Row(
+        spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -275,9 +275,9 @@ class AboutScreen extends StatelessWidget {
             ),
             child: Icon(icon, color: colorScheme.onPrimaryContainer, size: 24),
           ),
-          const SizedBox(width: 16),
           Expanded(
             child: Column(
+              spacing: 4,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -287,7 +287,6 @@ class AboutScreen extends StatelessWidget {
                     color: colorScheme.onSurface,
                   ),
                 ),
-                const SizedBox(height: 4),
                 Text(
                   description,
                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -344,6 +343,7 @@ class AboutScreen extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
+                  spacing: 2,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -353,7 +353,6 @@ class AboutScreen extends StatelessWidget {
                         color: colorScheme.onSurface,
                       ),
                     ),
-                    const SizedBox(height: 2),
                     Text(
                       subtitle,
                       style: theme.textTheme.bodySmall?.copyWith(

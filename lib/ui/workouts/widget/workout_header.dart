@@ -23,13 +23,13 @@ class WorkoutHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            spacing: 8,
             children: [
               Icon(
                 workout.isActive ? Icons.play_circle_filled : Icons.check_circle,
                 color: workout.isActive ? Theme.of(context).colorScheme.primary : Colors.green,
                 size: 24,
               ),
-              const SizedBox(width: 8),
               Text(
                 workout.isActive ? 'Active Workout' : 'Finished Workout',
                 style: Theme.of(

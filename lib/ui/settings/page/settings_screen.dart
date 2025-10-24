@@ -118,6 +118,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: 4,
                               children: [
                                 Text(
                                   'wger API Key (optional)',
@@ -125,7 +126,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                     context,
                                   ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                                 ),
-                                const SizedBox(height: 4),
                                 Text(
                                   'For importing weight measurements',
                                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -202,9 +202,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       if (!_isEditing && settings.wgerApiKey.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Row(
+                          spacing: 8,
                           children: [
                             const Icon(Icons.check_circle, size: 16, color: Colors.green),
-                            const SizedBox(width: 8),
                             Text(
                               'API key configured',
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -251,15 +251,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       if (settings.wgerApiKey.isNotEmpty) ...[
                         const SizedBox(height: 16),
                         Row(
+                          spacing: 12,
                           children: [
                             Icon(
                               Icons.cloud_download,
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                            const SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 4,
                                 children: [
                                   Text(
                                     'Import Weight Data',
@@ -267,7 +268,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                       context,
                                     ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                                   ),
-                                  const SizedBox(height: 4),
                                   Text(
                                     'Import weight measurements from your wger account',
                                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -302,9 +302,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         error: (error, stack) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 16,
             children: [
               const Icon(Icons.error_outline, size: 48, color: Colors.red),
-              const SizedBox(height: 16),
               Text('Error loading settings: $error'),
             ],
           ),
@@ -339,6 +339,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           valueListenable: state,
           builder: (context, importState, child) {
             return Row(
+              spacing: 12,
               children: [
                 if (!importState.isComplete)
                   const SizedBox(width: 20, height: 20, child: CircularProgressIndicator())
@@ -347,7 +348,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     importState.isError ? Icons.error : Icons.check_circle,
                     color: importState.isError ? Colors.red : Colors.green,
                   ),
-                const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     importState.isComplete
@@ -379,9 +379,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 8,
                             children: [
                               Icon(Icons.check, size: 16, color: Colors.grey[600]),
-                              const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
                                   importState.statusMessages[index],
