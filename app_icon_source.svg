@@ -25,8 +25,8 @@
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#d1d1d1"
    inkscape:zoom="0.28444978"
-   inkscape:cx="884.16312"
-   inkscape:cy="1000.1766"
+   inkscape:cx="885.92088"
+   inkscape:cy="1003.6921"
    inkscape:window-width="1920"
    inkscape:window-height="1155"
    inkscape:window-x="0"
@@ -78,41 +78,49 @@
 			<path
    style="fill:#3c4f56"
    d="m 650.342,911.715 h -56.078 c -33.683,0 -60.989,84.298 -60.989,188.285 0,103.987 27.306,188.285 60.989,188.285 h 56.078 z"
-   id="path5" />
+   id="path5"
+   inkscape:label="weight-left-3" />
 			<path
    style="fill:#455a60"
    d="m 757.013,864.172 h -70.238 c -42.189,0 -76.389,105.584 -76.389,235.828 0,130.244 34.201,235.828 76.389,235.828 h 70.238 z"
-   id="path6" />
+   id="path6"
+   inkscape:label="weight-left-2" />
 			<path
    style="fill:#3c4f56"
    d="m 860.052,824.381 h -82.089 c -49.307,0 -89.278,123.399 -89.278,275.619 0,152.22 39.971,275.619 89.278,275.619 h 82.089 z"
-   id="path7" />
+   id="path7"
+   inkscape:label="weight-left-1-left" />
 			<ellipse
    style="fill:#324249"
    cx="860.052"
    cy="1100"
    rx="89.278"
    ry="275.61899"
-   id="ellipse7" />
+   id="ellipse7"
+   inkscape:label="weight-left-1-right" />
 			<path
    style="fill:#3c4f56"
    d="m 1549.658,911.715 h 56.078 c 33.683,0 60.989,84.298 60.989,188.285 0,103.987 -27.306,188.285 -60.989,188.285 h -56.078 z"
-   id="path8" />
+   id="path8"
+   inkscape:label="weight-right-3" />
 			<path
    style="fill:#455a60"
    d="m 1442.987,864.172 h 70.238 c 42.188,0 76.389,105.584 76.389,235.828 0,130.244 -34.201,235.828 -76.389,235.828 h -70.238 z"
-   id="path9" />
+   id="path9"
+   inkscape:label="weight-right-2" />
 			<path
    style="fill:#3c4f56"
    d="m 1339.948,824.381 h 82.089 c 49.307,0 89.278,123.399 89.278,275.619 0,152.22 -39.971,275.619 -89.278,275.619 h -82.089 z"
-   id="path10" />
+   id="path10"
+   inkscape:label="weight-right-1-right" />
 			<ellipse
    style="fill:#324249"
    cx="1339.948"
    cy="1100"
    rx="89.278"
    ry="275.61899"
-   id="ellipse10" />
+   id="ellipse10"
+   inkscape:label="weight-right-1-left" />
 			<path
    style="fill:#d6e5e5"
    d="m 1351.154,1099.998 c 0,15.56 -2.943,26.562 -5.816,33.594 -2.412,5.899 -8.143,9.765 -14.518,9.765 H 869.179 c -6.375,0 -12.107,-3.865 -14.518,-9.765 -2.873,-7.032 -5.816,-18.034 -5.816,-33.594 0,-15.559 2.943,-26.562 5.816,-33.586 2.411,-5.899 8.143,-9.765 14.518,-9.765 h 461.641 c 6.375,0 12.106,3.865 14.518,9.765 2.873,7.025 5.816,18.027 5.816,33.586 z"
