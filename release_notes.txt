@@ -1,4 +1,2 @@
-- support for weight measurements with 7-day moving averaging and trends
-- app settings with wger import for weight measurements
-- add 'obliques' programgroup and couple of exercises for them
-- add flexion row video
+- add app icons
+- add screen with credits and attributions
