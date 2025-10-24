@@ -7,6 +7,7 @@ import 'package:bodybuild/ui/anatomy/colors.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:bodybuild/ui/core/page/privacy_policy_screen.dart';
+import 'package:bodybuild/ui/core/page/credits_screen.dart';
 import 'package:bodybuild/ui/anatomy/page/muscle.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -156,6 +157,11 @@ class MyApp extends StatelessWidget {
                 name: PrivacyPolicyScreen.routeName,
                 path: PrivacyPolicyScreen.routeName,
                 builder: (context, state) => const PrivacyPolicyScreen(),
+              ),
+              GoRoute(
+                name: CreditsScreen.routeName,
+                path: CreditsScreen.routeName,
+                builder: (context, state) => const CreditsScreen(),
               ),
             ],
           ),
