@@ -113,7 +113,7 @@ class _MeasurementDialogState extends State<MeasurementDialog> {
             children: [
               // Measurement Type
               DropdownButtonFormField<MeasurementType>(
-                value: _selectedType,
+                initialValue: _selectedType,
                 decoration: const InputDecoration(labelText: 'Type', border: OutlineInputBorder()),
                 items: MeasurementType.values.map((type) {
                   return DropdownMenuItem(value: type, child: Text(type.name.toUpperCase()));
@@ -161,7 +161,7 @@ class _MeasurementDialogState extends State<MeasurementDialog> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: DropdownButtonFormField<Unit>(
-                      value: _selectedUnit,
+                      initialValue: _selectedUnit,
                       decoration: const InputDecoration(
                         labelText: 'Unit',
                         border: OutlineInputBorder(),

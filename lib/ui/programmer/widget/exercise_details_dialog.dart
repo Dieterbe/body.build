@@ -111,11 +111,7 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
                 visualDensity: VisualDensity.compact,
-                icon: Icon(
-                  Icons.info_outline,
-                  //        size: MediaQuery.of(context).size.width / 100,
-                  color: Theme.of(context).hintColor,
-                ),
+                icon: Icon(Icons.info_outline, color: Theme.of(context).hintColor),
                 onPressed: () {
                   showDialog<void>(
                     context: context,

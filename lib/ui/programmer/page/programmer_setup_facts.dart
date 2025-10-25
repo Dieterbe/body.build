@@ -58,12 +58,10 @@ class ProgrammerSetupFacts extends ConsumerWidget {
     BuildContext context,
     BMRMethod method,
     double? value,
-    bool isSelected,
-    VoidCallback onSelect, {
+    bool isSelected, {
     String? errorMessage,
   }) {
     return Column(
-      //  crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -72,7 +70,7 @@ class ProgrammerSetupFacts extends ConsumerWidget {
             flex: 10,
             child: Align(
               alignment: Alignment.centerRight,
-              child: Radio<bool>(value: true, groupValue: isSelected, onChanged: (_) => onSelect()),
+              child: Radio<BMRMethod>(value: method),
             ),
           ),
           v: Text(
@@ -146,19 +144,30 @@ class ProgrammerSetupFacts extends ConsumerWidget {
                       KVStringsRow('BMI', bmi.toStringAsFixed(2)),
                       const SizedBox(height: 20),
                       const KVStringsRow('BMR', 'Choose formula', help: helpBMR),
-                      for (final (method, value, error) in bmrMethods) ...[
-                        Center(
-                          child: _buildBMRRow(
-                            context,
-                            method,
-                            value,
-                            setup.bmrMethod == method,
-                            () => notifier.setBMRMethod(method),
-                            errorMessage: error,
-                          ),
+                      RadioGroup<BMRMethod>(
+                        groupValue: setup.bmrMethod,
+                        onChanged: (BMRMethod? value) {
+                          if (value != null) {
+                            notifier.setBMRMethod(value);
+                          }
+                        },
+                        child: Column(
+                          children: [
+                            for (final (method, value, error) in bmrMethods) ...[
+                              Center(
+                                child: _buildBMRRow(
+                                  context,
+                                  method,
+                                  value,
+                                  setup.bmrMethod == method,
+                                  errorMessage: error,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                            ],
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                      ],
+                      ),
                     ],
                   ),
                 ),

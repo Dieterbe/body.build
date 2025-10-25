@@ -11,18 +11,16 @@ source "$SCRIPT_DIR/common.sh"
 check_git_repo
 check_git_clean
 
-version=$(get_git_version)
-
-timestamp=$(git log -1 --format=%cd)
-
-info "injecting version $version ($timestamp) into sources..."
-sed -i "s/^const buildVersion = 'unknown';/const buildVersion = '$version';/" lib/ui/const.dart
-sed -i "s/^const buildTime = 'unknown';/const buildTime = '$timestamp';/" lib/ui/const.dart
-sed -i "s/^buildVersion unknown/buildVersion $version/" web/index.html
-sed -i "s/^buildTime unknown/buildTime $timestamp/" web/index.html
+app_version=$($SCRIPT_DIR/version.sh)
+app_build_time=$(date)
 
 info "build web"
-flutter build web --base-href '/app/' -o build/web/app
+flutter build web --base-href '/app/' -o build/web/app --dart-define=APP_VERSION="$app_version" --dart-define=APP_BUILD_TIME="$app_build_time"
+
+info "injecting version $app_version ($app_build_time) into build/web/app/index.html"
+sed -i "s/^buildVersion unknown/buildVersion $app_version/" build/web/app/index.html
+sed -i "s/^buildTime unknown/buildTime $app_build_time/" build/web/app/index.html
+
 info "copying landing page"
 cp -ax landing-page/* build/web/
 info "build docs"
@@ -31,9 +29,3 @@ rsync -a docs/build/ build/web/docs/
 
 info "git add build/web, deploy and git push"
 git add -f build/web && git commit -m 'build' && git push $1 origin HEAD
-
-info "removing the $version ($timestamp) strings again..."
-sed -i "s/^const buildVersion = '$version';/const buildVersion = 'unknown';/" lib/ui/const.dart
-sed -i "s/^const buildTime = '$timestamp';/const buildTime = 'unknown';/" lib/ui/const.dart
-sed -i "s/^buildVersion $version/buildVersion unknown/" web/index.html
-sed -i "s/^buildTime $timestamp/buildTime unknown/" web/index.html

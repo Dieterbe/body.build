@@ -105,12 +105,11 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
               child: PulseWidget(
                 pulse: workout.setGroups.isEmpty,
                 child: GestureDetector(
-                  onTap: () async {
-                    await Posthog().capture(
+                  onTap: () {
+                    Posthog().capture(
                       eventName: 'AddSetButtonClicked',
                       properties: {'muscle': g.name, 'setgroups': workout.setGroups.length},
                     );
-
                     showDialog(
                       context: context,
                       builder: (context) {

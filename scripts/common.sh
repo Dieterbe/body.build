@@ -52,20 +52,6 @@ check_git_clean() {
     fi
 }
 
-# Get version string based on git tags
-# Format: v1.0.3-5-gabc1234 means "5 commits after v1.0.3, at commit abc1234"
-get_git_version() {
-    local version=$(git describe --tags --match "v*" 2>/dev/null)
-    
-    if [ -z "$version" ]; then
-        # Fallback if no tags exist yet
-        local hash=$(git rev-parse --short HEAD)
-        version="v0.0.0-${hash}"
-    fi
-    
-    echo "$version"
-}
-
 # Compare semantic versions (returns 0 if $1 > $2)
 version_gt() {
     test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"
