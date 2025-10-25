@@ -40,10 +40,11 @@ class WorkoutsScreen extends ConsumerWidget {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 16,
               children: [
                 const Icon(Icons.error, size: 64, color: Colors.red),
+                const SizedBox(height: 16),
                 Text('Error loading workouts: $error'),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => ref.invalidate(workoutManagerProvider),
                   child: const Text('Retry'),

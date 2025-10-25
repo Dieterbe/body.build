@@ -62,9 +62,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 16,
                   children: [
                     Icon(Icons.error_outline, size: 64, color: colorScheme.error),
+                    const SizedBox(height: 16),
                     Text(
                       _errorMessage!,
                       style: theme.textTheme.bodyLarge?.copyWith(color: colorScheme.error),
