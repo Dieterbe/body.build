@@ -9,7 +9,18 @@
         "-lc",
         "cat > .vscode/dart-defines.json <<EOF\n{\"APP_VERSION\":\"$(./scripts/version.sh)\",\"APP_BUILD_TIME\":\"$(date)\"}\nEOF"
       ],
-      "problemMatcher": []
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",        // don't pop open the terminal
+        "panel": "shared",        // reuse one terminal for all tasks
+        "showReuseMessage": false,
+        "clear": true,
+        "revealProblems": "never"
+      },
+      "runOptions": {
+        "instanceLimit": 1,       // prevent spawning duplicates
+        "reevaluateOnRerun": false
+      }
     }
   ]
 }
