@@ -221,7 +221,6 @@ class CreditsScreen extends StatelessWidget {
       showLicensePage(
         context: context,
         applicationName: 'Body.build',
-        //   applicationVersion: '1.1.0',
         applicationLegalese: '© ${DateTime.now().year} Body.build',
       );
     }
