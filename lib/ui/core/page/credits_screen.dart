@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/const.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -221,6 +222,7 @@ class CreditsScreen extends StatelessWidget {
       showLicensePage(
         context: context,
         applicationName: 'Body.build',
+        applicationVersion: appVersion,
         applicationLegalese: '© ${DateTime.now().year} Body.build',
       );
     }

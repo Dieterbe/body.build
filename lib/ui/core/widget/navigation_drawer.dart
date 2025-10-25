@@ -245,7 +245,7 @@ class AppNavigationDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                   child: Text(
-                    'version $buildVersion ($buildTime)',
+                    'version $appVersion ($appBuildTime)',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),

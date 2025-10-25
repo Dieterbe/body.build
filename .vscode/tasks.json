@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "generate dart-defines",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "cat > .vscode/dart-defines.json <<EOF\n{\"APP_VERSION\":\"$(./scripts/version.sh)\",\"APP_BUILD_TIME\":\"$(date)\"}\nEOF"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
