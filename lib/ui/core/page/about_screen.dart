@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/const.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
 import 'package:bodybuild/ui/core/page/privacy_policy_screen.dart';
@@ -244,6 +245,27 @@ class AboutScreen extends StatelessWidget {
                     routeName: CreditsScreen.routeName,
                   ),
                   const SizedBox(height: 32),
+                  Text(
+                    'Version',
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Version: $appVersion',
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.8),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Built: $appBuildTime',
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.8),
+                    ),
+                  ),
                 ],
               ),
             ),

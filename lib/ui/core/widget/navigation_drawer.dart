@@ -1,4 +1,3 @@
-import 'package:bodybuild/ui/const.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +180,7 @@ class AppNavigationDrawer extends StatelessWidget {
               children: [
                 // Footer links
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -239,17 +238,6 @@ class AppNavigationDrawer extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                ),
-                // Tagline
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                  child: Text(
-                    'version $appVersion ($appBuildTime)',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                    ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
