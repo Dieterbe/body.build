@@ -1,2 +1,1 @@
-- add app icons
-- add screen with credits and attributions
+- move version information to 'about' screen
