@@ -1,3 +1,5 @@
+import 'package:bodybuild/ui/measurements/page/measurements_screen.dart';
+import 'package:bodybuild/ui/settings/page/settings_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
@@ -119,9 +121,9 @@ class AppNavigationDrawer extends StatelessWidget {
                     context: context,
                     icon: Icons.monitor_weight,
                     title: 'Weight Tracking',
-                    routeName: 'measurements',
+                    routeName: MeasurementsScreen.routeName,
                     currentRoute: currentRoute,
-                    onTap: () => _navigateAndClose(context, 'measurements'),
+                    onTap: () => _navigateAndClose(context, MeasurementsScreen.routeName),
                   ),
                 ],
                 const Divider(height: 1),
@@ -149,9 +151,9 @@ class AppNavigationDrawer extends StatelessWidget {
                     context: context,
                     icon: Icons.settings,
                     title: 'App Settings',
-                    routeName: 'settings',
+                    routeName: SettingsScreen.routeName,
                     currentRoute: currentRoute,
-                    onTap: () => _navigateAndClose(context, 'settings'),
+                    onTap: () => _navigateAndClose(context, SettingsScreen.routeName),
                   ),
                 ],
                 /*  const Divider(height: 1),
