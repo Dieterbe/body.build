@@ -11,6 +11,7 @@ import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({super.key});
@@ -76,6 +77,14 @@ class AppNavigationDrawer extends StatelessWidget {
                   routeName: HomeScreen.routeName,
                   currentRoute: currentRoute,
                   onTap: () => _navigateAndClose(context, HomeScreen.routeName),
+                ),
+                ListTile(
+                  leading: Icon(Icons.help_outline, color: Theme.of(context).colorScheme.primary),
+                  title: const Text('Help & Docs'),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    _openUrl('https://body.build/docs/');
+                  },
                 ),
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Training'),
@@ -306,6 +315,19 @@ class AppNavigationDrawer extends StatelessWidget {
       context.go('/');
     } else {
       context.goNamed(routeName);
+    }
+  }
+
+  void _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    try {
+      await launchUrl(uri, mode: LaunchMode.externalApplication, webOnlyWindowName: '_blank');
+    } catch (e) {
+      try {
+        await launchUrl(uri, mode: LaunchMode.platformDefault);
+      } catch (e) {
+        await launchUrl(uri, mode: LaunchMode.inAppWebView);
+      }
     }
   }
 }
