@@ -95,14 +95,6 @@ class AppNavigationDrawer extends StatelessWidget {
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, WorkoutsScreen.routeName),
                   ),
-                _buildNavigationItem(
-                  context: context,
-                  icon: Icons.fitness_center,
-                  title: 'Exercise Browser',
-                  routeName: ExercisesScreen.routeName,
-                  currentRoute: currentRoute,
-                  onTap: () => _navigateAndClose(context, ExercisesScreen.routeName),
-                ),
                 if (isTabletOrDesktop(context))
                   _buildNavigationItem(
                     context: context,
@@ -112,6 +104,26 @@ class AppNavigationDrawer extends StatelessWidget {
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, ProgrammerScreen.routeName),
                   ),
+                _buildNavigationItem(
+                  context: context,
+                  icon: Icons.fitness_center,
+                  title: 'Exercise Browser',
+                  routeName: ExercisesScreen.routeName,
+                  currentRoute: currentRoute,
+                  onTap: () => _navigateAndClose(context, ExercisesScreen.routeName),
+                ),
+                if (isMobileApp()) ...[
+                  const Divider(height: 1),
+                  _buildSectionHeader(context, 'Measurements'),
+                  _buildNavigationItem(
+                    context: context,
+                    icon: Icons.monitor_weight,
+                    title: 'Weight Tracking',
+                    routeName: 'measurements',
+                    currentRoute: currentRoute,
+                    onTap: () => _navigateAndClose(context, 'measurements'),
+                  ),
+                ],
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Anatomy'),
                 _buildNavigationItem(
@@ -131,16 +143,6 @@ class AppNavigationDrawer extends StatelessWidget {
                   onTap: () => _navigateAndClose(context, ArticulationsScreen.routeName),
                 ),
                 if (isMobileApp()) ...[
-                  const Divider(height: 1),
-                  _buildSectionHeader(context, 'Measurements'),
-                  _buildNavigationItem(
-                    context: context,
-                    icon: Icons.monitor_weight,
-                    title: 'Weight Tracking',
-                    routeName: 'measurements',
-                    currentRoute: currentRoute,
-                    onTap: () => _navigateAndClose(context, 'measurements'),
-                  ),
                   const Divider(height: 1),
                   _buildSectionHeader(context, 'Settings'),
                   _buildNavigationItem(
