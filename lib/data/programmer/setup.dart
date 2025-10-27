@@ -416,22 +416,22 @@ class Setup extends _$Setup {
   }
 
   /* EQUIPMENT MANAGEMENT */
-  Future<void> addEquipment(Equipment equipment) async {
+  void addEquipment(Equipment equipment) {
     _updateState((s) => s.copyWith(availEquipment: {...s.availEquipment, equipment}));
   }
 
-  Future<void> removeEquipment(Equipment equipment) async {
+  void removeEquipment(Equipment equipment) {
     _updateState(
       (s) => s.copyWith(availEquipment: s.availEquipment.where((e) => e != equipment).toSet()),
     );
   }
 
-  Future<void> setEquipment(Set<Equipment> equipment) async {
+  void setEquipment(Set<Equipment> equipment) {
     _updateState((s) => s.copyWith(availEquipment: equipment));
   }
 
   /* EXERCISE EXCLUSION */
-  Future<void> addExcludedExercise(Ex exercise) async {
+  void addExcludedExercise(Ex exercise) {
     _updateState((s) {
       final excl = Set<Ex>.from(s.paramOverrides.excludedExercises ?? {});
       if (excl.add(exercise)) {
@@ -441,7 +441,7 @@ class Setup extends _$Setup {
     });
   }
 
-  Future<void> removeExcludedExercise(Ex exercise) async {
+  void removeExcludedExercise(Ex exercise) {
     _updateState((s) {
       final excl = Set<Ex>.from(s.paramOverrides.excludedExercises ?? {});
       if (excl.remove(exercise)) {

@@ -109,9 +109,10 @@ class ProgramHeader extends ConsumerWidget {
                         // Listen to stream of solutions and update the workout
                         await for (final setGroup in generateOptimalSetGroup(target, setup)) {
                           final newWorkout = Workout(setGroups: [setGroup]);
-                          ref
+                          await ref
                               .read(programManagerProvider.notifier)
                               .updateWorkout(oldWorkout, newWorkout);
+
                           await Future.delayed(const Duration(milliseconds: 100));
                           oldWorkout = newWorkout;
                         }

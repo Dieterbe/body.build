@@ -12,7 +12,7 @@ class SetupPersistenceService {
   SetupPersistenceService(this._prefs);
 
   /// Loads all setup profiles from SharedPreferences
-  Future<Map<String, Settings>> loadProfiles() async {
+  Map<String, Settings> loadProfiles() {
     final String? profilesJson = _prefs.getString(_setupProfilesKey);
     if (profilesJson == null) return {};
 

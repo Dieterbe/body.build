@@ -70,7 +70,7 @@ class DayColumn extends ConsumerWidget {
                         if (oldIndex < newIndex) {
                           newIndex -= 1;
                         }
-                        final List<Event> newEvents = List.from(day.events);
+                        final List<Event> newEvents = List.of(day.events);
                         final Event item = newEvents.removeAt(oldIndex);
                         newEvents.insert(newIndex, item);
                         notifier.updateDay(day, day.copyWith(events: newEvents));
@@ -87,7 +87,7 @@ class DayColumn extends ConsumerWidget {
                             child: Icon(Icons.delete, color: Theme.of(context).colorScheme.onError),
                           ),
                           onDismissed: (direction) {
-                            final List<Event> newEvents = List.from(day.events)..removeAt(index);
+                            final List<Event> newEvents = List.of(day.events)..removeAt(index);
                             notifier.updateDay(day, day.copyWith(events: newEvents));
                           },
                           child: Card(

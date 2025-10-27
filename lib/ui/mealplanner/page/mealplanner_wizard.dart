@@ -125,7 +125,7 @@ class MealPlannerWizard extends ConsumerWidget {
                   suffixText: 'kcal/week',
                   border: OutlineInputBorder(),
                 ),
-                onChanged: (value) async {
+                onChanged: (value) {
                   final kcal = int.tryParse(value);
                   if (kcal != null) {
                     // TODO
@@ -157,7 +157,7 @@ class MealPlannerWizard extends ConsumerWidget {
             ButtonSegment(value: CalorieCyclingType.psmf, label: Text('PSMF Days')),
           ],
           selected: {plan.calorieCycling},
-          onSelectionChanged: (Set<CalorieCyclingType> selected) async {
+          onSelectionChanged: (Set<CalorieCyclingType> selected) {
             // TODO
           },
         ),

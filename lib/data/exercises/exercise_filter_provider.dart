@@ -87,7 +87,7 @@ class ExerciseFilter extends _$ExerciseFilter {
   }
 
   void toggleEquipment(Equipment equipment, bool? selected) {
-    final newSelectedEquipment = Set<Equipment>.from(state.selectedEquipment);
+    final newSelectedEquipment = Set<Equipment>.of(state.selectedEquipment);
     if (selected == true) {
       newSelectedEquipment.add(equipment);
     } else {
@@ -97,7 +97,7 @@ class ExerciseFilter extends _$ExerciseFilter {
   }
 
   void toggleEquipmentCategory(EquipmentCategory category, bool? selected) {
-    final newSelectedCategories = Set<EquipmentCategory>.from(state.selectedEquipmentCategories);
+    final newSelectedCategories = Set<EquipmentCategory>.of(state.selectedEquipmentCategories);
     if (selected == true) {
       newSelectedCategories.add(category);
     } else {
@@ -114,10 +114,7 @@ class ExerciseFilter extends _$ExerciseFilter {
   }
 
   void setNoEquipment() {
-    state = state.copyWith(
-      selectedEquipment: <Equipment>{},
-      selectedEquipmentCategories: <EquipmentCategory>{},
-    );
+    state = state.copyWith(selectedEquipment: {}, selectedEquipmentCategories: {});
   }
 
   void setSelectedExercise(Ex? exercise, {Map<String, String>? tweakOptions}) {

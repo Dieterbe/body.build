@@ -241,7 +241,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
           unselectedLabelStyle: ts100(context),
           labelColor: Theme.of(context).colorScheme.primary,
           unselectedLabelColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-          overlayColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+          overlayColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
             if (states.contains(WidgetState.hovered)) {
               return Theme.of(context).colorScheme.surface.withValues(alpha: 0.1);
             }

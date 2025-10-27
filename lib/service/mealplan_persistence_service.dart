@@ -10,7 +10,7 @@ class MealplanPersistenceService {
   MealplanPersistenceService(this._prefs);
 
   /// Loads all mealplans from SharedPreferences
-  Future<Map<String, MealPlan>> loadMealplans() async {
+  Map<String, MealPlan> loadMealplans() {
     final String? mealplansJson = _prefs.getString(_mealplansKey);
     if (mealplansJson == null) return {};
 
@@ -47,12 +47,12 @@ class MealplanPersistenceService {
   }
 
   /// Loads the ID of the last selected mealplan
-  Future<String?> loadLastMealplanId() async {
+  String? loadLastMealplanId() {
     return _prefs.getString(_lastMealplanKey);
   }
 
   /// Saves the ID of the last selected mealplan
-  Future<bool> saveLastMealplanId(String id) async {
+  Future<bool> saveLastMealplanId(String id) {
     return _prefs.setString(_lastMealplanKey, id);
   }
 }

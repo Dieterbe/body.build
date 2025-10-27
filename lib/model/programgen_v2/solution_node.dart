@@ -55,7 +55,7 @@ class SolutionNode implements Comparable<SolutionNode> {
   /// Creates a new solution by adding a set for the given exercise id
   SolutionNode addSetFor(int i) {
     // Copy state that needs to be copied in all cases
-    final newSets = List<int>.from(sets);
+    final newSets = List<int>.of(sets);
     newSets[i]++;
 
     return SolutionNode(newSets, targets, _calcCost(newSets), recruitments, exercises);

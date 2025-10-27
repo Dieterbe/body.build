@@ -16,7 +16,7 @@ class CurrentMealplan extends _$CurrentMealplan {
     final service = await ref.read(mealplanPersistenceProvider.future);
 
     // Try to load the last selected mealplan ID
-    final lastMealplanId = await service.loadLastMealplanId();
+    final lastMealplanId = service.loadLastMealplanId();
     if (lastMealplanId != null) {
       // Verify the mealplan still exists
       final mealplan = await service.loadMealplan(lastMealplanId);

@@ -33,13 +33,13 @@ class ProgramManager extends _$ProgramManager {
     final service = await ref.read(programPersistenceProvider.future);
 
     // Load all programs
-    final programs = await service.loadPrograms();
+    final programs = service.loadPrograms();
 
     String currentId;
     if (programs.isEmpty) {
       currentId = demo1ID;
     } else {
-      currentId = await service.loadLastProgramId() ?? programs.keys.first;
+      currentId = service.loadLastProgramId() ?? programs.keys.first;
     }
 
     // programs may be empty (first run) or older copy predating the demo's
@@ -66,14 +66,14 @@ class ProgramManager extends _$ProgramManager {
   Future<void> createNewProgram(String name) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
     final newProgram = ProgramState(name: name);
-    _createProgram(state.value!.programs, id, newProgram);
+    await _createProgram(state.value!.programs, id, newProgram);
   }
 
   // caller should assure the name is not used yet
   Future<void> duplicateProgram(String newName) async {
     final id = DateTime.now().millisecondsSinceEpoch.toString();
     final newProgram = state.value!.currentProgram.copyWith(name: newName, builtin: false);
-    _createProgram(state.value!.programs, id, newProgram);
+    await _createProgram(state.value!.programs, id, newProgram);
   }
 
   Future<void> deleteProgram(String id) async {
@@ -87,7 +87,7 @@ class ProgramManager extends _$ProgramManager {
       // this should actually never happen anymore since we now have non-deletable builtins
       final id = DateTime.now().millisecondsSinceEpoch.toString();
       const newProgram = ProgramState(name: 'New Program');
-      _createProgram(updatedPrograms, id, newProgram);
+      await _createProgram(updatedPrograms, id, newProgram);
       return;
     }
 
@@ -104,25 +104,25 @@ class ProgramManager extends _$ProgramManager {
   }
 
   Future<void> updateProgramName(String name) async {
-    _updateCurrentProgram((ProgramState p) {
+    await _updateCurrentProgram((ProgramState p) {
       return p.copyWith(name: name);
     });
   }
 
-  void addWorkout(Workout w) {
-    _updateCurrentProgram((ProgramState p) {
+  Future<void> addWorkout(Workout w) async {
+    await _updateCurrentProgram((ProgramState p) {
       return p.copyWith(workouts: [...p.workouts, w]);
     });
   }
 
-  void removeWorkout(Workout w) {
-    _updateCurrentProgram((ProgramState p) {
+  Future<void> removeWorkout(Workout w) async {
+    await _updateCurrentProgram((ProgramState p) {
       return p.copyWith(workouts: p.workouts.where((e) => e != w).toList());
     });
   }
 
-  void updateWorkout(Workout wOld, Workout? wNew) {
-    _updateCurrentProgram((ProgramState p) {
+  Future<void> updateWorkout(Workout wOld, Workout? wNew) async {
+    await _updateCurrentProgram((ProgramState p) {
       return p.copyWith(
         workouts: wNew == null
             ? p.workouts.where((e) => e != wOld).toList()

@@ -249,7 +249,7 @@ class BuilderWorkoutWidget extends StatelessWidget {
                   workout,
                   onChange,
                   (Sets sNew) {
-                    var newSetGroups = List<SetGroup>.from(workout.setGroups);
+                    var newSetGroups = List<SetGroup>.of(workout.setGroups);
                     newSetGroups.insert(i, SetGroup([sNew]));
                     return workout.copyWith(setGroups: newSetGroups);
                   },
@@ -304,9 +304,8 @@ Widget setGroupSection(
             ),
             builder: (context, candidateData, rejectedData) => widget,
           );
-        } else {
-          return widget;
         }
+        return widget;
       },
     );
   }
@@ -342,7 +341,7 @@ Widget setGroupSection(
                   workout,
                   onChange,
                   (Sets sNew) {
-                    var newSets = List<Sets>.from(sg.sets);
+                    var newSets = List<Sets>.of(sg.sets);
                     newSets.insert(i, sNew);
                     return workout.copyWith(
                       setGroups: workout.setGroups

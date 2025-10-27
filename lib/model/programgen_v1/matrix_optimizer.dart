@@ -66,7 +66,7 @@ class MatrixOptimizer {
         final cost = calculateCost(current);
         if (cost < bestCost) {
           bestCost = cost;
-          bestSets = List.from(current);
+          bestSets = List.of(current);
           print('Found better set combination with cost $cost: ${current.join(',')} sets');
         }
         return;

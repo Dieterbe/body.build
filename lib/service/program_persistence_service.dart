@@ -12,7 +12,7 @@ class ProgramPersistenceService {
   ProgramPersistenceService(this._prefs);
 
   /// Loads all programs from SharedPreferences
-  Future<Map<String, ProgramState>> loadPrograms() async {
+  Map<String, ProgramState> loadPrograms() {
     final String? programsJson = _prefs.getString(_programsKey);
     if (programsJson == null) return {};
 
@@ -29,33 +29,33 @@ class ProgramPersistenceService {
   }
 
   /// Loads a specific program by ID
-  Future<ProgramState?> loadProgram(String id) async {
-    final programs = await loadPrograms();
+  ProgramState? loadProgram(String id) {
+    final programs = loadPrograms();
     return programs[id];
   }
 
   /// Saves a program to SharedPreferences
   Future<bool> saveProgram(String id, ProgramState program) async {
-    final programs = await loadPrograms();
+    final programs = loadPrograms();
     programs[id] = program;
-    return _savePrograms(programs);
+    return await _savePrograms(programs);
   }
 
   /// Deletes a program by ID
   Future<bool> deleteProgram(String id) async {
-    final programs = await loadPrograms();
+    final programs = loadPrograms();
     programs.remove(id);
-    return _savePrograms(programs);
+    return await _savePrograms(programs);
   }
 
   /// Loads the ID of the last selected program
-  Future<String?> loadLastProgramId() async {
+  String? loadLastProgramId() {
     return _prefs.getString(_lastProgramKey);
   }
 
   /// Saves the ID of the last selected program
-  Future<bool> saveLastProgramId(String id) {
-    return _prefs.setString(_lastProgramKey, id);
+  Future<bool> saveLastProgramId(String id) async {
+    return await _prefs.setString(_lastProgramKey, id);
   }
 
   /// Gets the current exercise dataset version from SharedPreferences

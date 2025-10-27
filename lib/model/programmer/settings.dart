@@ -150,7 +150,7 @@ abstract class Settings with _$Settings {
     return (grossTrainingEE, displacedEE, epoc, netTrainingEE);
   }
 
-  getDailyEE(double trainingEE) {
+  double getDailyEE(double trainingEE) {
     return (getBMR() * getPAL() + trainingEE) * tefFactor * atFactor;
   }
 }
