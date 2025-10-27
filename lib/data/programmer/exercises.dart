@@ -116,10 +116,10 @@ class Ex {
         tokens.addAll(_normalize(opt.key));
 
         // Extract words following "aka" or "Aka" in description
-        final desc = opt.value.desc;
-        final akaIndex = desc.toLowerCase().indexOf('aka ');
+        final optDesc = opt.value.desc;
+        final akaIndex = optDesc.toLowerCase().indexOf('aka ');
         if (akaIndex >= 0) {
-          final afterAka = desc.substring(akaIndex + 4); // Skip "aka "
+          final afterAka = optDesc.substring(akaIndex + 4); // Skip "aka "
           tokens.addAll(_normalize(afterAka));
         }
       }

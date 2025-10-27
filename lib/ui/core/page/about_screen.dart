@@ -235,14 +235,14 @@ class AboutScreen extends StatelessWidget {
                     icon: Icons.privacy_tip,
                     title: 'Privacy Policy',
                     subtitle: 'How we handle your data',
-                    routeName: PrivacyPolicyScreen.routeName,
+                    route: PrivacyPolicyScreen.routeName,
                   ),
                   _buildInternalLinkItem(
                     context,
                     icon: Icons.copyright,
                     title: 'Credits & Licenses',
                     subtitle: 'Open source licenses and attributions',
-                    routeName: CreditsScreen.routeName,
+                    route: CreditsScreen.routeName,
                   ),
                   const SizedBox(height: 32),
                   Text(
@@ -402,7 +402,7 @@ class AboutScreen extends StatelessWidget {
     required IconData icon,
     required String title,
     required String subtitle,
-    required String routeName,
+    required String route,
   }) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -411,7 +411,7 @@ class AboutScreen extends StatelessWidget {
       elevation: 0,
       color: colorScheme.surfaceContainerHighest,
       child: InkWell(
-        onTap: () => context.goNamed(routeName),
+        onTap: () => context.goNamed(route),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
