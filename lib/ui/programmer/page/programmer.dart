@@ -6,7 +6,7 @@ import 'package:bodybuild/ui/programmer/page/programmer_builder.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_setup.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:bodybuild/ui/core/logo.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/data/programmer/setup_persistence_provider.dart';
 import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

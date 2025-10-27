@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/data/anatomy/muscles.dart';
 import 'package:bodybuild/ui/anatomy/page/muscle.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_outline.dart';
 import 'package:bodybuild/util/string_extension.dart';

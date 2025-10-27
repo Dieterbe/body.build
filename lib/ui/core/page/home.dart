@@ -12,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
   static const String routeName = 'home';

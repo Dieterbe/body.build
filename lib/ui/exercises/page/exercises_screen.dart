@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 import 'package:bodybuild/ui/exercises/widget/filter_mobile.dart';
 import 'package:bodybuild/ui/exercises/widget/filter_panel.dart';

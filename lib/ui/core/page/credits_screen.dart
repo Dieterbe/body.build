@@ -1,6 +1,6 @@
 import 'package:bodybuild/ui/const.dart';
 import 'package:flutter/material.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 

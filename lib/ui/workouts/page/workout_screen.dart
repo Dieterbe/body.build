@@ -9,7 +9,7 @@ import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

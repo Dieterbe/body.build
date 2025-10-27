@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 
 class SmallScreen extends StatelessWidget {
   final IconData icon;

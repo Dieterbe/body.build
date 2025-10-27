@@ -1,6 +1,6 @@
 import 'package:bodybuild/ui/const.dart';
 import 'package:flutter/material.dart';
-import 'package:bodybuild/ui/core/widget/navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/core/page/privacy_policy_screen.dart';
 import 'package:bodybuild/ui/core/page/credits_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
