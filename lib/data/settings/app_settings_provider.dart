@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'app_settings_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<AppSettingsPersistenceService> appSettingsPersistence(Ref ref) async {
+Future<AppSettingsPersistenceService> appSettingsPersistence(Ref _) async {
   final prefs = await SharedPreferences.getInstance();
   return AppSettingsPersistenceService(prefs);
 }
