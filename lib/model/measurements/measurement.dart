@@ -3,6 +3,22 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'measurement.freezed.dart';
 part 'measurement.g.dart';
 
+/// A single measurement record
+@freezed
+abstract class Measurement with _$Measurement {
+  const factory Measurement({
+    required String id,
+    required DateTime timestamp,
+    required String timezoneOffset,
+    required MeasurementType measurementType,
+    required double value,
+    required Unit unit,
+    String? comment,
+  }) = _Measurement;
+
+  factory Measurement.fromJson(Map<String, dynamic> json) => _$MeasurementFromJson(json);
+}
+
 /// Enum for measurement types
 enum MeasurementType {
   weight,
@@ -42,22 +58,6 @@ extension UnitExtension on Unit {
         return valueInKg / 0.45359237;
     }
   }
-}
-
-/// A single measurement record
-@freezed
-abstract class Measurement with _$Measurement {
-  const factory Measurement({
-    required String id,
-    required DateTime timestamp,
-    required String timezoneOffset,
-    required MeasurementType measurementType,
-    required double value,
-    required Unit unit,
-    String? comment,
-  }) = _Measurement;
-
-  factory Measurement.fromJson(Map<String, dynamic> json) => _$MeasurementFromJson(json);
 }
 
 /// Helper to get timezone offset string from DateTime

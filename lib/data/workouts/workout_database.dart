@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-match-file-name
+
 import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:drift/drift.dart';
 import 'package:bodybuild/data/workouts/workout_database_connection.dart';

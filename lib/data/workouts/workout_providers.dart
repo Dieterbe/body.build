@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-match-file-name
+
 import 'package:bodybuild/data/workouts/workout_database.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/service/workout_persistence_service.dart';
