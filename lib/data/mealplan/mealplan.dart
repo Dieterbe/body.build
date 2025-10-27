@@ -25,7 +25,7 @@ class Mealplan extends _$Mealplan {
 
     // Try to load saved mealplan
     final service = await ref.read(mealplanPersistenceProvider.future);
-    final savedMealplan = await service.loadMealplan(currentMealplan);
+    final savedMealplan = service.loadMealplan(currentMealplan);
     return savedMealplan ?? const MealPlan(name: 'New Mealplan');
   }
 

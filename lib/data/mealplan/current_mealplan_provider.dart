@@ -19,14 +19,14 @@ class CurrentMealplan extends _$CurrentMealplan {
     final lastMealplanId = service.loadLastMealplanId();
     if (lastMealplanId != null) {
       // Verify the mealplan still exists
-      final mealplan = await service.loadMealplan(lastMealplanId);
+      final mealplan = service.loadMealplan(lastMealplanId);
       if (mealplan != null) {
         return lastMealplanId;
       }
     }
 
     // If no last mealplan or it doesn't exist anymore, get the first available mealplan
-    final mealplans = await service.loadMealplans();
+    final mealplans = service.loadMealplans();
 
     if (mealplans.isEmpty) {
       final newId = DateTime.now().millisecondsSinceEpoch.toString();

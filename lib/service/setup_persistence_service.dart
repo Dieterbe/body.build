@@ -29,23 +29,23 @@ class SetupPersistenceService {
   }
 
   /// Loads a specific profile by ID
-  Future<Settings?> loadProfile(String id) async {
-    final profiles = await loadProfiles();
+  Settings? loadProfile(String id) {
+    final profiles = loadProfiles();
     return profiles[id];
   }
 
   /// Saves a setup profile to SharedPreferences
   Future<bool> saveProfile(String id, Settings profile) async {
-    final profiles = await loadProfiles();
+    final profiles = loadProfiles();
     profiles[id] = profile;
-    return _saveProfiles(profiles);
+    return await _saveProfiles(profiles);
   }
 
   /// Deletes a profile by ID
   Future<bool> deleteProfile(String id) async {
-    final profiles = await loadProfiles();
+    final profiles = loadProfiles();
     profiles.remove(id);
-    return _saveProfiles(profiles);
+    return await _saveProfiles(profiles);
   }
 
   /// Loads the ID of the last selected profile

@@ -19,14 +19,14 @@ class CurrentSetupProfile extends _$CurrentSetupProfile {
     final lastProfileId = await service.loadLastProfileId();
     if (lastProfileId != null) {
       // Verify the profile still exists
-      final profile = await service.loadProfile(lastProfileId);
+      final profile = service.loadProfile(lastProfileId);
       if (profile != null) {
         return lastProfileId;
       }
     }
 
     // If no last profile or it doesn't exist anymore, get the first available profile
-    final profiles = await service.loadProfiles();
+    final profiles = service.loadProfiles();
 
     if (profiles.isEmpty) {
       final newId = DateTime.now().millisecondsSinceEpoch.toString();

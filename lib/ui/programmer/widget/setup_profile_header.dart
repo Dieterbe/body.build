@@ -41,7 +41,7 @@ class SetupProfileHeader extends ConsumerWidget {
 
     onRename(String oldName, String newName) async {
       final service = await ref.read(setupPersistenceProvider.future);
-      final profiles = await service.loadProfiles();
+      final profiles = service.loadProfiles();
       final entry = profiles.entries.firstWhere((e) => e.value.name == oldName);
       await service.saveProfile(entry.key, entry.value.copyWith(name: newName));
       ref.invalidate(setupProfileListProvider);
@@ -52,7 +52,7 @@ class SetupProfileHeader extends ConsumerWidget {
     onDuplicate(String oldName, String newName) async {
       final currentId = await ref.read(currentSetupProfileProvider.future);
       final service = await ref.read(setupPersistenceProvider.future);
-      final currentProfile = await service.loadProfile(currentId);
+      final currentProfile = service.loadProfile(currentId);
       if (currentProfile == null) return;
 
       final newId = DateTime.now().millisecondsSinceEpoch.toString();
@@ -69,7 +69,7 @@ class SetupProfileHeader extends ConsumerWidget {
       await service.deleteProfile(currentId);
 
       // Get updated program list
-      final profiles = await service.loadProfiles();
+      final profiles = service.loadProfiles();
       ref.invalidate(setupProfileListProvider);
 
       // If no profiles exist, create a new default one

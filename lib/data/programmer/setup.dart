@@ -25,7 +25,7 @@ class Setup extends _$Setup {
     // Watch the current profile ID to rebuild when it changes
     final profileId = await ref.watch(currentSetupProfileProvider.future);
     final service = await ref.read(setupPersistenceProvider.future);
-    final profile = await service.loadProfile(profileId);
+    final profile = service.loadProfile(profileId);
 
     return profile ?? Settings.defaults();
   }

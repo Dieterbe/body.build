@@ -21,27 +21,27 @@ class MealplanPersistenceService {
   }
 
   /// Helper method to save mealplans map to SharedPreferences
-  Future<bool> _saveMealplans(Map<String, MealPlan> mealplans) {
+  Future<bool> _saveMealplans(Map<String, MealPlan> mealplans) async {
     final mealplansJson = json.encode(mealplans.map((key, value) => MapEntry(key, value.toJson())));
-    return _prefs.setString(_mealplansKey, mealplansJson);
+    return await _prefs.setString(_mealplansKey, mealplansJson);
   }
 
   /// Loads a specific mealplan by ID
-  Future<MealPlan?> loadMealplan(String id) async {
-    final mealplans = await loadMealplans();
+  MealPlan? loadMealplan(String id) {
+    final mealplans = loadMealplans();
     return mealplans[id];
   }
 
   /// Saves a mealplan to SharedPreferences
   Future<bool> saveMealplan(String id, MealPlan mealplan) async {
-    final mealplans = await loadMealplans();
+    final mealplans = loadMealplans();
     mealplans[id] = mealplan;
     return _saveMealplans(mealplans);
   }
 
   /// Deletes a mealplan by ID
   Future<bool> deleteMealplan(String id) async {
-    final mealplans = await loadMealplans();
+    final mealplans = loadMealplans();
     mealplans.remove(id);
     return _saveMealplans(mealplans);
   }

@@ -40,7 +40,7 @@ class MealPlanHeader extends ConsumerWidget {
 
     onRename(String oldName, String newName) async {
       final service = await ref.read(mealplanPersistenceProvider.future);
-      final plans = await service.loadMealplans();
+      final plans = service.loadMealplans();
       final plan = plans.entries.firstWhere((p) => p.value.name == oldName);
 
       await service.saveMealplan(plan.key, plan.value.copyWith(name: newName));
@@ -51,7 +51,7 @@ class MealPlanHeader extends ConsumerWidget {
 
     onDuplicate(String nameOld, String nameNew) async {
       final service = await ref.read(mealplanPersistenceProvider.future);
-      final plans = await service.loadMealplans();
+      final plans = service.loadMealplans();
 
       final plan = plans.entries.firstWhere((p) => p.value.name == nameOld);
       final newPlan = plan.value.copyWith(name: nameNew);
@@ -67,12 +67,12 @@ class MealPlanHeader extends ConsumerWidget {
 
     onDelete(String name) async {
       final service = await ref.read(mealplanPersistenceProvider.future);
-      var plans = await service.loadMealplans();
+      var plans = service.loadMealplans();
       final plan = plans.entries.firstWhere((p) => p.value.name == name);
       await service.deleteMealplan(plan.key);
 
       // Get remaining plans after deletion
-      plans = await service.loadMealplans();
+      plans = service.loadMealplans();
       ref.invalidate(mealplanListProvider);
 
       // If no plans exist, create a new default one
