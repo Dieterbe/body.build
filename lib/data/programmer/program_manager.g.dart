@@ -33,7 +33,7 @@ final class ProgramManagerProvider
   ProgramManager create() => ProgramManager();
 }
 
-String _$programManagerHash() => r'1171c1907389a82c9261f011693b35651a66656c';
+String _$programManagerHash() => r'2351cd29b0eaaeb97214b0dc6babc9bff56ad97d';
 
 abstract class _$ProgramManager extends $AsyncNotifier<ProgramManagerState> {
   FutureOr<ProgramManagerState> build();

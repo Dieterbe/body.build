@@ -32,7 +32,7 @@ final class CurrentMealplanProvider extends $AsyncNotifierProvider<CurrentMealpl
   CurrentMealplan create() => CurrentMealplan();
 }
 
-String _$currentMealplanHash() => r'05122757aba2fd4a426dfeb6c3e75d29a49f1814';
+String _$currentMealplanHash() => r'aafc4a08610d24749d4491544a10666c0f51a9ff';
 
 abstract class _$CurrentMealplan extends $AsyncNotifier<String> {
   FutureOr<String> build();

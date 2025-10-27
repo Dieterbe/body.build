@@ -32,7 +32,7 @@ final class MealplanProvider extends $AsyncNotifierProvider<Mealplan, MealPlan> 
   Mealplan create() => Mealplan();
 }
 
-String _$mealplanHash() => r'3ca7213e111b6f302aff89568c60c17311baa116';
+String _$mealplanHash() => r'1683b35b593be5862424ee00b0203a6fdcdbb54b';
 
 abstract class _$Mealplan extends $AsyncNotifier<MealPlan> {
   FutureOr<MealPlan> build();

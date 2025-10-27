@@ -47,4 +47,4 @@ final class AppSettingsPersistenceProvider
   }
 }
 
-String _$appSettingsPersistenceHash() => r'43b3475eddd8ac3fc48d202941ffc397fff4861c';
+String _$appSettingsPersistenceHash() => r'38175520ec7e4d2d465f8f64697af6f09de8869e';

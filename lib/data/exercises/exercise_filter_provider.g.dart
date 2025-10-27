@@ -40,7 +40,7 @@ final class ExerciseFilterProvider extends $NotifierProvider<ExerciseFilter, Exe
   }
 }
 
-String _$exerciseFilterHash() => r'dd5fcb92bae5888bddd445834aea2bfea40cf84b';
+String _$exerciseFilterHash() => r'2ddad784e6f0580e406abc0aea28bd233970e2fa';
 
 abstract class _$ExerciseFilter extends $Notifier<ExerciseFilterState> {
   ExerciseFilterState build();
