@@ -13,6 +13,10 @@ if [ "$1" == "ci" ]; then
   version=${version%-dirty}
 fi
 
+if [ -r "secret/youtube-api-key" ]; then
+  yt=$(cat secret/youtube-api-key)
+fi
+
 cat >.vscode/dart-defines.json <<EOF
-{"APP_VERSION":"$version","APP_BUILD_TIME":"$(date)"}
+{"APP_VERSION":"$version","APP_BUILD_TIME":"$(date)","YOUTUBE_API_KEY":"$yt"}
 EOF

@@ -10,6 +10,7 @@
 .svn/
 wip/
 migrate_working_dir/
+/secret
 
 # IntelliJ related
 *.iml
@@ -34,7 +35,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-# app version and app build time (used when building in vscode)
+# env vars such as api keys, app version, build time,etc (not just used in vscode)
 .vscode/dart-defines.json
 
 # Symbolication related
