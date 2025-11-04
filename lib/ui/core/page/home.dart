@@ -46,12 +46,15 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: isTabletOrDesktop(context) ? 40.0 : 24.0,
+                ),
                 child: Column(
                   children: [
                     // Logo Section
                     Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(isTabletOrDesktop(context) ? 20 : 16),
                       decoration: BoxDecoration(
                         color: colorScheme.surface,
                         borderRadius: BorderRadius.circular(20),
@@ -108,16 +111,16 @@ class HomeScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: isTabletOrDesktop(context) ? 20 : 16),
                     Text(
                       'Advanced workout application\nfor coaches and lifters (preview)',
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.headlineSmall?.copyWith(
+                      style: theme.textTheme.titleLarge?.copyWith(
                         color: colorScheme.onSurface.withValues(alpha: 0.8),
                         height: 1.3,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: isTabletOrDesktop(context) ? 12 : 10),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
