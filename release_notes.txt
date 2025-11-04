@@ -1,1 +1,2 @@
-- move version information to 'about' screen
+- add help & docs to app drawer menu
+- re-organize app drawer menu
