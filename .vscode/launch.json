@@ -5,20 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug linux",
+            "name": "debug dev",
             "request": "launch",
             "type": "dart",
-            "deviceId": "linux",
-            "preLaunchTask": "generate dart-defines",
-            "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
-            ]
-        },
-        {
-            "name": "debug linux dev",
-            "request": "launch",
-            "type": "dart",
-            "deviceId": "linux",
             "preLaunchTask": "generate dart-defines",
             "args": [
                 "--dart-define-from-file=.vscode/dart-defines.json",
@@ -26,41 +15,18 @@
             ]
         },
         {
-            "name": "debug pixel",
+            "name": "debug",
             "request": "launch",
             "type": "dart",
-            "deviceId": "1A111FDF6007TT",
             "preLaunchTask": "generate dart-defines",
             "args": [
                 "--dart-define-from-file=.vscode/dart-defines.json",
             ]
         },
         {
-            "name": "debug web",
+            "name": "release dev",
             "request": "launch",
             "type": "dart",
-            "deviceId": "chrome",
-            "preLaunchTask": "generate dart-defines",
-            "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
-            ]
-        },
-        {
-            "name": "release linux",
-            "request": "launch",
-            "type": "dart",
-            "deviceId": "linux",
-            "flutterMode": "release",
-            "preLaunchTask": "generate dart-defines",
-            "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
-            ]
-        },
-        {
-            "name": "release linux dev",
-            "request": "launch",
-            "type": "dart",
-            "deviceId": "linux",
             "flutterMode": "release",
             "preLaunchTask": "generate dart-defines",
             "args": [
@@ -69,26 +35,14 @@
             ]
         },
         {
-            "name": "release pixel",
+            "name": "release",
             "request": "launch",
             "type": "dart",
-            "deviceId": "1A111FDF6007TT",
             "flutterMode": "release",
             "preLaunchTask": "generate dart-defines",
             "args": [
                 "--dart-define-from-file=.vscode/dart-defines.json",
             ]
         },
-        {
-            "name": "release web",
-            "request": "launch",
-            "type": "dart",
-            "deviceId": "chrome",
-            "flutterMode": "release",
-            "preLaunchTask": "generate dart-defines",
-            "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
-            ]
-        }
     ]
 }
