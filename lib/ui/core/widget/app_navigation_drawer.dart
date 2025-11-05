@@ -323,7 +323,7 @@ class AppNavigationDrawer extends StatelessWidget {
   }) {
     final isSelected =
         routeName != null &&
-        (currentRoute.contains('/$routeName') ||
+        (currentRoute == '/$routeName' ||
             (routeName == HomeScreen.routeName && currentRoute == '/'));
 
     return ListTile(
