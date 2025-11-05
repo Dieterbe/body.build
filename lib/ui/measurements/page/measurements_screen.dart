@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/developer_mode_provider.dart';
 import 'package:bodybuild/data/measurements/measurement_providers.dart';
 import 'package:bodybuild/model/measurements/measurement.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_card.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_chart.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_dialog.dart';
@@ -27,6 +28,7 @@ class MeasurementsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Measurements')),
+      drawer: const AppNavigationDrawer(),
       body: measurementsAsync.when(
         data: (data) {
           final measurements = data.measurements;

@@ -3,6 +3,7 @@ import 'package:bodybuild/data/measurements/measurement_providers.dart';
 import 'package:bodybuild/data/settings/app_settings_provider.dart';
 import 'package:bodybuild/model/measurements/measurement.dart';
 import 'package:bodybuild/service/wger_import_service.dart';
+import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +76,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
+      drawer: const AppNavigationDrawer(),
       body: serviceAsync.when(
         data: (service) {
           final settings = service.loadSettings();
