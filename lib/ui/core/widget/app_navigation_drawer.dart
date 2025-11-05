@@ -19,13 +19,17 @@ class AppNavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentRoute = GoRouterState.of(context).uri.path;
+    final logicalHeight = MediaQuery.sizeOf(context).height;
+    // my pixel 6 has logical height 914 and the menu would need to scroll if not for compact mode
+    // note that mobile apps show a lot more content
+    final bool isCompact = logicalHeight < 1000 && isMobileApp();
 
     return Drawer(
       child: Column(
         children: [
           // Header
           Container(
-            height: 140,
+            height: isCompact ? 130 : 140,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
@@ -39,8 +43,14 @@ class AppNavigationDrawer extends StatelessWidget {
               ),
             ),
             child: SafeArea(
+              bottom: false,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16), // match the listTiles below
+                padding: EdgeInsets.fromLTRB(
+                  16,
+                  0,
+                  16,
+                  isCompact ? 10 : 12,
+                ), // 16 to match ListTiles below
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -51,6 +61,8 @@ class AppNavigationDrawer extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -58,6 +70,8 @@ class AppNavigationDrawer extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.9),
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -77,10 +91,15 @@ class AppNavigationDrawer extends StatelessWidget {
                   routeName: HomeScreen.routeName,
                   currentRoute: currentRoute,
                   onTap: () => _navigateAndClose(context, HomeScreen.routeName),
+                  isCompact: isCompact,
                 ),
                 ListTile(
                   leading: Icon(Icons.help_outline, color: Theme.of(context).colorScheme.primary),
                   title: const Text('Help & Docs'),
+                  visualDensity: isCompact
+                      ? const VisualDensity(vertical: -1)
+                      : VisualDensity.standard,
+                  minTileHeight: isCompact ? 44 : null,
                   onTap: () {
                     Navigator.of(context).pop();
                     _openUrl('https://body.build/docs/');
@@ -89,13 +108,17 @@ class AppNavigationDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.mail_outline, color: Theme.of(context).colorScheme.primary),
                   title: const Text('Feedback'),
+                  visualDensity: isCompact
+                      ? const VisualDensity(vertical: -1)
+                      : VisualDensity.standard,
+                  minTileHeight: isCompact ? 44 : null,
                   onTap: () {
                     Navigator.of(context).pop();
                     _openUrl('mailto:info@body.build?subject=Feedback%20on%20Body.build');
                   },
                 ),
                 const Divider(height: 1),
-                _buildSectionHeader(context, 'Training'),
+                _buildSectionHeader(context, 'Training', isCompact: isCompact),
                 if (isMobileApp())
                   _buildNavigationItem(
                     context: context,
@@ -104,6 +127,7 @@ class AppNavigationDrawer extends StatelessWidget {
                     routeName: WorkoutScreen.routeNameActive,
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, WorkoutScreen.routeNameActive),
+                    isCompact: isCompact,
                   ),
                 if (isMobileApp())
                   _buildNavigationItem(
@@ -113,6 +137,7 @@ class AppNavigationDrawer extends StatelessWidget {
                     routeName: WorkoutsScreen.routeName,
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, WorkoutsScreen.routeName),
+                    isCompact: isCompact,
                   ),
                 if (isTabletOrDesktop(context))
                   _buildNavigationItem(
@@ -122,6 +147,7 @@ class AppNavigationDrawer extends StatelessWidget {
                     routeName: ProgrammerScreen.routeName,
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, ProgrammerScreen.routeName),
+                    isCompact: isCompact,
                   ),
                 _buildNavigationItem(
                   context: context,
@@ -130,10 +156,11 @@ class AppNavigationDrawer extends StatelessWidget {
                   routeName: ExercisesScreen.routeName,
                   currentRoute: currentRoute,
                   onTap: () => _navigateAndClose(context, ExercisesScreen.routeName),
+                  isCompact: isCompact,
                 ),
                 if (isMobileApp()) ...[
                   const Divider(height: 1),
-                  _buildSectionHeader(context, 'Measurements'),
+                  _buildSectionHeader(context, 'Measurements', isCompact: isCompact),
                   _buildNavigationItem(
                     context: context,
                     icon: Icons.monitor_weight,
@@ -141,10 +168,11 @@ class AppNavigationDrawer extends StatelessWidget {
                     routeName: MeasurementsScreen.routeName,
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, MeasurementsScreen.routeName),
+                    isCompact: isCompact,
                   ),
                 ],
                 const Divider(height: 1),
-                _buildSectionHeader(context, 'Anatomy'),
+                _buildSectionHeader(context, 'Anatomy', isCompact: isCompact),
                 _buildNavigationItem(
                   context: context,
                   icon: Icons.accessibility_sharp,
@@ -152,6 +180,7 @@ class AppNavigationDrawer extends StatelessWidget {
                   routeName: MusclesScreen.routeName,
                   currentRoute: currentRoute,
                   onTap: () => _navigateAndClose(context, MusclesScreen.routeName),
+                  isCompact: isCompact,
                 ),
                 _buildNavigationItem(
                   context: context,
@@ -160,10 +189,11 @@ class AppNavigationDrawer extends StatelessWidget {
                   routeName: ArticulationsScreen.routeName,
                   currentRoute: currentRoute,
                   onTap: () => _navigateAndClose(context, ArticulationsScreen.routeName),
+                  isCompact: isCompact,
                 ),
                 if (isMobileApp()) ...[
                   const Divider(height: 1),
-                  _buildSectionHeader(context, 'Settings'),
+                  _buildSectionHeader(context, 'Settings', isCompact: isCompact),
                   _buildNavigationItem(
                     context: context,
                     icon: Icons.settings,
@@ -171,6 +201,7 @@ class AppNavigationDrawer extends StatelessWidget {
                     routeName: SettingsScreen.routeName,
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, SettingsScreen.routeName),
+                    isCompact: isCompact,
                   ),
                 ],
                 /*  const Divider(height: 1),
@@ -201,7 +232,7 @@ class AppNavigationDrawer extends StatelessWidget {
               children: [
                 // Footer links
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: isCompact ? 12 : 24),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -269,9 +300,9 @@ class AppNavigationDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, String title) {
+  Widget _buildSectionHeader(BuildContext context, String title, {bool isCompact = false}) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      padding: EdgeInsets.fromLTRB(16, isCompact ? 14 : 16, 16, isCompact ? 6 : 8),
       child: Text(
         title.toUpperCase(),
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -290,6 +321,7 @@ class AppNavigationDrawer extends StatelessWidget {
     required String routeName,
     required String currentRoute,
     required VoidCallback onTap,
+    bool isCompact = false,
   }) {
     final isSelected =
         currentRoute.contains('/$routeName') ||
@@ -313,6 +345,8 @@ class AppNavigationDrawer extends StatelessWidget {
       ),
       selected: isSelected,
       selectedTileColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+      visualDensity: isCompact ? const VisualDensity(vertical: -1) : VisualDensity.standard,
+      minTileHeight: isCompact ? 44 : null,
       onTap: onTap,
     );
   }
