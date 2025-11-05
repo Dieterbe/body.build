@@ -86,6 +86,14 @@ class AppNavigationDrawer extends StatelessWidget {
                     _openUrl('https://body.build/docs/');
                   },
                 ),
+                ListTile(
+                  leading: Icon(Icons.mail_outline, color: Theme.of(context).colorScheme.primary),
+                  title: const Text('Feedback'),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    _openUrl('mailto:info@body.build?subject=Feedback%20on%20Body.build');
+                  },
+                ),
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Training'),
                 if (isMobileApp())
