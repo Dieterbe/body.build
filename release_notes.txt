@@ -1,2 +1,2 @@
-- add help & docs to app drawer menu
-- re-organize app drawer menu
+- add e-mail feedback option to navigation menu and about screen
+- fix various issues around navigation menu
