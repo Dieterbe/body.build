@@ -47,17 +47,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# When Codemagic builds for IOS, it modifies various files here:
-/ios/Flutter/AppFrameworkInfo.plist
-/ios/Flutter/Debug.xcconfig
-/ios/Flutter/Release.xcconfig
-/ios/Runner.xcodeproj/project.pbxproj
-/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
-/ios/Runner.xcworkspace/contents.xcworkspacedata
-/ios/Runner/AppDelegate.swift
-/macos/Flutter/Flutter-Debug.xcconfig
-/macos/Flutter/Flutter-Release.xcconfig
-/ios/Podfile
-/ios/Podfile.lock
-/macos/Podfile
