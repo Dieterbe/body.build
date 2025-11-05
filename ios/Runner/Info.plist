@@ -47,5 +47,7 @@
 	<true/>
 	<key>com.posthog.posthog.AUTO_INIT</key>
 	<false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
