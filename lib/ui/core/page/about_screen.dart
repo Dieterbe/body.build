@@ -219,16 +219,16 @@ class AboutScreen extends StatelessWidget {
                   _buildLinkItem(
                     context,
                     icon: Icons.code,
-                    title: 'Source Code',
-                    subtitle: 'View on GitHub',
+                    title: 'GitHub repository',
+                    subtitle: 'Source code & issues',
                     url: 'https://github.com/dieterbe/body.build',
                   ),
                   _buildLinkItem(
                     context,
-                    icon: Icons.bug_report,
-                    title: 'Report Issues',
-                    subtitle: 'Help us improve',
-                    url: 'https://github.com/dieterbe/body.build/issues',
+                    icon: Icons.mail_outline,
+                    title: 'Feedback',
+                    subtitle: 'Help us improve. Looking forward to hear from you',
+                    url: 'mailto:info@body.build',
                   ),
                   _buildInternalLinkItem(
                     context,
