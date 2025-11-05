@@ -93,29 +93,27 @@ class AppNavigationDrawer extends StatelessWidget {
                   onTap: () => _navigateAndClose(context, HomeScreen.routeName),
                   isCompact: isCompact,
                 ),
-                ListTile(
-                  leading: Icon(Icons.help_outline, color: Theme.of(context).colorScheme.primary),
-                  title: const Text('Help & Docs'),
-                  visualDensity: isCompact
-                      ? const VisualDensity(vertical: -1)
-                      : VisualDensity.standard,
-                  minTileHeight: isCompact ? 44 : null,
+                _buildNavigationItem(
+                  context: context,
+                  icon: Icons.help_outline,
+                  title: 'Help & Docs',
+                  currentRoute: currentRoute,
                   onTap: () {
                     Navigator.of(context).pop();
                     _openUrl('https://body.build/docs/');
                   },
+                  isCompact: isCompact,
                 ),
-                ListTile(
-                  leading: Icon(Icons.mail_outline, color: Theme.of(context).colorScheme.primary),
-                  title: const Text('Feedback'),
-                  visualDensity: isCompact
-                      ? const VisualDensity(vertical: -1)
-                      : VisualDensity.standard,
-                  minTileHeight: isCompact ? 44 : null,
+                _buildNavigationItem(
+                  context: context,
+                  icon: Icons.mail_outline,
+                  title: 'Feedback',
+                  currentRoute: currentRoute,
                   onTap: () {
                     Navigator.of(context).pop();
                     _openUrl('mailto:info@body.build?subject=Feedback%20on%20Body.build');
                   },
+                  isCompact: isCompact,
                 ),
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Training', isCompact: isCompact),
@@ -318,14 +316,15 @@ class AppNavigationDrawer extends StatelessWidget {
     required BuildContext context,
     required IconData icon,
     required String title,
-    required String routeName,
+    String? routeName,
     required String currentRoute,
     required VoidCallback onTap,
     bool isCompact = false,
   }) {
     final isSelected =
-        currentRoute.contains('/$routeName') ||
-        (routeName == HomeScreen.routeName && currentRoute == '/');
+        routeName != null &&
+        (currentRoute.contains('/$routeName') ||
+            (routeName == HomeScreen.routeName && currentRoute == '/'));
 
     return ListTile(
       leading: Icon(
