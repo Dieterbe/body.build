@@ -1,2 +1,1 @@
-- add e-mail feedback option to navigation menu and about screen
-- fix various issues around navigation menu
+- fix version string
