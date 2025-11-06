@@ -4,11 +4,7 @@
     {
       "label": "generate dart-defines",
       "type": "shell",
-      "command": "bash",
-      "args": [
-        "-lc",
-        "cat > .vscode/dart-defines.json <<EOF\n{\"APP_VERSION\":\"$(./scripts/version.sh)\",\"APP_BUILD_TIME\":\"$(date)\"}\nEOF"
-      ],
+      "command": "scripts/dart-defines.sh",
       "problemMatcher": [],
       "presentation": {
         "reveal": "never",        // don't pop open the terminal

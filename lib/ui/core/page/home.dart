@@ -1,6 +1,8 @@
 import 'package:bodybuild/data/developer_mode_provider.dart';
+import 'package:bodybuild/data/youtube_provider.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
+import 'package:bodybuild/ui/core/widget/youtube_video_card.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_summary_card.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
@@ -11,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -46,12 +47,15 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: isTabletOrDesktop(context) ? 40.0 : 24.0,
+                ),
                 child: Column(
                   children: [
                     // Logo Section
                     Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(isTabletOrDesktop(context) ? 20 : 16),
                       decoration: BoxDecoration(
                         color: colorScheme.surface,
                         borderRadius: BorderRadius.circular(20),
@@ -108,16 +112,16 @@ class HomeScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: isTabletOrDesktop(context) ? 20 : 16),
                     Text(
                       'Advanced workout application\nfor coaches and lifters (preview)',
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.headlineSmall?.copyWith(
+                      style: theme.textTheme.titleLarge?.copyWith(
                         color: colorScheme.onSurface.withValues(alpha: 0.8),
                         height: 1.3,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: isTabletOrDesktop(context) ? 12 : 10),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
@@ -283,7 +287,7 @@ class HomeScreen extends ConsumerWidget {
 
                       // YouTube Video Section
                       Text(
-                        'Help',
+                        'YouTube videos',
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface,
@@ -291,11 +295,13 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      // Constrain YouTube video width on larger screens
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 600),
-                        child: _buildYouTubeVideoCard(context),
-                      ),
+                      // Mobile App playlist
+                      _buildYouTubePlaylistSection(ref, playlistMobileApp, 'Mobile App'),
+
+                      const SizedBox(height: 24),
+
+                      // Web App playlist
+                      _buildYouTubePlaylistSection(ref, playlistWebApp, 'Web App'),
                     ],
                   ),
                 ),
@@ -403,153 +409,57 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildYouTubeVideoCard(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    const videoId = 'wOVZdZ9_jdE'; // Extract video ID from URL
-    const thumbnailUrl = 'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
+  Widget _buildYouTubePlaylistSection(WidgetRef ref, String playlistId, String title) {
+    final playlistAsync = ref.watch(youtubePlaylistProvider(playlistId));
 
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: InkWell(
-        onTap: () => _openYouTubeVideo(),
-        borderRadius: BorderRadius.circular(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Video thumbnail with actual YouTube thumbnail
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    // YouTube thumbnail image
-                    Image.network(
-                      thumbnailUrl,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                colorScheme.primary.withValues(alpha: 0.8),
-                                colorScheme.primary.withValues(alpha: 0.6),
-                              ],
-                            ),
-                          ),
-                          child: const Center(child: CircularProgressIndicator()),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        // Fallback to gradient background if thumbnail fails to load
-                        return Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                colorScheme.primary.withValues(alpha: 0.8),
-                                colorScheme.primary.withValues(alpha: 0.6),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    // Dark overlay for better contrast
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.transparent, Colors.black.withValues(alpha: 0.3)],
-                        ),
-                      ),
-                    ),
-                    // Play button overlay
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.7),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.play_arrow, color: Colors.white, size: 40),
-                      ),
-                    ),
-                    // YouTube logo in corner
-                    Positioned(
-                      top: 12,
-                      right: 12,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          'YouTube',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+    return playlistAsync.when(
+      data: (videos) {
+        if (videos.isEmpty) {
+          // Fallback to empty state if playlist fails to load
+          return const SizedBox.shrink();
+        }
+
+        return Builder(
+          builder: (context) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16, bottom: 12),
+                child: Text(
+                  title,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Workout Programmer Introduction Video',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Learn how to use the Body.build web application to create effective workout programs.',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.7),
-                      height: 1.4,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Icon(Icons.play_circle_outline, color: colorScheme.primary, size: 20),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Watch Introduction',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.primary,
-                          fontWeight: FontWeight.w500,
-                        ),
+              SizedBox(
+                height: 320,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: videos.length,
+                  itemBuilder: (context, index) {
+                    final video = videos[index];
+                    return Padding(
+                      padding: EdgeInsets.only(right: index < videos.length - 1 ? 16 : 0),
+                      child: YoutubeVideoCard(
+                        videoId: video.videoId,
+                        title: video.title,
+                        description: video.description,
+                        thumbnailUrl: video.thumbnailUrl,
                       ),
-                    ],
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      },
+      loading: () => const SizedBox(height: 320, child: Center(child: CircularProgressIndicator())),
+      error: (error, stack) {
+        // Graceful degradation - show nothing on error
+        return const SizedBox.shrink();
+      },
     );
   }
 
@@ -567,31 +477,6 @@ class HomeScreen extends ConsumerWidget {
         );
       } else {
         context.goNamed(routeName);
-      }
-    }
-  }
-
-  void _openYouTubeVideo() async {
-    const youtubeUrl = 'https://www.youtube.com/watch?v=wOVZdZ9_jdE';
-
-    await Posthog().capture(
-      eventName: 'YouTubeVideoClicked',
-      properties: {'source': 'home_screen', 'video_url': youtubeUrl},
-    );
-
-    final uri = Uri.parse(youtubeUrl);
-    try {
-      // Try to launch with external application mode first
-      // this seems to work well on web, but not android, which shows
-      // component name for https://www.youtube.com/watch?v=wOVZdZ9_jdE is null"
-      await launchUrl(uri, mode: LaunchMode.externalApplication, webOnlyWindowName: '_blank');
-    } catch (e) {
-      // Fallback: try with platform default mode
-      try {
-        await launchUrl(uri, mode: LaunchMode.platformDefault);
-      } catch (e) {
-        // Final fallback: try with in-app web view
-        await launchUrl(uri, mode: LaunchMode.inAppWebView);
       }
     }
   }
