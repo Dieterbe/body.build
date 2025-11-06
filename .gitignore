@@ -36,7 +36,7 @@ migrate_working_dir/
 .pub/
 /build/
 # env vars such as api keys, app version, build time,etc (not just used in vscode)
-.vscode/dart-defines.json
+.vscode/dart-defines-*.json
 
 # Symbolication related
 app.*.symbols

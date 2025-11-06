@@ -12,11 +12,11 @@ check_git_repo
 check_git_clean
 
 $SCRIPT_DIR/dart-defines.sh
-app_version=$(jq -r .APP_VERSION < .vscode/dart-defines.json)
-app_build_time=$(jq -r .APP_BUILD_TIME < .vscode/dart-defines.json)
+app_version=$(jq -r .APP_VERSION <.vscode/dart-defines-web.json)
+app_build_time=$(jq -r .APP_BUILD_TIME <.vscode/dart-defines-web.json)
 
 info "build web"
-flutter build web --base-href '/app/' -o build/web/app --dart-define-from-file=.vscode/dart-defines.json
+flutter build web --base-href '/app/' -o build/web/app --dart-define-from-file=.vscode/dart-defines-web.json
 
 info "injecting version $app_version ($app_build_time) into build/web/app/index.html"
 sed -i "s/^buildVersion unknown/buildVersion $app_version/" build/web/app/index.html
@@ -30,3 +30,4 @@ rsync -a docs/build/ build/web/docs/
 
 info "git add build/web, deploy and git push"
 git add -f build/web && git commit -m 'build' && git push $1 origin HEAD
+

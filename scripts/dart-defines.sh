@@ -13,10 +13,35 @@ if [ "$1" == "ci" ]; then
   version=${version%-dirty}
 fi
 
-if [ -r "secret/youtube-api-key" ]; then
-  yt=$(cat secret/youtube-api-key)
+yt_android=
+yt_ios=
+yt_web=
+yt_linux=
+if [ -r "secret/youtube-api-key-web" ]; then
+  yt_web=",\"YOUTUBE_API_KEY\":\"$(cat secret/youtube-api-key-web)\""
+fi
+if [ -r "secret/youtube-api-key-android" ]; then
+  yt_android=",\"YOUTUBE_API_KEY\":\"$(cat secret/youtube-api-key-android)\""
+fi
+if [ -r "secret/youtube-api-key-ios" ]; then
+  yt_ios=",\"YOUTUBE_API_KEY\":\"$(cat secret/youtube-api-key-ios)\""
+fi
+if [ -r "secret/youtube-api-key-linux" ]; then
+  yt_linux=",\"YOUTUBE_API_KEY\":\"$(cat secret/youtube-api-key-linux)\""
 fi
 
-cat >.vscode/dart-defines.json <<EOF
-{"APP_VERSION":"$version","APP_BUILD_TIME":"$(date)","YOUTUBE_API_KEY":"$yt"}
+cat >.vscode/dart-defines-android.json <<EOF
+{"APP_VERSION":"$version","APP_BUILD_TIME":"$(date)"$yt_android}
+EOF
+
+cat >.vscode/dart-defines-ios.json <<EOF
+{"APP_VERSION":"$version","APP_BUILD_TIME":"$(date)"$yt_ios}
+EOF
+
+cat >.vscode/dart-defines-web.json <<EOF
+{"APP_VERSION":"$version","APP_BUILD_TIME":"$(date)"$yt_web}
+EOF
+
+cat >.vscode/dart-defines-linux.json <<EOF
+{"APP_VERSION":"$version","APP_BUILD_TIME":"$(date)"$yt_linux}
 EOF
