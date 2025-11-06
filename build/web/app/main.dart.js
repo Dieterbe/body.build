@@ -59600,8 +59600,8 @@ d=a.a_j(a6,B.zs,"Help us improve. Looking forward to hear from you","Feedback","
 c=a.a_i(a6,B.a2D,"privacy","How we handle your data","Privacy Policy")
 b=a.a_i(a6,B.a2o,"credits","Open source licenses and attributions","Credits & Licenses")
 r=A.o("Version",a0,a0,a0,a0,q?a0:r.cS(o,B.ac),a0,a0,a0)
-q=A.o("Version: v1.1.7",a0,a0,a0,a0,n?a0:s.aC(a2.k3.ah(0.8)),a0,a0,a0)
-return A.fT(a3,A.fp(A.bR(new A.cX(B.jm,new A.a1(B.ex,A.a4(A.a([a5,B.fx,a4,B.anD,p,B.I,l,B.fx,k,B.I,j,i,h,g,B.fx,f,B.I,e,d,c,b,B.fx,r,B.I,q,B.I,A.o("Built: Thu Nov  6 04:06:09 PM EET 2025",a0,a0,a0,a0,n?a0:s.aC(a2.k3.ah(0.8)),a0,a0,a0)],m),B.w,a0,B.e,B.h,0,B.k),a0),a0),a0,a0),a0,B.H,a0,a0,a0,B.R),B.bU,a0,a0)},
+q=A.o("Version: v1.1.7-3-gf8ffd69",a0,a0,a0,a0,n?a0:s.aC(a2.k3.ah(0.8)),a0,a0,a0)
+return A.fT(a3,A.fp(A.bR(new A.cX(B.jm,new A.a1(B.ex,A.a4(A.a([a5,B.fx,a4,B.anD,p,B.I,l,B.fx,k,B.I,j,i,h,g,B.fx,f,B.I,e,d,c,b,B.fx,r,B.I,q,B.I,A.o("Built: Thu Nov  6 06:14:45 PM EET 2025",a0,a0,a0,a0,n?a0:s.aC(a2.k3.ah(0.8)),a0,a0,a0)],m),B.w,a0,B.e,B.h,0,B.k),a0),a0),a0,a0),a0,B.H,a0,a0,a0,B.R),B.bU,a0,a0)},
 FF(a,b,c,d){var s,r,q,p=null,o=A.h(a),n=o.ax,m=n.d
 if(m==null)m=n.b
 s=A.b9(10)
@@ -59695,7 +59695,7 @@ aJl(a){var s=0,r=A.B(t.H)
 var $async$Hk=A.x(function(b,c){if(b===1)return A.y(c,r)
 while(true)switch(s){case 0:s=2
 return A.r($.oP().aNL("CreditsLicensePageViewed"),$async$Hk)
-case 2:if(a.e!=null)A.bSF("\xa9 "+A.bW(new A.cD(Date.now(),0,!1))+" Body.build","Body.build","v1.1.7",a)
+case 2:if(a.e!=null)A.bSF("\xa9 "+A.bW(new A.cD(Date.now(),0,!1))+" Body.build","Body.build","v1.1.7-3-gf8ffd69",a)
 return A.z(null,r)}})
 return A.A($async$Hk,r)},
 tg(a){return this.aF7(a)},
