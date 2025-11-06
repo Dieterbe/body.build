@@ -287,7 +287,7 @@ class HomeScreen extends ConsumerWidget {
 
                       // YouTube Video Section
                       Text(
-                        'Help',
+                        'YouTube videos for mobile app',
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface,
@@ -423,14 +423,11 @@ class HomeScreen extends ConsumerWidget {
               final video = videos[index];
               return Padding(
                 padding: EdgeInsets.only(right: index < videos.length - 1 ? 16 : 0),
-                child: SizedBox(
-                  width: 400,
-                  child: YoutubeVideoCard(
-                    videoId: video.videoId,
-                    title: video.title,
-                    description: video.description,
-                    thumbnailUrl: video.thumbnailUrl,
-                  ),
+                child: YoutubeVideoCard(
+                  videoId: video.videoId,
+                  title: video.title,
+                  description: video.description,
+                  thumbnailUrl: video.thumbnailUrl,
                 ),
               );
             },

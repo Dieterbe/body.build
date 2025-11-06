@@ -19,17 +19,21 @@ class YouTubeVideo {
 
     // Try to get the best quality thumbnail available
     String thumbnailUrl;
+
+    Map<String, dynamic>? selectedThumbnail;
     if (thumbnails.containsKey('maxres')) {
-      thumbnailUrl = thumbnails['maxres']['url'];
+      selectedThumbnail = thumbnails['maxres'];
     } else if (thumbnails.containsKey('standard')) {
-      thumbnailUrl = thumbnails['standard']['url'];
+      selectedThumbnail = thumbnails['standard'];
     } else if (thumbnails.containsKey('high')) {
-      thumbnailUrl = thumbnails['high']['url'];
+      selectedThumbnail = thumbnails['high'];
     } else if (thumbnails.containsKey('medium')) {
-      thumbnailUrl = thumbnails['medium']['url'];
+      selectedThumbnail = thumbnails['medium'];
     } else {
-      thumbnailUrl = thumbnails['default']['url'];
+      selectedThumbnail = thumbnails['default'];
     }
+
+    thumbnailUrl = selectedThumbnail!['url'];
 
     return YouTubeVideo(
       videoId: resourceId['videoId'] as String,
