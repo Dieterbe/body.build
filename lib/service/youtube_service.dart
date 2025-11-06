@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:bodybuild/data/youtube_provider.dart';
 import 'package:bodybuild/model/youtube_video.dart';
 import 'package:http/http.dart' as http;
 import 'package:posthog_flutter/posthog_flutter.dart';
@@ -24,21 +25,46 @@ class YouTubeService {
   static const Duration _requestTimeout = Duration(seconds: 10);
 
   /// Fallback list of hardcoded videos when API fails
-  static const List<YouTubeVideo> _fallbackVideos = [
+  static const List<YouTubeVideo> _fallbackVideosMobile = [
     YouTubeVideo(
       videoId: '0NjaZz44NQ0',
       title: 'Features of Body.Build! Apps coming soon!',
       description: 'Features of Body.Build! Apps coming soon! Email us for early access!',
       thumbnailUrl: 'https://img.youtube.com/vi/0NjaZz44NQ0/maxresdefault.jpg',
     ),
+    YouTubeVideo(
+      videoId: 'wsIo5r1Ssvk',
+      title: 'new feature: weight measurements & wger import',
+      description: '''Prototyping a new feature:
+- weight measurements (with 7-day moving averages for reliable trending)
+- import weight data from wger''',
+      thumbnailUrl: 'https://img.youtube.com/vi/wsIo5r1Ssvk/maxresdefault.jpg',
+    ),
   ];
+  static const List<YouTubeVideo> _fallbackVideosWeb = [
+    YouTubeVideo(
+      videoId: 'wOVZdZ9_jdE',
+      title: 'Introduction to the Workout Programmer',
+      description:
+          '''Introduction to the Workout Programmer on https://body.build, the world's most advanced weight lift program tool. Completely free and open source application for body builders.
+still a work in progress, and looking forward to your feedback!''',
+      thumbnailUrl: 'https://img.youtube.com/vi/wOVZdZ9_jdE/maxresdefault.jpg',
+    ),
+  ];
+
+  static List<YouTubeVideo> getFallbackVideos(String playlistId) {
+    if (playlistId == playlistMobileApp) {
+      return _fallbackVideosMobile;
+    }
+    return _fallbackVideosWeb;
+  }
 
   /// Fetches videos from a YouTube playlist with retry logic
   /// Returns a PlaylistResult object
   Future<PlaylistResult> fetchPlaylistVideos(String playlistId) async {
     if (_apiKey.isEmpty) {
       print('fetchPlaylistVideos: YouTube API key is not set - using fallback videos');
-      return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
+      return PlaylistResult(videos: getFallbackVideos(playlistId), isFallback: true);
     }
 
     final url = Uri.parse(
@@ -75,7 +101,7 @@ class YouTubeService {
             eventName: 'youtube_playlist_load_failed',
             properties: {'playlist_id': playlistId, 'error': e.toString(), 'attempts': _maxRetries},
           );
-          return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
+          return PlaylistResult(videos: getFallbackVideos(playlistId), isFallback: true);
         }
 
         // Exponential backoff: 500ms, 1000ms, 2000ms
@@ -93,7 +119,7 @@ class YouTubeService {
             eventName: 'youtube_playlist_load_failed',
             properties: {'playlist_id': playlistId, 'error': e.toString(), 'attempts': _maxRetries},
           );
-          return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
+          return PlaylistResult(videos: getFallbackVideos(playlistId), isFallback: true);
         }
 
         // Exponential backoff
@@ -104,6 +130,6 @@ class YouTubeService {
     }
 
     // Should never reach here, but just in case
-    return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
+    return PlaylistResult(videos: getFallbackVideos(playlistId), isFallback: true);
   }
 }
