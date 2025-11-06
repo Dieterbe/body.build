@@ -56,22 +56,7 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     // image: 'img/docusaurus-social-card.jpg',
-    navbar: {
-      title: 'body.build docs',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
-      items: [
-        /*
-        {
-          href: 'https://github.com/Dieterbe/body.build',
-          label: 'GitHub',
-          position: 'right',
-        },
-        */
-      ],
-    },
+    // Using custom navbar component in src/theme/Navbar/index.tsx
     footer: {
       style: 'dark',
      // Using custom footer component in src/theme/Footer/index.tsx
