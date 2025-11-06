@@ -293,77 +293,7 @@ article table thead tr th {
   transform: translateY(-2px);
 }
 
-/* Footer */
-.footer {
-  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-  padding: 3rem 0;
-}
-
-.footer__title {
-  color: white;
-  font-weight: 700;
-}
-
-/* Style footer links like landing page contact items */
-.footer__links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.footer__col {
-  flex: 0 0 auto;
-  max-width: none;
-}
-
-.footer__items {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-}
-
-.footer__item {
-  margin: 0;
-}
-
-.footer__link-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #2ecc71 !important;
-  font-weight: 500;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  border: 1px solid transparent;
-  background: rgba(46, 204, 113, 0.1);
-  font-size: 1rem;
-}
-
-.footer__link-item:hover {
-  border-color: #2ecc71;
-  background: rgba(46, 204, 113, 0.15);
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-
-/* Style the external link icon */
-.footer__link-item .iconExternalLink_nPIU {
-  width: 16px;
-  height: 16px;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.footer__link-item:hover .iconExternalLink_nPIU {
-  opacity: 1;
-}
+/* Footer - using custom component in src/theme/Footer/index.tsx */
 
 /* Admonitions (info boxes) */
 .admonition {

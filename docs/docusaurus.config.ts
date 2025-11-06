@@ -74,27 +74,7 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      links: [
-        {
-          // title: 'Links',
-          items: [
-     
-            {
-              label: 'Homepage',
-              href: 'https://body.build',
-            },
-            {
-              label: 'Application',
-              href: 'https://body.build/app',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/Dieterbe/body.build',
-            }
-          ],
-        }
-      ],
-     // copyright: `Copyright ${new Date().getFullYear()} body.build`,
+     // Using custom footer component in src/theme/Footer/index.tsx
     },
     prism: {
       theme: prismThemes.github,
