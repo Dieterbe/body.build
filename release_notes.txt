@@ -1,1 +1,2 @@
-- fix version string
+- display relevant youtube videos on home screen
+- minor design tweaks
