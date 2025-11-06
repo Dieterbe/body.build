@@ -76,7 +76,9 @@
     }
     
     .cta {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
       color: white;
@@ -144,23 +146,6 @@
       flex-direction: row-reverse;
     }
     
-    .mobile-beta-section {
-      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-      border: 2px solid #27ae60;
-      position: relative;
-    }
-    
-    .mobile-beta-section::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(39, 174, 96, 0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    
     .section-content {
       flex: 1;
     }
@@ -178,69 +163,23 @@
       border: 1px solid rgba(0, 0, 0, 0.05);
     }
     
-    .beta-intro {
-      font-size: 1.1rem;
-      color: #2d3748;
-      margin-bottom: 1.5rem;
-      line-height: 1.7;
-    }
-    
-    .beta-cta-group {
+    .screenshot-placeholder {
       display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    
-    .beta-cta {
-      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 1.5rem;
+      justify-content: center;
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border: 2px dashed #cbd5e0;
       border-radius: 12px;
-      text-decoration: none;
+      color: #4a5568;
+      font-size: 1.1rem;
       font-weight: 600;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-      flex: 1;
-      min-width: 200px;
     }
     
-    .beta-cta-ios {
-      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-      color: white;
-    }
-    
-    .beta-cta-ios:hover {
-      border-color: #27ae60;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .beta-cta-android {
-      background: linear-gradient(135deg, #3ddc84 0%, #2bb968 100%);
-      color: white;
-    }
-    
-    .beta-cta-android:hover {
-      border-color: #1a8a4a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(61, 220, 132, 0.3);
-    }
-    
-    .beta-cta svg {
-      flex-shrink: 0;
-    }
-    
-    .beta-cta-label {
-      font-size: 0.75rem;
-      opacity: 0.9;
-      font-weight: 400;
-    }
-    
-    .beta-cta-platform {
-      font-size: 1rem;
-      font-weight: 700;
+    .screenshot-placeholder p {
+      margin: 0.5rem 0;
     }
     
     .mobile-showcase {
@@ -317,32 +256,6 @@
       font-weight: 700;
       letter-spacing: -0.5px;
       line-height: 1.3;
-    }
-    
-    .platform-badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 0.35rem 0.75rem;
-      border-radius: 20px;
-      margin-left: 0.75rem;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-    
-    .badge-web {
-      background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-      color: #4338ca;
-    }
-    
-    .badge-mobile {
-      background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-      color: #15803d;
-    }
-    
-    .badge-both {
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-      color: #92400e;
     }
     
     ul {
@@ -589,13 +502,9 @@
         font-size: 0.95rem;
       }
       
-      .beta-cta-group {
-        flex-direction: column;
-      }
-      
-      .beta-cta {
-        width: 100%;
-        min-width: unset;
+      .screenshot-placeholder {
+        height: 300px;
+        font-size: 1rem;
       }
       
       .mobile-showcase {
@@ -616,18 +525,4 @@
         width: 120px;
       }
       
-      .platform-badge {
-        display: block;
-        margin-left: 0;
-        margin-top: 0.5rem;
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      
-      h2 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
     }
