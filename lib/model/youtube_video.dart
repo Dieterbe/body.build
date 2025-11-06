@@ -5,7 +5,7 @@ class YouTubeVideo {
   final String description;
   final String thumbnailUrl;
 
-  YouTubeVideo({
+  const YouTubeVideo({
     required this.videoId,
     required this.title,
     required this.description,
