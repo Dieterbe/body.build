@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Exit on error
+set -e # Exit on error
 
 # Source common utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -11,11 +11,12 @@ source "$SCRIPT_DIR/common.sh"
 check_git_repo
 check_git_clean
 
-app_version=$($SCRIPT_DIR/version.sh)
-app_build_time=$(date)
+$SCRIPT_DIR/dart-defines.sh
+app_version=$(jq -r .APP_VERSION < .vscode/dart-defines.json)
+app_build_time=$(jq -r .APP_BUILD_TIME < .vscode/dart-defines.json)
 
 info "build web"
-flutter build web --base-href '/app/' -o build/web/app --dart-define=APP_VERSION="$app_version" --dart-define=APP_BUILD_TIME="$app_build_time"
+flutter build web --base-href '/app/' -o build/web/app --dart-define-from-file=.vscode/dart-defines.json
 
 info "injecting version $app_version ($app_build_time) into build/web/app/index.html"
 sed -i "s/^buildVersion unknown/buildVersion $app_version/" build/web/app/index.html
