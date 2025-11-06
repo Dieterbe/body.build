@@ -4,6 +4,14 @@ import 'package:bodybuild/model/youtube_video.dart';
 import 'package:http/http.dart' as http;
 import 'package:posthog_flutter/posthog_flutter.dart';
 
+/// Result of fetching a YouTube playlist
+class PlaylistResult {
+  final List<YouTubeVideo> videos;
+  final bool isFallback;
+
+  const PlaylistResult({required this.videos, required this.isFallback});
+}
+
 class YouTubeService {
   // Note this key can't be kept secret (it can be reverse engineered from the code, and shows in
   // network requests). Instead, the key is locked down by HTTP origin, mobile bundleId, etc.
@@ -16,7 +24,7 @@ class YouTubeService {
   static const Duration _requestTimeout = Duration(seconds: 10);
 
   /// Fallback list of hardcoded videos when API fails
-  static const List<YouTubeVideo> fallbackVideos = [
+  static const List<YouTubeVideo> _fallbackVideos = [
     YouTubeVideo(
       videoId: '0NjaZz44NQ0',
       title: 'Features of Body.Build! Apps coming soon!',
@@ -26,11 +34,11 @@ class YouTubeService {
   ];
 
   /// Fetches videos from a YouTube playlist with retry logic
-  /// Returns a list of YouTubeVideo objects
-  Future<List<YouTubeVideo>> fetchPlaylistVideos(String playlistId) async {
+  /// Returns a PlaylistResult object
+  Future<PlaylistResult> fetchPlaylistVideos(String playlistId) async {
     if (_apiKey.isEmpty) {
       print('fetchPlaylistVideos: YouTube API key is not set - using fallback videos');
-      return fallbackVideos;
+      return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
     }
 
     final url = Uri.parse(
@@ -53,7 +61,7 @@ class YouTubeService {
             print('fetchPlaylistVideos: attempt ${attempt + 1}/$_maxRetries: success');
           }
 
-          return videos;
+          return PlaylistResult(videos: videos, isFallback: false);
         }
         throw Exception('Failed to load playlist: ${response.statusCode}');
       } on SocketException catch (e) {
@@ -67,7 +75,7 @@ class YouTubeService {
             eventName: 'youtube_playlist_load_failed',
             properties: {'playlist_id': playlistId, 'error': e.toString(), 'attempts': _maxRetries},
           );
-          return fallbackVideos;
+          return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
         }
 
         // Exponential backoff: 500ms, 1000ms, 2000ms
@@ -85,7 +93,7 @@ class YouTubeService {
             eventName: 'youtube_playlist_load_failed',
             properties: {'playlist_id': playlistId, 'error': e.toString(), 'attempts': _maxRetries},
           );
-          return fallbackVideos;
+          return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
         }
 
         // Exponential backoff
@@ -96,6 +104,6 @@ class YouTubeService {
     }
 
     // Should never reach here, but just in case
-    return fallbackVideos;
+    return const PlaylistResult(videos: _fallbackVideos, isFallback: true);
   }
 }

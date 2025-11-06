@@ -9,17 +9,11 @@ part of 'youtube_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(youtubePlaylist)
+@ProviderFor(YoutubePlaylist)
 const youtubePlaylistProvider = YoutubePlaylistProvider._();
 
 final class YoutubePlaylistProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<List<YouTubeVideo>>,
-          List<YouTubeVideo>,
-          FutureOr<List<YouTubeVideo>>
-        >
-    with $FutureModifier<List<YouTubeVideo>>, $FutureProvider<List<YouTubeVideo>> {
+    extends $AsyncNotifierProvider<YoutubePlaylist, List<YouTubeVideo>> {
   const YoutubePlaylistProvider._()
     : super(
         from: null,
@@ -36,13 +30,27 @@ final class YoutubePlaylistProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<YouTubeVideo>> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<List<YouTubeVideo>> create(Ref ref) {
-    return youtubePlaylist(ref);
-  }
+  YoutubePlaylist create() => YoutubePlaylist();
 }
 
-String _$youtubePlaylistHash() => r'e32855ed460c505b574ad1afbc208b6932852124';
+String _$youtubePlaylistHash() => r'0ac76a7fb9244185b183a16346fe8e5e6d1bd8af';
+
+abstract class _$YoutubePlaylist extends $AsyncNotifier<List<YouTubeVideo>> {
+  FutureOr<List<YouTubeVideo>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref as $Ref<AsyncValue<List<YouTubeVideo>>, List<YouTubeVideo>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<YouTubeVideo>>, List<YouTubeVideo>>,
+              AsyncValue<List<YouTubeVideo>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
