@@ -10,37 +10,82 @@ part of 'youtube_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(YoutubePlaylist)
-const youtubePlaylistProvider = YoutubePlaylistProvider._();
+const youtubePlaylistProvider = YoutubePlaylistFamily._();
 
 final class YoutubePlaylistProvider
     extends $AsyncNotifierProvider<YoutubePlaylist, List<YouTubeVideo>> {
-  const YoutubePlaylistProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'youtubePlaylistProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  const YoutubePlaylistProvider._({
+    required YoutubePlaylistFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'youtubePlaylistProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$youtubePlaylistHash();
 
+  @override
+  String toString() {
+    return r'youtubePlaylistProvider'
+        ''
+        '($argument)';
+  }
+
   @$internal
   @override
   YoutubePlaylist create() => YoutubePlaylist();
+
+  @override
+  bool operator ==(Object other) {
+    return other is YoutubePlaylistProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$youtubePlaylistHash() => r'0ac76a7fb9244185b183a16346fe8e5e6d1bd8af';
+String _$youtubePlaylistHash() => r'893637f5c4743f41b0185dc14d181e61d1959767';
+
+final class YoutubePlaylistFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          YoutubePlaylist,
+          AsyncValue<List<YouTubeVideo>>,
+          List<YouTubeVideo>,
+          FutureOr<List<YouTubeVideo>>,
+          String
+        > {
+  const YoutubePlaylistFamily._()
+    : super(
+        retry: null,
+        name: r'youtubePlaylistProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  YoutubePlaylistProvider call(String playlistId) =>
+      YoutubePlaylistProvider._(argument: playlistId, from: this);
+
+  @override
+  String toString() => r'youtubePlaylistProvider';
+}
 
 abstract class _$YoutubePlaylist extends $AsyncNotifier<List<YouTubeVideo>> {
-  FutureOr<List<YouTubeVideo>> build();
+  late final _$args = ref.$arg as String;
+  String get playlistId => _$args;
+
+  FutureOr<List<YouTubeVideo>> build(String playlistId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
+    final created = build(_$args);
     final ref =
         this.ref as $Ref<AsyncValue<List<YouTubeVideo>>, List<YouTubeVideo>>;
     final element =

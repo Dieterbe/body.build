@@ -287,7 +287,7 @@ class HomeScreen extends ConsumerWidget {
 
                       // YouTube Video Section
                       Text(
-                        'YouTube videos for mobile app',
+                        'YouTube videos',
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSurface,
@@ -295,8 +295,13 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      // YouTube playlist videos in horizontal scroll
-                      _buildYouTubePlaylistSection(ref),
+                      // Mobile App playlist
+                      _buildYouTubePlaylistSection(ref, playlistMobileApp, 'Mobile App'),
+
+                      const SizedBox(height: 24),
+
+                      // Web App playlist
+                      _buildYouTubePlaylistSection(ref, playlistWebApp, 'Web App'),
                     ],
                   ),
                 ),
@@ -404,8 +409,8 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildYouTubePlaylistSection(WidgetRef ref) {
-    final playlistAsync = ref.watch(youtubePlaylistProvider);
+  Widget _buildYouTubePlaylistSection(WidgetRef ref, String playlistId, String title) {
+    final playlistAsync = ref.watch(youtubePlaylistProvider(playlistId));
 
     return playlistAsync.when(
       data: (videos) {
@@ -414,23 +419,39 @@ class HomeScreen extends ConsumerWidget {
           return const SizedBox.shrink();
         }
 
-        return SizedBox(
-          height: 320,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: videos.length,
-            itemBuilder: (context, index) {
-              final video = videos[index];
-              return Padding(
-                padding: EdgeInsets.only(right: index < videos.length - 1 ? 16 : 0),
-                child: YoutubeVideoCard(
-                  videoId: video.videoId,
-                  title: video.title,
-                  description: video.description,
-                  thumbnailUrl: video.thumbnailUrl,
+        return Builder(
+          builder: (context) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16, bottom: 12),
+                child: Text(
+                  title,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
-              );
-            },
+              ),
+              SizedBox(
+                height: 320,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: videos.length,
+                  itemBuilder: (context, index) {
+                    final video = videos[index];
+                    return Padding(
+                      padding: EdgeInsets.only(right: index < videos.length - 1 ? 16 : 0),
+                      child: YoutubeVideoCard(
+                        videoId: video.videoId,
+                        title: video.title,
+                        description: video.description,
+                        thumbnailUrl: video.thumbnailUrl,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         );
       },
