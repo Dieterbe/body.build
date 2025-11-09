@@ -8,9 +8,9 @@
             "name": "debug dev",
             "request": "launch",
             "type": "dart",
+            "customTool": "${workspaceFolder}/scripts/flutter_run_wrapper.sh",
             "preLaunchTask": "generate dart-defines",
             "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
                 "--dart-define=DEV_MODE=true"
             ]
         },
@@ -18,19 +18,17 @@
             "name": "debug",
             "request": "launch",
             "type": "dart",
-            "preLaunchTask": "generate dart-defines",
-            "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
-            ]
+            "customTool": "${workspaceFolder}/scripts/flutter_run_wrapper.sh",
+            "preLaunchTask": "generate dart-defines"
         },
         {
             "name": "release dev",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
+            "customTool": "${workspaceFolder}/scripts/flutter_run_wrapper.sh",
             "preLaunchTask": "generate dart-defines",
             "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
                 "--dart-define=DEV_MODE=true"
             ]
         },
@@ -39,10 +37,8 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "preLaunchTask": "generate dart-defines",
-            "args": [
-                "--dart-define-from-file=.vscode/dart-defines.json",
-            ]
+            "customTool": "${workspaceFolder}/scripts/flutter_run_wrapper.sh",
+            "preLaunchTask": "generate dart-defines"
         },
     ]
 }
