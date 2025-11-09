@@ -50,6 +50,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
         release {
             // Only use release signing config if key.properties exists (CI builds)
             // Otherwise falls back to debug signing for local development (also for "release" mode)
