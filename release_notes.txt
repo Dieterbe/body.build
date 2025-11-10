@@ -1,2 +1,1 @@
-- display relevant youtube videos on home screen
-- minor design tweaks
+- fix stuck UI when starting/resuming workout
