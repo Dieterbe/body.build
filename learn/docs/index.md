@@ -17,9 +17,3 @@ I took the [Menno Henselmans Personal Training Course](https://mennohenselmans.c
 - **Complete Muscle Coverage** — Ensure all major muscles are trained across modalities (e.g. high tension at long and short lengths)
 - **Personalized Volume and kcal Targets** — Based on your body, lifestyle, and goals
 - **100% Free** — No payment, no ads, no sign-up, no data collection
-
-## Documentation Sections
-
-- **[Workout Programmer](workout-programmer.md)** — How to use the workout programmer
-- **[Backstory](backstory.md)** — The story behind body.build
-- **[FAQ](faq.md)** — Frequently Asked Questions

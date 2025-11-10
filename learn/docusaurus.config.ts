@@ -38,7 +38,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+        //  sidebarPath: './sidebars.ts',
           routeBasePath: '/', // This makes learn appear at root
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
