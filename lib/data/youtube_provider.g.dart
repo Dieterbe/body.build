@@ -50,7 +50,7 @@ final class YoutubePlaylistProvider
   }
 }
 
-String _$youtubePlaylistHash() => r'893637f5c4743f41b0185dc14d181e61d1959767';
+String _$youtubePlaylistHash() => r'53eb1a015b67bca5f169bb8538743a0d1e2211d7';
 
 final class YoutubePlaylistFamily extends $Family
     with
@@ -86,8 +86,7 @@ abstract class _$YoutubePlaylist extends $AsyncNotifier<List<YouTubeVideo>> {
   @override
   void runBuild() {
     final created = build(_$args);
-    final ref =
-        this.ref as $Ref<AsyncValue<List<YouTubeVideo>>, List<YouTubeVideo>>;
+    final ref = this.ref as $Ref<AsyncValue<List<YouTubeVideo>>, List<YouTubeVideo>>;
     final element =
         ref.element
             as $ClassProviderElement<

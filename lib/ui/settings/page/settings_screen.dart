@@ -1,13 +1,21 @@
+import 'dart:io';
+import 'package:bodybuild/data/backup/backup_providers.dart';
 import 'package:bodybuild/data/developer_mode_provider.dart';
 import 'package:bodybuild/data/measurements/measurement_providers.dart';
 import 'package:bodybuild/data/settings/app_settings_provider.dart';
+import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/measurements/measurement.dart';
+import 'package:bodybuild/service/database_backup_service.dart';
 import 'package:bodybuild/service/wger_import_service.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/util/flutter.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 // Import progress state
 class ImportState {
@@ -297,6 +305,117 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 32),
+
+              // Database Backup Section
+              Text(
+                'Database Backup',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Backup and restore your data',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Backup/Restore Card
+              Card(
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.backup, color: Theme.of(context).colorScheme.primary),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Backup & Restore',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Save your data to a file or restore from a backup',
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface.withValues(alpha: 0.7),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+
+                      // Create Backup Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton.icon(
+                          onPressed: () => _createBackup(),
+                          icon: const Icon(Icons.save_alt),
+                          label: const Text('Create Backup'),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+
+                      // Restore Backup Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: () => _restoreBackup(),
+                          icon: const Icon(Icons.restore),
+                          label: const Text('Restore Backup'),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Warning message
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.errorContainer.withValues(alpha: 0.3),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.warning_amber,
+                              size: 20,
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Restoring a backup will replace all current data. Make sure to create a backup first!',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           );
         },
@@ -562,6 +681,281 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           );
         }
       }
+    }
+  }
+
+  Future<void> _createBackup() async {
+    try {
+      // Create backup in app's cache directory (always writable)
+      final filename = DatabaseBackupService.getDefaultBackupFilename();
+      final tempDir = await getTemporaryDirectory();
+      final backupFile = File('${tempDir.path}/$filename');
+
+      // Show progress dialog
+      if (!mounted) return;
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 16),
+              Text('Creating backup...'),
+            ],
+          ),
+        ),
+      );
+
+      // Create backup
+      final backupService = ref.read(databaseBackupServiceProvider);
+      final success = await backupService.createBackup(backupFile);
+
+      if (!mounted) return;
+      Navigator.of(context).pop(); // Close progress dialog
+
+      if (success) {
+        // Get file info for display
+        final info = await DatabaseBackupService.getBackupInfo(backupFile);
+        final sizeInMB = (info?['size'] ?? 0) / (1024 * 1024);
+
+        // Show success dialog with share option
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Row(
+              children: [
+                Icon(Icons.check_circle, color: Colors.green),
+                SizedBox(width: 12),
+                Text('Backup Created'),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Your data has been backed up successfully.'),
+                const SizedBox(height: 16),
+                Text(
+                  'File: $filename',
+                  style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
+                ),
+                Text(
+                  'Size: ${sizeInMB.toStringAsFixed(2)} MB',
+                  style: const TextStyle(fontSize: 12),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withValues(alpha: 0.15),
+                    border: Border.all(color: Colors.orange.withValues(alpha: 0.5), width: 1.5),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.warning_amber_rounded, color: Colors.orange[800], size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Important: Tap "Share" and save to Downloads or Files app. '
+                          'You must save this file somewhere to restore your data later!',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.orange[900],
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Close')),
+              FilledButton.icon(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await Share.shareXFiles(
+                    [XFile(backupFile.path, name: filename)],
+                    subject: filename, // sharing to google drive puts title into the filename !?
+                    text: 'Backup created on ${DateTime.now().toString().split('.')[0]}',
+                  );
+                },
+                icon: const Icon(Icons.share),
+                label: const Text('Share'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        throw Exception('Failed to create backup');
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error creating backup: $e'), backgroundColor: Colors.red),
+      );
+    }
+  }
+
+  Future<void> _restoreBackup() async {
+    try {
+      // Show info dialog first
+      if (!mounted) return;
+      final shouldContinue = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.info_outline, color: Colors.blue),
+              SizedBox(width: 12),
+              Text('Select Backup File'),
+            ],
+          ),
+          content: const Text(
+            'Please select the backup file you previously saved.\n\n'
+            'Look in:\n'
+            '• Downloads folder\n'
+            '• Files app\n'
+            '• Where you saved it via Share\n\n'
+            'The file usually looks like:\nbodybuild_YYYYMMDD_HHMM.backup',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Choose File'),
+            ),
+          ],
+        ),
+      );
+
+      if (shouldContinue != true) return;
+
+      // Pick backup file
+      // Note: Using FileType.any to show all files including .db files
+      // Some file managers may still hide .db files - users may need to enable "Show all files"
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        allowMultiple: false,
+        dialogTitle: 'Select Backup File (bodybuild_*.backup)',
+        withData: false,
+        withReadStream: false,
+      );
+
+      if (result == null || result.files.isEmpty) return;
+
+      final filePath = result.files.singleOrNull?.path;
+      if (filePath == null) return;
+
+      final backupFile = File(filePath);
+
+      // Confirm restore
+      if (!mounted) return;
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.warning_amber, color: Colors.orange),
+              SizedBox(width: 12),
+              Text('Restore Backup?'),
+            ],
+          ),
+          content: const Text(
+            'This will replace ALL current data with the backup data. '
+            'This action cannot be undone.\n\n'
+            'Make sure you have created a backup of your current data first!',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              style: FilledButton.styleFrom(backgroundColor: Colors.red),
+              child: const Text('Restore'),
+            ),
+          ],
+        ),
+      );
+
+      if (confirmed != true) return;
+
+      // Show progress dialog
+      if (!mounted) return;
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 16),
+              Text('Restoring backup...'),
+            ],
+          ),
+        ),
+      );
+
+      // Restore backup using static method (database must be closed)
+      final restoredPath = await DatabaseBackupService.restoreBackupStatic(backupFile);
+
+      if (!mounted) return;
+      Navigator.of(context).pop(); // Close progress dialog
+
+      if (restoredPath != null) {
+        // Close the old database before invalidating providers
+        final oldDatabase = ref.read(workoutDatabaseProvider);
+        await oldDatabase.close();
+
+        // Invalidate the database provider - Riverpod automatically invalidates its dependents
+        ref.invalidate(workoutDatabaseProvider);
+
+        // Show success dialog
+        if (!mounted) return;
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Row(
+              children: [
+                Icon(Icons.check_circle, color: Colors.green),
+                SizedBox(width: 12),
+                Text('Restore Complete'),
+              ],
+            ),
+            content: const Text(
+              'Your data has been restored successfully!\n\n'
+              'The database has been reloaded with your backup data.',
+            ),
+            actions: [
+              FilledButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  // Navigate to home to refresh all screens
+                  context.go('/');
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        throw Exception('Failed to restore backup');
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error restoring backup: $e'), backgroundColor: Colors.red),
+      );
     }
   }
 }
