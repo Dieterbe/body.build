@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Welcome to body.build
+# Welcome
 
 Body.build is the world's most advanced weight lifting application for advanced lifters.  The goal is to make something free and open to everyone, no strings attached; to achieve something like WikiPedia for weight lifting, but *personalized* and *actionable*.
 
