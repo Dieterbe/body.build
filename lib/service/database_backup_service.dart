@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:bodybuild/data/workouts/workout_database.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-// Conditionally import sqlite3 - not available on web
-import 'package:sqlite3/sqlite3.dart' if (dart.library.html) 'dart:core' show sqlite3;
+import 'package:sqlite3/sqlite3.dart';
 
 /// Service for backing up and restoring the Drift SQLite database
 ///
@@ -39,10 +37,6 @@ class DatabaseBackupService {
   ///
   /// Returns true if successful, false otherwise
   Future<bool> createBackup(File backupFile) async {
-    if (kIsWeb) {
-      throw UnsupportedError('Backup is not supported on web');
-    }
-
     try {
       // Ensure parent directory exists
       await backupFile.parent.create(recursive: true);
@@ -75,10 +69,6 @@ class DatabaseBackupService {
   ///
   /// Returns the path to the restored database file, or null if failed
   static Future<String?> restoreBackupStatic(File backupFile) async {
-    if (kIsWeb) {
-      throw UnsupportedError('Backup restore is not supported on web');
-    }
-
     try {
       // Verify backup file exists
       if (!await backupFile.exists()) {
@@ -117,36 +107,6 @@ class DatabaseBackupService {
       }
     } catch (e) {
       print('Error restoring backup: $e');
-      return null;
-    }
-  }
-
-  /// Gets the default backup filename with timestamp
-  /// Uses .backup extension instead of .db so file managers don't hide it
-  static String getDefaultBackupFilename() {
-    final now = DateTime.now();
-    final timestamp =
-        '${now.year}${now.month.toString().padLeft(2, '0')}'
-        '${now.day.toString().padLeft(2, '0')}_'
-        '${now.hour.toString().padLeft(2, '0')}'
-        '${now.minute.toString().padLeft(2, '0')}';
-    return 'bodybuild_$timestamp.backup';
-  }
-
-  /// Gets backup file info (size, modification date)
-  static Future<Map<String, dynamic>?> getBackupInfo(File backupFile) async {
-    try {
-      if (!await backupFile.exists()) return null;
-
-      final stat = await backupFile.stat();
-      return {
-        'path': backupFile.path,
-        'filename': p.basename(backupFile.path),
-        'size': stat.size,
-        'modified': stat.modified,
-      };
-    } catch (e) {
-      print('Error getting backup info: $e');
       return null;
     }
   }

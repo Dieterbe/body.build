@@ -5,7 +5,7 @@ import 'package:bodybuild/data/measurements/measurement_providers.dart';
 import 'package:bodybuild/data/settings/app_settings_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/measurements/measurement.dart';
-import 'package:bodybuild/service/database_backup_service.dart';
+import 'package:bodybuild/service/database_backup_helpers.dart';
 import 'package:bodybuild/service/wger_import_service.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
@@ -687,7 +687,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _createBackup() async {
     try {
       // Create backup in app's cache directory (always writable)
-      final filename = DatabaseBackupService.getDefaultBackupFilename();
+      final filename = getDefaultBackupFilename();
       final tempDir = await getTemporaryDirectory();
       final backupFile = File('${tempDir.path}/$filename');
 
@@ -716,7 +716,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
       if (success) {
         // Get file info for display
-        final info = await DatabaseBackupService.getBackupInfo(backupFile);
+        final info = await getBackupInfo(backupFile);
         final sizeInMB = (info?['size'] ?? 0) / (1024 * 1024);
 
         // Show success dialog with share option
@@ -906,8 +906,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
       );
 
-      // Restore backup using static method (database must be closed)
-      final restoredPath = await DatabaseBackupService.restoreBackupStatic(backupFile);
+      // Restore backup using helper (which delegates to service on non-web platforms)
+      final restoredPath = await restoreBackup(backupFile);
 
       if (!mounted) return;
       Navigator.of(context).pop(); // Close progress dialog
