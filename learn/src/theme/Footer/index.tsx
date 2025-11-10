@@ -52,7 +52,7 @@ export default function Footer(): ReactElement {
         <div className="custom-footer-nav">
           <a href="https://body.build">Homepage</a>
           <span className="nav-separator">•</span>
-          <a href="https://body.build/docs">Documentation</a>
+          <a href="https://body.build/learn">Learn</a>
           <span className="nav-separator">•</span>
           <a href="https://body.build/app">Application</a>
         </div>

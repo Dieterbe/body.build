@@ -24,9 +24,9 @@ convert "$SOURCE_SVG" -resize 512x512 "$BUILD_DIR/android-chrome-512x512.png"
 
 # Generate multi-size .ico file for browsers
 convert "$SOURCE_SVG" -resize 16x16 \
-        "$SOURCE_SVG" -resize 32x32 \
-        "$SOURCE_SVG" -resize 48x48 \
-        "$BUILD_DIR/favicon.ico"
+  "$SOURCE_SVG" -resize 32x32 \
+  "$SOURCE_SVG" -resize 48x48 \
+  "$BUILD_DIR/favicon.ico"
 
 # Copy SVG to build directory
 cp "$SOURCE_SVG" "$BUILD_DIR/favicon.svg"
@@ -49,14 +49,14 @@ cp "$BUILD_DIR/favicon-32x32.png" "$PROJECT_ROOT/landing-page/img/"
 cp "$BUILD_DIR/apple-touch-icon.png" "$PROJECT_ROOT/landing-page/img/"
 cp "$BUILD_DIR/favicon.svg" "$PROJECT_ROOT/landing-page/img/"
 
-# Copy to docs static img directory
-echo "Copying to docs/static/img/..."
-cp "$BUILD_DIR/favicon.ico" "$PROJECT_ROOT/docs/static/img/"
-cp "$BUILD_DIR/favicon-32x32.png" "$PROJECT_ROOT/docs/static/img/"
-cp "$BUILD_DIR/apple-touch-icon.png" "$PROJECT_ROOT/docs/static/img/"
-cp "$BUILD_DIR/android-chrome-192x192.png" "$PROJECT_ROOT/docs/static/img/"
-cp "$BUILD_DIR/android-chrome-512x512.png" "$PROJECT_ROOT/docs/static/img/"
-cp "$BUILD_DIR/favicon.svg" "$PROJECT_ROOT/docs/static/img/"
+# Copy to learn static img directory
+echo "Copying to learn/static/img/..."
+cp "$BUILD_DIR/favicon.ico" "$PROJECT_ROOT/learn/static/img/"
+cp "$BUILD_DIR/favicon-32x32.png" "$PROJECT_ROOT/learn/static/img/"
+cp "$BUILD_DIR/apple-touch-icon.png" "$PROJECT_ROOT/learn/static/img/"
+cp "$BUILD_DIR/android-chrome-192x192.png" "$PROJECT_ROOT/learn/static/img/"
+cp "$BUILD_DIR/android-chrome-512x512.png" "$PROJECT_ROOT/learn/static/img/"
+cp "$BUILD_DIR/favicon.svg" "$PROJECT_ROOT/learn/static/img/"
 
 echo ""
 echo "✓ Done! Favicons generated and copied to deployment directories."

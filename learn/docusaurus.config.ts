@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'body.build docs',
+  title: 'Learn body.build',
   tagline: 'Body.build: Optimize Your Weight Training',
   favicon: 'img/favicon.svg',
 
@@ -13,7 +13,7 @@ const config: Config = {
   url: 'https://body.build',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/docs',
+  baseUrl: '/learn',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -39,11 +39,11 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: '/', // This makes docs appear at root
+          routeBasePath: '/', // This makes learn appear at root
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Dieterbe/body.build/tree/main/docs/',
+            'https://github.com/Dieterbe/body.build/tree/main/learn/',
         },
         blog: false, // Disable blog
         theme: {

@@ -24,10 +24,9 @@ sed -i "s/^buildTime unknown/buildTime $app_build_time/" build/web/app/index.htm
 
 info "copying landing page"
 cp -ax landing-page/* build/web/
-info "build docs"
-(cd docs && npm run build)
-rsync -a docs/build/ build/web/docs/
+info "build learning section"
+(cd learn && npm run build)
+rsync -a learn/build/ build/web/learn/
 
 info "git add build/web, deploy and git push"
 git add -f build/web && git commit -m 'build' && git push $1 origin HEAD
-

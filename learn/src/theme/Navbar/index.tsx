@@ -8,9 +8,9 @@ export default function Navbar(): ReactElement {
       <div className="navbar__inner">
         <div className="navbar__items">
           <div className="navbar-brand">
-            <a href="/docs/" className="navbar__brand">
+            <a href="/learn/" className="navbar__brand">
               <span className="navbar-title">body.build</span>
-              <span className="navbar-subtitle">docs</span>
+              <span className="navbar-subtitle">Learn</span>
             </a>
           </div>
         </div>
