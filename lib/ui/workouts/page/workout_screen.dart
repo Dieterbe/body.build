@@ -36,13 +36,19 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     super.initState();
     // If no workoutId provided, we need to ensure an active workout exists
     if (widget.workoutId == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final workoutStateAsync = ref.read(workoutManagerProvider);
-        workoutStateAsync.whenData((workoutState) {
-          if (workoutState.activeWorkout == null) {
-            ref.read(workoutManagerProvider.notifier).startWorkout();
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        // Wait for the stream to have data, retry up to 10 times with 100ms delays (1 second total)
+        for (var i = 0; i < 10; i++) {
+          final state = ref.read(workoutManagerProvider);
+          if (state.hasValue) {
+            if (state.value!.activeWorkout == null) {
+              await ref.read(workoutManagerProvider.notifier).startWorkout();
+            }
+            return; // Successfully got data, exit retry loop
           }
-        });
+          await Future.delayed(const Duration(milliseconds: 100));
+        }
+        // After 1 second of retries, give up - UI will show loading state
       });
     }
   }

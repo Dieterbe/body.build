@@ -46,5 +46,6 @@ dart_code_metrics:
     - avoid-missing-enum-constant-in-map: false # it's very common (e.g. effects of tweaks on volumeAssignments) to not mention all possible enum values
     - avoid-duplicate-constant-values: false # programgroups sometimes have the same short and long name
     - prefer-spacing: false # when children definitions are verbose, i prefer to see the spacing "in its place" and not having to scroll up.
+    - avoid-passing-async-when-sync-expected: false # we do this in a few places, seems harmless
   formatter:
     line-length: 100
