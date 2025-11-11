@@ -468,7 +468,33 @@ final List<Ex> exes = [
     [Equipment.calfRaiseMachineSeated],
     [romCalfRaise, calfRaiseToes],
   ),
-
+  Ex(
+    vaStandingCalfRaiseCalfJump,
+    "barbell donkey calf raise",
+    [Equipment.barbell, Equipment.squatRack],
+    [romCalfRaise, calfRaiseToes],
+    [],
+    [],
+    "If you don't have a good machine, you can use a barbell and squat rack as demonstrated in [this video](https://www.youtube.com/watch?v=dxlc66CmYBQ)",
+  ),
+  Ex(
+    vaStandingCalfRaiseCalfJump,
+    "donkey calf raise machine",
+    [Equipment.donkeyCalfRaiseMachine],
+    [romCalfRaise, calfRaiseToes],
+    [],
+    [],
+    '[demonstration video](https://www.youtube.com/watch?v=kRdWcn5Mqf8)',
+  ),
+  Ex(
+    vaStandingCalfRaiseCalfJump,
+    "donkey calf raise",
+    [],
+    [romCalfRaise, calfRaiseToes],
+    [],
+    [],
+    'for overloading, can use another person, a weight belt, etc. [demonstration video](https://www.youtube.com/watch?v=r30EoMPSNns)',
+  ), // this video is good demo of unilateral as well
   Ex(vaStandingCalfRaiseCalfJump, "bodyweight calf jumps", [], [romCalfRaise, calfRaiseToes]),
   Ex({...vaStandingCalfRaiseCalfJump, ...wrist05}, "dumbbell calf jumps", [Equipment.dumbbell], [
     romCalfRaise,
@@ -701,7 +727,7 @@ final List<Ex> exes = [
     vaBenchPressBBChestPressMachineDip,
     "barbell bench press",
     [Equipment.barbell],
-    [rom, gripSqueeze, benchPressBenchAngle],
+    [rom, gripSqueeze, benchPressBenchAngle, bpGrip],
     ratingJNBBBenchPress.toList(),
   ),
   Ex(
@@ -715,17 +741,24 @@ final List<Ex> exes = [
     vaBenchPressBBChestPressMachineDip,
     "smith machine bench press",
     [Equipment.smithMachineAngled],
-    [rom, gripSqueeze, benchPressBenchAngle],
+    [rom, gripSqueeze, benchPressBenchAngle, bpGrip],
   ),
 
   const Ex(
     vaBenchPressBBChestPressMachineDip,
     "chest press machine",
     [Equipment.chestPressMachine],
-    [rom, gripSqueeze],
+    [rom, gripSqueeze, benchPressBenchAngle],
     [ratingJNMachineChestPress],
   ),
-  // TODO: hand position, diamond etc
+  const Ex(
+    vaBenchPressBBChestPressMachineDip,
+    "hammer strength chest press machine",
+    [Equipment.hammerStrengthChestPress],
+    [rom, gripSqueeze, benchPressBenchAngle],
+    [ratingJNMachineChestPress],
+  ),
+  // TODO: hand position, diamond etc. explosive (pylometrics), banded, ..
   const Ex(vaPushUp, "push-up", [], [rom, deficit], [ratingJNPushUp, ratingJNPushUpDeficit], [
     'press-up',
     "pressup",
@@ -774,6 +807,12 @@ final List<Ex> exes = [
     [rom, gripSqueeze, flyThumbs],
     [ratingJNPecDeckHandGrip],
   ),
+  const Ex(
+    vaFlyPecDeckHandGrip,
+    "cable crossover",
+    [Equipment.cableTower],
+    [rom, gripSqueeze, flyThumbs],
+  ),
 
   const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell], [rom, gripSqueeze]),
   const Ex(
@@ -785,6 +824,19 @@ final List<Ex> exes = [
     ['shoulder press', 'deltoid press'],
   ),
   const Ex(
+    vaBTNPressBB,
+    "seated behind the neck barbell press",
+    [Equipment.barbell],
+    [rom, gripSqueeze],
+  ),
+  const Ex(
+    vaBTNPressBB,
+    "standing behind the neck barbell press",
+    [Equipment.barbell],
+    [rom, gripSqueeze],
+  ),
+
+  const Ex(
     vaOverheadPressBB,
     "shoulder press machine",
     [Equipment.shoulderPressMachine],
@@ -792,7 +844,36 @@ final List<Ex> exes = [
     [],
     ['deltoid press'],
   ),
-
+  const Ex(
+    vaOverheadPressDB,
+    "standing arnold press",
+    [Equipment.dumbbell],
+    [rom, gripSqueeze],
+    [],
+    [],
+    '''
+* To bring dumbbells into position, use the hang power clean
+* Use a wide (sumo) stance for balance
+* Dumbbell starts at shoulder level with supinated grip (palms towards you)
+* Press up the weight while turning hand(s) outwards
+* Highest position is like regular dumbbell overhead press
+''',
+  ),
+  const Ex(
+    vaOverheadPressDB,
+    "seated arnold press",
+    [Equipment.dumbbell],
+    [rom, gripSqueeze],
+    [],
+    [],
+    '''
+* To bring dumbbells into position, use the hang power clean
+* Use a wide (sumo) stance for balance
+* Dumbbell starts at shoulder level with supinated grip (palms towards you)
+* Press up the weight while turning hand(s) outwards
+* Highest position is like regular dumbbell overhead press
+''',
+  ),
   Ex(
     vaLateralRaise,
     "standing dumbbell lateral raise",
@@ -927,7 +1008,8 @@ final List<Ex> exes = [
 
   const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine], [rom]),
   const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, gripSqueeze]),
-  const Ex(vaAbCrunch, "lying ab crunch", [], [rom]),
+  const Ex(vaAbCrunch, "lying ab crunch", [], [rom, crunchBenchAngle]),
+  const Ex(vaAbCrunch, "ab-wheel rollout", [], [rom]),
   const Ex(vaAbIsometric, "plank", []),
   // TODO implement seconds counting
   const Ex(
@@ -1034,6 +1116,35 @@ final List<Ex> exes = [
   const Ex(vaWristExtension, "dumbbell wrist extension", [Equipment.dumbbell], [rom], [], [
     'reverse wrist curl',
   ]),
+
+  // CARDIO EXERCISES
+  // these are not full-featured. for now we just want to be able to track them so that
+  // we can losslessly import from other apps
+  const Ex({}, "cycling", [], [], [], ["road cycling", "bicycle", "stationary bike"], "cardio"),
+  const Ex({}, "elliptical trainer", [], [], [], [], "cardio"),
+  const Ex({}, "rowing", [], [], [], [], "cardio"),
+  const Ex({}, "swimming", [], [], [], [], "cardio"),
+  const Ex({}, "stairs climbing", [], [], [], ["stairmaster"], "cardio"),
+  // add jump rope? it has some very specific modes
+  const Ex({}, "walking", [], [], [], [], "cardio"),
+  const Ex(
+    {},
+    "treadmill walking",
+    [],
+    [treadAngle, treadDirection],
+    [],
+    ["walking"],
+    "cardio",
+  ), // crould use angle tweaks, and backwards vs forwards
+  const Ex({}, "hiking", [], [], [], ["trail walking"], "cardio"),
+  const Ex({}, "jogging", [], [], [], [], "cardio"),
+  const Ex({}, "treadmill jogging", [], [treadAngle], [], [], "cardio"),
+  const Ex({}, "trail jogging", [], [], [], [], "cardio"),
+  const Ex({}, "running", [], [], [], [], "cardio"),
+  const Ex({}, "treadmill running", [], [treadAngle], [], [], "cardio"),
+  const Ex({}, "trail running", [], [], [], [], "cardio"),
+  // specific short bursts with long rest times, it's more like strength work
+  const Ex({}, "sprinting", [], [], [], []),
 ];
 
 /// Returns a filtered list of exercises based on various criteria and sorts by ID

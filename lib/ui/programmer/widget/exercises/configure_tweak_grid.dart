@@ -31,8 +31,12 @@ class ConfigureTweakGrid extends StatelessWidget {
   // than this width may be less than the constraints, and then this becomes a useful parameter
   // to size up other widgets that are above or below this grid.
   static double idealWidth(Sets sets) {
+    if (sets.ex!.tweaks.isEmpty) {
+      // Return a reasonable minimum width for exercises with no tweaks
+      return minItemWidth;
+    }
     final spaceTweaks = sets.ex!.tweaks.length * maxItemWidth;
-    final spaceSpacing = (sets.ex!.tweaks.length - 1) * spacing; // this assumes we have at least 1
+    final spaceSpacing = (sets.ex!.tweaks.length - 1) * spacing;
     return spaceTweaks + spaceSpacing;
   }
 

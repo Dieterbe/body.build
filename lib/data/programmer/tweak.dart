@@ -147,8 +147,18 @@ const benchPressBenchAngle = Tweak(
 
 Therefore, an incline is usually the best option for stimulating all pecs well, but the exact angle is up
 to personal anatomy and preference.
+
+For machine presses with a seat, estimate the incline/decline.
 ''',
 );
+const bpGrip = Tweak('grip', 'normal', {
+  'narrow': Option({}, 'aka close grip'),
+  'normal': Option({}, 'standard grip'),
+  'wide': Option({
+    ProgramGroup.lowerPecs: Assign(0.5, "lower reliance on horizontal shoulder flexion"),
+    ProgramGroup.tricepsMedLatH: Assign(0.5), // when hands outside elbows, reduce tricepsMedLatH
+  }, 'wide grip'),
+});
 const flyThumbs = Tweak('thumbs', 'up', {
   'up': Option({
     ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder adduction'),
@@ -406,4 +416,42 @@ const Tweak cableCurlStyle = Tweak('style', 'standard', {
     {},
     'more extreme version of bayesian with arms behind. extreme tension at the longest length. can also be done with both arms',
   ),
+});
+
+const treadAngle = Tweak(
+  'treadmill angle',
+  '0',
+  {
+    // TODO: express this as a simple range? and better UI
+    '0': Option({}, 'aka horizontal'),
+    '3': Option({}, 'aka 3° incline.'),
+    '5': Option({}, 'aka 5° incline.'),
+    '7': Option({}, 'aka 7° incline.'),
+    '10': Option({}, 'aka 10° incline.'),
+    '12': Option({}, 'aka 12° incline.'),
+    '15': Option({}, 'aka 15° incline.'),
+  },
+  desc: '''
+Steeper results in more muscle activation but requires better fitness
+''',
+);
+
+const treadDirection = Tweak(
+  'treadmill direction',
+  'forward',
+  {'forward': Option({}, 'forward'), 'backward': Option({}, 'backward')},
+  desc: '''
+According to "Knees over toes guys", backward walking has many benefits e.g. for knee and foot health.
+See [his TikTok video](https://www.tiktok.com/@kneesovertoesguy/video/7297641158753258795?)
+''',
+);
+
+const crunchBenchAngle = Tweak('bench angle', '0', {
+  '-40': Option({}, 'aka 30° decline.'),
+  '-30': Option({}, 'aka 30° decline.'),
+  '-15': Option({}, 'aka 15° decline.'),
+  '0': Option({}, 'aka flat bench'),
+  '15': Option({}, 'aka 15° incline.'),
+  '30': Option({}, 'aka 30° incline.'),
+  '45': Option({}, 'aka 45° incline.'),
 });

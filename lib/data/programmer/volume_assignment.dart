@@ -267,6 +267,25 @@ const vaOverheadPressDB = {
   ProgramGroup.obliques: Assign(0.25, 'intra oblique pressure'),
   ...wrist025,
 };
+const vaBTNPressBB = {
+  ProgramGroup.upperPecs: Assign(
+    0.2,
+  ), // low pec activity during pure abduction. see https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2022.825880/full
+  ProgramGroup.frontDelts: Assign(0.5, 'some shoulder abduction while externally rotated'),
+  ProgramGroup.sideDelts: Assign(1, 'full ROM shoulder abduction'),
+  ProgramGroup.rearDelts: Assign(0.25, 'shoulder abduction'),
+  ProgramGroup.lowerTraps: Assign(0.25),
+  ProgramGroup.middleTraps: Assign(0.25),
+  ProgramGroup.upperTraps: Assign(0.25),
+  ProgramGroup.tricepsMedLatH: Assign(
+    0.75,
+    'elbow extension',
+  ), // TODO: normally should be 1 but i think i read somewhere they don't activate well for most people
+  ProgramGroup.tricepsLongHead: Assign(0.25),
+  ProgramGroup.abs: Assign(0.25, 'intra abdominal pressure'),
+  ProgramGroup.obliques: Assign(0.25, 'intra oblique pressure'),
+  ...wrist025,
+};
 const vaLateralRaise = {
   ProgramGroup.upperPecs: Assign(0.25),
   ProgramGroup.sideDelts: Assign(1, 'full ROM shoulder abduction with full loaded stretch'),

@@ -19,7 +19,11 @@ enum Equipment {
   trx("TRX (or similar)", EquipmentCategory.nonMachine),
   gymnasticRings("Gymnastic Rings", EquipmentCategory.nonMachine),
   elastic("Resistance bands", EquipmentCategory.nonMachine),
-
+  /*
+ exercises that can use a weight belt (pull-ups, donkey calf raises) can usually be done well
+ even if you don't have the belt. Therefore, having it as a filter for exercises is not useful.
+  weightBelt("Weight Belt", EquipmentCategory.nonMachine),
+*/
   // General machines
   smithMachineAngled("Smith Machine angled", EquipmentCategory.generalMachines),
   smithMachineVertical("Smith Machine vertical", EquipmentCategory.generalMachines),
@@ -28,7 +32,16 @@ enum Equipment {
 
   // Upper body machines
   shoulderPressMachine("Shoulder Press Machine", EquipmentCategory.upperBodyMachines),
-  chestPressMachine("Chest Press Machine", EquipmentCategory.upperBodyMachines),
+  chestPressMachine(
+    "Chest Press Machine",
+    EquipmentCategory.upperBodyMachines,
+    desc: "usually weight stack, may be converging, both arms linked",
+  ),
+  hammerStrengthChestPress(
+    "Hammer Strength Chest Press",
+    EquipmentCategory.upperBodyMachines,
+    desc: "usually converging, plate loaded, and independent arm movements",
+  ),
   pecDeckMachine("Pec Deck (elbow pad)", EquipmentCategory.upperBodyMachines),
   chestFlyMachine("Chest Fly Machine (hand grips)", EquipmentCategory.upperBodyMachines),
   rearDeltFlyMachine("Rear Delt Fly Machine", EquipmentCategory.upperBodyMachines),
@@ -68,12 +81,12 @@ enum Equipment {
   legExtensionMachine("Leg Extension Machine", EquipmentCategory.lowerBodyMachines),
   legPressMachine("Leg Press Machine", EquipmentCategory.lowerBodyMachines),
   calfRaiseMachineSeated("Seated Calf Raise Machine", EquipmentCategory.lowerBodyMachines),
-  calfRaiseMachineStanding("Standing Calf Raise Machine", EquipmentCategory.lowerBodyMachines);
+  calfRaiseMachineStanding("Standing Calf Raise Machine", EquipmentCategory.lowerBodyMachines),
+  donkeyCalfRaiseMachine("Donkey Calf Raise Machine", EquipmentCategory.lowerBodyMachines);
 
   /*
 others that menno asks about, but are not supported here:
 a glute-ham raise
-a dip/chin-up belt
 a pair of knee wraps 
 powerlifting bands (not the light home workout stuff)
 powerlifting chains
@@ -81,5 +94,6 @@ powerlifting chains
 
   final String displayName;
   final EquipmentCategory category;
-  const Equipment(this.displayName, this.category);
+  final String? desc;
+  const Equipment(this.displayName, this.category, {this.desc});
 }
