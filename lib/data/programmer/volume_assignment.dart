@@ -294,6 +294,11 @@ const vaLateralRaise = {
   ProgramGroup.upperTraps: Assign(0.25),
   ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
 };
+const vaFrontRaise = {
+  ProgramGroup.upperPecs: Assign(1, "shoulder flexion"),
+  ProgramGroup.biceps: Assign(0.2, "shoulder flexion"),
+  ProgramGroup.frontDelts: Assign(1, "shoulder flexion"),
+};
 const vaShrug = {ProgramGroup.upperTraps: Assign(1, 'scapular elevation'), ...wrist05};
 // TODO: classify based on shoulder position?
 const vaTricepExtension = {

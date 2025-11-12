@@ -457,3 +457,32 @@ const crunchBenchAngle = Tweak('bench angle', '0', {
   '30': Option({}, 'aka 30° incline.'),
   '45': Option({}, 'aka 45° incline.'),
 });
+
+const frontRaiseLoading = Tweak('loading', 'dumbbell', {
+  'barbell': Option({}, 'barbell', equipment: Equipment.barbell),
+  'cable': Option({}, 'cable', equipment: Equipment.cableTower),
+  'dumbbell': Option({}, 'dumbbell', equipment: Equipment.dumbbell),
+  'elastic band': Option({}, 'elastic band', equipment: Equipment.elastic),
+  'ez-bar': Option({}, 'ez-bar', equipment: Equipment.ezbar),
+  'kettlebell': Option({}, 'kettlebell', equipment: Equipment.kettlebell),
+  'plate': Option({}, 'plate', equipment: Equipment.plate),
+});
+const frontRaiseBodyPosition = Tweak('body position', 'standing', {
+  'standing': Option({}, 'standing'),
+  'seated': Option({}, 'seated'),
+  'prone at 45 incline': Option({}, 'chest supported on bench at 45 incline (contraction focus)'),
+  'supine at 70 incline': Option({}, 'back supported on bench at 70 incline (stretch focus) '),
+});
+const frontRaiseGrip = Tweak('grip', 'pronated', {
+  'supinated': Option({
+    ProgramGroup.sideDelts: Assign(0, 'shoulder flexion when shoulder externally rotated'),
+    ProgramGroup.wristFlexors: Assign(0.3, 'isometric'),
+  }, 'underhand grip, palms down'),
+  'pronated': Option({
+    ProgramGroup.sideDelts: Assign(0.5, "shoulder flexion when shoulder internally rotated"),
+    ProgramGroup.wristExtensors: Assign(0.3, 'isometric'),
+  }, 'overhand grip, palms up'),
+  'neutral': Option({
+    ProgramGroup.sideDelts: Assign(0.25, 'shoulder flexion when shoulder externally rotated'),
+  }, 'hammer grip, palms facing outward'),
+});

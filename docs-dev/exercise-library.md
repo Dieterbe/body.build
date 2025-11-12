@@ -44,6 +44,8 @@ These are all implemented via a simple concept of "tweaks":
   * even for a given equipment for an exercise, we want to differentiate between different smith angles, machine curves,etc -> would be nicer maybe to not change exercise for this? could be nice if this was all 1 system?
   * often equipment is fairly well ingrained to imply an exercise, e.g. seated leg curl. though as discussed above, this doesn't really matter
   we could transition to a rule "if equipment doesn't matter for VA/tweaks, than do it in-exercise" [1]
+  * for some exercises, this becomes a bit obnoxious. e.g. preacher curls can use many different bars, front raises can be done with barbell, dumbbell, ez-bar, cables, plate, kettlebell, etc. and some exercises only differ in how you apply the load (e.g. also donkey calf raises)
+  EXCEPTION: i implemented front raises as "everything in 1 exercises" to avoid combinatioral explosion
   
 ## TODO figure out in more detail:
 

@@ -907,6 +907,22 @@ final List<Ex> exes = [
     [Equipment.cableTower],
     [rom, gripSqueeze, lateralRaiseShoulderRotation, lateralRaiseCablePath],
   ),
+  const Ex(
+    vaFrontRaise,
+    "front raise",
+    [],
+    [frontRaiseLoading, frontRaiseBodyPosition, frontRaiseGrip, rom, gripSqueeze],
+    [],
+    [],
+    '',
+    [
+      TweakConstraint(
+        ('grip', {'supinated'}),
+        ('loading', {'plate'}),
+      ), // note you can pronate grip while holding 2 plates
+      TweakConstraint(('loading', {'barbell', 'ez-bar'}), ('grip', {'neutral'})),
+    ],
+  ),
   const Ex(vaShrug, "barbell shrug", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(vaShrug, "wide grip barbell shrug", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(vaShrug, "dumbbell shrug", [Equipment.dumbbell], [rom, gripSqueeze]),
