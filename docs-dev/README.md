@@ -8,6 +8,7 @@
 - Avoid writing duplicate or similar code, always look for opportunities to make code reusable.
 - Prefer using modern dart 3 functionality/syntax, in particular use **pattern matching** over traditional **switch** or **if** statements.
 - Prefer using **spacing** option over repeated **SizedBox** or similar widgets.
+- Prefer using functional coding style rather than nested loops.
 
 ## File organization
 
