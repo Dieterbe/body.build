@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
@@ -19,11 +20,13 @@ class ConfigureTweakGrid extends StatelessWidget {
     required this.sets,
     this.onChange,
     required this.showDetailedTweaks,
+    this.availableEquipment,
   });
 
   final Sets sets;
   final Function(Sets)? onChange;
   final bool showDetailedTweaks;
+  final Set<Equipment>? availableEquipment;
 
   // calculate the width needed to display all tweaks
   // this assumes we can fit all tweaks on one row. In practice, due to width constraints we
@@ -84,6 +87,7 @@ class ConfigureTweakGrid extends StatelessWidget {
                         ConfigureTweakLarge(
                           tweak,
                           sets,
+                          availableEquipment: availableEquipment,
                           onChange: onChange != null
                               ? (value) {
                                   onChange!(
@@ -98,6 +102,7 @@ class ConfigureTweakGrid extends StatelessWidget {
                         ConfigureTweakSmall(
                           tweak,
                           sets,
+                          availableEquipment: availableEquipment,
                           onChange: onChange != null
                               ? (value) {
                                   onChange!(

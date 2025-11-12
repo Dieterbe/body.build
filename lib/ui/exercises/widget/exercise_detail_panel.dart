@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
@@ -13,17 +14,12 @@ class ExerciseDetailPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedExercise = ref.watch(
-      exerciseFilterProvider.select((state) => state.selectedExercise),
-    );
-    final selectedTweakOptions = ref.watch(
-      exerciseFilterProvider.select((state) => state.selectedTweakOptions),
-    );
+    final filter = ref.watch(exerciseFilterProvider);
 
-    if (selectedExercise == null) return const SizedBox.shrink();
+    if (filter.selectedExercise == null) return const SizedBox.shrink();
 
     return ExerciseDetailsDialog(
-      sets: Sets(1, ex: selectedExercise, tweakOptions: selectedTweakOptions),
+      sets: Sets(1, ex: filter.selectedExercise!, tweakOptions: filter.selectedTweakOptions),
       setup: setupData,
       onChangeTweaks: (sets) {
         // Update the selected exercise with new tweak options
@@ -37,6 +33,13 @@ class ExerciseDetailPanel extends ConsumerWidget {
       },
       scrollableTweakGrid: true,
       constrainWidth: true,
+      // Note: in the "exercises browser", we have our own equipment filter,
+      // so we don't use the one from setup
+      availEquipment: filter.selectedEquipment.union(
+        Equipment.values
+            .where((equipment) => filter.selectedEquipmentCategories.contains(equipment.category))
+            .toSet(),
+      ),
     );
   }
 }

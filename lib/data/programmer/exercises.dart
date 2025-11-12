@@ -101,6 +101,27 @@ class Ex {
     );
   }
 
+  /// Returns the actual equipment needed based on current tweak selections
+  /// Combines base exercise equipment with equipment from selected tweak options
+  Set<Equipment> getEquipmentForTweaks(Map<String, String?> tweakOptions) {
+    return {
+      ...equipment,
+      ...tweaks
+          .map((tweak) => tweak.opts[tweakOptions[tweak.name] ?? tweak.defaultVal])
+          .where((option) => option?.equipment != null)
+          .map((option) => option!.equipment!),
+    };
+  }
+
+  /// Returns all possible equipment from all tweak options
+  Set<Equipment> getEquipmentForAnyTweaks() {
+    return tweaks
+        .expand((tweak) => tweak.opts.values)
+        .where((option) => option.equipment != null)
+        .map((option) => option.equipment!)
+        .toSet();
+  }
+
   /// Returns all searchable tokens for this exercise
   /// Includes: exercise ID, tweak names, and manual aliases
   Set<String> get searchTokens {
@@ -1200,11 +1221,22 @@ List<Ex> getFilteredExercises({
     if (excludedExercises?.contains(e) ?? false) return false;
 
     if (availEquipment != null || availEquipmentCategories != null) {
-      bool check(Equipment equip) =>
+      bool isAllowed(Equipment equip) =>
           (availEquipment != null && availEquipment.contains(equip)) ||
           (availEquipmentCategories != null && availEquipmentCategories.contains(equip.category));
 
-      if (!e.equipment.every(check)) {
+      // Check base equipment
+      final basedEquipmentAllowed = e.equipment.every(isAllowed);
+
+      // Check if user can perform exercise with available equipment
+      // Each tweak must have at least one viable option
+      final tweaksAllowed = e.tweaks.every(
+        (tweak) => tweak.opts.values.any(
+          (option) => option.equipment == null || isAllowed(option.equipment!),
+        ),
+      );
+
+      if (!basedEquipmentAllowed || !tweaksAllowed) {
         return false;
       }
     }

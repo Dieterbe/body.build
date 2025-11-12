@@ -81,6 +81,8 @@ class ExercisePickerSheet extends ConsumerWidget {
               onExerciseSelected: (exerciseId) {
                 onExerciseSelected(exerciseId);
               },
+              availableEquipment: null, // Show all equipment in workout context
+              availableEquipmentCategories: null,
             ),
           ),
         ],

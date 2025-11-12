@@ -370,6 +370,7 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
             ConfigureTweakLarge(
               tweak,
               currentSets!,
+              availableEquipment: null, // No equipment filtering in workout context
               onChange: (val) {
                 setState(() {
                   currentSets = currentSets!.copyWith(
@@ -382,6 +383,7 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
             ConfigureTweakSmall(
               tweak,
               currentSets!,
+              availableEquipment: null, // No equipment filtering in workout context
               onChange: (val) {
                 setState(() {
                   currentSets = currentSets!.copyWith(

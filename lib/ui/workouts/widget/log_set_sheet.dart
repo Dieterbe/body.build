@@ -372,6 +372,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
             ConfigureTweakLarge(
               tweak,
               currentSets!,
+              availableEquipment: null, // No equipment filtering in workout context
               onChange: (val) {
                 setState(() {
                   currentSets = currentSets!.copyWith(
@@ -384,6 +385,7 @@ class _LogSetSheetState extends ConsumerState<LogSetSheet> {
             ConfigureTweakSmall(
               tweak,
               currentSets!,
+              availableEquipment: null, // No equipment filtering in workout context
               onChange: (val) {
                 setState(() {
                   currentSets = currentSets!.copyWith(

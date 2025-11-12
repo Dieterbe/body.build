@@ -1,4 +1,5 @@
 import 'package:bodybuild/data/programmer/tweak.dart';
+import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/core/util_ratings.dart';
@@ -6,10 +7,17 @@ import 'package:flutter/material.dart';
 
 // only call this if sets.ex is not null
 class ConfigureTweakLarge extends StatelessWidget {
-  const ConfigureTweakLarge(this.tweak, this.sets, {super.key, this.onChange});
+  const ConfigureTweakLarge(
+    this.tweak,
+    this.sets, {
+    super.key,
+    this.onChange,
+    this.availableEquipment,
+  });
   final Tweak tweak;
   final Sets sets; // current set against which we apply the tweak
   final void Function(String)? onChange;
+  final Set<Equipment>? availableEquipment; // If null, no equipment filtering
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +38,19 @@ class ConfigureTweakLarge extends StatelessWidget {
               children: [
                 ...(tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((opt) {
                   final optionDesc = opt.value.desc;
-                  final isAvailable = sets.ex!.isOptionAvailable(
+                  final isConstraintAvailable = sets.ex!.isOptionAvailable(
                     tweak.name,
                     opt.key,
                     sets.getFullTweakValues(),
                   );
+
+                  // Check equipment availability
+                  final isEquipmentAvailable =
+                      availableEquipment == null ||
+                      opt.value.equipment == null ||
+                      availableEquipment!.contains(opt.value.equipment!);
+
+                  final isAvailable = isConstraintAvailable && isEquipmentAvailable;
                   final ratingIcon = buildRatingIcon(sets, tweak.name, opt.key, context);
 
                   return Column(

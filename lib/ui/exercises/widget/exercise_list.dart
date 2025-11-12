@@ -13,6 +13,7 @@ class ExerciseList extends ConsumerWidget {
     final selectedExercise = ref.watch(
       exerciseFilterProvider.select((state) => state.selectedExercise),
     );
+    final filter = ref.watch(exerciseFilterProvider);
 
     return ExerciseTileList(
       exercises: filteredExercises,
@@ -26,6 +27,8 @@ class ExerciseList extends ConsumerWidget {
       },
       selectedExerciseId: selectedExercise?.id,
       showHeader: true,
+      availableEquipment: filter.selectedEquipment,
+      availableEquipmentCategories: filter.selectedEquipmentCategories,
     );
   }
 }

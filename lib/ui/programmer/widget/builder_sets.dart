@@ -109,6 +109,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
                   onChangeEx: widget.onChange,
                   onChangeTweaks: widget.onChange,
                   showRecruitmentViz: true,
+                  availEquipment: widget.setup.availEquipment,
                 ),
               ),
             ),
@@ -255,14 +256,15 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
 
   Widget _equipment(BuildContext context) => Row(
     children: [
-      if (widget.sets.ex != null) ...[
-        ...widget.sets.ex!.equipment.map(
-          (e) => Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: EquipmentLabel(e, err: !widget.setup.availEquipment.contains(e)),
-          ),
-        ),
-      ],
+      if (widget.sets.ex != null)
+        ...widget.sets.ex!
+            .getEquipmentForTweaks(widget.sets.tweakOptions)
+            .map(
+              (e) => Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: EquipmentLabel(e, err: !widget.setup.availEquipment.contains(e)),
+              ),
+            ),
       if (widget.hasNewComboButton)
         Padding(
           padding: const EdgeInsets.only(right: 8),

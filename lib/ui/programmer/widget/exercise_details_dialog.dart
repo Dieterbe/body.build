@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/programmer/equipment.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
 import 'package:bodybuild/ui/programmer/widget/exercises/configure_tweak_grid.dart';
@@ -15,6 +16,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
   final bool showRecruitmentViz;
   final bool scrollableTweakGrid; // if parent is already scrollable, avoid scroll inside of scroll
   final bool constrainWidth;
+  final Set<Equipment>? availEquipment;
 
   const ExerciseDetailsDialog({
     super.key,
@@ -26,6 +28,7 @@ class ExerciseDetailsDialog extends StatefulWidget {
     this.showRecruitmentViz = true,
     this.scrollableTweakGrid = false,
     this.constrainWidth = false,
+    this.availEquipment,
   });
 
   @override
@@ -246,6 +249,7 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
                       sets: localSets,
                       onChange: onChangeTweaks,
                       showDetailedTweaks: showDetailedTweaks,
+                      availableEquipment: widget.availEquipment,
                     ),
                   ),
                 ),
@@ -255,6 +259,7 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
                 sets: localSets,
                 onChange: onChangeTweaks,
                 showDetailedTweaks: showDetailedTweaks,
+                availableEquipment: widget.availEquipment,
               ),
           ],
           if (widget.showRecruitmentViz && localSets.ex != null) ...[

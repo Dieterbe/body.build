@@ -1,5 +1,6 @@
 import 'package:bodybuild/data/programmer/groups.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
+import 'package:bodybuild/data/programmer/equipment.dart';
 
 class Tweak {
   final String name;
@@ -26,8 +27,9 @@ class Tweak {
 class Option {
   final VolumeAssignment va;
   final String desc;
+  final Equipment? equipment;
 
-  const Option(this.va, this.desc);
+  const Option(this.va, this.desc, {this.equipment});
 }
 
 /// Represents a bidirectional incompatibility constraint between two sets of tweak options.
