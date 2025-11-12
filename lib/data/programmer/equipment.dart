@@ -69,6 +69,7 @@ enum Equipment {
     "Hip (Add/Abd)uction Machine",
     EquipmentCategory.coreAndGluteMachines,
   ),
+  captainsChair("Captain's Chair", EquipmentCategory.coreAndGluteMachines),
 
   // Lower body machines
 

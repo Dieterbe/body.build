@@ -619,7 +619,7 @@ final List<Ex> exes = [
   ),
 
   const Ex(
-    vaRowWithoutSpine,
+    vaRowWithoutSpine, // TODO: change to 'row'
     "standing bench supported single arm dumbbell rows",
     [Equipment.dumbbell],
     [rom, gripSqueeze],
@@ -912,9 +912,17 @@ final List<Ex> exes = [
     [Equipment.dumbbell],
     [rom],
   ),
+  // note: skull-crusher goes "over" the head, tends to be easier on elbows for most people
+  // but skull-over and skull-crusher are similar in targetting
+  // see https://www.youtube.com/watch?v=MF7x-wNI-2c
   const Ex(vaTricepExtension, "dumbbell skull-over", [Equipment.dumbbell], [rom, gripSqueeze]),
+  const Ex(vaTricepExtension, "ez-bar skull-over", [Equipment.ezbar], [rom, gripSqueeze]),
   const Ex(vaTricepExtension, "barbell skull-over", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(vaTricepExtension, "elastic skull-over", [Equipment.elastic], [rom, gripSqueeze]),
+  const Ex(vaTricepExtension, "dumbbell skull-crusher", [Equipment.dumbbell], [rom, gripSqueeze]),
+  const Ex(vaTricepExtension, "ez-bar skull-crusher", [Equipment.ezbar], [rom, gripSqueeze]),
+  const Ex(vaTricepExtension, "barbell skull-crusher", [Equipment.barbell], [rom, gripSqueeze]),
+  const Ex(vaTricepExtension, "elastic skull-crusher", [Equipment.elastic], [rom, gripSqueeze]),
   // these should probably get a hole number for progression, not a weight
   const Ex(
     vaTricepExtension,
@@ -970,6 +978,13 @@ final List<Ex> exes = [
     ratingJNDBCurl,
   ),
   const Ex(
+    vaBicepCurlAnatomic,
+    "seated dumbbell bicep curl",
+    [Equipment.dumbbell],
+    [rom, gripSqueeze, dbCurlGrip],
+    ratingJNDBCurl,
+  ),
+  const Ex(
     vaBicepCurlLying,
     "lying dumbbell bicep curl",
     [Equipment.dumbbell],
@@ -989,8 +1004,20 @@ final List<Ex> exes = [
   ),
   const Ex(
     vaBicepCurlPreacher,
-    "preacher bicep curl bench/barbell",
-    [Equipment.preacherCurlBench],
+    "barbell preacher bicep curl bench",
+    [Equipment.preacherCurlBench, Equipment.barbell],
+    [rom, gripSqueeze],
+  ),
+  const Ex(
+    vaBicepCurlPreacher,
+    "ez-bar preacher bicep curl bench",
+    [Equipment.preacherCurlBench, Equipment.ezbar],
+    [rom, gripSqueeze],
+  ),
+  const Ex(
+    vaBicepCurlPreacher,
+    "dumbbell preacher bicep curl bench",
+    [Equipment.preacherCurlBench, Equipment.dumbbell],
     [rom, gripSqueeze],
   ),
   const Ex(
@@ -1012,6 +1039,20 @@ final List<Ex> exes = [
   const Ex(vaAbCrunch, "ab-wheel rollout", [], [rom]),
   const Ex(vaAbIsometric, "plank", []),
   // TODO implement seconds counting
+  const Ex(vaAbCrunch, "hanging leg raise", [], [rom]), // hardest at contraction
+  const Ex(
+    vaAbCrunch,
+    "captains chair leg raise", // TODO: wanna put ' in the title without affecting ID
+    [Equipment.captainsChair],
+    [rom],
+    [],
+    ["arm/elbow supported leg raise"],
+  ), // hardest at contraction
+  const Ex(vaAbCrunch, "lying leg lift", [], [rom]), // hardest at stretch
+  const Ex(vaAbCrunch, "dragon flag", [], [
+    rom,
+  ]), // todo: implement progressions: bent knee, unilateral, etc
+  // here jeff says https://www.youtube.com/shorts/eLCBC6fjtQU -> lying leg lift, bent knee dragon, full dragon
   const Ex(
     {...wrist03, ...vaOblRotationIso},
     "cable pallof press",
