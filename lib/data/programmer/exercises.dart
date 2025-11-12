@@ -104,33 +104,27 @@ class Ex {
   /// Returns all searchable tokens for this exercise
   /// Includes: exercise ID, tweak names, and manual aliases
   Set<String> get searchTokens {
-    final tokens = <String>{};
+    return {
+      // 1. Exercise ID (normalized)
+      ..._normalize(id),
 
-    // 1. Exercise ID (normalized)
-    tokens.addAll(_normalize(id));
+      // 2. Tweak names, option's keys and descriptions
+      ...tweaks.expand(
+        (tweak) => [
+          ..._normalize(tweak.name),
+          ...tweak.opts.entries.expand(
+            (opt) => [
+              ..._normalize(opt.key),
+              // Extract words following "aka" or "Aka" in description, if any
+              ..._extractAkaTerms(opt.value.desc),
+            ],
+          ),
+        ],
+      ),
 
-    // 2. Tweak names, option's keys and descriptions
-    for (final tweak in tweaks) {
-      tokens.addAll(_normalize(tweak.name));
-      for (final opt in tweak.opts.entries) {
-        tokens.addAll(_normalize(opt.key));
-
-        // Extract words following "aka" or "Aka" in description
-        final optDesc = opt.value.desc;
-        final akaIndex = optDesc.toLowerCase().indexOf('aka ');
-        if (akaIndex >= 0) {
-          final afterAka = optDesc.substring(akaIndex + 4); // Skip "aka "
-          tokens.addAll(_normalize(afterAka));
-        }
-      }
-    }
-
-    // 3. Exercise aliases
-    for (final alias in searchAliases) {
-      tokens.addAll(_normalize(alias));
-    }
-
-    return tokens;
+      // 3. Exercise aliases
+      ...searchAliases.expand(_normalize),
+    };
   }
 
   /// Normalizes text: lowercase, replace hyphens with spaces, split by whitespace
@@ -141,6 +135,12 @@ class Ex {
         .split(RegExp(r'\s+'))
         .where((t) => t.isNotEmpty)
         .toSet();
+  }
+
+  /// Extracts normalized terms that follow "aka" in a description
+  static Set<String> _extractAkaTerms(String description) {
+    final akaIndex = description.toLowerCase().indexOf('aka ');
+    return akaIndex >= 0 ? _normalize(description.substring(akaIndex + 4)) : <String>{};
   }
 
   /// Returns true if ALL query words match at least one search token
