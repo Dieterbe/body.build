@@ -57,6 +57,13 @@ abstract class Sets with _$Sets {
     return img.length;
   }
 
+  /// Get actual current tweak values including defaults. .ex must be set!
+  Map<String, String> getFullTweakValues() {
+    return Map.fromEntries(
+      ex!.tweaks.map((t) => MapEntry(t.name, tweakOptions[t.name] ?? t.defaultVal)),
+    );
+  }
+
   // Filter ratings that are compatible with current set configuration
   Iterable<Rating> getApplicableRatings() {
     if (ex == null) return [];

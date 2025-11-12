@@ -8,7 +8,7 @@ const minItemWidth = 315.0;
 const maxItemWidth = 450.0;
 const spacing = 16.0;
 
-// caller must ensure there are tweaks to configure
+// caller must ensure there are tweaks to configure (and sets.ex is set)
 // tries to occupy the horizontal space as well as possible - by putting tweak configuration options
 // next to each other - in order to minimize vertical space used
 // could be more optimal (e.g. by putting tweak configs with similar heights on the same row,
@@ -84,7 +84,6 @@ class ConfigureTweakGrid extends StatelessWidget {
                         ConfigureTweakLarge(
                           tweak,
                           sets,
-                          sets.ex!,
                           onChange: onChange != null
                               ? (value) {
                                   onChange!(
@@ -99,7 +98,6 @@ class ConfigureTweakGrid extends StatelessWidget {
                         ConfigureTweakSmall(
                           tweak,
                           sets,
-                          sets.ex!,
                           onChange: onChange != null
                               ? (value) {
                                   onChange!(

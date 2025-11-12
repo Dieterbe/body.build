@@ -39,9 +39,9 @@ class Ex {
 
   /// Checks if a specific option of a tweak is available given current tweak selections.
   /// Returns true if the option can be selected, false if it's incompatible with current selections.
-  /// NOTE: currentTweakOptions currently doesn't include values that are left default, therefore
-  /// we don't detect constraint violations on them, but typically defaults are chosen to not contentious
-  /// with other tweaks
+  /// NOTE: currentTweakOptions should include ALL current values (including defaults) for
+  /// constraint checking to work correctly. The UI components handle this by building a complete
+  /// map before calling this method.
   bool isOptionAvailable(
     String tweakName,
     String optionKey,

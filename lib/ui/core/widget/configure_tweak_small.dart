@@ -4,11 +4,12 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/ui/core/util_ratings.dart';
 import 'package:flutter/material.dart';
 
+// only call this if sets.ex is not null
+
 class ConfigureTweakSmall extends StatelessWidget {
-  const ConfigureTweakSmall(this.tweak, this.sets, this.exercise, {super.key, this.onChange});
+  const ConfigureTweakSmall(this.tweak, this.sets, {super.key, this.onChange});
   final Tweak tweak;
   final Sets sets; // current set against which we apply the tweak
-  final Ex exercise; // exercise to check constraints
   final void Function(String)? onChange;
 
   @override
@@ -18,7 +19,11 @@ class ConfigureTweakSmall extends StatelessWidget {
       runSpacing: 8,
       children: (tweak.opts.entries.toList()..sort((a, b) => a.key.compareTo(b.key))).map((opt) {
         final isSelected = (sets.tweakOptions[tweak.name] ?? tweak.defaultVal) == opt.key;
-        final isAvailable = exercise.isOptionAvailable(tweak.name, opt.key, sets.tweakOptions);
+        final isAvailable = sets.ex!.isOptionAvailable(
+          tweak.name,
+          opt.key,
+          sets.getFullTweakValues(),
+        );
         final ratingIcon = buildRatingIcon(sets, tweak.name, opt.key, context);
 
         return ChoiceChip(
