@@ -1,2 +1,2 @@
 - add more exercises and tweaks. with more to come!
-- add backup/restore for database on mobile
+- justify data access for backup/restore database (iOS only)
