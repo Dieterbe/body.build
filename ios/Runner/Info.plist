@@ -49,5 +49,7 @@
 	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Body.build needs access to your photo library to save and load workout database backup files. This allows you to export your workout data for safekeeping or import previously saved data.</string>
 </dict>
 </plist>
