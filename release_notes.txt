@@ -1,1 +1,2 @@
-- fix stuck UI when starting/resuming workout
+- add more exercises and tweaks. with more to come!
+- add backup/restore for database on mobile
