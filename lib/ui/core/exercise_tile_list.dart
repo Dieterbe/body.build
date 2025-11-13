@@ -18,10 +18,9 @@ class ExerciseTileList extends StatelessWidget {
   /// Optional: Exercise count for header (defaults to exercises.length)
   final int? exerciseCount;
 
-  /// Optional: Available equipment and categories for filtering displayed equipment
+  /// Optional: Available equipment for filtering displayed equipment
   /// (not for exercises, those should already be filtered!)
   final Set<Equipment>? availableEquipment;
-  final Set<EquipmentCategory>? availableEquipmentCategories;
 
   const ExerciseTileList({
     super.key,
@@ -32,7 +31,6 @@ class ExerciseTileList extends StatelessWidget {
     this.showHeader = false,
     this.exerciseCount,
     this.availableEquipment,
-    this.availableEquipmentCategories,
   });
 
   @override
@@ -197,12 +195,7 @@ class ExerciseTileList extends StatelessWidget {
                     const SizedBox(height: 8),
                   ],
 
-                  _buildEquipmentChips(
-                    context,
-                    exercise,
-                    availableEquipment,
-                    availableEquipmentCategories,
-                  ),
+                  _buildEquipmentChips(context, exercise, availableEquipment),
                   const SizedBox(height: 8),
                   // Muscle recruitment bar
                   MuscleRecruitmentBar(exercise: exercise),
@@ -219,7 +212,6 @@ class ExerciseTileList extends StatelessWidget {
     BuildContext context,
     Ex exercise,
     Set<Equipment>? availableEquipmentFilter,
-    Set<EquipmentCategory>? availableEquipmentCategoriesFilter,
   ) {
     final tweakOnlyEquipment = exercise.getEquipmentForAnyTweaks().difference(
       exercise.equipment.toSet(),
@@ -228,16 +220,8 @@ class ExerciseTileList extends StatelessWidget {
     // Filter to only show available equipment if filter is provided
     // (we don't need to do this for the exercise.equipment because that would have
     // caused the exercise to not be shown at all.)
-    final displayTweakOnlyEquipment =
-        (availableEquipmentFilter != null || availableEquipmentCategoriesFilter != null)
-        ? tweakOnlyEquipment
-              .where(
-                (eq) =>
-                    (availableEquipmentFilter == null || availableEquipmentFilter.contains(eq)) ||
-                    (availableEquipmentCategoriesFilter == null ||
-                        availableEquipmentCategoriesFilter.contains(eq.category)),
-              )
-              .toSet()
+    final displayTweakOnlyEquipment = (availableEquipmentFilter != null)
+        ? tweakOnlyEquipment.where((eq) => availableEquipmentFilter.contains(eq)).toSet()
         : tweakOnlyEquipment;
     if (exercise.equipment.isEmpty && displayTweakOnlyEquipment.isEmpty) {
       return const SizedBox.shrink();

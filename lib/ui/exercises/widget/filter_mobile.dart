@@ -46,9 +46,7 @@ class FilterMobile extends ConsumerWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: Theme.of(context).dividerColor),
                       borderRadius: BorderRadius.circular(8),
-                      color:
-                          filterState.selectedEquipmentCategories.isNotEmpty ||
-                              filterState.selectedEquipment.isNotEmpty
+                      color: filterState.availEquipment.isNotEmpty
                           ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
                           : null,
                     ),
@@ -98,10 +96,7 @@ class FilterMobile extends ConsumerWidget {
   }
 
   String _getEquipmentFilterText(ExerciseFilterState filterState) {
-    final catBased = Equipment.values
-        .where((eq) => filterState.selectedEquipmentCategories.contains(eq.category))
-        .length;
-    final count = filterState.selectedEquipment.length + catBased;
+    final count = filterState.availEquipment.length;
 
     if (count == Equipment.values.length) {
       return 'Equipment: all';

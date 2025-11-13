@@ -27,8 +27,7 @@ class ExerciseList extends ConsumerWidget {
       },
       selectedExerciseId: selectedExercise?.id,
       showHeader: true,
-      availableEquipment: filter.selectedEquipment,
-      availableEquipmentCategories: filter.selectedEquipmentCategories,
+      availableEquipment: filter.availEquipment,
     );
   }
 }

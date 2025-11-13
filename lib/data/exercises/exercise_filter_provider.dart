@@ -32,6 +32,16 @@ class ExerciseFilterState {
   final Ex? selectedExercise;
   final Map<String, String> selectedTweakOptions;
 
+  /// Automatically derived from selectedEquipment and selectedEquipmentCategories
+  Set<Equipment> get availEquipment {
+    return {
+      ...selectedEquipment,
+      ...selectedEquipmentCategories.expand(
+        (category) => Equipment.values.where((eq) => eq.category == category),
+      ),
+    };
+  }
+
   const ExerciseFilterState({
     this.showFilters = false,
     this.query = '',
@@ -139,7 +149,6 @@ List<Ex> filteredExercises(Ref ref) {
   return getFilteredExercises(
     query: filterState.query,
     muscleGroup: filterState.selectedMuscleGroup,
-    availEquipment: filterState.selectedEquipment,
-    availEquipmentCategories: filterState.selectedEquipmentCategories,
+    availEquipment: filterState.availEquipment,
   );
 }

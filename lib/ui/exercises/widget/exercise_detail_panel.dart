@@ -35,11 +35,7 @@ class ExerciseDetailPanel extends ConsumerWidget {
       constrainWidth: true,
       // Note: in the "exercises browser", we have our own equipment filter,
       // so we don't use the one from setup
-      availEquipment: filter.selectedEquipment.union(
-        Equipment.values
-            .where((equipment) => filter.selectedEquipmentCategories.contains(equipment.category))
-            .toSet(),
-      ),
+      availEquipment: filter.availEquipment,
     );
   }
 }

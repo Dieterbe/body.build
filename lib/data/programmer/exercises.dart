@@ -1229,17 +1229,14 @@ final List<Ex> exes = [
 List<Ex> getFilteredExercises({
   Set<Ex>? excludedExercises,
   Set<Equipment>? availEquipment,
-  Set<EquipmentCategory>? availEquipmentCategories,
   String? query,
   ProgramGroup? muscleGroup,
 }) {
   var exercises = exes.where((e) {
     if (excludedExercises?.contains(e) ?? false) return false;
 
-    if (availEquipment != null || availEquipmentCategories != null) {
-      bool isAllowed(Equipment equip) =>
-          (availEquipment != null && availEquipment.contains(equip)) ||
-          (availEquipmentCategories != null && availEquipmentCategories.contains(equip.category));
+    if (availEquipment != null) {
+      bool isAllowed(Equipment equip) => availEquipment.contains(equip);
 
       // Check base equipment
       final basedEquipmentAllowed = e.equipment.every(isAllowed);
