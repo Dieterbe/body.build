@@ -1,8 +1,13 @@
 // ignore_for_file: prefer-match-file-name
 
-import 'package:bodybuild/data/programmer/exercises.dart';
+import 'dart:convert';
+import 'package:bodybuild/data/programmer/exercise_versioning.dart';
+import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:drift/drift.dart';
 import 'package:bodybuild/data/workouts/workout_database_connection.dart';
+import 'package:flutter/foundation.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 part 'workout_database.g.dart';
 
@@ -195,12 +200,83 @@ class WorkoutDatabase extends _$WorkoutDatabase {
   }
 
   Future<void> _checkExerciseMigration() async {
-    // TODO: This would integrate with a migration service
-    // For now, just a placeholder
-    final currentVersion = await getCurrentExerciseVersion();
-    if (currentVersion != exerciseDatasetVersion) {
-      throw ('Exercise migration needed: ${currentVersion!} -> $exerciseDatasetVersion');
-    }
+    await transaction(() async {
+      final currentVersion = await getCurrentExerciseVersion();
+
+      if (currentVersion == null) {
+        await Posthog().capture(
+          eventName: 'ExerciseMigrationDriftFailed',
+          properties: {'reason': 'current_version_unset', 'to_version': exerciseDatasetVersion},
+        );
+        throw Exception("current exercise version is unset. this should never happen");
+      }
+      if (currentVersion == exerciseDatasetVersion) {
+        await Posthog().capture(
+          eventName: 'ExerciseMigrationDriftSkipped',
+          properties: {
+            'reason': 'already_up_to_date',
+            'from_version': currentVersion,
+            'to_version': exerciseDatasetVersion,
+          },
+        );
+        print(
+          "migrator drift: already at latest version $exerciseDatasetVersion - no migration needed",
+        );
+        return;
+      }
+
+      if (currentVersion > exerciseDatasetVersion) {
+        await Posthog().capture(
+          eventName: 'ExerciseMigrationDriftFailed',
+          properties: {
+            'reason': 'future_version',
+            'from_version': currentVersion,
+            'to_version': exerciseDatasetVersion,
+          },
+        );
+        throw Exception(
+          'Database version ($currentVersion) newer than app ($exerciseDatasetVersion). Has app been downgraded? It should be upgraded',
+        );
+      }
+
+      print(
+        'migrator drift: migrating workout data from v$currentVersion to v$exerciseDatasetVersion',
+      );
+
+      // Get all workout sets
+      final allSets = await select(workoutSets).get();
+      var setsChanged = 0;
+      for (final set in allSets) {
+        final oldTweaks = model.WorkoutSet.tweaksFromJson(set.tweaks);
+        final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+          set.exerciseId,
+          oldTweaks,
+          currentVersion,
+          exerciseDatasetVersion,
+        );
+
+        if (newId != set.exerciseId || !mapEquals(newTweaks, oldTweaks)) {
+          setsChanged++;
+          // Update the set
+          await (update(workoutSets)..where((s) => s.id.equals(set.id))).write(
+            WorkoutSetsCompanion(exerciseId: Value(newId), tweaks: Value(json.encode(newTweaks))),
+          );
+        }
+      }
+      await Posthog().capture(
+        eventName: 'ExerciseMigrationDriftCompleted',
+        properties: {
+          'from_version': currentVersion,
+          'to_version': exerciseDatasetVersion,
+          'sets_checked': allSets.length,
+          'sets_changed': setsChanged,
+        },
+      );
+
+      // Update version
+      await setCurrentExerciseVersion(exerciseDatasetVersion, 'migration');
+      print('Migration complete');
+    });
   }
 
   // Measurement queries. lists of measurements are always returned in TS ASC order

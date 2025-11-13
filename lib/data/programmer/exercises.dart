@@ -194,13 +194,6 @@ no '_' because it shouldn't be needed, and allows us to url encode space to '_' 
 today we don't encode ° and () (and space) in exercise ID's in URL's and it seems to work fine, however
 */
 
-// Exercise dataset version for migration tracking
-const int exerciseDatasetVersion = 1;
-
-// In case we make breaking changes to exercise ID's or tweaks (such that persisted values from
-// the programmer, workout history, etc. are no longer valid), we should increment this version
-// and build a migration system (if/when we care enough about stability anyway)
-
 final List<Ex> exes = [
   /**
  *    888      8888888888  .d8888b.   .d8888b.  
