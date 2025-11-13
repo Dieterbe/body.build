@@ -447,7 +447,11 @@ According to "Knees over toes guys", backward walking has many benefits e.g. for
 See [his TikTok video](https://www.tiktok.com/@kneesovertoesguy/video/7297641158753258795?)
 ''',
 );
-
+const legRaiseProgression = Tweak('difficulty', 'legs straight', {
+  'legs straight': Option({}, 'hardest'),
+  'bent knee 90°': Option({}, 'easy. aka knee raise'),
+  'bent knee 135°': Option({}, 'medium'),
+});
 const crunchBenchAngle = Tweak('bench angle', '0', {
   '-40': Option({}, 'aka 30° decline.'),
   '-30': Option({}, 'aka 30° decline.'),
@@ -458,6 +462,11 @@ const crunchBenchAngle = Tweak('bench angle', '0', {
   '45': Option({}, 'aka 45° incline.'),
 });
 
+const dipBodyPosition = Tweak('body position', 'lean forward', {
+  'lean forward': Option({}, 'more chest focus'),
+  'lean forward with legs forward': Option({}, 'most chest focus'),
+  'neutral': Option({}, 'more tricep focus. keep elbows tucked. aka tricep dip'),
+});
 const frontRaiseLoading = Tweak('loading', 'dumbbell', {
   'barbell': Option({}, 'barbell', equipment: Equipment.barbell),
   'cable': Option({}, 'cable', equipment: Equipment.cableTower),

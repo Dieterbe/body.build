@@ -225,17 +225,49 @@ final List<Ex> exes = [
   Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell], [rom, gripSqueeze]),
   Ex(vaDeadlift, "deadlift", [Equipment.barbell], [rom, gripSqueeze]),
   Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
+  Ex(vaDeadlift, "cable deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
   Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell], [rom, gripSqueeze], [], ['RDL']),
   Ex(vaDeadliftRDL, "dumbbell romanian deadlift", [Equipment.dumbbell], [rom, gripSqueeze], [], [
     'RDL',
   ]),
+  Ex(vaDeadliftRDL, "cable romanian deadlift", [Equipment.cableTower], [rom, gripSqueeze], [], [
+    'RDL',
+  ]),
+  Ex(vaDeadliftRDL, "rack pull", [Equipment.barbell], [rom, gripSqueeze], [], []),
 
   const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45], [rom, gripSqueeze]),
   const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45], [rom, gripSqueeze]),
+
+  // can also be done on a glute-ham raise machine
+  // load with plate or dumbbbell or elastic or barbell, different ways to hold it though
   const Ex(vaHipExtension, "90° hip extension", [Equipment.hyper90], [rom, gripSqueeze]),
+  /* can also be done on a bench with an elastic: https://www.youtube.com/shorts/A-V2wNbSo60
+  although this changes the curve: reverse hyper is normally horizontal
+  */
   const Ex(vaHipExtension, "reverse hyperextension", [Equipment.hyperReverse], [rom, gripSqueeze]),
   const Ex(vaPullThrough, "cable pull-through", [Equipment.cableTower], [rom, gripSqueeze]),
 
+  const Ex(
+    vaGluteHamRaise,
+    "glute-ham raise",
+    [Equipment.gluteHamRaise],
+    [rom, gripSqueeze],
+    [],
+    [],
+    '''
+This exercise combines two movements.
+- 90° hip extension (glute raise)
+- knee flexion (ham raise)
+It is tricky to optimally load for both. You can generate extra momentum during the easier hip extension
+to aid in the harder leg curl movement.
+Keep pelvis and spine neutral at all times.
+''',
+  ),
+  /* this https://www.youtube.com/watch?v=h31Y9bPxtWw shows 3 variations you can do on the GH raise
+ step 1: pure hip extension (just like 90 hyper)
+ step 2: with hip slightly flexed, focus on leg curls // i suppose you can progress by keeping more or less flexed
+ step 3: true glute-ham raise
+ */
   const Ex(
     vaLegCurlHipFlexed,
     "seated leg curl machine",
@@ -436,7 +468,6 @@ final List<Ex> exes = [
     [Equipment.pendulumGluteKickback],
     [rom, hipExtensionKneeFlexion],
   ),
-
   Ex(
     {},
     "hip abduction machine",
@@ -638,6 +669,14 @@ final List<Ex> exes = [
     [Equipment.dumbbell],
     [rom, gripSqueeze],
   ),
+  const Ex(vaRowWithSpineIso, "pendlay row", [Equipment.barbell], [rom, gripSqueeze], [], [], '''
+Like a bent over barbell row, but:
+- torso (nearly) parallell to the floor (at all times)
+- bar touches the floor at each rep
+- pull forecfully to the sternum  
+
+See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
+'''),
 
   const Ex(
     vaRowWithoutSpine, // TODO: change to 'row'
@@ -688,6 +727,19 @@ final List<Ex> exes = [
     [rom, gripSqueeze],
   ),
 
+  const Ex(
+    vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
+    "rear delt dumbbell raise",
+    [Equipment.dumbbell],
+    [
+      rom,
+      gripSqueeze,
+      Tweak('body position', 'seated', {
+        'standing': Option({}, '[video](https://www.youtube.com/watch?v=WPaVyXi03Rk)'),
+        'seated': Option({}, '[video](https://www.youtube.com/watch?v=p1yQnTNE808)'),
+      }),
+    ],
+  ),
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "side lying rear delt dumbbell raise",
@@ -793,7 +845,16 @@ final List<Ex> exes = [
     [rom, gripSqueeze, benchPressBenchAngle],
   ),
 
-  const Ex(vaBenchPressBBChestPressMachineDip, "dip", [], [rom, gripSqueeze], [ratingJNDips]),
+  const Ex(
+    vaBenchPressBBChestPressMachineDip,
+    "dip",
+    [],
+    [rom, gripSqueeze, dipBodyPosition],
+    [ratingJNDips],
+  ),
+  const Ex(vaRingDip, "ring dip", [Equipment.gymnasticRings], [rom, gripSqueeze, dipBodyPosition], [
+    ratingJNDips,
+  ]),
   const Ex(
     vaBenchPressBBChestPressMachineDip,
     "assisted dip machine",
@@ -834,7 +895,15 @@ final List<Ex> exes = [
     [Equipment.cableTower],
     [rom, gripSqueeze, flyThumbs],
   ),
-
+  const Ex(
+    vaOverheadPressDB,
+    "single arm dumbbell overhead press",
+    [Equipment.dumbbell],
+    [rom, gripSqueeze],
+    [],
+    [],
+    "[video](https://www.youtube.com/watch?v=gC79JHUadz4)",
+  ),
   const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell], [rom, gripSqueeze]),
   const Ex(
     vaOverheadPressBB,
@@ -895,6 +964,16 @@ final List<Ex> exes = [
 * Highest position is like regular dumbbell overhead press
 ''',
   ),
+  const Ex(
+    {...vaOverheadPressBB, ProgramGroup.quadsVasti: Assign(0.2)},
+    "barbell push press",
+    [Equipment.barbell],
+  ),
+  const Ex(
+    {...vaOverheadPressDB, ProgramGroup.quadsVasti: Assign(0.2)},
+    "dumbbell push press",
+    [Equipment.dumbbell],
+  ),
   Ex(
     vaLateralRaise,
     "standing dumbbell lateral raise",
@@ -906,6 +985,12 @@ final List<Ex> exes = [
     "standing cable lateral raise",
     [Equipment.cableTower],
     [rom, gripSqueeze, lateralRaiseShoulderRotation, lateralRaiseCablePath],
+  ),
+  Ex(
+    vaLateralRaise,
+    "lateral raise machine",
+    [Equipment.lateralRaiseMachine],
+    [rom, gripSqueeze, lateralRaiseShoulderRotation],
   ),
   const Ex(
     vaFrontRaise,
@@ -926,6 +1011,7 @@ final List<Ex> exes = [
   const Ex(vaShrug, "barbell shrug", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(vaShrug, "wide grip barbell shrug", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(vaShrug, "dumbbell shrug", [Equipment.dumbbell], [rom, gripSqueeze]),
+  const Ex(vaShrug, "machine shrug", [Equipment.shrugMachine], [rom, gripSqueeze]),
 
   const Ex(
     vaTricepExtensionOverhead,
@@ -1076,12 +1162,15 @@ final List<Ex> exes = [
   const Ex(vaAbCrunch, "ab-wheel rollout", [], [rom]),
   const Ex(vaAbIsometric, "plank", []),
   // TODO implement seconds counting
-  const Ex(vaAbCrunch, "hanging leg raise", [], [rom]), // hardest at contraction
+  const Ex(vaAbCrunch, "hanging leg raise", [], [
+    rom,
+    legRaiseProgression,
+  ]), // hardest at contraction
   const Ex(
     vaAbCrunch,
     "captains chair leg raise", // TODO: wanna put ' in the title without affecting ID
     [Equipment.captainsChair],
-    [rom],
+    [rom, legRaiseProgression],
     [],
     ["arm/elbow supported leg raise"],
   ), // hardest at contraction

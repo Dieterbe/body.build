@@ -74,6 +74,12 @@ const vaLegCurlHipExtended = {
   ProgramGroup.hamsShortHead: Assign(1, 'full length'),
   ProgramGroup.hams: Assign(1, 'knee flexion (short to medium length)'),
 };
+
+const vaGluteHamRaise = {
+  ProgramGroup.spinalErectors: Assign(0.25),
+  ProgramGroup.gluteMax: Assign(1),
+  ...vaLegCurlHipExtended,
+};
 /*
 squats and hamstrings -> https://pubmed.ncbi.nlm.nih.gov/9107637/
 https://pubmed.ncbi.nlm.nih.gov/31230110/
@@ -214,6 +220,15 @@ const vaBenchPressBBChestPressMachineDip = {
   ProgramGroup.tricepsLongHead: Assign(0.25),
   ...wrist025,
 };
+const vaRingDip = {
+  ProgramGroup.lowerPecs: Assign(1),
+  ProgramGroup.upperPecs: Assign(1),
+  ProgramGroup.frontDelts: Assign(1),
+  ProgramGroup.tricepsMedLatH: Assign(1, 'elbow extension'),
+  ProgramGroup.tricepsLongHead: Assign(0.25),
+  ...wrist05,
+};
+
 const vaPushUp = {
   ProgramGroup.lowerPecs: Assign(1, 'horizontal shoulder adduction/flexion'),
   ProgramGroup.upperPecs: Assign(1, 'horizontal shoulder adduction/flexion + shoulder flexion'),

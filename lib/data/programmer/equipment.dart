@@ -33,6 +33,7 @@ enum Equipment {
 
   // Upper body machines
   shoulderPressMachine("Shoulder Press Machine", EquipmentCategory.upperBodyMachines),
+  lateralRaiseMachine("Lateral Raise Machine", EquipmentCategory.upperBodyMachines),
   chestPressMachine(
     "Chest Press Machine",
     EquipmentCategory.upperBodyMachines,
@@ -58,6 +59,7 @@ enum Equipment {
     EquipmentCategory.upperBodyMachines,
   ),
   assistedDipMachine("Assisted Dip Machine", EquipmentCategory.upperBodyMachines),
+  shrugMachine("Shrug Machine", EquipmentCategory.upperBodyMachines),
   // Core and glute machines
   abCrunchMachine("Ab Crunch Machine", EquipmentCategory.coreAndGluteMachines),
   hyper45("45° Back Extension", EquipmentCategory.coreAndGluteMachines),
@@ -71,6 +73,7 @@ enum Equipment {
     EquipmentCategory.coreAndGluteMachines,
   ),
   captainsChair("Captain's Chair", EquipmentCategory.coreAndGluteMachines),
+  gluteHamRaise("Glute-Ham raise", EquipmentCategory.coreAndGluteMachines),
 
   // Lower body machines
 
@@ -88,7 +91,6 @@ enum Equipment {
 
   /*
 others that menno asks about, but are not supported here:
-a glute-ham raise
 a pair of knee wraps 
 powerlifting bands (not the light home workout stuff)
 powerlifting chains
