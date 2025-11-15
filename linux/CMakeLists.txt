@@ -7,7 +7,12 @@ project(runner LANGUAGES CXX)
 set(BINARY_NAME "body.build")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
-set(APPLICATION_ID "build.body")
+set(APPLICATION_ID_BASE "build.body.bodybuild")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set(APPLICATION_ID "${APPLICATION_ID_BASE}.debug")
+else()
+  set(APPLICATION_ID "${APPLICATION_ID_BASE}")
+endif()
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
