@@ -183,15 +183,15 @@ void main() {
 
     test('utility methods should work correctly', () {
       // Test isMigrationNeeded (with empty migrations list)
-      expect(ExerciseMigrationService.isMigrationNeeded(1, 2), isFalse);
+      expect(ExerciseMigrationService.isMigrationNeeded(1, 2), isTrue);
 
       // Test getApplicableMigrations
       final applicable = ExerciseMigrationService.getApplicableMigrations(1, 2);
-      expect(applicable, isEmpty);
+      expect(applicable, isNotEmpty);
 
       // Test getMigrationDescription
       final description = ExerciseMigrationService.getMigrationDescription(1, 2);
-      expect(description, equals('No migrations needed'));
+      expect(description, isNot(equals('No migrations needed')));
     });
   });
 }

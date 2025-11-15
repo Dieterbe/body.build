@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bodybuild/data/programmer/exercise_versioning.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
 import 'package:bodybuild/service/program_persistence_service.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,27 +30,24 @@ void main() {
 
       final report = await service.runExerciseMigration();
 
-      expect(report, isNull);
-      /* once we actually evolve the library, we'll need to implement something likethis for the BSQ
+      expect(report, isNotNull);
       expect(report!.error, isNull);
       expect(report.from, 1);
       expect(report.to, exerciseDatasetVersion);
+      expect(prefs.getInt('exercise_dataset_version_programs'), exerciseDatasetVersion);
       expect(service.getCurrentExerciseVersion(), exerciseDatasetVersion);
-      expect(prefs.getString('exercise_dataset_version'), exerciseDatasetVersion.toString());
       final program = service.loadProgram("demo1");
       expect(program?.workouts.length, 1);
       expect(program?.workouts.firstOrNull!.setGroups.length, 1);
       expect(program?.workouts.firstOrNull!.setGroups.firstOrNull!.sets.length, 1);
       expect(
         program?.workouts.firstOrNull!.setGroups.firstOrNull!.sets.firstOrNull!.ex!.id,
-        'some id',
+        'bulgarian split squat',
       );
       expect(
-      // this should include all the tweaks
         program?.workouts.firstOrNull!.setGroups.firstOrNull!.sets.firstOrNull!.ex!.tweaks,
-        [],
+        exes.firstWhereOrNull((ex) => ex.id == 'bulgarian split squat')!.tweaks,
       );
-      */
     });
   });
 }

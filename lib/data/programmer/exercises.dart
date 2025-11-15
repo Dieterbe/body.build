@@ -360,32 +360,31 @@ Keep pelvis and spine neutral at all times.
   ),
 
   //TODO: bulgarian split squat with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not).
-  const Ex({...vaSquatBSQ, ...wrist03}, "dumbbell bulgarian split squat", [Equipment.dumbbell], [
+  const Ex(vaSquatBSQ, "bulgarian split squat", [], [
     rom,
     gripSqueeze,
     bsqRearLeg,
     squatLowerLegMovement,
     deficit,
+    Tweak('loading', 'dumbbell', {
+      'barbell': Option(wrist025, 'barbell', equipment: Equipment.barbell),
+      'cable': Option(wrist03, 'cable', equipment: Equipment.cableTower),
+      'dumbbell': Option(wrist03, 'dumbbell', equipment: Equipment.dumbbell),
+      'elastic band': Option(wrist03, 'elastic band', equipment: Equipment.elastic),
+      'kettlebell': Option(wrist03, 'kettlebell', equipment: Equipment.kettlebell),
+      'plate': Option(wrist03, 'plate', equipment: Equipment.plate),
+      'smith machine vertical': Option(
+        wrist025,
+        'smith machine vertical',
+        equipment: Equipment.smithMachineVertical,
+      ),
+      'smith machine angled': Option(
+        wrist025,
+        'smith machine angled',
+        equipment: Equipment.smithMachineAngled,
+      ),
+    }),
   ]),
-  const Ex({...vaSquatBSQ, ...wrist025}, "barbell bulgarian split squat", [Equipment.barbell], [
-    rom,
-    gripSqueeze,
-    bsqRearLeg,
-    squatLowerLegMovement,
-    deficit,
-  ]),
-  const Ex(
-    {...vaSquatBSQ, ...wrist025},
-    "smith machine (vertical) bulgarian split squat",
-    [Equipment.smithMachineVertical],
-    [rom, gripSqueeze, bsqRearLeg, squatLowerLegMovement, deficit],
-  ),
-  const Ex(
-    {...vaSquatBSQ, ...wrist025},
-    "smith machine (angled) bulgarian split squat",
-    [Equipment.smithMachineAngled],
-    [rom, gripSqueeze, bsqRearLeg, squatLowerLegMovement, deficit],
-  ),
 
   const Ex(
     vaLegPressSquatHackSquatBelt,
