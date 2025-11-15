@@ -27,7 +27,7 @@ class AddSetButton extends StatelessWidget {
             Icon(Icons.add_circle_outline, size: 18, color: Theme.of(context).colorScheme.primary),
             const SizedBox(width: 8),
             const Text(
-              'Add Set',
+              'Add Exercise',
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, letterSpacing: 0.3),
             ),
           ],

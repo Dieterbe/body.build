@@ -24,7 +24,7 @@ class ProgrammerBuilder extends ConsumerWidget {
 
     /*
       To make sure the programGroup indicators are all aligned, between the top
-      headers, 'add set' buttons, and actual sets (which may be combosets), which
+      headers, 'add exercise' buttons, and actual sets (which may be combosets), which
       are inside of workout containers, we need to apply a consistent padding on left and right.
       at a high level, the divisions are like so:
       | <20px>< 45% left section >< 55% right section > <20px>

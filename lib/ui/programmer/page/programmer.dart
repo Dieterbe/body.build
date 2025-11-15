@@ -41,7 +41,7 @@ There are 2 main tabs: **workout programmer** and **set-up**
 Explore/modify the built-in demo program on create a new one.
 
 A program defines one or more workouts. Each workout has one or more sets, and sets may be combined into combo sets.
-You can add sets with the "add set" button, or any of the muscle-specific "⊕" buttons, these let you add exercises that recruit that muscle well.
+You can add exercises with the "add exercise" button, or any of the muscle-specific "⊕" buttons, these let you add exercises that recruit that muscle well.
 You can also drag and drop sets to re-order them. Dragging a set onto another creates a combo set.
 
 Not all muscles are included here (e.g. rhomboids, psoas, etc) for two reasons:

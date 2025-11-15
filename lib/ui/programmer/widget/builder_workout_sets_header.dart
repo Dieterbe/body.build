@@ -113,7 +113,7 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return addSetDialog(context, setup, g);
+                        return addExerciseDialog(context, setup, g);
                       },
                     );
                   },
@@ -130,13 +130,13 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
         .toList(),
   );
 
-  Widget addSetDialog(BuildContext context, Settings setup, ProgramGroup g) => SimpleDialog(
+  Widget addExerciseDialog(BuildContext context, Settings setup, ProgramGroup g) => SimpleDialog(
     contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
     title: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Add set for: ${g.displayNameShort}',
+          'Add exercise for: ${g.displayNameShort}',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),

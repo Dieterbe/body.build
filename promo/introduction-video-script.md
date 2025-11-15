@@ -135,7 +135,7 @@ Note that now still, you can still change the modifiers, cues, or even the exerc
 # drag & drop
 Another thing I wanted to show is that you can drag and drop exercises.
 So let me just add some first.
-# wait 3 sec to do 'add set' and hit change
+# wait 3 sec to do 'add exercise' and hit change
 Let's add this back extension
 # wait 3 sec to add another set and hit change
 and then we'll add the face pull.

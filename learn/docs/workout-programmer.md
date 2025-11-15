@@ -61,7 +61,7 @@ There is also a "program breakdown" section which looks at how well each muscle 
 
 ![Adding sets](/img/workout-programmer-add-set.png)
 
-To add a set, either add the generic 'Add Set' button, or use the muscle specific button if you need to add volume for a specific muscle.
+To add a set, either add the generic 'Add Exercise' button, or use the muscle specific button if you need to add volume for a specific muscle.
 The amount of muscle recruitment is shown for each exercise, as well as its star-rating, which is compiled from social media content from creators such as Jeff Nippard, Menno Henselmans and Dr. Mike Israetel.
 Different forms of exercises are shown if those forms are known to result in different recruitment or different ratings.
 

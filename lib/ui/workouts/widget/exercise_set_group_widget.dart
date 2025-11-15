@@ -64,11 +64,11 @@ class ExerciseSetGroupWidget extends StatelessWidget {
           iconSize: 20,
           style: IconButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.primary),
         ),
-        // Add set button
+        // Add exercise button
         IconButton(
           onPressed: () => _showAddSetSheet(context),
           icon: const Icon(Icons.add_circle_outline),
-          tooltip: 'Add set',
+          tooltip: 'Add exercise',
           iconSize: 20,
           style: IconButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.primary),
         ),

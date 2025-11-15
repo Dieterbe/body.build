@@ -35,7 +35,7 @@ user input (all optional):
 * selection dropdown to involve one or more muscles (Program Groups)
 
 option tiles:
-* display exercise name, ratings and tweaks (similar to the "Add set For" dialog)
+* display exercise name, ratings and tweaks (similar to the "Add exercise for" dialog)
 * display muscle recruitments of all muscles with recruitment > 0.5, this visualization should be clear and concise
 
 ## Future Enhancements
