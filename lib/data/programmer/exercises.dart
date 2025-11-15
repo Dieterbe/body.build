@@ -417,6 +417,9 @@ Keep pelvis and spine neutral at all times.
     rom,
     legExtensionLean,
   ]),
+  // quad blaster is similar to spanish squat, but fully fixates your legs, and you keep your back
+  // usually a bit more straight.
+  const Ex(vaSquatPistolSissyAssistedSpanish, "quad blaster squat", [], [rom, legExtensionLean]),
   const Ex(vaSquatPistolSissyAssistedSpanish, "assisted sissy squat", [], [rom, legExtensionLean]),
   const Ex(
     vaSquatPistolSissyAssistedSpanish,

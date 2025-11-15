@@ -20,6 +20,8 @@ enum Equipment {
   gymnasticRings("Gymnastic Rings", EquipmentCategory.nonMachine),
   elastic("Resistance bands", EquipmentCategory.nonMachine),
   plate("Weight Plates", EquipmentCategory.nonMachine),
+  quadBlaster("Quad Blaster", EquipmentCategory.lowerBodyMachines),
+
   /*
  exercises that can use a weight belt (pull-ups, donkey calf raises) can usually be done well
  even if you don't have the belt. Therefore, having it as a filter for exercises is not useful.
