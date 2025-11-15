@@ -1,3 +1,4 @@
+import 'package:bodybuild/model/migration_report.dart';
 import 'package:bodybuild/ui/const.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/programmer/page/programmer_small_screen.dart';
@@ -10,6 +11,7 @@ import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/data/programmer/setup_persistence_provider.dart';
 import 'package:bodybuild/data/programmer/program_persistence_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bodybuild/ui/programmer/widget/migration_report_dialog.dart';
 
 const String helpProgrammer = '''
 # What is this?
@@ -77,8 +79,8 @@ class ProgrammerScreen extends StatefulWidget {
 }
 
 class _ProgrammerScreenState extends State<ProgrammerScreen> {
-  String? _migrationError;
-  bool _migrationChecked = false;
+  MigrationReport? migrationReport;
+  bool migrationChecked = false;
 
   @override
   void initState() {
@@ -90,67 +92,36 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
   }
 
   Future<void> _checkMigration() async {
-    if (_migrationChecked) return;
-    _migrationChecked = true;
+    if (migrationChecked) return;
 
-    try {
-      final container = ProviderScope.containerOf(context);
+    final container = ProviderScope.containerOf(context);
+    /*
+     disabled because we no longer specify "excluded exercises" in user profiles
       final setupService = await container.read(setupPersistenceProvider.future);
       final setupError = await setupService.checkExerciseMigration();
       if (setupError != null) {
         if (mounted) setState(() => _migrationError = setupError);
         return;
       }
+      */
 
-      final programService = await container.read(programPersistenceProvider.future);
-      final programError = await programService.checkExerciseMigration();
-      if (programError != null) {
-        if (mounted) setState(() => _migrationError = programError);
-      }
-    } catch (e) {
-      if (mounted) setState(() => _migrationError = e.toString());
-    }
+    final programService = await container.read(programPersistenceProvider.future);
+    final report = await programService.runExerciseMigration();
+    if (!mounted) return;
+    setState(() {
+      migrationReport = report;
+      migrationChecked = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Show migration error if present
-    if (_migrationError != null) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Programmer')),
-        drawer: const AppNavigationDrawer(),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                const SizedBox(height: 24),
-                const Text(
-                  'Migration Required',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    _migrationError!,
-                    style: const TextStyle(fontFamily: 'monospace'),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+    if (!migrationChecked) {
+      return const Center(child: CircularProgressIndicator());
     }
-
+    if (migrationReport != null && !migrationReport!.boring) {
+      return MigrationReportDialog(report: migrationReport!);
+    }
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
 
