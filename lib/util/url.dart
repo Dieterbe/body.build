@@ -1,7 +1,12 @@
+library;
+
 /// URL encoding and decoding utilities for exercise IDs
 /// see exercises.dart for detailed character rules of the various fields
 /// most importantly, '_' is not allowed, so we can use them in the URL
-library;
+import 'package:bodybuild/data/programmer/exercise_versioning.dart';
+import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/service/exercise_migration_service.dart';
+import 'package:collection/collection.dart';
 
 /// Builds an exercise detail URL with encoded exercise ID and tweak options.
 String buildExerciseDetailUrl(String exerciseId, Map<String, String> tweakOptions) {
@@ -44,4 +49,26 @@ Map<String, String> parseExerciseParams(Map<String, String> queryParameters) {
 
 String parseExerciseId(String path) {
   return path.replaceAll('_', ' ');
+}
+
+/// Attempt to migrate incoming exercise ID/tweaks to current dataset version, if it isn't found.
+(String, Map<String, String>) maybeMigrateExerciseFromUrl(
+  String exerciseId,
+  Map<String, String> tweaks,
+) {
+  final exercise = exes.firstWhereOrNull((ex) => ex.id == exerciseId);
+  // note: for the purpose of migrations, we don't have to worry about constraint violations:
+  // if the exercise ID, tweak keys and values are known, we can assume we're at the latest
+  // version of the schema
+  if (exercise != null && exercise.tweaksExist(tweaks)) {
+    return (exerciseId, tweaks);
+  }
+
+  final result = ExerciseMigrationService.migrateExercise(
+    exerciseId,
+    tweaks,
+    1,
+    exerciseDatasetVersion,
+  );
+  return (result.$1, result.$2);
 }

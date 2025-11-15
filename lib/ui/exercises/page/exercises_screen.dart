@@ -1,4 +1,5 @@
 import 'package:bodybuild/ui/exercises/widget/exercise_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
@@ -35,17 +36,40 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   }
 
   void _initializeFromUrl() {
-    if (widget.exerciseId != null) {
-      final exercise = exes.cast<Ex?>().firstWhere(
-        (ex) => ex?.id == widget.exerciseId,
-        orElse: () => null,
-      );
-      if (exercise != null) {
-        ref
-            .read(exerciseFilterProvider.notifier)
-            .setSelectedExercise(exercise, tweakOptions: widget.tweakOptions ?? {});
-      }
+    final initialId = widget.exerciseId;
+    if (initialId == null) {
+      return;
     }
+
+    final initialTweaks = widget.tweakOptions ?? {};
+    final (migratedId, migratedTweaks) = maybeMigrateExerciseFromUrl(initialId, initialTweaks);
+
+    final exercise = exes.cast<Ex?>().firstWhere((ex) => ex?.id == migratedId, orElse: () => null);
+
+    if (exercise == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Exercise "$initialId" is not found.')));
+        context.go('/exercises');
+      });
+      return;
+    }
+
+    if (migratedId != initialId || !mapEquals(migratedTweaks, initialTweaks)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Updated exercise link to latest version: ${exercise.id}')),
+        );
+        _updateUrl(exercise, migratedTweaks);
+      });
+    }
+
+    ref
+        .read(exerciseFilterProvider.notifier)
+        .setSelectedExercise(exercise, tweakOptions: migratedTweaks);
   }
 
   void _updateUrl(Ex? exercise, Map<String, String> tweakOptions) {

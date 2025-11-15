@@ -112,7 +112,7 @@ class MyApp extends StatelessWidget {
                     builder: (context, state) {
                       final id = state.pathParameters['id']!;
 
-                      // TODO validation of id and tweaks
+                      // validation of id and tweaks is done in the ExercisesScreen
                       return ExercisesScreen(
                         exerciseId: parseExerciseId(id),
                         tweakOptions: parseExerciseParams(state.uri.queryParameters),

@@ -5,6 +5,7 @@ import 'package:bodybuild/data/programmer/tweak.dart';
 import 'package:bodybuild/data/programmer/rating_jn.dart';
 import 'package:bodybuild/data/programmer/rating_mh.dart';
 import 'package:bodybuild/data/programmer/volume_assignment.dart';
+import 'package:collection/collection.dart';
 
 // our own exercise class
 // which allows to list exercises, categorized by base (so it can be matched)
@@ -36,6 +37,15 @@ class Ex {
     this.desc = '',
     this.constraints = const [],
   ]);
+
+  // does the given set of tweak options exist for this exercise?
+  // note: this does not check constraints!
+  bool tweaksExist(Map<String, String> opts) {
+    return opts.entries.every((entry) {
+      final tweak = tweaks.firstWhereOrNull((t) => t.name == entry.key);
+      return (tweak != null && tweak.opts.containsKey(entry.value));
+    });
+  }
 
   /// Checks if a specific option of a tweak is available given current tweak selections.
   /// Returns true if the option can be selected, false if it's incompatible with current selections.
