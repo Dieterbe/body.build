@@ -163,6 +163,7 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
             icon: const Icon(Icons.help_outline),
             label: const Text('Help'),
             onPressed: () {
+              final helpScrollController = ScrollController();
               showDialog(
                 context: context,
                 builder: (context) => Dialog(
@@ -179,22 +180,29 @@ class _ProgrammerScreenState extends State<ProgrammerScreen> {
                             Text('Body.Build Help Guide', style: ts50(context)),
                             IconButton(
                               icon: const Icon(Icons.close),
-                              onPressed: () => Navigator.of(context).pop(),
+                              onPressed: () {
+                                helpScrollController.dispose();
+                                Navigator.of(context).pop();
+                              },
                             ),
                           ],
                         ),
                         const SizedBox(height: 16),
                         Flexible(
                           child: Scrollbar(
+                            controller: helpScrollController,
                             thumbVisibility: true,
-                            child: SingleChildScrollView(child: markdown(helpProgrammer, context)),
+                            child: SingleChildScrollView(
+                              controller: helpScrollController,
+                              child: markdown(helpProgrammer, context),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-              );
+              ).then((_) => helpScrollController.dispose());
             },
           ),
         ],

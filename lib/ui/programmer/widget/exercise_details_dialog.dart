@@ -38,17 +38,21 @@ class ExerciseDetailsDialog extends StatefulWidget {
 class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
   late Sets localSets;
   bool showDetailedTweaks = false;
-  final ScrollController _tweakScrollController = ScrollController();
+  ScrollController? _tweakScrollController;
 
   @override
   void initState() {
     super.initState();
     localSets = widget.sets;
+    // Only create scroll controller if we need scrollable tweak grid
+    if (widget.scrollableTweakGrid) {
+      _tweakScrollController = ScrollController();
+    }
   }
 
   @override
   void dispose() {
-    _tweakScrollController.dispose();
+    _tweakScrollController?.dispose();
     super.dispose();
   }
 
@@ -57,6 +61,16 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.sets != widget.sets) {
       localSets = widget.sets;
+    }
+
+    // Handle changes to scrollableTweakGrid
+    if (oldWidget.scrollableTweakGrid != widget.scrollableTweakGrid) {
+      if (widget.scrollableTweakGrid && _tweakScrollController == null) {
+        _tweakScrollController = ScrollController();
+      } else if (!widget.scrollableTweakGrid && _tweakScrollController != null) {
+        _tweakScrollController!.dispose();
+        _tweakScrollController = null;
+      }
     }
   }
 
@@ -238,13 +252,13 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
           ),
           if (localSets.ex?.tweaks.isNotEmpty == true) ...[
             const SizedBox(height: 12),
-            if (widget.scrollableTweakGrid)
+            if (widget.scrollableTweakGrid && _tweakScrollController != null)
               Flexible(
                 child: Scrollbar(
-                  controller: _tweakScrollController,
+                  controller: _tweakScrollController!,
                   thumbVisibility: true,
                   child: SingleChildScrollView(
-                    controller: _tweakScrollController,
+                    controller: _tweakScrollController!,
                     child: ConfigureTweakGrid(
                       sets: localSets,
                       onChange: onChangeTweaks,
