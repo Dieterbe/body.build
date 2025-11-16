@@ -48,5 +48,6 @@ dart_code_metrics:
     - prefer-spacing: false # when children definitions are verbose, i prefer to see the spacing "in its place" and not having to scroll up.
     - avoid-passing-async-when-sync-expected: false # we do this in a few places, seems harmless
     - avoid-equal-expressions: false # makes it clear when expressing ratings as e.g. '7 / 7'
+    - prefer-null-aware-spread: false # makes code look quite weird in some cases
   formatter:
     line-length: 100
