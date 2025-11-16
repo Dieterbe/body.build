@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bodybuild/data/backup/backup_providers.dart';
-import 'package:bodybuild/data/developer_mode_provider.dart';
+import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/data/measurements/measurement_providers.dart';
 import 'package:bodybuild/data/settings/app_settings_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';

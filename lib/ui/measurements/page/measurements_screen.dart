@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/developer_mode_provider.dart';
+import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/data/measurements/measurement_providers.dart';
 import 'package:bodybuild/model/measurements/measurement.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';

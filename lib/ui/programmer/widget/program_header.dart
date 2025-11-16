@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/core/widget/data_manager.dart';
-import 'package:bodybuild/data/developer_mode_provider.dart';
+import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
 class ProgramHeader extends ConsumerWidget {

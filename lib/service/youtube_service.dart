@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:bodybuild/data/youtube_provider.dart';
+import 'package:bodybuild/data/core/youtube_provider.dart';
 import 'package:bodybuild/model/youtube_video.dart';
 import 'package:http/http.dart' as http;
 import 'package:posthog_flutter/posthog_flutter.dart';

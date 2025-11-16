@@ -1,5 +1,5 @@
-import 'package:bodybuild/data/developer_mode_provider.dart';
-import 'package:bodybuild/data/youtube_provider.dart';
+import 'package:bodybuild/data/core/developer_mode_provider.dart';
+import 'package:bodybuild/data/core/youtube_provider.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:bodybuild/ui/core/widget/youtube_video_card.dart';
