@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/util/formulas.dart';

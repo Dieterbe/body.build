@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:bodybuild/data/programmer/exercise_versioning.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/dataset/exercise_versioning.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
-import 'package:bodybuild/model/programmer/workout.dart';
-import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:bodybuild/model/migration_report.dart';
 import 'package:collection/collection.dart';

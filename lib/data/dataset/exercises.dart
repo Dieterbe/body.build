@@ -1,10 +1,10 @@
-import 'package:bodybuild/data/programmer/equipment.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/rating.dart';
-import 'package:bodybuild/data/programmer/tweak.dart';
-import 'package:bodybuild/data/programmer/rating_jn.dart';
-import 'package:bodybuild/data/programmer/rating_mh.dart';
-import 'package:bodybuild/data/programmer/volume_assignment.dart';
+import 'package:bodybuild/data/dataset/equipment.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/rating.dart';
+import 'package:bodybuild/data/dataset/tweak.dart';
+import 'package:bodybuild/data/dataset/rating_jn.dart';
+import 'package:bodybuild/data/dataset/rating_mh.dart';
+import 'package:bodybuild/data/dataset/volume_assignment.dart';
 import 'package:collection/collection.dart';
 
 // our own exercise class

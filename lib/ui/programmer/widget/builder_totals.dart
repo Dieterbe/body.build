@@ -6,8 +6,8 @@ import 'package:bodybuild/ui/programmer/widget/histogram.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/ui/dataset/util_groups.dart';
 import 'package:bodybuild/data/developer_mode_provider.dart';
 
 import '../../../model/programmer/settings.dart';

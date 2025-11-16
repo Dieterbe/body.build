@@ -1,5 +1,5 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 
 class RankedExercise {
   final Ex ex;

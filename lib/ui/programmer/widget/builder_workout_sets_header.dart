@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
-import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/ui/dataset/util_groups.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';

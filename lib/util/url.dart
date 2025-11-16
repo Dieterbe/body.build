@@ -3,8 +3,8 @@ library;
 /// URL encoding and decoding utilities for exercise IDs
 /// see exercises.dart for detailed character rules of the various fields
 /// most importantly, '_' is not allowed, so we can use them in the URL
-import 'package:bodybuild/data/programmer/exercise_versioning.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/dataset/exercise_versioning.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:collection/collection.dart';
 

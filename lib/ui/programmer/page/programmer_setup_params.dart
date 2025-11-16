@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/ui/core/text_style.dart';
 import 'package:bodybuild/ui/programmer/widget/k_string_row.dart';
 import 'package:bodybuild/ui/programmer/widget/kv_row.dart';

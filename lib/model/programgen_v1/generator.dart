@@ -1,5 +1,5 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/programgen_v1/combinator.dart';
 import 'package:bodybuild/model/programgen_v1/components.dart';
 import 'package:bodybuild/model/programgen_v1/cost.dart';

@@ -1,5 +1,5 @@
 import 'package:ml_linalg/linalg.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/programgen_v1/rank.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 

@@ -1,6 +1,6 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/ui/dataset/util_groups.dart';
 import 'package:flutter/material.dart';
 
 class MuscleRecruitmentBar extends StatelessWidget {

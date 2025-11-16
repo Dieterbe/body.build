@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 
 class MuscleGroupSelector extends StatelessWidget {
   final ProgramGroup? selectedMuscleGroup;

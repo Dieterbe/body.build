@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_picker_sheet.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
-import 'package:bodybuild/data/programmer/tweak.dart';
+import 'package:bodybuild/data/dataset/tweak.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:collection/collection.dart';
 

@@ -1,6 +1,6 @@
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/tweak.dart';
-import 'package:bodybuild/data/programmer/rating.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/tweak.dart';
+import 'package:bodybuild/data/dataset/rating.dart';
 
 /*
 Below are ratings from jeff nippard.  not all of them are implemented yet in code,

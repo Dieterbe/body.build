@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bodybuild/data/programmer/exercise_versioning.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/dataset/exercise_versioning.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/service/program_persistence_service.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';

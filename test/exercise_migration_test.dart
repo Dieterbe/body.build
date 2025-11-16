@@ -1,7 +1,7 @@
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:bodybuild/data/programmer/exercise_migrations.dart';
+import 'package:bodybuild/data/dataset/exercise_migrations.dart';
 
 void main() {
   group('ExerciseMigration', () {

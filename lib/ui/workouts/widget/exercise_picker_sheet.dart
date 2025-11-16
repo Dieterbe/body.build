@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/data/workouts/workout_exercise_filter_provider.dart';
 import 'package:bodybuild/ui/core/exercise_search_bar.dart';

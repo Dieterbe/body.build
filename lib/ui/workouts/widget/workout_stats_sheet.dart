@@ -1,8 +1,8 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/ui/core/widget/histogram_widget.dart';
-import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/ui/dataset/util_groups.dart';
 import 'package:flutter/material.dart';
 
 /// Shows a comprehensive stats bottom sheet for a workout

@@ -1,6 +1,6 @@
 import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:bodybuild/data/programmer/rating.dart';
+import 'package:bodybuild/data/dataset/rating.dart';
 
 class RatingIconMulti extends StatelessWidget {
   final List<Rating> ratings;

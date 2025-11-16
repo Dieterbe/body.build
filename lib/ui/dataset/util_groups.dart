@@ -1,7 +1,7 @@
 // ignore_for_file: no-equal-switch-case
 
 import 'package:flutter/material.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 
 Color bgColorForProgramGroup(ProgramGroup g) {
   switch (g) {

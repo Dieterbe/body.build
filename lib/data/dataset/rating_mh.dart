@@ -1,5 +1,5 @@
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/rating.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/rating.dart';
 
 const ratingMhCableCurl = Rating(
   source: Source.mennoHenselmans,

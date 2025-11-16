@@ -1,7 +1,7 @@
 // ignore_for_file: prefer-match-file-name
 
 import 'dart:convert';
-import 'package:bodybuild/data/programmer/exercise_versioning.dart';
+import 'package:bodybuild/data/dataset/exercise_versioning.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:drift/drift.dart';

@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 
 /// Represents a base exercise with all its variations

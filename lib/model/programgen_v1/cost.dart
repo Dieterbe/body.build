@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 
 /// Calculates the cost of a SetGroup based on how well it matches the target recruitment values.

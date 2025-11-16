@@ -1,5 +1,5 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/programgen_v1/rank.dart';
 
 // Find connected components of exercises based on shared program groups

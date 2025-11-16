@@ -1,6 +1,6 @@
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/volume_assignment.dart';
-import 'package:bodybuild/data/programmer/equipment.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/volume_assignment.dart';
+import 'package:bodybuild/data/dataset/equipment.dart';
 
 class Tweak {
   final String name;

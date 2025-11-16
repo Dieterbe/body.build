@@ -1,7 +1,7 @@
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:flutter/material.dart';
-import 'package:bodybuild/data/programmer/rating.dart';
-import 'package:bodybuild/ui/programmer/util_groups.dart';
+import 'package:bodybuild/data/dataset/rating.dart';
+import 'package:bodybuild/ui/dataset/util_groups.dart';
 import 'package:bodybuild/util/string_extension.dart';
 
 class ExerciseRatingsDialog extends StatelessWidget {

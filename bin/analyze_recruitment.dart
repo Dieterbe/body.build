@@ -1,6 +1,6 @@
-import 'package:bodybuild/data/programmer/exercises.dart';
-import 'package:bodybuild/data/programmer/groups.dart';
-import 'package:bodybuild/data/programmer/tweak.dart';
+import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/tweak.dart';
 
 void main() {
   print('Analyzing exercise recruitment combinations...\n');

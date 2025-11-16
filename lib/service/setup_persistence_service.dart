@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:bodybuild/data/programmer/exercise_versioning.dart';
+import 'package:bodybuild/data/dataset/exercise_versioning.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 

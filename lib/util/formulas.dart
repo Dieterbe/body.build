@@ -2,7 +2,7 @@
 // weight in kg
 import 'dart:math';
 
-import 'package:bodybuild/data/programmer/groups.dart';
+import 'package:bodybuild/data/dataset/groups.dart';
 import 'package:bodybuild/model/programmer/level.dart';
 import 'package:bodybuild/model/programmer/sex.dart';
 
