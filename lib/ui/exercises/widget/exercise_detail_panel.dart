@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
+import 'package:bodybuild/ui/core/widget/exercise_details_dialog.dart';
 
 class ExerciseDetailPanel extends ConsumerWidget {
   final Settings setupData;

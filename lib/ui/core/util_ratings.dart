@@ -1,6 +1,6 @@
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
+import 'package:bodybuild/ui/core/widget/exercise_ratings_dialog.dart';
+import 'package:bodybuild/ui/core/widget/rating_icon_multi.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 

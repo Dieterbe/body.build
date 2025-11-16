@@ -5,11 +5,11 @@ import 'package:bodybuild/data/dataset/rating.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/ui/dataset/util_groups.dart';
-import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
+import 'package:bodybuild/ui/core/widget/equipment_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_details_dialog.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_ratings_dialog.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
+import 'package:bodybuild/ui/core/widget/exercise_details_dialog.dart';
+import 'package:bodybuild/ui/core/widget/exercise_ratings_dialog.dart';
+import 'package:bodybuild/ui/core/widget/rating_icon_multi.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 
 class BuilderSets extends ConsumerStatefulWidget {

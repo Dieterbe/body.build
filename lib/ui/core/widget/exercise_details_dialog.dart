@@ -1,7 +1,7 @@
 import 'package:bodybuild/data/dataset/equipment.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
-import 'package:bodybuild/ui/programmer/widget/exercises/configure_tweak_grid.dart';
+import 'package:bodybuild/ui/core/widget/exercise_recruitment_visualization.dart';
+import 'package:bodybuild/ui/core/widget/configure_tweak_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/dataset/exercises.dart';

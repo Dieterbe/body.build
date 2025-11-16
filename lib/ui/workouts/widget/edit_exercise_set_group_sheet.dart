@@ -1,13 +1,13 @@
 import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
-import 'package:bodybuild/ui/programmer/widget/exercise_recruitment_visualization.dart';
+import 'package:bodybuild/ui/core/widget/exercise_recruitment_visualization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon_multi.dart';
+import 'package:bodybuild/ui/core/widget/rating_icon_multi.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_picker_sheet.dart';
 import 'package:bodybuild/model/programmer/settings.dart';

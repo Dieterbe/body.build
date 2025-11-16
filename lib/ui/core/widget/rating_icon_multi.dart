@@ -1,4 +1,4 @@
-import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
+import 'package:bodybuild/ui/core/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/data/dataset/rating.dart';
 

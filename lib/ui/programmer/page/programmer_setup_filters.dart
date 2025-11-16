@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/dataset/equipment.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
-import 'package:bodybuild/ui/programmer/widget/equip_label.dart';
+import 'package:bodybuild/ui/core/widget/equipment_label.dart';
 import 'package:bodybuild/ui/programmer/widget/label_bar.dart';
 
 class ProgrammerSetupFilters extends ConsumerWidget {

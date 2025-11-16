@@ -1,7 +1,7 @@
 import 'package:bodybuild/data/dataset/exercises.dart';
 import 'package:bodybuild/data/dataset/equipment.dart';
-import 'package:bodybuild/ui/exercises/widget/exercise_requitment_bar.dart';
-import 'package:bodybuild/ui/programmer/widget/rating_icon.dart';
+import 'package:bodybuild/ui/core/widget/exercise_recruitment_bar.dart';
+import 'package:bodybuild/ui/core/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseTileList extends StatelessWidget {
