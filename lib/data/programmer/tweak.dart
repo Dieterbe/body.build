@@ -337,6 +337,15 @@ Tweak lateralRaiseCablePath = const Tweak(
       'See [this youtube short by The Modern Meathead](https://www.youtube.com/shorts/jc900Wb-bCY)',
 );
 /*
+TODO: Tweak lateralRaiseCableAttach = const Tweak(
+  'cable attachment point',
+
+  )
+    
+  https://www.instagram.com/reel/DJoPgCxxVtV/?igsh=dDBtdzh1aXQ1ZjVq
+  cable position: Closer to shoulder makes it easier, closer to hand makes it harder
+  */
+/*
 https://www.youtube.com/watch?v=n5dsI9qQXwY&t=2m13s
 
 ROM:
