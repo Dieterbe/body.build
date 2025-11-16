@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bodybuild/data/anatomy/articulations.dart';
-import 'package:bodybuild/data/anatomy/muscles.dart';
+import 'package:bodybuild/data/dataset/articulations.dart';
+import 'package:bodybuild/data/dataset/muscles.dart';
 import 'package:bodybuild/ui/anatomy/widget/articulation_button.dart';
 
 class InsufficiencyWidget extends StatelessWidget {

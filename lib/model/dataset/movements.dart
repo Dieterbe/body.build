@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:bodybuild/data/anatomy/articulations.dart';
-import 'package:bodybuild/data/anatomy/muscles.dart';
+import 'package:bodybuild/data/dataset/articulations.dart';
+import 'package:bodybuild/data/dataset/muscles.dart';
 
 // types of strength:
 // "absolute" due to muscle length

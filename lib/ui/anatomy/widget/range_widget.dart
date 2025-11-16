@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bodybuild/model/anatomy/movements.dart';
+import 'package:bodybuild/model/dataset/movements.dart';
 import 'package:bodybuild/ui/anatomy/widget/chart_widget.dart';
 import 'package:bodybuild/ui/anatomy/colors.dart';
 import 'package:bodybuild/ui/anatomy/widget/muscle_button.dart';

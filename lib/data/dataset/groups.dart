@@ -1,7 +1,7 @@
 //  Straight-arm pulldowns can stimulate higher muscle activity in the long head of triceps than barbell bench presses.
 // https://www.scielo.br/j/motriz/a/jbfGfJrRsXbfc9BrfXgVSPy/?lang=en
 
-import 'package:bodybuild/data/anatomy/muscles.dart';
+import 'package:bodybuild/data/dataset/muscles.dart';
 
 // muscle groups for the purpose of training
 // * uses a bit more "common language" (e.g. biceps to mean elbow flexors)

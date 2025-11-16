@@ -1,8 +1,8 @@
 // tricepsSurae and calves comprise of 2 separate muscles
-import 'package:bodybuild/data/anatomy/articulations.dart';
-import 'package:bodybuild/data/anatomy/bones.dart';
-import 'package:bodybuild/model/anatomy/movements.dart';
-import 'package:bodybuild/data/anatomy/muscles.dart';
+import 'package:bodybuild/data/dataset/articulations.dart';
+import 'package:bodybuild/data/dataset/bones.dart';
+import 'package:bodybuild/model/dataset/movements.dart';
+import 'package:bodybuild/data/dataset/muscles.dart';
 
 final gastrocnemius = MultiHeadMuscle(
   id: MuscleId.gastrocnemius,

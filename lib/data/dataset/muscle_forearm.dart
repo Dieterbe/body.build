@@ -1,9 +1,9 @@
 // extracurricular https://www.sciencedirect.com/topics/engineering/brachioradialis
 // some of the details might be incorrect
-import 'package:bodybuild/data/anatomy/articulations.dart';
-import 'package:bodybuild/data/anatomy/bones.dart';
-import 'package:bodybuild/model/anatomy/movements.dart';
-import 'package:bodybuild/data/anatomy/muscles.dart';
+import 'package:bodybuild/data/dataset/articulations.dart';
+import 'package:bodybuild/data/dataset/bones.dart';
+import 'package:bodybuild/model/dataset/movements.dart';
+import 'package:bodybuild/data/dataset/muscles.dart';
 
 final forearmPronators = SingleHeadMuscle(
   id: MuscleId.forearmPronators,

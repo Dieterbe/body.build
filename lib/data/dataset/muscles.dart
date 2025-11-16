@@ -1,20 +1,20 @@
-import 'package:bodybuild/data/anatomy/articulations.dart';
-import 'package:bodybuild/data/anatomy/bones.dart';
-import 'package:bodybuild/model/anatomy/movements.dart';
-import 'package:bodybuild/data/anatomy/muscle_abs.dart';
-import 'package:bodybuild/data/anatomy/muscle_calves.dart';
-import 'package:bodybuild/data/anatomy/muscle_delts.dart';
-import 'package:bodybuild/data/anatomy/muscle_elbow_flexors.dart';
-import 'package:bodybuild/data/anatomy/muscle_forearm.dart';
-import 'package:bodybuild/data/anatomy/muscle_glutes.dart';
-import 'package:bodybuild/data/anatomy/muscle_hams.dart';
-import 'package:bodybuild/data/anatomy/muscle_lats.dart';
-import 'package:bodybuild/data/anatomy/muscle_neck.dart';
-import 'package:bodybuild/data/anatomy/muscle_pecs.dart';
-import 'package:bodybuild/data/anatomy/muscle_quads.dart';
-import 'package:bodybuild/data/anatomy/muscle_spinal_erectors.dart';
-import 'package:bodybuild/data/anatomy/muscle_traps.dart';
-import 'package:bodybuild/data/anatomy/muscle_triceps.dart';
+import 'package:bodybuild/data/dataset/articulations.dart';
+import 'package:bodybuild/data/dataset/bones.dart';
+import 'package:bodybuild/model/dataset/movements.dart';
+import 'package:bodybuild/data/dataset/muscle_abs.dart';
+import 'package:bodybuild/data/dataset/muscle_calves.dart';
+import 'package:bodybuild/data/dataset/muscle_delts.dart';
+import 'package:bodybuild/data/dataset/muscle_elbow_flexors.dart';
+import 'package:bodybuild/data/dataset/muscle_forearm.dart';
+import 'package:bodybuild/data/dataset/muscle_glutes.dart';
+import 'package:bodybuild/data/dataset/muscle_hams.dart';
+import 'package:bodybuild/data/dataset/muscle_lats.dart';
+import 'package:bodybuild/data/dataset/muscle_neck.dart';
+import 'package:bodybuild/data/dataset/muscle_pecs.dart';
+import 'package:bodybuild/data/dataset/muscle_quads.dart';
+import 'package:bodybuild/data/dataset/muscle_spinal_erectors.dart';
+import 'package:bodybuild/data/dataset/muscle_traps.dart';
+import 'package:bodybuild/data/dataset/muscle_triceps.dart';
 import 'package:bodybuild/util/string_extension.dart';
 
 // contains Id's for muscles, muscle heads, and areas within muscles or heads

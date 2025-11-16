@@ -23,3 +23,6 @@
 Some projects subdivide by feature first, and then by ui, model, service, etc.  But we expect commonalities between different data files, ui files, etc (across features), so putting them closer together makes diffing and copying easier.
 
 Apply DRY at filename level. E.g. if it's in the `<feature>/page` directory, the file doesn't need to have "feature" or "page" in its name (but should have Page or Screen in its dart class)
+
+Exercises, their tweaks, volumes, as well as anatomy information is stored in lib/data/dataset.
+Normal features are discouraged from importing files from other features, except for core and dataset which can be imported from anywhere.
