@@ -3,7 +3,7 @@
 part of 'workout_database.dart';
 
 // ignore_for_file: type=lint
-class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, model.Workout> {
+class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, Workout> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -70,10 +70,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, model.Worko
   String get actualTableName => $name;
   static const String $name = 'workouts';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<model.Workout> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Workout> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -117,7 +114,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, model.Worko
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  model.Workout map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Workout map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Workout(
       id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
@@ -150,7 +147,7 @@ class $WorkoutsTable extends Workouts with TableInfo<$WorkoutsTable, model.Worko
   }
 }
 
-class Workout extends DataClass implements Insertable<model.Workout> {
+class Workout extends DataClass implements Insertable<Workout> {
   final String id;
   final DateTime startTime;
   final DateTime? endTime;
@@ -269,7 +266,7 @@ class Workout extends DataClass implements Insertable<model.Workout> {
           other.updatedAt == this.updatedAt);
 }
 
-class WorkoutsCompanion extends UpdateCompanion<model.Workout> {
+class WorkoutsCompanion extends UpdateCompanion<Workout> {
   final Value<String> id;
   final Value<DateTime> startTime;
   final Value<DateTime?> endTime;
@@ -298,7 +295,7 @@ class WorkoutsCompanion extends UpdateCompanion<model.Workout> {
        startTime = Value(startTime),
        createdAt = Value(createdAt),
        updatedAt = Value(updatedAt);
-  static Insertable<model.Workout> custom({
+  static Insertable<Workout> custom({
     Expression<String>? id,
     Expression<DateTime>? startTime,
     Expression<DateTime>? endTime,
@@ -380,7 +377,7 @@ class WorkoutsCompanion extends UpdateCompanion<model.Workout> {
   }
 }
 
-class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, model.WorkoutSet> {
+class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, WorkoutSet> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -498,7 +495,7 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, mo
   static const String $name = 'workout_sets';
   @override
   VerificationContext validateIntegrity(
-    Insertable<model.WorkoutSet> instance, {
+    Insertable<WorkoutSet> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -564,7 +561,7 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, mo
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  model.WorkoutSet map(Map<String, dynamic> data, {String? tablePrefix}) {
+  WorkoutSet map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return WorkoutSet(
       id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
@@ -607,7 +604,7 @@ class $WorkoutSetsTable extends WorkoutSets with TableInfo<$WorkoutSetsTable, mo
   }
 }
 
-class WorkoutSet extends DataClass implements Insertable<model.WorkoutSet> {
+class WorkoutSet extends DataClass implements Insertable<WorkoutSet> {
   final String id;
   final String workoutId;
   final String exerciseId;
@@ -785,7 +782,7 @@ class WorkoutSet extends DataClass implements Insertable<model.WorkoutSet> {
           other.completed == this.completed);
 }
 
-class WorkoutSetsCompanion extends UpdateCompanion<model.WorkoutSet> {
+class WorkoutSetsCompanion extends UpdateCompanion<WorkoutSet> {
   final Value<String> id;
   final Value<String> workoutId;
   final Value<String> exerciseId;
@@ -827,7 +824,7 @@ class WorkoutSetsCompanion extends UpdateCompanion<model.WorkoutSet> {
        exerciseId = Value(exerciseId),
        tweaks = Value(tweaks),
        timestamp = Value(timestamp);
-  static Insertable<model.WorkoutSet> custom({
+  static Insertable<WorkoutSet> custom({
     Expression<String>? id,
     Expression<String>? workoutId,
     Expression<String>? exerciseId,
@@ -1696,10 +1693,10 @@ typedef $$WorkoutsTableUpdateCompanionBuilder =
     });
 
 final class $$WorkoutsTableReferences
-    extends BaseReferences<_$WorkoutDatabase, $WorkoutsTable, model.Workout> {
+    extends BaseReferences<_$WorkoutDatabase, $WorkoutsTable, Workout> {
   $$WorkoutsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$WorkoutSetsTable, List<model.WorkoutSet>> _workoutSetsRefsTable(
+  static MultiTypedResultKey<$WorkoutSetsTable, List<WorkoutSet>> _workoutSetsRefsTable(
     _$WorkoutDatabase db,
   ) => MultiTypedResultKey.fromTable(
     db.workoutSets,
@@ -1843,14 +1840,14 @@ class $$WorkoutsTableTableManager
         RootTableManager<
           _$WorkoutDatabase,
           $WorkoutsTable,
-          model.Workout,
+          Workout,
           $$WorkoutsTableFilterComposer,
           $$WorkoutsTableOrderingComposer,
           $$WorkoutsTableAnnotationComposer,
           $$WorkoutsTableCreateCompanionBuilder,
           $$WorkoutsTableUpdateCompanionBuilder,
-          (model.Workout, $$WorkoutsTableReferences),
-          model.Workout,
+          (Workout, $$WorkoutsTableReferences),
+          Workout,
           PrefetchHooks Function({bool workoutSetsRefs})
         > {
   $$WorkoutsTableTableManager(_$WorkoutDatabase db, $WorkoutsTable table)
@@ -1908,7 +1905,7 @@ class $$WorkoutsTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (workoutSetsRefs)
-                    await $_getPrefetchedData<model.Workout, $WorkoutsTable, model.WorkoutSet>(
+                    await $_getPrefetchedData<Workout, $WorkoutsTable, WorkoutSet>(
                       currentTable: table,
                       referencedTable: $$WorkoutsTableReferences._workoutSetsRefsTable(db),
                       managerFromTypedResult: (p0) =>
@@ -1929,14 +1926,14 @@ typedef $$WorkoutsTableProcessedTableManager =
     ProcessedTableManager<
       _$WorkoutDatabase,
       $WorkoutsTable,
-      model.Workout,
+      Workout,
       $$WorkoutsTableFilterComposer,
       $$WorkoutsTableOrderingComposer,
       $$WorkoutsTableAnnotationComposer,
       $$WorkoutsTableCreateCompanionBuilder,
       $$WorkoutsTableUpdateCompanionBuilder,
-      (model.Workout, $$WorkoutsTableReferences),
-      model.Workout,
+      (Workout, $$WorkoutsTableReferences),
+      Workout,
       PrefetchHooks Function({bool workoutSetsRefs})
     >;
 typedef $$WorkoutSetsTableCreateCompanionBuilder =
@@ -1969,7 +1966,7 @@ typedef $$WorkoutSetsTableUpdateCompanionBuilder =
     });
 
 final class $$WorkoutSetsTableReferences
-    extends BaseReferences<_$WorkoutDatabase, $WorkoutSetsTable, model.WorkoutSet> {
+    extends BaseReferences<_$WorkoutDatabase, $WorkoutSetsTable, WorkoutSet> {
   $$WorkoutSetsTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $WorkoutsTable _workoutIdTable(_$WorkoutDatabase db) =>
@@ -2155,14 +2152,14 @@ class $$WorkoutSetsTableTableManager
         RootTableManager<
           _$WorkoutDatabase,
           $WorkoutSetsTable,
-          model.WorkoutSet,
+          WorkoutSet,
           $$WorkoutSetsTableFilterComposer,
           $$WorkoutSetsTableOrderingComposer,
           $$WorkoutSetsTableAnnotationComposer,
           $$WorkoutSetsTableCreateCompanionBuilder,
           $$WorkoutSetsTableUpdateCompanionBuilder,
-          (model.WorkoutSet, $$WorkoutSetsTableReferences),
-          model.WorkoutSet,
+          (WorkoutSet, $$WorkoutSetsTableReferences),
+          WorkoutSet,
           PrefetchHooks Function({bool workoutId})
         > {
   $$WorkoutSetsTableTableManager(_$WorkoutDatabase db, $WorkoutSetsTable table)
@@ -2277,14 +2274,14 @@ typedef $$WorkoutSetsTableProcessedTableManager =
     ProcessedTableManager<
       _$WorkoutDatabase,
       $WorkoutSetsTable,
-      model.WorkoutSet,
+      WorkoutSet,
       $$WorkoutSetsTableFilterComposer,
       $$WorkoutSetsTableOrderingComposer,
       $$WorkoutSetsTableAnnotationComposer,
       $$WorkoutSetsTableCreateCompanionBuilder,
       $$WorkoutSetsTableUpdateCompanionBuilder,
-      (model.WorkoutSet, $$WorkoutSetsTableReferences),
-      model.WorkoutSet,
+      (WorkoutSet, $$WorkoutSetsTableReferences),
+      WorkoutSet,
       PrefetchHooks Function({bool workoutId})
     >;
 typedef $$ExerciseVersionsTableCreateCompanionBuilder =

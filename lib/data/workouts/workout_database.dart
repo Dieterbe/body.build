@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:bodybuild/data/dataset/exercise_versioning.dart';
-import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:drift/drift.dart';
 import 'package:bodybuild/data/workouts/workout_database_connection.dart';
@@ -254,7 +253,7 @@ class WorkoutDatabase extends _$WorkoutDatabase {
       final allSets = await select(workoutSets).get();
       var setsChanged = 0;
       for (final set in allSets) {
-        final oldTweaks = model.WorkoutSet.tweaksFromJson(set.tweaks);
+        final oldTweaks = _tweaksFromJson(set.tweaks);
         final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
           set.exerciseId,
           oldTweaks,
@@ -332,4 +331,11 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
 QueryExecutor _openConnection() {
   return openWorkoutDatabaseConnection();
+}
+
+// Helper to parse tweaks JSON without depending on model classes
+Map<String, String> _tweaksFromJson(String jsonStr) {
+  if (jsonStr.isEmpty) return {};
+  final decoded = json.decode(jsonStr);
+  return Map<String, String>.from(decoded);
 }
