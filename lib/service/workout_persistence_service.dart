@@ -100,6 +100,7 @@ class WorkoutPersistenceService {
     int? reps,
     int? rir,
     String? comments,
+    bool completed = true,
   }) async {
     final id = _uuid.v4();
     final now = DateTime.now();
@@ -123,6 +124,7 @@ class WorkoutPersistenceService {
       rir: Value(rir),
       comments: Value(comments),
       timestamp: Value(now),
+      completed: Value(completed),
     );
 
     await _database.insertWorkoutSet(companion);
@@ -144,6 +146,7 @@ class WorkoutPersistenceService {
       rir: Value(workoutSet.rir),
       comments: Value(workoutSet.comments),
       timestamp: Value(workoutSet.timestamp),
+      completed: Value(workoutSet.completed),
     );
 
     await _database.updateWorkoutSet(companion);
@@ -210,6 +213,40 @@ class WorkoutPersistenceService {
       comments: setData.comments,
       setOrder: setOrder,
       timestamp: setData.timestamp,
+      completed: setData.completed,
     );
+  }
+
+  /// Create a new workout from a template (prior workout)
+  /// Copies all sets with completed=false, keeping weight/reps/rir/comments as defaults
+  Future<String> startWorkoutFromTemplate(String templateWorkoutId) async {
+    // Get the template workout
+    final templateWorkout = await getWorkoutById(templateWorkoutId);
+    if (templateWorkout == null) {
+      throw Exception('Template workout not found: $templateWorkoutId');
+    }
+
+    // Reuse existing active workout if available, otherwise create a new one
+    final activeWorkout = await getActiveWorkout();
+    final targetWorkoutId = activeWorkout?.id ?? await createWorkout();
+
+    // Copy all sets as planned sets (completed=false)
+    for (var i = 0; i < templateWorkout.sets.length; i++) {
+      final templateSet = templateWorkout.sets[i];
+      await addWorkoutSet(
+        workoutId: targetWorkoutId,
+        exerciseId: templateSet.exerciseId,
+        tweaks: templateSet.tweaks,
+        weight: templateSet.weight,
+        reps: templateSet.reps,
+        rir: templateSet.rir,
+        comments: templateSet.comments,
+        completed: false,
+      );
+      // Small delay to ensure timestamp ordering
+      await Future.delayed(const Duration(milliseconds: 1));
+    }
+
+    return targetWorkoutId;
   }
 }

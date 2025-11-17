@@ -35,6 +35,8 @@ class WorkoutSets extends Table {
   IntColumn get rir => integer().nullable()(); // Reps in Reserve
   TextColumn get comments => text().nullable()();
   DateTimeColumn get timestamp => dateTime()();
+  BoolColumn get completed =>
+      boolean().withDefault(const Constant(true))(); // false = planned, true = completed
   // Note: setOrder is derived at runtime from timestamp ordering, not stored in DB
 
   @override
@@ -80,7 +82,7 @@ class WorkoutDatabase extends _$WorkoutDatabase {
   WorkoutDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration {
@@ -112,6 +114,12 @@ class WorkoutDatabase extends _$WorkoutDatabase {
         if (from < 4) {
           // Add measurements table
           await m.createTable(measurements);
+        }
+        if (from < 5) {
+          // Add completed column to workout_sets - default to true for existing sets
+          await customStatement(
+            'ALTER TABLE workout_sets ADD COLUMN completed INTEGER NOT NULL DEFAULT 1',
+          );
         }
       },
     );

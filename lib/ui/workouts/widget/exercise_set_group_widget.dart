@@ -39,7 +39,10 @@ class ExerciseSetGroupWidget extends StatelessWidget {
             if (group.tweaks.isNotEmpty) ...[const SizedBox(height: 8), _buildTweaks(context)],
             const SizedBox(height: 12),
             ...group.sets.map((set) {
-              return SetLogWidget(workoutSet: set);
+              return SetLogWidget(
+                workoutSet: set,
+                onTap: !set.completed ? () => _logPlannedSet(context, set) : null,
+              );
             }),
           ],
         ),
@@ -144,6 +147,35 @@ class ExerciseSetGroupWidget extends StatelessWidget {
       for (final set in updatedSets) {
         onUpdateSet(set);
       }
+    }
+  }
+
+  void _logPlannedSet(BuildContext context, model.WorkoutSet plannedSet) async {
+    final exercise = exes.firstWhereOrNull((e) => e.id == plannedSet.exerciseId);
+    if (exercise == null) return;
+
+    final result = await showModalBottomSheet<Map<String, dynamic>>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => LogSetSheet(
+        initialSets: Sets(0, ex: exercise, tweakOptions: plannedSet.tweaks),
+        initialWeight: plannedSet.weight,
+        initialReps: plannedSet.reps,
+        initialRir: plannedSet.rir,
+        initialComments: plannedSet.comments,
+      ),
+    );
+
+    if (result != null && context.mounted) {
+      // Update the planned set to completed with the logged values
+      final updatedSet = plannedSet.copyWith(
+        weight: result['weight'] as double?,
+        reps: result['reps'] as int?,
+        rir: result['rir'] as int?,
+        comments: result['comments'] as String?,
+        completed: true,
+      );
+      onUpdateSet(updatedSet);
     }
   }
 }

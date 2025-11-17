@@ -412,9 +412,17 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
               children: [
                 Row(
                   children: [
+                    Checkbox(
+                      value: set.completed,
+                      onChanged: (value) {
+                        setState(() {
+                          editableSets[index] = set.copyWith(completed: value ?? true);
+                        });
+                      },
+                    ),
                     Expanded(
                       child: Text(
-                        'Set ${index + 1}',
+                        'Set ${index + 1}${set.completed ? "" : " (planned)"}',
                         style: Theme.of(
                           context,
                         ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),

@@ -6,26 +6,36 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WorkoutCard extends ConsumerWidget {
+class WorkoutCard extends ConsumerStatefulWidget {
   const WorkoutCard(this.workout, {super.key});
 
   final model.Workout workout;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<WorkoutCard> createState() => _WorkoutCardState();
+}
+
+class _WorkoutCardState extends ConsumerState<WorkoutCard> {
+  final GlobalKey<PopupMenuButtonState<String>> _popupMenuKey =
+      GlobalKey<PopupMenuButtonState<String>>();
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
-      color: workout.isActive ? Theme.of(context).colorScheme.primaryContainer : null,
+      color: widget.workout.isActive ? Theme.of(context).colorScheme.primaryContainer : null,
       child: ListTile(
+        onTap: () => context.go('/${WorkoutsScreen.routeName}/${widget.workout.id}'),
+        onLongPress: () => _popupMenuKey.currentState?.showButtonMenu(),
         contentPadding: const EdgeInsets.all(16),
         leading: CircleAvatar(
-          backgroundColor: workout.isActive
+          backgroundColor: widget.workout.isActive
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).colorScheme.primaryContainer,
           child: Text(
-            '${workout.sets.length}',
+            '${widget.workout.sets.length}',
             style: TextStyle(
-              color: workout.isActive
+              color: widget.workout.isActive
                   ? Theme.of(context).colorScheme.onPrimary
                   : Theme.of(context).colorScheme.onPrimaryContainer,
               fontWeight: FontWeight.bold,
@@ -33,12 +43,14 @@ class WorkoutCard extends ConsumerWidget {
           ),
         ),
         title: Text(
-          workout.isActive
+          widget.workout.isActive
               ? 'Resume Active Workout'
-              : formatHumanDateTimeMinutely(workout.startTime),
+              : formatHumanDateTimeMinutely(widget.workout.startTime),
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: workout.isActive ? Theme.of(context).colorScheme.onPrimaryContainer : null,
+            color: widget.workout.isActive
+                ? Theme.of(context).colorScheme.onPrimaryContainer
+                : null,
           ),
         ),
         subtitle: Column(
@@ -46,18 +58,18 @@ class WorkoutCard extends ConsumerWidget {
           children: [
             const SizedBox(height: 4),
             Text(
-              '${workout.sets.length} sets • ${workout.exerciseIds.length} exercises',
+              '${widget.workout.sets.length} sets • ${widget.workout.exerciseIds.length} exercises',
               style: TextStyle(
-                color: workout.isActive
+                color: widget.workout.isActive
                     ? Theme.of(context).colorScheme.onPrimaryContainer.withValues(alpha: 0.8)
                     : null,
               ),
             ),
-            Text('Duration: ${formatHumanDuration2(workout.duration)}'),
-            if (workout.notes?.isNotEmpty == true) ...[
+            Text('Duration: ${formatHumanDuration2(widget.workout.duration)}'),
+            if (widget.workout.notes?.isNotEmpty == true) ...[
               const SizedBox(height: 4),
               Text(
-                workout.notes!,
+                widget.workout.notes!,
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
@@ -68,8 +80,7 @@ class WorkoutCard extends ConsumerWidget {
             ],
           ],
         ),
-        trailing: WorkoutPopupMenu(workout),
-        onTap: () => context.go('/${WorkoutsScreen.routeName}/${workout.id}'),
+        trailing: WorkoutPopupMenu(widget.workout, menuKey: _popupMenuKey),
       ),
     );
   }

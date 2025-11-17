@@ -43,6 +43,7 @@ _WorkoutSet _$WorkoutSetFromJson(Map<String, dynamic> json) => _WorkoutSet(
   comments: json['comments'] as String?,
   setOrder: (json['setOrder'] as num).toInt(),
   timestamp: DateTime.parse(json['timestamp'] as String),
+  completed: json['completed'] as bool? ?? true,
 );
 
 Map<String, dynamic> _$WorkoutSetToJson(_WorkoutSet instance) => <String, dynamic>{
@@ -56,6 +57,7 @@ Map<String, dynamic> _$WorkoutSetToJson(_WorkoutSet instance) => <String, dynami
   'comments': instance.comments,
   'setOrder': instance.setOrder,
   'timestamp': instance.timestamp.toIso8601String(),
+  'completed': instance.completed,
 };
 
 _ExerciseSetGroup _$ExerciseSetGroupFromJson(Map<String, dynamic> json) => _ExerciseSetGroup(

@@ -46,6 +46,7 @@ abstract class WorkoutSet with _$WorkoutSet {
     String? comments,
     required int setOrder, // we're "the i-th set in the workout (grouped by time)", not persisted
     required DateTime timestamp,
+    @Default(true) bool completed, // false = planned set, true = completed set
   }) = _WorkoutSet;
 
   factory WorkoutSet.fromJson(Map<String, dynamic> json) => _$WorkoutSetFromJson(json);

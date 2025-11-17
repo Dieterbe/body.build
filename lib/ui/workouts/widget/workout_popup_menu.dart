@@ -3,14 +3,16 @@ import 'dart:async';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/ui/core/confirmation_dialog.dart';
+import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class WorkoutPopupMenu extends ConsumerWidget {
-  const WorkoutPopupMenu(this.workout, {super.key, this.reRoute});
+  const WorkoutPopupMenu(this.workout, {super.key, this.reRoute, this.menuKey});
   final model.Workout workout;
   final String? reRoute;
+  final GlobalKey<PopupMenuButtonState<String>>? menuKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,6 +20,7 @@ class WorkoutPopupMenu extends ConsumerWidget {
         workout.endTime != null && DateTime.now().difference(workout.endTime!).inHours < 1;
 
     return PopupMenuButton<String>(
+      key: menuKey,
       itemBuilder: (context) => [
         const PopupMenuItem(
           value: 'notes',
@@ -32,6 +35,11 @@ class WorkoutPopupMenu extends ConsumerWidget {
           const PopupMenuItem(
             value: 'resume',
             child: Row(spacing: 8, children: [Icon(Icons.play_arrow), Text('Resume Workout')]),
+          ),
+        if (!workout.isActive)
+          const PopupMenuItem(
+            value: 'template',
+            child: Row(spacing: 8, children: [Icon(Icons.copy), Text('Use as Template')]),
           ),
         const PopupMenuItem(
           value: 'delete',
@@ -48,6 +56,7 @@ class WorkoutPopupMenu extends ConsumerWidget {
         'notes' => _showEditWorkoutNotesDialog(context, ref),
         'finish' => _showFinishWorkoutConfirmationDialog(context, ref),
         'resume' => _showResumeWorkoutConfirmationDialog(context, ref),
+        'template' => _useAsTemplate(context, ref),
         'delete' => _showDeleteWorkoutConfirmationDialog(context, ref),
         _ => null,
       },
@@ -144,5 +153,25 @@ class WorkoutPopupMenu extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _useAsTemplate(BuildContext context, WidgetRef ref) {
+    unawaited(() async {
+      try {
+        final workoutManager = ref.read(workoutManagerProvider.notifier);
+        await workoutManager.startWorkoutFromTemplate(workout.id);
+
+        if (!context.mounted) return;
+        context.go('/${WorkoutScreen.routeNameActive}');
+      } catch (e) {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error creating workout from template: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }());
   }
 }

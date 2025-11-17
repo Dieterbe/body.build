@@ -292,7 +292,7 @@ mixin _$WorkoutSet {
 
  String get id; String get workoutId; String get exerciseId; Map<String, String> get tweaks; double? get weight; int? get reps; int? get rir;// Reps in Reserve
  String? get comments; int get setOrder;// we're "the i-th set in the workout (grouped by time)", not persisted
- DateTime get timestamp;
+ DateTime get timestamp; bool get completed;
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -307,7 +307,7 @@ $WorkoutSetCopyWith<WorkoutSet> get copyWith => _$WorkoutSetCopyWithImpl<Workout
 
 @override
 String toString() {
-  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, setOrder: $setOrder, timestamp: $timestamp)';
+  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, setOrder: $setOrder, timestamp: $timestamp, completed: $completed)';
 }
 
 
@@ -318,7 +318,7 @@ abstract mixin class $WorkoutSetCopyWith<$Res>  {
   factory $WorkoutSetCopyWith(WorkoutSet value, $Res Function(WorkoutSet) _then) = _$WorkoutSetCopyWithImpl;
 @useResult
 $Res call({
- String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, int setOrder, DateTime timestamp
+ String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, int setOrder, DateTime timestamp, bool completed
 });
 
 
@@ -335,7 +335,7 @@ class _$WorkoutSetCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? setOrder = null,Object? timestamp = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? setOrder = null,Object? timestamp = null,Object? completed = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
@@ -347,7 +347,8 @@ as int?,rir: freezed == rir ? _self.rir : rir // ignore: cast_nullable_to_non_nu
 as int?,comments: freezed == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable
 as String?,setOrder: null == setOrder ? _self.setOrder : setOrder // ignore: cast_nullable_to_non_nullable
 as int,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -432,10 +433,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp,  bool completed)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WorkoutSet() when $default != null:
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp,_that.completed);case _:
   return orElse();
 
 }
@@ -453,10 +454,10 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.wei
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp,  bool completed)  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutSet():
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp,_that.completed);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -473,10 +474,10 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.wei
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String workoutId,  String exerciseId,  Map<String, String> tweaks,  double? weight,  int? reps,  int? rir,  String? comments,  int setOrder,  DateTime timestamp,  bool completed)?  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutSet() when $default != null:
-return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp);case _:
+return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.weight,_that.reps,_that.rir,_that.comments,_that.setOrder,_that.timestamp,_that.completed);case _:
   return null;
 
 }
@@ -488,7 +489,7 @@ return $default(_that.id,_that.workoutId,_that.exerciseId,_that.tweaks,_that.wei
 @JsonSerializable()
 
 class _WorkoutSet extends WorkoutSet {
-  const _WorkoutSet({required this.id, required this.workoutId, required this.exerciseId, final  Map<String, String> tweaks = const {}, this.weight, this.reps, this.rir, this.comments, required this.setOrder, required this.timestamp}): _tweaks = tweaks,super._();
+  const _WorkoutSet({required this.id, required this.workoutId, required this.exerciseId, final  Map<String, String> tweaks = const {}, this.weight, this.reps, this.rir, this.comments, required this.setOrder, required this.timestamp, this.completed = true}): _tweaks = tweaks,super._();
   factory _WorkoutSet.fromJson(Map<String, dynamic> json) => _$WorkoutSetFromJson(json);
 
 @override final  String id;
@@ -509,6 +510,7 @@ class _WorkoutSet extends WorkoutSet {
 @override final  int setOrder;
 // we're "the i-th set in the workout (grouped by time)", not persisted
 @override final  DateTime timestamp;
+@override@JsonKey() final  bool completed;
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
@@ -525,7 +527,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, setOrder: $setOrder, timestamp: $timestamp)';
+  return 'WorkoutSet(id: $id, workoutId: $workoutId, exerciseId: $exerciseId, tweaks: $tweaks, weight: $weight, reps: $reps, rir: $rir, comments: $comments, setOrder: $setOrder, timestamp: $timestamp, completed: $completed)';
 }
 
 
@@ -536,7 +538,7 @@ abstract mixin class _$WorkoutSetCopyWith<$Res> implements $WorkoutSetCopyWith<$
   factory _$WorkoutSetCopyWith(_WorkoutSet value, $Res Function(_WorkoutSet) _then) = __$WorkoutSetCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, int setOrder, DateTime timestamp
+ String id, String workoutId, String exerciseId, Map<String, String> tweaks, double? weight, int? reps, int? rir, String? comments, int setOrder, DateTime timestamp, bool completed
 });
 
 
@@ -553,7 +555,7 @@ class __$WorkoutSetCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutSet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? setOrder = null,Object? timestamp = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? workoutId = null,Object? exerciseId = null,Object? tweaks = null,Object? weight = freezed,Object? reps = freezed,Object? rir = freezed,Object? comments = freezed,Object? setOrder = null,Object? timestamp = null,Object? completed = null,}) {
   return _then(_WorkoutSet(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
@@ -565,7 +567,8 @@ as int?,rir: freezed == rir ? _self.rir : rir // ignore: cast_nullable_to_non_nu
 as int?,comments: freezed == comments ? _self.comments : comments // ignore: cast_nullable_to_non_nullable
 as String?,setOrder: null == setOrder ? _self.setOrder : setOrder // ignore: cast_nullable_to_non_nullable
 as int,timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as DateTime,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
