@@ -10,13 +10,27 @@ import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/util/flutter.dart';
 
-class WorkoutsScreen extends ConsumerWidget {
+class WorkoutsScreen extends ConsumerStatefulWidget {
   static const String routeName = 'workouts';
 
   const WorkoutsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<WorkoutsScreen> createState() => _WorkoutsScreenState();
+}
+
+class _WorkoutsScreenState extends ConsumerState<WorkoutsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      await ref.read(workoutManagerProvider.notifier).closeStaleActiveWorkout();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final devMode = ref.watch(developerModeProvider);
     if (!isMobileApp() && !devMode) {
       return const MobileAppOnly(title: 'Workouts');

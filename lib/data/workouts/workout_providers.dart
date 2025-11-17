@@ -1,5 +1,7 @@
 // ignore_for_file: prefer-match-file-name
 
+import 'dart:async';
+
 import 'package:bodybuild/data/workouts/workout_database.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/service/workout_persistence_service.dart';
@@ -27,42 +29,78 @@ WorkoutPersistenceService workoutPersistenceService(Ref ref) {
 /// (e.g. when navigating from the articulations screen to 'start new workout')
 @Riverpod(keepAlive: true)
 class WorkoutManager extends _$WorkoutManager {
+  static const _autoCloseThreshold = Duration(minutes: 1);
+  static const _autoCloseBuffer = Duration(minutes: 1);
+  static const _autoRefreshInterval = Duration(minutes: 1);
+
+  Timer? _autoRefreshTimer;
+
   @override
   Stream<model.WorkoutState> build() {
     final service = ref.watch(workoutPersistenceServiceProvider);
 
-    // TODO: this is probably the best place to assure any stale active workouts
-    // are terminated, but i can't be bothered to implement that here right now.
-    return service.watchAllWorkouts().map(
-      (allWorkouts) => model.WorkoutState(
-        allWorkouts: allWorkouts,
-        activeWorkout: allWorkouts.where((w) => w.isActive).firstOrNull,
-        completedWorkouts: allWorkouts.where((w) => !w.isActive).toList(),
-      ),
-    );
+    // to enforce a run of _closeStaleActiveWorkout if there are other events triggering
+    _autoRefreshTimer ??= Timer.periodic(_autoRefreshInterval, (_) => ref.invalidateSelf());
+    ref.onDispose(() => _autoRefreshTimer?.cancel());
+
+    return service.watchAllWorkouts().asyncMap((allWorkouts) async {
+      final normalizedWorkouts = await _closeStaleActiveWorkout(allWorkouts, service);
+
+      return model.WorkoutState(
+        allWorkouts: normalizedWorkouts,
+        activeWorkout: normalizedWorkouts.where((w) => w.isActive).firstOrNull,
+        completedWorkouts: normalizedWorkouts.where((w) => !w.isActive).toList(),
+      );
+    });
   }
 
+  Future<List<model.Workout>> _closeStaleActiveWorkout(
+    List<model.Workout> allWorkouts,
+    WorkoutPersistenceService service,
+  ) async {
+    final activeWorkout = allWorkouts.where((w) => w.isActive).firstOrNull;
+    if (activeWorkout == null) {
+      return allWorkouts;
+    }
+
+    final now = DateTime.now();
+    final lastSetTime = activeWorkout.sets.lastOrNull?.timestamp;
+    DateTime? autoCloseEndTime;
+
+    if (lastSetTime == null && now.difference(activeWorkout.startTime) >= _autoCloseThreshold) {
+      autoCloseEndTime = activeWorkout.startTime.add(_autoCloseBuffer);
+      print("auto-closing stale empty workout ${activeWorkout.id}");
+    }
+
+    if (lastSetTime != null && now.difference(lastSetTime) >= _autoCloseThreshold) {
+      autoCloseEndTime = lastSetTime.add(_autoCloseBuffer);
+      print("auto-closing stale workout ${activeWorkout.id}");
+    }
+
+    if (autoCloseEndTime != null) {
+      await service.endWorkout(activeWorkout.id, endTime: autoCloseEndTime);
+      return await service.getAllWorkouts();
+    }
+
+    return allWorkouts;
+  }
+
+  Future<void> closeStaleActiveWorkout() async {
+    final service = ref.read(workoutPersistenceServiceProvider);
+    final workouts = await service.getAllWorkouts();
+    await _closeStaleActiveWorkout(workouts, service);
+  }
+
+  // start workout or resume if there's an active one
   Future<String> startWorkout({DateTime? startTime, String? notes}) async {
     final service = ref.read(workoutPersistenceServiceProvider);
 
-    // Check for existing active workout
     final currentState = await future;
     final existing = currentState.activeWorkout;
 
-    if (existing != null) {
-      final lastSetTime = await service.getLastSetTime(existing.id);
-      final now = DateTime.now();
-
-      // If last set was more than 30 minutes ago, end the old workout
-      if (lastSetTime != null && now.difference(lastSetTime).inMinutes > 30) {
-        await service.endWorkout(existing.id, endTime: lastSetTime.add(const Duration(minutes: 5)));
-      } else {
-        // Resume existing workout
-        return existing.id;
-      }
-    }
-
-    return await service.createWorkout(startTime: startTime, notes: notes);
+    return (existing != null)
+        ? existing.id
+        : await service.createWorkout(startTime: startTime, notes: notes);
   }
 
   Future<void> endWorkout(String workoutId, {DateTime? endTime}) async {

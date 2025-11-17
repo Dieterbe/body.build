@@ -46,3 +46,12 @@ option tiles:
 - **Plate Calculator**: Weight calculation assistance
 - **Background Sync**: Cloud backup when network available
 - **Integration APIs**: Connect with fitness tracking services
+
+## Auto-closing of active workouts
+
+The app will close active workouts if they are stale.
+
+Happens via **WorkoutManager** in the following ways:
+* in build(), any time the stream loads (e.g. after db writes)
+* any time the workoutsScreen or workoutScreen are opened
+* if none of the above happen, with a timer in WorkoutManager

@@ -10,7 +10,13 @@ import 'package:posthog_flutter/posthog_flutter.dart';
 
 part 'workout_database.g.dart';
 
+const singleActiveWorkoutIndex =
+    'CREATE UNIQUE INDEX IF NOT EXISTS idx_single_active_workout '
+    'ON workouts(1) WHERE end_time IS NULL';
+
 // Workouts table
+// Note: A unique partial index ensures only one workout can have NULL end_time (active workout)
+// This is enforced via migration in schemaVersion 6
 class Workouts extends Table {
   TextColumn get id => text()();
   DateTimeColumn get startTime => dateTime()();
@@ -81,7 +87,7 @@ class WorkoutDatabase extends _$WorkoutDatabase {
   WorkoutDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration {
@@ -98,6 +104,8 @@ class WorkoutDatabase extends _$WorkoutDatabase {
       },
       onCreate: (Migrator m) async {
         await m.createAll();
+        // Create unique partial index to ensure only one active workout
+        await customStatement(singleActiveWorkoutIndex);
       },
       onUpgrade: (Migrator m, int from, int to) async {
         if (from < 2) {
@@ -119,6 +127,11 @@ class WorkoutDatabase extends _$WorkoutDatabase {
           await customStatement(
             'ALTER TABLE workout_sets ADD COLUMN completed INTEGER NOT NULL DEFAULT 1',
           );
+        }
+        if (from < 6) {
+          // Create unique partial index to ensure only one active workout
+          // This prevents multiple workouts with NULL end_time
+          await customStatement(singleActiveWorkoutIndex);
         }
       },
     );
