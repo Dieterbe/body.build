@@ -1,7 +1,6 @@
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
-import 'package:bodybuild/ui/core/widget/err_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/log_set_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_set_group_widget.dart';
@@ -19,7 +18,7 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 /// - a top level screen (for the curently active workout)
 /// - a detail view when coming from WorkoutsScreen (for any historical or current active workout)
 class WorkoutScreen extends ConsumerStatefulWidget {
-  final String? workoutId; // null for currently active workout, creating it if needed
+  final String? workoutId; // null to mean currently active workout, creating it if needed
   static const String routeNameActive = 'workout';
   const WorkoutScreen({super.key, this.workoutId});
 
@@ -30,30 +29,41 @@ class WorkoutScreen extends ConsumerStatefulWidget {
 class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   final TextEditingController _notesController = TextEditingController();
   model.Workout? workout;
+  String? _resolvedWorkoutId;
+  bool _attemptedAutoStart = false;
 
   @override
   void initState() {
     super.initState();
+
+    ref.listen<AsyncValue<model.WorkoutState>>(workoutManagerProvider, (previous, next) {
+      if (!mounted || !next.hasValue) return;
+
+      final activeWorkout = next.asData!.value.activeWorkout;
+      if (activeWorkout != null) {
+        setState(() {
+          _resolvedWorkoutId = activeWorkout.id;
+          workout = activeWorkout;
+          _attemptedAutoStart = false;
+        });
+        return;
+      }
+
+      if (widget.workoutId == null && _resolvedWorkoutId == null && !_attemptedAutoStart) {
+        _attemptedAutoStart = true;
+        Future.microtask(() async {
+          final id = await ref.read(workoutManagerProvider.notifier).startWorkout();
+          if (!mounted) return;
+          setState(() {
+            _resolvedWorkoutId = id;
+          });
+        });
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
-      final manager = ref.read(workoutManagerProvider.notifier);
-      await manager.closeStaleActiveWorkout();
-
-      // If no workoutId provided, we need to ensure an active workout exists
-      if (widget.workoutId == null) {
-        // Wait for the stream to have data, retry up to 10 times with 100ms delays (1 second total)
-        for (var i = 0; i < 10; i++) {
-          final state = ref.read(workoutManagerProvider);
-          if (state.hasValue) {
-            if (state.value!.activeWorkout == null) {
-              await manager.startWorkout();
-            }
-            return; // Successfully got data, exit retry loop
-          }
-          await Future.delayed(const Duration(milliseconds: 100));
-        }
-        // After 1 second of retries, give up - UI will show loading state
-      }
+      await ref.read(workoutManagerProvider.notifier).closeStaleActiveWorkout();
     });
   }
 
@@ -70,37 +80,24 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       return const MobileAppOnly(title: 'Workout tracking & viewing');
     }
 
-    // If workoutId is provided, show that specific workout
-    if (widget.workoutId != null) {
-      final workoutAsync = ref.watch(workoutByIdProvider(widget.workoutId!));
-      return workoutAsync.when(
-        data: (w) {
-          workout = w;
-          return (workout == null)
-              // we don't support web where people can craft custom URL's
-              // on mobile apps we should always have the correct ID and be able to load it
-              ? Text('Error loading workout ${widget.workoutId!}!')
-              : _buildForWorkout(context);
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const Center(child: Text('Error loading the requested workout')),
-      );
+    final targetWorkoutId = widget.workoutId ?? _resolvedWorkoutId;
+    if (targetWorkoutId == null) {
+      return _buildNewWorkoutLoading(context);
     }
 
-    // No workoutId provided - show the active workout, creating one if needed
-    final workoutState = ref.watch(workoutManagerProvider);
-    return workoutState.when(
-      data: (state) {
-        final activeWorkout = state.activeWorkout;
-        if (activeWorkout != null) {
-          workout = activeWorkout;
-          return _buildForWorkout(context);
-        }
-        // No active workout: show loading state until initState() has completed creating one
-        return _buildNewWorkoutLoading(context);
+    // Show the resolved workout
+    final workoutAsync = ref.watch(workoutByIdProvider(targetWorkoutId));
+    return workoutAsync.when(
+      data: (w) {
+        workout = w;
+        return (workout == null)
+            // we don't support web where people can craft custom URL's
+            // on mobile apps we should always have the correct ID and be able to load it
+            ? Text('Error loading workout $targetWorkoutId!')
+            : _buildForWorkout(context);
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => ErrWidget("Error loading workout state", error),
+      error: (_, __) => const Center(child: Text('Error loading the requested workout')),
     );
   }
 

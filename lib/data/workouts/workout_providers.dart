@@ -72,6 +72,7 @@ class WorkoutManager extends _$WorkoutManager {
       print("auto-closing stale empty workout ${activeWorkout.id}");
     }
 
+    // TODO: doesn't seem to work when staring at active workout with 1 set
     if (lastSetTime != null && now.difference(lastSetTime) >= _autoCloseThreshold) {
       autoCloseEndTime = lastSetTime.add(_autoCloseBuffer);
       print("auto-closing stale workout ${activeWorkout.id}");
