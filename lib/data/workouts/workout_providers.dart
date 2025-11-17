@@ -29,18 +29,34 @@ WorkoutPersistenceService workoutPersistenceService(Ref ref) {
 /// (e.g. when navigating from the articulations screen to 'start new workout')
 @Riverpod(keepAlive: true)
 class WorkoutManager extends _$WorkoutManager {
+  // How long we allow a workout to stay idle before auto-closing it.
   static const _autoCloseThreshold = Duration(minutes: 1);
+  // When we close a workout we end it a little after the last activity, to avoid zero-duration workouts.
   static const _autoCloseBuffer = Duration(minutes: 1);
+  // Periodically we force the provider to recompute even if the database stream is silent.
   static const _autoRefreshInterval = Duration(minutes: 1);
 
+  // Lazily created timer that invalidates the provider so stale workouts close even without writes.
   Timer? _autoRefreshTimer;
+  // Prevent overlapping sweeps when the DB is slow.
+  bool _autoCloseSweepInProgress = false;
 
   @override
   Stream<model.WorkoutState> build() {
     final service = ref.watch(workoutPersistenceServiceProvider);
 
-    // to enforce a run of _closeStaleActiveWorkout if there are other events triggering
-    _autoRefreshTimer ??= Timer.periodic(_autoRefreshInterval, (_) => ref.invalidateSelf());
+    // Ensure the auto-close logic runs on a schedule, not only when Drift emits because of writes.
+    _autoRefreshTimer ??= Timer.periodic(_autoRefreshInterval, (_) {
+      if (_autoCloseSweepInProgress) {
+        return;
+      }
+      _autoCloseSweepInProgress = true;
+      unawaited(
+        closeStaleActiveWorkout().whenComplete(() {
+          _autoCloseSweepInProgress = false;
+        }),
+      );
+    });
     ref.onDispose(() => _autoRefreshTimer?.cancel());
 
     return service.watchAllWorkouts().asyncMap((allWorkouts) async {
@@ -72,7 +88,6 @@ class WorkoutManager extends _$WorkoutManager {
       print("auto-closing stale empty workout ${activeWorkout.id}");
     }
 
-    // TODO: doesn't seem to work when staring at active workout with 1 set
     if (lastSetTime != null && now.difference(lastSetTime) >= _autoCloseThreshold) {
       autoCloseEndTime = lastSetTime.add(_autoCloseBuffer);
       print("auto-closing stale workout ${activeWorkout.id}");
@@ -87,6 +102,7 @@ class WorkoutManager extends _$WorkoutManager {
   }
 
   Future<void> closeStaleActiveWorkout() async {
+    // Utility for screens: run the same normalisation outside the stream pathway (e.g. on first load).
     final service = ref.read(workoutPersistenceServiceProvider);
     final workouts = await service.getAllWorkouts();
     await _closeStaleActiveWorkout(workouts, service);

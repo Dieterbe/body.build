@@ -9,7 +9,9 @@ import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
+import 'package:bodybuild/ui/core/widget/err_widget.dart';
 import 'package:bodybuild/util/flutter.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
@@ -29,38 +31,17 @@ class WorkoutScreen extends ConsumerStatefulWidget {
 class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   final TextEditingController _notesController = TextEditingController();
   model.Workout? workout;
+  // When we are launched without a workoutId (meaning "current active workout"),
+  // we store the concrete id here as soon as the manager tells us which workout is active.
   String? _resolvedWorkoutId;
+  // Guards the auto-start block so we only attempt to create one workout per entry.
   bool _attemptedAutoStart = false;
+  // Manual subscription so we can keep listening even if build() isn't called yet.
+  ProviderSubscription<AsyncValue<model.WorkoutState>>? _workoutStateSub;
 
   @override
   void initState() {
     super.initState();
-
-    ref.listen<AsyncValue<model.WorkoutState>>(workoutManagerProvider, (previous, next) {
-      if (!mounted || !next.hasValue) return;
-
-      final activeWorkout = next.asData!.value.activeWorkout;
-      if (activeWorkout != null) {
-        setState(() {
-          _resolvedWorkoutId = activeWorkout.id;
-          workout = activeWorkout;
-          _attemptedAutoStart = false;
-        });
-        return;
-      }
-
-      if (widget.workoutId == null && _resolvedWorkoutId == null && !_attemptedAutoStart) {
-        _attemptedAutoStart = true;
-        Future.microtask(() async {
-          final id = await ref.read(workoutManagerProvider.notifier).startWorkout();
-          if (!mounted) return;
-          setState(() {
-            _resolvedWorkoutId = id;
-          });
-        });
-      }
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
       await ref.read(workoutManagerProvider.notifier).closeStaleActiveWorkout();
@@ -68,7 +49,81 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Lazily install the listener the first time dependencies are resolved. We keep it for the
+    // lifetime of this State because WorkoutManager is keepAlive and we want continuous updates.
+    _workoutStateSub ??= ref.listenManual<AsyncValue<model.WorkoutState>>(
+      workoutManagerProvider,
+      (_, next) => _handleWorkoutState(next),
+    );
+
+    final currentState = ref.read(workoutManagerProvider);
+    if (currentState.hasValue) {
+      // Handle whatever data is already cached so we don't wait for the next stream emission.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _handleWorkoutState(currentState);
+      });
+    }
+  }
+
+  void _handleWorkoutState(AsyncValue<model.WorkoutState> asyncState) {
+    if (!mounted || !asyncState.hasValue) return;
+    final state = asyncState.asData!.value;
+    final activeWorkout = state.activeWorkout;
+    if (activeWorkout != null) {
+      // We now know exactly which workout is active; remember it locally and reset flags.
+      setState(() {
+        _resolvedWorkoutId = activeWorkout.id;
+        workout = activeWorkout;
+        _attemptedAutoStart = false;
+      });
+      return;
+    }
+
+    // If our previously resolved workout is no longer active (it was auto-closed somewhere),
+    // then going back to "start/resume workout" would show the workout that was active but has just
+    // been auto-closed.
+    // We could try to work around this with something like the below:
+    // clear local state so we can start fresh and create a new active workout, instead of
+    // showing the older auto-closed workout that was previously active.
+    // However in this form, this creates a loop where we keep creating new workouts and
+    // auto-closing them.  So we would then need to track if we already created a new workout or not
+    // or something like that. But that's all getting a bit clunky.  One could argue just as well
+    // that it's desirable to show the workout that was active but has just been auto-closed. So
+    // we will just stick with that for now.
+    /*
+    if (widget.workoutId == null && _resolvedWorkoutId != null) {
+      final resolved = state.allWorkouts.firstWhereOrNull(
+        (w) => w.id == _resolvedWorkoutId && w.isActive,
+      );
+      if (resolved == null) {
+        setState(() {
+          _resolvedWorkoutId = null;
+          workout = null;
+        });
+      }
+    }
+    */
+
+    if (widget.workoutId == null && _resolvedWorkoutId == null && !_attemptedAutoStart) {
+      // No active workout exists and we are the "start/resume" route. Spin up a new session once.
+      _attemptedAutoStart = true;
+      Future.microtask(() async {
+        final id = await ref.read(workoutManagerProvider.notifier).startWorkout();
+        if (!mounted) return;
+        // Remember the new workout id so build() can render it once the stream emits.
+        setState(() {
+          _resolvedWorkoutId = id;
+        });
+      });
+    }
+  }
+
+  @override
   void dispose() {
+    _workoutStateSub?.close();
     _notesController.dispose();
     super.dispose();
   }
@@ -80,24 +135,31 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       return const MobileAppOnly(title: 'Workout tracking & viewing');
     }
 
-    final targetWorkoutId = widget.workoutId ?? _resolvedWorkoutId;
-    if (targetWorkoutId == null) {
-      return _buildNewWorkoutLoading(context);
-    }
+    final workoutStateAsync = ref.watch(workoutManagerProvider);
+    return workoutStateAsync.when(
+      data: (state) {
+        // Prefer the explicit route id, fall back to whatever we resolved from the manager,
+        // and finally fall back to the currently active workout if one exists.
+        final activeWorkout = state.activeWorkout;
+        final targetWorkoutId = widget.workoutId ?? _resolvedWorkoutId ?? activeWorkout?.id;
+        if (targetWorkoutId == null) {
+          // We are still waiting for the manager to either create or surface a workout.
+          return _buildNewWorkoutLoading(context);
+        }
 
-    // Show the resolved workout
-    final workoutAsync = ref.watch(workoutByIdProvider(targetWorkoutId));
-    return workoutAsync.when(
-      data: (w) {
-        workout = w;
-        return (workout == null)
-            // we don't support web where people can craft custom URL's
-            // on mobile apps we should always have the correct ID and be able to load it
-            ? Text('Error loading workout $targetWorkoutId!')
-            : _buildForWorkout(context);
+        // Grab the matching workout from the manager's cached list so we stay in sync with it.
+        final targetWorkout =
+            state.allWorkouts.firstWhereOrNull((w) => w.id == targetWorkoutId) ?? activeWorkout;
+        if (targetWorkout == null) {
+          // Extremely defensive: manager has no record yet, keep the loading UI instead of crashing.
+          return _buildNewWorkoutLoading(context);
+        }
+
+        workout = targetWorkout;
+        return _buildForWorkout(context);
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const Center(child: Text('Error loading the requested workout')),
+      loading: () => _buildNewWorkoutLoading(context),
+      error: (error, stackTrace) => ErrWidget('Error loading workout state', error),
     );
   }
 
@@ -117,8 +179,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         ],
       ),
       // this screen is used in two ways:
-      // - top level screen needs a hamburger menu
-      // - nested screen needs a back arrow
+      // - top level screen (no workout id specified) needs a hamburger menu
+      // - nested screen (workout id specified) needs a back arrow
       drawer: widget.workoutId == null ? const AppNavigationDrawer() : null,
       body: Column(
         children: [
