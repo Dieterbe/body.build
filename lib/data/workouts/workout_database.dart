@@ -188,14 +188,13 @@ class WorkoutDatabase extends _$WorkoutDatabase {
   }
 
   Future<void> setCurrentExerciseVersion(int version, String source) async {
-    await into(exerciseVersions).insert(
+    await into(exerciseVersions).insertOnConflictUpdate(
       ExerciseVersionsCompanion(
         id: const Value('current'),
         version: Value(version),
         setAt: Value(DateTime.now()),
         source: Value(source),
       ),
-      mode: InsertMode.insertOrIgnore,
     );
   }
 
