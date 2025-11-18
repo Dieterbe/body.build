@@ -2,7 +2,6 @@ import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
 import 'package:bodybuild/ui/core/widget/exercise_recruitment_visualization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/data/dataset/exercises.dart';
@@ -10,37 +9,60 @@ import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/ui/core/widget/rating_icon_multi.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_picker_sheet.dart';
+import 'package:bodybuild/ui/workouts/widget/set_form_widget.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/data/dataset/tweak.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:collection/collection.dart';
 
 /// Sheet for editing exercise, tweaks, and individual sets for a group
-/// Step 1/2 very similar to [LogSetSheet], 3rd step is different
+/// Also supports adding new sets when group is null (add mode)
 class EditExerciseSetGroupSheet extends ConsumerStatefulWidget {
-  final model.ExerciseSetGroup group;
+  final model.ExerciseSetGroup? group;
+  final String workoutId;
 
-  const EditExerciseSetGroupSheet({super.key, required this.group});
+  const EditExerciseSetGroupSheet(this.workoutId, {super.key, this.group});
 
   @override
   ConsumerState<EditExerciseSetGroupSheet> createState() => _EditExerciseSheetState();
 }
+/* scenarios:
+* 1) "log set" flow: caller provides no group. the user selects exercise and tweaks. These may or may
+* not happen to match an already existing ExerciseSetGroup in the workout. Either way, in this sheet
+* they only "see" any new sets that they add. After saving, if they match an existing group, they
+* will be grouped there. This keeps things simple and reasonably polished (the alternative is that
+* for an existing ESG we load their sets, allowing you to edit those as well, but that's no longer
+* just "logging a new set". it might be a nicer experience for the user, but seems excessively
+* complicated)
+* 2) "edit existing set group" flow: caller provides an existing group. the user can edit the
+* exercise, tweaks, and sets. This will affect all those sets
+ */
 
 class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
-  Sets? currentSets;
+  Sets? currentSets; // to manage selected exercise and tweaks (only). we don't use the full class
   int currentStep = 0; // 0: Select Exercise, 1: Configure, 2: Edit Sets
   bool showDetailedTweaks = false;
   late List<model.WorkoutSet> editableSets;
   final Set<String> deletedSetIds = {};
+  final List<GlobalKey<FormState>> _setFormKeys = []; // to know if all forms valid
+
+  bool get isAddMode => widget.group == null;
 
   @override
   void initState() {
     super.initState();
-    final exercise = exes.firstWhereOrNull((e) => e.id == widget.group.exerciseId);
-    currentSets = Sets(0, ex: exercise, tweakOptions: widget.group.tweaks); // TODO do we need this?
-    editableSets = List.of(widget.group.sets);
-    // This seems the most common use case
-    currentStep = 2;
+    if (widget.group != null) {
+      final exercise = exes.firstWhereOrNull((e) => e.id == widget.group!.exerciseId);
+      currentSets = Sets(0, ex: exercise, tweakOptions: widget.group!.tweaks);
+      editableSets = List.of(widget.group!.sets);
+      _setFormKeys.addAll(List.generate(editableSets.length, (_) => GlobalKey<FormState>()));
+      // Start at step 2 for edit mode (most common use case)
+      currentStep = 2;
+    } else {
+      // Add mode: start with empty sets list, begin at exercise selection
+      editableSets = [];
+      currentStep = 0;
+    }
   }
 
   @override
@@ -66,7 +88,7 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
             children: [
               Expanded(
                 child: Text(
-                  'Edit Exercise Sets',
+                  isAddMode ? 'Add Sets' : 'Edit Exercise Sets',
                   style: Theme.of(
                     context,
                   ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -203,8 +225,11 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
   VoidCallback? _getNextButtonAction() {
     return switch (currentStep) {
       0 => currentSets?.ex != null ? () => setState(() => currentStep = 1) : null,
-      1 => () => setState(() => currentStep = 2),
-      2 => _saveChanges,
+      1 => () {
+        setState(() => currentStep = 2);
+        _ensureInitialSetExists();
+      },
+      2 => isAddMode && editableSets.isEmpty ? null : _saveChanges,
       _ => null,
     };
   }
@@ -398,149 +423,138 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
   }
 
   Widget _buildStepEditSets() {
-    return ListView.builder(
-      itemCount: editableSets.length,
-      itemBuilder: (context, index) {
-        final set = editableSets[index];
-        return Card(
-          key: ValueKey(set.id),
-          margin: const EdgeInsets.only(bottom: 12),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+    return Column(
+      children: [
+        if (editableSets.isEmpty)
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Checkbox(
-                      value: set.completed,
-                      onChanged: (value) {
-                        setState(() {
-                          editableSets[index] = set.copyWith(completed: value ?? true);
-                        });
-                      },
+                    Icon(
+                      Icons.fitness_center,
+                      size: 96,
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
                     ),
-                    Expanded(
-                      child: Text(
-                        'Set ${index + 1}${set.completed ? "" : " (planned)"}',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-                      ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'No Sets Yet',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          deletedSetIds.add(set.id);
-                          editableSets.removeAt(index);
-                        });
-                      },
-                      icon: const Icon(Icons.delete_outline),
-                      tooltip: 'Remove set',
-                      iconSize: 20,
-                      color: Theme.of(context).colorScheme.error,
+                    const SizedBox(height: 16),
+                    Text(
+                      'Add your first set with the button below',
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        initialValue: set.weight?.toString() ?? '',
-                        decoration: const InputDecoration(
-                          labelText: 'Weight (kg)',
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))],
-                        onChanged: (value) {
-                          final weight = double.tryParse(value);
-                          editableSets[index] = editableSets[index].copyWith(weight: weight);
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextFormField(
-                        initialValue: set.reps?.toString() ?? '',
-                        decoration: const InputDecoration(
-                          labelText: 'Reps',
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        onChanged: (value) {
-                          final reps = int.tryParse(value);
-                          editableSets[index] = editableSets[index].copyWith(reps: reps);
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextFormField(
-                        initialValue: set.rir?.toString() ?? '',
-                        decoration: const InputDecoration(
-                          labelText: 'RIR',
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        onChanged: (value) {
-                          final rir = int.tryParse(value);
-                          editableSets[index] = editableSets[index].copyWith(rir: rir);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  initialValue: set.comments ?? '',
-                  decoration: const InputDecoration(
-                    labelText: 'Comments (optional)',
-                    border: OutlineInputBorder(),
-                    isDense: true,
-                  ),
-                  maxLines: 2,
-                  onChanged: (value) {
-                    editableSets[index] = editableSets[index].copyWith(
-                      comments: value.isEmpty ? null : value,
-                    );
+              ),
+            ),
+          )
+        else
+          Expanded(
+            child: ListView.builder(
+              itemCount: editableSets.length,
+              itemBuilder: (context, index) {
+                return SetFormWidget(
+                  workoutSet: editableSets[index],
+                  setNumber: index + 1,
+                  onChanged: (updatedSet) {
+                    setState(() {
+                      editableSets[index] = updatedSet;
+                    });
                   },
-                ),
-              ],
+                  onDelete: () {
+                    setState(() {
+                      if (!editableSets[index].id.startsWith('temp_')) {
+                        // It was a pre-existing set. We need to mark it for deletion.
+                        deletedSetIds.add(editableSets[index].id);
+                      }
+                      editableSets.removeAt(index);
+                      _setFormKeys.removeAt(index);
+                      _reindexSets();
+                    });
+                  },
+                  formKey: _setFormKeys[index],
+                );
+              },
             ),
           ),
-        );
-      },
+        const SizedBox(height: 12),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton.icon(
+            onPressed: _addNewSet,
+            icon: const Icon(Icons.add),
+            label: Text(editableSets.isEmpty ? 'Add First Set' : 'Add Another Set'),
+          ),
+        ),
+      ],
     );
   }
 
-  void _saveChanges() {
-    // Ensure all tweaks have explicit values (including defaults)
-    final explicitTweakOptions = <String, String>{};
-    if (currentSets?.ex != null) {
-      for (final tweak in currentSets!.ex!.tweaks) {
-        explicitTweakOptions[tweak.name] =
-            currentSets!.tweakOptions[tweak.name] ?? tweak.defaultVal;
-      }
-    }
+  void _addNewSet() {
+    if (currentSets?.ex == null) return;
 
-    final setsWithExplicitTweaks = currentSets!.copyWith(tweakOptions: explicitTweakOptions);
-
-    // Update all sets with new exercise and tweaks
-    final updatedSets = editableSets.map((set) {
-      return set.copyWith(exerciseId: setsWithExplicitTweaks.ex!.id, tweaks: explicitTweakOptions);
-    }).toList();
-
-    Navigator.of(context).pop({
-      'sets': setsWithExplicitTweaks,
-      'updatedSets': updatedSets,
-      'deletedSetIds': deletedSetIds.toList(),
+    setState(() {
+      // Create a new empty WorkoutSet with temporary ID
+      // Pre-fill with last set's values if available
+      final lastSet = editableSets.lastOrNull;
+      final newSet = model.WorkoutSet(
+        id: 'temp_${DateTime.now().millisecondsSinceEpoch}',
+        workoutId: widget.workoutId!,
+        exerciseId: currentSets!.ex!.id,
+        tweaks: currentSets!.tweakOptions,
+        setOrder: editableSets.length + 1, // TODO: setOrder should be per workout
+        timestamp: DateTime.now(),
+        weight: lastSet?.weight,
+        reps: lastSet?.reps,
+        rir: lastSet?.rir,
+        comments: null,
+        completed: true,
+      );
+      editableSets.add(newSet);
+      _setFormKeys.add(GlobalKey<FormState>());
     });
   }
+
+  // in add mode, when entering the last step (for the first time in this sheet)
+  // we create a new set, ready to be filled out or approved if it was able to preload good numbers
+  void _ensureInitialSetExists() {
+    if (!isAddMode || editableSets.isNotEmpty) return;
+    _addNewSet();
+  }
+
+  void _reindexSets() {
+    for (var i = 0; i < editableSets.length; i++) {
+      editableSets[i] = editableSets[i].copyWith(setOrder: i + 1);
+    }
+  }
+
+  void _saveChanges() {
+    // don't save anything if any of the forms are invalid
+    if (_setFormKeys.any((key) => !(key.currentState?.validate() ?? true))) return;
+
+    // Ensure all tweaks have explicit values (including defaults)
+    final explicitTweakOptions = currentSets!.getFullTweakValues();
+
+    // Update all sets with new exercise and tweaks
+    final sets = editableSets.map(
+      (set) => set.copyWith(exerciseId: currentSets!.ex!.id, tweaks: explicitTweakOptions),
+    );
+
+    Navigator.of(context).pop(
+      EditExerciseSetGroupSheetResponse(sets: sets.toList(), deletedSetIds: deletedSetIds.toList()),
+    );
+  }
+}
+
+class EditExerciseSetGroupSheetResponse {
+  final List<model.WorkoutSet> sets;
+  final List<String> deletedSetIds;
+  EditExerciseSetGroupSheetResponse({required this.sets, required this.deletedSetIds});
 }

@@ -1,8 +1,9 @@
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/ui/core/widget/snackbars.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
-import 'package:bodybuild/ui/workouts/widget/log_set_sheet.dart';
+import 'package:bodybuild/ui/workouts/widget/edit_exercise_set_group_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_set_group_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
@@ -246,14 +247,31 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
           group: group,
           onUpdateSet: _updateSet,
           onUpdateExercise: _updateExerciseForGroup,
-          onAddSet: _saveSet,
           onDeleteSet: _deleteSet,
         );
       },
     );
   }
 
-  void _updateExerciseForGroup(model.ExerciseSetGroup group, Sets newSets) async {
+  Future<void> _updateSet(model.WorkoutSet updatedSet) async {
+    try {
+      await ref.read(workoutManagerProvider.notifier).updateSet(updatedSet);
+    } catch (e) {
+      if (!mounted) return;
+      showErrorSnackBar(context, 'Error updating set: $e');
+    }
+  }
+
+  Future<void> _deleteSet(String setId) async {
+    try {
+      await ref.read(workoutManagerProvider.notifier).deleteSet(setId);
+    } catch (e) {
+      if (!mounted) return;
+      showErrorSnackBar(context, 'Error deleting set: $e');
+    }
+  }
+
+  Future<void> _updateExerciseForGroup(model.ExerciseSetGroup group, Sets newSets) async {
     // Update all sets in the group with the new exercise and tweaks
     try {
       final workoutManager = ref.read(workoutManagerProvider.notifier);
@@ -262,71 +280,38 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         await workoutManager.updateSet(updatedSet);
       }
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error updating exercise: $e'), backgroundColor: Colors.red),
-        );
-      }
+      if (!mounted) return;
+      showErrorSnackBar(context, 'Error updating exercise: $e');
     }
   }
 
-  void _showLogSetSheet(BuildContext context, {Sets? initialSets}) async {
-    final result = await showModalBottomSheet<Map<String, dynamic>>(
+  Future<void> _showLogSetSheet(BuildContext context) async {
+    final result = await showModalBottomSheet<EditExerciseSetGroupSheetResponse>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => LogSetSheet(initialSets: initialSets),
+      builder: (context) => EditExerciseSetGroupSheet(workout!.id, group: null),
     );
 
     if (result != null) {
-      _saveSet(result);
-    }
-  }
+      try {
+        final workoutManager = ref.read(workoutManagerProvider.notifier);
 
-  void _saveSet(Map<String, dynamic> data) async {
-    final sets = data['sets'] as Sets;
-
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.addSet(
-        workoutId: workout!.id,
-        exerciseId: sets.ex!.id,
-        tweaks: sets.tweakOptions,
-        weight: data['weight'] as double?,
-        reps: data['reps'] as int?,
-        rir: data['rir'] as int?,
-        comments: data['comments'] as String?,
-      );
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error adding set: $e'), backgroundColor: Colors.red),
-        );
-      }
-    }
-  }
-
-  void _updateSet(model.WorkoutSet updatedSet) async {
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.updateSet(updatedSet);
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error updating set: $e'), backgroundColor: Colors.red),
-        );
-      }
-    }
-  }
-
-  void _deleteSet(String setId) async {
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.deleteSet(setId);
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error deleting set: $e'), backgroundColor: Colors.red),
-        );
+        // Add all the new sets that were created
+        for (final set in result.sets) {
+          await workoutManager.addSet(
+            workoutId: set.workoutId,
+            exerciseId: set.exerciseId,
+            tweaks: set.tweaks,
+            weight: set.weight,
+            reps: set.reps,
+            rir: set.rir,
+            comments: set.comments,
+            completed: set.completed,
+          );
+        }
+      } catch (e) {
+        if (!mounted) return;
+        showErrorSnackBar(context, 'Error adding sets: $e');
       }
     }
   }

@@ -135,6 +135,7 @@ class WorkoutManager extends _$WorkoutManager {
     int? reps,
     int? rir,
     String? comments,
+    bool completed = true,
   }) async {
     final service = ref.read(workoutPersistenceServiceProvider);
     final setId = await service.addWorkoutSet(
@@ -145,6 +146,7 @@ class WorkoutManager extends _$WorkoutManager {
       reps: reps,
       rir: rir,
       comments: comments,
+      completed: completed,
     );
     return setId;
   }
