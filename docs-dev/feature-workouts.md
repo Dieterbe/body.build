@@ -55,3 +55,12 @@ Happens via **WorkoutManager** in the following ways:
 * in build(), any time the stream loads (e.g. after db writes)
 * any time the workoutsScreen or workoutScreen are opened
 * if none of the above happen, with a timer in WorkoutManager
+
+### This has been manually tested..
+
+- active workout with 1 set, WorkoutScreen v
+- empty set, WorkoutScreen v
+- empty set, go away, resume, WorkoutScreen v
+- empty set, WorkoutsScreen v
+- empty set, navigate away, stay on unrelated screen v
+- empty set, navigate away, create new active workout -> v, but goes back to old

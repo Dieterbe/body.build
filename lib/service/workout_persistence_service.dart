@@ -68,11 +68,8 @@ class WorkoutPersistenceService {
     await _database.updateWorkout(companion);
   }
 
-  Future<void> endWorkout(String workoutId, {DateTime? endTime}) async {
-    final companion = WorkoutsCompanion(
-      endTime: Value(endTime ?? DateTime.now()),
-      updatedAt: Value(DateTime.now()),
-    );
+  Future<void> endWorkout(String workoutId, DateTime endTime) async {
+    final companion = WorkoutsCompanion(endTime: Value(endTime), updatedAt: Value(DateTime.now()));
 
     await _database.updateWorkoutFields(workoutId, companion);
   }

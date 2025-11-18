@@ -17,7 +17,8 @@ class WorkoutPopupMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool canResume =
-        workout.endTime != null && DateTime.now().difference(workout.endTime!).inHours < 1;
+        workout.endTime != null &&
+        DateTime.now().difference(workout.endTime!) < WorkoutManager.autoCloseThreshold;
 
     return PopupMenuButton<String>(
       key: menuKey,
@@ -73,9 +74,7 @@ class WorkoutPopupMenu extends ConsumerWidget {
           : 'Awesome work! This will finish the workout.',
       confirmText: 'Finish',
       onConfirm: () {
-        ref
-            .read(workoutManagerProvider.notifier)
-            .endWorkout(workout.id, endTime: workout.sets.lastOrNull?.timestamp);
+        ref.read(workoutManagerProvider.notifier).endWorkout(workout.id, DateTime.now());
         if (reRoute == null) return;
         context.go(reRoute!);
       },

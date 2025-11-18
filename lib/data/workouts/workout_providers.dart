@@ -30,11 +30,13 @@ WorkoutPersistenceService workoutPersistenceService(Ref ref) {
 @Riverpod(keepAlive: true)
 class WorkoutManager extends _$WorkoutManager {
   // How long we allow a workout to stay idle before auto-closing it.
-  static const _autoCloseThreshold = Duration(minutes: 1);
-  // When we close a workout we end it a little after the last activity, to avoid zero-duration workouts.
-  static const _autoCloseBuffer = Duration(minutes: 1);
+  // the human body cools down and most of the workout stresses subside after this much time
+  static const autoCloseThreshold = Duration(minutes: 30);
+  // When we close a workout we end it a little after the last activity, to
+  // 1) avoid zero-duration workouts, 2) account for the duration of a quick cooldown
+  static const autoCloseBuffer = Duration(minutes: 5);
   // Periodically we force the provider to recompute even if the database stream is silent.
-  static const _autoRefreshInterval = Duration(minutes: 1);
+  static const _autoRefreshInterval = Duration(minutes: 10);
 
   // Lazily created timer that invalidates the provider so stale workouts close even without writes.
   Timer? _autoRefreshTimer;
@@ -83,18 +85,18 @@ class WorkoutManager extends _$WorkoutManager {
     final lastSetTime = activeWorkout.sets.lastOrNull?.timestamp;
     DateTime? autoCloseEndTime;
 
-    if (lastSetTime == null && now.difference(activeWorkout.startTime) >= _autoCloseThreshold) {
-      autoCloseEndTime = activeWorkout.startTime.add(_autoCloseBuffer);
+    if (lastSetTime == null && now.difference(activeWorkout.startTime) >= autoCloseThreshold) {
+      autoCloseEndTime = activeWorkout.startTime.add(autoCloseBuffer);
       print("auto-closing stale empty workout ${activeWorkout.id}");
     }
 
-    if (lastSetTime != null && now.difference(lastSetTime) >= _autoCloseThreshold) {
-      autoCloseEndTime = lastSetTime.add(_autoCloseBuffer);
+    if (lastSetTime != null && now.difference(lastSetTime) >= autoCloseThreshold) {
+      autoCloseEndTime = lastSetTime.add(autoCloseBuffer);
       print("auto-closing stale workout ${activeWorkout.id}");
     }
 
     if (autoCloseEndTime != null) {
-      await service.endWorkout(activeWorkout.id, endTime: autoCloseEndTime);
+      await service.endWorkout(activeWorkout.id, autoCloseEndTime);
       return await service.getAllWorkouts();
     }
 
@@ -120,9 +122,9 @@ class WorkoutManager extends _$WorkoutManager {
         : await service.createWorkout(startTime: startTime, notes: notes);
   }
 
-  Future<void> endWorkout(String workoutId, {DateTime? endTime}) async {
+  Future<void> endWorkout(String workoutId, DateTime endTime) async {
     final service = ref.read(workoutPersistenceServiceProvider);
-    await service.endWorkout(workoutId, endTime: endTime);
+    await service.endWorkout(workoutId, endTime);
   }
 
   Future<String> addSet({
