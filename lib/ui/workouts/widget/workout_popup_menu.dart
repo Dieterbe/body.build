@@ -40,7 +40,10 @@ class WorkoutPopupMenu extends ConsumerWidget {
         if (!workout.isActive)
           const PopupMenuItem(
             value: 'template',
-            child: Row(spacing: 8, children: [Icon(Icons.copy), Text('Use as Template')]),
+            child: Row(
+              spacing: 8,
+              children: [Icon(Icons.copy), Text('Add Template into current workout')],
+            ),
           ),
         const PopupMenuItem(
           value: 'delete',
