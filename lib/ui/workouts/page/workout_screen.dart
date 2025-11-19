@@ -15,7 +15,6 @@ import 'package:bodybuild/util/flutter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bodybuild/model/programmer/set_group.dart';
 
 /// This screen is used as both:
 /// - a top level screen (for the curently active workout)
@@ -243,53 +242,9 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       itemCount: groups.length,
       itemBuilder: (context, index) {
         final group = groups[index];
-        return ExerciseSetGroupWidget(
-          group: group,
-          onUpdateSet: _updateSet,
-          onUpdateExercise: _updateExerciseForGroup,
-          onDeleteSet: _deleteSet,
-        );
+        return ExerciseSetGroupWidget(group: group);
       },
     );
-  }
-
-  Future<void> _updateSet(model.WorkoutSet updatedSet) async {
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-
-      if (updatedSet.id.startsWith('temp_')) {
-        await workoutManager.addSet(updatedSet); // id will get set properly here
-        return;
-      }
-
-      await workoutManager.updateSet(updatedSet);
-    } catch (e) {
-      if (!mounted) return;
-      showErrorSnackBar(context, 'Error updating set: $e');
-    }
-  }
-
-  Future<void> _deleteSet(String setId) async {
-    try {
-      await ref.read(workoutManagerProvider.notifier).deleteSet(setId);
-    } catch (e) {
-      if (!mounted) return;
-      showErrorSnackBar(context, 'Error deleting set: $e');
-    }
-  }
-
-  Future<void> _updateExerciseForGroup(model.ExerciseSetGroup group, Sets newSets) async {
-    // Update all sets in the group with the new exercise and tweaks
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      for (final set in group.sets) {
-        final updatedSet = set.copyWith(exerciseId: newSets.ex!.id, tweaks: newSets.tweakOptions);
-        await workoutManager.updateSet(updatedSet);
-      }
-    } catch (e) {
-      if (!mounted) return;
-      showErrorSnackBar(context, 'Error updating exercise: $e');
-    }
   }
 
   Future<void> _showLogSetSheet(BuildContext context) async {

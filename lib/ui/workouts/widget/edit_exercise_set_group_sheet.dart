@@ -554,7 +554,7 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
 }
 
 class EditExerciseSetGroupSheetResponse {
-  final List<model.WorkoutSet> sets;
+  final List<model.WorkoutSet> sets; // sets added (id='temp_xx'), left as-is, or modified
   final List<String> deletedSetIds;
   EditExerciseSetGroupSheetResponse({required this.sets, required this.deletedSetIds});
 }

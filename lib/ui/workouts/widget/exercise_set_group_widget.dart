@@ -1,33 +1,26 @@
-import 'package:bodybuild/model/programmer/set_group.dart';
+import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/ui/core/widget/snackbars.dart';
 import 'package:bodybuild/ui/workouts/widget/edit_exercise_set_group_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/set_log_widget.dart';
 import 'package:bodybuild/util/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Widget to display a group of sets for the same exercise+tweaks combination
 /// Supports editing exercise/tweaks and managing individual sets
-class ExerciseSetGroupWidget extends StatelessWidget {
+class ExerciseSetGroupWidget extends ConsumerWidget {
   final model.ExerciseSetGroup group;
-  final void Function(model.WorkoutSet) onUpdateSet;
-  final void Function(model.ExerciseSetGroup, Sets) onUpdateExercise; // TODO not used i think
-  final void Function(String setId) onDeleteSet;
 
-  const ExerciseSetGroupWidget({
-    super.key,
-    required this.group,
-    required this.onUpdateSet,
-    required this.onUpdateExercise,
-    required this.onDeleteSet,
-  });
+  const ExerciseSetGroupWidget({super.key, required this.group});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => _showEditExerciseDialog(context),
+        onTap: () => _showEditExerciseDialog(context, ref),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -74,7 +67,7 @@ class ExerciseSetGroupWidget extends StatelessWidget {
     );
   }
 
-  void _showEditExerciseDialog(BuildContext context) async {
+  void _showEditExerciseDialog(BuildContext context, WidgetRef ref) async {
     final result = await showModalBottomSheet<EditExerciseSetGroupSheetResponse>(
       context: context,
       isScrollControlled: true,
@@ -84,9 +77,34 @@ class ExerciseSetGroupWidget extends StatelessWidget {
 
     if (result == null || !context.mounted) return;
 
-    // Process deletes
-    result.deletedSetIds.forEach(onDeleteSet);
-    // Re-save our sets. They may have been updated.
-    result.sets.forEach(onUpdateSet);
+    final notifier = ref.read(workoutManagerProvider.notifier);
+
+    // Process deleted sets
+
+    for (final setId in result.deletedSetIds) {
+      try {
+        await notifier.deleteSet(setId);
+      } catch (e) {
+        if (context.mounted) {
+          showErrorSnackBar(context, 'Error deleting set: $e');
+        }
+      }
+    }
+
+    // Process sets that are added ('temp_' prefix), stayed the same, or have been modified
+
+    for (final set in result.sets) {
+      try {
+        if (set.id.startsWith('temp_')) {
+          await notifier.addSet(set); // id will get set properly here
+        } else {
+          await notifier.updateSet(set);
+        }
+      } catch (e) {
+        if (context.mounted) {
+          showErrorSnackBar(context, 'Error updating set: $e');
+        }
+      }
+    }
   }
 }
