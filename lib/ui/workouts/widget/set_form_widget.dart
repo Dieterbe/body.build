@@ -5,8 +5,12 @@ import 'package:bodybuild/model/workouts/workout.dart' as model;
 /// Inline form widget for editing a single set's weight, reps, RIR, and comments
 class SetFormWidget extends StatefulWidget {
   final model.WorkoutSet workoutSet;
+  // this is the i'th set displayed on the same sheet, this way we have sequence 1,2,3,...
+  // not to be confused with setOrder, which means it's the i'th set within the whole workout
+  // implementing that would be a bit more work for no apparent benefit. user will see the setOrder
+  // once they return to the workout view
   final int setNumber;
-  final ValueChanged<model.WorkoutSet> onChanged;
+  final ValueChanged<model.WorkoutSet> onChanged; // keep caller up-to-date. even if data is invalid
   final VoidCallback? onDelete;
   final GlobalKey<FormState>? formKey;
 
@@ -74,7 +78,6 @@ class _SetFormWidgetState extends State<SetFormWidget> {
     super.dispose();
   }
 
-  // TODO what if these don't validate
   void _notifyChange() {
     final weightText = _weightController.text;
     final weightValue = weightText.isEmpty ? null : double.tryParse(weightText);

@@ -476,7 +476,6 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
                       }
                       editableSets.removeAt(index);
                       _setFormKeys.removeAt(index);
-                      _reindexSets();
                     });
                   },
                   formKey: _setFormKeys[index],
@@ -509,7 +508,7 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
         workoutId: widget.workoutId,
         exerciseId: currentSets!.ex!.id,
         tweaks: currentSets!.tweakOptions,
-        setOrder: editableSets.length + 1, // TODO: setOrder should be per workout
+        setOrder: 0, // this is unused now. will be set correctly when reading back from db.
         timestamp: DateTime.now(),
         weight: lastSet?.weight,
         reps: lastSet?.reps,
@@ -527,12 +526,6 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
   void _ensureInitialSetExists() {
     if (!isAddMode || editableSets.isNotEmpty) return;
     _addNewSet();
-  }
-
-  void _reindexSets() {
-    for (var i = 0; i < editableSets.length; i++) {
-      editableSets[i] = editableSets[i].copyWith(setOrder: i + 1);
-    }
   }
 
   void _saveChanges() {
