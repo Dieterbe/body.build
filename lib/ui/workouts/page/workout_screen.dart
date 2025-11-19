@@ -255,7 +255,14 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
   Future<void> _updateSet(model.WorkoutSet updatedSet) async {
     try {
-      await ref.read(workoutManagerProvider.notifier).updateSet(updatedSet);
+      final workoutManager = ref.read(workoutManagerProvider.notifier);
+
+      if (updatedSet.id.startsWith('temp_')) {
+        await workoutManager.addSet(updatedSet); // id will get set properly here
+        return;
+      }
+
+      await workoutManager.updateSet(updatedSet);
     } catch (e) {
       if (!mounted) return;
       showErrorSnackBar(context, 'Error updating set: $e');
@@ -298,16 +305,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
         // Add all the new sets that were created
         for (final set in result.sets) {
-          await workoutManager.addSet(
-            workoutId: set.workoutId,
-            exerciseId: set.exerciseId,
-            tweaks: set.tweaks,
-            weight: set.weight,
-            reps: set.reps,
-            rir: set.rir,
-            comments: set.comments,
-            completed: set.completed,
-          );
+          await workoutManager.addSet(set);
         }
       } catch (e) {
         if (!mounted) return;

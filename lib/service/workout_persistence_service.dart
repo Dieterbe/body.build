@@ -89,45 +89,30 @@ class WorkoutPersistenceService {
   }
 
   // Workout set operations
-  Future<String> addWorkoutSet({
-    required String workoutId,
-    required String exerciseId,
-    Map<String, String> tweaks = const {},
-    double? weight,
-    int? reps,
-    int? rir,
-    String? comments,
-    bool completed = true,
-  }) async {
+  Future<String> addWorkoutSet(model.WorkoutSet workoutSet) async {
     final id = _uuid.v4();
     final now = DateTime.now();
 
     final companion = WorkoutSetsCompanion(
       id: Value(id),
-      workoutId: Value(workoutId),
-      exerciseId: Value(exerciseId),
-      tweaks: Value(
-        model.WorkoutSet(
-          id: id,
-          workoutId: workoutId,
-          exerciseId: exerciseId,
-          tweaks: tweaks,
-          timestamp: now,
-          setOrder: 0, // is ignored I think
-        ).tweaksJson,
-      ),
-      weight: Value(weight),
-      reps: Value(reps),
-      rir: Value(rir),
-      comments: Value(comments),
-      timestamp: Value(now),
-      completed: Value(completed),
+      workoutId: Value(workoutSet.workoutId),
+      exerciseId: Value(workoutSet.exerciseId),
+      tweaks: Value(workoutSet.tweaksJson),
+      weight: Value(workoutSet.weight),
+      reps: Value(workoutSet.reps),
+      rir: Value(workoutSet.rir),
+      comments: Value(workoutSet.comments),
+      timestamp: Value(workoutSet.timestamp),
+      completed: Value(workoutSet.completed),
     );
 
     await _database.insertWorkoutSet(companion);
 
     // Update workout timestamp to trigger stream updates
-    await _database.updateWorkoutFields(workoutId, WorkoutsCompanion(updatedAt: Value(now)));
+    await _database.updateWorkoutFields(
+      workoutSet.workoutId,
+      WorkoutsCompanion(updatedAt: Value(now)),
+    );
 
     return id;
   }
@@ -229,16 +214,12 @@ class WorkoutPersistenceService {
 
     // Copy all sets as planned sets (completed=false)
     for (var i = 0; i < templateWorkout.sets.length; i++) {
-      final templateSet = templateWorkout.sets[i];
       await addWorkoutSet(
-        workoutId: targetWorkoutId,
-        exerciseId: templateSet.exerciseId,
-        tweaks: templateSet.tweaks,
-        weight: templateSet.weight,
-        reps: templateSet.reps,
-        rir: templateSet.rir,
-        comments: templateSet.comments,
-        completed: false,
+        templateWorkout.sets[i].copyWith(
+          workoutId: targetWorkoutId,
+          completed: false,
+          timestamp: DateTime.now(),
+        ),
       );
       // Small delay to ensure timestamp ordering
       await Future.delayed(const Duration(milliseconds: 1));

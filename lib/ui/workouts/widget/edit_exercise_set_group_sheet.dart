@@ -506,7 +506,7 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
       final lastSet = editableSets.lastOrNull;
       final newSet = model.WorkoutSet(
         id: 'temp_${DateTime.now().millisecondsSinceEpoch}',
-        workoutId: widget.workoutId!,
+        workoutId: widget.workoutId,
         exerciseId: currentSets!.ex!.id,
         tweaks: currentSets!.tweakOptions,
         setOrder: editableSets.length + 1, // TODO: setOrder should be per workout

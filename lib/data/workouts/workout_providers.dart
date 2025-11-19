@@ -127,28 +127,9 @@ class WorkoutManager extends _$WorkoutManager {
     await service.endWorkout(workoutId, endTime);
   }
 
-  Future<String> addSet({
-    required String workoutId,
-    required String exerciseId,
-    Map<String, String> tweaks = const {},
-    double? weight,
-    int? reps,
-    int? rir,
-    String? comments,
-    bool completed = true,
-  }) async {
+  Future<String> addSet(model.WorkoutSet workoutSet) async {
     final service = ref.read(workoutPersistenceServiceProvider);
-    final setId = await service.addWorkoutSet(
-      workoutId: workoutId,
-      exerciseId: exerciseId,
-      tweaks: tweaks,
-      weight: weight,
-      reps: reps,
-      rir: rir,
-      comments: comments,
-      completed: completed,
-    );
-    return setId;
+    return await service.addWorkoutSet(workoutSet);
   }
 
   Future<void> updateSet(model.WorkoutSet workoutSet) async {
