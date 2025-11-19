@@ -9,7 +9,7 @@ class WorkoutFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (workout.sets.isEmpty || !workout.isActive) {
+    if (!workout.sets.any((s) => s.completed) || !workout.isActive) {
       return Container();
     }
     return Container(
@@ -43,7 +43,7 @@ class WorkoutFooter extends StatelessWidget {
                   ),
                 ),
                 Stopwatch(
-                  start: workout.sets.last.timestamp,
+                  start: workout.sets.where((s) => s.completed).lastOrNull!.timestamp,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onPrimaryContainer,

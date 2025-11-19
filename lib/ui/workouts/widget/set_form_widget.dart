@@ -88,12 +88,15 @@ class _SetFormWidgetState extends State<SetFormWidget> {
       return;
     }
 
+    final isCompleting = !widget.workoutSet.completed && _completed;
+
     final updatedSet = widget.workoutSet.copyWith(
       weight: weightValue,
       reps: _repsController.text.isEmpty ? null : int.tryParse(_repsController.text),
       rir: _rirController.text.isEmpty ? null : int.tryParse(_rirController.text),
       comments: _commentsController.text.isEmpty ? null : _commentsController.text,
       completed: _completed,
+      timestamp: isCompleting ? DateTime.now() : widget.workoutSet.timestamp,
     );
     if (updatedSet != widget.workoutSet) {
       widget.onChanged(updatedSet);

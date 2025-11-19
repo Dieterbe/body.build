@@ -165,16 +165,22 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
   Future<int> deleteWorkout(String id) => (delete(workouts)..where((w) => w.id.equals(id))).go();
 
-  // Workout set queries (always ordered by timestamp)
+  // Workout set queries (completed first, then timestamp)
   Future<List<WorkoutSet>> getWorkoutSets(String workoutId) =>
       (select(workoutSets)
             ..where((s) => s.workoutId.equals(workoutId))
-            ..orderBy([(s) => OrderingTerm(expression: s.timestamp)]))
+            ..orderBy([
+              (s) => OrderingTerm(expression: s.completed, mode: OrderingMode.desc),
+              (s) => OrderingTerm(expression: s.timestamp),
+            ]))
           .get();
   Stream<List<WorkoutSet>> watchWorkoutSets(String workoutId) =>
       (select(workoutSets)
             ..where((s) => s.workoutId.equals(workoutId))
-            ..orderBy([(s) => OrderingTerm(expression: s.timestamp)]))
+            ..orderBy([
+              (s) => OrderingTerm(expression: s.completed, mode: OrderingMode.desc),
+              (s) => OrderingTerm(expression: s.timestamp),
+            ]))
           .watch();
 
   Future<WorkoutSet?> getLastSetForWorkout(String workoutId) =>
