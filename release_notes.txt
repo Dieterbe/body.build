@@ -1,2 +1,6 @@
-- add more exercises and tweaks. with more to come!
-- justify data access for backup/restore database (iOS only)
+- support using prior workout as a template
+- rework UI for adding/editing sets during a workout
+- auto-close stale workouts
+- migration system for exercise definitions
+- add quad blaster and bulgarian split squat options
+- minor fixes and improvements

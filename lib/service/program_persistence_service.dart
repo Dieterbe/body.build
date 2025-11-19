@@ -7,6 +7,7 @@ import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:bodybuild/model/migration_report.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +18,16 @@ class ProgramPersistenceService {
   final SharedPreferences _prefs;
 
   ProgramPersistenceService(this._prefs);
+
+  /// Safely capture PostHog events, handling test environments where plugin isn't initialized
+  Future<void> _captureEvent(String eventName, Map<String, Object> properties) async {
+    try {
+      await Posthog().capture(eventName: eventName, properties: properties);
+    } on MissingPluginException catch (e) {
+      // Silently ignore PostHog errors in test environments
+      debugPrint('PostHog capture failed and skipped (likely test environment): $e');
+    }
+  }
 
   /// Loads all programs from SharedPreferences
   Map<String, ProgramState> loadPrograms() {
@@ -79,28 +90,22 @@ class ProgramPersistenceService {
     // if it's not set, use '0' which we never used in the DB, so migrations will execute
     final currentVersion = getCurrentExerciseVersion() ?? 0;
     if (currentVersion == exerciseDatasetVersion) {
-      await Posthog().capture(
-        eventName: 'ExerciseMigrationSkipped',
-        properties: {
-          'reason': 'already_up_to_date',
-          'from_version': currentVersion,
-          'to_version': exerciseDatasetVersion,
-        },
-      );
+      await _captureEvent('ExerciseMigrationSkipped', {
+        'reason': 'already_up_to_date',
+        'from_version': currentVersion,
+        'to_version': exerciseDatasetVersion,
+      });
       return null;
     }
 
     var logs = <String>[];
 
     if (currentVersion > exerciseDatasetVersion) {
-      await Posthog().capture(
-        eventName: 'ExerciseMigrationFailed',
-        properties: {
-          'reason': 'future_version',
-          'from_version': currentVersion,
-          'to_version': exerciseDatasetVersion,
-        },
-      );
+      await _captureEvent('ExerciseMigrationFailed', {
+        'reason': 'future_version',
+        'from_version': currentVersion,
+        'to_version': exerciseDatasetVersion,
+      });
       return MigrationReport(
         from: currentVersion,
         to: exerciseDatasetVersion,
@@ -118,14 +123,11 @@ class ProgramPersistenceService {
     if (programsJson == null) {
       logs.add('No programs found, setting version to $exerciseDatasetVersion.');
       await setCurrentExerciseVersion(exerciseDatasetVersion);
-      await Posthog().capture(
-        eventName: 'ExerciseMigrationSkipped',
-        properties: {
-          'reason': 'no_programs',
-          'from_version': currentVersion,
-          'to_version': exerciseDatasetVersion,
-        },
-      );
+      await _captureEvent('ExerciseMigrationSkipped', {
+        'reason': 'no_programs',
+        'from_version': currentVersion,
+        'to_version': exerciseDatasetVersion,
+      });
       return MigrationReport(
         from: currentVersion,
         to: exerciseDatasetVersion,
@@ -193,17 +195,14 @@ class ProgramPersistenceService {
             if (resolvedExercise == null) {
               final message = 'Unable to migrate program "$programId": exercise "$newId" not found';
               logs.add(message);
-              await Posthog().capture(
-                eventName: 'ExerciseMigrationFailed',
-                properties: {
-                  'reason': 'exercise_not_found',
-                  'from_version': currentVersion,
-                  'to_version': exerciseDatasetVersion,
-                  'missing_exercise_id': newId,
-                  'sets_migrated': setsMigrated,
-                  'programs_processed': programsProcessed,
-                },
-              );
+              await _captureEvent('ExerciseMigrationFailed', {
+                'reason': 'exercise_not_found',
+                'from_version': currentVersion,
+                'to_version': exerciseDatasetVersion,
+                'missing_exercise_id': newId,
+                'sets_migrated': setsMigrated,
+                'programs_processed': programsProcessed,
+              });
               return MigrationReport(
                 from: currentVersion,
                 to: exerciseDatasetVersion,
@@ -265,19 +264,16 @@ class ProgramPersistenceService {
     await setCurrentExerciseVersion(exerciseDatasetVersion);
     logs.add('Program data migration complete.');
 
-    await Posthog().capture(
-      eventName: 'ExerciseMigrationCompleted',
-      properties: {
-        'from_version': currentVersion,
-        'to_version': exerciseDatasetVersion,
-        'programs_processed': programsProcessed,
-        'programs_changed': programsChanged,
-        'workouts_changed': workoutsChanged,
-        'set_groups_changed': setGroupsChanged,
-        'sets_migrated': setsMigrated,
-        'any_changes': anyChanges,
-      },
-    );
+    await _captureEvent('ExerciseMigrationCompleted', {
+      'from_version': currentVersion,
+      'to_version': exerciseDatasetVersion,
+      'programs_processed': programsProcessed,
+      'programs_changed': programsChanged,
+      'workouts_changed': workoutsChanged,
+      'set_groups_changed': setGroupsChanged,
+      'sets_migrated': setsMigrated,
+      'any_changes': anyChanges,
+    });
 
     return MigrationReport(
       from: currentVersion,
