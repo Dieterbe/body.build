@@ -16,9 +16,13 @@ class WorkoutPopupMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // when we autoclose due to threshold breach, we add the buffer to the end time
+    // so we need to adjust our check accordingly, otherwise we allow a resume, and it
+    // would be auto-closed again immediately.
     final bool canResume =
         workout.endTime != null &&
-        DateTime.now().difference(workout.endTime!) < WorkoutManager.autoCloseThreshold;
+        DateTime.now().difference(workout.endTime!) <
+            WorkoutManager.autoCloseThreshold - WorkoutManager.autoCloseBuffer;
 
     return PopupMenuButton<String>(
       key: menuKey,
