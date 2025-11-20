@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:bodybuild/ui/core/widget/rating_star.dart';
+import 'package:flutter/material.dart';
 
 class RatingIcon extends StatelessWidget {
   final double score;
@@ -10,7 +10,7 @@ class RatingIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconWidget = RatingStars.starFromScore(score, context, size: size);
+    final iconWidget = RatingStar.fromScore(score: score, size: size);
 
     if (onTap == null) return iconWidget;
 
