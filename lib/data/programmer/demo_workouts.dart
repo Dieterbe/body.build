@@ -4,6 +4,16 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 
 // TODO: need good tracking, ex not found -> posthog error. tweak not found -> error, right now it's ignored
+/*
+* should we rewrite this as json (or yaml)?
+* + loading of any program (saved by user, built-in-demos) would go through the same path, which is
+    probably good (?). at least we'd have shared validation (but only at runtime)
+* json would be a bit more compact, but also more cryptic
+* future: potentially lower barrier to contribute.  for now, even with json/yaml you still need
+  git, and we don't support any type of loading arbitrary programs yet.
+* - now we have tab completion and dart analysis to assert correctness (to some degree),
+    could be expanded in the future when we introduce e.g. enums for exercise ID's
+*/
 const demo1ID = 'demo1';
 final demo1 = ProgramState(
   name: 'Demo Program 1 - Full body',
