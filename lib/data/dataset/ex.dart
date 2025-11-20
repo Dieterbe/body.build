@@ -172,7 +172,7 @@ class Ex {
   /// Extracts normalized terms that follow "aka" in a description
   static Set<String> _extractAkaTerms(String description) {
     final akaIndex = description.toLowerCase().indexOf('aka ');
-    return akaIndex >= 0 ? _normalize(description.substring(akaIndex + 4)) : <String>{};
+    return akaIndex >= 0 ? _normalize(description.substring(akaIndex + 4)) : {};
   }
 
   /// Returns true if ALL query words match at least one search token

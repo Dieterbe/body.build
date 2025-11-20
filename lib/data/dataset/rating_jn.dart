@@ -97,8 +97,7 @@ final ratingJNBBBenchPress = benchPressBenchAngle.opts.keys.map(
   (e) => Rating(
     source: Source.jeffNippard,
     score: switch (e) {
-      '-15' => 4 / 7,
-      '-30' => 4 / 7,
+      '-15' || '-30' => 4 / 7,
       _ => 5 / 7,
     },
     pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
@@ -118,8 +117,7 @@ final ratingJNDBBenchPress = benchPressBenchAngle.opts.keys.map(
   (e) => Rating(
     source: Source.jeffNippard,
     score: switch (e) {
-      '-15' => 4 / 7,
-      '-30' => 4 / 7,
+      '-15' || '-30' => 4 / 7,
       _ => 5 / 7,
     },
     pg: [ProgramGroup.lowerPecs, ProgramGroup.upperPecs],
