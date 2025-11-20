@@ -92,7 +92,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
     // Listen to exercise selection changes and update URL
     ref.listen(exerciseFilterProvider, (previous, next) {
       if (previous?.selectedExercise != next.selectedExercise ||
-          previous?.selectedTweakOptions != next.selectedTweakOptions) {
+          !mapEquals(previous?.selectedTweakOptions, next.selectedTweakOptions)) {
         _updateUrl(next.selectedExercise, next.selectedTweakOptions);
       }
     });

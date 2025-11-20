@@ -49,6 +49,7 @@ dart_code_metrics:
     - avoid-passing-async-when-sync-expected: false # we do this in a few places, seems harmless
     - avoid-equal-expressions: false # makes it clear when expressing ratings as e.g. '7 / 7'
     - prefer-null-aware-spread: false # makes code look quite weird in some cases
+    - avoid-commented-out-code: false # commented out code can be useful
     - prefer-match-file-name:
         exclude:
           - lib/**/*_provider.dart
