@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/model/programmer/level.dart';
 import 'package:bodybuild/model/programmer/parameter_overrides.dart';
 import 'package:bodybuild/model/programmer/settings.dart';

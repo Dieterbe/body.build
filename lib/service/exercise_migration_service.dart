@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/dataset/exercise_migrations.dart';
+import 'package:bodybuild/data/dataset/exercise_migration.dart';
 import 'package:bodybuild/data/dataset/exercise_versioning.dart';
 
 /// Service for applying exercise migrations across version ranges

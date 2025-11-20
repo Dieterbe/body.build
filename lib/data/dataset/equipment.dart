@@ -1,14 +1,3 @@
-enum EquipmentCategory {
-  nonMachine("Non-machine"),
-  generalMachines("General Machines"),
-  upperBodyMachines("Upper Body Machines"),
-  coreAndGluteMachines("Core and Glute Machines"),
-  lowerBodyMachines("Lower Body Machines");
-
-  final String displayName;
-  const EquipmentCategory(this.displayName);
-}
-
 // built-in: doesn't need to be persisted
 enum Equipment {
   // Non-machine
@@ -102,4 +91,15 @@ powerlifting chains
   final EquipmentCategory category;
   final String? desc;
   const Equipment(this.displayName, this.category, {this.desc});
+}
+
+enum EquipmentCategory {
+  nonMachine("Non-machine"),
+  generalMachines("General Machines"),
+  upperBodyMachines("Upper Body Machines"),
+  coreAndGluteMachines("Core and Glute Machines"),
+  lowerBodyMachines("Lower Body Machines");
+
+  final String displayName;
+  const EquipmentCategory(this.displayName);
 }

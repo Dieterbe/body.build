@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';

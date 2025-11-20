@@ -1,6 +1,6 @@
-import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/data/dataset/equipment.dart';
-import 'package:bodybuild/ui/core/widget/exercise_recruitment_bar.dart';
+import 'package:bodybuild/ui/core/widget/muscle_recruitment_bar.dart';
 import 'package:bodybuild/ui/core/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -197,7 +197,6 @@ class ExerciseTileList extends StatelessWidget {
 
                   _buildEquipmentChips(context, exercise, availableEquipment),
                   const SizedBox(height: 8),
-                  // Muscle recruitment bar
                   MuscleRecruitmentBar(exercise: exercise),
                 ],
               ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:bodybuild/data/dataset/exercise_versioning.dart';
-import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:bodybuild/model/migration_report.dart';

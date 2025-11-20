@@ -9,7 +9,7 @@ import 'package:bodybuild/data/exercises/exercise_filter_provider.dart';
 import 'package:bodybuild/ui/exercises/widget/filter_mobile.dart';
 import 'package:bodybuild/ui/exercises/widget/filter_panel.dart';
 import 'package:bodybuild/ui/exercises/widget/exercise_detail_panel.dart';
-import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/util/url.dart';
 import 'package:go_router/go_router.dart';
 

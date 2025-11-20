@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/workout.dart';

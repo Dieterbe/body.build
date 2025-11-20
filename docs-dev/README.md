@@ -22,7 +22,13 @@
 
 Some projects subdivide by feature first, and then by ui, model, service, etc.  But we expect commonalities between different data files, ui files, etc (across features), so putting them closer together makes diffing and copying easier.
 
-Apply DRY at filename level. E.g. if it's in the `<feature>/page` directory, the file doesn't need to have "feature" or "page" in its name (but should have Page or Screen in its dart class)
-
 Exercises, their tweaks, volumes, as well as anatomy information is stored in lib/data/dataset.
 Normal features are discouraged from importing files from other features, except for core and dataset which can be imported from anywhere.
+
+## File and class naming
+
+Apply DRY at filename level. E.g. if it's in the `<feature>/page` directory, the file doesn't need to have "<feature>" or "page" in its name (but should have Page or Screen in its dart class)
+Anything in the 'ui' directory is generally a widget, so following flutter's conventions, they don't need 'Widget' in the class name, nor '_widget' in the filename.
+Generally, class name should match filename, though there are a few exceptions:
+- stubs: the class name should match the class of what is being stubbed (therefore we can't put "stub" in the name), but we want clarity that it's a stub, so we put "_stub" in the filename
+- providers: riverpod will generate "<className>Provider" so we don't want to put "Provider" in the class name. (we probably want to keep _provider in the filename to keep ai agents from getting confused, but i'm not sure if it's worth it)

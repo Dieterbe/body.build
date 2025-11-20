@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:isolate';
-import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/model/programgen_v1/rank.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programgen_v2/solution_node.dart';

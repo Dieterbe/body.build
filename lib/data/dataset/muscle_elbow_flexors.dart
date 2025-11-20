@@ -1,7 +1,7 @@
-import 'package:bodybuild/data/dataset/articulations.dart';
-import 'package:bodybuild/data/dataset/bones.dart';
-import 'package:bodybuild/model/dataset/movements.dart';
-import 'package:bodybuild/data/dataset/muscles.dart';
+import 'package:bodybuild/data/dataset/articulation.dart';
+import 'package:bodybuild/data/dataset/bone.dart';
+import 'package:bodybuild/model/dataset/movement.dart';
+import 'package:bodybuild/data/dataset/muscle.dart';
 // biceps https://www.instagram.com/p/CiDdmgFLeTo/
 // A study by Sato et al. (2021) found that training the biceps over the bottom 0-50° of elbow flexion – at longer lengths – resulted in triple the growth compared to training the biceps over the top 80-130° of elbow flexion– at shorter lengths
 

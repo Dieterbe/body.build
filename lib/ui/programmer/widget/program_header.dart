@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/data/programmer/program_manager.dart';
 import 'package:bodybuild/model/programgen_v2/generator.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';

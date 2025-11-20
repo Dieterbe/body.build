@@ -1,5 +1,5 @@
-import 'package:bodybuild/data/dataset/groups.dart';
-import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

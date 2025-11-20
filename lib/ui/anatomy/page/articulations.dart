@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:bodybuild/data/dataset/articulations.dart';
-import 'package:bodybuild/model/dataset/movements.dart';
+import 'package:bodybuild/data/dataset/articulation.dart';
+import 'package:bodybuild/model/dataset/movement.dart';
 import 'package:bodybuild/ui/anatomy/page/articulation.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/util/string_extension.dart';

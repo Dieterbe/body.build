@@ -136,7 +136,7 @@ final class WorkoutManagerProvider
   WorkoutManager create() => WorkoutManager();
 }
 
-String _$workoutManagerHash() => r'3200d27e3cbc9c72962985fced6af10f1752cfff';
+String _$workoutManagerHash() => r'8599cdc8fd08940c98714dd2d84731ca5d0bd269';
 
 /// Unified workout manager - single source of truth for all workout state
 /// Uses Drift streams to automatically update when workout data changes

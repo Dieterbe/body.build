@@ -1,6 +1,6 @@
-import 'package:bodybuild/data/dataset/articulations.dart';
-import 'package:bodybuild/data/dataset/bones.dart';
-import 'package:bodybuild/model/dataset/movements.dart';
+import 'package:bodybuild/data/dataset/articulation.dart';
+import 'package:bodybuild/data/dataset/bone.dart';
+import 'package:bodybuild/model/dataset/movement.dart';
 import 'package:bodybuild/data/dataset/muscle_abs.dart';
 import 'package:bodybuild/data/dataset/muscle_calves.dart';
 import 'package:bodybuild/data/dataset/muscle_delts.dart';
@@ -16,102 +16,6 @@ import 'package:bodybuild/data/dataset/muscle_spinal_erectors.dart';
 import 'package:bodybuild/data/dataset/muscle_traps.dart';
 import 'package:bodybuild/data/dataset/muscle_triceps.dart';
 import 'package:bodybuild/util/string_extension.dart';
-
-// contains Id's for muscles, muscle heads, and areas within muscles or heads
-// primary purpose here is anatomical correctness and using correct scientific terminology
-enum MuscleId {
-  wholeMuscle, // for single head muscles
-
-  pectoralisMajor,
-  pectoralisMajorClavicularHead,
-  pectoralisMajorSternalHead,
-
-  tricepsBrachii,
-  tricepsBrachiiMedialHead,
-  tricepsBrachiiLateralHead,
-  tricepsBrachiiLongHead,
-
-  latissimusDorsi,
-
-  bicepsBrachii,
-  bicepsBrachiiShortHead,
-  bicepsBrachiiLongHead,
-  brachialis,
-  brachioradialis,
-
-  forearmPronators,
-
-  trapezius,
-  trapeziusUpper,
-  trapeziusMiddle,
-  trapeziusLower,
-  upperTrapsUpperFibers,
-  upperTrapsLowerFibers,
-  lowerTraps,
-  middleTraps,
-
-  deltoids,
-  deltoidsAnteriorHead,
-  deltoidsLateralHead,
-  deltoidsPosteriorHead,
-
-  gluteMaximus,
-  gluteMedius,
-  gluteMinimus,
-
-  quadricepsFemoris,
-  rectusFemoris,
-  vastusMedialis,
-  vastusLateralis,
-  vastusIntermedius,
-
-  hamstrings,
-  bicepsFemorisLongHead,
-  bicepsFemorisShortHead,
-  semitendinosus,
-  semimembranosus,
-
-  gastrocnemius,
-  gastrocnemiusLateralHead,
-  gastrocnemiusMedialHead,
-  soleus,
-
-  wristExtensors,
-  wristFlexors,
-
-  neckFlexors,
-  neckExtensors,
-
-  // abs
-  rectusAbdominis,
-  externalObliques,
-  internalObliques,
-  transverseAbdominis,
-
-  // spinal erectors
-  longissimus,
-  iliocostalis,
-  spinalis,
-}
-
-// muscles are assigned a category (or maybe in the future, multiple) when instantiating
-// used for grouping them in the UI
-enum MuscleCategory {
-  abs, // abdominals. X
-  calves,
-  delts, // deltoids
-  elbowFlexors,
-  forearm,
-  glutes,
-  hams, // hammies
-  lats,
-  neck,
-  pecs,
-  quads,
-  spinalErectors,
-  traps,
-  triceps,
-}
 
 // the actual instantiated Muscle objects
 List<Muscle> muscles = [
@@ -312,4 +216,100 @@ class MovementStruct {
   final Movement mo;
 
   MovementStruct(this.muscle, this.head, this.mo);
+}
+
+// contains Id's for muscles, muscle heads, and areas within muscles or heads
+// primary purpose here is anatomical correctness and using correct scientific terminology
+enum MuscleId {
+  wholeMuscle, // for single head muscles
+
+  pectoralisMajor,
+  pectoralisMajorClavicularHead,
+  pectoralisMajorSternalHead,
+
+  tricepsBrachii,
+  tricepsBrachiiMedialHead,
+  tricepsBrachiiLateralHead,
+  tricepsBrachiiLongHead,
+
+  latissimusDorsi,
+
+  bicepsBrachii,
+  bicepsBrachiiShortHead,
+  bicepsBrachiiLongHead,
+  brachialis,
+  brachioradialis,
+
+  forearmPronators,
+
+  trapezius,
+  trapeziusUpper,
+  trapeziusMiddle,
+  trapeziusLower,
+  upperTrapsUpperFibers,
+  upperTrapsLowerFibers,
+  lowerTraps,
+  middleTraps,
+
+  deltoids,
+  deltoidsAnteriorHead,
+  deltoidsLateralHead,
+  deltoidsPosteriorHead,
+
+  gluteMaximus,
+  gluteMedius,
+  gluteMinimus,
+
+  quadricepsFemoris,
+  rectusFemoris,
+  vastusMedialis,
+  vastusLateralis,
+  vastusIntermedius,
+
+  hamstrings,
+  bicepsFemorisLongHead,
+  bicepsFemorisShortHead,
+  semitendinosus,
+  semimembranosus,
+
+  gastrocnemius,
+  gastrocnemiusLateralHead,
+  gastrocnemiusMedialHead,
+  soleus,
+
+  wristExtensors,
+  wristFlexors,
+
+  neckFlexors,
+  neckExtensors,
+
+  // abs
+  rectusAbdominis,
+  externalObliques,
+  internalObliques,
+  transverseAbdominis,
+
+  // spinal erectors
+  longissimus,
+  iliocostalis,
+  spinalis,
+}
+
+// muscles are assigned a category (or maybe in the future, multiple) when instantiating
+// used for grouping them in the UI
+enum MuscleCategory {
+  abs, // abdominals. X
+  calves,
+  delts, // deltoids
+  elbowFlexors,
+  forearm,
+  glutes,
+  hams, // hammies
+  lats,
+  neck,
+  pecs,
+  quads,
+  spinalErectors,
+  traps,
+  triceps,
 }

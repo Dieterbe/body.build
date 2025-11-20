@@ -1,5 +1,6 @@
+import 'package:bodybuild/data/dataset/assign.dart';
 import 'package:bodybuild/data/dataset/equipment.dart';
-import 'package:bodybuild/data/dataset/groups.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/data/dataset/rating.dart';
 import 'package:bodybuild/data/dataset/tweak.dart';
 import 'package:bodybuild/data/dataset/rating_jn.dart';

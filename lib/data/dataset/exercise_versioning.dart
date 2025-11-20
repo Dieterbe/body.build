@@ -1,5 +1,5 @@
 // Exercise dataset version for migration tracking
-import 'package:bodybuild/data/dataset/exercise_migrations.dart';
+import 'package:bodybuild/data/dataset/exercise_migration.dart';
 
 const int exerciseDatasetVersion = 2;
 

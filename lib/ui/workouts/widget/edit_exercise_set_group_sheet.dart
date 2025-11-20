@@ -4,7 +4,7 @@ import 'package:bodybuild/ui/core/widget/exercise_recruitment_visualization.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/ui/core/widget/rating_icon_multi.dart';
 import 'package:bodybuild/util/string_extension.dart';

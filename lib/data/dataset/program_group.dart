@@ -1,7 +1,7 @@
 //  Straight-arm pulldowns can stimulate higher muscle activity in the long head of triceps than barbell bench presses.
 // https://www.scielo.br/j/motriz/a/jbfGfJrRsXbfc9BrfXgVSPy/?lang=en
 
-import 'package:bodybuild/data/dataset/muscles.dart';
+import 'package:bodybuild/data/dataset/muscle.dart';
 
 // muscle groups for the purpose of training
 // * uses a bit more "common language" (e.g. biceps to mean elbow flexors)
@@ -12,41 +12,6 @@ import 'package:bodybuild/data/dataset/muscles.dart';
 //   training a certain group may involve specific heads or muscles belonging to
 //   different groups or categories can contain heads and/or muscles,
 //   in which case they should be "expanded" to mean to include all their heads
-
-class Assign {
-  final double volume;
-  final bool multiplied;
-  final String? modality; // work in progress
-  const Assign(this.volume, [this.modality]) : multiplied = false;
-  const Assign.merged(this.volume, this.multiplied, [this.modality]);
-
-  Assign merge(Assign other) {
-    final mergedModality = switch ((modality, other.modality)) {
-      (null, null) => null,
-      (String value, null) => value,
-      (null, String value) => value,
-      (String a, String b) => '$a, $b',
-    };
-    double newVolume;
-    bool newMultiplied;
-    if (volume == 0) {
-      // if we didn't have a volume assignment yet, just use the new one
-      newVolume = other.volume;
-      newMultiplied = false;
-    } else {
-      // if we did, they are "multipliers" to one another.
-      newVolume = volume * other.volume;
-      newMultiplied = true;
-    }
-
-    if (newVolume > 1) {
-      // in march 2025 this should never happen
-      // in the future, we may want to allow it (to support extra-ordinary activation, e.g. eccentric overloading i think was an example. maybe also for leg curl with flexed hip)
-      print('WARNING: Assign.merge -> volume > 1: $newVolume');
-    }
-    return Assign.merged(newVolume, newMultiplied, mergedModality);
-  }
-}
 
 enum ProgramGroup {
   wristFlexors("Wrist Flexors", "Wrist Flexors", [MuscleId.wristFlexors], [], 'forearm'),

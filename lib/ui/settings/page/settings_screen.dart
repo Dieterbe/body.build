@@ -5,6 +5,7 @@ import 'package:bodybuild/data/measurements/measurement_providers.dart';
 import 'package:bodybuild/data/settings/app_settings_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/measurements/measurement.dart';
+import 'package:bodybuild/model/settings/import_state.dart';
 import 'package:bodybuild/service/database_backup_helpers.dart';
 import 'package:bodybuild/service/wger_import_service.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
@@ -16,35 +17,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-
-// Import progress state
-class ImportState {
-  final List<String> statusMessages;
-  final bool isComplete;
-  final bool isError;
-  final String completionMessage;
-
-  ImportState({
-    this.statusMessages = const [],
-    this.isComplete = false,
-    this.isError = false,
-    this.completionMessage = '',
-  });
-
-  ImportState copyWith({
-    List<String>? statusMessages,
-    bool? isComplete,
-    bool? isError,
-    String? completionMessage,
-  }) {
-    return ImportState(
-      statusMessages: statusMessages ?? this.statusMessages,
-      isComplete: isComplete ?? this.isComplete,
-      isError: isError ?? this.isError,
-      completionMessage: completionMessage ?? this.completionMessage,
-    );
-  }
-}
 
 class SettingsScreen extends ConsumerStatefulWidget {
   static const String routeName = 'settings';

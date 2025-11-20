@@ -5,14 +5,6 @@ import 'package:bodybuild/model/youtube_video.dart';
 import 'package:http/http.dart' as http;
 import 'package:posthog_flutter/posthog_flutter.dart';
 
-/// Result of fetching a YouTube playlist
-class PlaylistResult {
-  final List<YouTubeVideo> videos;
-  final bool isFallback;
-
-  const PlaylistResult({required this.videos, required this.isFallback});
-}
-
 class YouTubeService {
   // Note this key can't be kept secret (it can be reverse engineered from the code, and shows in
   // network requests). Instead, the key is locked down by HTTP origin, mobile bundleId, etc.
@@ -132,4 +124,12 @@ still a work in progress, and looking forward to your feedback!''',
     // Should never reach here, but just in case
     return PlaylistResult(videos: getFallbackVideos(playlistId), isFallback: true);
   }
+}
+
+/// Result of fetching a YouTube playlist
+class PlaylistResult {
+  final List<YouTubeVideo> videos;
+  final bool isFallback;
+
+  const PlaylistResult({required this.videos, required this.isFallback});
 }

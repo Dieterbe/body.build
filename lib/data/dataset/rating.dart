@@ -1,6 +1,4 @@
-import 'package:bodybuild/data/dataset/groups.dart';
-
-enum Source { jeffNippard, mennoHenselmans }
+import 'package:bodybuild/data/dataset/program_group.dart';
 
 /* note that in jeff's videos, sometimes a rating is dependent on:
 - your weight lift status (beginner - intermediate - advanced)
@@ -23,3 +21,5 @@ class Rating {
     this.tweaks = const {},
   });
 }
+
+enum Source { jeffNippard, mennoHenselmans }

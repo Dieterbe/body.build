@@ -1,10 +1,10 @@
 //	traps are also stabilizers during many movements
 // most strong near full length. least force when fully contracted
 // main function, shoulder needs to be somewhat abducted. e.g. wide grip shrugs
-import 'package:bodybuild/data/dataset/articulations.dart';
-import 'package:bodybuild/data/dataset/bones.dart';
-import 'package:bodybuild/model/dataset/movements.dart';
-import 'package:bodybuild/data/dataset/muscles.dart';
+import 'package:bodybuild/data/dataset/articulation.dart';
+import 'package:bodybuild/data/dataset/bone.dart';
+import 'package:bodybuild/model/dataset/movement.dart';
+import 'package:bodybuild/data/dataset/muscle.dart';
 
 const upperTrapeziusSharedMovements = [
   Movement(articulation: Articulation.scapularElevation, strength: 6, rangeStart: 0, rangeEnd: 40),

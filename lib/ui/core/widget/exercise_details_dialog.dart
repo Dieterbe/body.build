@@ -4,7 +4,7 @@ import 'package:bodybuild/ui/core/widget/exercise_recruitment_visualization.dart
 import 'package:bodybuild/ui/core/widget/configure_tweak_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/data/dataset/exercises.dart';
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 
 class ExerciseDetailsDialog extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bodybuild/data/dataset/articulations.dart';
-import 'package:bodybuild/model/dataset/movements.dart';
-import 'package:bodybuild/data/dataset/muscles.dart';
+import 'package:bodybuild/data/dataset/articulation.dart';
+import 'package:bodybuild/model/dataset/movement.dart';
+import 'package:bodybuild/data/dataset/muscle.dart';
 import 'package:bodybuild/ui/anatomy/widget/articulation_button.dart';
 import 'package:bodybuild/ui/anatomy/widget/insufficiency_widget.dart';
 import 'package:bodybuild/ui/anatomy/widget/muscle_button.dart';
