@@ -1,12 +1,11 @@
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
-import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
+import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/ui/workouts/widget/template_picker_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list_empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/util/flutter.dart';
@@ -88,7 +87,7 @@ class _WorkoutsScreenState extends ConsumerState<WorkoutsScreen> {
             ? null
             : FloatingActionButton.extended(
                 onPressed: () {
-                  context.goNamed(WorkoutScreen.routeNameActive);
+                  showDialog(context: context, builder: (context) => const StartWorkoutDialog());
                 },
                 icon: const Icon(Icons.play_arrow),
                 label: const Text('Start Workout'),

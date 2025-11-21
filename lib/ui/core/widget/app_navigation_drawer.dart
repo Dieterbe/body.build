@@ -1,6 +1,7 @@
 import 'package:bodybuild/ui/measurements/page/measurements_screen.dart';
 import 'package:bodybuild/ui/settings/page/settings_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
+import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -124,7 +125,7 @@ class AppNavigationDrawer extends StatelessWidget {
                     title: 'Start/Resume Workout',
                     routeName: WorkoutScreen.routeNameActive,
                     currentRoute: currentRoute,
-                    onTap: () => _navigateAndClose(context, WorkoutScreen.routeNameActive),
+                    onTap: () => _showStartWorkoutDialog(context),
                     isCompact: isCompact,
                   ),
                 if (isMobileApp())
@@ -370,5 +371,10 @@ class AppNavigationDrawer extends StatelessWidget {
         await launchUrl(uri, mode: LaunchMode.inAppWebView);
       }
     }
+  }
+
+  void _showStartWorkoutDialog(BuildContext context) {
+    Navigator.of(context).pop(); // Close drawer
+    showDialog(context: context, builder: (context) => const StartWorkoutDialog());
   }
 }

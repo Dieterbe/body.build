@@ -6,8 +6,8 @@ import 'package:bodybuild/ui/core/widget/youtube_video_card.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_summary_card.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
-import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
+import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -213,11 +213,7 @@ class HomeScreen extends ConsumerWidget {
                                   icon: Icons.play_arrow,
                                   color: Colors.green,
                                   showAppOnly: !isMobileApp(),
-                                  onTap: () => _navigateQuickAccess(
-                                    context,
-                                    WorkoutScreen.routeNameActive,
-                                    false,
-                                  ),
+                                  onTap: () => _showStartWorkoutDialog(context),
                                 ),
                                 _buildQuickAccessCard(
                                   context: context,
@@ -479,5 +475,9 @@ class HomeScreen extends ConsumerWidget {
         context.goNamed(routeName);
       }
     }
+  }
+
+  void _showStartWorkoutDialog(BuildContext context) {
+    showDialog(context: context, builder: (context) => const StartWorkoutDialog());
   }
 }
