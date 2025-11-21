@@ -199,13 +199,41 @@ class WorkoutPersistenceService {
     );
   }
 
-  /// Create a new workout from a template (prior workout)
+  /// Create a new workout from a template (prior workout or built-in template)
   /// Copies all sets with completed=false, keeping weight/reps/rir/comments as defaults
-  Future<String> startWorkoutFromTemplate(String templateWorkoutId) async {
-    // Get the template workout
-    final templateWorkout = await getWorkoutById(templateWorkoutId);
-    if (templateWorkout == null) {
-      throw Exception('Template workout not found: $templateWorkoutId');
+  Future<String> startWorkoutFromTemplate(String templateId) async {
+    // Check if it's a built-in template first
+    final builtinTemplate = await _database.getTemplateById(templateId);
+
+    List<model.WorkoutSet> setsToAdd;
+
+    if (builtinTemplate != null) {
+      // Load from built-in template
+      final templateSets = await _database.getTemplateSets(templateId);
+      setsToAdd = templateSets
+          .map(
+            (ts) => model.WorkoutSet(
+              id: '', // Will be generated
+              workoutId: '', // Will be set below
+              exerciseId: ts.exerciseId,
+              tweaks: model.WorkoutSet.tweaksFromJson(ts.tweaks),
+              weight: null,
+              reps: null,
+              rir: null,
+              comments: null,
+              setOrder: 0, // Will be computed at read time based on timestamp
+              timestamp: DateTime.now(), // Will be updated with proper spacing in insertion loop
+              completed: false,
+            ),
+          )
+          .toList();
+    } else {
+      // Load from past workout
+      final templateWorkout = await getWorkoutById(templateId);
+      if (templateWorkout == null) {
+        throw Exception('Template not found: $templateId');
+      }
+      setsToAdd = templateWorkout.sets;
     }
 
     // Reuse existing active workout if available, otherwise create a new one
@@ -213,9 +241,9 @@ class WorkoutPersistenceService {
     final targetWorkoutId = activeWorkout?.id ?? await createWorkout();
 
     // Copy all sets as planned sets (completed=false)
-    for (var i = 0; i < templateWorkout.sets.length; i++) {
+    for (var i = 0; i < setsToAdd.length; i++) {
       await addWorkoutSet(
-        templateWorkout.sets[i].copyWith(
+        setsToAdd[i].copyWith(
           workoutId: targetWorkoutId,
           completed: false,
           timestamp: DateTime.now(),

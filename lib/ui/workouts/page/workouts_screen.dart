@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
+import 'package:bodybuild/ui/workouts/widget/template_picker_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list_empty.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,20 @@ class _WorkoutsScreenState extends ConsumerState<WorkoutsScreen> {
       appBar: AppBar(
         title: const Text('Workouts'),
         backgroundColor: Theme.of(context).colorScheme.surface,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.library_add),
+            tooltip: 'Load Template',
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => const TemplatePickerSheet(),
+              );
+            },
+          ),
+        ],
       ),
       drawer: const AppNavigationDrawer(),
       body: workoutStateAsync.when(

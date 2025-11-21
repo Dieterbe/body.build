@@ -14,6 +14,11 @@ import 'package:bodybuild/model/programmer/workout.dart';
 * - now we have tab completion and dart analysis to assert correctness (to some degree),
     could be expanded in the future when we introduce e.g. enums for exercise ID's
 */
+/*
+IMPORTANT: WHEN CHANGING THIS PROGRAM CONSIDER: 
+- templates in database won't be updated
+- templates in shared preferences won't be updated
+*/
 const demo1ID = 'demo1';
 Ex _ex(String id) => exes.firstWhere((e) => e.id == id);
 final demo1 = ProgramState(

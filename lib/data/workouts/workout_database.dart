@@ -2,7 +2,9 @@
 
 import 'dart:convert';
 import 'package:bodybuild/data/dataset/exercise_versioning.dart';
+import 'package:bodybuild/data/programmer/demo_workouts.dart';
 import 'package:bodybuild/service/exercise_migration_service.dart';
+import 'package:collection/collection.dart';
 import 'package:drift/drift.dart';
 import 'package:bodybuild/data/workouts/workout_database_connection.dart';
 import 'package:flutter/foundation.dart';
@@ -79,7 +81,35 @@ class Measurements extends Table {
   ];
 }
 
-@DriftDatabase(tables: [Workouts, WorkoutSets, ExerciseVersions, Measurements])
+// Templates table - stores workout templates (like Day A, Day B)
+class Templates extends Table {
+  TextColumn get id => text()();
+  TextColumn get name => text()();
+  TextColumn get description => text().nullable()();
+  BoolColumn get isBuiltin => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+// Template sets table - stores the sets for each template
+class TemplateSets extends Table {
+  TextColumn get id => text()();
+  TextColumn get templateId => text().references(Templates, #id)();
+  TextColumn get exerciseId => text()();
+  TextColumn get tweaks => text()(); // JSON string
+  IntColumn get setOrder => integer()(); // Order within the template
+  DateTimeColumn get createdAt => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DriftDatabase(
+  tables: [Workouts, WorkoutSets, ExerciseVersions, Measurements, Templates, TemplateSets],
+)
 class WorkoutDatabase extends _$WorkoutDatabase {
   WorkoutDatabase() : super(_openConnection());
 
@@ -87,7 +117,7 @@ class WorkoutDatabase extends _$WorkoutDatabase {
   WorkoutDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration {
@@ -106,6 +136,8 @@ class WorkoutDatabase extends _$WorkoutDatabase {
         await m.createAll();
         // Create unique partial index to ensure only one active workout
         await customStatement(singleActiveWorkoutIndex);
+        // Seed built-in templates for newly created databases
+        await _seedBuiltinTemplates();
       },
       onUpgrade: (Migrator m, int from, int to) async {
         if (from < 2) {
@@ -132,6 +164,13 @@ class WorkoutDatabase extends _$WorkoutDatabase {
           // Create unique partial index to ensure only one active workout
           // This prevents multiple workouts with NULL end_time
           await customStatement(singleActiveWorkoutIndex);
+        }
+        if (from < 7) {
+          // Add templates and template_sets tables
+          await m.createTable(templates);
+          await m.createTable(templateSets);
+          // Seed built-in templates (Day A and Day B from demo program)
+          await _seedBuiltinTemplates();
         }
       },
     );
@@ -346,6 +385,95 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
   Future<int> deleteMeasurement(String id) =>
       (delete(measurements)..where((m) => m.id.equals(id))).go();
+
+  // Template queries
+  Future<List<Template>> getAllTemplates() => select(templates).get();
+  Stream<List<Template>> watchAllTemplates() => select(templates).watch();
+
+  Future<Template?> getTemplateById(String id) =>
+      (select(templates)..where((t) => t.id.equals(id))).getSingleOrNull();
+
+  Future<List<TemplateSet>> getTemplateSets(String templateId) =>
+      (select(templateSets)
+            ..where((s) => s.templateId.equals(templateId))
+            ..orderBy([(s) => OrderingTerm(expression: s.setOrder)]))
+          .get();
+  Stream<List<TemplateSet>> watchTemplateSets(String templateId) =>
+      (select(templateSets)
+            ..where((s) => s.templateId.equals(templateId))
+            ..orderBy([(s) => OrderingTerm(expression: s.setOrder)]))
+          .watch();
+
+  Future<int> insertTemplate(TemplatesCompanion template) => into(templates).insert(template);
+
+  Future<int> insertTemplateSet(TemplateSetsCompanion templateSet) =>
+      into(templateSets).insert(templateSet);
+
+  Future<bool> updateTemplate(TemplatesCompanion template) => update(templates).replace(template);
+
+  Future<int> deleteTemplate(String id) => (delete(templates)..where((t) => t.id.equals(id))).go();
+
+  Future<int> deleteTemplateSets(String templateId) =>
+      (delete(templateSets)..where((s) => s.templateId.equals(templateId))).go();
+
+  // Seed built-in templates from demo program
+  // Structure: For each setGroup, loop through all Sets once, then repeat n times
+  // This matches how the programmer generates workouts
+  Future<void> _seedBuiltinTemplates() async {
+    final now = DateTime.now();
+
+    // Process each workout (Day A, Day B) from demo1
+    for (var workoutIndex = 0; workoutIndex < demo1.workouts.length; workoutIndex++) {
+      final workout = demo1.workouts[workoutIndex];
+      final templateId = 'demo1-day-$workoutIndex';
+
+      // Create template
+      await into(templates).insert(
+        TemplatesCompanion.insert(
+          id: templateId,
+          name: '${demo1.name} / ${workout.name}',
+          description: Value('Automatically imported ${workout.name} from ${demo1.name}'),
+          isBuiltin: const Value(true),
+          createdAt: now,
+          updatedAt: now,
+        ),
+      );
+
+      var setOrderCounter = 0;
+
+      // Process each setGroup
+      for (final setGroup in workout.setGroups) {
+        // Find the maximum 'n' value in this setGroup to know how many rounds
+        final maxN = setGroup.sets.map((s) => s.n).max;
+
+        // Loop through rounds (1 to maxN)
+        for (var round = 0; round < maxN; round++) {
+          // Within each round, go through all Sets in order
+          for (final sets in setGroup.sets) {
+            // Only add this set if we haven't exceeded its 'n' count
+            if (round < sets.n) {
+              final exerciseId = sets.ex?.id;
+              if (exerciseId == null) {
+                throw ('Exercise "${sets.ex?.id}" not found - cannot auto-import ${demo1.name} / ${workout.name}');
+              }
+
+              await into(templateSets).insert(
+                TemplateSetsCompanion.insert(
+                  id: '$templateId-set-$setOrderCounter',
+                  templateId: templateId,
+                  exerciseId: exerciseId,
+                  tweaks: json.encode(sets.tweakOptions),
+                  setOrder: 0, // will be set correctly at read time
+                  createdAt: now,
+                ),
+              );
+              setOrderCounter++;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 QueryExecutor _openConnection() {
