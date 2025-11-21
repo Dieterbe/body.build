@@ -172,6 +172,14 @@ class _SetFormWidgetState extends State<SetFormWidget> {
             children: [
               Row(
                 children: [
+                  /*
+                  Note we allow users to change a set:
+                  1) from planned to completed even if a prior set is still planned
+                  2) from completed to planned even if a later set is is completed (less common)
+                  we could be more strict and disallow this, but since we update the set timestamp
+                  when they toggle as complete, this grants more flexibility to the user to pick
+                  and choose sets to reflect what's going without being held back by formalities
+                  */
                   Checkbox(
                     value: _completed,
                     onChanged: _onCompletedChanged,
