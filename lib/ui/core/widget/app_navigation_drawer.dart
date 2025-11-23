@@ -96,11 +96,11 @@ class AppNavigationDrawer extends StatelessWidget {
                 _buildNavigationItem(
                   context: context,
                   icon: Icons.help_outline,
-                  title: 'Help & Docs',
+                  title: 'Help & learning',
                   currentRoute: currentRoute,
                   onTap: () {
                     Navigator.of(context).pop();
-                    _openUrl('https://body.build/docs/');
+                    _openUrl('https://body.build/learn/');
                   },
                   isCompact: isCompact,
                 ),

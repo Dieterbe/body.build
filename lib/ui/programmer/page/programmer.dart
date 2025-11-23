@@ -63,7 +63,7 @@ You can create multiple profiles, and give them different names.
 # Need more help?
 * Tap the info buttons (ⓘ) next to parameters for detailed explanations
 * Introduction [video on YouTube](https://www.youtube.com/watch?v=wOVZdZ9_jdE)
-* Use the [documentation website](https://body.build/docs) for more information
+* Use the [documentation website](https://body.build/learn) for more information
 * The [home page](https://body.build) has a quick overview of the most important features
 * Reach out on info@body.build or [twitter/X @bodydotbuild](https://x.com/bodydotbuild) or join the [Discord community](https://discord.gg/YUcS6btXYD)
 ''';
