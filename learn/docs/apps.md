@@ -28,7 +28,7 @@ but if you want to participate in early testing of new functionality, that is po
 | Platform | Normal app | Beta testing |
 |----------|------------|--------------|
 | **iPhone**   | [App Store](https://apps.apple.com/us/app/body-build/id6754889919)  | [TestFlight](https://testflight.apple.com/join/y1SBEQmq)   |
-| **Android**  | [Play Store](https://play.google.com/store/apps/details?id=build.body.app) | Email us     |
+| **Android**  | [Play Store](https://play.google.com/store/apps/details?id=build.body.bodybuild) | Email us     |
 
 ## Feature Comparison
 
