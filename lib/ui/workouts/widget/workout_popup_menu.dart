@@ -46,7 +46,7 @@ class WorkoutPopupMenu extends ConsumerWidget {
             value: 'template',
             child: Row(
               spacing: 8,
-              children: [Icon(Icons.copy), Text('Add Template into current workout')],
+              children: [Icon(Icons.copy), Text('Add template to current workout')],
             ),
           ),
         const PopupMenuItem(

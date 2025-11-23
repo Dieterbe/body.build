@@ -1,9 +1,12 @@
+import 'package:bodybuild/data/core/developer_mode_provider.dart';
+import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/ui/measurements/page/measurements_screen.dart';
 import 'package:bodybuild/ui/settings/page/settings_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/anatomy/page/articulations.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
@@ -14,16 +17,19 @@ import 'package:bodybuild/ui/core/page/home.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AppNavigationDrawer extends StatelessWidget {
+class AppNavigationDrawer extends ConsumerWidget {
   const AppNavigationDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final currentRoute = GoRouterState.of(context).uri.path;
     final logicalHeight = MediaQuery.sizeOf(context).height;
     // my pixel 6 has logical height 914 and the menu would need to scroll if not for compact mode
     // note that mobile apps show a lot more content
     final bool isCompact = logicalHeight < 1000 && isMobileApp();
+
+    final devMode = ref.watch(developerModeProvider);
+    final workoutStateAsync = ref.watch(workoutManagerProvider);
 
     return Drawer(
       child: Column(
@@ -118,17 +124,31 @@ class AppNavigationDrawer extends StatelessWidget {
                 ),
                 const Divider(height: 1),
                 _buildSectionHeader(context, 'Training', isCompact: isCompact),
-                if (isMobileApp())
-                  _buildNavigationItem(
-                    context: context,
-                    icon: Icons.play_arrow,
-                    title: 'Start/Resume Workout',
-                    routeName: WorkoutScreen.routeNameActive,
-                    currentRoute: currentRoute,
-                    onTap: () => _showStartWorkoutDialog(context),
-                    isCompact: isCompact,
+                if (isMobileApp() || devMode)
+                  workoutStateAsync.when(
+                    data: (state) => state.activeWorkout != null
+                        ? _buildNavigationItem(
+                            context: context,
+                            icon: Icons.play_arrow,
+                            title: 'Resume Workout',
+                            routeName: WorkoutScreen.routeNameActive,
+                            currentRoute: currentRoute,
+                            onTap: () => _navigateAndClose(context, WorkoutScreen.routeNameActive),
+                            isCompact: isCompact,
+                          )
+                        : _buildNavigationItem(
+                            context: context,
+                            icon: Icons.play_arrow,
+                            title: 'Start Workout',
+                            routeName: WorkoutScreen.routeNameActive,
+                            currentRoute: currentRoute,
+                            onTap: () => _showStartWorkoutDialog(context),
+                            isCompact: isCompact,
+                          ),
+                    loading: () => const SizedBox.shrink(),
+                    error: (_, __) => const SizedBox.shrink(),
                   ),
-                if (isMobileApp())
+                if (isMobileApp() || devMode)
                   _buildNavigationItem(
                     context: context,
                     icon: Icons.history,
@@ -375,6 +395,6 @@ class AppNavigationDrawer extends StatelessWidget {
 
   void _showStartWorkoutDialog(BuildContext context) {
     Navigator.of(context).pop(); // Close drawer
-    showDialog(context: context, builder: (context) => const StartWorkoutDialog());
+    showStartWorkoutDialog(context);
   }
 }
