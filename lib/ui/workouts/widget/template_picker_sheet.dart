@@ -1,189 +1,114 @@
 import 'package:bodybuild/data/workouts/template_providers.dart';
-import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/template.dart';
-import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
+import 'package:bodybuild/ui/core/widget/handle_bar.dart';
+import 'package:bodybuild/ui/core/widget/menu_title.dart';
+import 'package:bodybuild/ui/workouts/widget/template_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class TemplatePickerSheet extends ConsumerWidget {
-  const TemplatePickerSheet({super.key});
+  /// If true, shows as inline content (no bottom sheet styling). Default: false
+  final bool isInline;
+
+  /// Optional back button callback for inline mode
+  final VoidCallback? onBack;
+
+  const TemplatePickerSheet({super.key, this.isInline = false, this.onBack});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final templatesAsync = ref.watch(templateManagerProvider);
 
-    return DraggableScrollableSheet(
-      initialChildSize: 0.6,
-      minChildSize: 0.3,
-      maxChildSize: 0.9,
-      expand: false,
-      builder: (context, scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-          ),
-          child: Column(
+    return isInline
+        ? Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Handle bar
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                width: 40,
-                height: 4,
+              MenuTitle(title: 'Load Template', onBack: onBack),
+              Expanded(child: _buildTemplatesList(context, templatesAsync, null)),
+            ],
+          )
+        : DraggableScrollableSheet(
+            initialChildSize: 0.6,
+            minChildSize: 0.3,
+            maxChildSize: 0.9,
+            expand: false,
+            builder: (context, scrollController) {
+              return Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(2),
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                 ),
-              ),
-              // Title
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
+                child: Column(
                   children: [
-                    Icon(Icons.fitness_center, color: Theme.of(context).colorScheme.primary),
-                    const SizedBox(width: 12),
-                    Text('Load Template', style: Theme.of(context).textTheme.titleLarge),
+                    const HandleBar(),
+                    const MenuTitle(title: 'Load Template', icon: Icons.fitness_center),
+                    Expanded(child: _buildTemplatesList(context, templatesAsync, scrollController)),
                   ],
                 ),
-              ),
-              const Divider(),
-              // Content
-              Expanded(
-                child: templatesAsync.when(
-                  data: (templates) {
-                    if (templates.isEmpty) {
-                      return const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(32),
-                          child: Text('No templates available'),
-                        ),
-                      );
-                    }
-                    return ListView.builder(
-                      controller: scrollController,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      itemCount: templates.length,
-                      itemBuilder: (context, index) {
-                        final template = templates[index];
-                        return _TemplateCard(template: template);
-                      },
-                    );
-                  },
-                  loading: () => const Center(child: CircularProgressIndicator()),
-                  error: (error, stack) => Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.error, size: 48, color: Colors.red),
-                          const SizedBox(height: 16),
-                          Text('Error loading templates: $error'),
-                        ],
-                      ),
-                    ),
+              );
+            },
+          );
+  }
+
+  Widget _buildTemplatesList(
+    BuildContext context,
+    AsyncValue<List<WorkoutTemplate>> templatesAsync,
+    ScrollController? scrollController,
+  ) {
+    return templatesAsync.when(
+      data: (templates) {
+        if (templates.isEmpty) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.library_books_outlined,
+                    size: 48,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
-                ),
+                  const SizedBox(height: 16),
+                  Text('No templates available', style: Theme.of(context).textTheme.bodyMedium),
+                ],
               ),
-            ],
-          ),
+            ),
+          );
+        }
+        return ListView.builder(
+          controller: scrollController,
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          itemCount: templates.length,
+          itemBuilder: (context, index) {
+            final template = templates[index];
+            return TemplateCard(template: template);
+          },
         );
       },
-    );
-  }
-}
-
-class _TemplateCard extends ConsumerWidget {
-  const _TemplateCard({required this.template});
-
-  final WorkoutTemplate template;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: InkWell(
-        onTap: () => _loadTemplate(context, ref),
-        borderRadius: BorderRadius.circular(12),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, stack) => Center(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(32),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                children: [
-                  Icon(
-                    template.isBuiltin ? Icons.star : Icons.bookmark,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      template.name,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              if (template.description != null) ...[
-                const SizedBox(height: 8),
-                Text(
-                  template.description!,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Icon(
-                    Icons.fitness_center,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${template.sets.length} sets',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Icon(Icons.list, size: 16, color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${template.sets.map((s) => s.exerciseId).toSet().length} exercises',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
+              Icon(Icons.error, size: 48, color: Theme.of(context).colorScheme.error),
+              const SizedBox(height: 16),
+              Text('Error loading templates: $error'),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  void _loadTemplate(BuildContext context, WidgetRef ref) async {
-    try {
-      final workoutManager = ref.read(workoutManagerProvider.notifier);
-      await workoutManager.startWorkoutFromTemplate(template.id);
-
-      if (!context.mounted) return;
-      Navigator.of(context).pop(); // Close the bottom sheet
-      context.go('/${WorkoutScreen.routeNameActive}');
-    } catch (e) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading template: $e'), backgroundColor: Colors.red),
-      );
-    }
-  }
+void showTemplatePickerSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) => const TemplatePickerSheet(),
+  );
 }

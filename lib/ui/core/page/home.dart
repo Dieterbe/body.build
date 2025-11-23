@@ -1,11 +1,13 @@
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/data/core/youtube_provider.dart';
+import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
 import 'package:bodybuild/ui/core/widget/youtube_video_card.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_summary_card.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
+import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/util/flutter.dart';
@@ -206,15 +208,7 @@ class HomeScreen extends ConsumerWidget {
                                       false,
                                     ),
                                   ),
-                                _buildQuickAccessCard(
-                                  context: context,
-                                  title: 'Start/Resume Workout',
-                                  subtitle: 'Track a workout session',
-                                  icon: Icons.play_arrow,
-                                  color: Colors.green,
-                                  showAppOnly: !isMobileApp(),
-                                  onTap: () => _showStartWorkoutDialog(context),
-                                ),
+                                _buildWorkoutCard(context, ref),
                                 _buildQuickAccessCard(
                                   context: context,
                                   title: 'Workout history',
@@ -477,7 +471,38 @@ class HomeScreen extends ConsumerWidget {
     }
   }
 
-  void _showStartWorkoutDialog(BuildContext context) {
-    showDialog(context: context, builder: (context) => const StartWorkoutDialog());
+  Widget _buildWorkoutCard(BuildContext context, WidgetRef ref) {
+    final workoutStateAsync = ref.watch(workoutManagerProvider);
+
+    return workoutStateAsync.when(
+      data: (state) {
+        if (state.activeWorkout != null) {
+          return _buildQuickAccessCard(
+            context: context,
+            title: 'Resume Workout',
+            subtitle: 'Continue your current workout',
+            icon: Icons.play_arrow,
+            color: Colors.green,
+            showAppOnly: !isMobileApp(),
+            onTap: () {
+              _navigateQuickAccess(context, WorkoutScreen.routeNameActive, false);
+            },
+          );
+        }
+        return _buildQuickAccessCard(
+          context: context,
+          title: 'Start Workout',
+          subtitle: 'Track a workout session',
+          icon: Icons.play_arrow,
+          color: Colors.green,
+          showAppOnly: !isMobileApp(),
+          onTap: () {
+            showDialog(context: context, builder: (context) => const StartWorkoutDialog());
+          },
+        );
+      },
+      loading: () => const SizedBox.shrink(),
+      error: (error, stack) => const SizedBox.shrink(),
+    );
   }
 }

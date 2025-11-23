@@ -42,20 +42,6 @@ class _WorkoutsScreenState extends ConsumerState<WorkoutsScreen> {
       appBar: AppBar(
         title: const Text('Workouts'),
         backgroundColor: Theme.of(context).colorScheme.surface,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.library_add),
-            tooltip: 'Load Template',
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => const TemplatePickerSheet(),
-              );
-            },
-          ),
-        ],
       ),
       drawer: const AppNavigationDrawer(),
       body: workoutStateAsync.when(

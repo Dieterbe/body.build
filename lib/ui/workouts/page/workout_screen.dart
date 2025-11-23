@@ -6,6 +6,7 @@ import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/edit_exercise_set_group_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_set_group_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
+import 'package:bodybuild/ui/workouts/widget/template_picker_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
@@ -191,10 +192,24 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       ),
       floatingActionButton: !workout!.isActive
           ? null
-          : FloatingActionButton.extended(
-              onPressed: () => _showLogSetSheet(context),
-              icon: const Icon(Icons.add),
-              label: const Text('Log Set'),
+          : Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // one FAB to load a template, and one FAB to just add 1 set
+                FloatingActionButton.extended(
+                  heroTag: 'load-template-fab',
+                  icon: const Icon(Icons.playlist_add),
+                  label: const Text('Load Template'),
+                  onPressed: () => showTemplatePickerSheet(context),
+                ),
+                const SizedBox(width: 16),
+                FloatingActionButton.extended(
+                  heroTag: 'log-set-fab',
+                  onPressed: () => _showLogSetSheet(context),
+                  icon: const Icon(Icons.add),
+                  label: const Text('Log Set'),
+                ),
+              ],
             ),
     );
   }
