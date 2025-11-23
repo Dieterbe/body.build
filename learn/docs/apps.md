@@ -22,8 +22,13 @@ Today, programs created on web are not yet available in the mobile app, but this
 
 ### Mobile Apps
 
-- **iOS**: [TestFlight Beta](https://testflight.apple.com/join/your-testflight-code), App Store coming Soon.
-- **Android**: [Get it on Google Play](https://play.google.com/store/apps/details?id=build.body.app) or email us if you want to test new features early.
+Most people should install the normal app,
+but if you want to participate in early testing of new functionality, that is possible too.
+
+| Platform | Normal app | Beta testing |
+|----------|------------|--------------|
+| **iPhone**   | [App Store](https://apps.apple.com/us/app/body-build/id6754889919)  | [TestFlight](https://testflight.apple.com/join/y1SBEQmq)   |
+| **Android**  | [Play Store](https://play.google.com/store/apps/details?id=build.body.app) | Email us     |
 
 ## Feature Comparison
 
