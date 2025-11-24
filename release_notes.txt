@@ -1,6 +1,2 @@
-- support using prior workout as a template
-- rework UI for adding/editing sets during a workout
-- auto-close stale workouts
-- migration system for exercise definitions
-- add quad blaster and bulgarian split squat options
-- minor fixes and improvements
+- add new workout templates feature, with demo full body program as default templates
+- improve 'start/resume' workout flow + template selection
