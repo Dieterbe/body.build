@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:bodybuild/data/dataset/ex.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'template.freezed.dart';
@@ -19,6 +21,24 @@ abstract class WorkoutTemplate with _$WorkoutTemplate {
   }) = _WorkoutTemplate;
 
   factory WorkoutTemplate.fromJson(Map<String, dynamic> json) => _$WorkoutTemplateFromJson(json);
+
+  /// Calculate total recruitment for each ProgramGroup across all exercises in this template
+  Map<ProgramGroup, double> calculateRecruitments() {
+    // Build a map of exercise IDs to Ex objects for quick lookup
+    final exerciseMap = {for (final ex in exes) ex.id: ex};
+
+    return sets.fold<Map<ProgramGroup, double>>({}, (recruitments, templateSet) {
+      final exercise = exerciseMap[templateSet.exerciseId];
+      if (exercise == null) return recruitments;
+
+      // Accumulate recruitment for each muscle group
+      return {
+        ...recruitments,
+        for (final pg in ProgramGroup.values)
+          pg: (recruitments[pg] ?? 0) + exercise.recruitment(pg, templateSet.tweaks).volume,
+      };
+    });
+  }
 }
 
 @freezed

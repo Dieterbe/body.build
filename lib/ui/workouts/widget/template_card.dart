@@ -1,5 +1,6 @@
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/template.dart';
+import 'package:bodybuild/ui/core/widget/recruitment_bar_chart.dart';
 import 'package:bodybuild/ui/core/widget/snackbars.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:flutter/material.dart';
@@ -62,27 +63,42 @@ class TemplateCard extends ConsumerWidget {
       const SizedBox(height: 12),
       Row(
         children: [
-          Icon(
-            Icons.fitness_center,
-            size: 14,
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
-          const SizedBox(width: 4),
-          Text(
-            '${template.sets.length} sets',
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 4,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.fitness_center,
+                    size: 14,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${template.sets.length} sets',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Icon(Icons.list, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${template.sets.map((s) => s.exerciseId).toSet().length} exercises',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           const SizedBox(width: 16),
-          Icon(Icons.list, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
-          const SizedBox(width: 4),
-          Text(
-            '${template.sets.map((s) => s.exerciseId).toSet().length} exercises',
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-          ),
+          Expanded(child: RecruitmentBarChart(template.calculateRecruitments(), 40)),
         ],
       ),
     ],
