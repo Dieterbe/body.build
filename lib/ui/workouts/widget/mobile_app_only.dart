@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MobileAppOnly extends StatelessWidget {
   const MobileAppOnly(this.title, {super.key});
@@ -32,6 +33,35 @@ class MobileAppOnly extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 12,
+              runSpacing: 8,
+              children: [
+                OutlinedButton.icon(
+                  onPressed: () {
+                    launchUrl(
+                      Uri.parse(
+                        'https://play.google.com/store/apps/details?id=build.body.bodybuild',
+                      ),
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  icon: const Icon(Icons.android),
+                  label: const Text('Get on Play Store'),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () {
+                    launchUrl(
+                      Uri.parse('https://apps.apple.com/us/app/body-build/id6754889919'),
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  icon: const Icon(Icons.phone_iphone),
+                  label: const Text('Get on App Store'),
+                ),
+              ],
+            ),
             OutlinedButton.icon(
               onPressed: () {
                 context.pop();
