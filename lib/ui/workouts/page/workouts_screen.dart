@@ -1,13 +1,12 @@
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
-import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
-import 'package:bodybuild/ui/workouts/widget/template_picker_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list_empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
+import 'package:bodybuild/ui/workouts/widget/mobile_app_only_scaffold.dart';
 import 'package:bodybuild/util/flutter.dart';
 
 class WorkoutsScreen extends ConsumerStatefulWidget {
@@ -33,7 +32,7 @@ class _WorkoutsScreenState extends ConsumerState<WorkoutsScreen> {
   Widget build(BuildContext context) {
     final devMode = ref.watch(developerModeProvider);
     if (!isMobileApp() && !devMode) {
-      return const MobileAppOnly(title: 'Workouts');
+      return const MobileAppOnlyScaffold(title: 'Workouts');
     }
 
     final workoutStateAsync = ref.watch(workoutManagerProvider);

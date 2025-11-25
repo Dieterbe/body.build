@@ -9,7 +9,7 @@ import 'package:bodybuild/model/settings/import_state.dart';
 import 'package:bodybuild/service/database_backup_helpers.dart';
 import 'package:bodybuild/service/wger_import_service.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
-import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
+import 'package:bodybuild/ui/workouts/widget/mobile_app_only_scaffold.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final devMode = ref.watch(developerModeProvider);
     if (!isMobileApp() && !devMode) {
-      return const MobileAppOnly(title: 'Settings');
+      return const MobileAppOnlyScaffold(title: 'Settings');
     }
 
     final serviceAsync = ref.watch(appSettingsPersistenceProvider);

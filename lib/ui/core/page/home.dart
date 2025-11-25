@@ -11,6 +11,7 @@ import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/util/flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -474,6 +475,32 @@ class HomeScreen extends ConsumerWidget {
   Widget _buildWorkoutCard(BuildContext context, WidgetRef ref) {
     final workoutStateAsync = ref.watch(workoutManagerProvider);
 
+    Widget standard() {
+      return _buildQuickAccessCard(
+        context: context,
+        title: 'Start Workout',
+        subtitle: 'Track a workout session',
+        icon: Icons.play_arrow,
+        color: Colors.green,
+        showAppOnly: !isMobileApp(),
+        onTap: () {
+          showStartWorkoutDialog(context);
+        },
+      );
+    }
+
+    Widget errorCard() {
+      return _buildQuickAccessCard(
+        context: context,
+        title: 'Workout unavailable',
+        subtitle: 'Something went wrong. Please try again.',
+        icon: Icons.error_outline,
+        color: Colors.red,
+        showAppOnly: !isMobileApp(),
+        onTap: () {},
+      );
+    }
+
     return workoutStateAsync.when(
       data: (state) {
         if (state.activeWorkout != null) {
@@ -489,20 +516,15 @@ class HomeScreen extends ConsumerWidget {
             },
           );
         }
-        return _buildQuickAccessCard(
-          context: context,
-          title: 'Start Workout',
-          subtitle: 'Track a workout session',
-          icon: Icons.play_arrow,
-          color: Colors.green,
-          showAppOnly: !isMobileApp(),
-          onTap: () {
-            showStartWorkoutDialog(context);
-          },
-        );
+        return standard();
       },
       loading: () => const SizedBox.shrink(),
-      error: (error, stack) => const SizedBox.shrink(),
+      error: (error, stack) {
+        if (kIsWeb) {
+          return standard();
+        }
+        return errorCard();
+      },
     );
   }
 }

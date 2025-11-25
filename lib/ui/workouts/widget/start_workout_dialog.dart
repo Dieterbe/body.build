@@ -1,7 +1,10 @@
+import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/ui/core/widget/menu_tile.dart';
 import 'package:bodybuild/ui/core/widget/menu_title.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
+import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
 import 'package:bodybuild/ui/workouts/widget/template_picker_sheet.dart';
+import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -18,11 +21,14 @@ class _StartWorkoutDialogState extends ConsumerState<_StartWorkoutDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final devMode = ref.watch(developerModeProvider);
     return Dialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 500),
-        child: _showTemplateSelection
+        child: !isMobileApp() && !devMode
+            ? const MobileAppOnly('Start Workout')
+            : _showTemplateSelection
             ? TemplatePickerSheet(
                 isInline: true,
                 onBack: () {

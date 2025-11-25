@@ -5,7 +5,7 @@ import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_card.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_chart.dart';
 import 'package:bodybuild/ui/measurements/widget/measurement_dialog.dart';
-import 'package:bodybuild/ui/workouts/widget/mobile_app_only.dart';
+import 'package:bodybuild/ui/workouts/widget/mobile_app_only_scaffold.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:bodybuild/util/measurements.dart';
 import 'package:collection/collection.dart';
@@ -21,7 +21,7 @@ class MeasurementsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final devMode = ref.watch(developerModeProvider);
     if (!isMobileApp() && !devMode) {
-      return const MobileAppOnly(title: 'Measurements');
+      return const MobileAppOnlyScaffold(title: 'Measurements');
     }
 
     final measurementsAsync = ref.watch(measurementManagerProvider);
