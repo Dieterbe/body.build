@@ -277,23 +277,25 @@ Widget setGroupSection(
   Workout workout,
   Function(Workout? w) onChange,
 ) {
-  void setsOnChange(Sets? sNew) {
-    if (sNew == null && sg.sets.length == 1) {
-      // special case: if sNew needs to be removed, and it's the only one in the setgroup,
-      // then the whole setGroup should be deleted
-      onChange(workout.copyWith(setGroups: workout.setGroups.where((e) => (e != sg)).toList()));
-      return;
-    }
-    final SetGroup sg2;
-    if (sNew == null) {
-      // remove this element from the setGroup:
-      sg2 = SetGroup(sg.sets.where((s) => (s != sg.sets.first)).toList());
-    } else {
-      sg2 = SetGroup(sg.sets.map((s) => (s == sg.sets.first) ? sNew : s).toList());
-    }
-    onChange(
-      workout.copyWith(setGroups: workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()),
-    );
+  Function(Sets? sNew) setsOnChangeFor(Sets sets) {
+    return (Sets? sNew) {
+      if (sNew == null && sg.sets.length == 1) {
+        // special case: if sNew needs to be removed, and it's the only one in the setgroup,
+        // then the whole setGroup should be deleted
+        onChange(workout.copyWith(setGroups: workout.setGroups.where((e) => (e != sg)).toList()));
+        return;
+      }
+      final SetGroup sg2;
+      if (sNew == null) {
+        // remove this element from the setGroup:
+        sg2 = SetGroup(sg.sets.where((s) => (s != sets)).toList());
+      } else {
+        sg2 = SetGroup(sg.sets.map((s) => (s == sets) ? sNew : s).toList());
+      }
+      onChange(
+        workout.copyWith(setGroups: workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()),
+      );
+    };
   }
 
   if (sg.sets.length == 1) {
@@ -306,7 +308,7 @@ Widget setGroupSection(
           setup,
           sg.sets.first,
           isDragging,
-          setsOnChange,
+          setsOnChangeFor(sg.sets.first),
           workout: workout,
           sg: sg,
         );
@@ -352,8 +354,14 @@ Widget setGroupSection(
         Column(
           children: sg.sets
               .mapIndexed<Widget>(
-                (i, sets) =>
-                    BuilderSets(setup, sets, false, setsOnChange, workout: workout, sg: sg),
+                (i, sets) => BuilderSets(
+                  setup,
+                  sets,
+                  false,
+                  setsOnChangeFor(sets),
+                  workout: workout,
+                  sg: sg,
+                ),
               )
               .insertBeforeBetweenAfter(
                 (i) => DropBar(
