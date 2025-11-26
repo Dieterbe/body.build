@@ -305,12 +305,12 @@ Widget setGroupSection(
         final widget = BuilderSets(
           setup,
           sg.sets.first,
-          isDragging && sg.sets.length == 1,
+          isDragging,
           setsOnChange,
           workout: workout,
           sg: sg,
         );
-        if (isDragging && sg.sets.length == 1) {
+        if (isDragging) {
           return DragTargetWidget(
             workout,
             0,
