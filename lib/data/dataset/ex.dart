@@ -1018,40 +1018,84 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
   const Ex(vaShrug, "wide grip barbell shrug", [Equipment.barbell], [rom, gripSqueeze]),
   const Ex(vaShrug, "dumbbell shrug", [Equipment.dumbbell], [rom, gripSqueeze]),
   const Ex(vaShrug, "machine shrug", [Equipment.shrugMachine], [rom, gripSqueeze]),
-
+  /* bodyweight tricep extension
+  https://www.youtube.com/watch?v=NUgbzg622uo "inverted skull over" at various angles
+  https://exrx.net/WeightExercises/Triceps/STTricepsExtension "inverted skull crusher" here shown using TRX, can also rings, elastic
+  */
+  /* Skull-overs, skull-crushers and french press
+  - upright standing tricep extension: vertical upper arm (= french press) or moving (= RP-style)
+  */
   const Ex(
-    vaTricepExtensionOverhead,
-    "cable overhead tricep extension",
-    [Equipment.cableTower],
+    vaTricepExtension,
+    "tricep extension",
+    [],
     [
       rom,
       gripSqueeze,
-      Tweak('RP style', 'no', {
-        'no': Option({}, ''),
-        'yes': Option(
-          {},
-          'use small bar. elbows in - up & back to down & forward. see [this instagram reel](https://www.instagram.com/reel/DEUw9COM-K8)',
-        ),
+      skullCrusherLoading,
+      skullCrusherPath,
+      Tweak(
+        'RP style',
+        'no',
+        {
+          'no': Option(
+            {},
+            'upper arm stays vertical. Most common understandings of extensions / french press',
+          ),
+          'yes': Option(
+            {},
+            'elbows up & back to down & forward. see [this instagram reel](https://www.instagram.com/reel/DEUw9COM-K8)',
+          ),
+        },
+        desc: '''
+Upright (standing/seated) tricep extensions are usually performed with the upper arm vertically in-place (french press).
+RP recommends moving the upper arm by moving the elbow back while up, and forwards while down, which also articulates the shoulder.
+You can however also try to apply this tweak for lying tricep extensions, although you'll probably want
+to either train for a stable upper arm (or support it into a fixed position) [as modern meathead shows](https://www.youtube.com/shorts/qvWRUYFIf1U)
+''',
+      ),
+      Tweak('posture', 'standing', {
+        'standing': Option({}, 'standing aka french-press'),
+        'seated': Option({}, 'seated aka french-press'),
+        'lying': Option({}, 'lying on your back on the bench'),
       }),
     ],
+    [],
+    [],
+    /*
+    The terms "skull-over" and "skull-crusher" are often used interchangeably.  At least lying down,
+"skull-crusher" is often used to cover both "weight to head" and "weight over head" variations.
+(see MH interview video https://www.youtube.com/watch?v=MF7x-wNI-2c)
+When upright, the crusher term is not often used but there is still common confusion between
+skull-overs and the french press, which is sometimes differentiated in posture
+(skull-over for lying, and french press for upright, as in https://www.youtube.com/watch?v=Ip6PTlHWcpA)
+but is also often equated (french press used
+for lying down as synonym for skull crusher as in https://www.youtube.com/watch?v=wfFuClSLcME),
+and then there is also the common confusion with
+names such as lying tricep extension, standing tricep extension, overhead extensions, etc.
+*/
+    '''
+The terms "skull-over", "skull-crusher" and "french press" are used interchangeably with much confusion.
+In body.build, we keep things clear by using the generic "tricep extension" term and applying different,
+well-defined variation tweaks for posture, equipment and path, which covers all variations.
+We do alias the exercise names for the most obvious variations so that you're more likely to find
+what you're looking for: "crusher" for "lying and path to the skull", "skull-over" otherwise, and "french press" for
+upright variations.
+
+[This interview with Menno Henselmans](https://www.youtube.com/watch?v=MF7x-wNI-2c) includes some
+useful insights about all lying variations, such as:
+* with skull-overs, lift the head a bit off the bench at the end
+* don't bring forearms all the way vertical (which would take tension off the tricep)
+* skull-over tends to be easier on elbows for most people compared to skull-crushers.
+* skull-over and skull-crusher are similar in targeting, though skull-over stretches the long head more
+  and may cause more growth.
+
+[Here is another video comparing french press to skull-crusher (skull-over)](https://www.youtube.com/watch?v=Ip6PTlHWcpA)
+''',
+    [
+      TweakConstraint(('posture', {'standing', 'seated'}), ('path', {'to nose', 'to forehead'})),
+    ],
   ),
-  const Ex(
-    vaTricepExtensionOverhead,
-    "dumbbell overhead tricep extension",
-    [Equipment.dumbbell],
-    [rom],
-  ),
-  // note: skull-crusher goes "over" the head, tends to be easier on elbows for most people
-  // but skull-over and skull-crusher are similar in targetting
-  // see https://www.youtube.com/watch?v=MF7x-wNI-2c
-  const Ex(vaTricepExtension, "dumbbell skull-over", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "ez-bar skull-over", [Equipment.ezbar], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "barbell skull-over", [Equipment.barbell], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "elastic skull-over", [Equipment.elastic], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "dumbbell skull-crusher", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "ez-bar skull-crusher", [Equipment.ezbar], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "barbell skull-crusher", [Equipment.barbell], [rom, gripSqueeze]),
-  const Ex(vaTricepExtension, "elastic skull-crusher", [Equipment.elastic], [rom, gripSqueeze]),
   // these should probably get a hole number for progression, not a weight
   const Ex(
     vaTricepExtension,

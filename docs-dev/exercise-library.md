@@ -35,6 +35,8 @@ These are all implemented via a simple concept of "tweaks":
 
 ## What makes exercises different
 
+NOTE: we are trending away from equipment and posture making for separate exercises. at least we are evaluating how well this works to keep within-exercise. So far, it seems to work well. It can avoid "combinational explosions", as many exercises support many types of equipment and postures; e.g. for front raises.
+
 - powerlift or normal. While this could in principle also just be a "tweak", the powerlift style often has multiple ramifications in terms of rest time, choice of accessoires (mainly for the squat: less choice in bars / bar position), ROM (usually as little as possible), and technique ("whatever gets the bar up"), so it makes life easier to classify them separately.
 - seated vs standing vs lying etc. they're usually thought of as different, though being able to compare performance across the flavors seems useful. sometimes lying has ramifications (unilateral lateral raises) or in terms of recruitment (e.g. lying vs seated ham curls), which in principle could also be housed within 1 exercise.
 - equipment
@@ -45,7 +47,7 @@ These are all implemented via a simple concept of "tweaks":
   * often equipment is fairly well ingrained to imply an exercise, e.g. seated leg curl. though as discussed above, this doesn't really matter
   we could transition to a rule "if equipment doesn't matter for VA/tweaks, than do it in-exercise" [1]
   * for some exercises, this becomes a bit obnoxious. e.g. preacher curls can use many different bars, front raises can be done with barbell, dumbbell, ez-bar, cables, plate, kettlebell, etc. and some exercises only differ in how you apply the load (e.g. also donkey calf raises)
-  EXCEPTION: i implemented front raises as "everything in 1 exercises" to avoid combinatioral explosion
+
   
 ## TODO figure out in more detail:
 

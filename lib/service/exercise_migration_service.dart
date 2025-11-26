@@ -11,7 +11,7 @@ class ExerciseMigrationService {
     int toVersion,
   ) {
     var currentId = exerciseId;
-    var currentTweaks = Map<String, String>.of(tweaks);
+    var currentTweaks = Map.of(tweaks);
 
     for (final migration in getApplicableMigrations(fromVersion, toVersion)) {
       final result = migration.migrate(currentId, currentTweaks);
