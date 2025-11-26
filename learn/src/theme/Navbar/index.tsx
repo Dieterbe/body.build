@@ -1,5 +1,6 @@
 import React from 'react';
 import type {ReactElement} from 'react';
+import Link from '@docusaurus/Link';
 import './styles.css';
 
 export default function Navbar(): ReactElement {
@@ -8,10 +9,10 @@ export default function Navbar(): ReactElement {
       <div className="navbar__inner">
         <div className="navbar__items">
           <div className="navbar-brand">
-            <a href="/learn/" className="navbar__brand">
+            <Link to="/" className="navbar__brand">
               <span className="navbar-title">body.build</span>
               <span className="navbar-subtitle">Learn</span>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="navbar__items navbar__items--right">
