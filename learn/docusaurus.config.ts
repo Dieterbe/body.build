@@ -33,6 +33,16 @@ const config: Config = {
   clientModules: [
     require.resolve('./src/posthog.js'),
   ],
+  plugins: [
+    [
+      require.resolve('@cmfcmf/docusaurus-search-local'),
+      {
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: false,
+      },
+    ],
+  ],
   presets: [
     [
       'classic',
