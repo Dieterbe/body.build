@@ -17,16 +17,24 @@ class BuilderSets extends ConsumerStatefulWidget {
   final Settings setup;
   final bool hasNewComboButton;
   final Function(Sets? sgNew) onChange;
+  final Function(bool)? onExpandedChanged;
+  final bool isExpanded;
 
-  const BuilderSets(this.setup, this.sets, this.hasNewComboButton, this.onChange, {super.key});
+  const BuilderSets(
+    this.setup,
+    this.sets,
+    this.hasNewComboButton,
+    this.onChange, {
+    this.onExpandedChanged,
+    this.isExpanded = false,
+    super.key,
+  });
 
   @override
   ConsumerState<BuilderSets> createState() => _BuilderSetsState();
 }
 
 class _BuilderSetsState extends ConsumerState<BuilderSets> {
-  bool isExpanded = false;
-
   @override
   Widget build(BuildContext context) {
     final setRatings = widget.sets.getApplicableRatings().toList();
@@ -40,8 +48,8 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(8),
               topRight: const Radius.circular(8),
-              bottomLeft: isExpanded ? Radius.zero : const Radius.circular(8),
-              bottomRight: isExpanded ? Radius.zero : const Radius.circular(8),
+              bottomLeft: widget.isExpanded ? Radius.zero : const Radius.circular(8),
+              bottomRight: widget.isExpanded ? Radius.zero : const Radius.circular(8),
             ),
           ),
           child: Row(
@@ -63,54 +71,33 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             ],
           ),
         ),
-        if (isExpanded)
-          // if the menu is expanded we wouldn't want any clicking, swiping etc in the expanded menu
-          // and trigger a drag event on the parent widget (Draggable)
-          // therefore we need to catch and ignore many events here
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {},
-            onLongPress: () {},
-            onLongPressEnd: (_) {},
-            onLongPressMoveUpdate: (_) {},
-            onLongPressStart: (_) {},
-            onLongPressUp: () {},
-            onForcePressStart: (_) {},
-            onForcePressEnd: (_) {},
-            onForcePressUpdate: (_) {},
-            onHorizontalDragEnd: (_) {},
-            onHorizontalDragStart: (_) {},
-            onHorizontalDragUpdate: (_) {},
-            onVerticalDragEnd: (_) {},
-            onVerticalDragStart: (_) {},
-            onVerticalDragUpdate: (_) {},
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
-                ),
+        if (widget.isExpanded)
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8),
               ),
-              child: TweenAnimationBuilder<double>(
-                duration: const Duration(milliseconds: 300),
-                tween: Tween(begin: 0.0, end: 1.0),
-                builder: (context, value, child) {
-                  return Opacity(
-                    opacity: value,
-                    child: Transform.translate(offset: Offset(0, 8 * (1 - value)), child: child),
-                  );
-                },
-                child: ExerciseDetailsDialog(
-                  sets: widget.sets,
-                  setup: widget.setup,
-                  onChangeEx: widget.onChange,
-                  onChangeTweaks: widget.onChange,
-                  showRecruitmentViz: true,
-                  availEquipment: widget.setup.availEquipment,
-                ),
+            ),
+            child: TweenAnimationBuilder<double>(
+              duration: const Duration(milliseconds: 300),
+              tween: Tween(begin: 0.0, end: 1.0),
+              builder: (context, value, child) {
+                return Opacity(
+                  opacity: value,
+                  child: Transform.translate(offset: Offset(0, 8 * (1 - value)), child: child),
+                );
+              },
+              child: ExerciseDetailsDialog(
+                sets: widget.sets,
+                setup: widget.setup,
+                onChangeEx: widget.onChange,
+                onChangeTweaks: widget.onChange,
+                showRecruitmentViz: true,
+                availEquipment: widget.setup.availEquipment,
               ),
             ),
           ),
@@ -186,16 +173,14 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
   Widget _exerciseEditButton(BuildContext context) {
     return IconButton(
       onPressed: () {
-        setState(() {
-          isExpanded = !isExpanded;
-        });
+        widget.onExpandedChanged?.call(!widget.isExpanded);
       },
       icon: widget.sets.ex == null
           ? PulseWidget(
-              pulse: !isExpanded,
-              child: Icon(isExpanded ? Icons.expand_less : Icons.settings),
+              pulse: !widget.isExpanded,
+              child: Icon(widget.isExpanded ? Icons.expand_less : Icons.settings),
             )
-          : Icon(isExpanded ? Icons.expand_less : Icons.settings),
+          : Icon(widget.isExpanded ? Icons.expand_less : Icons.settings),
       style: IconButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

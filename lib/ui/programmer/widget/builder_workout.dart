@@ -283,13 +283,13 @@ Widget setGroupSection(
     return ValueListenableBuilder<bool>(
       valueListenable: dragInProgressNotifier,
       builder: (context, isDragging, child) {
-        final widget = DraggableSets(
-          setup,
-          workout,
-          sg,
-          sg.sets.first,
-          isDragging && sg.sets.length == 1,
-          onChange,
+        final widget = SetItemWidget(
+          setup: setup,
+          workout: workout,
+          sg: sg,
+          sets: sg.sets.first,
+          hasNewComboButton: isDragging && sg.sets.length == 1,
+          onChange: onChange,
         );
         if (isDragging && sg.sets.length == 1) {
           return DragTargetWidget(
@@ -333,7 +333,14 @@ Widget setGroupSection(
         Column(
           children: sg.sets
               .mapIndexed<Widget>(
-                (i, sets) => DraggableSets(setup, workout, sg, sets, false, onChange),
+                (i, sets) => SetItemWidget(
+                  setup: setup,
+                  workout: workout,
+                  sg: sg,
+                  sets: sets,
+                  hasNewComboButton: false,
+                  onChange: onChange,
+                ),
               )
               .insertBeforeBetweenAfter(
                 (i) => DropBar(
@@ -356,4 +363,47 @@ Widget setGroupSection(
       ],
     ),
   );
+}
+
+/// Wrapper widget that manages the expanded state for a single set
+class SetItemWidget extends StatefulWidget {
+  final Workout workout;
+  final SetGroup sg;
+  final Sets sets;
+  final Settings setup;
+  final bool hasNewComboButton;
+  final Function(Workout) onChange;
+
+  const SetItemWidget({
+    required this.setup,
+    required this.workout,
+    required this.sg,
+    required this.sets,
+    required this.hasNewComboButton,
+    required this.onChange,
+    super.key,
+  });
+
+  @override
+  State<SetItemWidget> createState() => _SetItemWidgetState();
+}
+
+class _SetItemWidgetState extends State<SetItemWidget> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableSets(
+      widget.setup,
+      widget.workout,
+      widget.sg,
+      widget.sets,
+      widget.hasNewComboButton,
+      widget.onChange,
+      isExpanded: isExpanded,
+      onExpandedChanged: (expanded) {
+        setState(() => isExpanded = expanded);
+      },
+    );
+  }
 }
