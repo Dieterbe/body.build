@@ -84,6 +84,20 @@
   flex-shrink: 0;
 }
 
+/* When mobile sidebar is open, ensure clicks pass through to sidebar controls */
+.navbar.navbar-sidebar--show .navbar__inner {
+  pointer-events: none;
+}
+
+/* Re-enable pointer events for the mobile sidebar toggle (hamburger/X) and the sidebar itself */
+.navbar.navbar-sidebar--show .navbar__toggle {
+  pointer-events: auto;
+}
+
+.navbar.navbar-sidebar--show ~ .navbar-sidebar {
+  pointer-events: auto;
+}
+
 /* Navbar search (local search plugin) */
 .navbar .aa-Autocomplete {
   margin-left: 0.5rem;

@@ -55,9 +55,11 @@ export default function NavbarContent(): ReactNode {
           <a href="/app" className="navbar-link navbar-link-primary">
             Launch App
           </a>
-          <NavbarSearch>
-            <SearchBar />
-          </NavbarSearch>
+          {!mobileSidebar.shown && (
+            <NavbarSearch>
+              <SearchBar />
+            </NavbarSearch>
+          )}
         </>
       }
     />
