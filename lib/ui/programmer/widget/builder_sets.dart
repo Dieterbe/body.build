@@ -4,6 +4,7 @@ import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/data/dataset/rating.dart';
 import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
+import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/dataset/util_groups.dart';
 import 'package:bodybuild/ui/core/widget/equipment_label.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
@@ -11,22 +12,23 @@ import 'package:bodybuild/ui/core/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/ui/core/widget/exercise_ratings_dialog.dart';
 import 'package:bodybuild/ui/core/widget/rating_icon_multi.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
+import 'package:bodybuild/ui/programmer/state/drag_state.dart';
 
 class BuilderSets extends ConsumerStatefulWidget {
   final Sets sets;
   final Settings setup;
   final bool hasNewComboButton;
   final Function(Sets? sgNew) onChange;
-  final Function(bool)? onExpandedChanged;
-  final bool isExpanded;
+  final Workout? workout;
+  final SetGroup? sg;
 
   const BuilderSets(
     this.setup,
     this.sets,
     this.hasNewComboButton,
     this.onChange, {
-    this.onExpandedChanged,
-    this.isExpanded = false,
+    this.workout,
+    this.sg,
     super.key,
   });
 
@@ -35,10 +37,12 @@ class BuilderSets extends ConsumerStatefulWidget {
 }
 
 class _BuilderSetsState extends ConsumerState<BuilderSets> {
+  bool isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     final setRatings = widget.sets.getApplicableRatings().toList();
-    return Column(
+    final content = Column(
       children: [
         // this layout matches BuilderWorkoutSetsHeader
         Container(
@@ -48,8 +52,8 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(8),
               topRight: const Radius.circular(8),
-              bottomLeft: widget.isExpanded ? Radius.zero : const Radius.circular(8),
-              bottomRight: widget.isExpanded ? Radius.zero : const Radius.circular(8),
+              bottomLeft: isExpanded ? Radius.zero : const Radius.circular(8),
+              bottomRight: isExpanded ? Radius.zero : const Radius.circular(8),
             ),
           ),
           child: Row(
@@ -71,7 +75,7 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             ],
           ),
         ),
-        if (widget.isExpanded)
+        if (isExpanded)
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             padding: const EdgeInsets.all(16),
@@ -102,6 +106,54 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             ),
           ),
       ],
+    );
+
+    // If we have workout and setgroup info, wrap with Draggable
+    if (widget.workout != null && widget.sg != null) {
+      return _buildDraggable(content);
+    }
+    return content;
+  }
+
+  /// Wraps content with Draggable when not expanded
+  Widget _buildDraggable(Widget content) {
+    final workout = widget.workout!;
+
+    if (isExpanded) {
+      return content;
+    }
+
+    return Draggable<MapEntry<Workout, Sets>>(
+      data: MapEntry(workout, widget.sets),
+      onDragStarted: () {
+        dragInProgressNotifier.value = true;
+      },
+      onDragEnd: (_) {
+        dragInProgressNotifier.value = false;
+      },
+      onDraggableCanceled: (_, __) {
+        dragInProgressNotifier.value = false;
+      },
+      feedback: Material(
+        elevation: 4,
+        child: Container(
+          width: MediaQuery.sizeOf(context).width * 0.9,
+          color: Theme.of(context).colorScheme.surface,
+          child: content,
+        ),
+      ),
+      childWhenDragging: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      onDragCompleted: () {
+        dragInProgressNotifier.value = false;
+        // We don't do any updates to the workout state here. that is left to the drop target
+      },
+      child: content,
     );
   }
 
@@ -173,14 +225,16 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
   Widget _exerciseEditButton(BuildContext context) {
     return IconButton(
       onPressed: () {
-        widget.onExpandedChanged?.call(!widget.isExpanded);
+        setState(() {
+          isExpanded = !isExpanded;
+        });
       },
       icon: widget.sets.ex == null
           ? PulseWidget(
-              pulse: !widget.isExpanded,
-              child: Icon(widget.isExpanded ? Icons.expand_less : Icons.settings),
+              pulse: !isExpanded,
+              child: Icon(isExpanded ? Icons.expand_less : Icons.settings),
             )
-          : Icon(widget.isExpanded ? Icons.expand_less : Icons.settings),
+          : Icon(isExpanded ? Icons.expand_less : Icons.settings),
       style: IconButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

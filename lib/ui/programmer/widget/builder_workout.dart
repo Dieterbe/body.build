@@ -6,10 +6,10 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/programmer/state/drag_state.dart';
+import 'package:bodybuild/ui/programmer/widget/builder_sets.dart';
 import 'package:bodybuild/ui/programmer/widget/builder_totals.dart';
 import 'package:bodybuild/ui/programmer/widget/builder_workout_sets_header.dart';
 import 'package:bodybuild/ui/programmer/widget/drag_target.dart';
-import 'package:bodybuild/ui/programmer/widget/draggable_setgroup.dart';
 import 'package:bodybuild/ui/programmer/widget/drop_bar.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
@@ -277,19 +277,38 @@ Widget setGroupSection(
   Workout workout,
   Function(Workout? w) onChange,
 ) {
+  void setsOnChange(Sets? sNew) {
+    if (sNew == null && sg.sets.length == 1) {
+      // special case: if sNew needs to be removed, and it's the only one in the setgroup,
+      // then the whole setGroup should be deleted
+      onChange(workout.copyWith(setGroups: workout.setGroups.where((e) => (e != sg)).toList()));
+      return;
+    }
+    final SetGroup sg2;
+    if (sNew == null) {
+      // remove this element from the setGroup:
+      sg2 = SetGroup(sg.sets.where((s) => (s != sg.sets.first)).toList());
+    } else {
+      sg2 = SetGroup(sg.sets.map((s) => (s == sg.sets.first) ? sNew : s).toList());
+    }
+    onChange(
+      workout.copyWith(setGroups: workout.setGroups.map((e) => (e == sg) ? sg2 : e).toList()),
+    );
+  }
+
   if (sg.sets.length == 1) {
     // if this setgroup only contains 1 set,
     // then we can turn it into a comboset by dragging another set onto it
     return ValueListenableBuilder<bool>(
       valueListenable: dragInProgressNotifier,
       builder: (context, isDragging, child) {
-        final widget = SetItemWidget(
-          setup: setup,
+        final widget = BuilderSets(
+          setup,
+          sg.sets.first,
+          isDragging && sg.sets.length == 1,
+          setsOnChange,
           workout: workout,
           sg: sg,
-          sets: sg.sets.first,
-          hasNewComboButton: isDragging && sg.sets.length == 1,
-          onChange: onChange,
         );
         if (isDragging && sg.sets.length == 1) {
           return DragTargetWidget(
@@ -333,14 +352,8 @@ Widget setGroupSection(
         Column(
           children: sg.sets
               .mapIndexed<Widget>(
-                (i, sets) => SetItemWidget(
-                  setup: setup,
-                  workout: workout,
-                  sg: sg,
-                  sets: sets,
-                  hasNewComboButton: false,
-                  onChange: onChange,
-                ),
+                (i, sets) =>
+                    BuilderSets(setup, sets, false, setsOnChange, workout: workout, sg: sg),
               )
               .insertBeforeBetweenAfter(
                 (i) => DropBar(
@@ -363,47 +376,4 @@ Widget setGroupSection(
       ],
     ),
   );
-}
-
-/// Wrapper widget that manages the expanded state for a single set
-class SetItemWidget extends StatefulWidget {
-  final Workout workout;
-  final SetGroup sg;
-  final Sets sets;
-  final Settings setup;
-  final bool hasNewComboButton;
-  final Function(Workout) onChange;
-
-  const SetItemWidget({
-    required this.setup,
-    required this.workout,
-    required this.sg,
-    required this.sets,
-    required this.hasNewComboButton,
-    required this.onChange,
-    super.key,
-  });
-
-  @override
-  State<SetItemWidget> createState() => _SetItemWidgetState();
-}
-
-class _SetItemWidgetState extends State<SetItemWidget> {
-  bool isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return DraggableSets(
-      widget.setup,
-      widget.workout,
-      widget.sg,
-      widget.sets,
-      widget.hasNewComboButton,
-      widget.onChange,
-      isExpanded: isExpanded,
-      onExpandedChanged: (expanded) {
-        setState(() => isExpanded = expanded);
-      },
-    );
-  }
 }
