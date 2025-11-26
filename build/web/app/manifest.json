@@ -7,7 +7,18 @@
     "theme_color": "#0175C2",
     "description": "Body.build nutrition and workout planner for advanced weight lifters and coaches",
     "orientation": "portrait-primary",
-    "prefer_related_applications": false,
+    "prefer_related_applications": true,
+    "related_applications": [
+        {
+            "platform": "play",
+            "url": "https://play.google.com/store/apps/details?id=build.body.bodybuild",
+            "id": "build.body.bodybuild"
+        },
+        {
+            "platform": "itunes",
+            "url": "https://apps.apple.com/us/app/body-build/id6754889919"
+        }
+    ],
     "icons": [
         {
             "src": "icons/Icon-192.png",
