@@ -1162,10 +1162,10 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     [rom, gripSqueeze],
   ), // unilateral
 
-  const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine], [rom]),
-  const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, gripSqueeze]),
-  const Ex(vaAbCrunch, "lying ab crunch", [], [rom, crunchBenchAngle]),
-  const Ex(vaAbCrunch, "ab-wheel rollout", [], [rom]),
+  const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine], [rom], [], ["abs"]),
+  const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, gripSqueeze], [], ["abs"]),
+  const Ex(vaAbCrunch, "lying ab crunch", [], [rom, crunchBenchAngle], [], ["abs"]),
+  const Ex(vaAbCrunch, "ab-wheel rollout", [], [rom], [], ["abs"]),
   const Ex(vaAbIsometric, "plank", []),
   // TODO implement seconds counting
   const Ex(vaAbCrunch, "hanging leg raise", [], [
