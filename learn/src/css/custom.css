@@ -72,6 +72,49 @@
   letter-spacing: -0.5px;
 }
 
+/* Align right-hand navbar items and avoid overlap with search */
+.navbar .navbar__items.navbar__items--right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar .navbar-link,
+.navbar .navbar-link-primary {
+  flex-shrink: 0;
+}
+
+/* Navbar search (local search plugin) */
+.navbar .aa-Autocomplete {
+  margin-left: 0.5rem;
+}
+
+.navbar .aa-DetachedSearchButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: none;
+}
+
+.navbar .aa-DetachedSearchButton:hover {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar .aa-DetachedSearchButtonIcon {
+  color: #27ae60;
+}
+
+.navbar .aa-DetachedSearchButtonPlaceholder {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
 /* Fix theme switcher button contrast on dark navbar */
 .navbar button[title*="dark"],
 .navbar button[title*="light"] {
@@ -383,6 +426,12 @@ article iframe {
 
 /* Mobile responsiveness */
 @media (max-width: 996px) {
+  /* On mobile, hide right-hand nav links to make room for search and burger */
+  .navbar .navbar__items.navbar__items--right .navbar-link,
+  .navbar .navbar__items.navbar__items--right .navbar-link-primary {
+    display: none;
+  }
+
   article {
     padding: 1.5rem !important;
     border-radius: 12px;
