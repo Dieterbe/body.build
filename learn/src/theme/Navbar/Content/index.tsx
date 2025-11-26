@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
+import NavbarSearch from '@theme/Navbar/Search';
+import SearchBar from '@theme/SearchBar';
 import Link from '@docusaurus/Link';
 
 function NavbarContentLayout({
@@ -53,6 +55,9 @@ export default function NavbarContent(): ReactNode {
           <a href="/app" className="navbar-link navbar-link-primary">
             Launch App
           </a>
+          <NavbarSearch>
+            <SearchBar />
+          </NavbarSearch>
         </>
       }
     />
