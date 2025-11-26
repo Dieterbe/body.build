@@ -307,10 +307,10 @@ Widget setGroupSection(
         final widget = BuilderSets(
           setup,
           sg.sets.first,
+          sg,
+          workout,
           isDragging,
           setsOnChangeFor(sg.sets.first),
-          workout: workout,
-          sg: sg,
         );
         if (isDragging) {
           return DragTargetWidget(
@@ -354,14 +354,7 @@ Widget setGroupSection(
         Column(
           children: sg.sets
               .mapIndexed<Widget>(
-                (i, sets) => BuilderSets(
-                  setup,
-                  sets,
-                  false,
-                  setsOnChangeFor(sets),
-                  workout: workout,
-                  sg: sg,
-                ),
+                (i, sets) => BuilderSets(setup, sets, sg, workout, false, setsOnChangeFor(sets)),
               )
               .insertBeforeBetweenAfter(
                 (i) => DropBar(

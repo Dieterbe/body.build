@@ -19,16 +19,16 @@ class BuilderSets extends ConsumerStatefulWidget {
   final Settings setup;
   final bool hasNewComboButton;
   final Function(Sets? sgNew) onChange;
-  final Workout? workout;
-  final SetGroup? sg;
+  final Workout workout;
+  final SetGroup sg;
 
   const BuilderSets(
     this.setup,
     this.sets,
+    this.sg,
+    this.workout,
     this.hasNewComboButton,
     this.onChange, {
-    this.workout,
-    this.sg,
     super.key,
   });
 
@@ -108,54 +108,47 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
       ],
     );
 
-    // If we have workout and setgroup info, wrap with Draggable
-    if (widget.workout != null && widget.sg != null) {
-      return _buildDraggable(content);
-    }
-    return content;
-  }
-
-  /// Wraps content with Draggable when not expanded
-  Widget _buildDraggable(Widget content) {
-    final workout = widget.workout!;
-
+    // if expanded, don't make it draggable. click events are used for scrolling, clicking widgets,
+    // etc inside of the ExerciseDetailsDialog
     if (isExpanded) {
       return content;
     }
-
-    return Draggable<MapEntry<Workout, Sets>>(
-      data: MapEntry(workout, widget.sets),
-      onDragStarted: () {
-        dragInProgressNotifier.value = true;
-      },
-      onDragEnd: (_) {
-        dragInProgressNotifier.value = false;
-      },
-      onDraggableCanceled: (_, __) {
-        dragInProgressNotifier.value = false;
-      },
-      feedback: Material(
-        elevation: 4,
-        child: Container(
-          width: MediaQuery.sizeOf(context).width * 0.9,
-          color: Theme.of(context).colorScheme.surface,
-          child: content,
-        ),
-      ),
-      childWhenDragging: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      onDragCompleted: () {
-        dragInProgressNotifier.value = false;
-        // We don't do any updates to the workout state here. that is left to the drop target
-      },
-      child: content,
-    );
+    return _buildDraggable(content);
   }
+
+  /// Wraps content with Draggable when not expanded
+  Widget _buildDraggable(Widget content) => Draggable<MapEntry<Workout, Sets>>(
+    data: MapEntry(widget.workout, widget.sets),
+    onDragStarted: () {
+      dragInProgressNotifier.value = true;
+    },
+    onDragEnd: (_) {
+      dragInProgressNotifier.value = false;
+    },
+    onDraggableCanceled: (_, __) {
+      dragInProgressNotifier.value = false;
+    },
+    feedback: Material(
+      elevation: 4,
+      child: Container(
+        width: MediaQuery.sizeOf(context).width * 0.9,
+        color: Theme.of(context).colorScheme.surface,
+        child: content,
+      ),
+    ),
+    childWhenDragging: Container(
+      height: 60,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+    onDragCompleted: () {
+      dragInProgressNotifier.value = false;
+      // We don't do any updates to the workout state here. that is left to the drop target
+    },
+    child: content,
+  );
 
   Widget _numSetsButton(BuildContext context) => DropdownButtonHideUnderline(
     child: Align(
