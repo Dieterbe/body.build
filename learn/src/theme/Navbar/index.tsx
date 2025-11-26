@@ -1,25 +1,11 @@
-import React from 'react';
-import type {ReactElement} from 'react';
-import Link from '@docusaurus/Link';
-import './styles.css';
+import React, {type ReactNode} from 'react';
+import NavbarLayout from '@theme/Navbar/Layout';
+import NavbarContent from '@theme/Navbar/Content';
 
-export default function Navbar(): ReactElement {
+export default function Navbar(): ReactNode {
   return (
-    <nav className="navbar navbar--fixed-top custom-navbar">
-      <div className="navbar__inner">
-        <div className="navbar__items">
-          <div className="navbar-brand">
-            <Link to="/" className="navbar__brand">
-              <span className="navbar-title">body.build</span>
-              <span className="navbar-subtitle">Learn</span>
-            </Link>
-          </div>
-        </div>
-        <div className="navbar__items navbar__items--right">
-          <a href="/" className="navbar-link">Homepage</a>
-          <a href="/app" className="navbar-link navbar-link-primary">Launch App</a>
-        </div>
-      </div>
-    </nav>
+    <NavbarLayout>
+      <NavbarContent />
+    </NavbarLayout>
   );
 }
