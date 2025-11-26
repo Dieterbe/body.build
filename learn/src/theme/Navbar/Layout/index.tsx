@@ -10,6 +10,7 @@ import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
 import type {Props} from '@theme/Navbar/Layout';
 
 import styles from './styles.module.css';
+import '../styles.css';
 
 function NavbarBackdrop(props: ComponentProps<'div'>) {
   return (
@@ -39,6 +40,7 @@ export default function NavbarLayout({children}: Props): ReactNode {
         ThemeClassNames.layout.navbar.container,
         'navbar',
         'navbar--fixed-top',
+        'custom-navbar',
         hideOnScroll && [
           styles.navbarHideable,
           !isNavbarVisible && styles.navbarHidden,
