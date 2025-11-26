@@ -71,11 +71,11 @@ export default function Footer(): ReactElement {
         </div>
         
         <div className="custom-footer-nav">
-          <a href="https://body.build">Homepage</a>
+          <a href="/">Homepage</a>
           <span className="nav-separator">•</span>
           <Link to="/">Learn</Link>
           <span className="nav-separator">•</span>
-          <a href="https://body.build/app">Application</a>
+          <a href="/app">Application</a>
         </div>
       </div>
     </footer>

@@ -16,8 +16,8 @@ export default function Navbar(): ReactElement {
           </div>
         </div>
         <div className="navbar__items navbar__items--right">
-          <a href="https://body.build" className="navbar-link">Homepage</a>
-          <a href="https://body.build/app" className="navbar-link navbar-link-primary">Launch App</a>
+          <a href="/" className="navbar-link">Homepage</a>
+          <a href="/app" className="navbar-link navbar-link-primary">Launch App</a>
         </div>
       </div>
     </nav>
