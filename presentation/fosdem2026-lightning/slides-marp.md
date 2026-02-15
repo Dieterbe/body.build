@@ -72,7 +72,7 @@ Drag-and-drop with fractional volume counting
 
 # Mobile Gym tracker
 
-![bg left:40% contain](../gym-tracker.png)
+![bg left:40% contain](gym-tracker.png)
 
 - Log sets
 - Track progress and achievements
