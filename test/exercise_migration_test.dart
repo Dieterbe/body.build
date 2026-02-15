@@ -25,11 +25,11 @@ void main() {
     });
 
     group('MergeExerciseMigration', () {
-      test('should merge exercises with distinguishing tweak', () {
-        const migration = MergeExerciseMigration(2, 3, 'leg curl', 'equipment', {
-          'seated leg curl': 'machine (seated)',
-          'lying leg curl': 'machine (lying)',
-          'standing leg curl': 'machine (standing)',
+      test('should merge exercises with single distinguishing tweak', () {
+        const migration = MergeExerciseMigration(2, 3, 'leg curl', {
+          'seated leg curl': {'equipment': 'machine (seated)'},
+          'lying leg curl': {'equipment': 'machine (lying)'},
+          'standing leg curl': {'equipment': 'machine (standing)'},
         });
 
         // Test merge
@@ -41,6 +41,32 @@ void main() {
         // Test no change needed
         final result2 = migration.migrate('deadlift', {'stance': 'conventional'});
         expect(result2, isNull);
+      });
+
+      test('should merge exercises with multiple distinguishing tweaks', () {
+        const migration = MergeExerciseMigration(2, 3, 'tricep extension', {
+          'dumbbell skull-over': {'loading': 'dumbbell', 'path': 'over head', 'posture': 'lying'},
+          'cable overhead tricep extension': {'loading': 'cable', 'posture': 'standing'},
+        });
+
+        // Test merge with all tweaks set
+        final result1 = migration.migrate('dumbbell skull-over', {'rom': 'full'});
+        expect(result1, isNotNull);
+        expect(result1!.$1, equals('tricep extension'));
+        expect(
+          result1.$2,
+          equals({'rom': 'full', 'loading': 'dumbbell', 'path': 'over head', 'posture': 'lying'}),
+        );
+
+        // Test merge with fewer tweaks
+        final result2 = migration.migrate('cable overhead tricep extension', {'rom': 'full'});
+        expect(result2, isNotNull);
+        expect(result2!.$1, equals('tricep extension'));
+        expect(result2.$2, equals({'rom': 'full', 'loading': 'cable', 'posture': 'standing'}));
+
+        // Test no change needed
+        final result3 = migration.migrate('deadlift', {'stance': 'conventional'});
+        expect(result3, isNull);
       });
     });
 
@@ -129,6 +155,93 @@ void main() {
         final result2 = migration.migrate('squat', {'grip_width': 'wide'});
         expect(result2, isNull);
       });
+    });
+  });
+
+  group('Tricep extension migration (v2→v3)', () {
+    test('cable overhead tricep extension migrates with RP style tweak rename', () {
+      // "cable overhead tricep extension" had an "RP style" tweak with value "yes"
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'cable overhead tricep extension',
+        {'RP style': 'yes', 'rom': 'full'},
+        2,
+        3,
+      );
+      expect(newId, equals('tricep extension'));
+      expect(newTweaks['loading'], equals('cable'));
+      expect(newTweaks['posture'], equals('standing'));
+      expect(newTweaks['upper arm'], equals('RP style'));
+      expect(newTweaks['rom'], equals('full'));
+      expect(newTweaks.containsKey('RP style'), isFalse);
+      expect(newTweaks.containsKey('path'), isFalse); // leave default
+    });
+
+    test('cable overhead tricep extension migrates with RP style=no', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'cable overhead tricep extension',
+        {'RP style': 'no'},
+        2,
+        3,
+      );
+      expect(newId, equals('tricep extension'));
+      expect(newTweaks['loading'], equals('cable'));
+      expect(newTweaks['posture'], equals('standing'));
+      expect(newTweaks['upper arm'], equals('stable'));
+      expect(newTweaks.containsKey('RP style'), isFalse);
+      expect(newTweaks.containsKey('path'), isFalse); // leave default
+    });
+
+    test('dumbbell skull-over migrates correctly', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'dumbbell skull-over',
+        {'rom': 'full'},
+        2,
+        3,
+      );
+      expect(newId, equals('tricep extension'));
+      expect(newTweaks['loading'], equals('dumbbell'));
+      expect(newTweaks['path'], equals('over head'));
+      expect(newTweaks['posture'], equals('lying'));
+      expect(newTweaks['upper arm'], equals('stable'));
+      expect(newTweaks['rom'], equals('full'));
+    });
+
+    test('ez-bar skull-crusher migrates correctly', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'ez-bar skull-crusher',
+        {},
+        2,
+        3,
+      );
+      expect(newId, equals('tricep extension'));
+      expect(newTweaks['loading'], equals('ez-bar'));
+      expect(newTweaks['path'], equals('to forehead'));
+      expect(newTweaks['posture'], equals('lying'));
+      expect(newTweaks['upper arm'], equals('stable'));
+    });
+
+    test('dumbbell overhead tricep extension migrates correctly', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'dumbbell overhead tricep extension',
+        {},
+        2,
+        3,
+      );
+      expect(newId, equals('tricep extension'));
+      expect(newTweaks['loading'], equals('dumbbell'));
+      expect(newTweaks['posture'], equals('standing'));
+      expect(newTweaks['upper arm'], equals('stable'));
+    });
+
+    test('unrelated exercise is not affected', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'tricep kickback',
+        {'rom': 'full'},
+        2,
+        3,
+      );
+      expect(newId, equals('tricep kickback'));
+      expect(newTweaks, equals({'rom': 'full'}));
     });
   });
 

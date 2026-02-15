@@ -38,33 +38,30 @@ class RenameExerciseMigration extends ExerciseMigration {
   String get description => 'Rename exercises: ${renames.keys.join(', ')}';
 }
 
-/// Merge multiple exercises into one with a distinguishing tweak
+/// Merge multiple exercises into one with distinguishing tweaks
 class MergeExerciseMigration extends ExerciseMigration {
   final String newId;
-  final String tweakName;
-  final Map<String, String> idToTweakValue; // oldId → tweakValue
+  final Map<String, Map<String, String>> idToTweakValues; // oldId → {tweakName: tweakValue}
 
   const MergeExerciseMigration(
     super.fromVersion,
     super.toVersion,
     this.newId,
-    this.tweakName,
-    this.idToTweakValue,
+    this.idToTweakValues,
   );
 
   @override
   (String, Map<String, String>)? migrate(String exerciseId, Map<String, String> tweaks) {
-    final tweakValue = idToTweakValue[exerciseId];
-    if (tweakValue != null) {
-      // Add the new tweak that distinguishes the merged exercises
-      final newTweaks = {...tweaks, tweakName: tweakValue};
+    final tweakValues = idToTweakValues[exerciseId];
+    if (tweakValues != null) {
+      final newTweaks = {...tweaks, ...tweakValues};
       return (newId, newTweaks);
     }
     return null; // No change needed
   }
 
   @override
-  String get description => 'Merge ${idToTweakValue.keys.join(', ')} into $newId';
+  String get description => 'Merge ${idToTweakValues.keys.join(', ')} into $newId';
 }
 
 /// Split exercise by tweak value into separate exercises
