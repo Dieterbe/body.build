@@ -1035,14 +1035,14 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
       skullCrusherLoading,
       skullCrusherPath,
       Tweak(
-        'RP style',
-        'no',
+        'upper arm',
+        'stable',
         {
-          'no': Option(
+          'stable': Option(
             {},
-            'upper arm stays vertical. Most common understandings of extensions / french press',
+            'upper arm stays in-place (vertical if you are seated or standing). Most common understandings of extensions / french press',
           ),
-          'yes': Option(
+          'RP style': Option(
             {},
             'elbows up & back to down & forward. see [this instagram reel](https://www.instagram.com/reel/DEUw9COM-K8)',
           ),
