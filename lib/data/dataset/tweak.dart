@@ -514,8 +514,8 @@ const skullCrusherLoading = Tweak('loading', 'dumbbell', {
   'kettlebell': Option({}, 'kettlebell', equipment: Equipment.kettlebell),
   'plate': Option({}, 'plate', equipment: Equipment.plate),
 });
-const skullCrusherPath = Tweak('path', 'to forehead', {
-  'to nose': Option({}, 'overhead extension aka skull-crusher'),
-  'to forehead': Option({}, 'lying extension aka skull-crusher'),
-  'over head': Option({}, 'aka skull-over'),
+const skullCrusherPath = Tweak('path', 'overhead', {
+  'to nose': Option({}, 'bring the weight to your nose'),
+  'to forehead': Option({}, 'bring the weight to your forehead'),
+  'overhead': Option({}, 'bring the weight past your head'),
 });

@@ -45,7 +45,7 @@ void main() {
 
       test('should merge exercises with multiple distinguishing tweaks', () {
         const migration = MergeExerciseMigration(2, 3, 'tricep extension', {
-          'dumbbell skull-over': {'loading': 'dumbbell', 'path': 'over head', 'posture': 'lying'},
+          'dumbbell skull-over': {'loading': 'dumbbell', 'path': 'overhead', 'posture': 'lying'},
           'cable overhead tricep extension': {'loading': 'cable', 'posture': 'standing'},
         });
 
@@ -55,7 +55,7 @@ void main() {
         expect(result1!.$1, equals('tricep extension'));
         expect(
           result1.$2,
-          equals({'rom': 'full', 'loading': 'dumbbell', 'path': 'over head', 'posture': 'lying'}),
+          equals({'rom': 'full', 'loading': 'dumbbell', 'path': 'overhead', 'posture': 'lying'}),
         );
 
         // Test merge with fewer tweaks
@@ -200,7 +200,7 @@ void main() {
       );
       expect(newId, equals('tricep extension'));
       expect(newTweaks['loading'], equals('dumbbell'));
-      expect(newTweaks['path'], equals('over head'));
+      expect(newTweaks['path'], equals('overhead'));
       expect(newTweaks['posture'], equals('lying'));
       expect(newTweaks['upper arm'], equals('stable'));
       expect(newTweaks['rom'], equals('full'));

@@ -1061,7 +1061,7 @@ to either train for a stable upper arm (or support it into a fixed position) [as
       }),
     ],
     [],
-    [],
+    ["skull-crusher", "skull-over", "french press"],
     /*
     The terms "skull-over" and "skull-crusher" are often used interchangeably.  At least lying down,
 "skull-crusher" is often used to cover both "weight to head" and "weight over head" variations.
