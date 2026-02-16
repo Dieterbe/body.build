@@ -133,6 +133,11 @@ class Ex {
         .toSet();
   }
 
+  /// Returns search aliases formatted for display, e.g. "aka: bench, BP"
+  /// Returns null if there are no aliases
+  String? get searchAliasesDisplay =>
+      searchAliases.isEmpty ? null : 'aka: ${searchAliases.join(', ')}';
+
   /// Returns all searchable tokens for this exercise
   /// Includes: exercise ID, tweak names, and manual aliases
   Set<String> get searchTokens {

@@ -1,5 +1,6 @@
 import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/data/dataset/equipment.dart';
+import 'package:bodybuild/ui/core/widget/exercise_id_text.dart';
 import 'package:bodybuild/ui/core/widget/muscle_recruitment_bar.dart';
 import 'package:bodybuild/ui/core/widget/rating_icon.dart';
 import 'package:flutter/material.dart';
@@ -144,9 +145,9 @@ class ExerciseTileList extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(
-                          exercise.id,
-                          style: TextStyle(
+                        child: ExerciseIdText(
+                          exercise: exercise,
+                          idStyle: TextStyle(
                             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                             fontSize: 16, // TODO: needed?
                           ),

@@ -1,4 +1,5 @@
 import 'package:bodybuild/data/dataset/equipment.dart';
+import 'package:bodybuild/ui/core/widget/exercise_id_text.dart';
 import 'package:bodybuild/ui/core/markdown.dart';
 import 'package:bodybuild/ui/core/widget/exercise_recruitment_visualization.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_grid.dart';
@@ -185,7 +186,7 @@ class _ExerciseDetailsDialogState extends State<ExerciseDetailsDialog> {
           if (localSets.ex != null && !localSets.changeEx)
             Row(
               children: [
-                Text(localSets.ex!.id),
+                ExerciseIdText(exercise: localSets.ex!),
                 const Spacer(),
                 if (widget.onChangeEx != null)
                   TextButton(

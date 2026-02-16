@@ -1,4 +1,7 @@
+import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
+import 'package:bodybuild/ui/core/widget/exercise_id_text.dart';
+import 'package:collection/collection.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/ui/core/widget/snackbars.dart';
 import 'package:bodybuild/ui/workouts/widget/edit_exercise_set_group_sheet.dart';
@@ -40,9 +43,16 @@ class ExerciseSetGroupWidget extends ConsumerWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
-    return Text(
-      group.exerciseId,
-      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+    final exercise = exes.firstWhereOrNull((e) => e.id == group.exerciseId);
+    if (exercise == null) {
+      return Text(
+        group.exerciseId,
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+      );
+    }
+    return ExerciseIdText(
+      exercise: exercise,
+      idStyle: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
     );
   }
 

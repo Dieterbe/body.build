@@ -1,3 +1,4 @@
+import 'package:bodybuild/ui/core/widget/exercise_id_text.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_small.dart';
 import 'package:bodybuild/ui/core/widget/configure_tweak_large.dart';
 import 'package:bodybuild/ui/core/widget/exercise_recruitment_visualization.dart';
@@ -260,11 +261,17 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
                           color: Theme.of(context).colorScheme.onPrimaryContainer,
                         ),
                       ),
-                      Text(
-                        currentSets!.ex!.id,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      ExerciseIdText(
+                        exercise: currentSets!.ex!,
+                        idStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                        aliasStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimaryContainer.withValues(alpha: 0.7),
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
                     ],
@@ -304,9 +311,9 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
         Row(
           children: [
             Expanded(
-              child: Text(
-                currentSets!.ex!.id,
-                style: Theme.of(
+              child: ExerciseIdText(
+                exercise: currentSets!.ex!,
+                idStyle: Theme.of(
                   context,
                 ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
