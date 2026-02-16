@@ -157,7 +157,9 @@ class ProgrammerSetupFilters extends ConsumerWidget {
                         runSpacing: 8.0,
                         children: setup.paramOverrides.excludedExercises!
                             .map((exercise) => Chip(
-                                  label: Text(exercise.id),
+                                  label: Text(exercise.searchAliasesDisplay != null
+                                      ? '${exercise.id} (${exercise.searchAliasesDisplay})'
+                                      : exercise.id),
                                   onDeleted: () =>
                                       notifier.removeExcludedExercise(exercise),
                                 ))

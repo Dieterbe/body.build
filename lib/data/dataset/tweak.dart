@@ -505,3 +505,17 @@ const frontRaiseGrip = Tweak('grip', 'pronated', {
     ProgramGroup.sideDelts: Assign(0.25, 'shoulder flexion when shoulder externally rotated'),
   }, 'hammer grip, palms facing outward'),
 });
+const skullCrusherLoading = Tweak('loading', 'dumbbell', {
+  'barbell': Option({}, 'barbell', equipment: Equipment.barbell),
+  'cable': Option({}, 'cable', equipment: Equipment.cableTower),
+  'dumbbell': Option({}, 'dumbbell', equipment: Equipment.dumbbell),
+  'elastic band': Option({}, 'elastic band', equipment: Equipment.elastic),
+  'ez-bar': Option({}, 'ez-bar', equipment: Equipment.ezbar),
+  'kettlebell': Option({}, 'kettlebell', equipment: Equipment.kettlebell),
+  'plate': Option({}, 'plate', equipment: Equipment.plate),
+});
+const skullCrusherPath = Tweak('path', 'overhead', {
+  'to nose': Option({}, 'bring the weight to your nose'),
+  'to forehead': Option({}, 'bring the weight to your forehead'),
+  'overhead': Option({}, 'bring the weight past your head'),
+});

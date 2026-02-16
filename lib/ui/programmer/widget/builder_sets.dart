@@ -7,6 +7,7 @@ import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/dataset/util_groups.dart';
 import 'package:bodybuild/ui/core/widget/equipment_label.dart';
+import 'package:bodybuild/ui/core/widget/exercise_id_text.dart';
 import 'package:bodybuild/ui/programmer/widget/widgets.dart';
 import 'package:bodybuild/ui/core/widget/exercise_details_dialog.dart';
 import 'package:bodybuild/ui/core/widget/exercise_ratings_dialog.dart';
@@ -256,13 +257,15 @@ class _BuilderSetsState extends ConsumerState<BuilderSets> {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               children: [
-                Text(
-                  widget.sets.ex!.id,
-                  style: TextStyle(
-                    fontSize: MediaQuery.sizeOf(context).width / 110,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0.3,
-                    color: Theme.of(context).colorScheme.onSurface,
+                Flexible(
+                  child: ExerciseIdText(
+                    exercise: widget.sets.ex!,
+                    idStyle: TextStyle(
+                      fontSize: MediaQuery.sizeOf(context).width / 110,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.3,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ),
                 if (setRatings.isNotEmpty) ...[

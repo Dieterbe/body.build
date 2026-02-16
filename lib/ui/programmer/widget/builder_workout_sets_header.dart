@@ -5,6 +5,7 @@ import 'package:bodybuild/model/programmer/set_group.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:bodybuild/ui/dataset/util_groups.dart';
+import 'package:bodybuild/ui/core/widget/exercise_id_text.dart';
 import 'package:bodybuild/ui/programmer/widget/pulse_widget.dart';
 import 'package:bodybuild/ui/core/widget/rating_icon_multi.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
@@ -228,9 +229,13 @@ class BuilderWorkoutSetsHeader extends StatelessWidget {
                           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           title: Row(
                             children: [
-                              Text(
-                                option.ex!.id,
-                                style: TextStyle(fontSize: MediaQuery.sizeOf(context).width / 110),
+                              Flexible(
+                                child: ExerciseIdText(
+                                  exercise: option.ex!,
+                                  idStyle: TextStyle(
+                                    fontSize: MediaQuery.sizeOf(context).width / 110,
+                                  ),
+                                ),
                               ),
                               if (option.tweakOptions.isNotEmpty) ...[
                                 const SizedBox(width: 12),
