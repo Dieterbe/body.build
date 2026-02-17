@@ -19,21 +19,9 @@ class TemplateManager extends _$TemplateManager {
     return service.watchAllTemplates();
   }
 
-  Future<String> createTemplate({
-    required String id,
-    required String name,
-    String? description,
-    bool isBuiltin = false,
-    required List<model.TemplateSet> sets,
-  }) async {
+  Future<String> createTemplate(model.WorkoutTemplate template) async {
     final service = ref.read(templatePersistenceServiceProvider);
-    return service.createTemplate(
-      id: id,
-      name: name,
-      description: description,
-      isBuiltin: isBuiltin,
-      sets: sets,
-    );
+    return service.createTemplate(template);
   }
 
   Future<void> deleteTemplate(String id) async {

@@ -76,7 +76,7 @@ class TemplateCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${template.sets.length} sets',
+                    '${template.toFlatSets().length} sets',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -88,7 +88,7 @@ class TemplateCard extends ConsumerWidget {
                   Icon(Icons.list, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
                   const SizedBox(width: 4),
                   Text(
-                    '${template.sets.map((s) => s.exerciseId).toSet().length} exercises',
+                    '${template.toFlatSets().map((s) => s.exerciseId).toSet().length} exercises',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),

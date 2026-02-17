@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:bodybuild/data/dataset/ex.dart';
+import 'package:bodybuild/model/programmer/set_group.dart' as programmer;
+import 'package:bodybuild/model/programmer/workout.dart' as programmer;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'workout.freezed.dart';
@@ -29,6 +32,74 @@ abstract class Workout with _$Workout {
   }
 
   Set<String> get exerciseIds => sets.map((s) => s.exerciseId).toSet();
+
+  /// Heuristic conversion of flat logged sets into a programmer Workout.
+  /// Detects interleaved patterns (combo/super sets) and infers repeat count `n`.
+  ///
+  /// Algorithm: walk through sets in order, building a candidate pattern.
+  /// When we see an exercise+tweaks combo that's already in the current pattern,
+  /// we check if the sequence so far is a repeating pattern. If so, we count
+  /// the repetitions. When the pattern breaks, we emit a SetGroup and start fresh.
+  programmer.Workout toProgrammerWorkout({String? name}) {
+    if (sets.isEmpty) return programmer.Workout(name: name ?? 'unnamed workout');
+
+    final exMap = {for (final ex in exes) ex.id: ex};
+    final result = <programmer.SetGroup>[];
+
+    // Represent each set as a key for pattern matching
+    String setKey(WorkoutSet s) {
+      final tweaksKey = s.tweaks.entries.map((e) => '${e.key}:${e.value}').toList()..sort();
+      return '${s.exerciseId}|${tweaksKey.join(',')}';
+    }
+
+    var i = 0;
+    while (i < sets.length) {
+      // Try to find the longest non-repeating pattern starting at i
+      final patternKeys = <String>[];
+      final patternSets = <WorkoutSet>[];
+      var j = i;
+
+      // Build the initial pattern (first occurrence of each unique set key)
+      while (j < sets.length) {
+        final key = setKey(sets[j]);
+        if (patternKeys.contains(key)) break;
+        patternKeys.add(key);
+        patternSets.add(sets[j]);
+        j++;
+      }
+
+      // Count how many full repetitions of this pattern follow
+      final patternLen = patternKeys.length;
+      var rounds = 1;
+      while (i + rounds * patternLen <= sets.length) {
+        var matches = true;
+        for (var k = 0; k < patternLen; k++) {
+          final idx = i + rounds * patternLen + k;
+          if (idx >= sets.length || setKey(sets[idx]) != patternKeys[k]) {
+            matches = false;
+            break;
+          }
+        }
+        if (!matches) break;
+        rounds++;
+      }
+
+      // Also check for partial trailing rounds (some exercises have fewer reps)
+      // For now, keep it simple: only count full rounds, then handle remaining
+      // sets as a separate group in the next iteration.
+
+      // Build the SetGroup
+      final groupSets = patternSets.map((ws) {
+        final ex = exMap[ws.exerciseId];
+        return programmer.Sets(1, ex: ex, n: rounds, tweakOptions: ws.tweaks);
+      }).toList();
+
+      result.add(programmer.SetGroup(groupSets));
+      i += rounds * patternLen;
+    }
+
+    return programmer.Workout(name: name ?? 'unnamed workout', setGroups: result);
+  }
 }
 
 @freezed

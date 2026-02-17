@@ -203,8 +203,8 @@ return $default(_that.name,_that.workouts,_that.builtin);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _ProgramState implements ProgramState {
-  const _ProgramState({this.name = 'unnamed program', final  List<Workout> workouts = const [], this.builtin = false}): _workouts = workouts;
+class _ProgramState extends ProgramState {
+  const _ProgramState({this.name = 'unnamed program', final  List<Workout> workouts = const [], this.builtin = false}): _workouts = workouts,super._();
   factory _ProgramState.fromJson(Map<String, dynamic> json) => _$ProgramStateFromJson(json);
 
 @override@JsonKey() final  String name;
