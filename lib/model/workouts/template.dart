@@ -1,5 +1,5 @@
 import 'package:bodybuild/data/dataset/program_group.dart';
-import 'package:bodybuild/model/programmer/workout.dart' as programmer;
+import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'template.freezed.dart';
@@ -15,7 +15,7 @@ abstract class WorkoutTemplate with _$WorkoutTemplate {
     @Default(false) bool isBuiltin,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required programmer.Workout workout,
+    required Workout workout,
   }) = _WorkoutTemplate;
 
   factory WorkoutTemplate.fromJson(Map<String, dynamic> json) => _$WorkoutTemplateFromJson(json);

@@ -83,7 +83,7 @@ final class TemplateManagerProvider
   TemplateManager create() => TemplateManager();
 }
 
-String _$templateManagerHash() => r'fcdf43e395b7d6e7311883906bec3ccf843b7b9c';
+String _$templateManagerHash() => r'1317d8de7543baf10f23050109baf94e6149176b';
 
 abstract class _$TemplateManager
     extends $StreamNotifier<List<model.WorkoutTemplate>> {

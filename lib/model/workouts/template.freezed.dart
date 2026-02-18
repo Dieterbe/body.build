@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WorkoutTemplate {
 
- String get id; String? get description; bool get isBuiltin; DateTime get createdAt; DateTime get updatedAt; programmer.Workout get workout;
+ String get id; String? get description; bool get isBuiltin; DateTime get createdAt; DateTime get updatedAt; Workout get workout;
 /// Create a copy of WorkoutTemplate
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -41,7 +41,7 @@ abstract mixin class $WorkoutTemplateCopyWith<$Res>  {
   factory $WorkoutTemplateCopyWith(WorkoutTemplate value, $Res Function(WorkoutTemplate) _then) = _$WorkoutTemplateCopyWithImpl;
 @useResult
 $Res call({
- String id, String? description, bool isBuiltin, DateTime createdAt, DateTime updatedAt, programmer.Workout workout
+ String id, String? description, bool isBuiltin, DateTime createdAt, DateTime updatedAt, Workout workout
 });
 
 
@@ -66,7 +66,7 @@ as String?,isBuiltin: null == isBuiltin ? _self.isBuiltin : isBuiltin // ignore:
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,workout: null == workout ? _self.workout : workout // ignore: cast_nullable_to_non_nullable
-as programmer.Workout,
+as Workout,
   ));
 }
 /// Create a copy of WorkoutTemplate
@@ -160,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? description,  bool isBuiltin,  DateTime createdAt,  DateTime updatedAt,  programmer.Workout workout)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? description,  bool isBuiltin,  DateTime createdAt,  DateTime updatedAt,  Workout workout)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WorkoutTemplate() when $default != null:
 return $default(_that.id,_that.description,_that.isBuiltin,_that.createdAt,_that.updatedAt,_that.workout);case _:
@@ -181,7 +181,7 @@ return $default(_that.id,_that.description,_that.isBuiltin,_that.createdAt,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? description,  bool isBuiltin,  DateTime createdAt,  DateTime updatedAt,  programmer.Workout workout)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? description,  bool isBuiltin,  DateTime createdAt,  DateTime updatedAt,  Workout workout)  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutTemplate():
 return $default(_that.id,_that.description,_that.isBuiltin,_that.createdAt,_that.updatedAt,_that.workout);case _:
@@ -201,7 +201,7 @@ return $default(_that.id,_that.description,_that.isBuiltin,_that.createdAt,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? description,  bool isBuiltin,  DateTime createdAt,  DateTime updatedAt,  programmer.Workout workout)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? description,  bool isBuiltin,  DateTime createdAt,  DateTime updatedAt,  Workout workout)?  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutTemplate() when $default != null:
 return $default(_that.id,_that.description,_that.isBuiltin,_that.createdAt,_that.updatedAt,_that.workout);case _:
@@ -224,7 +224,7 @@ class _WorkoutTemplate extends WorkoutTemplate {
 @override@JsonKey() final  bool isBuiltin;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
-@override final  programmer.Workout workout;
+@override final  Workout workout;
 
 /// Create a copy of WorkoutTemplate
 /// with the given fields replaced by the non-null parameter values.
@@ -252,7 +252,7 @@ abstract mixin class _$WorkoutTemplateCopyWith<$Res> implements $WorkoutTemplate
   factory _$WorkoutTemplateCopyWith(_WorkoutTemplate value, $Res Function(_WorkoutTemplate) _then) = __$WorkoutTemplateCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? description, bool isBuiltin, DateTime createdAt, DateTime updatedAt, programmer.Workout workout
+ String id, String? description, bool isBuiltin, DateTime createdAt, DateTime updatedAt, Workout workout
 });
 
 
@@ -277,7 +277,7 @@ as String?,isBuiltin: null == isBuiltin ? _self.isBuiltin : isBuiltin // ignore:
 as bool,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,workout: null == workout ? _self.workout : workout // ignore: cast_nullable_to_non_nullable
-as programmer.Workout,
+as Workout,
   ));
 }
 

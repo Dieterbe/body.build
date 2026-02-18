@@ -1,6 +1,6 @@
 import 'package:bodybuild/data/workouts/workout_providers.dart';
-import 'package:bodybuild/model/interchange/program_export.dart';
 import 'package:bodybuild/model/workouts/template.dart' as model;
+import 'package:bodybuild/service/program_export_service.dart';
 import 'package:bodybuild/service/program_import_service.dart';
 import 'package:bodybuild/service/template_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -46,5 +46,28 @@ class TemplateManager extends _$TemplateManager {
       ref.invalidateSelf();
     }
     return result;
+  }
+
+  /// Export templates as a program (JSON string)
+  String exportTemplatesAsJson({
+    required List<model.WorkoutTemplate> templates,
+    String? programName,
+  }) {
+    final exportService = ProgramExportService();
+    final export = exportService.createExport(
+      templates: templates,
+      programName: programName,
+      exportedFrom: 'body.build mobile app',
+    );
+    return exportService.toJson(export);
+  }
+
+  /// Export templates and share as JSON file
+  Future<void> exportAndShareTemplates({
+    required List<model.WorkoutTemplate> templates,
+    String? programName,
+  }) async {
+    final exportService = ProgramExportService();
+    await exportService.exportAndShare(templates: templates, programName: programName);
   }
 }
