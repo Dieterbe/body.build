@@ -103,6 +103,11 @@ class ProgramManager extends _$ProgramManager {
     state = AsyncData(state.value!.copyWith(programs: updatedPrograms));
   }
 
+  Future<void> importProgram(ProgramState program) async {
+    final id = DateTime.now().millisecondsSinceEpoch.toString();
+    await _createProgram(state.value!.programs, id, program);
+  }
+
   Future<void> updateProgramName(String name) async {
     await _updateCurrentProgram((ProgramState p) {
       return p.copyWith(name: name);

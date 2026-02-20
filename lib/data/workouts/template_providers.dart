@@ -1,6 +1,7 @@
 import 'package:bodybuild/data/workouts/workout_providers.dart';
+import 'package:bodybuild/model/interchange/program_export.dart';
+import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/workouts/template.dart' as model;
-import 'package:bodybuild/service/program_export_service.dart';
 import 'package:bodybuild/service/program_import_service.dart';
 import 'package:bodybuild/service/template_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -31,43 +32,23 @@ class TemplateManager extends _$TemplateManager {
     await service.deleteTemplate(id);
   }
 
-  /// Import a program from JSON string (interchange format)
-  Future<ProgramImportResult> importProgramFromJson(String jsonString) async {
+  /// Import a program from a [ProgramExport] (already parsed, migration applied by caller)
+  Future<ProgramImportResult> importProgramFromExport(ProgramExport export) async {
     final database = ref.read(workoutDatabaseProvider);
     final importService = ProgramImportService(database);
-
-    final export = importService.parseExportJson(jsonString);
-    if (export == null) {
-      return ProgramImportResult.failure('Invalid program format');
-    }
-
     final result = await importService.importProgram(export);
-    if (result.success) {
-      ref.invalidateSelf();
-    }
+    if (result.success) ref.invalidateSelf();
     return result;
   }
 
-  /// Export templates as a program (JSON string)
-  String exportTemplatesAsJson({
-    required List<model.WorkoutTemplate> templates,
-    String? programName,
-  }) {
-    final exportService = ProgramExportService();
-    final export = exportService.createExport(
-      templates: templates,
-      programName: programName,
-      exportedFrom: 'body.build mobile app',
-    );
-    return exportService.toJson(export);
-  }
-
-  /// Export templates and share as JSON file
-  Future<void> exportAndShareTemplates({
-    required List<model.WorkoutTemplate> templates,
-    String? programName,
-  }) async {
-    final exportService = ProgramExportService();
-    await exportService.exportAndShare(templates: templates, programName: programName);
+  /// Persist an already-migrated [ProgramState] as workout templates.
+  Future<ProgramImportResult> importTemplatesFromProgram(ProgramState program) async {
+    final templates = program.toTemplates();
+    final service = ref.read(templatePersistenceServiceProvider);
+    for (final template in templates) {
+      await service.createTemplate(template);
+    }
+    ref.invalidateSelf();
+    return ProgramImportResult.ok(templates);
   }
 }

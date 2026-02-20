@@ -1,10 +1,14 @@
 import 'package:bodybuild/data/workouts/template_providers.dart';
+import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/template.dart';
 import 'package:bodybuild/ui/core/widget/handle_bar.dart';
 import 'package:bodybuild/ui/core/widget/menu_title.dart';
+import 'package:bodybuild/ui/core/widget/snackbars.dart';
+import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/template_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class TemplatePickerSheet extends ConsumerWidget {
   /// If true, shows as inline content (no bottom sheet styling). Default: false
@@ -24,7 +28,7 @@ class TemplatePickerSheet extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               MenuTitle(title: 'Load Template', onBack: onBack),
-              Expanded(child: _buildTemplatesList(context, templatesAsync, null)),
+              Expanded(child: _buildTemplatesList(context, ref, templatesAsync, null)),
             ],
           )
         : DraggableScrollableSheet(
@@ -42,7 +46,9 @@ class TemplatePickerSheet extends ConsumerWidget {
                   children: [
                     const HandleBar(),
                     const MenuTitle(title: 'Load Template', icon: Icons.fitness_center),
-                    Expanded(child: _buildTemplatesList(context, templatesAsync, scrollController)),
+                    Expanded(
+                      child: _buildTemplatesList(context, ref, templatesAsync, scrollController),
+                    ),
                   ],
                 ),
               );
@@ -52,6 +58,7 @@ class TemplatePickerSheet extends ConsumerWidget {
 
   Widget _buildTemplatesList(
     BuildContext context,
+    WidgetRef ref,
     AsyncValue<List<WorkoutTemplate>> templatesAsync,
     ScrollController? scrollController,
   ) {
@@ -81,7 +88,21 @@ class TemplatePickerSheet extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(vertical: 8),
           itemCount: templates.length,
           itemBuilder: (context, index) {
-            return TemplateCard(template: templates[index]);
+            return TemplateCard(
+              template: templates[index],
+              onTap: (id) async {
+                try {
+                  await ref.read(workoutManagerProvider.notifier).startWorkoutFromTemplate(id);
+                  if (!context.mounted) return;
+                  Navigator.of(context).pop();
+                  context.go('/${WorkoutScreen.routeNameActive}');
+                } catch (e) {
+                  if (context.mounted) {
+                    showErrorSnackBar(context, 'Error loading template: $e');
+                  }
+                }
+              },
+            );
           },
         );
       },

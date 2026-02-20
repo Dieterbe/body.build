@@ -1,8 +1,8 @@
 import 'package:bodybuild/data/workouts/template_providers.dart';
 import 'package:bodybuild/model/workouts/template.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
+import 'package:bodybuild/ui/interchange/import_program_dialog.dart';
 import 'package:bodybuild/ui/workouts/widget/export_program_dialog.dart';
-import 'package:bodybuild/ui/workouts/widget/import_program_dialog.dart';
 import 'package:bodybuild/ui/workouts/widget/template_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +24,7 @@ class WorkoutTemplatesScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.file_download),
             tooltip: 'Import Program',
-            onPressed: () => _showImportDialog(context),
+            onPressed: () => _showImportDialog(context, ref),
           ),
           templatesAsync.when(
             data: (templates) => IconButton(
@@ -40,7 +40,7 @@ class WorkoutTemplatesScreen extends ConsumerWidget {
       drawer: const AppNavigationDrawer(),
       body: templatesAsync.when(
         data: (templates) => templates.isEmpty
-            ? _EmptyTemplatesView(onImport: () => _showImportDialog(context))
+            ? _EmptyTemplatesView(onImport: () => _showImportDialog(context, ref))
             : ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 itemCount: templates.length,
@@ -52,15 +52,22 @@ class WorkoutTemplatesScreen extends ConsumerWidget {
     );
   }
 
-  void _showImportDialog(BuildContext context) {
-    showDialog(context: context, builder: (context) => const ImportProgramDialog());
+  void _showImportDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) => ImportProgramDialog(
+        onImport: (program) async {
+          final result = await ref
+              .read(templateManagerProvider.notifier)
+              .importTemplatesFromProgram(program);
+          if (!result.success) throw Exception(result.error);
+        },
+      ),
+    );
   }
 
   void _showExportDialog(BuildContext context, List<WorkoutTemplate> templates) {
-    showDialog(
-      context: context,
-      builder: (context) => ExportProgramDialog(templates: templates),
-    );
+    showExportProgramDialog(context, templates);
   }
 }
 

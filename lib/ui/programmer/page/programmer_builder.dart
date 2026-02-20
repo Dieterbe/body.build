@@ -1,10 +1,8 @@
-import 'dart:convert';
-
-import 'package:bodybuild/data/dataset/exercise_versioning.dart';
 import 'package:bodybuild/data/programmer/program_manager.dart';
-import 'package:bodybuild/model/interchange/program_export.dart';
+import 'package:bodybuild/service/program_export_service.dart';
+import 'package:bodybuild/ui/interchange/export_program_dialog.dart';
+import 'package:bodybuild/ui/interchange/import_program_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
@@ -104,9 +102,15 @@ class ProgrammerBuilder extends ConsumerWidget {
                     ),
                     const SizedBox(width: 16),
                     ElevatedButton.icon(
-                      onPressed: () => _exportToMobileApp(context, program),
-                      icon: const Icon(Icons.phone_android),
-                      label: const Text('Export to Mobile App'),
+                      onPressed: () => _showExportDialog(context, program),
+                      icon: const Icon(Icons.save_alt),
+                      label: const Text('Export to File'),
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton.icon(
+                      onPressed: () => _showImportDialog(context, ref),
+                      icon: const Icon(Icons.folder_open),
+                      label: const Text('Import from File'),
                     ),
                   ],
                 ),
@@ -114,6 +118,33 @@ class ProgrammerBuilder extends ConsumerWidget {
           ],
         );
       },
+    );
+  }
+
+  void _showImportDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) => ImportProgramDialog(
+        onImport: (program) async {
+          await ref.read(programManagerProvider.notifier).importProgram(program);
+        },
+      ),
+    );
+  }
+
+  void _showExportDialog(BuildContext context, ProgramState program) {
+    showDialog(
+      context: context,
+      builder: (context) => ExportProgramDialog(
+        buildExport: () async => ProgramExportService().createExportFromProgram(
+          program: program,
+          exportedFrom: 'body.build workout programmer',
+        ),
+        content: Text(
+          'Save "${program.name}" as a JSON file to import into the mobile app.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ),
     );
   }
 
@@ -144,81 +175,6 @@ class ProgrammerBuilder extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   ProgramBreakdown(program),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _exportToMobileApp(BuildContext context, ProgramState program) {
-    final export = ProgramExport(
-      exerciseDatasetVersion: exerciseDatasetVersion,
-      program: program,
-      exportedAt: DateTime.now(),
-      exportedFrom: 'body.build workout programmer',
-    );
-
-    final jsonString = const JsonEncoder.withIndent('  ').convert(export.toJson());
-
-    Clipboard.setData(ClipboardData(text: jsonString));
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Program JSON copied to clipboard! Paste it in the mobile app.'),
-        action: SnackBarAction(
-          label: 'View JSON',
-          onPressed: () => _showJsonDialog(context, jsonString),
-        ),
-      ),
-    );
-  }
-
-  void _showJsonDialog(BuildContext context, String jsonString) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Program Export JSON',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Copy this JSON and paste it in the mobile app\'s import dialog:',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: SelectableText(
-                      jsonString,
-                      style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-                    ),
-                  ),
                 ],
               ),
             ),
