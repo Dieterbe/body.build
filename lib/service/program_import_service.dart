@@ -10,7 +10,6 @@ import 'package:bodybuild/model/workouts/template.dart';
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:bodybuild/service/template_persistence_service.dart';
 import 'package:collection/collection.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 
 /// Result of a program import operation
@@ -60,29 +59,6 @@ class ProgramImportService {
       return ProgramExport.fromJson(json);
     } catch (e) {
       debugPrint('Failed to parse program export JSON: $e');
-      return null;
-    }
-  }
-
-  /// Pick a JSON file and parse it as a ProgramExport.
-  /// Returns null if the user cancelled or the file is invalid.
-  static Future<ProgramExport?> pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      withData: true,
-    );
-    if (result == null || result.files.isEmpty) return null;
-
-    final bytes = result.files.first.bytes;
-    if (bytes == null) return null;
-
-    try {
-      final jsonString = utf8.decode(bytes);
-      final json = jsonDecode(jsonString) as Map<String, dynamic>;
-      return ProgramExport.fromJson(json);
-    } catch (e) {
-      debugPrint('Failed to parse picked file: $e');
       return null;
     }
   }
@@ -156,16 +132,22 @@ class ProgramImportService {
   /// Migrate and validate a program without needing a DB.
   /// Returns the migrated [ProgramState] and whether migration was applied.
   /// Throws a [String] error message on failure.
-  static ({ProgramState program, bool migrationApplied}) migrateAndValidate(ProgramExport export) {
-    final sourceVersion = export.exerciseDatasetVersion;
-    ProgramState program;
-    bool migrationApplied = false;
+  static ProgramState migrateAndValidate(ProgramExport export) {
+    if (export.formatVersion > programExportFormatVersion) {
+      throw 'Export format v${export.formatVersion} is not supported '
+          '(max: v$programExportFormatVersion). Please update the app.';
+    }
+    if (export.exerciseDatasetVersion > exerciseDatasetVersion) {
+      throw 'Export requires exercise dataset v${export.exerciseDatasetVersion}, '
+          'but this app only supports upto v$exerciseDatasetVersion. Please update the app.';
+    }
 
-    if (sourceVersion < exerciseDatasetVersion) {
-      final result = _migrateProgram(export.program, sourceVersion);
+    ProgramState program;
+
+    if (export.exerciseDatasetVersion < exerciseDatasetVersion) {
+      final result = _migrateProgram(export.program, export.exerciseDatasetVersion);
       if (result.error != null) throw result.error!;
       program = result.program!;
-      migrationApplied = true;
     } else {
       program = export.program;
     }
@@ -173,7 +155,7 @@ class ProgramImportService {
     final validationError = _validateExercises(program);
     if (validationError != null) throw validationError;
 
-    return (program: program, migrationApplied: migrationApplied);
+    return program;
   }
 
   /// Migrate a program's exercises from one version to another

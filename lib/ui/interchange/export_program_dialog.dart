@@ -1,18 +1,18 @@
 import 'package:bodybuild/model/interchange/program_export.dart';
-import 'package:bodybuild/service/program_export_service.dart';
+import 'package:bodybuild/ui/interchange/program_file_io.dart';
 import 'package:flutter/material.dart';
 
 /// Shared dialog for exporting a program to a JSON file.
 ///
-/// [buildExport] is called when the user confirms — it should return the
+/// [onExport] is called when the user confirms — it should return the
 /// [ProgramExport] to save (e.g. built from selected templates or from the
 /// current programmer state). It may show its own UI before returning.
 /// Throw to cancel with an error.
 class ExportProgramDialog extends StatefulWidget {
-  final Future<ProgramExport> Function() buildExport;
+  final Future<ProgramExport> Function() onExport;
   final Widget content;
 
-  const ExportProgramDialog({super.key, required this.buildExport, required this.content});
+  const ExportProgramDialog({super.key, required this.onExport, required this.content});
 
   @override
   State<ExportProgramDialog> createState() => _ExportProgramDialogState();
@@ -29,8 +29,8 @@ class _ExportProgramDialogState extends State<ExportProgramDialog> {
     });
 
     try {
-      final export = await widget.buildExport();
-      await ProgramExportService().saveFile(export);
+      final export = await widget.onExport();
+      await saveProgramFile(export);
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
       if (mounted) setState(() => _error = e.toString());

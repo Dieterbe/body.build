@@ -63,7 +63,7 @@ class _TemplateExportContentState extends State<_TemplateExportContent> {
   @override
   Widget build(BuildContext context) {
     return ExportProgramDialog(
-      buildExport: _buildExport,
+      onExport: _buildExport,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

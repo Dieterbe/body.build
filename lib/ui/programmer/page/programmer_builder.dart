@@ -136,7 +136,7 @@ class ProgrammerBuilder extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => ExportProgramDialog(
-        buildExport: () async => ProgramExportService().createExportFromProgram(
+        onExport: () async => ProgramExportService().createExportFromProgram(
           program: program,
           exportedFrom: 'body.build workout programmer',
         ),

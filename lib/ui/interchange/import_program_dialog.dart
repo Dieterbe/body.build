@@ -3,6 +3,7 @@ import 'package:bodybuild/model/interchange/program_export.dart'
     show ProgramExport, programExportFormatVersion;
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/service/program_import_service.dart';
+import 'package:bodybuild/ui/interchange/program_file_io.dart';
 import 'package:flutter/material.dart';
 
 /// Shared dialog for importing a program from a JSON file.
@@ -30,40 +31,21 @@ class _ImportProgramDialogState extends State<ImportProgramDialog> {
     });
 
     try {
-      final export = await ProgramImportService.pickFile();
+      final export = await pickProgramFile();
       if (export == null) {
         if (mounted) setState(() => _isImporting = false);
         return;
       }
 
-      final versionError = _checkVersions(export);
-      if (versionError != null) {
-        if (mounted) setState(() => _error = versionError);
-        return;
-      }
+      final program = ProgramImportService.migrateAndValidate(export);
 
-      // Apply exercise migration + validation (no DB needed)
-      final result = ProgramImportService.migrateAndValidate(export);
-
-      await widget.onImport(result.program);
+      await widget.onImport(program);
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
       if (mounted) setState(() => _error = 'Import failed: $e');
     } finally {
       if (mounted) setState(() => _isImporting = false);
     }
-  }
-
-  String? _checkVersions(ProgramExport export) {
-    if (export.formatVersion > programExportFormatVersion) {
-      return 'Export format v${export.formatVersion} is not supported '
-          '(max: v$programExportFormatVersion). Please update the app.';
-    }
-    if (export.exerciseDatasetVersion > exerciseDatasetVersion) {
-      return 'Export requires exercise dataset v${export.exerciseDatasetVersion}, '
-          'but this app only supports v$exerciseDatasetVersion. Please update the app.';
-    }
-    return null;
   }
 
   @override
@@ -75,7 +57,7 @@ class _ImportProgramDialogState extends State<ImportProgramDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Select a .json file exported from body.build.',
+            'Select a body.build program .json file',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           if (_error != null) ...[
