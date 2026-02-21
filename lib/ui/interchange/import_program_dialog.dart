@@ -1,6 +1,3 @@
-import 'package:bodybuild/data/dataset/exercise_versioning.dart';
-import 'package:bodybuild/model/interchange/program_export.dart'
-    show ProgramExport, programExportFormatVersion;
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/service/program_import_service.dart';
 import 'package:bodybuild/ui/interchange/program_file_io.dart';

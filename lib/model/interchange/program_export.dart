@@ -1,3 +1,4 @@
+import 'package:bodybuild/data/dataset/exercise_versioning.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -24,4 +25,12 @@ abstract class ProgramExport with _$ProgramExport {
   }) = _ProgramExport;
 
   factory ProgramExport.fromJson(Map<String, dynamic> json) => _$ProgramExportFromJson(json);
+
+  /// Create an export from a [ProgramState], stamping the current dataset version and timestamp.
+  factory ProgramExport.fromProgram(ProgramState program, {String? exportedFrom}) => ProgramExport(
+    exerciseDatasetVersion: exerciseDatasetVersion,
+    program: program,
+    exportedAt: DateTime.now(),
+    exportedFrom: exportedFrom,
+  );
 }

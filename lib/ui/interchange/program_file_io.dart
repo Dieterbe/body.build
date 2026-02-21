@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bodybuild/model/interchange/program_export.dart';
-import 'package:bodybuild/service/program_export_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
@@ -35,7 +34,7 @@ Future<ProgramExport?> pickProgramFile() async {
 /// On web/desktop: opens a save-file dialog via file_picker.
 /// On mobile: shares via the OS share sheet.
 Future<void> saveProgramFile(ProgramExport export) async {
-  final jsonString = ProgramExportService().toJson(export);
+  final jsonString = const JsonEncoder.withIndent('  ').convert(export.toJson());
   final fileName = '${_sanitizeFileName(export.program.name)}.json';
   final bytes = Uint8List.fromList(utf8.encode(jsonString));
 

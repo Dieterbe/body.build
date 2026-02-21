@@ -1,6 +1,6 @@
 import 'package:bodybuild/model/interchange/program_export.dart';
+import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/workouts/template.dart';
-import 'package:bodybuild/service/program_export_service.dart';
 import 'package:bodybuild/ui/interchange/export_program_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -52,12 +52,12 @@ class _TemplateExportContentState extends State<_TemplateExportContent> {
   Future<ProgramExport> _buildExport() async {
     final selected = widget.templates.where((t) => _selectedIds.contains(t.id)).toList();
     if (selected.isEmpty) throw Exception('Please select at least one workout');
-    final name = _nameController.text.trim().isEmpty ? null : _nameController.text.trim();
-    return ProgramExportService().createExportFromTemplates(
-      templates: selected,
-      programName: name,
-      exportedFrom: 'body.build mobile app',
-    );
+    final name = _nameController.text.trim().isEmpty
+        ? _inferProgramName()
+        : _nameController.text.trim();
+    final workouts = selected.map((t) => t.workout).toList();
+    final program = ProgramState(name: name, workouts: workouts, builtin: false);
+    return ProgramExport.fromProgram(program, exportedFrom: 'body.build mobile app');
   }
 
   @override

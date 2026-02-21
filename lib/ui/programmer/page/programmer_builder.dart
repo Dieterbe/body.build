@@ -1,5 +1,5 @@
 import 'package:bodybuild/data/programmer/program_manager.dart';
-import 'package:bodybuild/service/program_export_service.dart';
+import 'package:bodybuild/model/interchange/program_export.dart';
 import 'package:bodybuild/ui/interchange/export_program_dialog.dart';
 import 'package:bodybuild/ui/interchange/import_program_dialog.dart';
 import 'package:flutter/material.dart';
@@ -136,10 +136,8 @@ class ProgrammerBuilder extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => ExportProgramDialog(
-        onExport: () async => ProgramExportService().createExportFromProgram(
-          program: program,
-          exportedFrom: 'body.build workout programmer',
-        ),
+        onExport: () async =>
+            ProgramExport.fromProgram(program, exportedFrom: 'body.build workout programmer'),
         content: Text(
           'Save "${program.name}" as a JSON file to import into the mobile app.',
           style: Theme.of(context).textTheme.bodyMedium,
