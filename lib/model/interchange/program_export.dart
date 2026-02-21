@@ -33,4 +33,27 @@ abstract class ProgramExport with _$ProgramExport {
     exportedAt: DateTime.now(),
     exportedFrom: exportedFrom,
   );
+
+  /// Migrate and validate a program without needing a DB.
+  /// Returns the migrated [ProgramState] and whether migration was applied.
+  /// Throws a [String] error message on failure.
+  static ProgramState migrateAndValidate(ProgramExport export) {
+    if (export.formatVersion > programExportFormatVersion) {
+      throw 'Export format v${export.formatVersion} is not supported '
+          '(max: v$programExportFormatVersion). Please update the app.';
+    }
+    if (export.exerciseDatasetVersion > exerciseDatasetVersion) {
+      throw 'Export requires exercise dataset v${export.exerciseDatasetVersion}, '
+          'but this app only supports upto v$exerciseDatasetVersion. Please update the app.';
+    }
+
+    final program = export.exerciseDatasetVersion < exerciseDatasetVersion
+        ? export.program.migrate(export.exerciseDatasetVersion)
+        : export.program;
+
+    final validationError = program.validate();
+    if (validationError != null) throw validationError;
+
+    return program;
+  }
 }

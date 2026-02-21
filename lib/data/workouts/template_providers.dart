@@ -1,5 +1,4 @@
 import 'package:bodybuild/data/workouts/workout_providers.dart';
-import 'package:bodybuild/model/interchange/program_export.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/workouts/template.dart' as model;
 import 'package:bodybuild/service/program_import_service.dart';
@@ -32,6 +31,7 @@ class TemplateManager extends _$TemplateManager {
     await service.deleteTemplate(id);
   }
 
+  /*
   /// Import a program from a [ProgramExport] (already parsed, migration applied by caller)
   Future<ProgramImportResult> importProgramFromExport(ProgramExport export) async {
     final database = ref.read(workoutDatabaseProvider);
@@ -40,7 +40,7 @@ class TemplateManager extends _$TemplateManager {
     if (result.success) ref.invalidateSelf();
     return result;
   }
-
+*/
   /// Persist an already-migrated [ProgramState] as workout templates.
   Future<ProgramImportResult> importTemplatesFromProgram(ProgramState program) async {
     final templates = program.toTemplates();
