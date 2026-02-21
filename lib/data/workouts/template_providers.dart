@@ -31,16 +31,6 @@ class TemplateManager extends _$TemplateManager {
     await service.deleteTemplate(id);
   }
 
-  /*
-  /// Import a program from a [ProgramExport] (already parsed, migration applied by caller)
-  Future<ProgramImportResult> importProgramFromExport(ProgramExport export) async {
-    final database = ref.read(workoutDatabaseProvider);
-    final importService = ProgramImportService(database);
-    final result = await importService.importProgram(export);
-    if (result.success) ref.invalidateSelf();
-    return result;
-  }
-*/
   /// Persist an already-migrated [ProgramState] as workout templates.
   Future<ProgramImportResult> importTemplatesFromProgram(ProgramState program) async {
     final templates = program.toTemplates();

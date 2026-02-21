@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/dataset/exercise_versioning.dart';
+import 'package:bodybuild/data/dataset/exercise_versioning.dart' as versioning;
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -28,32 +28,31 @@ abstract class ProgramExport with _$ProgramExport {
 
   /// Create an export from a [ProgramState], stamping the current dataset version and timestamp.
   factory ProgramExport.fromProgram(ProgramState program, {String? exportedFrom}) => ProgramExport(
-    exerciseDatasetVersion: exerciseDatasetVersion,
+    exerciseDatasetVersion: versioning.exerciseDatasetVersion,
     program: program,
     exportedAt: DateTime.now(),
     exportedFrom: exportedFrom,
   );
 
-  /// Migrate and validate a program without needing a DB.
-  /// Returns the migrated [ProgramState] and whether migration was applied.
+  /// Migrate and validate this export's program.
   /// Throws a [String] error message on failure.
-  static ProgramState migrateAndValidate(ProgramExport export) {
-    if (export.formatVersion > programExportFormatVersion) {
-      throw 'Export format v${export.formatVersion} is not supported '
+  ProgramState migrateAndValidate() {
+    if (formatVersion > programExportFormatVersion) {
+      throw 'Export format v$formatVersion is not supported '
           '(max: v$programExportFormatVersion). Please update the app.';
     }
-    if (export.exerciseDatasetVersion > exerciseDatasetVersion) {
-      throw 'Export requires exercise dataset v${export.exerciseDatasetVersion}, '
-          'but this app only supports upto v$exerciseDatasetVersion. Please update the app.';
+    if (exerciseDatasetVersion > versioning.exerciseDatasetVersion) {
+      throw 'Export requires exercise dataset v$exerciseDatasetVersion, '
+          'but this app only supports upto v${versioning.exerciseDatasetVersion}. Please update the app.';
     }
 
-    final program = export.exerciseDatasetVersion < exerciseDatasetVersion
-        ? export.program.migrate(export.exerciseDatasetVersion)
-        : export.program;
+    final p = exerciseDatasetVersion < versioning.exerciseDatasetVersion
+        ? program.migrate(exerciseDatasetVersion)
+        : program;
 
-    final validationError = program.validate();
+    final validationError = p.validate();
     if (validationError != null) throw validationError;
 
-    return program;
+    return p;
   }
 }

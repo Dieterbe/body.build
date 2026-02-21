@@ -1,4 +1,3 @@
-import 'package:bodybuild/model/interchange/program_export.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/ui/interchange/program_file_io.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class _ImportProgramDialogState extends State<ImportProgramDialog> {
         return;
       }
 
-      final program = ProgramExport.migrateAndValidate(export);
+      final program = export.migrateAndValidate();
 
       await widget.onImport(program);
       if (mounted) Navigator.of(context).pop();
