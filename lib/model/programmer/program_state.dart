@@ -42,6 +42,7 @@ abstract class ProgramState with _$ProgramState {
   }
 
   /// Migrate a program's exercises from one version to another
+  /// TODO: this is really ugly. i think we can do this straight from the object, without using json
   ProgramState migrate(int fromVersion) {
     final rawJson = toJson();
 

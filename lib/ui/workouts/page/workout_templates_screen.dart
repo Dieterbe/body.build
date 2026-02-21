@@ -56,12 +56,8 @@ class WorkoutTemplatesScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => ImportProgramDialog(
-        onImport: (program) async {
-          final result = await ref
-              .read(templateManagerProvider.notifier)
-              .importTemplatesFromProgram(program);
-          if (!result.success) throw Exception(result.error);
-        },
+        onImport: (program) =>
+            ref.read(templateManagerProvider.notifier).importTemplatesFromProgram(program),
       ),
     );
   }

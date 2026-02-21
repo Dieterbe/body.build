@@ -84,7 +84,7 @@ class Measurements extends Table {
 class Templates extends Table {
   TextColumn get id => text()();
   TextColumn get name =>
-      text()(); // we don't use this field consistently everywhere. should this be in sync with the workout? or can we just drop it?
+      text()(); // TODO: we don't use this field consistently everywhere. should this be in sync with the workout? or can we just drop it?
   TextColumn get description => text().nullable()();
   BoolColumn get isBuiltin => boolean().withDefault(const Constant(false))();
   TextColumn get workoutJson => text()(); // JSON-encoded programmer.Workout

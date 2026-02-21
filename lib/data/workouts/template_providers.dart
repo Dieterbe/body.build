@@ -1,7 +1,6 @@
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/model/workouts/template.dart' as model;
-import 'package:bodybuild/service/program_import_service.dart';
 import 'package:bodybuild/service/template_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -32,13 +31,12 @@ class TemplateManager extends _$TemplateManager {
   }
 
   /// Persist an already-migrated [ProgramState] as workout templates.
-  Future<ProgramImportResult> importTemplatesFromProgram(ProgramState program) async {
+  Future<void> importTemplatesFromProgram(ProgramState program) async {
     final templates = program.toTemplates();
     final service = ref.read(templatePersistenceServiceProvider);
     for (final template in templates) {
       await service.createTemplate(template);
     }
     ref.invalidateSelf();
-    return ProgramImportResult.ok(templates);
   }
 }
