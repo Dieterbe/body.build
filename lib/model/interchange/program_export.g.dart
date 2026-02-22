@@ -7,7 +7,7 @@ part of 'program_export.dart';
 // **************************************************************************
 
 _ProgramExport _$ProgramExportFromJson(Map<String, dynamic> json) => _ProgramExport(
-  formatVersion: (json['formatVersion'] as num?)?.toInt() ?? programExportFormatVersion,
+  formatVersion: (json['formatVersion'] as num).toInt(),
   exerciseDatasetVersion: (json['exerciseDatasetVersion'] as num).toInt(),
   program: ProgramState.fromJson(json['program'] as Map<String, dynamic>),
   exportedAt: json['exportedAt'] == null ? null : DateTime.parse(json['exportedAt'] as String),

@@ -14,10 +14,7 @@ const int programExportFormatVersion = 1;
 @freezed
 abstract class ProgramExport with _$ProgramExport {
   const factory ProgramExport({
-    /// Version of the interchange format schema (for future migrations)
-    @Default(programExportFormatVersion) int formatVersion,
-
-    /// Version of the exercise dataset used when creating this export
+    required int formatVersion,
     required int exerciseDatasetVersion,
     required ProgramState program,
     DateTime? exportedAt,
@@ -28,6 +25,7 @@ abstract class ProgramExport with _$ProgramExport {
 
   /// Create an export from a [ProgramState], stamping the current dataset version and timestamp.
   factory ProgramExport.fromProgram(ProgramState program, {String? exportedFrom}) => ProgramExport(
+    formatVersion: programExportFormatVersion,
     exerciseDatasetVersion: versioning.exerciseDatasetVersion,
     program: program,
     exportedAt: DateTime.now(),

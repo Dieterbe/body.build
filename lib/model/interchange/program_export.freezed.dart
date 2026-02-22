@@ -15,9 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProgramExport {
 
-/// Version of the interchange format schema (for future migrations)
- int get formatVersion;/// Version of the exercise dataset used when creating this export
- int get exerciseDatasetVersion; ProgramState get program; DateTime? get exportedAt; String? get exportedFrom;
+ int get formatVersion; int get exerciseDatasetVersion; ProgramState get program; DateTime? get exportedAt; String? get exportedFrom;
 /// Create a copy of ProgramExport
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -217,12 +215,10 @@ return $default(_that.formatVersion,_that.exerciseDatasetVersion,_that.program,_
 @JsonSerializable()
 
 class _ProgramExport extends ProgramExport {
-  const _ProgramExport({this.formatVersion = programExportFormatVersion, required this.exerciseDatasetVersion, required this.program, this.exportedAt, this.exportedFrom}): super._();
+  const _ProgramExport({required this.formatVersion, required this.exerciseDatasetVersion, required this.program, this.exportedAt, this.exportedFrom}): super._();
   factory _ProgramExport.fromJson(Map<String, dynamic> json) => _$ProgramExportFromJson(json);
 
-/// Version of the interchange format schema (for future migrations)
-@override@JsonKey() final  int formatVersion;
-/// Version of the exercise dataset used when creating this export
+@override final  int formatVersion;
 @override final  int exerciseDatasetVersion;
 @override final  ProgramState program;
 @override final  DateTime? exportedAt;
