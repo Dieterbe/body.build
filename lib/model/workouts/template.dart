@@ -51,7 +51,9 @@ abstract class WorkoutTemplate with _$WorkoutTemplate {
           if (round < sets.n) {
             final exerciseId = sets.ex?.id;
             if (exerciseId == null) {
-              throw ('Exercise "${sets.ex?.id}" not found - cannot expand workout ${workout.name}');
+              throw Exception(
+                'Exercise not found in workout "${workout.name}": ${sets.ex?.id ?? 'null'}',
+              );
             }
             result.add((exerciseId: exerciseId, tweaks: sets.tweakOptions));
           }

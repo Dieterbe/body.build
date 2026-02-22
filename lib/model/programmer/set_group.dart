@@ -3,7 +3,6 @@ import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/data/dataset/rating.dart';
 import 'package:bodybuild/data/dataset/tweak.dart';
 import 'package:bodybuild/model/programmer/parameters.dart';
-import 'package:bodybuild/util/iterable_extension.dart';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

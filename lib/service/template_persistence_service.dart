@@ -12,15 +12,20 @@ class TemplatePersistenceService {
 
   // Convert Drift Template to model WorkoutTemplate
   model.WorkoutTemplate _toModel(db.Template template) {
+    final decodedJson = json.decode(template.workoutJson);
+    if (decodedJson is! Map<String, dynamic>) {
+      throw FormatException(
+        'Invalid JSON format in template ${template.id}: expected Map, got ${decodedJson.runtimeType}',
+      );
+    }
+
     return model.WorkoutTemplate(
       id: template.id,
       description: template.description,
       isBuiltin: template.isBuiltin,
       createdAt: template.createdAt,
       updatedAt: template.updatedAt,
-      workout: programmer.Workout.fromJson(
-        json.decode(template.workoutJson) as Map<String, dynamic>,
-      ),
+      workout: programmer.Workout.fromJson(decodedJson),
     );
   }
 
