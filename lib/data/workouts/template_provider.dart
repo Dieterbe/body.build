@@ -20,16 +20,6 @@ class TemplateManager extends _$TemplateManager {
     return service.watchAllTemplates();
   }
 
-  Future<String> createTemplate(model.WorkoutTemplate template) async {
-    final service = ref.read(templatePersistenceServiceProvider);
-    return service.createTemplate(template);
-  }
-
-  Future<void> deleteTemplate(String id) async {
-    final service = ref.read(templatePersistenceServiceProvider);
-    await service.deleteTemplate(id);
-  }
-
   /// Persist an already-migrated [ProgramState] as workout templates.
   Future<void> importTemplatesFromProgram(ProgramState program) async {
     final templates = program.toTemplates();
