@@ -10,8 +10,7 @@ part of 'template_providers.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(templatePersistenceService)
-const templatePersistenceServiceProvider =
-    TemplatePersistenceServiceProvider._();
+const templatePersistenceServiceProvider = TemplatePersistenceServiceProvider._();
 
 final class TemplatePersistenceServiceProvider
     extends
@@ -37,9 +36,8 @@ final class TemplatePersistenceServiceProvider
 
   @$internal
   @override
-  $ProviderElement<TemplatePersistenceService> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<TemplatePersistenceService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   TemplatePersistenceService create(Ref ref) {
@@ -55,15 +53,13 @@ final class TemplatePersistenceServiceProvider
   }
 }
 
-String _$templatePersistenceServiceHash() =>
-    r'1f113c89e0aeceb6af4a26b378cdc0e90743f340';
+String _$templatePersistenceServiceHash() => r'1f113c89e0aeceb6af4a26b378cdc0e90743f340';
 
 @ProviderFor(TemplateManager)
 const templateManagerProvider = TemplateManagerProvider._();
 
 final class TemplateManagerProvider
-    extends
-        $StreamNotifierProvider<TemplateManager, List<model.WorkoutTemplate>> {
+    extends $StreamNotifierProvider<TemplateManager, List<model.WorkoutTemplate>> {
   const TemplateManagerProvider._()
     : super(
         from: null,
@@ -83,28 +79,20 @@ final class TemplateManagerProvider
   TemplateManager create() => TemplateManager();
 }
 
-String _$templateManagerHash() => r'1317d8de7543baf10f23050109baf94e6149176b';
+String _$templateManagerHash() => r'833a2bcf4b5b3b68bd5ab8bfa95882ccf1b8b070';
 
-abstract class _$TemplateManager
-    extends $StreamNotifier<List<model.WorkoutTemplate>> {
+abstract class _$TemplateManager extends $StreamNotifier<List<model.WorkoutTemplate>> {
   Stream<List<model.WorkoutTemplate>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
     final ref =
-        this.ref
-            as $Ref<
-              AsyncValue<List<model.WorkoutTemplate>>,
-              List<model.WorkoutTemplate>
-            >;
+        this.ref as $Ref<AsyncValue<List<model.WorkoutTemplate>>, List<model.WorkoutTemplate>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<
-                AsyncValue<List<model.WorkoutTemplate>>,
-                List<model.WorkoutTemplate>
-              >,
+              AnyNotifier<AsyncValue<List<model.WorkoutTemplate>>, List<model.WorkoutTemplate>>,
               AsyncValue<List<model.WorkoutTemplate>>,
               Object?,
               Object?

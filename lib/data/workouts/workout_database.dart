@@ -83,8 +83,6 @@ class Measurements extends Table {
 // Templates table - stores workout templates (like Day A, Day B)
 class Templates extends Table {
   TextColumn get id => text()();
-  TextColumn get name =>
-      text()(); // TODO: we don't use this field consistently everywhere. should this be in sync with the workout? or can we just drop it?
   TextColumn get description => text().nullable()();
   BoolColumn get isBuiltin => boolean().withDefault(const Constant(false))();
   TextColumn get workoutJson => text()(); // JSON-encoded programmer.Workout
@@ -413,7 +411,6 @@ class WorkoutDatabase extends _$WorkoutDatabase {
       await into(templates).insert(
         TemplatesCompanion.insert(
           id: template.id,
-          name: template.name,
           description: Value(template.description),
           isBuiltin: Value(template.isBuiltin),
           workoutJson: json.encode(template.workout.toJson()),

@@ -47,7 +47,6 @@ class TemplatePersistenceService {
     await _database.insertTemplate(
       db.TemplatesCompanion.insert(
         id: template.id,
-        name: template.name,
         description: Value(template.description),
         isBuiltin: Value(template.isBuiltin),
         workoutJson: json.encode(template.workout.toJson()),

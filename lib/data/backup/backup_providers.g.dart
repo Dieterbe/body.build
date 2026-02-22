@@ -13,12 +13,7 @@ part of 'backup_providers.dart';
 const databaseBackupServiceProvider = DatabaseBackupServiceProvider._();
 
 final class DatabaseBackupServiceProvider
-    extends
-        $FunctionalProvider<
-          DatabaseBackupService,
-          DatabaseBackupService,
-          DatabaseBackupService
-        >
+    extends $FunctionalProvider<DatabaseBackupService, DatabaseBackupService, DatabaseBackupService>
     with $Provider<DatabaseBackupService> {
   const DatabaseBackupServiceProvider._()
     : super(
@@ -36,9 +31,8 @@ final class DatabaseBackupServiceProvider
 
   @$internal
   @override
-  $ProviderElement<DatabaseBackupService> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<DatabaseBackupService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   DatabaseBackupService create(Ref ref) {
@@ -54,5 +48,4 @@ final class DatabaseBackupServiceProvider
   }
 }
 
-String _$databaseBackupServiceHash() =>
-    r'b5b6b71fad62ffc76a09a6370304487174669648';
+String _$databaseBackupServiceHash() => r'b5b6b71fad62ffc76a09a6370304487174669648';

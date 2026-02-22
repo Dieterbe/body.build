@@ -42,74 +42,36 @@ abstract class ProgramState with _$ProgramState {
   }
 
   /// Migrate a program's exercises from one version to another
-  /// TODO: this is really ugly. i think we can do this straight from the object, without using json
   ProgramState migrate(int fromVersion) {
-    final rawJson = toJson();
+    return copyWith(
+      workouts: workouts.map((workout) {
+        return workout.copyWith(
+          setGroups: workout.setGroups.map((setGroup) {
+            return setGroup.copyWith(
+              sets: setGroup.sets.map((sets) {
+                final exerciseId = sets.ex?.id;
+                if (exerciseId == null) return sets;
 
-    final workouts = rawJson['workouts'] as List<dynamic>? ?? [];
-    final updatedWorkouts = <Map<String, dynamic>>[];
+                final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+                  exerciseId,
+                  sets.tweakOptions,
+                  fromVersion,
+                  exerciseDatasetVersion,
+                );
 
-    for (final workoutData in workouts) {
-      final workout = workoutData as Map<String, dynamic>;
-      final setGroups = workout['setGroups'] as List<dynamic>? ?? [];
-      final updatedSetGroups = <Map<String, dynamic>>[];
+                if (newId == exerciseId && mapEquals(newTweaks, sets.tweakOptions)) return sets;
 
-      for (final setGroupData in setGroups) {
-        final setGroup = setGroupData as Map<String, dynamic>;
-        final sets = setGroup['sets'] as List<dynamic>? ?? [];
-        final updatedSets = <Map<String, dynamic>>[];
-
-        for (final setData in sets) {
-          final set = setData as Map<String, dynamic>;
-          final exerciseId = set['ex'] as String?;
-          final tweakOptions =
-              (set['tweakOptions'] as Map<String, dynamic>?)?.map(
-                (k, v) => MapEntry(k, v.toString()),
-              ) ??
-              <String, String>{};
-
-          if (exerciseId == null) {
-            updatedSets.add(set);
-            continue;
-          }
-
-          final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
-            exerciseId,
-            tweakOptions,
-            fromVersion,
-            exerciseDatasetVersion,
-          );
-
-          if (newId == exerciseId && mapEquals(newTweaks, tweakOptions)) {
-            updatedSets.add(set);
-            continue;
-          }
-
-          // Verify the new exercise exists
-          final resolvedExercise = exes.firstWhereOrNull((ex) => ex.id == newId);
-          if (resolvedExercise == null) {
-            throw 'Migration failed: exercise "$newId" not found';
-          }
-          final updatedSet = Map<String, dynamic>.of(set);
-          updatedSet['ex'] = newId;
-          updatedSet['tweakOptions'] = newTweaks;
-          updatedSets.add(updatedSet);
-        }
-
-        final updatedSetGroup = Map<String, dynamic>.of(setGroup);
-        updatedSetGroup['sets'] = updatedSets;
-        updatedSetGroups.add(updatedSetGroup);
-      }
-
-      final updatedWorkout = Map<String, dynamic>.of(workout);
-      updatedWorkout['setGroups'] = updatedSetGroups;
-      updatedWorkouts.add(updatedWorkout);
-    }
-
-    final updatedJson = Map<String, dynamic>.of(rawJson);
-    updatedJson['workouts'] = updatedWorkouts;
-
-    return ProgramState.fromJson(updatedJson);
+                final resolvedExercise = exes.firstWhereOrNull((ex) => ex.id == newId);
+                if (resolvedExercise == null) {
+                  throw 'Migration failed: exercise "$newId" not found';
+                }
+                return sets.copyWith(ex: resolvedExercise, tweakOptions: newTweaks);
+              }).toList(),
+            );
+          }).toList(),
+        );
+      }).toList(),
+    );
   }
 
   /// Validate that all exercises in the program exist in the current dataset

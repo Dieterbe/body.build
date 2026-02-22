@@ -15,8 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Sets {
 
- int get intensity;@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? get ex;// TODO can we just track the ID instead?
- int get n;@JsonKey(includeToJson: false) bool get changeEx; Map<String, String> get tweakOptions;
+ int get intensity;@JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? get ex; int get n;@JsonKey(includeToJson: false) bool get changeEx; Map<String, String> get tweakOptions;
 /// Create a copy of Sets
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -212,7 +211,6 @@ class _Sets extends Sets {
 
 @override final  int intensity;
 @override@JsonKey(toJson: _exToJson, fromJson: _exFromJson) final  Ex? ex;
-// TODO can we just track the ID instead?
 @override@JsonKey() final  int n;
 @override@JsonKey(includeToJson: false) final  bool changeEx;
  final  Map<String, String> _tweakOptions;

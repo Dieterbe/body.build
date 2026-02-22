@@ -19,8 +19,7 @@ abstract class Sets with _$Sets {
   const Sets._(); // to support custom methods
   const factory Sets(
     int intensity, {
-    @JsonKey(toJson: _exToJson, fromJson: _exFromJson)
-    Ex? ex, // TODO can we just track the ID instead?
+    @JsonKey(toJson: _exToJson, fromJson: _exFromJson) Ex? ex,
     @Default(1) int n,
     @JsonKey(includeToJson: false) @Default(false) bool changeEx,
     @Default({}) Map<String, String> tweakOptions, // Map of tweak name to selected option

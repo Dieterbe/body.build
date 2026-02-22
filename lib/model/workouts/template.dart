@@ -29,14 +29,12 @@ abstract class WorkoutTemplate with _$WorkoutTemplate {
       recruitments,
       sets,
     ) {
-      final exercise = sets.ex;
-      if (exercise == null) return recruitments;
+      if (sets.ex == null) return recruitments;
 
       // Accumulate recruitment for each muscle group
       return {
-        ...recruitments, // TODO do we need this line?
         for (final pg in ProgramGroup.values)
-          pg: (recruitments[pg] ?? 0) + exercise.recruitment(pg, sets.tweakOptions).volume * sets.n,
+          pg: (recruitments[pg] ?? 0) + sets.ex!.recruitment(pg, sets.tweakOptions).volume * sets.n,
       };
     });
   }

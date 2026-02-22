@@ -10,8 +10,7 @@ part of 'measurement_providers.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(measurementPersistenceService)
-const measurementPersistenceServiceProvider =
-    MeasurementPersistenceServiceProvider._();
+const measurementPersistenceServiceProvider = MeasurementPersistenceServiceProvider._();
 
 final class MeasurementPersistenceServiceProvider
     extends
@@ -37,9 +36,8 @@ final class MeasurementPersistenceServiceProvider
 
   @$internal
   @override
-  $ProviderElement<MeasurementPersistenceService> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
+  $ProviderElement<MeasurementPersistenceService> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
   MeasurementPersistenceService create(Ref ref) {
@@ -50,15 +48,12 @@ final class MeasurementPersistenceServiceProvider
   Override overrideWithValue(MeasurementPersistenceService value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MeasurementPersistenceService>(
-        value,
-      ),
+      providerOverride: $SyncValueProvider<MeasurementPersistenceService>(value),
     );
   }
 }
 
-String _$measurementPersistenceServiceHash() =>
-    r'b613974f5d2829eff1946ac1a0d50bfb492e1b2c';
+String _$measurementPersistenceServiceHash() => r'b613974f5d2829eff1946ac1a0d50bfb492e1b2c';
 
 /// Measurement manager - single source of truth for all measurement state
 /// Uses Drift streams to automatically update when measurement data changes
@@ -91,8 +86,7 @@ final class MeasurementManagerProvider
   MeasurementManager create() => MeasurementManager();
 }
 
-String _$measurementManagerHash() =>
-    r'49e342d504107efd5ccc664536a6af96a9bd2fff';
+String _$measurementManagerHash() => r'49e342d504107efd5ccc664536a6af96a9bd2fff';
 
 /// Measurement manager - single source of truth for all measurement state
 /// Uses Drift streams to automatically update when measurement data changes
@@ -130,9 +124,7 @@ final class MeasurementsByTypeProvider
           List<Measurement>,
           Stream<List<Measurement>>
         >
-    with
-        $FutureModifier<List<Measurement>>,
-        $StreamProvider<List<Measurement>> {
+    with $FutureModifier<List<Measurement>>, $StreamProvider<List<Measurement>> {
   /// Provider to get measurements filtered by type
   const MeasurementsByTypeProvider._({
     required MeasurementsByTypeFamily super.from,
@@ -157,9 +149,8 @@ final class MeasurementsByTypeProvider
 
   @$internal
   @override
-  $StreamProviderElement<List<Measurement>> $createElement(
-    $ProviderPointer pointer,
-  ) => $StreamProviderElement(pointer);
+  $StreamProviderElement<List<Measurement>> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
 
   @override
   Stream<List<Measurement>> create(Ref ref) {
@@ -178,8 +169,7 @@ final class MeasurementsByTypeProvider
   }
 }
 
-String _$measurementsByTypeHash() =>
-    r'a9bdf61b49b219eb0df066d980e677cc1a1dabef';
+String _$measurementsByTypeHash() => r'a9bdf61b49b219eb0df066d980e677cc1a1dabef';
 
 /// Provider to get measurements filtered by type
 
@@ -211,12 +201,7 @@ const latestMeasurementProvider = LatestMeasurementProvider._();
 /// Provider to get the latest measurement (for determining default unit)
 
 final class LatestMeasurementProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<Measurement?>,
-          Measurement?,
-          FutureOr<Measurement?>
-        >
+    extends $FunctionalProvider<AsyncValue<Measurement?>, Measurement?, FutureOr<Measurement?>>
     with $FutureModifier<Measurement?>, $FutureProvider<Measurement?> {
   /// Provider to get the latest measurement (for determining default unit)
   const LatestMeasurementProvider._()
@@ -235,9 +220,8 @@ final class LatestMeasurementProvider
 
   @$internal
   @override
-  $FutureProviderElement<Measurement?> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $FutureProviderElement<Measurement?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<Measurement?> create(Ref ref) {
@@ -255,12 +239,7 @@ const latestMeasurementByTypeProvider = LatestMeasurementByTypeFamily._();
 /// Provider to get the latest measurement by type
 
 final class LatestMeasurementByTypeProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<Measurement?>,
-          Measurement?,
-          FutureOr<Measurement?>
-        >
+    extends $FunctionalProvider<AsyncValue<Measurement?>, Measurement?, FutureOr<Measurement?>>
     with $FutureModifier<Measurement?>, $FutureProvider<Measurement?> {
   /// Provider to get the latest measurement by type
   const LatestMeasurementByTypeProvider._({
@@ -286,9 +265,8 @@ final class LatestMeasurementByTypeProvider
 
   @$internal
   @override
-  $FutureProviderElement<Measurement?> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  $FutureProviderElement<Measurement?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
   FutureOr<Measurement?> create(Ref ref) {
@@ -298,8 +276,7 @@ final class LatestMeasurementByTypeProvider
 
   @override
   bool operator ==(Object other) {
-    return other is LatestMeasurementByTypeProvider &&
-        other.argument == argument;
+    return other is LatestMeasurementByTypeProvider && other.argument == argument;
   }
 
   @override
@@ -308,8 +285,7 @@ final class LatestMeasurementByTypeProvider
   }
 }
 
-String _$latestMeasurementByTypeHash() =>
-    r'6e903dfbb258d2b9dbe08664f4ba1be593c694a0';
+String _$latestMeasurementByTypeHash() => r'6e903dfbb258d2b9dbe08664f4ba1be593c694a0';
 
 /// Provider to get the latest measurement by type
 
