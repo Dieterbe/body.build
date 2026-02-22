@@ -4,7 +4,7 @@ import 'package:bodybuild/model/workouts/template.dart' as model;
 import 'package:bodybuild/service/template_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'template_providers.g.dart';
+part 'template_provider.g.dart';
 
 @riverpod
 TemplatePersistenceService templatePersistenceService(Ref ref) {

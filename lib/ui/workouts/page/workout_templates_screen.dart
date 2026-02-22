@@ -1,4 +1,4 @@
-import 'package:bodybuild/data/workouts/template_providers.dart';
+import 'package:bodybuild/data/workouts/template_provider.dart';
 import 'package:bodybuild/model/workouts/template.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/interchange/import_program_dialog.dart';
