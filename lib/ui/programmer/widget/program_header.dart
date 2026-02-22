@@ -6,9 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
+import 'package:bodybuild/model/programmer/program_state.dart';
 import 'package:bodybuild/ui/core/widget/data_manager.dart';
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
+import 'package:bodybuild/model/interchange/program_export.dart';
+import 'package:bodybuild/ui/interchange/export_program_dialog.dart';
+import 'package:bodybuild/ui/interchange/import_program_dialog.dart';
 
 class ProgramHeader extends ConsumerWidget {
   const ProgramHeader({super.key});
@@ -54,6 +58,31 @@ class ProgramHeader extends ConsumerWidget {
       return null;
     }
 
+    void showImportDialog(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (context) => ImportProgramDialog(
+          onImport: (program, ref) async {
+            await ref.read(programManagerProvider.notifier).importProgram(program);
+          },
+        ),
+      );
+    }
+
+    void showExportDialog(BuildContext context, ProgramState program) {
+      showDialog(
+        context: context,
+        builder: (context) => ExportProgramDialog(
+          onExport: () async =>
+              ProgramExport.fromProgram(program, exportedFrom: 'body.build workout programmer'),
+          content: Text(
+            'Save "${program.name}" as a JSON file to import into the mobile app.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      );
+    }
+
     return setup.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Text('Error: $error'),
@@ -69,6 +98,8 @@ class ProgramHeader extends ConsumerWidget {
               onRename: onRename,
               onDuplicate: onDuplicate,
               onDelete: state.currentProgram.builtin ? null : onDelete,
+              onExport: () => showExportDialog(context, state.currentProgram),
+              onImport: () => showImportDialog(context),
             ),
             const SizedBox(height: 20),
             Row(

@@ -14,6 +14,9 @@ class DataManager extends StatelessWidget {
   // nameNew is guaranteed to be unique
   final Function(String nameOld, String nameNew) onDuplicate;
   final Function(String name)? onDelete;
+  // Optional export/import actions for programs only
+  final VoidCallback? onExport;
+  final VoidCallback? onImport;
 
   const DataManager({
     super.key,
@@ -23,6 +26,8 @@ class DataManager extends StatelessWidget {
     required this.onRename,
     required this.onDuplicate,
     this.onDelete,
+    this.onExport,
+    this.onImport,
   });
 
   @override
@@ -146,6 +151,45 @@ class DataManager extends StatelessWidget {
                         _showDeleteDialog(context, opts.first);
                       },
                     ),
+                    if (onExport != null || onImport != null)
+                      PopupMenuButton<String>(
+                        icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.primary),
+                        tooltip: 'More options',
+                        onSelected: (String value) {
+                          switch (value) {
+                            case 'export':
+                              onExport?.call();
+                              break;
+                            case 'import':
+                              onImport?.call();
+                              break;
+                          }
+                        },
+                        itemBuilder: (BuildContext context) => [
+                          if (onExport != null)
+                            const PopupMenuItem<String>(
+                              value: 'export',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.save_alt),
+                                  SizedBox(width: 8),
+                                  Text('Export to File'),
+                                ],
+                              ),
+                            ),
+                          if (onImport != null)
+                            const PopupMenuItem<String>(
+                              value: 'import',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.folder_open),
+                                  SizedBox(width: 8),
+                                  Text('Import from File'),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
                   ],
                 ),
               ),

@@ -1,7 +1,4 @@
 import 'package:bodybuild/data/programmer/program_manager.dart';
-import 'package:bodybuild/model/interchange/program_export.dart';
-import 'package:bodybuild/ui/interchange/export_program_dialog.dart';
-import 'package:bodybuild/ui/interchange/import_program_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/programmer/setup.dart';
@@ -100,49 +97,12 @@ class ProgrammerBuilder extends ConsumerWidget {
                       icon: const Icon(Icons.analytics),
                       label: const Text('View Program Breakdown'),
                     ),
-                    const SizedBox(width: 16),
-                    ElevatedButton.icon(
-                      onPressed: () => _showExportDialog(context, program),
-                      icon: const Icon(Icons.save_alt),
-                      label: const Text('Export to File'),
-                    ),
-                    const SizedBox(width: 16),
-                    ElevatedButton.icon(
-                      onPressed: () => _showImportDialog(context),
-                      icon: const Icon(Icons.folder_open),
-                      label: const Text('Import from File'),
-                    ),
                   ],
                 ),
               ),
           ],
         );
       },
-    );
-  }
-
-  void _showImportDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => ImportProgramDialog(
-        onImport: (program, ref) async {
-          await ref.read(programManagerProvider.notifier).importProgram(program);
-        },
-      ),
-    );
-  }
-
-  void _showExportDialog(BuildContext context, ProgramState program) {
-    showDialog(
-      context: context,
-      builder: (context) => ExportProgramDialog(
-        onExport: () async =>
-            ProgramExport.fromProgram(program, exportedFrom: 'body.build workout programmer'),
-        content: Text(
-          'Save "${program.name}" as a JSON file to import into the mobile app.',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-      ),
     );
   }
 
