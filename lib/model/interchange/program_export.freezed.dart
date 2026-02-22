@@ -216,8 +216,8 @@ return $default(_that.formatVersion,_that.exerciseDatasetVersion,_that.program,_
 /// @nodoc
 @JsonSerializable()
 
-class _ProgramExport implements ProgramExport {
-  const _ProgramExport({this.formatVersion = programExportFormatVersion, required this.exerciseDatasetVersion, required this.program, this.exportedAt, this.exportedFrom});
+class _ProgramExport extends ProgramExport {
+  const _ProgramExport({this.formatVersion = programExportFormatVersion, required this.exerciseDatasetVersion, required this.program, this.exportedAt, this.exportedFrom}): super._();
   factory _ProgramExport.fromJson(Map<String, dynamic> json) => _$ProgramExportFromJson(json);
 
 /// Version of the interchange format schema (for future migrations)

@@ -34,6 +34,8 @@ abstract class ProgramExport with _$ProgramExport {
     exportedFrom: exportedFrom,
   );
 
+  const ProgramExport._(); // to support custom methods
+
   /// Migrate and validate this export's program.
   /// Throws a [String] error message on failure.
   ProgramState migrateAndValidate() {
