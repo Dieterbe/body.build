@@ -58,18 +58,19 @@ class ProgramHeader extends ConsumerWidget {
       return null;
     }
 
-    void showImportDialog(BuildContext context) {
+    void _showImportDialog(BuildContext context, List<String> existingNames) {
       showDialog(
         context: context,
         builder: (context) => ImportProgramDialog(
           onImport: (program, ref) async {
             await ref.read(programManagerProvider.notifier).importProgram(program);
           },
+          existingNames: existingNames,
         ),
       );
     }
 
-    void showExportDialog(BuildContext context, ProgramState program) {
+    void _showExportDialog(BuildContext context, ProgramState program) {
       showDialog(
         context: context,
         builder: (context) => ExportProgramDialog(
@@ -98,8 +99,8 @@ class ProgramHeader extends ConsumerWidget {
               onRename: onRename,
               onDuplicate: onDuplicate,
               onDelete: state.currentProgram.builtin ? null : onDelete,
-              onExport: () => showExportDialog(context, state.currentProgram),
-              onImport: () => showImportDialog(context),
+              onExport: () => _showExportDialog(context, state.currentProgram),
+              onImport: () => _showImportDialog(context, getOpts(state)),
             ),
             const SizedBox(height: 20),
             Row(
