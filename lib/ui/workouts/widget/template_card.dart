@@ -1,16 +1,15 @@
-import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/template.dart';
 import 'package:bodybuild/ui/core/widget/recruitment_bar_chart.dart';
-import 'package:bodybuild/ui/core/widget/snackbars.dart';
-import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class TemplateCard extends ConsumerWidget {
-  const TemplateCard({super.key, required this.template});
+  const TemplateCard({super.key, required this.template, this.onTap});
 
   final WorkoutTemplate template;
+
+  /// If `null`, the card is not tappable.
+  final void Function(String templateId)? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Padding(
@@ -18,7 +17,7 @@ class TemplateCard extends ConsumerWidget {
     child: Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => _handleTemplateSelection(context, ref),
+        onTap: onTap == null ? null : () => onTap!(template.id),
         borderRadius: BorderRadius.circular(12),
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -76,7 +75,7 @@ class TemplateCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${template.sets.length} sets',
+                    '${template.toFlatSets().length} sets',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -88,7 +87,7 @@ class TemplateCard extends ConsumerWidget {
                   Icon(Icons.list, size: 14, color: Theme.of(context).colorScheme.onSurfaceVariant),
                   const SizedBox(width: 4),
                   Text(
-                    '${template.sets.map((s) => s.exerciseId).toSet().length} exercises',
+                    '${template.toFlatSets().map((s) => s.exerciseId).toSet().length} exercises',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -103,17 +102,4 @@ class TemplateCard extends ConsumerWidget {
       ),
     ],
   );
-
-  Future<void> _handleTemplateSelection(BuildContext context, WidgetRef ref) async {
-    try {
-      await ref.read(workoutManagerProvider.notifier).startWorkoutFromTemplate(template.id);
-      if (!context.mounted) return;
-      Navigator.of(context).pop();
-      context.go('/${WorkoutScreen.routeNameActive}');
-    } catch (e) {
-      if (context.mounted) {
-        showErrorSnackBar(context, 'Error loading template: $e');
-      }
-    }
-  }
 }

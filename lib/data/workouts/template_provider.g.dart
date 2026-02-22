@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'template_providers.dart';
+part of 'template_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -79,7 +79,7 @@ final class TemplateManagerProvider
   TemplateManager create() => TemplateManager();
 }
 
-String _$templateManagerHash() => r'd2dd1ca39c861c2036f15bf570274aea1f897c81';
+String _$templateManagerHash() => r'833a2bcf4b5b3b68bd5ab8bfa95882ccf1b8b070';
 
 abstract class _$TemplateManager extends $StreamNotifier<List<model.WorkoutTemplate>> {
   Stream<List<model.WorkoutTemplate>> build();

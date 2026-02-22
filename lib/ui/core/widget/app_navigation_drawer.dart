@@ -12,6 +12,7 @@ import 'package:bodybuild/ui/anatomy/page/articulations.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
+import 'package:bodybuild/ui/workouts/page/workout_templates_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/core/page/home.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
@@ -156,6 +157,16 @@ class AppNavigationDrawer extends ConsumerWidget {
                     routeName: WorkoutsScreen.routeName,
                     currentRoute: currentRoute,
                     onTap: () => _navigateAndClose(context, WorkoutsScreen.routeName),
+                    isCompact: isCompact,
+                  ),
+                if (isMobileApp() || devMode)
+                  _buildNavigationItem(
+                    context: context,
+                    icon: Icons.library_books,
+                    title: 'Workout Templates',
+                    routeName: WorkoutTemplatesScreen.routeName,
+                    currentRoute: currentRoute,
+                    onTap: () => _navigateAndClose(context, WorkoutTemplatesScreen.routeName),
                     isCompact: isCompact,
                   ),
                 if (isTabletOrDesktop(context))

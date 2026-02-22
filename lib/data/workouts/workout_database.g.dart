@@ -1666,15 +1666,6 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-    'name',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _descriptionMeta = const VerificationMeta('description');
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
@@ -1695,6 +1686,15 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
     defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_builtin" IN (0, 1))'),
     defaultValue: const Constant(false),
   );
+  static const VerificationMeta _workoutJsonMeta = const VerificationMeta('workoutJson');
+  @override
+  late final GeneratedColumn<String> workoutJson = GeneratedColumn<String>(
+    'workout_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
   @override
   late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
@@ -1714,7 +1714,14 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [id, name, description, isBuiltin, createdAt, updatedAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    description,
+    isBuiltin,
+    workoutJson,
+    createdAt,
+    updatedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1729,11 +1736,6 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
     } else if (isInserting) {
       context.missing(_idMeta);
     }
-    if (data.containsKey('name')) {
-      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
     if (data.containsKey('description')) {
       context.handle(
         _descriptionMeta,
@@ -1745,6 +1747,14 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
         _isBuiltinMeta,
         isBuiltin.isAcceptableOrUnknown(data['is_builtin']!, _isBuiltinMeta),
       );
+    }
+    if (data.containsKey('workout_json')) {
+      context.handle(
+        _workoutJsonMeta,
+        workoutJson.isAcceptableOrUnknown(data['workout_json']!, _workoutJsonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_workoutJsonMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(
@@ -1772,7 +1782,6 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Template(
       id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       description: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}description'],
@@ -1780,6 +1789,10 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
       isBuiltin: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}is_builtin'],
+      )!,
+      workoutJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}workout_json'],
       )!,
       createdAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -1800,16 +1813,16 @@ class $TemplatesTable extends Templates with TableInfo<$TemplatesTable, Template
 
 class Template extends DataClass implements Insertable<Template> {
   final String id;
-  final String name;
   final String? description;
   final bool isBuiltin;
+  final String workoutJson;
   final DateTime createdAt;
   final DateTime updatedAt;
   const Template({
     required this.id,
-    required this.name,
     this.description,
     required this.isBuiltin,
+    required this.workoutJson,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -1817,11 +1830,11 @@ class Template extends DataClass implements Insertable<Template> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
-    map['name'] = Variable<String>(name);
     if (!nullToAbsent || description != null) {
       map['description'] = Variable<String>(description);
     }
     map['is_builtin'] = Variable<bool>(isBuiltin);
+    map['workout_json'] = Variable<String>(workoutJson);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
@@ -1830,9 +1843,9 @@ class Template extends DataClass implements Insertable<Template> {
   TemplatesCompanion toCompanion(bool nullToAbsent) {
     return TemplatesCompanion(
       id: Value(id),
-      name: Value(name),
       description: description == null && nullToAbsent ? const Value.absent() : Value(description),
       isBuiltin: Value(isBuiltin),
+      workoutJson: Value(workoutJson),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
     );
@@ -1842,9 +1855,9 @@ class Template extends DataClass implements Insertable<Template> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Template(
       id: serializer.fromJson<String>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
       description: serializer.fromJson<String?>(json['description']),
       isBuiltin: serializer.fromJson<bool>(json['isBuiltin']),
+      workoutJson: serializer.fromJson<String>(json['workoutJson']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
@@ -1854,9 +1867,9 @@ class Template extends DataClass implements Insertable<Template> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
-      'name': serializer.toJson<String>(name),
       'description': serializer.toJson<String?>(description),
       'isBuiltin': serializer.toJson<bool>(isBuiltin),
+      'workoutJson': serializer.toJson<String>(workoutJson),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
@@ -1864,25 +1877,25 @@ class Template extends DataClass implements Insertable<Template> {
 
   Template copyWith({
     String? id,
-    String? name,
     Value<String?> description = const Value.absent(),
     bool? isBuiltin,
+    String? workoutJson,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) => Template(
     id: id ?? this.id,
-    name: name ?? this.name,
     description: description.present ? description.value : this.description,
     isBuiltin: isBuiltin ?? this.isBuiltin,
+    workoutJson: workoutJson ?? this.workoutJson,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
   );
   Template copyWithCompanion(TemplatesCompanion data) {
     return Template(
       id: data.id.present ? data.id.value : this.id,
-      name: data.name.present ? data.name.value : this.name,
       description: data.description.present ? data.description.value : this.description,
       isBuiltin: data.isBuiltin.present ? data.isBuiltin.value : this.isBuiltin,
+      workoutJson: data.workoutJson.present ? data.workoutJson.value : this.workoutJson,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -1892,9 +1905,9 @@ class Template extends DataClass implements Insertable<Template> {
   String toString() {
     return (StringBuffer('Template(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
           ..write('description: $description, ')
           ..write('isBuiltin: $isBuiltin, ')
+          ..write('workoutJson: $workoutJson, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -1902,62 +1915,62 @@ class Template extends DataClass implements Insertable<Template> {
   }
 
   @override
-  int get hashCode => Object.hash(id, name, description, isBuiltin, createdAt, updatedAt);
+  int get hashCode => Object.hash(id, description, isBuiltin, workoutJson, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Template &&
           other.id == this.id &&
-          other.name == this.name &&
           other.description == this.description &&
           other.isBuiltin == this.isBuiltin &&
+          other.workoutJson == this.workoutJson &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
 
 class TemplatesCompanion extends UpdateCompanion<Template> {
   final Value<String> id;
-  final Value<String> name;
   final Value<String?> description;
   final Value<bool> isBuiltin;
+  final Value<String> workoutJson;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
   final Value<int> rowid;
   const TemplatesCompanion({
     this.id = const Value.absent(),
-    this.name = const Value.absent(),
     this.description = const Value.absent(),
     this.isBuiltin = const Value.absent(),
+    this.workoutJson = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   TemplatesCompanion.insert({
     required String id,
-    required String name,
     this.description = const Value.absent(),
     this.isBuiltin = const Value.absent(),
+    required String workoutJson,
     required DateTime createdAt,
     required DateTime updatedAt,
     this.rowid = const Value.absent(),
   }) : id = Value(id),
-       name = Value(name),
+       workoutJson = Value(workoutJson),
        createdAt = Value(createdAt),
        updatedAt = Value(updatedAt);
   static Insertable<Template> custom({
     Expression<String>? id,
-    Expression<String>? name,
     Expression<String>? description,
     Expression<bool>? isBuiltin,
+    Expression<String>? workoutJson,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (name != null) 'name': name,
       if (description != null) 'description': description,
       if (isBuiltin != null) 'is_builtin': isBuiltin,
+      if (workoutJson != null) 'workout_json': workoutJson,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
       if (rowid != null) 'rowid': rowid,
@@ -1966,18 +1979,18 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
 
   TemplatesCompanion copyWith({
     Value<String>? id,
-    Value<String>? name,
     Value<String?>? description,
     Value<bool>? isBuiltin,
+    Value<String>? workoutJson,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
     Value<int>? rowid,
   }) {
     return TemplatesCompanion(
       id: id ?? this.id,
-      name: name ?? this.name,
       description: description ?? this.description,
       isBuiltin: isBuiltin ?? this.isBuiltin,
+      workoutJson: workoutJson ?? this.workoutJson,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       rowid: rowid ?? this.rowid,
@@ -1990,14 +2003,14 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
     if (id.present) {
       map['id'] = Variable<String>(id.value);
     }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
-    }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
     }
     if (isBuiltin.present) {
       map['is_builtin'] = Variable<bool>(isBuiltin.value);
+    }
+    if (workoutJson.present) {
+      map['workout_json'] = Variable<String>(workoutJson.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -2015,394 +2028,11 @@ class TemplatesCompanion extends UpdateCompanion<Template> {
   String toString() {
     return (StringBuffer('TemplatesCompanion(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
           ..write('description: $description, ')
           ..write('isBuiltin: $isBuiltin, ')
+          ..write('workoutJson: $workoutJson, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $TemplateSetsTable extends TemplateSets with TableInfo<$TemplateSetsTable, TemplateSet> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $TemplateSetsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
-    'id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _templateIdMeta = const VerificationMeta('templateId');
-  @override
-  late final GeneratedColumn<String> templateId = GeneratedColumn<String>(
-    'template_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES templates (id)'),
-  );
-  static const VerificationMeta _exerciseIdMeta = const VerificationMeta('exerciseId');
-  @override
-  late final GeneratedColumn<String> exerciseId = GeneratedColumn<String>(
-    'exercise_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _tweaksMeta = const VerificationMeta('tweaks');
-  @override
-  late final GeneratedColumn<String> tweaks = GeneratedColumn<String>(
-    'tweaks',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _setOrderMeta = const VerificationMeta('setOrder');
-  @override
-  late final GeneratedColumn<int> setOrder = GeneratedColumn<int>(
-    'set_order',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-  );
-  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  @override
-  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
-    'created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.dateTime,
-    requiredDuringInsert: true,
-  );
-  @override
-  List<GeneratedColumn> get $columns => [id, templateId, exerciseId, tweaks, setOrder, createdAt];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'template_sets';
-  @override
-  VerificationContext validateIntegrity(
-    Insertable<TemplateSet> instance, {
-    bool isInserting = false,
-  }) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
-    }
-    if (data.containsKey('template_id')) {
-      context.handle(
-        _templateIdMeta,
-        templateId.isAcceptableOrUnknown(data['template_id']!, _templateIdMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_templateIdMeta);
-    }
-    if (data.containsKey('exercise_id')) {
-      context.handle(
-        _exerciseIdMeta,
-        exerciseId.isAcceptableOrUnknown(data['exercise_id']!, _exerciseIdMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_exerciseIdMeta);
-    }
-    if (data.containsKey('tweaks')) {
-      context.handle(_tweaksMeta, tweaks.isAcceptableOrUnknown(data['tweaks']!, _tweaksMeta));
-    } else if (isInserting) {
-      context.missing(_tweaksMeta);
-    }
-    if (data.containsKey('set_order')) {
-      context.handle(
-        _setOrderMeta,
-        setOrder.isAcceptableOrUnknown(data['set_order']!, _setOrderMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_setOrderMeta);
-    }
-    if (data.containsKey('created_at')) {
-      context.handle(
-        _createdAtMeta,
-        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_createdAtMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  TemplateSet map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TemplateSet(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      templateId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}template_id'],
-      )!,
-      exerciseId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}exercise_id'],
-      )!,
-      tweaks: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}tweaks'],
-      )!,
-      setOrder: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}set_order'],
-      )!,
-      createdAt: attachedDatabase.typeMapping.read(
-        DriftSqlType.dateTime,
-        data['${effectivePrefix}created_at'],
-      )!,
-    );
-  }
-
-  @override
-  $TemplateSetsTable createAlias(String alias) {
-    return $TemplateSetsTable(attachedDatabase, alias);
-  }
-}
-
-class TemplateSet extends DataClass implements Insertable<TemplateSet> {
-  final String id;
-  final String templateId;
-  final String exerciseId;
-  final String tweaks;
-  final int setOrder;
-  final DateTime createdAt;
-  const TemplateSet({
-    required this.id,
-    required this.templateId,
-    required this.exerciseId,
-    required this.tweaks,
-    required this.setOrder,
-    required this.createdAt,
-  });
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['template_id'] = Variable<String>(templateId);
-    map['exercise_id'] = Variable<String>(exerciseId);
-    map['tweaks'] = Variable<String>(tweaks);
-    map['set_order'] = Variable<int>(setOrder);
-    map['created_at'] = Variable<DateTime>(createdAt);
-    return map;
-  }
-
-  TemplateSetsCompanion toCompanion(bool nullToAbsent) {
-    return TemplateSetsCompanion(
-      id: Value(id),
-      templateId: Value(templateId),
-      exerciseId: Value(exerciseId),
-      tweaks: Value(tweaks),
-      setOrder: Value(setOrder),
-      createdAt: Value(createdAt),
-    );
-  }
-
-  factory TemplateSet.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TemplateSet(
-      id: serializer.fromJson<String>(json['id']),
-      templateId: serializer.fromJson<String>(json['templateId']),
-      exerciseId: serializer.fromJson<String>(json['exerciseId']),
-      tweaks: serializer.fromJson<String>(json['tweaks']),
-      setOrder: serializer.fromJson<int>(json['setOrder']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'templateId': serializer.toJson<String>(templateId),
-      'exerciseId': serializer.toJson<String>(exerciseId),
-      'tweaks': serializer.toJson<String>(tweaks),
-      'setOrder': serializer.toJson<int>(setOrder),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
-    };
-  }
-
-  TemplateSet copyWith({
-    String? id,
-    String? templateId,
-    String? exerciseId,
-    String? tweaks,
-    int? setOrder,
-    DateTime? createdAt,
-  }) => TemplateSet(
-    id: id ?? this.id,
-    templateId: templateId ?? this.templateId,
-    exerciseId: exerciseId ?? this.exerciseId,
-    tweaks: tweaks ?? this.tweaks,
-    setOrder: setOrder ?? this.setOrder,
-    createdAt: createdAt ?? this.createdAt,
-  );
-  TemplateSet copyWithCompanion(TemplateSetsCompanion data) {
-    return TemplateSet(
-      id: data.id.present ? data.id.value : this.id,
-      templateId: data.templateId.present ? data.templateId.value : this.templateId,
-      exerciseId: data.exerciseId.present ? data.exerciseId.value : this.exerciseId,
-      tweaks: data.tweaks.present ? data.tweaks.value : this.tweaks,
-      setOrder: data.setOrder.present ? data.setOrder.value : this.setOrder,
-      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TemplateSet(')
-          ..write('id: $id, ')
-          ..write('templateId: $templateId, ')
-          ..write('exerciseId: $exerciseId, ')
-          ..write('tweaks: $tweaks, ')
-          ..write('setOrder: $setOrder, ')
-          ..write('createdAt: $createdAt')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, templateId, exerciseId, tweaks, setOrder, createdAt);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is TemplateSet &&
-          other.id == this.id &&
-          other.templateId == this.templateId &&
-          other.exerciseId == this.exerciseId &&
-          other.tweaks == this.tweaks &&
-          other.setOrder == this.setOrder &&
-          other.createdAt == this.createdAt);
-}
-
-class TemplateSetsCompanion extends UpdateCompanion<TemplateSet> {
-  final Value<String> id;
-  final Value<String> templateId;
-  final Value<String> exerciseId;
-  final Value<String> tweaks;
-  final Value<int> setOrder;
-  final Value<DateTime> createdAt;
-  final Value<int> rowid;
-  const TemplateSetsCompanion({
-    this.id = const Value.absent(),
-    this.templateId = const Value.absent(),
-    this.exerciseId = const Value.absent(),
-    this.tweaks = const Value.absent(),
-    this.setOrder = const Value.absent(),
-    this.createdAt = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  TemplateSetsCompanion.insert({
-    required String id,
-    required String templateId,
-    required String exerciseId,
-    required String tweaks,
-    required int setOrder,
-    required DateTime createdAt,
-    this.rowid = const Value.absent(),
-  }) : id = Value(id),
-       templateId = Value(templateId),
-       exerciseId = Value(exerciseId),
-       tweaks = Value(tweaks),
-       setOrder = Value(setOrder),
-       createdAt = Value(createdAt);
-  static Insertable<TemplateSet> custom({
-    Expression<String>? id,
-    Expression<String>? templateId,
-    Expression<String>? exerciseId,
-    Expression<String>? tweaks,
-    Expression<int>? setOrder,
-    Expression<DateTime>? createdAt,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (templateId != null) 'template_id': templateId,
-      if (exerciseId != null) 'exercise_id': exerciseId,
-      if (tweaks != null) 'tweaks': tweaks,
-      if (setOrder != null) 'set_order': setOrder,
-      if (createdAt != null) 'created_at': createdAt,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  TemplateSetsCompanion copyWith({
-    Value<String>? id,
-    Value<String>? templateId,
-    Value<String>? exerciseId,
-    Value<String>? tweaks,
-    Value<int>? setOrder,
-    Value<DateTime>? createdAt,
-    Value<int>? rowid,
-  }) {
-    return TemplateSetsCompanion(
-      id: id ?? this.id,
-      templateId: templateId ?? this.templateId,
-      exerciseId: exerciseId ?? this.exerciseId,
-      tweaks: tweaks ?? this.tweaks,
-      setOrder: setOrder ?? this.setOrder,
-      createdAt: createdAt ?? this.createdAt,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<String>(id.value);
-    }
-    if (templateId.present) {
-      map['template_id'] = Variable<String>(templateId.value);
-    }
-    if (exerciseId.present) {
-      map['exercise_id'] = Variable<String>(exerciseId.value);
-    }
-    if (tweaks.present) {
-      map['tweaks'] = Variable<String>(tweaks.value);
-    }
-    if (setOrder.present) {
-      map['set_order'] = Variable<int>(setOrder.value);
-    }
-    if (createdAt.present) {
-      map['created_at'] = Variable<DateTime>(createdAt.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TemplateSetsCompanion(')
-          ..write('id: $id, ')
-          ..write('templateId: $templateId, ')
-          ..write('exerciseId: $exerciseId, ')
-          ..write('tweaks: $tweaks, ')
-          ..write('setOrder: $setOrder, ')
-          ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2417,7 +2047,6 @@ abstract class _$WorkoutDatabase extends GeneratedDatabase {
   late final $ExerciseVersionsTable exerciseVersions = $ExerciseVersionsTable(this);
   late final $MeasurementsTable measurements = $MeasurementsTable(this);
   late final $TemplatesTable templates = $TemplatesTable(this);
-  late final $TemplateSetsTable templateSets = $TemplateSetsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2428,7 +2057,6 @@ abstract class _$WorkoutDatabase extends GeneratedDatabase {
     exerciseVersions,
     measurements,
     templates,
-    templateSets,
   ];
 }
 
@@ -3414,9 +3042,9 @@ typedef $$MeasurementsTableProcessedTableManager =
 typedef $$TemplatesTableCreateCompanionBuilder =
     TemplatesCompanion Function({
       required String id,
-      required String name,
       Value<String?> description,
       Value<bool> isBuiltin,
+      required String workoutJson,
       required DateTime createdAt,
       required DateTime updatedAt,
       Value<int> rowid,
@@ -3424,35 +3052,13 @@ typedef $$TemplatesTableCreateCompanionBuilder =
 typedef $$TemplatesTableUpdateCompanionBuilder =
     TemplatesCompanion Function({
       Value<String> id,
-      Value<String> name,
       Value<String?> description,
       Value<bool> isBuiltin,
+      Value<String> workoutJson,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
       Value<int> rowid,
     });
-
-final class $$TemplatesTableReferences
-    extends BaseReferences<_$WorkoutDatabase, $TemplatesTable, Template> {
-  $$TemplatesTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static MultiTypedResultKey<$TemplateSetsTable, List<TemplateSet>> _templateSetsRefsTable(
-    _$WorkoutDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.templateSets,
-    aliasName: $_aliasNameGenerator(db.templates.id, db.templateSets.templateId),
-  );
-
-  $$TemplateSetsTableProcessedTableManager get templateSetsRefs {
-    final manager = $$TemplateSetsTableTableManager(
-      $_db,
-      $_db.templateSets,
-    ).filter((f) => f.templateId.id.sqlEquals($_itemColumn<String>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_templateSetsRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
-  }
-}
 
 class $$TemplatesTableFilterComposer extends Composer<_$WorkoutDatabase, $TemplatesTable> {
   $$TemplatesTableFilterComposer({
@@ -3465,40 +3071,20 @@ class $$TemplatesTableFilterComposer extends Composer<_$WorkoutDatabase, $Templa
   ColumnFilters<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<String> get description =>
       $composableBuilder(column: $table.description, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get isBuiltin =>
       $composableBuilder(column: $table.isBuiltin, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<String> get workoutJson =>
+      $composableBuilder(column: $table.workoutJson, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
-
-  Expression<bool> templateSetsRefs(
-    Expression<bool> Function($$TemplateSetsTableFilterComposer f) f,
-  ) {
-    final $$TemplateSetsTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.templateSets,
-      getReferencedColumn: (t) => t.templateId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TemplateSetsTableFilterComposer(
-            $db: $db,
-            $table: $db.templateSets,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return f(composer);
-  }
 }
 
 class $$TemplatesTableOrderingComposer extends Composer<_$WorkoutDatabase, $TemplatesTable> {
@@ -3512,14 +3098,14 @@ class $$TemplatesTableOrderingComposer extends Composer<_$WorkoutDatabase, $Temp
   ColumnOrderings<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<String> get description =>
       $composableBuilder(column: $table.description, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get isBuiltin =>
       $composableBuilder(column: $table.isBuiltin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get workoutJson =>
+      $composableBuilder(column: $table.workoutJson, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
@@ -3539,40 +3125,20 @@ class $$TemplatesTableAnnotationComposer extends Composer<_$WorkoutDatabase, $Te
   GeneratedColumn<String> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => column);
-
   GeneratedColumn<String> get description =>
       $composableBuilder(column: $table.description, builder: (column) => column);
 
   GeneratedColumn<bool> get isBuiltin =>
       $composableBuilder(column: $table.isBuiltin, builder: (column) => column);
 
+  GeneratedColumn<String> get workoutJson =>
+      $composableBuilder(column: $table.workoutJson, builder: (column) => column);
+
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
-
-  Expression<T> templateSetsRefs<T extends Object>(
-    Expression<T> Function($$TemplateSetsTableAnnotationComposer a) f,
-  ) {
-    final $$TemplateSetsTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.id,
-      referencedTable: $db.templateSets,
-      getReferencedColumn: (t) => t.templateId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TemplateSetsTableAnnotationComposer(
-            $db: $db,
-            $table: $db.templateSets,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return f(composer);
-  }
 }
 
 class $$TemplatesTableTableManager
@@ -3586,9 +3152,9 @@ class $$TemplatesTableTableManager
           $$TemplatesTableAnnotationComposer,
           $$TemplatesTableCreateCompanionBuilder,
           $$TemplatesTableUpdateCompanionBuilder,
-          (Template, $$TemplatesTableReferences),
+          (Template, BaseReferences<_$WorkoutDatabase, $TemplatesTable, Template>),
           Template,
-          PrefetchHooks Function({bool templateSetsRefs})
+          PrefetchHooks Function()
         > {
   $$TemplatesTableTableManager(_$WorkoutDatabase db, $TemplatesTable table)
     : super(
@@ -3602,17 +3168,17 @@ class $$TemplatesTableTableManager
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
-                Value<String> name = const Value.absent(),
                 Value<String?> description = const Value.absent(),
                 Value<bool> isBuiltin = const Value.absent(),
+                Value<String> workoutJson = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => TemplatesCompanion(
                 id: id,
-                name: name,
                 description: description,
                 isBuiltin: isBuiltin,
+                workoutJson: workoutJson,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 rowid: rowid,
@@ -3620,45 +3186,24 @@ class $$TemplatesTableTableManager
           createCompanionCallback:
               ({
                 required String id,
-                required String name,
                 Value<String?> description = const Value.absent(),
                 Value<bool> isBuiltin = const Value.absent(),
+                required String workoutJson,
                 required DateTime createdAt,
                 required DateTime updatedAt,
                 Value<int> rowid = const Value.absent(),
               }) => TemplatesCompanion.insert(
                 id: id,
-                name: name,
                 description: description,
                 isBuiltin: isBuiltin,
+                workoutJson: workoutJson,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), $$TemplatesTableReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({templateSetsRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (templateSetsRefs) db.templateSets],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (templateSetsRefs)
-                    await $_getPrefetchedData<Template, $TemplatesTable, TemplateSet>(
-                      currentTable: table,
-                      referencedTable: $$TemplatesTableReferences._templateSetsRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $$TemplatesTableReferences(db, table, p0).templateSetsRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.templateId == item.id),
-                      typedResults: items,
-                    ),
-                ];
-              },
-            );
-          },
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable(table), BaseReferences(db, table, e))).toList(),
+          prefetchHooksCallback: null,
         ),
       );
 }
@@ -3673,298 +3218,9 @@ typedef $$TemplatesTableProcessedTableManager =
       $$TemplatesTableAnnotationComposer,
       $$TemplatesTableCreateCompanionBuilder,
       $$TemplatesTableUpdateCompanionBuilder,
-      (Template, $$TemplatesTableReferences),
+      (Template, BaseReferences<_$WorkoutDatabase, $TemplatesTable, Template>),
       Template,
-      PrefetchHooks Function({bool templateSetsRefs})
-    >;
-typedef $$TemplateSetsTableCreateCompanionBuilder =
-    TemplateSetsCompanion Function({
-      required String id,
-      required String templateId,
-      required String exerciseId,
-      required String tweaks,
-      required int setOrder,
-      required DateTime createdAt,
-      Value<int> rowid,
-    });
-typedef $$TemplateSetsTableUpdateCompanionBuilder =
-    TemplateSetsCompanion Function({
-      Value<String> id,
-      Value<String> templateId,
-      Value<String> exerciseId,
-      Value<String> tweaks,
-      Value<int> setOrder,
-      Value<DateTime> createdAt,
-      Value<int> rowid,
-    });
-
-final class $$TemplateSetsTableReferences
-    extends BaseReferences<_$WorkoutDatabase, $TemplateSetsTable, TemplateSet> {
-  $$TemplateSetsTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $TemplatesTable _templateIdTable(_$WorkoutDatabase db) =>
-      db.templates.createAlias($_aliasNameGenerator(db.templateSets.templateId, db.templates.id));
-
-  $$TemplatesTableProcessedTableManager get templateId {
-    final $_column = $_itemColumn<String>('template_id')!;
-
-    final manager = $$TemplatesTableTableManager(
-      $_db,
-      $_db.templates,
-    ).filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_templateIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
-
-class $$TemplateSetsTableFilterComposer extends Composer<_$WorkoutDatabase, $TemplateSetsTable> {
-  $$TemplateSetsTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<String> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get exerciseId =>
-      $composableBuilder(column: $table.exerciseId, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get tweaks =>
-      $composableBuilder(column: $table.tweaks, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<int> get setOrder =>
-      $composableBuilder(column: $table.setOrder, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
-
-  $$TemplatesTableFilterComposer get templateId {
-    final $$TemplatesTableFilterComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.templateId,
-      referencedTable: $db.templates,
-      getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TemplatesTableFilterComposer(
-            $db: $db,
-            $table: $db.templates,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$TemplateSetsTableOrderingComposer extends Composer<_$WorkoutDatabase, $TemplateSetsTable> {
-  $$TemplateSetsTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<String> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get exerciseId =>
-      $composableBuilder(column: $table.exerciseId, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get tweaks =>
-      $composableBuilder(column: $table.tweaks, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<int> get setOrder =>
-      $composableBuilder(column: $table.setOrder, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
-
-  $$TemplatesTableOrderingComposer get templateId {
-    final $$TemplatesTableOrderingComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.templateId,
-      referencedTable: $db.templates,
-      getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TemplatesTableOrderingComposer(
-            $db: $db,
-            $table: $db.templates,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$TemplateSetsTableAnnotationComposer
-    extends Composer<_$WorkoutDatabase, $TemplateSetsTable> {
-  $$TemplateSetsTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<String> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get exerciseId =>
-      $composableBuilder(column: $table.exerciseId, builder: (column) => column);
-
-  GeneratedColumn<String> get tweaks =>
-      $composableBuilder(column: $table.tweaks, builder: (column) => column);
-
-  GeneratedColumn<int> get setOrder =>
-      $composableBuilder(column: $table.setOrder, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get createdAt =>
-      $composableBuilder(column: $table.createdAt, builder: (column) => column);
-
-  $$TemplatesTableAnnotationComposer get templateId {
-    final $$TemplatesTableAnnotationComposer composer = $composerBuilder(
-      composer: this,
-      getCurrentColumn: (t) => t.templateId,
-      referencedTable: $db.templates,
-      getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $$TemplatesTableAnnotationComposer(
-            $db: $db,
-            $table: $db.templates,
-            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-            joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
-          ),
-    );
-    return composer;
-  }
-}
-
-class $$TemplateSetsTableTableManager
-    extends
-        RootTableManager<
-          _$WorkoutDatabase,
-          $TemplateSetsTable,
-          TemplateSet,
-          $$TemplateSetsTableFilterComposer,
-          $$TemplateSetsTableOrderingComposer,
-          $$TemplateSetsTableAnnotationComposer,
-          $$TemplateSetsTableCreateCompanionBuilder,
-          $$TemplateSetsTableUpdateCompanionBuilder,
-          (TemplateSet, $$TemplateSetsTableReferences),
-          TemplateSet,
-          PrefetchHooks Function({bool templateId})
-        > {
-  $$TemplateSetsTableTableManager(_$WorkoutDatabase db, $TemplateSetsTable table)
-    : super(
-        TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () => $$TemplateSetsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $$TemplateSetsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$TemplateSetsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<String> id = const Value.absent(),
-                Value<String> templateId = const Value.absent(),
-                Value<String> exerciseId = const Value.absent(),
-                Value<String> tweaks = const Value.absent(),
-                Value<int> setOrder = const Value.absent(),
-                Value<DateTime> createdAt = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => TemplateSetsCompanion(
-                id: id,
-                templateId: templateId,
-                exerciseId: exerciseId,
-                tweaks: tweaks,
-                setOrder: setOrder,
-                createdAt: createdAt,
-                rowid: rowid,
-              ),
-          createCompanionCallback:
-              ({
-                required String id,
-                required String templateId,
-                required String exerciseId,
-                required String tweaks,
-                required int setOrder,
-                required DateTime createdAt,
-                Value<int> rowid = const Value.absent(),
-              }) => TemplateSetsCompanion.insert(
-                id: id,
-                templateId: templateId,
-                exerciseId: exerciseId,
-                tweaks: tweaks,
-                setOrder: setOrder,
-                createdAt: createdAt,
-                rowid: rowid,
-              ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), $$TemplateSetsTableReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({templateId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (templateId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.templateId,
-                                referencedTable: $$TemplateSetsTableReferences._templateIdTable(db),
-                                referencedColumn: $$TemplateSetsTableReferences
-                                    ._templateIdTable(db)
-                                    .id,
-                              )
-                              as T;
-                    }
-
-                    return state;
-                  },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ),
-      );
-}
-
-typedef $$TemplateSetsTableProcessedTableManager =
-    ProcessedTableManager<
-      _$WorkoutDatabase,
-      $TemplateSetsTable,
-      TemplateSet,
-      $$TemplateSetsTableFilterComposer,
-      $$TemplateSetsTableOrderingComposer,
-      $$TemplateSetsTableAnnotationComposer,
-      $$TemplateSetsTableCreateCompanionBuilder,
-      $$TemplateSetsTableUpdateCompanionBuilder,
-      (TemplateSet, $$TemplateSetsTableReferences),
-      TemplateSet,
-      PrefetchHooks Function({bool templateId})
+      PrefetchHooks Function()
     >;
 
 class $WorkoutDatabaseManager {
@@ -3978,6 +3234,4 @@ class $WorkoutDatabaseManager {
   $$MeasurementsTableTableManager get measurements =>
       $$MeasurementsTableTableManager(_db, _db.measurements);
   $$TemplatesTableTableManager get templates => $$TemplatesTableTableManager(_db, _db.templates);
-  $$TemplateSetsTableTableManager get templateSets =>
-      $$TemplateSetsTableTableManager(_db, _db.templateSets);
 }

@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/mealplanner/page/mealplanner.dart';
 import 'package:bodybuild/ui/exercises/page/exercises_screen.dart';
+import 'package:bodybuild/ui/workouts/page/workout_templates_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/measurements/page/measurements_screen.dart';
@@ -137,6 +138,11 @@ class MyApp extends StatelessWidget {
                         WorkoutScreen(workoutId: state.pathParameters['id']!),
                   ),
                 ],
+              ),
+              GoRoute(
+                name: WorkoutTemplatesScreen.routeName,
+                path: WorkoutTemplatesScreen.routeName,
+                builder: (context, state) => const WorkoutTemplatesScreen(),
               ),
               GoRoute(
                 name: MeasurementsScreen.routeName,

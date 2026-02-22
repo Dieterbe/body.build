@@ -1,5 +1,6 @@
 import 'package:bodybuild/data/workouts/workout_database.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/service/template_persistence_service.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
@@ -199,57 +200,40 @@ class WorkoutPersistenceService {
     );
   }
 
-  /// Create a new workout from a template (prior workout or built-in template)
-  /// Copies all sets with completed=false, keeping weight/reps/rir/comments as defaults
+  /// Create a new workout from a template or a prior workout.
+  /// Expands the template's SetGroups into flat sets and adds them as planned (completed=false).
   Future<String> startWorkoutFromTemplate(String templateId) async {
-    // Check if it's a built-in template first
-    final builtinTemplate = await _database.getTemplateById(templateId);
+    final templatePersistence = TemplatePersistenceService(_database);
+    final template = await templatePersistence.getTemplateById(templateId);
+    final pastWorkout = template == null ? await getWorkoutById(templateId) : null;
 
-    List<model.WorkoutSet> setsToAdd;
+    if (template == null && pastWorkout == null) {
+      throw Exception('Template or workout not found: $templateId');
+    }
 
-    if (builtinTemplate != null) {
-      // Load from built-in template
-      final templateSets = await _database.getTemplateSets(templateId);
-      setsToAdd = templateSets
-          .map(
-            (ts) => model.WorkoutSet(
-              id: '', // Will be generated
-              workoutId: '', // Will be set below
-              exerciseId: ts.exerciseId,
-              tweaks: model.WorkoutSet.tweaksFromJson(ts.tweaks),
-              weight: null,
-              reps: null,
-              rir: null,
-              comments: null,
-              setOrder: 0, // Will be computed at read time based on timestamp
-              timestamp: DateTime.now(), // Will be updated with proper spacing in insertion loop
+    // Build list of sets to add
+    final setsToAdd = template != null
+        ? template.toFlatSets().map(
+            (s) => model.WorkoutSet(
+              id: '',
+              workoutId: '',
+              exerciseId: s.exerciseId,
+              tweaks: s.tweaks,
+              setOrder: 0,
+              timestamp: DateTime.now(),
               completed: false,
             ),
           )
-          .toList();
-    } else {
-      // Load from past workout
-      final templateWorkout = await getWorkoutById(templateId);
-      if (templateWorkout == null) {
-        throw Exception('Template not found: $templateId');
-      }
-      setsToAdd = templateWorkout.sets;
-    }
+        : pastWorkout!.sets.map(
+            (s) => s.copyWith(id: '', workoutId: '', setOrder: 0, completed: false),
+          );
 
     // Reuse existing active workout if available, otherwise create a new one
     final activeWorkout = await getActiveWorkout();
     final targetWorkoutId = activeWorkout?.id ?? await createWorkout();
 
-    // Copy all sets as planned sets (completed=false)
-    for (var i = 0; i < setsToAdd.length; i++) {
-      await addWorkoutSet(
-        setsToAdd[i].copyWith(
-          workoutId: targetWorkoutId,
-          completed: false,
-          timestamp: DateTime.now(),
-        ),
-      );
-      // Small delay to ensure timestamp ordering
+    for (final set in setsToAdd) {
+      await addWorkoutSet(set.copyWith(workoutId: targetWorkoutId, timestamp: DateTime.now()));
       await Future.delayed(const Duration(milliseconds: 1));
     }
 

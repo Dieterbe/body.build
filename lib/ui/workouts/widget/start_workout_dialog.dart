@@ -10,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class _StartWorkoutDialog extends ConsumerStatefulWidget {
-  const _StartWorkoutDialog({super.key});
+  const _StartWorkoutDialog();
 
   @override
   ConsumerState<_StartWorkoutDialog> createState() => _StartWorkoutDialogState();

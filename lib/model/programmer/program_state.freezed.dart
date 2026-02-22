@@ -13,7 +13,7 @@ part of 'program_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$ProgramState {
+mixin _$ProgramState implements DiagnosticableTreeMixin {
 
  String get name; List<Workout> get workouts; bool get builtin;
 /// Create a copy of ProgramState
@@ -25,11 +25,17 @@ $ProgramStateCopyWith<ProgramState> get copyWith => _$ProgramStateCopyWithImpl<P
   /// Serializes this ProgramState to a JSON map.
   Map<String, dynamic> toJson();
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ProgramState'))
+    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('workouts', workouts))..add(DiagnosticsProperty('builtin', builtin));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'ProgramState(name: $name, workouts: $workouts, builtin: $builtin)';
 }
 
@@ -203,8 +209,8 @@ return $default(_that.name,_that.workouts,_that.builtin);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _ProgramState implements ProgramState {
-  const _ProgramState({this.name = 'unnamed program', final  List<Workout> workouts = const [], this.builtin = false}): _workouts = workouts;
+class _ProgramState extends ProgramState with DiagnosticableTreeMixin {
+  const _ProgramState({this.name = 'unnamed program', final  List<Workout> workouts = const [], this.builtin = false}): _workouts = workouts,super._();
   factory _ProgramState.fromJson(Map<String, dynamic> json) => _$ProgramStateFromJson(json);
 
 @override@JsonKey() final  String name;
@@ -227,11 +233,17 @@ _$ProgramStateCopyWith<_ProgramState> get copyWith => __$ProgramStateCopyWithImp
 Map<String, dynamic> toJson() {
   return _$ProgramStateToJson(this, );
 }
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'ProgramState'))
+    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('workouts', workouts))..add(DiagnosticsProperty('builtin', builtin));
+}
 
 
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'ProgramState(name: $name, workouts: $workouts, builtin: $builtin)';
 }
 

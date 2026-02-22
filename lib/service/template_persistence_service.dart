@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:bodybuild/data/workouts/workout_database.dart' as db;
+import 'package:bodybuild/model/programmer/workout.dart' as programmer;
 import 'package:bodybuild/model/workouts/template.dart' as model;
 import 'package:drift/drift.dart';
 
@@ -7,92 +10,60 @@ class TemplatePersistenceService {
 
   TemplatePersistenceService(this._database);
 
-  // Convert Drift Template to model WorkoutTemplate with sets
-  Future<model.WorkoutTemplate> _templateWithSets(db.Template template) async {
-    final sets = await _database.getTemplateSets(template.id);
+  // Convert Drift Template to model WorkoutTemplate
+  model.WorkoutTemplate _toModel(db.Template template) {
+    final decodedJson = json.decode(template.workoutJson);
+    if (decodedJson is! Map<String, dynamic>) {
+      throw FormatException(
+        'Invalid JSON format in template ${template.id}: expected Map, got ${decodedJson.runtimeType}',
+      );
+    }
+
     return model.WorkoutTemplate(
       id: template.id,
-      name: template.name,
       description: template.description,
       isBuiltin: template.isBuiltin,
       createdAt: template.createdAt,
       updatedAt: template.updatedAt,
-      sets: sets
-          .map(
-            (s) => model.TemplateSet(
-              id: s.id,
-              templateId: s.templateId,
-              exerciseId: s.exerciseId,
-              tweaks: model.TemplateSet.tweaksFromJson(s.tweaks),
-              setOrder: s.setOrder,
-              createdAt: s.createdAt,
-            ),
-          )
-          .toList(),
+      workout: programmer.Workout.fromJson(decodedJson),
     );
   }
 
-  // Get all templates with their sets
+  // Get all templates
   Future<List<model.WorkoutTemplate>> getAllTemplates() async {
     final templates = await _database.getAllTemplates();
-    return Future.wait(templates.map(_templateWithSets));
+    return templates.map(_toModel).toList();
   }
 
-  // Watch all templates with their sets
+  // Watch all templates
   Stream<List<model.WorkoutTemplate>> watchAllTemplates() {
-    return _database.watchAllTemplates().asyncMap((templates) async {
-      return Future.wait(templates.map(_templateWithSets));
-    });
+    return _database.watchAllTemplates().map((templates) => templates.map(_toModel).toList());
   }
 
-  // Get template by ID with sets
+  // Get template by ID
   Future<model.WorkoutTemplate?> getTemplateById(String id) async {
     final template = await _database.getTemplateById(id);
     if (template == null) return null;
-    return _templateWithSets(template);
+    return _toModel(template);
   }
 
-  // Create a new template with sets
-  Future<String> createTemplate({
-    required String id,
-    required String name,
-    String? description,
-    bool isBuiltin = false,
-    required List<model.TemplateSet> sets,
-  }) async {
-    final now = DateTime.now();
-
+  // Create a new template
+  Future<String> createTemplate(model.WorkoutTemplate template) async {
     await _database.insertTemplate(
       db.TemplatesCompanion.insert(
-        id: id,
-        name: name,
-        description: Value(description),
-        isBuiltin: Value(isBuiltin),
-        createdAt: now,
-        updatedAt: now,
+        id: template.id,
+        description: Value(template.description),
+        isBuiltin: Value(template.isBuiltin),
+        workoutJson: json.encode(template.workout.toJson()),
+        createdAt: template.createdAt,
+        updatedAt: template.updatedAt,
       ),
     );
-
-    // Insert sets
-    for (final set in sets) {
-      await _database.insertTemplateSet(
-        db.TemplateSetsCompanion.insert(
-          id: set.id,
-          templateId: id,
-          exerciseId: set.exerciseId,
-          tweaks: set.tweaksJson,
-          setOrder: set.setOrder,
-          createdAt: now,
-        ),
-      );
-    }
-
-    return id;
+    return template.id;
   }
 
-  // Delete a template and its sets
+  // Delete a template
   Future<void> deleteTemplate(String id) async {
-    await _database.deleteTemplateSets(id);
     await _database.deleteTemplate(id);
   }
 }
