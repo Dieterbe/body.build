@@ -11,6 +11,7 @@ import 'package:web/web.dart' as web if (dart.library.io) '';
 
 /// Pick a JSON file and parse it as a [ProgramExport].
 /// Returns null if the user cancelled or the file is invalid.
+/// May throw an exception if the file is invalid.
 Future<ProgramExport?> pickProgramFile() async {
   final result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
@@ -22,14 +23,9 @@ Future<ProgramExport?> pickProgramFile() async {
   final bytes = result.files.firstOrNull?.bytes;
   if (bytes == null) return null;
 
-  try {
-    final jsonString = utf8.decode(bytes);
-    final json = jsonDecode(jsonString) as Map<String, dynamic>;
-    return ProgramExport.fromJson(json);
-  } catch (e) {
-    debugPrint('Failed to parse picked file: $e');
-    return null;
-  }
+  final jsonString = utf8.decode(bytes);
+  final json = jsonDecode(jsonString) as Map<String, dynamic>;
+  return ProgramExport.fromJson(json);
 }
 
 /// Save a [ProgramExport] as a JSON file.
