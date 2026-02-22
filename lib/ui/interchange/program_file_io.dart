@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:js_interop';
 
 import 'package:bodybuild/model/interchange/program_export.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-// Web-specific imports
-import 'package:universal_html/html.dart' as html;
+import 'package:web/web.dart' as web if (dart.library.io) '';
 
 /// Pick a JSON file and parse it as a [ProgramExport].
 /// Returns null if the user cancelled or the file is invalid.
@@ -33,7 +33,8 @@ Future<ProgramExport?> pickProgramFile() async {
 }
 
 /// Save a [ProgramExport] as a JSON file.
-/// On web/desktop: opens a save-file dialog via file_picker.
+/// On web: triggers browser download.
+/// On desktop: opens a save-file dialog via file_picker.
 /// On mobile: shares via the OS share sheet.
 Future<void> saveProgramFile(ProgramExport export) async {
   final jsonString = const JsonEncoder.withIndent('  ').convert(export.toJson());
@@ -41,28 +42,30 @@ Future<void> saveProgramFile(ProgramExport export) async {
   final bytes = Uint8List.fromList(utf8.encode(jsonString));
 
   if (kIsWeb) {
-    // Web: use download
-    final blob = html.Blob([bytes]);
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    final anchor = html.AnchorElement(href: url)
-      ..download = fileName
-      ..click();
-    html.Url.revokeObjectUrl(url);
+    // Web: trigger download using blob
+    final jsBytes = bytes.toJS;
+    final parts = [jsBytes].toJS;
+    final blob = web.Blob(parts, web.BlobPropertyBag(type: 'application/json'));
+    final url = web.URL.createObjectURL(blob);
+    final anchor = web.HTMLAnchorElement()
+      ..href = url
+      ..download = fileName;
+    web.document.body!.appendChild(anchor);
+    anchor.click();
+    web.document.body!.removeChild(anchor);
+    web.URL.revokeObjectURL(url);
     return;
   }
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    final result = await FilePicker.platform.saveFile(
+    // Desktop: use file picker save dialog
+    await FilePicker.platform.saveFile(
       dialogTitle: 'Save Program',
       fileName: fileName,
       type: FileType.custom,
       allowedExtensions: ['json'],
       bytes: bytes,
     );
-    if (result == null) {
-      // User cancelled
-      return;
-    }
     return;
   }
 
