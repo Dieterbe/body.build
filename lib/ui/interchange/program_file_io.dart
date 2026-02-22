@@ -6,6 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+// Web-specific imports
+import 'package:universal_html/html.dart' as html;
 
 /// Pick a JSON file and parse it as a [ProgramExport].
 /// Returns null if the user cancelled or the file is invalid.
@@ -38,14 +40,29 @@ Future<void> saveProgramFile(ProgramExport export) async {
   final fileName = '${_sanitizeFileName(export.program.name)}.json';
   final bytes = Uint8List.fromList(utf8.encode(jsonString));
 
-  if (kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    await FilePicker.platform.saveFile(
+  if (kIsWeb) {
+    // Web: use download
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.AnchorElement(href: url)
+      ..download = fileName
+      ..click();
+    html.Url.revokeObjectUrl(url);
+    return;
+  }
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    final result = await FilePicker.platform.saveFile(
       dialogTitle: 'Save Program',
       fileName: fileName,
       type: FileType.custom,
       allowedExtensions: ['json'],
       bytes: bytes,
     );
+    if (result == null) {
+      // User cancelled
+      return;
+    }
     return;
   }
 
