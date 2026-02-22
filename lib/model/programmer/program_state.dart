@@ -75,22 +75,21 @@ abstract class ProgramState with _$ProgramState {
   }
 
   /// Validate that all exercises in the program exist in the current dataset
+  /// and that set counts are within supported limits
   String? validate() {
-    final missingExercises = <String>{};
+    var errors = <String>[];
 
     for (final workout in workouts) {
       for (final setGroup in workout.setGroups) {
         for (final sets in setGroup.sets) {
-          if (sets.ex == null) {
-            missingExercises.add('unknown');
+          final e = sets.validate();
+          if (e == null) {
+            continue;
           }
+          errors.add("${workout.name} ${sets.ex?.id ?? 'unknown exercise'} $e");
         }
       }
     }
-
-    if (missingExercises.isEmpty) {
-      return null;
-    }
-    return 'Program contains unknown exercises: ${missingExercises.join(', ')}';
+    return errors.isEmpty ? null : errors.join('; ');
   }
 }

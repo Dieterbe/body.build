@@ -3,6 +3,8 @@ import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/data/dataset/rating.dart';
 import 'package:bodybuild/data/dataset/tweak.dart';
 import 'package:bodybuild/model/programmer/parameters.dart';
+import 'package:bodybuild/util/iterable_extension.dart';
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'set_group.freezed.dart';
@@ -105,6 +107,34 @@ abstract class Sets with _$Sets {
     return combinations.map(
       (tweakOptions) => Sets(params.intensities.first, ex: ex, tweakOptions: tweakOptions),
     );
+  }
+
+  String? validate() {
+    var errors = <String>[];
+
+    if (ex == null) {
+      errors.add('unknown exercise');
+    } else {
+      // Validate tweak keys and values
+      for (final tweakEntry in tweakOptions.entries) {
+        final tweakName = tweakEntry.key;
+        final tweakValue = tweakEntry.value;
+
+        // Find the tweak definition for this exercise
+        final tweak = ex!.tweaks.firstWhereOrNull((t) => t.name == tweakName);
+        if (tweak == null) {
+          errors.add('invalid tweak name "$tweakName"');
+        } else if (!tweak.opts.containsKey(tweakValue)) {
+          errors.add('invalid tweak value "$tweakValue" for tweak "$tweakName"');
+        }
+      }
+    }
+    // Validate set count doesn't exceed supported limit
+    if (n > 10) {
+      errors.add('$n sets is more than the maximum of 10');
+    }
+
+    return errors.isEmpty ? null : errors.join('; ');
   }
 }
 
