@@ -108,7 +108,7 @@ class ProgrammerBuilder extends ConsumerWidget {
                     ),
                     const SizedBox(width: 16),
                     ElevatedButton.icon(
-                      onPressed: () => _showImportDialog(context, ref),
+                      onPressed: () => _showImportDialog(context),
                       icon: const Icon(Icons.folder_open),
                       label: const Text('Import from File'),
                     ),
@@ -121,11 +121,11 @@ class ProgrammerBuilder extends ConsumerWidget {
     );
   }
 
-  void _showImportDialog(BuildContext context, WidgetRef ref) {
+  void _showImportDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => ImportProgramDialog(
-        onImport: (program) async {
+        onImport: (program, ref) async {
           await ref.read(programManagerProvider.notifier).importProgram(program);
         },
       ),

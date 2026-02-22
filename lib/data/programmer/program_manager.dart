@@ -22,7 +22,7 @@ class ProgramManagerState {
   }
 }
 
-@Riverpod()
+@Riverpod(keepAlive: true) // need to keep alive for import dialogs to work
 class ProgramManager extends _$ProgramManager {
   @override
   Future<ProgramManagerState> build() async {

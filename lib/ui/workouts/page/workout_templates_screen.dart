@@ -24,7 +24,7 @@ class WorkoutTemplatesScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.file_download),
             tooltip: 'Import Program',
-            onPressed: () => _showImportDialog(context, ref),
+            onPressed: () => _showImportDialog(context),
           ),
           templatesAsync.when(
             data: (templates) => IconButton(
@@ -40,7 +40,7 @@ class WorkoutTemplatesScreen extends ConsumerWidget {
       drawer: const AppNavigationDrawer(),
       body: templatesAsync.when(
         data: (templates) => templates.isEmpty
-            ? _EmptyTemplatesView(onImport: () => _showImportDialog(context, ref))
+            ? _EmptyTemplatesView(onImport: () => _showImportDialog(context))
             : ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 itemCount: templates.length,
@@ -52,11 +52,11 @@ class WorkoutTemplatesScreen extends ConsumerWidget {
     );
   }
 
-  void _showImportDialog(BuildContext context, WidgetRef ref) {
+  void _showImportDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => ImportProgramDialog(
-        onImport: (program) =>
+        onImport: (program, ref) =>
             ref.read(templateManagerProvider.notifier).importTemplatesFromProgram(program),
       ),
     );
