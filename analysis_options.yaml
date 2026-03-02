@@ -50,6 +50,9 @@ dart_code_metrics:
     - avoid-equal-expressions: false # makes it clear when expressing ratings as e.g. '7 / 7'
     - prefer-null-aware-spread: false # makes code look quite weird in some cases
     - avoid-commented-out-code: false # commented out code can be useful
+    # this check seems to be rather dumb and trigger many false positives, in practice these types of bugs seem very rare
+    # changing l[i] to l.elementAtOrNull[i]! is so ugly, just to satisfy this rule?
+    - avoid-unsafe-collection-methods: false
     - prefer-match-file-name:
         exclude:
           - lib/**/*_provider.dart
