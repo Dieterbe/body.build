@@ -46,13 +46,18 @@ Future<void> saveProgramFile(ProgramExport export) async {
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     // Desktop: use file picker save dialog
-    await FilePicker.platform.saveFile(
+    final savePath = await FilePicker.platform.saveFile(
       dialogTitle: 'Save Program',
       fileName: fileName,
       type: FileType.custom,
       allowedExtensions: ['json'],
       bytes: bytes,
     );
+
+    if (savePath != null) {
+      final file = File(savePath);
+      await file.writeAsBytes(bytes);
+    }
     return;
   }
 
