@@ -2,8 +2,8 @@ import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'template.freezed.dart';
-part 'template.g.dart';
+part 'workout_template.freezed.dart';
+part 'workout_template.g.dart';
 
 @freezed
 abstract class WorkoutTemplate with _$WorkoutTemplate {

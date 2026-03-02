@@ -1,7 +1,7 @@
 import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/data/dataset/exercise_versioning.dart';
 import 'package:bodybuild/model/programmer/workout.dart';
-import 'package:bodybuild/model/workouts/template.dart';
+import 'package:bodybuild/model/workouts/workout_template.dart';
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';

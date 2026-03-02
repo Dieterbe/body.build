@@ -1,5 +1,5 @@
 import 'package:bodybuild/data/workouts/template_provider.dart';
-import 'package:bodybuild/model/workouts/template.dart';
+import 'package:bodybuild/model/workouts/workout_template.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/interchange/import_program_dialog.dart';
 import 'package:bodybuild/ui/workouts/widget/export_program_dialog.dart';

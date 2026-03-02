@@ -1,6 +1,6 @@
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
-import 'package:bodybuild/model/workouts/template.dart' as model;
+import 'package:bodybuild/model/workouts/workout_template.dart' as model;
 import 'package:bodybuild/service/template_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

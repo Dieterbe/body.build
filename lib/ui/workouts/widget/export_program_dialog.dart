@@ -1,6 +1,6 @@
 import 'package:bodybuild/model/interchange/program_export.dart';
 import 'package:bodybuild/model/programmer/program_state.dart';
-import 'package:bodybuild/model/workouts/template.dart';
+import 'package:bodybuild/model/workouts/workout_template.dart';
 import 'package:bodybuild/ui/interchange/export_program_dialog.dart';
 import 'package:flutter/material.dart';
 

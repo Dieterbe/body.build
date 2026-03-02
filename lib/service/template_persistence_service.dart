@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bodybuild/data/workouts/workout_database.dart' as db;
 import 'package:bodybuild/model/programmer/workout.dart' as programmer;
-import 'package:bodybuild/model/workouts/template.dart' as model;
+import 'package:bodybuild/model/workouts/workout_template.dart' as model;
 import 'package:drift/drift.dart';
 
 class TemplatePersistenceService {

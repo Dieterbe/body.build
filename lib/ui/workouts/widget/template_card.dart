@@ -1,5 +1,5 @@
 import 'package:bodybuild/model/programmer/set_group.dart';
-import 'package:bodybuild/model/workouts/template.dart';
+import 'package:bodybuild/model/workouts/workout_template.dart';
 import 'package:bodybuild/ui/core/widget/exercise_id_text.dart';
 import 'package:bodybuild/ui/core/widget/recruitment_bar_chart.dart';
 import 'package:flutter/material.dart';
