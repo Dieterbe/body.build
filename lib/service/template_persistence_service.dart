@@ -4,6 +4,7 @@ import 'package:bodybuild/data/workouts/workout_database.dart' as db;
 import 'package:bodybuild/model/programmer/workout.dart' as programmer;
 import 'package:bodybuild/model/workouts/workout_template.dart' as model;
 import 'package:drift/drift.dart';
+import 'package:uuid/uuid.dart';
 
 class TemplatePersistenceService {
   final db.WorkoutDatabase _database;
@@ -49,9 +50,11 @@ class TemplatePersistenceService {
 
   // Create a new template
   Future<String> createTemplate(model.WorkoutTemplate template) async {
+    final templateId = template.id.isEmpty ? const Uuid().v4() : template.id;
+
     await _database.insertTemplate(
       db.TemplatesCompanion.insert(
-        id: template.id,
+        id: templateId,
         description: Value(template.description),
         isBuiltin: Value(template.isBuiltin),
         workoutJson: json.encode(template.workout.toJson()),
@@ -59,7 +62,7 @@ class TemplatePersistenceService {
         updatedAt: template.updatedAt,
       ),
     );
-    return template.id;
+    return templateId;
   }
 
   // Delete a template

@@ -40,6 +40,11 @@ class WorkoutPopupMenu extends ConsumerWidget {
             value: 'resume',
             child: Row(spacing: 8, children: [Icon(Icons.play_arrow), Text('Resume Workout')]),
           ),
+        if (!workout.isActive && workout.sets.isNotEmpty)
+          const PopupMenuItem(
+            value: 'saveAsTemplate',
+            child: Row(spacing: 8, children: [Icon(Icons.library_add), Text('Save as Template')]),
+          ),
         const PopupMenuItem(
           value: 'delete',
           child: Row(
@@ -55,6 +60,7 @@ class WorkoutPopupMenu extends ConsumerWidget {
         'notes' => _showEditWorkoutNotesDialog(context, ref),
         'finish' => _showFinishWorkoutConfirmationDialog(context, ref),
         'resume' => _showResumeWorkoutConfirmationDialog(context, ref),
+        'saveAsTemplate' => _showSaveAsTemplateDialog(context, ref),
         'delete' => _showDeleteWorkoutConfirmationDialog(context, ref),
         _ => null,
       },
@@ -138,6 +144,76 @@ class WorkoutPopupMenu extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Error updating notes: $e'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              }());
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSaveAsTemplateDialog(BuildContext context, WidgetRef ref) {
+    var nameController = TextEditingController(text: workout.startTime.toString().split(' ')[0]);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Save as Template'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Create a template from this workout for future use.'),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: 'Template Name',
+                hintText: 'Enter a name for this template...',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+
+              unawaited(() async {
+                final name = nameController.text.trim();
+                if (name.isEmpty) {
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter a template name'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                  return;
+                }
+
+                try {
+                  final templateManager = ref.read(templateManagerProvider.notifier);
+                  await templateManager.saveWorkoutAsTemplate(workout, name: name);
+
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Template "$name" saved successfully'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                } catch (e) {
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Error saving template: $e'),
                       backgroundColor: Colors.red,
                     ),
                   );

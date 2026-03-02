@@ -59,7 +59,7 @@ String _$templatePersistenceServiceHash() => r'1f113c89e0aeceb6af4a26b378cdc0e90
 const templateManagerProvider = TemplateManagerProvider._();
 
 final class TemplateManagerProvider
-    extends $StreamNotifierProvider<TemplateManager, List<model.WorkoutTemplate>> {
+    extends $StreamNotifierProvider<TemplateManager, List<WorkoutTemplate>> {
   const TemplateManagerProvider._()
     : super(
         from: null,
@@ -79,21 +79,20 @@ final class TemplateManagerProvider
   TemplateManager create() => TemplateManager();
 }
 
-String _$templateManagerHash() => r'b65cb89bd77d27aa58c646fa9b232ac9d850adc3';
+String _$templateManagerHash() => r'687b206abf09f6d699bc454511838deb85c192a6';
 
-abstract class _$TemplateManager extends $StreamNotifier<List<model.WorkoutTemplate>> {
-  Stream<List<model.WorkoutTemplate>> build();
+abstract class _$TemplateManager extends $StreamNotifier<List<WorkoutTemplate>> {
+  Stream<List<WorkoutTemplate>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref =
-        this.ref as $Ref<AsyncValue<List<model.WorkoutTemplate>>, List<model.WorkoutTemplate>>;
+    final ref = this.ref as $Ref<AsyncValue<List<WorkoutTemplate>>, List<WorkoutTemplate>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<model.WorkoutTemplate>>, List<model.WorkoutTemplate>>,
-              AsyncValue<List<model.WorkoutTemplate>>,
+              AnyNotifier<AsyncValue<List<WorkoutTemplate>>, List<WorkoutTemplate>>,
+              AsyncValue<List<WorkoutTemplate>>,
               Object?,
               Object?
             >;
