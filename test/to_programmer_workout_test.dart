@@ -1,6 +1,5 @@
 import 'package:bodybuild/data/dataset/ex.dart';
 import 'package:bodybuild/model/workouts/workout.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Helper to create a WorkoutSet with minimal boilerplate
@@ -28,8 +27,8 @@ Workout _workout(List<WorkoutSet> sets) {
 
 void main() {
   // Pick two real exercise IDs from the dataset
-  final exA = exes.elementAtOrNull(0)!.id; // "standing barbell good morning"
-  final exB = exes.elementAtOrNull(4)!.id; // "deadlift (powerlift)"
+  final exA = exes[0].id; // "standing barbell good morning"
+  final exB = exes[4].id; // "deadlift (powerlift)"
 
   group('Workout.toProgrammerWorkout', () {
     test('empty workout returns empty setGroups', () {
@@ -45,9 +44,9 @@ void main() {
       final result = w.toProgrammerWorkout();
 
       expect(result.setGroups.length, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.length, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.ex?.id, exA);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.n, 3);
+      expect(result.setGroups[0].sets.length, 1);
+      expect(result.setGroups[0].sets[0].ex?.id, exA);
+      expect(result.setGroups[0].sets[0].n, 3);
     });
 
     test('two different exercises in sequence → 2 SetGroups each with n=1', () {
@@ -57,11 +56,11 @@ void main() {
       // exA then exB with no repetition → single group with 2 exercises, n=1 each
       // Actually the algorithm builds the pattern [exA, exB] and finds 1 round
       expect(result.setGroups.length, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.length, 2);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.ex?.id, exA);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.n, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(1)!.ex?.id, exB);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(1)!.n, 1);
+      expect(result.setGroups[0].sets.length, 2);
+      expect(result.setGroups[0].sets[0].ex?.id, exA);
+      expect(result.setGroups[0].sets[0].n, 1);
+      expect(result.setGroups[0].sets[1].ex?.id, exB);
+      expect(result.setGroups[0].sets[1].n, 1);
     });
 
     test('superset pattern A,B,A,B,A,B → 1 SetGroup with 2 exercises, n=3', () {
@@ -76,11 +75,11 @@ void main() {
       final result = w.toProgrammerWorkout();
 
       expect(result.setGroups.length, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.length, 2);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.ex?.id, exA);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.n, 3);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(1)!.ex?.id, exB);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(1)!.n, 3);
+      expect(result.setGroups[0].sets.length, 2);
+      expect(result.setGroups[0].sets[0].ex?.id, exA);
+      expect(result.setGroups[0].sets[0].n, 3);
+      expect(result.setGroups[0].sets[1].ex?.id, exB);
+      expect(result.setGroups[0].sets[1].n, 3);
     });
 
     test('A,A,A,B,B → 2 SetGroups: A×3 then B×2', () {
@@ -95,13 +94,13 @@ void main() {
 
       expect(result.setGroups.length, 2);
       // First group: exA × 3
-      expect(result.setGroups.elementAtOrNull(0)!.sets.length, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.ex?.id, exA);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.n, 3);
+      expect(result.setGroups[0].sets.length, 1);
+      expect(result.setGroups[0].sets[0].ex?.id, exA);
+      expect(result.setGroups[0].sets[0].n, 3);
       // Second group: exB × 2
-      expect(result.setGroups.elementAtOrNull(1)!.sets.length, 1);
-      expect(result.setGroups.elementAtOrNull(1)!.sets.elementAtOrNull(0)!.ex?.id, exB);
-      expect(result.setGroups.elementAtOrNull(1)!.sets.elementAtOrNull(0)!.n, 2);
+      expect(result.setGroups[1].sets.length, 1);
+      expect(result.setGroups[1].sets[0].ex?.id, exB);
+      expect(result.setGroups[1].sets[0].n, 2);
     });
 
     test('superset then straight sets: A,B,A,B,A,A → group1(A,B)×2 + group2(A)×2', () {
@@ -117,15 +116,15 @@ void main() {
 
       expect(result.setGroups.length, 2);
       // First group: superset A,B repeated 2 times
-      expect(result.setGroups.elementAtOrNull(0)!.sets.length, 2);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.ex?.id, exA);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.n, 2);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(1)!.ex?.id, exB);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(1)!.n, 2);
+      expect(result.setGroups[0].sets.length, 2);
+      expect(result.setGroups[0].sets[0].ex?.id, exA);
+      expect(result.setGroups[0].sets[0].n, 2);
+      expect(result.setGroups[0].sets[1].ex?.id, exB);
+      expect(result.setGroups[0].sets[1].n, 2);
       // Second group: A repeated 2 times
-      expect(result.setGroups.elementAtOrNull(1)!.sets.length, 1);
-      expect(result.setGroups.elementAtOrNull(1)!.sets.elementAtOrNull(0)!.ex?.id, exA);
-      expect(result.setGroups.elementAtOrNull(1)!.sets.elementAtOrNull(0)!.n, 2);
+      expect(result.setGroups[1].sets.length, 1);
+      expect(result.setGroups[1].sets[0].ex?.id, exA);
+      expect(result.setGroups[1].sets[0].n, 2);
     });
 
     test('tweaks are preserved and differentiate sets', () {
@@ -140,10 +139,10 @@ void main() {
 
       // Same exercise but different tweaks → treated as different sets
       expect(result.setGroups.length, 2);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.tweakOptions, tweaksA);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.n, 2);
-      expect(result.setGroups.elementAtOrNull(1)!.sets.elementAtOrNull(0)!.tweakOptions, tweaksB);
-      expect(result.setGroups.elementAtOrNull(1)!.sets.elementAtOrNull(0)!.n, 1);
+      expect(result.setGroups[0].sets[0].tweakOptions, tweaksA);
+      expect(result.setGroups[0].sets[0].n, 2);
+      expect(result.setGroups[1].sets[0].tweakOptions, tweaksB);
+      expect(result.setGroups[1].sets[0].n, 1);
     });
 
     test('custom name is used', () {
@@ -163,8 +162,8 @@ void main() {
       final result = w.toProgrammerWorkout();
 
       expect(result.setGroups.length, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.length, 1);
-      expect(result.setGroups.elementAtOrNull(0)!.sets.elementAtOrNull(0)!.n, 1);
+      expect(result.setGroups[0].sets.length, 1);
+      expect(result.setGroups[0].sets[0].n, 1);
     });
   });
 }
