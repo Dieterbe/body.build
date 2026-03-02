@@ -8,11 +8,20 @@ import 'package:flutter/material.dart';
 /// [ProgramExport] to save (e.g. built from selected templates or from the
 /// current programmer state). It may show its own UI before returning.
 /// Throw to cancel with an error.
+///
+/// [canExport] optionally controls whether the export button should be enabled.
+/// If null, the button is always enabled (default behavior).
 class ExportProgramDialog extends StatefulWidget {
   final Future<ProgramExport> Function() onExport;
   final Widget content;
+  final bool Function()? canExport;
 
-  const ExportProgramDialog({super.key, required this.onExport, required this.content});
+  const ExportProgramDialog({
+    super.key,
+    required this.onExport,
+    required this.content,
+    this.canExport,
+  });
 
   @override
   State<ExportProgramDialog> createState() => _ExportProgramDialogState();
@@ -41,6 +50,8 @@ class _ExportProgramDialogState extends State<ExportProgramDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final canExport = widget.canExport?.call() ?? true;
+
     return AlertDialog(
       title: const Text('Export Program'),
       content: Column(
@@ -60,7 +71,7 @@ class _ExportProgramDialogState extends State<ExportProgramDialog> {
           child: const Text('Cancel'),
         ),
         FilledButton.icon(
-          onPressed: _isExporting ? null : _handleExport,
+          onPressed: (_isExporting || !canExport) ? null : _handleExport,
           icon: _isExporting
               ? const SizedBox(
                   width: 16,
