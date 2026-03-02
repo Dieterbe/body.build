@@ -1,5 +1,6 @@
 import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/data/core/youtube_provider.dart';
+import 'package:bodybuild/data/workouts/template_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/ui/anatomy/page/muscles.dart';
 import 'package:bodybuild/ui/core/page/about_screen.dart';
@@ -9,6 +10,7 @@ import 'package:bodybuild/ui/measurements/widget/measurement_summary_card.dart';
 import 'package:bodybuild/ui/programmer/page/programmer.dart';
 import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:bodybuild/ui/workouts/page/workouts_screen.dart';
+import 'package:bodybuild/ui/workouts/page/workout_templates_screen.dart';
 import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/util/flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -210,6 +212,7 @@ class HomeScreen extends ConsumerWidget {
                                     ),
                                   ),
                                 _buildWorkoutCard(context, ref),
+                                _buildTemplatesCard(context, ref),
                                 _buildQuickAccessCard(
                                   context: context,
                                   title: 'Workout history',
@@ -523,6 +526,56 @@ class HomeScreen extends ConsumerWidget {
         if (kIsWeb) {
           return standard();
         }
+        return errorCard();
+      },
+    );
+  }
+
+  Widget _buildTemplatesCard(BuildContext context, WidgetRef ref) {
+    final templatesAsync = ref.watch(templateManagerProvider);
+
+    Widget standard() {
+      return _buildQuickAccessCard(
+        context: context,
+        title: 'Workout Templates',
+        subtitle: 'Browse and manage templates',
+        icon: Icons.library_books,
+        color: Colors.blue,
+        onTap: () {
+          _navigateQuickAccess(context, WorkoutTemplatesScreen.routeName, false);
+        },
+      );
+    }
+
+    Widget errorCard() {
+      return _buildQuickAccessCard(
+        context: context,
+        title: 'Templates unavailable',
+        subtitle: 'Something went wrong. Please try again.',
+        icon: Icons.error_outline,
+        color: Colors.red,
+        onTap: () {},
+      );
+    }
+
+    return templatesAsync.when(
+      data: (templates) {
+        if (templates.isNotEmpty) {
+          return _buildQuickAccessCard(
+            context: context,
+            title: 'Workout Templates',
+            subtitle: '${templates.length} templates available',
+            icon: Icons.library_books,
+            color: Colors.blue,
+            onTap: () {
+              _navigateQuickAccess(context, WorkoutTemplatesScreen.routeName, false);
+            },
+          );
+        }
+        return standard();
+      },
+      loading: () => const SizedBox.shrink(),
+      error: (error, stack) {
         return errorCard();
       },
     );

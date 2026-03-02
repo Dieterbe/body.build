@@ -31,7 +31,7 @@ class _TemplateExportContentState extends State<_TemplateExportContent> {
   @override
   void initState() {
     super.initState();
-    _selectedIds = widget.templates.map((t) => t.id).toSet();
+    _selectedIds = <String>{}; // Start with no workouts selected
     _nameController = TextEditingController(text: _inferProgramName());
     // Initialize scheduling settings with default values from templates
     _schedulingSettings = {
