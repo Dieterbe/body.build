@@ -1,4 +1,6 @@
+import 'package:bodybuild/data/workouts/template_provider.dart';
 import 'package:bodybuild/model/workouts/workout_template.dart';
+import 'package:bodybuild/ui/core/confirmation_dialog.dart';
 import 'package:bodybuild/ui/core/widget/recruitment_bar_chart.dart';
 import 'package:bodybuild/ui/workouts/widget/template_expanded_content.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +61,31 @@ class _TemplateCardState extends ConsumerState<TemplateCard> {
               style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
+          if (!widget.template.isBuiltin)
+            PopupMenuButton<String>(
+              icon: Icon(
+                Icons.more_vert,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                size: 20,
+              ),
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'delete',
+                  child: Row(
+                    spacing: 8,
+                    children: [
+                      Icon(Icons.delete, color: Colors.red, size: 16),
+                      Text('Delete Template'),
+                    ],
+                  ),
+                ),
+              ],
+              onSelected: (value) {
+                if (value == 'delete') {
+                  _showDeleteTemplateDialog(context);
+                }
+              },
+            ),
           Icon(
             _expanded ? Icons.expand_less : Icons.expand_more,
             color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -124,4 +151,34 @@ class _TemplateCardState extends ConsumerState<TemplateCard> {
       ],
     ],
   );
+
+  void _showDeleteTemplateDialog(BuildContext context) {
+    showConfirmationDialog(
+      context: context,
+      title: 'Delete Template',
+      content:
+          'Are you sure you want to delete "${widget.template.name}"? This action cannot be undone.',
+      confirmText: 'Delete',
+      isDestructive: true,
+      onConfirm: () async {
+        try {
+          await ref.read(templateManagerProvider.notifier).deleteTemplate(widget.template.id);
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Template "${widget.template.name}" deleted'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+        } catch (e) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error deleting template: $e'), backgroundColor: Colors.red),
+            );
+          }
+        }
+      },
+    );
+  }
 }

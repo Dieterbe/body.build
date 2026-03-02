@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bodybuild/data/workouts/template_provider.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/ui/core/confirmation_dialog.dart';
