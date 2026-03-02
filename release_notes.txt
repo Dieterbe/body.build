@@ -1,2 +1,3 @@
-- add new workout templates feature, with demo full body program as default templates
-- improve 'start/resume' workout flow + template selection
+- templating overhaul: manage them, import/export, save from workout
+- refactor skull crusher & triceps extensions
+- some improvements to home page
