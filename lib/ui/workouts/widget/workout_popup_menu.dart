@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 import 'package:bodybuild/ui/core/confirmation_dialog.dart';
-import 'package:bodybuild/ui/workouts/page/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -41,14 +40,6 @@ class WorkoutPopupMenu extends ConsumerWidget {
             value: 'resume',
             child: Row(spacing: 8, children: [Icon(Icons.play_arrow), Text('Resume Workout')]),
           ),
-        if (!workout.isActive)
-          const PopupMenuItem(
-            value: 'template',
-            child: Row(
-              spacing: 8,
-              children: [Icon(Icons.copy), Text('Add template to current workout')],
-            ),
-          ),
         const PopupMenuItem(
           value: 'delete',
           child: Row(
@@ -64,7 +55,6 @@ class WorkoutPopupMenu extends ConsumerWidget {
         'notes' => _showEditWorkoutNotesDialog(context, ref),
         'finish' => _showFinishWorkoutConfirmationDialog(context, ref),
         'resume' => _showResumeWorkoutConfirmationDialog(context, ref),
-        'template' => _useAsTemplate(context, ref),
         'delete' => _showDeleteWorkoutConfirmationDialog(context, ref),
         _ => null,
       },
@@ -159,25 +149,5 @@ class WorkoutPopupMenu extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  void _useAsTemplate(BuildContext context, WidgetRef ref) {
-    unawaited(() async {
-      try {
-        final workoutManager = ref.read(workoutManagerProvider.notifier);
-        await workoutManager.startWorkoutFromTemplate(workout.id);
-
-        if (!context.mounted) return;
-        context.go('/${WorkoutScreen.routeNameActive}');
-      } catch (e) {
-        if (!context.mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error creating workout from template: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }());
   }
 }

@@ -200,33 +200,28 @@ class WorkoutPersistenceService {
     );
   }
 
-  /// Create a new workout from a template or a prior workout.
+  /// Create a new workout from a template.
   /// Expands the template's SetGroups into flat sets and adds them as planned (completed=false).
   Future<String> startWorkoutFromTemplate(String templateId) async {
     final templatePersistence = TemplatePersistenceService(_database);
     final template = await templatePersistence.getTemplateById(templateId);
-    final pastWorkout = template == null ? await getWorkoutById(templateId) : null;
 
-    if (template == null && pastWorkout == null) {
-      throw Exception('Template or workout not found: $templateId');
+    if (template == null) {
+      throw Exception('Template not found: $templateId');
     }
 
     // Build list of sets to add
-    final setsToAdd = template != null
-        ? template.toFlatSets().map(
-            (s) => model.WorkoutSet(
-              id: '',
-              workoutId: '',
-              exerciseId: s.exerciseId,
-              tweaks: s.tweaks,
-              setOrder: 0,
-              timestamp: DateTime.now(),
-              completed: false,
-            ),
-          )
-        : pastWorkout!.sets.map(
-            (s) => s.copyWith(id: '', workoutId: '', setOrder: 0, completed: false),
-          );
+    final setsToAdd = template.toFlatSets().map(
+      (s) => model.WorkoutSet(
+        id: '',
+        workoutId: '',
+        exerciseId: s.exerciseId,
+        tweaks: s.tweaks,
+        setOrder: 0,
+        timestamp: DateTime.now(),
+        completed: false,
+      ),
+    );
 
     // Reuse existing active workout if available, otherwise create a new one
     final activeWorkout = await getActiveWorkout();

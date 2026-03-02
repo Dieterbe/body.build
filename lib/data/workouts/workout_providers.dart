@@ -160,11 +160,11 @@ class WorkoutManager extends _$WorkoutManager {
     await service.resumeWorkout(workoutId);
   }
 
-  /// Create a new workout from a template or a prior workout
+  /// Create a new workout from a template
   /// Copies all sets with completed=false, keeping weight/reps/rir/comments as defaults
-  Future<String> startWorkoutFromTemplate(String templateWorkoutId) async {
+  Future<String> startWorkoutFromTemplate(String templateId) async {
     final service = ref.read(workoutPersistenceServiceProvider);
-    return await service.startWorkoutFromTemplate(templateWorkoutId);
+    return await service.startWorkoutFromTemplate(templateId);
   }
 }
 
