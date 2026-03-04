@@ -5,10 +5,8 @@ import 'package:bodybuild/ui/core/widget/snackbars.dart';
 import 'package:bodybuild/ui/workouts/widget/edit_exercise_set_group_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/exercise_set_group_widget.dart';
 import 'package:bodybuild/ui/workouts/widget/mobile_app_only_scaffold.dart';
-import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
 import 'package:bodybuild/ui/workouts/widget/template_picker_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_header.dart';
-import 'package:bodybuild/ui/workouts/widget/workout_footer.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_popup_menu.dart';
 import 'package:bodybuild/ui/core/widget/app_navigation_drawer.dart';
 import 'package:bodybuild/ui/core/widget/err_widget.dart';
@@ -170,14 +168,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       appBar: AppBar(
         title: const Text('Workout'),
         backgroundColor: Theme.of(context).colorScheme.surface,
-        actions: [
-          if (workout!.isActive == true)
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Center(child: Stopwatch(start: workout!.startTime)),
-            ),
-          WorkoutPopupMenu(workout!, reRoute: '/workouts'),
-        ],
+        actions: [WorkoutPopupMenu(workout!, reRoute: '/workouts')],
       ),
       // this screen is used in two ways:
       // - top level screen (no workout id specified) needs a hamburger menu
@@ -187,7 +178,6 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         children: [
           WorkoutHeader(workout: workout!),
           Expanded(child: workout!.sets.isEmpty ? _buildEmptyState() : _buildSetsList()),
-          WorkoutFooter(workout: workout!),
         ],
       ),
       floatingActionButton: !workout!.isActive
@@ -254,8 +244,13 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: groups.length,
+      itemCount: groups.length + 1, // +1 for the spacer
       itemBuilder: (context, index) {
+        if (index == groups.length) {
+          return const SizedBox(
+            height: 80,
+          ); // leave some empty space so the last set isn't hidden behind the FAB
+        }
         final group = groups[index];
         return ExerciseSetGroupWidget(group: group);
       },
