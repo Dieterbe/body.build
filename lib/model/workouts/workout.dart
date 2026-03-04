@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bodybuild/data/dataset/ex.dart';
+import 'package:bodybuild/data/dataset/program_group.dart';
 import 'package:bodybuild/model/programmer/set_group.dart' as programmer;
 import 'package:bodybuild/model/programmer/workout.dart' as programmer;
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -32,6 +33,20 @@ abstract class Workout with _$Workout {
   }
 
   Set<String> get exerciseIds => sets.map((s) => s.exerciseId).toSet();
+
+  /// Calculate total recruitment for each ProgramGroup across all completed sets in this workout
+  Map<ProgramGroup, double> calculateRecruitments() {
+    final exMap = {for (final ex in exes) ex.id: ex};
+    return sets.where((s) => s.completed).fold<Map<ProgramGroup, double>>({}, (recruitments, set) {
+      final ex = exMap[set.exerciseId];
+      if (ex == null) return recruitments;
+
+      return {
+        for (final pg in ProgramGroup.values)
+          pg: (recruitments[pg] ?? 0) + ex.recruitment(pg, set.tweaks).volume,
+      };
+    });
+  }
 
   /// Heuristic conversion of flat logged sets into a programmer Workout.
   /// Detects interleaved patterns (combo/super sets) and infers repeat count `n`.

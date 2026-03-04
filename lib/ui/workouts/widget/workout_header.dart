@@ -1,6 +1,7 @@
 import 'package:bodybuild/ui/datetime.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_stats_sheet.dart';
 import 'package:bodybuild/ui/workouts/widget/stopwatch.dart';
+import 'package:bodybuild/ui/core/widget/recruitment_bar_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
 
@@ -103,19 +104,21 @@ class WorkoutHeader extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-          const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: () => showWorkoutStatsSheet(context, workout),
-              icon: const Icon(Icons.bar_chart, size: 20),
-              label: const Text(
-                'STATS',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900, letterSpacing: 1.2),
+          if (workout.sets.any((s) => s.completed)) ...[
+            const SizedBox(height: 16),
+            InkWell(
+              onTap: () => showWorkoutStatsSheet(context, workout),
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: RecruitmentBarChart(workout.calculateRecruitments(), 30),
               ),
-              style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 16)),
             ),
-          ),
+          ],
           if (workout.notes?.isNotEmpty == true) ...[
             const SizedBox(height: 12),
             Container(
