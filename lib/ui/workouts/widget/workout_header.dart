@@ -13,129 +13,138 @@ class WorkoutHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
         border: Border(
-          bottom: BorderSide(color: Theme.of(context).dividerColor.withValues(alpha: 0.3)),
+          bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant, width: 2),
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          workout.isActive ? Icons.play_circle_filled : Icons.check_circle,
-                          color: workout.isActive
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.green,
-                          size: 24,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          workout.isActive ? 'Active Workout' : 'Finished Workout',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 32),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Started: ${formatHumanDateTimeMinutely(workout.startTime)}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          if (!workout.isActive && workout.endTime != null)
-                            Text(
-                              'Ended: ${formatHumanDateTimeMinutely(workout.endTime!)}',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                        ],
-                      ),
-                    ),
-                  ],
+              Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: workout.isActive ? Colors.green : Theme.of(context).colorScheme.outline,
+                  shape: BoxShape.circle,
                 ),
               ),
-              if (workout.isActive) ...[
-                const SizedBox(width: 16),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceContainer,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+              const SizedBox(width: 12),
+              Text(
+                workout.isActive ? 'ACTIVE' : 'FINISHED',
+                style: TextStyle(
+                  color: workout.isActive ? Colors.green : Theme.of(context).colorScheme.outline,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                formatHumanDateTimeMinutely(workout.startTime),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          if (workout.isActive) ...[
+            const SizedBox(height: 16),
+            Container(height: 1, color: Theme.of(context).colorScheme.outlineVariant),
+            const SizedBox(height: 16),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 4,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        spacing: 8,
-                        children: [
-                          Text(
-                            'TOTAL',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Stopwatch(
-                            start: workout.startTime,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      if (workout.sets.any((s) => s.completed)) ...[
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          spacing: 8,
-                          children: [
-                            Text(
-                              'REST',
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Stopwatch(
-                              start: workout.sets.where((s) => s.completed).lastOrNull!.timestamp,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                              ),
-                            ),
-                          ],
+                      Text(
+                        'TOTAL TIME',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.2,
                         ),
-                      ],
+                      ),
+                      Stopwatch(
+                        start: workout.startTime,
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          height: 1.1,
+                        ),
+                      ),
                     ],
                   ),
                 ),
+                if (workout.sets.any((s) => s.completed)) ...[
+                  const SizedBox(width: 24),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    spacing: 4,
+                    children: [
+                      Text(
+                        'REST',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      Stopwatch(
+                        start: workout.sets.where((s) => s.completed).lastOrNull!.timestamp,
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          height: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ],
-            ],
-          ),
+            ),
+          ],
+
+          if (!workout.isActive && workout.endTime != null) ...[
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const SizedBox(width: 18),
+                Text(
+                  'Ended: ${formatHumanDateTimeMinutely(workout.endTime!)}',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ],
           const SizedBox(height: 16),
-          FilledButton.icon(
-            onPressed: () => showWorkoutStatsSheet(context, workout),
-            icon: const Icon(Icons.bar_chart),
-            label: const Text('Workout Stats'),
-            style: FilledButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: () => showWorkoutStatsSheet(context, workout),
+              icon: const Icon(Icons.bar_chart, size: 20),
+              label: const Text(
+                'STATS',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900, letterSpacing: 1.2),
+              ),
+              style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 16)),
             ),
           ),
           if (workout.notes?.isNotEmpty == true) ...[
@@ -145,13 +154,15 @@ class WorkoutHeader extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainer,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 workout.notes!,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
           ],
