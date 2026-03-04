@@ -23,41 +23,7 @@ class WorkoutHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                width: 6,
-                height: 6,
-                decoration: BoxDecoration(
-                  color: workout.isActive ? Colors.green : Theme.of(context).colorScheme.outline,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                workout.isActive ? 'ACTIVE' : 'FINISHED',
-                style: TextStyle(
-                  color: workout.isActive ? Colors.green : Theme.of(context).colorScheme.outline,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.5,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                formatHumanDateTimeMinutely(workout.startTime),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
           if (workout.isActive) ...[
-            const SizedBox(height: 16),
-            Container(height: 1, color: Theme.of(context).colorScheme.outlineVariant),
-            const SizedBox(height: 16),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -116,24 +82,27 @@ class WorkoutHeader extends StatelessWidget {
                 ],
               ],
             ),
+            const SizedBox(height: 16),
+            Container(height: 1, color: Theme.of(context).colorScheme.outlineVariant),
+            const SizedBox(height: 16),
           ],
-
-          if (!workout.isActive && workout.endTime != null) ...[
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const SizedBox(width: 18),
-                Text(
-                  'Ended: ${formatHumanDateTimeMinutely(workout.endTime!)}',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
+          Text(
+            'Started: ${formatHumanDateTimeMinutely(workout.startTime)}',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
             ),
-          ],
+          ),
+          if (!workout.isActive && workout.endTime != null)
+            Text(
+              'Ended: ${formatHumanDateTimeMinutely(workout.endTime!)}',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,

@@ -166,7 +166,28 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   Widget _buildForWorkout(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Workout'),
+        title: Row(
+          children: [
+            Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                color: workout!.isActive ? Colors.green : Theme.of(context).colorScheme.outline,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              workout!.isActive ? 'ACTIVE WORKOUT' : 'FINISHED WORKOUT',
+              style: TextStyle(
+                color: workout!.isActive ? Colors.green : Theme.of(context).colorScheme.outline,
+                fontSize: 16,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 1.5,
+              ),
+            ),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [WorkoutPopupMenu(workout!, reRoute: '/workouts')],
       ),
