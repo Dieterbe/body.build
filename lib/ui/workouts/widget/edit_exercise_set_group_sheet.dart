@@ -65,6 +65,27 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
       editableSets = [];
       currentStep = 0;
     }
+
+    // Populate RIR values for planned sets after initialization
+    _populateRirForPlannedSets();
+  }
+
+  Future<void> _populateRirForPlannedSets() async {
+    // Get default RIR from app settings
+    final settingsService = await ref.read(appSettingsPersistenceProvider.future);
+    if (!mounted) return;
+
+    final defaultRir = settingsService.loadSettings().defaultRir;
+
+    setState(() {
+      // Update any planned sets with null RIR to use the default value
+      editableSets = editableSets.map((set) {
+        if (set.rir == null) {
+          return set.copyWith(rir: defaultRir);
+        }
+        return set;
+      }).toList();
+    });
   }
 
   @override
