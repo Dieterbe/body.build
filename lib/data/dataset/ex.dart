@@ -221,57 +221,44 @@ final List<Ex> exes = [
  *    888      888        Y88b  d88P Y88b  d88P 
  *    88888888 8888888888  "Y8888P88  "Y8888P"                                             
  */
-  const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell], [rom, gripSqueeze]),
-  const Ex(
-    vaGoodMorning,
-    "standing dumbbell good morning",
-    [Equipment.dumbbell],
-    [rom, gripSqueeze],
-  ),
-  const Ex(vaGoodMorning, "seated barbell good morning", [Equipment.barbell], [rom, gripSqueeze]),
-  const Ex(vaGoodMorning, "seated dumbbell good morning", [Equipment.dumbbell], [rom, gripSqueeze]),
+  const Ex(vaGoodMorning, "standing barbell good morning", [Equipment.barbell], [rom, grip]),
+  const Ex(vaGoodMorning, "standing dumbbell good morning", [Equipment.dumbbell], [rom, grip]),
+  const Ex(vaGoodMorning, "seated barbell good morning", [Equipment.barbell], [rom, grip]),
+  const Ex(vaGoodMorning, "seated dumbbell good morning", [Equipment.dumbbell], [rom, grip]),
 
-  Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell], [rom, gripSqueeze]),
-  Ex(vaDeadlift, "deadlift", [Equipment.barbell], [rom, gripSqueeze]),
-  Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
-  Ex(vaDeadlift, "cable deadlift", [Equipment.dumbbell], [rom, gripSqueeze]),
-  Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell], [rom, gripSqueeze], [], ['RDL']),
-  Ex(vaDeadliftRDL, "dumbbell romanian deadlift", [Equipment.dumbbell], [rom, gripSqueeze], [], [
+  Ex(vaDeadlift, "deadlift (powerlift)", [Equipment.barbell], [rom, grip, strap]),
+  Ex(vaDeadlift, "deadlift", [Equipment.barbell], [rom, grip, strap]),
+  Ex(vaDeadlift, "dumbbell deadlift", [Equipment.dumbbell], [rom, grip, strap]),
+  Ex(vaDeadlift, "cable deadlift", [Equipment.dumbbell], [rom, grip, strap]),
+  Ex(vaDeadliftRDL, "romanian deadlift", [Equipment.barbell], [rom, grip, strap], [], ['RDL']),
+  Ex(vaDeadliftRDL, "dumbbell romanian deadlift", [Equipment.dumbbell], [rom, grip, strap], [], [
     'RDL',
   ]),
-  Ex(vaDeadliftRDL, "cable romanian deadlift", [Equipment.cableTower], [rom, gripSqueeze], [], [
+  Ex(vaDeadliftRDL, "cable romanian deadlift", [Equipment.cableTower], [rom, grip, strap], [], [
     'RDL',
   ]),
-  Ex(vaDeadliftRDL, "rack pull", [Equipment.barbell], [rom, gripSqueeze], [], []),
+  Ex(vaDeadliftRDL, "rack pull", [Equipment.barbell], [rom, grip, strap], [], []),
 
-  const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45], [rom, gripSqueeze]),
-  const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45], [rom, gripSqueeze]),
+  const Ex(vaBackExtension, "45° back extension", [Equipment.hyper45], [rom, grip]),
+  const Ex(vaHipExtension, "45° hip extension", [Equipment.hyper45], [rom, grip]),
 
   // can also be done on a glute-ham raise machine
   // load with plate or dumbbbell or elastic or barbell, different ways to hold it though
-  const Ex(vaHipExtension, "90° hip extension", [Equipment.hyper90], [rom, gripSqueeze]),
+  const Ex(vaHipExtension, "90° hip extension", [Equipment.hyper90], [rom, grip]),
   /* can also be done on a bench with an elastic: https://www.youtube.com/shorts/A-V2wNbSo60
   although this changes the curve: reverse hyper is normally horizontal
   */
-  const Ex(vaHipExtension, "reverse hyperextension", [Equipment.hyperReverse], [rom, gripSqueeze]),
-  const Ex(vaPullThrough, "cable pull-through", [Equipment.cableTower], [rom, gripSqueeze]),
+  const Ex(vaHipExtension, "reverse hyperextension", [Equipment.hyperReverse], [rom, grip]),
+  const Ex(vaPullThrough, "cable pull-through", [Equipment.cableTower], [rom, grip, strap]),
 
-  const Ex(
-    vaGluteHamRaise,
-    "glute-ham raise",
-    [Equipment.gluteHamRaise],
-    [rom, gripSqueeze],
-    [],
-    [],
-    '''
+  const Ex(vaGluteHamRaise, "glute-ham raise", [Equipment.gluteHamRaise], [rom, grip], [], [], '''
 This exercise combines two movements.
 - 90° hip extension (glute raise)
 - knee flexion (ham raise)
 It is tricky to optimally load for both. You can generate extra momentum during the easier hip extension
 to aid in the harder leg curl movement.
 Keep pelvis and spine neutral at all times.
-''',
-  ),
+'''),
   /* this https://www.youtube.com/watch?v=h31Y9bPxtWw shows 3 variations you can do on the GH raise
  step 1: pure hip extension (just like 90 hyper)
  step 2: with hip slightly flexed, focus on leg curls // i suppose you can progress by keeping more or less flexed
@@ -330,7 +317,7 @@ Keep pelvis and spine neutral at all times.
     vaSquatBBAndGoblet,
     "barbell squat",
     [Equipment.squatRack],
-    [rom, gripSqueeze, squatBarPlacement, squatLowerLegMovement],
+    [rom, grip, squatBarPlacement, squatLowerLegMovement],
     [],
     ['BSQ'],
   ),
@@ -338,7 +325,7 @@ Keep pelvis and spine neutral at all times.
     vaSquatBBAndGoblet,
     "barbell squat (powerlift)",
     [Equipment.squatRack],
-    [rom, gripSqueeze, squatPowerLiftBarPlacement, squatLowerLegMovement],
+    [rom, grip, squatPowerLiftBarPlacement, squatLowerLegMovement],
     [],
     ['BSQ'],
   ),
@@ -368,7 +355,7 @@ Keep pelvis and spine neutral at all times.
   //TODO: bulgarian split squat with dumbbells or smith allows symmetrical vs assymetrical loading, barbell does not).
   const Ex(vaSquatBSQ, "bulgarian split squat", [], [
     rom,
-    gripSqueeze,
+    grip,
     bsqRearLeg,
     squatLowerLegMovement,
     deficit,
@@ -401,21 +388,23 @@ Keep pelvis and spine neutral at all times.
   const Ex(vaLungeStepUp, "forward lunge", [], [rom, squatLowerLegMovement, deficit]),
   const Ex(vaLungeStepUp, "backward lunge", [], [rom, squatLowerLegMovement, deficit]),
   const Ex(vaLungeStepUp, "walking lunge", [], [rom, squatLowerLegMovement]),
+  // for dumbbell lunges, may want to add straps, but if we merge with other forms of lunges
+  // e.g. barbell, or when holding DB goblet style, than strap wouldn't apply..
   const Ex({...vaLungeStepUp, ...wrist03}, "dumbbell forward lunge", [Equipment.dumbbell], [
     rom,
-    gripSqueeze,
+    grip,
     squatLowerLegMovement,
     deficit,
   ]),
   const Ex({...vaLungeStepUp, ...wrist03}, "dumbbell backward lunge", [Equipment.dumbbell], [
     rom,
-    gripSqueeze,
+    grip,
     squatLowerLegMovement,
     deficit,
   ]),
   const Ex({...vaLungeStepUp, ...wrist03}, "dumbbell walking lunge", [Equipment.dumbbell], [
     rom,
-    gripSqueeze,
+    grip,
     squatLowerLegMovement,
   ]),
   const Ex(vaLungeStepUp, "step up", [], [rom, squatLowerLegMovement]),
@@ -504,14 +493,14 @@ Keep pelvis and spine neutral at all times.
     {...vaStandingCalfRaiseCalfJump, ...wrist025},
     "barbell standing calf raise",
     [Equipment.barbell],
-    [romCalfRaise, calfRaiseToes, gripSqueeze],
+    [romCalfRaise, calfRaiseToes, grip],
   ),
   // ignore: prefer_const_constructors
   Ex(
     {...vaStandingCalfRaiseCalfJump, ...wrist05},
     "dumbbell standing calf raise",
     [Equipment.dumbbell],
-    [romCalfRaise, calfRaiseToes, gripSqueeze],
+    [romCalfRaise, calfRaiseToes, grip],
   ),
   Ex(
     vaStandingCalfRaiseCalfJump,
@@ -562,7 +551,7 @@ Keep pelvis and spine neutral at all times.
   Ex({...vaStandingCalfRaiseCalfJump, ...wrist05}, "dumbbell calf jumps", [Equipment.dumbbell], [
     romCalfRaise,
     calfRaiseToes,
-    gripSqueeze,
+    grip,
   ]),
   Ex(
     vaStandingCalfRaiseCalfJump,
@@ -581,7 +570,7 @@ Keep pelvis and spine neutral at all times.
  *    888   d88P  d8888888888 Y88b  d88P 888   Y88b                     
  *    8888888P"  d88P     888  "Y8888P"  888    Y88b     
  */
-  const Ex(vaPulls, "gymnastic rings pull-up", [Equipment.gymnasticRings], [rom, gripSqueeze], [], [
+  const Ex(vaPulls, "gymnastic rings pull-up", [Equipment.gymnasticRings], [rom, grip, strap], [], [
     "pullup",
   ]),
   const Ex(
@@ -590,7 +579,8 @@ Keep pelvis and spine neutral at all times.
     [Equipment.latPullDownMachine],
     [
       rom,
-      gripSqueeze,
+      grip,
+      strap,
       Tweak('grip', 'shoulder width pronated', {
         'narrow supinated': Option(vaPulls, 'aka close grip chin-up, underhand'),
         'shoulder width supinated': Option(vaPulls, 'aka chin-up, underhand'),
@@ -607,7 +597,8 @@ Keep pelvis and spine neutral at all times.
     [Equipment.latPullDownMachine],
     [
       rom,
-      gripSqueeze,
+      grip,
+      strap,
       Tweak('grip', 'bar shoulder width pronated', {
         'attachment narrow supinated': Option(vaPulls, 'aka underhand close grip'),
         'attachment narrow neutral grip': Option(vaPulls, 'aka close hammer grip'),
@@ -622,14 +613,15 @@ Keep pelvis and spine neutral at all times.
     ["pull-down"],
   ),
 
-  const Ex(vaPulls, "kneeling diagonal cable row", [Equipment.cableTower], [rom, gripSqueeze]),
+  const Ex(vaPulls, "kneeling diagonal cable row", [Equipment.cableTower], [rom, grip, strap]),
   const Ex(
     vaRow,
     "seated cable row",
     [Equipment.cableRowMachine],
     [
       rom,
-      gripSqueeze,
+      grip,
+      strap,
       Tweak(
         'spine',
         'still',
@@ -672,15 +664,15 @@ Keep pelvis and spine neutral at all times.
     vaRowWithSpineIso,
     "standing bent over barbell row",
     [Equipment.barbell],
-    [rom, gripSqueeze],
+    [rom, grip, strap],
   ),
   const Ex(
     vaRowWithSpineIso,
     "standing bent over dumbbell row", // https://www.youtube.com/shorts/q0zngW0oiT0
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip, strap],
   ),
-  const Ex(vaRowWithSpineIso, "pendlay row", [Equipment.barbell], [rom, gripSqueeze], [], [], '''
+  const Ex(vaRowWithSpineIso, "pendlay row", [Equipment.barbell], [rom, grip, strap], [], [], '''
 Like a bent over barbell row, but:
 - torso (nearly) parallell to the floor (at all times)
 - bar touches the floor at each rep
@@ -693,49 +685,49 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaRowWithoutSpine, // TODO: change to 'row'
     "standing bench supported single arm dumbbell rows",
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip, strap],
   ),
   const Ex(
     vaRowWithoutSpine,
-    "helms row", // https://www.youtube.com/shorts/Bk0YWJmbQEQ
+    "helms row", // https://www.youtube.com/shorts/Bk0YWJmbQEQ // this is just a bench-supported bilateral
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip, strap],
     [ratingJNRowChestSupported],
   ),
   const Ex(
     vaRowWithoutSpine,
     "chest supported incline bench row",
     [Equipment.rowMachine],
-    [rom, gripSqueeze],
+    [rom, grip, strap],
     [ratingJNRowChestSupported],
   ),
   const Ex(
     vaRowWithoutSpine,
     "chest supported machine row",
     [Equipment.rowMachine],
-    [rom, gripSqueeze],
+    [rom, grip, strap],
     [ratingJNRowChestSupported],
   ),
-  const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [rom, gripSqueeze]),
-  const Ex(vaPullOverLatPrayer, "lat prayer", [Equipment.cableTower], [rom, gripSqueeze]),
+  const Ex(vaPullOverLatPrayer, "pull over", [Equipment.cableTower], [rom, grip]),
+  const Ex(vaPullOverLatPrayer, "lat prayer", [Equipment.cableTower], [rom, grip]),
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "seated cable high row",
     [Equipment.cableRowMachine],
-    [rom, gripSqueeze],
+    [rom, grip, strap],
   ),
 
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "rear delt fly machine",
     [Equipment.rearDeltFlyMachine],
-    [rom, gripSqueeze],
+    [rom, grip],
   ), // TODO unilateral has more ROM
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "standing unilateral cable rear delt fly",
     [Equipment.cableTower],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
 
   const Ex(
@@ -744,7 +736,7 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     [Equipment.dumbbell],
     [
       rom,
-      gripSqueeze,
+      grip,
       Tweak('body position', 'seated', {
         'standing': Option({}, '[video](https://www.youtube.com/watch?v=WPaVyXi03Rk)'),
         'seated': Option({}, '[video](https://www.youtube.com/watch?v=p1yQnTNE808)'),
@@ -755,7 +747,7 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "side lying rear delt dumbbell raise",
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
 
   // TODO: what's the diff again with face pulls? can we do this on trx?
@@ -763,32 +755,32 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "standing cable shoulder pull",
     [Equipment.cableTower],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "seated cable shoulder pull",
     [Equipment.cableRowMachine],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
 
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "standing cable face pull",
     [Equipment.cableTower],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "seated cable face pull",
     [Equipment.cableRowMachine],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   const Ex(
     vaHighRowRearDeltFlyRearDeltRaiseShoulderPullFacePull,
     "TRX face pull",
     [Equipment.trx],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
 
   /*
@@ -805,41 +797,41 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaBenchPressBBChestPressMachineDip,
     "flat barbell bench press (powerlift)",
     [Equipment.barbell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   Ex(
     vaBenchPressBBChestPressMachineDip,
     "barbell bench press",
     [Equipment.barbell],
-    [rom, gripSqueeze, benchPressBenchAngle, bpGrip],
+    [rom, grip, benchPressBenchAngle, bpGrip],
     ratingJNBBBenchPress.toList(),
   ),
   Ex(
     vaBenchPressDBChestPressCable,
     "dumbbell bench press",
     [Equipment.dumbbell],
-    [rom, gripSqueeze, benchPressBenchAngle],
+    [rom, grip, benchPressBenchAngle],
     ratingJNDBBenchPress.toList(),
   ),
   const Ex(
     vaBenchPressBBChestPressMachineDip,
     "smith machine bench press",
     [Equipment.smithMachineAngled],
-    [rom, gripSqueeze, benchPressBenchAngle, bpGrip],
+    [rom, grip, benchPressBenchAngle, bpGrip],
   ),
 
   const Ex(
     vaBenchPressBBChestPressMachineDip,
     "chest press machine",
     [Equipment.chestPressMachine],
-    [rom, gripSqueeze, benchPressBenchAngle],
+    [rom, grip, benchPressBenchAngle],
     [ratingJNMachineChestPress],
   ),
   const Ex(
     vaBenchPressBBChestPressMachineDip,
     "hammer strength chest press machine",
     [Equipment.hammerStrengthChestPress],
-    [rom, gripSqueeze, benchPressBenchAngle],
+    [rom, grip, benchPressBenchAngle],
     [ratingJNMachineChestPress],
   ),
   // TODO: hand position, diamond etc. explosive (pylometrics), banded, ..
@@ -853,95 +845,77 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaBenchPressDBChestPressCable,
     "cable chest press",
     [Equipment.cableTowerDual],
-    [rom, gripSqueeze, benchPressBenchAngle],
+    [rom, grip, benchPressBenchAngle],
   ),
 
   const Ex(
     vaBenchPressBBChestPressMachineDip,
     "dip",
     [],
-    [rom, gripSqueeze, dipBodyPosition],
+    [rom, grip, dipBodyPosition],
     [ratingJNDips],
   ),
-  const Ex(vaRingDip, "ring dip", [Equipment.gymnasticRings], [rom, gripSqueeze, dipBodyPosition], [
+  const Ex(vaRingDip, "ring dip", [Equipment.gymnasticRings], [rom, grip, dipBodyPosition], [
     ratingJNDips,
   ]),
   const Ex(
     vaBenchPressBBChestPressMachineDip,
     "assisted dip machine",
     [Equipment.assistedDipMachine],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
-  const Ex(
-    vaFlyPecDeckHandGrip,
-    "dumbbell fly",
-    [Equipment.dumbbell],
-    [rom, flyThumbs, gripSqueeze],
-    [ratingJNDumbbellFly],
-  ),
+  const Ex(vaFlyPecDeckHandGrip, "dumbbell fly", [Equipment.dumbbell], [rom, flyThumbs, grip], [
+    ratingJNDumbbellFly,
+  ]),
   const Ex(
     vaFlyPecDeckHandGrip,
     "chest fly machine",
     [Equipment.chestFlyMachine],
-    [rom, gripSqueeze, flyThumbs],
+    [rom, grip, flyThumbs],
   ),
 
   const Ex(
     vaFlyPecDeckHandGrip,
     "bayesian fly",
     [Equipment.cableTower],
-    [rom, gripSqueeze, flyThumbs],
+    [rom, grip, flyThumbs],
   ), // TODO: what makes it bayesian? machine vs single vs dual cables? seated or standing? ROM?
   const Ex(vaPecDeckElbowPad, "pec deck (elbow pad)", [Equipment.pecDeckMachine], [rom]),
   const Ex(
     vaFlyPecDeckHandGrip,
     "chest machine fly (pec deck with hand grip)",
     [Equipment.chestFlyMachine],
-    [rom, gripSqueeze, flyThumbs],
+    [rom, grip, flyThumbs],
     [ratingJNPecDeckHandGrip],
   ),
-  const Ex(
-    vaFlyPecDeckHandGrip,
-    "cable crossover",
-    [Equipment.cableTower],
-    [rom, gripSqueeze, flyThumbs],
-  ),
+  const Ex(vaFlyPecDeckHandGrip, "cable crossover", [Equipment.cableTower], [rom, grip, flyThumbs]),
   const Ex(
     vaOverheadPressDB,
     "single arm dumbbell overhead press",
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip],
     [],
     [],
     "[video](https://www.youtube.com/watch?v=gC79JHUadz4)",
   ),
-  const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(
-    vaOverheadPressBB,
-    "barbell overhead press",
-    [Equipment.barbell],
-    [rom, gripSqueeze],
-    [],
-    ['shoulder press', 'deltoid press'],
-  ),
-  const Ex(
-    vaBTNPressBB,
-    "seated behind the neck barbell press",
-    [Equipment.barbell],
-    [rom, gripSqueeze],
-  ),
+  const Ex(vaOverheadPressDB, "dumbbell overhead press", [Equipment.dumbbell], [rom, grip]),
+  const Ex(vaOverheadPressBB, "barbell overhead press", [Equipment.barbell], [rom, grip], [], [
+    'shoulder press',
+    'deltoid press',
+  ]),
+  const Ex(vaBTNPressBB, "seated behind the neck barbell press", [Equipment.barbell], [rom, grip]),
   const Ex(
     vaBTNPressBB,
     "standing behind the neck barbell press",
     [Equipment.barbell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
 
   const Ex(
     vaOverheadPressBB,
     "shoulder press machine",
     [Equipment.shoulderPressMachine],
-    [rom, gripSqueeze],
+    [rom, grip],
     [],
     ['deltoid press'],
   ),
@@ -949,7 +923,7 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaOverheadPressDB,
     "standing arnold press",
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip],
     [],
     [],
     '''
@@ -960,21 +934,13 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
 * Highest position is like regular dumbbell overhead press
 ''',
   ),
-  const Ex(
-    vaOverheadPressDB,
-    "seated arnold press",
-    [Equipment.dumbbell],
-    [rom, gripSqueeze],
-    [],
-    [],
-    '''
+  const Ex(vaOverheadPressDB, "seated arnold press", [Equipment.dumbbell], [rom, grip], [], [], '''
 * To bring dumbbells into position, use the hang power clean
 * Use a wide (sumo) stance for balance
 * Dumbbell starts at shoulder level with supinated grip (palms towards you)
 * Press up the weight while turning hand(s) outwards
 * Highest position is like regular dumbbell overhead press
-''',
-  ),
+'''),
   const Ex(
     {...vaOverheadPressBB, ProgramGroup.quadsVasti: Assign(0.2)},
     "barbell push press",
@@ -989,25 +955,25 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaLateralRaise,
     "standing dumbbell lateral raise",
     [Equipment.dumbbell],
-    [rom, gripSqueeze, lateralRaiseShoulderRotation],
+    [rom, grip, lateralRaiseShoulderRotation],
   ),
   Ex(
     vaLateralRaise,
     "standing cable lateral raise",
     [Equipment.cableTower],
-    [rom, gripSqueeze, lateralRaiseShoulderRotation, lateralRaiseCablePath],
+    [rom, grip, lateralRaiseShoulderRotation, lateralRaiseCablePath],
   ),
   Ex(
     vaLateralRaise,
     "lateral raise machine",
     [Equipment.lateralRaiseMachine],
-    [rom, gripSqueeze, lateralRaiseShoulderRotation],
+    [rom, grip, lateralRaiseShoulderRotation],
   ),
   const Ex(
     vaFrontRaise,
     "front raise",
     [],
-    [frontRaiseLoading, frontRaiseBodyPosition, frontRaiseGrip, rom, gripSqueeze],
+    [frontRaiseLoading, frontRaiseBodyPosition, frontRaiseGrip, rom, grip],
     [],
     [],
     '',
@@ -1019,10 +985,10 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
       TweakConstraint(('loading', {'barbell', 'ez-bar'}), ('grip', {'neutral'})),
     ],
   ),
-  const Ex(vaShrug, "barbell shrug", [Equipment.barbell], [rom, gripSqueeze]),
-  const Ex(vaShrug, "wide grip barbell shrug", [Equipment.barbell], [rom, gripSqueeze]),
-  const Ex(vaShrug, "dumbbell shrug", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(vaShrug, "machine shrug", [Equipment.shrugMachine], [rom, gripSqueeze]),
+  const Ex(vaShrug, "barbell shrug", [Equipment.barbell], [rom, grip, strap]),
+  const Ex(vaShrug, "wide grip barbell shrug", [Equipment.barbell], [rom, grip, strap]),
+  const Ex(vaShrug, "dumbbell shrug", [Equipment.dumbbell], [rom, grip, strap]),
+  const Ex(vaShrug, "machine shrug", [Equipment.shrugMachine], [rom, grip, strap]),
   /* bodyweight tricep extension
   https://www.youtube.com/watch?v=NUgbzg622uo "inverted skull over" at various angles
   https://exrx.net/WeightExercises/Triceps/STTricepsExtension "inverted skull crusher" here shown using TRX, can also rings, elastic
@@ -1036,7 +1002,7 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     [],
     [
       rom,
-      gripSqueeze,
+      grip,
       skullCrusherLoading,
       skullCrusherPath,
       Tweak(
@@ -1106,17 +1072,12 @@ useful insights about all lying variations, such as:
     vaTricepExtension,
     "smitch machine inverted skull crusher",
     [Equipment.smithMachineVertical],
-    [rom, gripSqueeze],
+    [rom, grip],
   ), // see https://www.youtube.com/watch?v=1lrjpLuXH4w , https://www.instagram.com/drmikeisraetel/reel/CmosT4EBmDi/?igshid=ZmMyNmFmZTc%3D
-  const Ex(vaTricepExtension, "tricep kickback", [Equipment.dumbbell], [rom, gripSqueeze]),
-  const Ex(
-    vaTricepExtension,
-    "tricep cable pushdown",
-    [Equipment.cableTower],
-    [rom, gripSqueeze],
-    [],
-    ["push down"],
-  ),
+  const Ex(vaTricepExtension, "tricep kickback", [Equipment.dumbbell], [rom, grip]),
+  const Ex(vaTricepExtension, "tricep cable pushdown", [Equipment.cableTower], [rom, grip], [], [
+    "push down",
+  ]),
   /***
  *    888888b.  8888888  .d8888b.  8888888888 8888888b.   .d8888b.  
  *    888  "88b   888   d88P  Y88b 888        888   Y88b d88P  Y88b 
@@ -1127,92 +1088,79 @@ useful insights about all lying variations, such as:
  *    888   d88P  888   Y88b  d88P 888        888        Y88b  d88P 
  *    8888888P" 8888888  "Y8888P"  8888888888 888         "Y8888P" 
  */
-  const Ex(
-    vaBicepCurlAnatomic,
-    "standing barbell bicep curl",
-    [Equipment.barbell],
-    [rom, gripSqueeze],
-    [ratingJNBBCurl],
-  ),
-  const Ex(
-    vaBicepCurlAnatomic,
-    "standing ez bar bicep curl",
-    [Equipment.ezbar],
-    [rom, gripSqueeze],
-    [ratingJNEZBarCurl],
-  ),
+  const Ex(vaBicepCurlAnatomic, "standing barbell bicep curl", [Equipment.barbell], [rom, grip], [
+    ratingJNBBCurl,
+  ]),
+  const Ex(vaBicepCurlAnatomic, "standing ez bar bicep curl", [Equipment.ezbar], [rom, grip], [
+    ratingJNEZBarCurl,
+  ]),
   const Ex(
     vaBicepCurlAnatomic,
     "standing cable bicep curl",
     [Equipment.cableTower],
-    [rom, gripSqueeze, cableCurlStyle],
+    [rom, grip, cableCurlStyle],
     [...ratingJNCableCurl, ratingMhCableCurl],
   ),
   const Ex(
     vaBicepCurlAnatomic,
     "standing dumbbell bicep curl",
     [Equipment.dumbbell],
-    [rom, gripSqueeze, dbCurlGrip],
+    [rom, grip, dbCurlGrip],
     ratingJNDBCurl,
   ),
   const Ex(
     vaBicepCurlAnatomic,
     "seated dumbbell bicep curl",
     [Equipment.dumbbell],
-    [rom, gripSqueeze, dbCurlGrip],
+    [rom, grip, dbCurlGrip],
     ratingJNDBCurl,
   ),
   const Ex(
     vaBicepCurlLying,
     "lying dumbbell bicep curl",
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ), // see https://www.youtube.com/watch?v=okwUqL1kbEA , https://www.youtube.com/watch?v=zlkq4hDSKZo
   const Ex(
     vaBicepCurlAnatomic,
     "standing kettlebell bicep curl",
     [Equipment.kettlebell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   const Ex(
     vaBicepCurlPreacher,
     "preacher bicep curl machine",
     [Equipment.preacherCurlMachine],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   const Ex(
     vaBicepCurlPreacher,
     "barbell preacher bicep curl bench",
     [Equipment.preacherCurlBench, Equipment.barbell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   const Ex(
     vaBicepCurlPreacher,
     "ez-bar preacher bicep curl bench",
     [Equipment.preacherCurlBench, Equipment.ezbar],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
   const Ex(
     vaBicepCurlPreacher,
     "dumbbell preacher bicep curl bench",
     [Equipment.preacherCurlBench, Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ),
-  const Ex(
-    vaBicepCurlAnatomic,
-    "bicep curl machine",
-    [Equipment.bicepCurlMachine],
-    [rom, gripSqueeze],
-  ),
+  const Ex(vaBicepCurlAnatomic, "bicep curl machine", [Equipment.bicepCurlMachine], [rom, grip]),
   const Ex(
     vaBicepCurlConcentration,
     "concentration curl",
     [Equipment.dumbbell],
-    [rom, gripSqueeze],
+    [rom, grip],
   ), // unilateral
 
   const Ex(vaAbCrunch, "ab crunch machine", [Equipment.abCrunchMachine], [rom], [], ["abs"]),
-  const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, gripSqueeze], [], ["abs"]),
+  const Ex(vaAbCrunch, "cable ab crunch", [Equipment.cableTower], [rom, grip], [], ["abs"]),
   const Ex(vaAbCrunch, "lying ab crunch", [], [rom, crunchBenchAngle], [], ["abs"]),
   const Ex(vaAbCrunch, "ab-wheel rollout", [], [rom], [], ["abs"]),
   const Ex(vaAbIsometric, "plank", []),
@@ -1220,6 +1168,7 @@ useful insights about all lying variations, such as:
   const Ex(vaAbCrunch, "hanging leg raise", [], [
     rom,
     legRaiseProgression,
+    strap,
   ]), // hardest at contraction
   const Ex(
     vaAbCrunch,
@@ -1239,7 +1188,7 @@ useful insights about all lying variations, such as:
     "cable pallof press",
     [Equipment.cableTower],
     [
-      gripSqueeze,
+      grip,
       Tweak('posture', 'standing', {
         'standing': Option(
           {},
@@ -1283,7 +1232,7 @@ useful insights about all lying variations, such as:
     "elastic pallof press",
     [Equipment.elastic],
     [
-      gripSqueeze,
+      grip,
       Tweak('posture', 'standing', {
         'standing': Option(
           {},
@@ -1316,7 +1265,7 @@ useful insights about all lying variations, such as:
     [Equipment.cableTower],
     [
       rom,
-      gripSqueeze,
+      grip,
       Tweak('orientation', 'horizontal', {
         'horizontal': Option(
           {},
@@ -1332,7 +1281,7 @@ useful insights about all lying variations, such as:
         \nHere is [another video](https://www.youtube.com/watch?v=55enRt4gNR0) with less range of motion and the cable hitting the shoulder
     \nalways keeps arms straight and a strong engaged core. if you overdo the range or feel your spine move, you're overdoing it""",
   ),
-  const Ex(vaWristFlexion, "dumbbell wrist flexion", [Equipment.dumbbell], [rom, gripSqueeze], [], [
+  const Ex(vaWristFlexion, "dumbbell wrist flexion", [Equipment.dumbbell], [rom, grip], [], [
     'wrist curl',
   ]),
   const Ex(vaWristExtension, "dumbbell wrist extension", [Equipment.dumbbell], [rom], [], [
