@@ -5,7 +5,8 @@ part 'app_settings.g.dart';
 
 @freezed
 abstract class AppSettings with _$AppSettings {
-  const factory AppSettings({@Default('') String wgerApiKey}) = _AppSettings;
+  const factory AppSettings({@Default('') String wgerApiKey, @Default(0) int defaultRir}) =
+      _AppSettings;
 
   factory AppSettings.fromJson(Map<String, dynamic> json) => _$AppSettingsFromJson(json);
 }

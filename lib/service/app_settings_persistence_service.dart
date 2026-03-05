@@ -39,4 +39,10 @@ class AppSettingsPersistenceService {
   Future<void> clearWgerApiKey() async {
     await setWgerApiKey('');
   }
+
+  Future<void> setDefaultRir(int rir) async {
+    final currentSettings = loadSettings();
+    final newSettings = currentSettings.copyWith(defaultRir: rir);
+    await saveSettings(newSettings);
+  }
 }

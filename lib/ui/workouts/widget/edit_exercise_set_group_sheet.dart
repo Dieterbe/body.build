@@ -14,6 +14,7 @@ import 'package:bodybuild/ui/workouts/widget/set_form_widget.dart';
 import 'package:bodybuild/model/programmer/settings.dart';
 import 'package:bodybuild/data/dataset/tweak.dart';
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/data/settings/app_settings_provider.dart';
 import 'package:collection/collection.dart';
 
 /// Sheet for editing exercise, tweaks, and individual sets for a group
@@ -506,26 +507,47 @@ class _EditExerciseSheetState extends ConsumerState<EditExerciseSetGroupSheet> {
   void _addNewSet() {
     if (currentSets?.ex == null) return;
 
+    final lastSet = editableSets.lastOrNull;
+
+    // Use last set's RIR if available, otherwise load default from settings
+    if (lastSet?.rir != null) {
+      _addSetWithRir(lastSet, lastSet!.rir!);
+    } else {
+      _loadDefaultRirAndAddSet(lastSet);
+    }
+  }
+
+  void _addSetWithRir(model.WorkoutSet? lastSet, int rirValue) {
     setState(() {
-      // Create a new empty WorkoutSet with temporary ID
-      // Pre-fill with last set's values if available
-      final lastSet = editableSets.lastOrNull;
-      final newSet = model.WorkoutSet(
-        id: 'temp_${DateTime.now().millisecondsSinceEpoch}',
-        workoutId: widget.workoutId,
-        exerciseId: currentSets!.ex!.id,
-        tweaks: currentSets!.tweakOptions,
-        setOrder: 0, // this is unused now. will be set correctly when reading back from db.
-        timestamp: DateTime.now(),
-        weight: lastSet?.weight,
-        reps: lastSet?.reps,
-        rir: lastSet?.rir,
-        comments: null,
-        completed: true,
-      );
+      final newSet = _createNewSet(lastSet, rirValue);
       editableSets.add(newSet);
       _setFormKeys.add(GlobalKey<FormState>());
     });
+  }
+
+  Future<void> _loadDefaultRirAndAddSet(model.WorkoutSet? lastSet) async {
+    // Get default RIR from app settings
+    final settingsService = await ref.read(appSettingsPersistenceProvider.future);
+    if (!mounted) return;
+
+    final defaultRir = settingsService.loadSettings().defaultRir;
+    _addSetWithRir(lastSet, defaultRir);
+  }
+
+  model.WorkoutSet _createNewSet(model.WorkoutSet? lastSet, int rirValue) {
+    return model.WorkoutSet(
+      id: 'temp_${DateTime.now().millisecondsSinceEpoch}',
+      workoutId: widget.workoutId,
+      exerciseId: currentSets!.ex!.id,
+      tweaks: currentSets!.tweakOptions,
+      setOrder: 0, // this is unused now. will be set correctly when reading back from db.
+      timestamp: DateTime.now(),
+      weight: lastSet?.weight,
+      reps: lastSet?.reps,
+      rir: rirValue,
+      comments: null,
+      completed: true,
+    );
   }
 
   // in add mode, when entering the last step (for the first time in this sheet)
