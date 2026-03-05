@@ -521,7 +521,15 @@ class HomeScreen extends ConsumerWidget {
         }
         return standard();
       },
-      loading: () => const SizedBox.shrink(),
+      loading: () => _buildQuickAccessCard(
+        context: context,
+        title: 'Start Workout',
+        subtitle: 'Loading...',
+        icon: Icons.play_arrow,
+        color: Colors.green,
+        showAppOnly: !isMobileApp(),
+        onTap: () {}, // Disabled while loading
+      ),
       error: (error, stack) {
         if (kIsWeb) {
           return standard();
@@ -574,7 +582,14 @@ class HomeScreen extends ConsumerWidget {
         }
         return standard();
       },
-      loading: () => const SizedBox.shrink(),
+      loading: () => _buildQuickAccessCard(
+        context: context,
+        title: 'Workout Templates',
+        subtitle: 'Loading...',
+        icon: Icons.library_books,
+        color: Colors.blue,
+        onTap: () {}, // Disabled while loading
+      ),
       error: (error, stack) {
         return errorCard();
       },
