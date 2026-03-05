@@ -1,3 +1,5 @@
 - redesign workout header, timers and stats
+- add straps modifier for many exercises that benefit from it
 - fix loading viz for workout & template tiles on home page
 - support a user configurable default RIR
+- allow weights of 0 and RIR upto 20
