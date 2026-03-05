@@ -119,8 +119,8 @@ class _SetFormWidgetState extends State<SetFormWidget> {
       return 'Weight is required';
     }
     final weight = double.tryParse(value);
-    if (weight == null || weight <= 0) {
-      return 'Enter weight > 0';
+    if (weight == null || weight < 0) {
+      return 'Enter weight >= 0';
     }
     return null;
   }
@@ -147,8 +147,8 @@ class _SetFormWidgetState extends State<SetFormWidget> {
       return 'RIR is required';
     }
     final rir = int.tryParse(value);
-    if (rir == null || rir < 0 || rir > 10) {
-      return 'RIR must be 0-10';
+    if (rir == null || rir < 0 || rir > 20) {
+      return 'RIR must be 0-20';
     }
     return null;
   }

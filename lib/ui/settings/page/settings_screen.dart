@@ -164,7 +164,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               textAlign: TextAlign.center,
                               onChanged: (value) {
                                 final rir = int.tryParse(value);
-                                if (rir != null && rir >= 0 && rir <= 10) {
+                                if (rir != null && rir >= 0 && rir <= 20) {
                                   _saveDefaultRir(rir);
                                 }
                               },
@@ -172,7 +172,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            '(0-10)',
+                            '(0-20)',
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                             ),
