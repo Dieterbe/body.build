@@ -468,6 +468,15 @@ Keep pelvis and spine neutral at all times.
     [Equipment.pendulumGluteKickback],
     [rom, hipExtensionKneeFlexion],
   ),
+  const Ex(
+    {},
+    "hip adduction machine",
+    [Equipment.hipAdductionAbductionMachine],
+    [rom],
+    [],
+    [],
+    "for strength & hypertrophy, squatting and deadlifting incorporate this pattern sufficiently, making dedicated adduction exercises rarely needed. Consider hip abduction exercises instead",
+  ),
   Ex(
     {},
     "hip abduction machine",
