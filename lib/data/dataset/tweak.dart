@@ -128,6 +128,21 @@ const grip = Tweak('grip squeeze', 'normal', {
   'extra': Option({}, 'squeezing hands tighter might stimulate more (fore)arm growth'),
   'max': Option({}, 'squeeze as hard as possible to maximally emphasize (fore)arms'),
 });
+const pullUpGrip = Tweak('grip', 'normal', {
+  'normal': Option({}, 'wrists are straight'),
+  'false': Option(
+    {},
+    'heel of palm rests on the bar/ring. may be uncomfortable on straight bar. Easier on rings. See https://youtu.be/1Ua5XdXViIs?si=Cx3aIh_Qohb4dTK9&t=35',
+  ),
+  'semi false': Option(
+    {},
+    'from normal grip, rotate knuckles forward, creating an angled wrist. according to Michael Eckert, results in more powerful pulls. may need tape or chalk to keep grip if hands are sweaty. You need friction. See https://youtu.be/1Ua5XdXViIs?si=Cx3aIh_Qohb4dTK9&t=50',
+  ),
+  'semi false with regrips': Option(
+    {},
+    'semi false grip, regripping at the top (requires explosive concentric). See https://youtu.be/1Ua5XdXViIs?si=Irvvn_pg8XYZq7H5&t=140',
+  ),
+});
 
 const legExtensionPullOnHandles = Tweak('pull on handles', 'no', {
   'yes': Option(
@@ -159,14 +174,19 @@ to personal anatomy and preference.
 For machine presses with a seat, estimate the incline/decline.
 ''',
 );
-const bpGrip = Tweak('grip', 'normal', {
-  'narrow': Option({}, 'aka close grip'),
-  'normal': Option({}, 'standard grip'),
-  'wide': Option({
-    ProgramGroup.lowerPecs: Assign(0.5, "lower reliance on horizontal shoulder flexion"),
-    ProgramGroup.tricepsMedLatH: Assign(0.5), // when hands outside elbows, reduce tricepsMedLatH
-  }, 'wide grip'),
-});
+const bpHold = Tweak(
+  'hold',
+  'bar, normal',
+  {
+    'bar, narrow': Option({}, 'straight bar, aka close grip'),
+    'bar, normal': Option({}, 'straight bar, standard grip'),
+    'bar, wide': Option({
+      ProgramGroup.lowerPecs: Assign(0.5, "lower reliance on horizontal shoulder flexion"),
+      ProgramGroup.tricepsMedLatH: Assign(0.5), // when hands outside elbows, reduce tricepsMedLatH
+    }, 'straight bar, wide grip'),
+  },
+  desc: 'In the future, we may add other implements and grips (e.g. specialty bars).',
+);
 const flyThumbs = Tweak('thumbs', 'up', {
   'up': Option({
     ProgramGroup.lowerPecs: Assign(1, 'full ROM horizontal shoulder adduction'),

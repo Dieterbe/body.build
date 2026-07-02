@@ -579,9 +579,19 @@ Keep pelvis and spine neutral at all times.
  *    888   d88P  d8888888888 Y88b  d88P 888   Y88b                     
  *    8888888P"  d88P     888  "Y8888P"  888    Y88b     
  */
-  const Ex(vaPulls, "gymnastic rings pull-up", [Equipment.gymnasticRings], [rom, grip, strap], [], [
-    "pullup",
-  ]),
+  const Ex(
+    vaPulls,
+    "gymnastic rings pull-up",
+    [Equipment.gymnasticRings],
+    [rom, grip, pullUpGrip, strap],
+    [],
+    ["pullup"],
+  ), // TODO: merge into regular pull-up
+  // note that menno doesn't specify in his library what to do with the scapula,
+  // though i believe in the course he said "do what's natural". i think some influencers
+  // talk about letting the scapula go up to stretch out the lats at the bottom, and
+  // bringing them inside when pulling up, but need a source for that; and michael eckert
+  // seems to disagree
   const Ex(
     {},
     "pull-up",
@@ -590,11 +600,30 @@ Keep pelvis and spine neutral at all times.
       rom,
       grip,
       strap,
-      Tweak('grip', 'shoulder width pronated', {
+      pullUpGrip,
+      Tweak('hold', 'just outside shoulder width pronated', {
         'narrow supinated': Option(vaPulls, 'aka close grip chin-up, underhand'),
         'shoulder width supinated': Option(vaPulls, 'aka chin-up, underhand'),
-        'shoulder width pronated': Option(vaPulls, 'aka normal grip, overhand'),
+        'shoulder width pronated': Option(vaPulls, 'probably feels a bit uncomfortable, overhand'),
+        'just outside shoulder width pronated': Option(vaPulls, 'aka normal grip, overhand'),
         'wide pronated': Option(vaPullsWide, 'aka wide normal grip, overhand'),
+      }),
+      // per https://www.youtube.com/watch?v=1Ua5XdXViIs 3:40, wrist curls help for semi false grip. aim for 20+ reps
+      Tweak('technique', 'standard', {
+        'standard': Option({}, 'default pull-up initiation'),
+        'michael eckert to chest': Option(
+          {},
+          'initiate by externally rotating the shoulder (brings elbow in), then protracting and depressing (out and back) the scapula as you initiate the pull. Should result in a more powerful pull-up. [Michael Eckert, 4:22](https://www.youtube.com/watch?v=UkXAlkbnbPc&t=4m22s)',
+        ),
+        'michael eckert to hip': Option(
+          {},
+          'same, but pull to hip (almost a muscle-up)',
+        ), // TODO: use vaPullOverLatPrayer
+        // also breathing https://youtu.be/1Ua5XdXViIs?si=feMFxL5cZ__74xMK&t=5min20s
+        // on the way down (or before starting) breathe in, on the way up small breath out to brace core, and can keep it for multiple reps (requires some athleticism). can breathe lightly during reps, while gradually loosing a bit core tension before breathing again
+        // https://www.youtube.com/watch?v=1Ua5XdXViIs 7:13 thumb placement as you wish. but for wide grip, probably best put the thumb on top for ROM
+        // grip width personal, but probably just outside shoulder width
+        // want to keep body stiff (via semi false grip, braced core) to transfer all energy
       }),
     ],
     [],
@@ -607,19 +636,53 @@ Keep pelvis and spine neutral at all times.
     [
       rom,
       grip,
+      pullUpGrip,
       strap,
-      Tweak('grip', 'bar shoulder width pronated', {
+      Tweak('technique', 'standard', {
+        'standard': Option({}, 'default lat pulldown execution'),
+        'michael eckert to chest': Option(
+          {},
+          'without bench and pad. kneeling on floor. engage core.  Can also tuck pelvis a bit. Transfers better to pull-ups. (He also recommends semi-false grip but we leave that a separate variable). [Michael Eckert, 6:12 - 10:00](https://www.youtube.com/watch?v=UkXAlkbnbPc&t=6m12s) for some theory and [Michael Eckert, 13:24](https://www.youtube.com/watch?v=UkXAlkbnbPc&t=13m24s) for the demonstration.',
+        ),
+        'michael eckert to hip': Option(
+          // TODO: leverage vaPulloverLatPrayer
+          {},
+          'same, but pull bar as low as you can (e.g. to hips). Transfers well to muscle-up',
+        ),
+      }),
+      Tweak('hold', 'bar just outside shoulder width pronated', {
         'attachment narrow supinated': Option(vaPulls, 'aka underhand close grip'),
-        'attachment narrow neutral grip': Option(vaPulls, 'aka close hammer grip'),
-        'attachment wide neutral grip': Option(vaPulls, 'aka wide hammer grip'),
+        'attachment narrow neutral': Option(vaPulls, 'aka close hammer grip'),
+        'attachment wide neutral': Option(vaPulls, 'aka wide hammer grip'),
         'bar narrow supinated': Option(vaPulls, 'aka underhand close grip'),
-        'bar shoulder width supinated': Option(vaPulls, 'aka underhand'),
-        'bar shoulder width pronated': Option(vaPulls, 'aka normal grip, overhand'),
+        'bar shoulder width supinated': Option(vaPulls, 'aka underhand grip'),
+        'bar shoulder width pronated': Option(
+          vaPulls,
+          'probably feels a bit uncomfortable, overhand',
+        ),
+        'bar just outside shoulder width pronated': Option(vaPulls, 'aka normal grip, overhand'),
         'bar wide pronated': Option(vaPullsWide, 'aka wide normal grip, overhand'),
       }),
     ],
     [],
     ["pull-down"],
+    '',
+    [
+      TweakConstraint(
+        ('technique', {'michael eckert to chest', 'michael eckert to hip'}),
+        (
+          'hold',
+          {
+            'attachment narrow supinated',
+            'attachment narrow neutral',
+            'attachment wide neutral',
+            'bar narrow supinated',
+            'bar shoulder width supinated',
+            'bar wide pronated',
+          },
+        ),
+      ),
+    ],
   ),
 
   const Ex(vaPulls, "kneeling diagonal cable row", [Equipment.cableTower], [rom, grip, strap]),
@@ -651,13 +714,14 @@ Keep pelvis and spine neutral at all times.
         desc:
             "The 'modern meathead' has a good explanation in [this Youtube video](https://www.youtube.com/shorts/wkGkNR4ziMU)",
       ),
-      Tweak('grip', 'bar shoulder width pronated', {
+      Tweak('hold', 'bar just outside shoulder width pronated', {
         'attachment narrow supinated': Option({}, 'aka underhand close grip'),
-        'attachment narrow neutral grip': Option({}, 'aka close hammer grip'),
-        'attachment wide neutral grip': Option({}, 'aka wide hammer grip'),
+        'attachment narrow neutral': Option({}, 'aka close hammer grip'),
+        'attachment wide neutral': Option({}, 'aka wide hammer grip'),
         'bar narrow supinated': Option({}, 'aka underhand close grip'),
         'bar shoulder width supinated': Option({}, 'aka underhand grip'),
         'bar shoulder width pronated': Option({}, 'aka normal grip, overhand'),
+        'bar just outside shoulder width pronated': Option({}, 'aka normal grip, overhand'),
         'bar wide pronated': Option({
           ProgramGroup.rearDelts: Assign(1, 'shoulder horizontal extension + shoulder extension'),
           ProgramGroup.lowerTraps: Assign(1, 'scapular retraction + depression'),
@@ -812,7 +876,7 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaBenchPressBBChestPressMachineDip,
     "barbell bench press",
     [Equipment.barbell],
-    [rom, grip, benchPressBenchAngle, bpGrip],
+    [rom, grip, benchPressBenchAngle, bpHold],
     ratingJNBBBenchPress.toList(),
   ),
   Ex(
@@ -826,7 +890,7 @@ See [this youtube short](https://www.youtube.com/shorts/0PSfteHhUtg)
     vaBenchPressBBChestPressMachineDip,
     "smith machine bench press",
     [Equipment.smithMachineAngled],
-    [rom, grip, benchPressBenchAngle, bpGrip],
+    [rom, grip, benchPressBenchAngle, bpHold],
   ),
 
   const Ex(

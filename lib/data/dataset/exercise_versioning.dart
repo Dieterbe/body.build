@@ -1,7 +1,7 @@
 // Exercise dataset version for migration tracking
 import 'package:bodybuild/data/dataset/exercise_migration.dart';
 
-const int exerciseDatasetVersion = 3;
+const int exerciseDatasetVersion = 4;
 
 // In case we make breaking changes to exercise ID's or tweaks (such that persisted values from
 // the programmer, workout history, etc. are no longer valid), we should increment this version
@@ -97,5 +97,125 @@ const List<ExerciseMigration> exerciseMigrations = [
     targetExerciseId: 'tricep extension',
     oldTweakName: 'RP style',
     newTweakName: 'upper arm',
+  ),
+  // v3 -> v4: rename "grip" tweak to "hold" for pulling exercises and
+  // bench press and update
+  // bench press grip option values to include an implement prefix.
+  // Option value renames must run before the tweak name rename so the old
+  // "grip" key still exists when the values are renamed.
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'lat pulldown',
+    oldTweakName: 'grip',
+    oldOptionValue: 'attachment narrow neutral grip',
+    newOptionValue: 'attachment narrow neutral',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'lat pulldown',
+    oldTweakName: 'grip',
+    oldOptionValue: 'attachment wide neutral grip',
+    newOptionValue: 'attachment wide neutral',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'seated cable row',
+    oldTweakName: 'grip',
+    oldOptionValue: 'attachment narrow neutral grip',
+    newOptionValue: 'attachment narrow neutral',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'seated cable row',
+    oldTweakName: 'grip',
+    oldOptionValue: 'attachment wide neutral grip',
+    newOptionValue: 'attachment wide neutral',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'barbell bench press',
+    oldTweakName: 'grip',
+    oldOptionValue: 'narrow',
+    newOptionValue: 'bar, narrow',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'barbell bench press',
+    oldTweakName: 'grip',
+    oldOptionValue: 'normal',
+    newOptionValue: 'bar, normal',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'barbell bench press',
+    oldTweakName: 'grip',
+    oldOptionValue: 'wide',
+    newOptionValue: 'bar, wide',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'smith machine bench press',
+    oldTweakName: 'grip',
+    oldOptionValue: 'narrow',
+    newOptionValue: 'bar, narrow',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'smith machine bench press',
+    oldTweakName: 'grip',
+    oldOptionValue: 'normal',
+    newOptionValue: 'bar, normal',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'smith machine bench press',
+    oldTweakName: 'grip',
+    oldOptionValue: 'wide',
+    newOptionValue: 'bar, wide',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'pull-up',
+    oldTweakName: 'grip',
+    newTweakName: 'hold',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'lat pulldown',
+    oldTweakName: 'grip',
+    newTweakName: 'hold',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'seated cable row',
+    oldTweakName: 'grip',
+    newTweakName: 'hold',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'barbell bench press',
+    oldTweakName: 'grip',
+    newTweakName: 'hold',
+  ),
+  RenameTweakMigration(
+    3,
+    4,
+    targetExerciseId: 'smith machine bench press',
+    oldTweakName: 'grip',
+    newTweakName: 'hold',
   ),
 ];
