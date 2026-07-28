@@ -2,6 +2,7 @@ import 'package:bodybuild/data/core/developer_mode_provider.dart';
 import 'package:bodybuild/ui/workouts/widget/start_workout_dialog.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list.dart';
 import 'package:bodybuild/ui/workouts/widget/workouts_list_empty.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bodybuild/data/workouts/workout_providers.dart';
@@ -44,8 +45,9 @@ class _WorkoutsScreenState extends ConsumerState<WorkoutsScreen> {
       ),
       drawer: const AppNavigationDrawer(),
       body: workoutStateAsync.when(
-        data: (state) =>
-            state.allWorkouts.isEmpty ? const WorkoutsListEmpty() : WorkoutsList(state.allWorkouts),
+        data: (state) => state.allWorkouts.isEmpty
+            ? const WorkoutsListEmpty()
+            : WorkoutsList(state.allWorkouts.sorted((a, b) => b.startTime.compareTo(a.startTime))),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) {
           debugPrint('WorkoutsScreen error: $error');
