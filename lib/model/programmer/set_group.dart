@@ -24,6 +24,10 @@ abstract class Sets with _$Sets {
     @Default(1) int n,
     @JsonKey(includeToJson: false) @Default(false) bool changeEx,
     @Default({}) Map<String, String> tweakOptions, // Map of tweak name to selected option
+    /// Target reps per set. null means unspecified.
+    int? reps,
+    /// Target reps in reserve. null falls back to the default RIR setting.
+    int? rir,
   }) = _Sets;
 
   factory Sets.fromJson(Map<String, dynamic> json) => _$SetsFromJson(json)._migrateTweakOptions();
@@ -131,6 +135,13 @@ abstract class Sets with _$Sets {
     // Validate set count doesn't exceed supported limit
     if (n > 10) {
       errors.add('$n sets is more than the maximum of 10');
+    }
+    if (reps != null && reps! < 1) {
+      errors.add('$reps reps is not a valid target');
+    }
+    // same bounds the RIR input enforces
+    if (rir != null && (rir! < 0 || rir! > 20)) {
+      errors.add('RIR $rir is outside the supported range of 0-20');
     }
 
     return errors.isEmpty ? null : errors.join('; ');
