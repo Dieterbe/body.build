@@ -123,7 +123,7 @@ const strap = Tweak('straps', 'no', {
   'no': Option({}, 'natural grip may be limiting'),
 });
 
-const grip = Tweak('grip squeeze', 'normal', {
+const grsq = Tweak('grip squeeze', 'normal', {
   'normal': Option({}, 'only as hard as needed to maintain grip'),
   'extra': Option({}, 'squeezing hands tighter might stimulate more (fore)arm growth'),
   'max': Option({}, 'squeeze as hard as possible to maximally emphasize (fore)arms'),
