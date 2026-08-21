@@ -245,6 +245,74 @@ void main() {
     });
   });
 
+  group('Grip/hold migrations (v3→v4)', () {
+    test('pull-up renames grip tweak to hold', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'pull-up',
+        {'grip': 'shoulder width pronated'},
+        3,
+        4,
+      );
+      expect(newId, equals('pull-up'));
+      expect(newTweaks, equals({'hold': 'shoulder width pronated'}));
+    });
+
+    test('lat pulldown renames grip tweak and neutral grip options', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'lat pulldown',
+        {'grip': 'attachment narrow neutral grip', 'rom': 'full'},
+        3,
+        4,
+      );
+      expect(newId, equals('lat pulldown'));
+      expect(newTweaks, equals({'hold': 'attachment narrow neutral', 'rom': 'full'}));
+    });
+
+    test('seated cable row renames grip tweak and both neutral grip options', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'seated cable row',
+        {'grip': 'attachment wide neutral grip', 'spine': 'still'},
+        3,
+        4,
+      );
+      expect(newId, equals('seated cable row'));
+      expect(newTweaks, equals({'hold': 'attachment wide neutral', 'spine': 'still'}));
+    });
+
+    test('barbell bench press renames grip tweak and option values', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'barbell bench press',
+        {'grip': 'normal', 'bench angle': '0'},
+        3,
+        4,
+      );
+      expect(newId, equals('barbell bench press'));
+      expect(newTweaks, equals({'hold': 'bar, normal', 'bench angle': '0'}));
+    });
+
+    test('smith machine bench press renames grip tweak and option values', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'smith machine bench press',
+        {'grip': 'wide', 'bench angle': '15'},
+        3,
+        4,
+      );
+      expect(newId, equals('smith machine bench press'));
+      expect(newTweaks, equals({'hold': 'bar, wide', 'bench angle': '15'}));
+    });
+
+    test('unrelated exercise is not affected', () {
+      final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
+        'bulgarian split squat',
+        {'loading': 'dumbbell'},
+        3,
+        4,
+      );
+      expect(newId, equals('bulgarian split squat'));
+      expect(newTweaks, equals({'loading': 'dumbbell'}));
+    });
+  });
+
   group('ExerciseMigrationService', () {
     test('should apply multiple migrations in sequence', () {
       // Create test migrations
