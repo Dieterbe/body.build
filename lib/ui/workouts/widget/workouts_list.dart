@@ -1,4 +1,5 @@
 import 'package:bodybuild/model/workouts/workout.dart' as model;
+import 'package:bodybuild/ui/core/widget/auto_scroll_list_view.dart';
 import 'package:bodybuild/ui/workouts/widget/workout_card.dart';
 import 'package:flutter/material.dart';
 
@@ -11,13 +12,16 @@ class WorkoutsList extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: workoutsAlll.length,
-            itemBuilder: (context, index) {
-              final workout = workoutsAlll[index];
-              return WorkoutCard(workout);
-            },
+          child: AutoScrollList(
+            builder: (context, controller) => ListView.builder(
+              controller: controller,
+              padding: const EdgeInsets.all(16),
+              itemCount: workoutsAlll.length,
+              itemBuilder: (context, index) {
+                final workout = workoutsAlll[index];
+                return WorkoutCard(workout);
+              },
+            ),
           ),
         ),
       ],
