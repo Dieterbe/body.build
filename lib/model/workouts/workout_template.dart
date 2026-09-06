@@ -39,11 +39,13 @@ abstract class WorkoutTemplate with _$WorkoutTemplate {
     });
   }
 
-  /// Expand setGroups into a flat ordered list of (exerciseId, tweaks) pairs,
-  /// interleaving sets within each group according to their repeat count `n`.
+  /// Expand setGroups into a flat ordered list of (exerciseId, tweaks, reps, rir)
+  /// records, interleaving sets within each group according to their repeat
+  /// count `n`. reps and rir are the targets to pre-fill on the planned sets,
+  /// and are null when the program didn't specify them.
   /// This is used when starting a workout from a template.
-  List<({String exerciseId, Map<String, String> tweaks})> toFlatSets() {
-    final result = <({String exerciseId, Map<String, String> tweaks})>[];
+  List<({String exerciseId, Map<String, String> tweaks, int? reps, int? rir})> toFlatSets() {
+    final result = <({String exerciseId, Map<String, String> tweaks, int? reps, int? rir})>[];
     for (final group in workout.setGroups) {
       final maxN = group.sets.map((s) => s.n).fold(1, (a, b) => a > b ? a : b);
       for (var round = 0; round < maxN; round++) {
@@ -55,7 +57,12 @@ abstract class WorkoutTemplate with _$WorkoutTemplate {
                 'Exercise not found in workout "${workout.name}": ${sets.ex?.id ?? 'null'}',
               );
             }
-            result.add((exerciseId: exerciseId, tweaks: sets.tweakOptions));
+            result.add((
+              exerciseId: exerciseId,
+              tweaks: sets.tweakOptions,
+              reps: sets.reps,
+              rir: sets.rir,
+            ));
           }
         }
       }

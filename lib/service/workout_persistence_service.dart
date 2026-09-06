@@ -217,6 +217,8 @@ class WorkoutPersistenceService {
         workoutId: '',
         exerciseId: s.exerciseId,
         tweaks: s.tweaks,
+        reps: s.reps,
+        rir: s.rir,
         setOrder: 0,
         timestamp: DateTime.now(),
         completed: false,
