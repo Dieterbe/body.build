@@ -44,8 +44,7 @@ class _WorkoutsScreenState extends ConsumerState<WorkoutsScreen> {
       ),
       drawer: const AppNavigationDrawer(),
       body: workoutStateAsync.when(
-        data: (state) =>
-            state.allWorkouts.isEmpty ? const WorkoutsListEmpty() : WorkoutsList(state.allWorkouts),
+        data: (state) => state.allWorkouts.isEmpty ? const WorkoutsListEmpty() : WorkoutsList(state.allWorkouts),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) {
           debugPrint('WorkoutsScreen error: $error');
