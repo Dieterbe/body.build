@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:bodybuild/data/dataset/exercise_versioning.dart';
+import 'package:bodybuild/util/tweaks.dart';
 import 'package:bodybuild/data/programmer/demo_workouts.dart';
 import 'package:bodybuild/service/exercise_migration_service.dart';
 import 'package:drift/drift.dart';
@@ -316,7 +317,7 @@ class WorkoutDatabase extends _$WorkoutDatabase {
       final allSets = await select(workoutSets).get();
       var setsChanged = 0;
       for (final set in allSets) {
-        final oldTweaks = _tweaksFromJson(set.tweaks);
+        final oldTweaks = tweaksFromJson(set.tweaks);
         final (newId, newTweaks) = ExerciseMigrationService.migrateExercise(
           set.exerciseId,
           oldTweaks,
@@ -328,7 +329,7 @@ class WorkoutDatabase extends _$WorkoutDatabase {
           setsChanged++;
           // Update the set
           await (update(workoutSets)..where((s) => s.id.equals(set.id))).write(
-            WorkoutSetsCompanion(exerciseId: Value(newId), tweaks: Value(json.encode(newTweaks))),
+            WorkoutSetsCompanion(exerciseId: Value(newId), tweaks: Value(tweaksToJson(newTweaks))),
           );
         }
       }
@@ -424,11 +425,4 @@ class WorkoutDatabase extends _$WorkoutDatabase {
 
 QueryExecutor _openConnection() {
   return openWorkoutDatabaseConnection();
-}
-
-// Helper to parse tweaks JSON without depending on model classes
-Map<String, String> _tweaksFromJson(String jsonStr) {
-  if (jsonStr.isEmpty) return {};
-  final decoded = json.decode(jsonStr);
-  return Map<String, String>.from(decoded);
 }
