@@ -25,7 +25,6 @@ class _AutoScrollListState extends State<AutoScrollList> {
     });
   }
 
-
   @override
   void dispose() {
     _controller.dispose();
