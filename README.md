@@ -26,3 +26,5 @@ Future roadmap:
 To this end, I (Dieter) have concluded the [Menno Henselmans Personal Training Course](https://mennohenselmans.com/online-pt-course/), which is probably the top course in the industry, taught by one of the best, most evidence-driven body builders in the world.
 
 This project is Open Source software, distributed under the [AGPL-3.0 license](LICENSE).  It is written in Flutter (dart), even if GitHub thinks it's javascript (that's just the compiled build for web)
+
+<a href="https://www.opensourcealternatives.to"><img src="https://www.opensourcealternatives.to/badge-osa.svg" alt="As seen on Open Source Alternatives" width="270" height="20"></a>
